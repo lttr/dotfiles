@@ -106,6 +106,7 @@ set statusline +=\ %r                            " read only flag
 " set statusline+=\ [%{getcwd()}]                  " Current dir
 set statusline +=\ %=                            " left/right separator
 " Right side
+set statusline +=\ %{fugitive#statusline()}
 set statusline +=\ \|\ %{&ft}                        " filetype (neither %y nor %Y does fit)
 set statusline +=\ \|\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline +=\ \|\ %{toupper(strpart(&ff,0,1))}  " file format
