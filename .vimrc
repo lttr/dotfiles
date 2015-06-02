@@ -248,9 +248,9 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
-nnoremap <leader>q :Bdelete<cr>
+nnoremap Q :Bdelete<cr>
 " Quit window
-nnoremap Q :q<cr>
+nnoremap <leader>q :q<cr>
 
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
