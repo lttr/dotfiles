@@ -173,6 +173,12 @@ imap <expr> <Tab> pumvisible() ? "\<cr>" : "<Plug>snipMateNextOrTrigger"
 "  Global shortcuts
 " ========================================================================== {{{
 
+" ===== MapLeaders =====
+" Set leader keys to ensure their assignment
+" <Leader> for global shortcuts, <LocalLeader> for more specific usage
+let mapleader = ","
+let maplocalleader = "\\"
+
 " ===== Boxes =====
 " Create box around current line, text centered, text width 78
 " http://boxes.thomasjensen.com/
@@ -257,12 +263,6 @@ nnoremap <leader>q :q<cr>
 nmap <leader>+ O<esc>78i=<esc>gccjo<esc>78i=<esc>gcckgcc0a<space><esc>
 " Make commented subheading from current line, using Commentary plugin (no 'noremap')
 nmap <leader>= I<space><esc>A<space><esc>05i=<esc>$5a=<esc>gcc
-
-" ===== MapLeaders =====
-" Set leader keys to ensure their assignment
-" <Leader> for global shortcuts, <LocalLeader> for more specific usage
-let mapleader = ","
-let maplocalleader = "\\"
 
 " ===== Moving in buffer =====
 " Move commands acting on display lines
