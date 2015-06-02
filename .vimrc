@@ -638,6 +638,11 @@ hi def link CSVColumnEven	    normal
 let delimitMate_expand_cr = 2
 let delimitMate_expand_space = 1
 
+" ===== Fugitive =====
+augroup fugitive
+    autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+augroup END
+
 " ===== GitGutter =====
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 0
