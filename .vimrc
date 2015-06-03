@@ -312,6 +312,7 @@ nnoremap <leader>v :split $MYVIMRC<CR>
 nnoremap <leader>vg :split $MYGVIMRC<CR>
 
 " ===== Plugin toggles =====
+nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>nn :NERDTreeToggle<CR>
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <leader>nc :NERDTreeClose<CR>
@@ -645,8 +646,11 @@ augroup END
 
 " ===== GitGutter =====
 let g:gitgutter_enabled = 0
-let g:gitgutter_map_keys = 0
 let g:gitgutter_signs = 1
+nmap [g <Plug>GitGutterPrevHunk
+nmap ]g <Plug>GitGutterNextHunk
+nmap <LocalLeader>gs <Plug>GitGutterStageHunk
+nmap <LocalLeader>gr <Plug>GitGutterRevertHunk
 
 " ===== Goyo =====
 let g:goyo_width=100 "(default: 80)
