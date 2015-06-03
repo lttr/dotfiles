@@ -1,6 +1,7 @@
+" vim: set foldmethod=marker foldlevel=0:
 " ==============================================================================
-"  VIMRC
-" ========================================================================== {{{
+"  .vimrc of Lukas Trumm {{{
+" ==============================================================================
 
 " Source the _vimrc and _gvimrc file after saving it
 augroup configuration
@@ -11,8 +12,8 @@ augroup END
 
 " }}}
 " ==============================================================================
-"  General settings
-" ========================================================================== {{{
+"  General settings {{{
+" ==============================================================================
 filetype on                    " Enable file type detection
 filetype plugin on             " Enable plugins for specific filetypes
 filetype indent on             " Enable indentation for specific filetypes
@@ -21,7 +22,7 @@ set confirm                    " Less errors, more questions
 set backspace=indent,eol,start " Allow backspase in insert mode
 set autoread                   " Relaod files changed outside Vim
 set nrformats  =alpha          " Think about all formats as decimal
-" set foldlevel  =1              " Expand level 1 folds
+set foldlevel  =1              " Expand level 1 folds
 set history    =200            " Keep 200 items in history of Ex commands
 " Message abbreviations, truncate file messages, dont warn if existing swap files, 
 " hide the welcome screen, truncate other long messages
@@ -88,8 +89,8 @@ set breakindent                " Soft wrapped lines will continue visually inden
 
 " }}}
 " ==============================================================================
-"  Appearance
-" ========================================================================== {{{
+"  Appearance {{{
+" ==============================================================================
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
@@ -152,8 +153,8 @@ hi htmlH1 gui=none
 
 " }}}
 " ==============================================================================
-"  Completion
-" ========================================================================== {{{
+"  Completion {{{
+" ==============================================================================
 
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
 set omnifunc=syntaxcomplete#Complete
@@ -170,8 +171,8 @@ imap <expr> <Tab> pumvisible() ? "\<cr>" : "<Plug>snipMateNextOrTrigger"
 
 " }}}
 " ==============================================================================
-"  Global shortcuts
-" ========================================================================== {{{
+"  Global shortcuts {{{
+" ==============================================================================
 
 " ===== MapLeaders =====
 " Set leader keys to ensure their assignment
@@ -317,7 +318,6 @@ nnoremap <leader>nc :NERDTreeClose<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
-nnoremap <leader>d :DelimitMateSwitch<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Leader>G :Goyo<CR>
 nnoremap <c-t> :MRU<CR>
@@ -354,8 +354,8 @@ nnoremap <expr> <leader>w ':set wrap! go'.'-+'[&wrap]."=b\r"
 
 " }}}
 " ==============================================================================
-"  Appearance shortcuts
-" ========================================================================== {{{
+"  Appearance shortcuts {{{
+" ==============================================================================
 
 " ===== Font size =====
 nnoremap <S-F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
@@ -370,8 +370,8 @@ noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 " }}}
 " ==============================================================================
-"  General commands
-" ========================================================================== {{{
+"  General commands {{{
+" ==============================================================================
 
 " ===== Bufferize =====
 " Print output of MORE viewer into buffer
@@ -422,8 +422,8 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " }}}
 " ==============================================================================
-"  Filetype specific commands
-" ========================================================================== {{{
+"  Filetype specific commands {{{
+" ==============================================================================
 
 " ===== Misc filetypes =====
 
@@ -591,8 +591,8 @@ vnoremap <A-K> d?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nwwPvatV
 
 " }}}
 " ==============================================================================
-"  Plugin settings
-" ========================================================================== {{{
+"  Plugin settings {{{
+" ==============================================================================
 
 " ===== Autoformat =====
 " java
@@ -702,8 +702,8 @@ let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 
 " }}}
 " ==============================================================================
-"  Cygwin
-" ========================================================================== {{{
+"  Cygwin {{{
+" ==============================================================================
 
 " Fix cursors
 let &t_ti.="\e[1 q"
@@ -713,8 +713,8 @@ let &t_te.="\e[0 q"
 
 " }}}
 " ==============================================================================
-"  Functions
-" ========================================================================== {{{
+"  Functions {{{
+" ==============================================================================
 
 " Sessions from http://stackoverflow.com/a/10525050
 set sessionoptions-=options  " Don't save options
@@ -930,8 +930,8 @@ endfunction
 
 " }}}
 " ==============================================================================
-"  Abbreviations
-" ========================================================================== {{{
+"  Abbreviations {{{
+" ==============================================================================
 
 " Note
 iabbrev note: NOTE [<c-r>=strftime("%Y-%m-%d")<cr> Lukas Trumm]
@@ -940,8 +940,8 @@ iabbrev mail: lukas.trumm@centrum.cz
 
 " }}}
 " ==============================================================================
-"  Examples
-" ========================================================================== {{{
+"  Examples {{{
+" ==============================================================================
 
 " Process all lines function
 """""
@@ -954,7 +954,7 @@ iabbrev mail: lukas.trumm@centrum.cz
 
 " }}}
 " ==============================================================================
-"  Test
-" ========================================================================== {{{
+"  Test {{{
+" ==============================================================================
 
-" }}}
+
