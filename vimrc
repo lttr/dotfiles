@@ -125,7 +125,6 @@ set foldmethod =manual
 set nofoldenable
 
 " ===== Language and encoding =====
-" language US
 set encoding   =utf-8
 
 " ===== Lines =====
@@ -350,7 +349,7 @@ nnoremap <C-c>w m`viw"+y``
 " copy WORD
 nnoremap <C-c>W m`viW"+y``
 " paste
-nnoremap <C-v> "*p
+nnoremap <C-v> "+p
 " paste from insert mode
 inoremap <C-v> <Esc>"+p
 " paste over in visual mode
