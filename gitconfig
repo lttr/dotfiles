@@ -1,0 +1,18 @@
+[user]
+	name = Lukas Trumm
+	email = lukas.trumm@centrum.cz
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	up = rebase
+	ci = commit
+	logg = log --graph --oneline
+	sb = show-branch
+[core]
+	editor = 'C:\\Program Files (x86)\\Vim\\vim74\\gvim.exe'
+	autocrlf = false
+[merge]
+	tool = gvimdiff
+[push]
+	default = simple
