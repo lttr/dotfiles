@@ -1,28 +1,21 @@
 @REM Files
 
+@REM Unfortunatelly git does not follow this symlink
 del /A:H %USERPROFILE%\.gitconfig
-mklink %USERPROFILE%\.gitconfig %SYNC_DIR%\conf\git-%PLACE%\.gitconfig
+mklink %USERPROFILE%\.gitconfig %SYNC_DIR%\conf\dotfiles\gitconfig
 attrib /L +H %USERPROFILE%\.gitconfig
 
-del /A:H %USERPROFILE%\.gitk
-mklink %USERPROFILE%\.gitk %SYNC_DIR%\conf\git-%PLACE%\.gitk
-attrib /L +H %USERPROFILE%\.gitk
-
 del /A:H %USERPROFILE%\_vimrc
-mklink %USERPROFILE%\_vimrc %SYNC_DIR%\conf\dotfiles\.vimrc
+mklink %USERPROFILE%\_vimrc %SYNC_DIR%\conf\dotfiles\vimrc
 attrib /L +H %USERPROFILE%\_vimrc
 
-del /A:H %USERPROFILE%\_gvimrc
-mklink %USERPROFILE%\_gvimrc %SYNC_DIR%\conf\dotfiles\.gvimrc
-attrib /L +H %USERPROFILE%\_gvimrc
+del /A:H %USERPROFILE%\.vrapperrc
+mklink %USERPROFILE%\.vrapperrc %SYNC_DIR%\conf\dotfiles\vrapperrc
+attrib /L +H %USERPROFILE%\.vrapperrc
 
 del /A:H %USERPROFILE%\_vimsize
 mklink %USERPROFILE%\_vimsize %SYNC_DIR%\conf\vim\.vimsize-%PLACE%
 attrib /L +H %USERPROFILE%\_vimsize
-
-del /A:H %USERPROFILE%\.vrapperrc
-mklink %USERPROFILE%\.vrapperrc %SYNC_DIR%\conf\eclipse\.vrapperrc
-attrib /L +H %USERPROFILE%\.vrapperrc
 
 @REM Directories
 

@@ -1,0 +1,88 @@
+" Documentation: http://vrapper.sourceforge.net/documentation/?page=6
+
+" Settings
+" ========
+
+" vrapper specific
+set gvimpath="c:\Program Files (x86)\Vim\vim74\gvim.exe"
+set contentassistmode		" enables <c-n> and <c-p> in content assist
+set startnormalmode
+
+set smartindent
+set autoindent
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set nolist
+set number
+set autochdir
+set scrolloff=1
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+" set clipboard=unnamed
+" set softtabstop=0
+
+" Hotkeys 
+" =======
+
+" Bubble lines
+" tip from http://vimrcfu.com/snippet/110
+nnoremap <A-j> :m<space>.+1<CR>
+nnoremap <A-k> :m<space>.-2<CR>
+inoremap <A-j> <Esc>:m<space>.+1<CR>==gi
+inoremap <A-k> <Esc>:m<space>.-2<CR>==gi
+vnoremap <A-j> :m<space>'>+1<CR>gv=gv
+vnoremap <A-k> :m<space>'<-2<CR>gv=gv''
+
+" Change indentation - like bubble left and right
+nnoremap <A-h> <<
+nnoremap <A-l> >>
+" Change indentation with visual mode
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
+
+" Cut, Copy and Paste
+"" copy selection
+vnoremap <C-c> "*y
+"" copy whole document
+nnoremap <C-c>a m`ggVG"*y``
+"" copy row
+nnoremap <C-S-c> "*yy
+nnoremap <C-c>r "*yy
+"" copy word
+nnoremap <C-c>w m`viw"*y``
+"" copy WORD
+nnoremap <C-c>W m`viW"*y``
+"" paste
+nnoremap <C-v> "*p
+"" paste from insert mode
+inoremap <C-v> <Esc>"*p
+"" paste over in visual mode
+vnoremap <C-v> d"*P
+
+" CTRL-Tab is Next window (from mswin.vim)
+map <C-Tab> :bn<CR>
+ 
+
+"## Unimpaired functionality
+" next and previous buffers (tabs)
+nnoremap ]b :bn<CR>
+nnoremap [b :bp<CR>
+" add lines before and after current line
+nnoremap ]<space> m`o<Esc>``
+nnoremap [<space> m`O<Esc>``
+
+nnoremap coc :set<space>cursorline!<CR>
+nnoremap coh :set<space>hlsearch!<CR>
+nnoremap col :set<space>list!<CR>
+nnoremap con :set<space>number!<CR>
+nnoremap cor :set<space>relativenumber!<CR>
+
+" start Vim
+nnoremap <s-F4> :vim<CR>
+
+" Replace selection with yanked or deleted text
+" Does not work correctly at the end of a line
+vnoremap s "_dP

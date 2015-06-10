@@ -1,6 +1,6 @@
 " ==============================================================================
-"  VIMRC
-" ========================================================================== {{{
+"  .vimrc of Lukas Trumm {{{1
+" ==============================================================================
 
 " Source the _vimrc and _gvimrc file after saving it
 augroup configuration
@@ -10,24 +10,98 @@ augroup configuration
 augroup END
 
 " }}}
+" ============================================================================
+"  Plugins {{{1
+" ============================================================================
+
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'KabbAmine/zeavim.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'Raimondi/delimitMate'
+Plugin 'Yggdroot/indentLine' ",               { 'on': 'IndentLinesEnable' }
+Plugin 'airblade/vim-gitgutter' ",            { 'on': 'GitGutterToggle'   }
+Plugin 'bonsaiben/bootstrap-snippets' ",      { 'for': 'html'             }
+Plugin 'chrisbra/csv.vim' ",                  { 'for': 'csv'              }
+Plugin 'chrisbra/unicode.vim'
+Plugin 'coderifous/textobj-word-column.vim'
+Plugin 'drmikehenry/vim-fontsize'
+Plugin 'dzeban/vim-log-syntax' ",             { 'for': 'log'              }
+Plugin 'ervandew/supertab'
+Plugin 'garbas/vim-snipmate'
+Plugin 'godlygeek/tabular'
+Plugin 'gregsexton/gitv' ",                   { 'on': 'Gitv'              }
+Plugin 'groenewege/vim-less'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'honza/vim-snippets'
+Plugin 'janiczek/vim-latte'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/vim-journal'
+Plugin 'justinmk/vim-gtfo'
+Plugin 'kana/vim-textobj-entire'
+Plugin 'kana/vim-textobj-function'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar' ",                 { 'on': 'TagbarToggle'      }
+Plugin 'mattn/emmet-vim'
+Plugin 'mbbill/undotree' ",                   { 'on': 'UndotreeToggle'    }
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'moll/vim-bbye'
+Plugin 'neilagabriel/vim-geeknote'
+Plugin 'othree/xml.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'rking/ag.vim'
+Plugin 'salsifis/vim-transpose'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree' ",               { 'on': 'NERDTreeToggle'    }
+Plugin 'sheerun/vim-polyglot'
+Plugin 'sickill/vim-pasta'
+Plugin 'sjl/clam.vim'
+Plugin 'skammer/vim-css-color'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-characterize'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'triglav/vim-visual-increment'
+Plugin 'tyru/open-browser.vim'
+Plugin 'tyru/restart.vim'
+Plugin 'vim-scripts/Rename'
+Plugin 'vim-scripts/gnuplot.vim'
+Plugin 'vim-scripts/loremipsum'
+Plugin 'vim-voom/VOoM' ",                     { 'on': 'Voom'              }
+Plugin 'vobornik/vim-mql4'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-shell'
+
+call vundle#end()
+filetype plugin indent on
+
+" }}}
 " ==============================================================================
-"  General settings
-" ========================================================================== {{{
-filetype on                    " Enable file type detection
-filetype plugin on             " Enable plugins for specific filetypes
-filetype indent on             " Enable indentation for specific filetypes
-set nocompatible               " Compatibility with vi not necessary
+"  General settings {{{1
+" ==============================================================================
 set confirm                    " Less errors, more questions
 set backspace=indent,eol,start " Allow backspase in insert mode
 set autoread                   " Relaod files changed outside Vim
 set nrformats  =alpha          " Think about all formats as decimal
-" set foldlevel  =1              " Expand level 1 folds
-set history    =200            " Keep 200 items in history of Ex commands
+set history    =500            " Keep 200 items in history of Ex commands
 " Message abbreviations, truncate file messages, dont warn if existing swap files, 
 " hide the welcome screen, truncate other long messages
 set shortmess  =atAIT
 set nostartofline              " Don't jump to first character when paging
 set number                     " Line numbers before lines
+set iskeyword+=-               " Count strings joined by dashes as words
 
 " ===== Buffers =====
 set hidden                     " Allow buffer switching without saving
@@ -45,6 +119,11 @@ set undoreload =10000          " Maximum number lines to save for undo on a buff
 set writebackup                " Make a backup before overwriting a file
 set tags       =./tags;        " Find tags file in parent dirs (;) starting in current dir (./)
 
+" ===== Folding =====
+set foldlevel  =3              " Expand level 1 folds
+set foldmethod =manual
+set nofoldenable
+
 " ===== Language and encoding =====
 language US
 set encoding   =utf-8
@@ -52,6 +131,8 @@ set encoding   =utf-8
 " ===== Lines =====
 set linespace     =1           " Vertical space between lines (in pixels, 1 = default on win)
 set scrolloff     =1           " Let one line above and bellow
+set sidescroll=1
+set sidescrolloff=15
 set nojoinspaces               " Prevents inserting two spaces after punctuation on a join (J)
 set display       =lastline    " Display as much as possible from the last (wrapped) line on the screen
 set formatoptions -=o          " Do not generally insert comment leader after 'o'
@@ -88,11 +169,25 @@ set breakindent                " Soft wrapped lines will continue visually inden
 
 " }}}
 " ==============================================================================
-"  Appearance
-" ========================================================================== {{{
+"  Appearance {{{1
+" ==============================================================================
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
+
+" ===== Font =====
+set guifont=Consolas:h11 
+
+" ===== GUI adjustments =====
+set guioptions-=b " Hide horizontal (bottom) scrollbar
+set guioptions-=e " Text based tabs
+set guioptions-=l " Hide left vertical scrollbar
+set guioptions-=L 
+set guioptions-=m " Remove menu bar
+" set guioptions-=r
+set guioptions-=R 
+set guioptions-=T " Remove toolbar
+set guitablabel=%f
 
 " ===== Status line  =====
 " useful tips: http://stackoverflow.com/q/5375240
@@ -106,7 +201,9 @@ set statusline +=\ %r                            " read only flag
 " set statusline+=\ [%{getcwd()}]                  " Current dir
 set statusline +=\ %=                            " left/right separator
 " Right side
-set statusline +=\ %{fugitive#statusline()}
+if exists("*fugitive#statusline")
+	set statusline +=\ %{fugitive#statusline()}
+endif
 set statusline +=\ \|\ %{&ft}                        " filetype (neither %y nor %Y does fit)
 set statusline +=\ \|\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline +=\ \|\ %{toupper(strpart(&ff,0,1))}  " file format
@@ -149,11 +246,13 @@ hi! link javaCommentTitle Comment
 " HTML
 hi htmlTitle gui=none guifg=#586e75
 hi htmlH1 gui=none
+" Row numbers
+hi LineNr guifg=#cfc7ad
 
 " }}}
 " ==============================================================================
-"  Completion
-" ========================================================================== {{{
+"  Completion {{{1
+" ==============================================================================
 
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
 set omnifunc=syntaxcomplete#Complete
@@ -164,20 +263,21 @@ set completeopt=menu,longest
 set complete+=k
 " Make <Tab> select the currently selected choice, same like <cr>
 " If not in completion mode, call snippets expanding function
-imap <expr> <Tab> pumvisible() ? "\<cr>" : "<Plug>snipMateNextOrTrigger"
+imap <expr> <Tab> pumvisible() ? "\<c-y>" : "<Plug>snipMateNextOrTrigger"
+inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
 
 "...more under SuperTab plugin settings
 
 " }}}
 " ==============================================================================
-"  Global shortcuts
-" ========================================================================== {{{
+"  Global shortcuts {{{1
+" ==============================================================================
 
 " ===== MapLeaders =====
 " Set leader keys to ensure their assignment
-" <Leader> for global shortcuts, <LocalLeader> for more specific usage
+" <Leader> for global shortcuts, <LocalLeader> for more specific and local usage
 let mapleader = ","
-let maplocalleader = "\\"
+let maplocalleader = "\<space>"
 
 " ===== Boxes =====
 " Create box around current line, text centered, text width 78
@@ -219,6 +319,10 @@ vnoremap <leader>xf :!xmlstar fo<CR>
 " check if XML is wellformed
 nnoremap <leader>xw :!xmllint --noout %<CR>
 
+" ===== Command line =====
+" Expand %% to path of current buffer in command mode
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
 " ===== Consistency =====
 " Make the behaviour of Y consistent with D and C 
 " (do the action from here to the end of line)
@@ -250,7 +354,7 @@ vnoremap p "_dgP
 
 " ===== Directories =====
 " Set working dir to current file dir, only for current window
-nnoremap <leader>. :lcd %:p:h<CR>
+nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
@@ -260,9 +364,17 @@ nnoremap <leader>q :q<cr>
 
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
-nmap <leader>+ O<esc>78i=<esc>gccjo<esc>78i=<esc>gcckgcc0a<space><esc>
+nmap <LocalLeader>+ O<esc>78i=<esc>gccjo<esc>78i=<esc>gcckgcc0a<space><esc>
 " Make commented subheading from current line, using Commentary plugin (no 'noremap')
-nmap <leader>= I<space><esc>A<space><esc>05i=<esc>$5a=<esc>gcc
+nmap <LocalLeader>= I<space><esc>A<space><esc>05i=<esc>$5a=<esc>gcc
+
+" ===== Mouse buttons =====
+" Set right mouse button to do paste
+nnoremap <RightMouse> "*p
+cnoremap <RightMouse> "*p
+
+" Set middle button to close tab
+nnoremap <MiddleMouse> :tabclose<CR> 
 
 " ===== Moving in buffer =====
 " Move commands acting on display lines
@@ -275,11 +387,9 @@ nnoremap H 0
 nnoremap L $
 
 " ===== Moving in windows =====
-" Ctrl+tab -> Next window (from mswin.vim)
-noremap <C-Tab> <C-W>w
-inoremap <C-Tab> <C-O><C-W>w
-cnoremap <C-Tab> <C-C><C-W>w
-onoremap <C-Tab> <C-C><C-W>w
+" Cycling windows
+nnoremap <Tab> <C-W>w
+nnoremap <S-Tab> <C-W>W
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
 " Jump to left or right window
@@ -291,42 +401,47 @@ nnoremap <C-Down> <C-e>
 nnoremap <C-Left> zh
 nnoremap <C-Right> zl
 
+" ===== Custom text objects =====
+onoremap e :<c-u>normal! mzggVG<cr>`z
+
 " ===== Opening =====
 " Open current document in browser (save it before)
-noremap <leader>o :w<CR>:OpenInChrome<CR>
+nnoremap <leader>o :w<CR>:OpenInChrome<CR>
 " Translation of a word at current cursor position
 " It opens browser with google translater in it using open-browser plugin
-noremap <leader>tr :silent :OpenBrowser
+nnoremap <leader>tr :silent :OpenBrowser
             \ http://translate.google.com/?sl=en&tl=cs&js=n&prev=_t&hl=cs&ie=UTF-8&eotf=1&text=
             \<c-r><c-w><CR
 vnoremap <leader>tr :silent y:OpenBrowser
             \ http://translate.google.com/?sl=en&tl=cs&js=n&prev=_t&hl=cs&ie=UTF-8&eotf=1&text=
             \<c-r>"<CR>gv
+nnoremap <leader>gu yi':OpenBrowser https://github.com/<c-r>"<cr>
 
-" Opens new bugger with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+" Edit another file in the same directory as the current file
+noremap <leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
+noremap <leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+noremap <leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 
 " ===== Open configuration files =====
-nnoremap <leader>v :split $MYVIMRC<CR>
-nnoremap <leader>vg :split $MYGVIMRC<CR>
+nnoremap <localleader>v :split $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
-nnoremap <leader>nn :NERDTreeToggle<CR>
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader>nc :NERDTreeClose<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
-nnoremap <leader>d :DelimitMateSwitch<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Leader>G :Goyo<CR>
-nnoremap <c-t> :MRU<CR>
+
+" ===== Programming shortcuts =====
+nnoremap <LocalLeader>; m`A;<esc>``
 
 " ===== Saving buffer =====
 " Use ctrl+s for saving, also in Insert mode (from mswin.vim) 
-noremap  <C-s>  :update<CR>
-vnoremap <C-s>  <C-C>:update<CR>
-inoremap <C-s>  <Esc>:update<CR>
+noremap  <C-s> :update<CR>
+vnoremap <C-s> <C-C>:update<CR>
+inoremap <C-s> <Esc>:update<CR>
 
 " ===== Searching =====
 " Visual search and Save search for later n. usage = multiple renaming
@@ -334,7 +449,7 @@ nnoremap gr /<C-r><C-w><CR><C-o>:set hlsearch<CR>
 vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>
 " Map <Leader>ff to display all lines with keyword under cursor and ask which
 " one to jump to
-nnoremap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+nnoremap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
 " Go Substitute
@@ -342,11 +457,49 @@ nnoremap gs :%s//g<Left><Left>
 
 " ===== Strings =====
 " Surround current word
-nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <LocalLeader>" m`viw<esc>a"<esc>hbi"<esc>lel``
+nnoremap <LocalLeader>' m`viw<esc>a'<esc>hbi'<esc>lel``
 " Toggle between single and double quotes
-nnoremap g' :s/['"]/\="'\""[submatch(0)!='"']/g<CR>
-vnoremap g' :s/['"]/\="'\""[submatch(0)!='"']/g<CR>
+nnoremap g' m`:s/['"]/\="'\""[submatch(0)!='"']/g<CR>``
+vnoremap g' m`:s/['"]/\="'\""[submatch(0)!='"']/g<CR>``
+
+" ===== Tab =====
+" ----------------------------------------------------------------------------
+" <tab> / <s-tab> / <c-v><tab> | super-duper-tab
+" ----------------------------------------------------------------------------
+" function! s:can_complete(func, prefix)
+"   if empty(a:func) || call(a:func, [1, '']) < 0
+"     return 0
+"   endif
+"   let result = call(a:func, [0, matchstr(a:prefix, '\k\+$')])
+"   return !empty(type(result) == type([]) ? result : result.words)
+" endfunction
+
+" function! s:super_duper_tab(k, o)
+"   if pumvisible()
+"     return a:k
+"   endif
+"   let line = getline('.')
+"   let col = col('.') - 2
+"   if empty(line) || line[col] !~ '\k\|[/~.]' || line[col + 1] =~ '\k'
+"     return a:o
+"   endif
+
+"   let prefix = expand(matchstr(line[0:col], '\S*$'))
+"   if prefix =~ '^[~/.]'
+"     return "\<c-x>\<c-f>"
+"   endif
+"   if s:can_complete(&omnifunc, prefix)
+"     return "\<c-x>\<c-o>"
+"   endif
+"   if s:can_complete(&completefunc, prefix)
+"     return "\<c-x>\<c-u>"
+"   endif
+"   return a:k
+" endfunction
+
+" inoremap <expr> <tab>   <SID>super_duper_tab("\<c-n>", "\<tab>")
+" inoremap <expr> <s-tab> <SID>super_duper_tab("\<c-p>", "\<s-tab>")
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
@@ -354,8 +507,8 @@ nnoremap <expr> <leader>w ':set wrap! go'.'-+'[&wrap]."=b\r"
 
 " }}}
 " ==============================================================================
-"  Appearance shortcuts
-" ========================================================================== {{{
+"  Appearance shortcuts {{{1
+" ==============================================================================
 
 " ===== Font size =====
 nnoremap <S-F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
@@ -370,8 +523,8 @@ noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 " }}}
 " ==============================================================================
-"  General commands
-" ========================================================================== {{{
+"  General commands {{{1
+" ==============================================================================
 
 " ===== Bufferize =====
 " Print output of MORE viewer into buffer
@@ -395,9 +548,10 @@ command! Extract :call Extract()
 
 " ===== Lists =====
 " Creates Perl style list definition from paragraph of items on lines
-command! -nargs=* ToList call FromLinesToList(<q-args>)
+command! -nargs=* ToList call MakeListFromLines(<q-args>)
 " Reverse from the list to lines
-command! ToLines :call FromLinesFromList()
+command! ToLines :call MakeLinesFromList()
+command! ToLinesClear :call MakeClearLinesFromList()
 
 " ===== Open buffer in =====
 " Open current document in browser (save it before)
@@ -422,8 +576,8 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " }}}
 " ==============================================================================
-"  Filetype specific commands
-" ========================================================================== {{{
+"  Filetype specific commands {{{1
+" ==============================================================================
 
 " ===== Misc filetypes =====
 
@@ -478,7 +632,30 @@ augroup markdown
     autocmd FileType modula2  setlocal ft         =markdown
     autocmd FileType markdown setlocal textwidth  =80
     autocmd FileType markdown setlocal autoindent
-    autocmd FileType markdown noremap <buffer> <Space> :silent call ToggleTodo()<CR>
+    " autocmd FileType markdown noremap <buffer> <Space> :silent call ToggleTodo()<CR>
+
+    " Underline heading
+    autocmd FileType markdown nnoremap <LocalLeader>j m`^y$o<Esc>pVr=``
+    " Prefix # heading
+    autocmd FileType markdown nnoremap <LocalLeader>h m`:s/^\(#*\)\ \?/#\1\ /<CR>``
+    " bold
+    autocmd FileType markdown nnoremap <LocalLeader>b viw<Esc>`>a**<Esc>`<i**<Esc>f*;
+    autocmd FileType markdown vnoremap <LocalLeader>b <Esc>`>a**<Esc>`<i**<Esc>f*;
+    " italics
+    autocmd FileType markdown nnoremap <LocalLeader>i viw<Esc>`>a_<Esc>`<i_<Esc>f_
+    autocmd FileType markdown vnoremap <LocalLeader>i <Esc>`>a_<Esc>`<i_<Esc>f_
+    " inline code
+    autocmd FileType markdown nnoremap <LocalLeader>` viw<Esc>`>a`<Esc>`<i`<Esc>f`
+    autocmd FileType markdown vnoremap <LocalLeader>` <Esc>`>a`<Esc>`<i`<Esc>f`
+    " vnoremap <leader>b o<Esc>i**<Esc>gvoll<Esc>a**<Esc>
+    " unordered list
+    autocmd FileType markdown nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /
+    autocmd FileType markdown vnoremap <LocalLeader>u :s/^.\?/\U&/gvI- 
+    " Save mkd file
+    autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md<CR>
+    " Link from address - last segment to be the text
+    autocmd FileType markdown nnoremap <LocalLeader>l
+            \ :s/\(\(http\\|www\).*\/\)\([^/ \t)]\+\)\(\/\?\)/[\3](&)/<CR>
 augroup END
 
 " Create Markdown (GFM) style table from tab separated items of one paragraph
@@ -498,25 +675,6 @@ command! MDhtml call system("cmd.exe /c mdhtml \"" . expand("%:p") . "\"" )
 " Open current buffer (markdown) in browser in preview mode
 " command! MDopen :silent !mdopen %
 command! MDopen call system("cmd.exe /c start firefox \"file:///" . substitute(expand("%:p:r"), "\ ", "%20", "g") . ".html\"" )
-
-" Underline heading
-nnoremap <LocalLeader>j m`^y$o<Esc>pVr=``
-" Prefix # heading
-nnoremap <LocalLeader>h m`:s/^\(#*\)\ \?/#\1\ /<CR>``
-" bold
-nnoremap <LocalLeader>b viw<Esc>`>a**<Esc>`<i**<Esc>f*;
-vnoremap <LocalLeader>b <Esc>`>a**<Esc>`<i**<Esc>f*;
-" italics
-nnoremap <LocalLeader>i viw<Esc>`>a_<Esc>`<i_<Esc>f_
-vnoremap <LocalLeader>i <Esc>`>a_<Esc>`<i_<Esc>f_
-" vnoremap <leader>b o<Esc>i**<Esc>gvoll<Esc>a**<Esc>
-" unordered list
-nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /
-vnoremap <LocalLeader>u :s/^.\?/\U&/gvI- 
-" Save mkd file
-nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md<CR>
-" Link from address - last segment to be the text
-nnoremap <LocalLeader>l :s/\(\(http\\|www\).*\/\)\([^/ \t)]\+\)\(\/\?\)/[\3](&)/<CR>
 
 " ===== Pascal =====
 augroup pascal
@@ -543,13 +701,13 @@ augroup END
 augroup sql
     autocmd!
     " Indentation of brackets
-    autocmd Filetype sql vnoremap <Leader>s( :s/\(\S\)\ (/\1(/ge<cr><esc>
+    autocmd Filetype sql vnoremap <LocalLeader>s( :s/\(\S\)\ (/\1(/ge<cr><esc>
     " Upper case
-    autocmd Filetype sql vnoremap <Leader>su :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
+    autocmd Filetype sql vnoremap <LocalLeader>su :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
     " New lines after keywords
-    autocmd Filetype sql vnoremap <Leader>sp :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\ /&\r\1\t/ge<cr><esc>
+    autocmd Filetype sql vnoremap <LocalLeader>sp :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\ /&\r\1\t/ge<cr><esc>
     " Expand
-    autocmd Filetype sql vnoremap <Leader>se :s/\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\_.\{-}\t/\U\1\ /ge<cr><esc>
+    autocmd Filetype sql vnoremap <LocalLeader>se :s/\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\_.\{-}\t/\U\1\ /ge<cr><esc>
 augroup END
 
 " ===== VBA =====
@@ -591,8 +749,12 @@ vnoremap <A-K> d?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nwwPvatV
 
 " }}}
 " ==============================================================================
-"  Plugin settings
-" ========================================================================== {{{
+"  Plugin settings {{{1
+" ==============================================================================
+
+" ===== Ag =====
+let g:ag_prg="ag --vimgrep --smart-case"
+let g:ag_highlight=1
 
 " ===== Autoformat =====
 " java
@@ -623,8 +785,10 @@ let g:bookmark_highlight_lines = 1    " Enables/disables line highlighting
 let g:bookmark_center = 1             " Enables/disables line centering when jumping to bookmark
 
 " ===== CtrlP =====
-" Set the default of <C-p> command to show most recently used
-let g:ctrlp_cmd = 'CtrlPMRU'
+" Set ctrl+p for normal fuzzy file opening
+nnoremap <c-p> :CtrlP<cr>
+" Set alt+p for most recently used files
+nnoremap <a-p> :CtrlPMRUFiles<cr>
 
 " ===== CSV =====
 " let g:csv_no_conceal = 1
@@ -635,27 +799,44 @@ hi def link CSVColumnOdd	    vimSynMtchOpt
 hi def link CSVColumnEven	    normal
 
 " ===== DelimitMate =====
-let delimitMate_expand_cr = 2
-let delimitMate_expand_space = 1
+let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
+let g:delimitMate_expand_space = 1  " Expand the <space> on both sides
+" let g:delimitMate_autoclose  = 0  " Do not add closing delimeter automatically
+" let g:delimitMate_offByDefault = 1  " Turn off by default
+let delimitMate_excluded_ft = "markdown,txt"
+" Run :DelimitMateSwitch to turn on
+
+" ===== Emmet =====
+let g:user_emmet_leader_key = '<c-h>'
+let g:emmet_html5           = 1
 
 " ===== Fugitive =====
 augroup fugitive
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 
+" ===== Geeknote =====
+let g:GeeknoteExplorerNodeClosed = '+'
+let g:GeeknoteExplorerNodeOpened = '-'
+
 " ===== GitGutter =====
 let g:gitgutter_enabled = 0
-let g:gitgutter_map_keys = 0
 let g:gitgutter_signs = 1
+nmap [g <Plug>GitGutterPrevHunk
+nmap ]g <Plug>GitGutterNextHunk
+nmap <LocalLeader>gs <Plug>GitGutterStageHunk
+nmap <LocalLeader>gr <Plug>GitGutterRevertHunk
 
 " ===== Goyo =====
 let g:goyo_width=100 "(default: 80)
 let g:goyo_margin_top=2 " (default: 4)
 let g:goyo_margin_bottom=2 " (default: 4)
-" g:goyo_linenr (default: 0)
 
 " ===== Huge file =====
 let g:hugefile_trigger_size = 50
+
+" ===== IndentLine =====
+let g:indentLine_enabled = 0
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log' 
@@ -670,7 +851,7 @@ nnoremap <c-s-N> yiwvip:MultipleCursorsFind <c-r>"<CR>
 let NERDTreeDirArrows=1
 
 " ===== Pathogen plugin =====
-execute pathogen#infect()
+" execute pathogen#infect()
 
 " ===== PIV (PHP integration for VIM) =====
 let g:DisableAutoPHPFolding = 1
@@ -683,11 +864,12 @@ let g:SuperTabMappingForward = '<c-space>'
 let g:SuperTabMappingBackward = '<s-c-space>'
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestHighlight = 1
-au FileType css let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \     call SuperTabChain(&omnifunc, '<c-p>') |
-      \ endif
+" au FileType css let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" Probably slowing down
+" autocmd FileType *
+"       \ if &omnifunc != '' |
+"       \     call SuperTabChain(&omnifunc, '<c-p>') |
+"       \ endif
 
 " ===== Vim-markdown =====
 let g:vim_markdown_folding_disabled=1
@@ -697,13 +879,16 @@ let xml_tag_completion_map = "<c-l>"
 " let g:xml_warn_on_duplicate_mapping = 1
 " let xml_no_html = 1
 
+" ===== Voom =====
+let g:voom_tree_placement = "right"
+
 " ===== Zeavim - Zeal integration =====
 let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 
 " }}}
 " ==============================================================================
-"  Cygwin
-" ========================================================================== {{{
+"  Cygwin {{{1
+" ==============================================================================
 
 " Fix cursors
 let &t_ti.="\e[1 q"
@@ -713,8 +898,8 @@ let &t_te.="\e[0 q"
 
 " }}}
 " ==============================================================================
-"  Functions
-" ========================================================================== {{{
+"  Functions {{{1
+" ==============================================================================
 
 " Sessions from http://stackoverflow.com/a/10525050
 set sessionoptions-=options  " Don't save options
@@ -874,9 +1059,9 @@ endfunction
 
 " Creates Perl like list definition from lines
 " Assumes that lines form a separated paragraph
-function! FromLinesToList(...)
+function! MakeListFromLines(...)
     if a:0 > 0
-        exe "normal vip$A".a:1."vip0I".a:1.""
+        execute "normal! vip$A".a:1."vip0I".a:1.""
         normal vip$A,vipJA$x0
     else
         normal vip$A,vipJA$x0
@@ -885,10 +1070,13 @@ endfunction
 
 " Creates list of items on separated lines
 " from Perl like list definition of strings
-function! FromLinesFromList()
-    s/["'();\ ]//g
+function! MakeLinesFromList()
     s/^\s*//
     s/,/\r/g
+endfunction
+function! MakeClearLinesFromList()
+    s/['"();\ ]//g
+    call MakeLinesFromList()
 endfunction
 
 " Closes all buffers except the active one
@@ -928,10 +1116,72 @@ function! s:Bufferize(cmd)
   set nomodified
 endfunction
 
+" ===== Script to save gvim window position =====
+if has("gui_running")
+  function! ScreenFilename()
+    if has('amiga')
+      return "s:.vimsize"
+    elseif has('win32')
+      return $HOME.'\_vimsize'
+    else
+      return $HOME.'/.vimsize'
+    endif
+  endfunction
+
+  function! ScreenRestore()
+    " Restore window size (columns and lines) and position
+    " from values stored in vimsize file.
+    " Must set font first so columns and lines are based on font size.
+    let f = ScreenFilename()
+    if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      for line in readfile(f)
+        let sizepos = split(line)
+        if len(sizepos) == 5 && sizepos[0] == vim_instance
+          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
+          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
+          return
+        endif
+      endfor
+    endif
+  endfunction
+
+  function! ScreenSave()
+    " Save window size and position.
+    if has("gui_running") && g:screen_size_restore_pos
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
+            \ (getwinposx()<0?0:getwinposx()) . ' ' .
+            \ (getwinposy()<0?0:getwinposy())
+      let f = ScreenFilename()
+      if filereadable(f)
+        let lines = readfile(f)
+        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
+        call add(lines, data)
+      else
+        let lines = [data]
+      endif
+      call writefile(lines, f)
+    endif
+  endfunction
+
+  if !exists('g:screen_size_restore_pos')
+    let g:screen_size_restore_pos = 1
+  endif
+  if !exists('g:screen_size_by_vim_instance')
+    let g:screen_size_by_vim_instance = 1
+  endif
+  augroup vimgui
+    autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+    autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+  augroup END
+endif
+" End of position saving script
+
 " }}}
 " ==============================================================================
-"  Abbreviations
-" ========================================================================== {{{
+"  Abbreviations {{{1
+" ==============================================================================
 
 " Note
 iabbrev note: NOTE [<c-r>=strftime("%Y-%m-%d")<cr> Lukas Trumm]
@@ -940,8 +1190,8 @@ iabbrev mail: lukas.trumm@centrum.cz
 
 " }}}
 " ==============================================================================
-"  Examples
-" ========================================================================== {{{
+"  Examples {{{1
+" ==============================================================================
 
 " Process all lines function
 """""
@@ -954,7 +1204,8 @@ iabbrev mail: lukas.trumm@centrum.cz
 
 " }}}
 " ==============================================================================
-"  Test
-" ========================================================================== {{{
+"  Test {{{1
+" ==============================================================================
 
-" }}}
+" set noshelltemp " experimental " Should avoid some cmd windows for external commands
+
