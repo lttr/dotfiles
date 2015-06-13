@@ -11,3 +11,9 @@ alias path='echo $PATH | tr -s ":" "\n"'
 
 alias apti='sudo apt-get install -y'
 alias apts='apt search'
+
+alias reboot='sudo shutdown -r now'
+alias shutdown='sudo shutdown now'
+alias logout='gnome-session-quit --logout --no-prompt'
+
+alias tp='trash-put'

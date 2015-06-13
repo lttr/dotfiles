@@ -51,7 +51,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree' ",                   { 'on': 'UndotreeToggle'    }
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'moll/vim-bbye'
-Plugin 'neilagabriel/vim-geeknote'
+" Plugin 'neilagabriel/vim-geeknote'
 Plugin 'othree/xml.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
@@ -125,6 +125,7 @@ set foldmethod =manual
 set nofoldenable
 
 " ===== Language and encoding =====
+" language US
 set encoding   =utf-8
 
 " ===== Lines =====
@@ -1216,4 +1217,11 @@ iabbrev mail: lukas.trumm@centrum.cz
 " ==============================================================================
 
 " set noshelltemp " experimental " Should avoid some cmd windows for external commands
+
+if has('nvim')
+  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  
+  tnoremap <Esc> <C-\><C-n>
+endif
 
