@@ -10,7 +10,7 @@
 	logg = log --graph --oneline
 	sb = show-branch
 [core]
-	editor = 'C:\\Program Files (x86)\\Vim\\vim74\\gvim.exe'
+	editor = 'vim'
 	autocrlf = false
 [merge]
 	tool = gvimdiff
