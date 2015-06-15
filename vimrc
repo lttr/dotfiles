@@ -112,9 +112,9 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 
 " ===== Directories ====== 
 set backup                     " Make backups
-set backupdir  =~/vimbackup    " List of directory names for backup files
-set directory  =~/vimbackup    " List of directory names for swap files
-set undodir    =~/vimundos     " List of directory names for undo files
+set backupdir  =~/.vimbackup   " List of directory names for backup files
+set directory  =~/.vimbackup   " List of directory names for swap files
+set undodir    =~/.vimundos    " List of directory names for undo files
 set undofile                   " Automatically saves undo history to an undo file
 set undolevels =1000           " Maximum number of changes that can be undone
 set undoreload =10000          " Maximum number lines to save for undo on a buffer reload
@@ -127,7 +127,6 @@ set foldmethod =manual
 set nofoldenable
 
 " ===== Language and encoding =====
-language US
 set encoding   =utf-8
 
 " ===== Lines =====
@@ -167,7 +166,9 @@ set virtualedit =""            " Do not move the cursor behind last char
 " ===== Wrapping =====
 set textwidth     =0           " Maximum width of text that is being inserted (0 = no hard wrap)
 set linebreak                  " Dont wrap words
-set breakindent                " Soft wrapped lines will continue visually indented (since vim 7.4.xxx)
+if exists("&breakindent")
+  set breakindent                " Soft wrapped lines will continue visually indented (since vim 7.4.xxx)
+endif
 
 " }}}
 " ==============================================================================
@@ -178,7 +179,11 @@ set breakindent                " Soft wrapped lines will continue visually inden
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
 " ===== Font =====
-set guifont=Consolas:h11 
+if has('unix')
+  set guifont=Monospace
+else
+  set guifont=Consolas:h11 
+endif
 
 " ===== GUI adjustments =====
 set guioptions-=b " Hide horizontal (bottom) scrollbar
@@ -215,6 +220,9 @@ set statusline +=\                                   " right margin
 " ===== Syntax highlighting =====
 syntax enable
 set background =light
+if !has("gui_running")
+    set t_Co=256
+endif
 colorscheme solarized
 set synmaxcol  =500             " Max column in which to search for syntax items (better performance)
 
@@ -225,7 +233,7 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 " TODO this is not a systematic approach
 
 " Hide non text lines
-hi NonText guifg=#cfc7ad        
+hi NonText guifg=#c2c0ba        
 " Markdown
 hi Title guifg=#586e75
 hi htmlBold gui=bold guifg=#839496
@@ -249,7 +257,7 @@ hi! link javaCommentTitle Comment
 hi htmlTitle gui=none guifg=#586e75
 hi htmlH1 gui=none
 " Row numbers
-hi LineNr guifg=#cfc7ad
+hi LineNr guifg=#c2c0ba
 
 " }}}
 " ==============================================================================
@@ -332,22 +340,22 @@ nnoremap Y y$
 
 " ===== Cut, Copy and Paste =====
 " copy selection
-vnoremap <C-c> "*y
+vnoremap <C-c> "+y
 " copy whole document
 nnoremap <C-c>a m`ggVG"*y``
 " copy row
-nnoremap <C-S-c> "*yy
-nnoremap <C-c>r "*yy
+nnoremap <C-S-c> "+yy
+nnoremap <C-c>r "+yy
 " copy word
-nnoremap <C-c>w m`viw"*y``
+nnoremap <C-c>w m`viw"+y``
 " copy WORD
-nnoremap <C-c>W m`viW"*y``
+nnoremap <C-c>W m`viW"+y``
 " paste
-nnoremap <C-v> "*p
+nnoremap <C-v> "+p
 " paste from insert mode
-inoremap <C-v> <Esc>"*p
+inoremap <C-v> <Esc>"+p
 " paste over in visual mode
-vnoremap <C-v> d"*gP
+vnoremap <C-v> d"+gP
 " Replace selection with yanked or deleted text
 " TODO Does not work correctly at the end of a line
 vnoremap s "_dgP
@@ -894,10 +902,10 @@ let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 " ==============================================================================
 
 " Fix cursors
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
+" let &t_ti.="\e[1 q"
+" let &t_SI.="\e[5 q"
+" let &t_EI.="\e[1 q"
+" let &t_te.="\e[0 q"
 
 " }}}
 " ==============================================================================
