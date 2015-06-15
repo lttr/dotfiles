@@ -20,6 +20,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'Raimondi/delimitMate'
@@ -58,6 +59,7 @@ Plugin 'rking/ag.vim'
 Plugin 'salsifis/vim-transpose'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree' ",               { 'on': 'NERDTreeToggle'    }
+Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'sickill/vim-pasta'
 Plugin 'sjl/clam.vim'
@@ -590,7 +592,7 @@ augroup END
 augroup syntax-sugar
     autocmd!
     " Make it so that a curly brace automatically inserts an indented line
-    autocmd FileType javascript,css,perl,php inoremap {<CR> {<CR>}<Esc>O
+    autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
 " ===== Dosbatch =====
@@ -652,7 +654,7 @@ augroup markdown
     autocmd FileType markdown nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /
     autocmd FileType markdown vnoremap <LocalLeader>u :s/^.\?/\U&/gvI- 
     " Save mkd file
-    autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md<CR>
+    autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md
     " Link from address - last segment to be the text
     autocmd FileType markdown nnoremap <LocalLeader>l
             \ :s/\(\(http\\|www\).*\/\)\([^/ \t)]\+\)\(\/\?\)/[\3](&)/<CR>
@@ -812,6 +814,7 @@ let g:emmet_html5           = 1
 
 " ===== Fugitive =====
 augroup fugitive
+    autocmd!
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 augroup END
 
@@ -1172,6 +1175,7 @@ if has("gui_running")
     let g:screen_size_by_vim_instance = 1
   endif
   augroup vimgui
+    autocmd!
     autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
     autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
   augroup END
