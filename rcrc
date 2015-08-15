@@ -1,2 +1,2 @@
-EXCLUDES="README.md setup-links.bat"
+EXCLUDES="README.md setup-links.bat linux-installation.md"
 DOTFILES_DIRS="$HOME/dotfiles"

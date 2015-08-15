@@ -19,9 +19,10 @@ sudo apt-get upgrade
 
 Install tools
 ```
+sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
 sudo apt-get install -y curl vim git zsh silversearcher-ag xdotool xbindkeys gpick python-setuptools rcm
 sudo chsh -s $(which zsh) $(whoami)
-url -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 ```
 
 Neovim
@@ -45,8 +46,8 @@ sudo mkdir --parent /.Trash && sudo chmod a+rw /.Trash && sudo chmod +t /.Trash
 ```
 cd ~
 git clone https://github.com/lttr/dotfiles.git
-cd dotfiles
-rcup
+ln -s dotfiles/rcrc .rcrc
+rcup -v
 ```
 
 ### Environment
