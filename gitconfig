@@ -7,12 +7,33 @@
 	br = branch
 	up = rebase
 	ci = commit
-	logg = log --graph --oneline
 	sb = show-branch
+	s = status -s
+	l = log --graph --decorate --oneline -n20
+	a = add
+	aa = add --all
+	ca = commit --amend
+	can = commit --amend --no-edit
+	cg = config --global
+	lw = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" -n20
+	lwa = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" --all
+	la = log --graph --decorate --oneline --all
+	cf = show --name-status
+	lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
+	logmy = log --all -n10 --author=\"Lukas Trumm\"
+	unchanged = update-index --assume-unchanged
+	changed = update-index --no-assume-unchanged
+	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
 [core]
-	editor = 'C:\\Program Files (x86)\\Vim\\vim74\\gvim.exe'
-	autocrlf = false
+	editor = gvim
+	autocrlf = true
 [merge]
 	tool = gvimdiff
 [push]
 	default = simple
+[credential]
+	helper = manager
+[color]
+	diff = auto
+	status = auto
+	branch = auto

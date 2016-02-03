@@ -13,20 +13,23 @@ del /A:H %USERPROFILE%\.vrapperrc
 mklink %USERPROFILE%\.vrapperrc %SYNC_DIR%\conf\dotfiles\vrapperrc
 attrib /L +H %USERPROFILE%\.vrapperrc
 
-del /A:H %USERPROFILE%\_vimsize
-mklink %USERPROFILE%\_vimsize %SYNC_DIR%\conf\vim\.vimsize-%PLACE%
-attrib /L +H %USERPROFILE%\_vimsize
-
 @REM Directories
 
 rmdir %USERPROFILE%\.docear
 mklink /d %USERPROFILE%\.docear %SYNC_DIR%\conf\docear
 attrib /L +H %USERPROFILE%\.docear
 
+rmdir %USERPROFILE%\.dbeaver
+mklink /d %USERPROFILE%\.dbeaver %SYNC_DIR%\conf\dbeaver
+attrib /L +H %USERPROFILE%\.dbeaver
+
 rmdir %USERPROFILE%\.freemind
 mklink /d %USERPROFILE%\.freemind %SYNC_DIR%\conf\freemind
 attrib /L +H %USERPROFILE%\.freemind
 
+rmdir %USERPROFILE%\.vim
+mklink /d %USERPROFILE%\.vim %SYNC_DIR%\conf\vim
+attrib /L +H %USERPROFILE%\.vim
 rmdir %USERPROFILE%\vimfiles
 mklink /d %USERPROFILE%\vimfiles %SYNC_DIR%\conf\vim
 attrib /L +H %USERPROFILE%\vimfiles

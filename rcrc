@@ -1,2 +1,0 @@
-EXCLUDES="README.md setup-links.bat"
-DOTFILES_DIRS="$HOME/dotfiles"
