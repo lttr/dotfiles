@@ -55,6 +55,8 @@ Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'kien/ctrlp.vim'
 Plug 'lttr/sql_iabbr.vim'
+Plug 'lttr/my-vim-syntax'
+Plug 'lttr/my-vim-colors'
 Plug 'majutsushi/tagbar' ",                 { 'on': 'TagbarToggle'      }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree' ",                   { 'on': 'UndotreeToggle'    }
