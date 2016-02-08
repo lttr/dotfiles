@@ -2,15 +2,15 @@
 
 @REM Unfortunatelly git does not follow this symlink
 del /A:H %USERPROFILE%\.gitconfig
-mklink %USERPROFILE%\.gitconfig %SYNC_DIR%\conf\dotfiles\gitconfig
+mklink %USERPROFILE%\.gitconfig %USERPROFILE%\dotfiles\gitconfig
 attrib /L +H %USERPROFILE%\.gitconfig
 
 del /A:H %USERPROFILE%\_vimrc
-mklink %USERPROFILE%\_vimrc %SYNC_DIR%\conf\dotfiles\vimrc
+mklink %USERPROFILE%\_vimrc %USERPROFILE%\dotfiles\vimrc
 attrib /L +H %USERPROFILE%\_vimrc
 
 del /A:H %USERPROFILE%\.vrapperrc
-mklink %USERPROFILE%\.vrapperrc %SYNC_DIR%\conf\dotfiles\vrapperrc
+mklink %USERPROFILE%\.vrapperrc %USERPROFILE%\dotfiles\vrapperrc
 attrib /L +H %USERPROFILE%\.vrapperrc
 
 @REM Directories

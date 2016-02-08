@@ -1127,7 +1127,8 @@ endfunction
 
 " Create Markdown main heading from file name
 function! MDfiletohead()
-    normal ggOi%dF.x0vU:s/-/\ /gyypVr=o
+    normal ggOi%dF.x0vU:s/-/\ /g
+yypVr=o
 endfunction
 
 " Save as Markdown file with file name same as main heading

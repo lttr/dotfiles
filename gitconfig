@@ -1,6 +1,3 @@
-[user]
-	name = Lukas Trumm
-	email = lukas.trumm@centrum.cz
 [alias]
 	st = status
 	co = checkout
@@ -24,9 +21,6 @@
 	unchanged = update-index --assume-unchanged
 	changed = update-index --no-assume-unchanged
 	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
-[core]
-	editor = gvim
-	autocrlf = true
 [merge]
 	tool = gvimdiff
 [push]
@@ -37,3 +31,5 @@
 	diff = auto
 	status = auto
 	branch = auto
+[include]
+    path = .gitconfig.local
