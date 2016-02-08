@@ -1,7 +1,11 @@
+[user]
+	name = Lukas Trumm
+	email = lukas.trumm@centrum.cz
 [alias]
 	# add
 	a = add
 	aa = add --all
+	unstage = reset --
 	# branch
 	br = branch
 	bra = branch -a
@@ -12,7 +16,7 @@
 	cm = commit -m
 	ca = commit -a -m
 	# config
-	aliases = config --global --get-regexp alias
+	aliases = config --global --includes --get-regexp alias
 	cg = config --global --includes
 	# log
 	l = log --graph --decorate --oneline -n20
@@ -22,18 +26,16 @@
 	logmy = log --all -n10 --author=\"Lukas Trumm\"
 	lw = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" -n20
 	lwa = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" --all
+	sf = show --name-status
 	# remote
 	fe = fetch
 	# status
 	st = status
 	s = status -s
-	sf = show --name-status
 	# update
 	changed = update-index --no-assume-unchanged
 	unchanged = update-index --assume-unchanged
 	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
-[merge]
-	tool = gvimdiff
 [push]
 	default = simple
 [credential]
