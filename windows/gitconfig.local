@@ -1,0 +1,5 @@
+# Windows specific configuration
+[core]
+	editor = "C:/Program Files/Vim/vim74/gvim.exe"
+	autocrlf = true
+
