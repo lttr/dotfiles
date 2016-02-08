@@ -1,26 +1,30 @@
 [alias]
-	st = status
-	co = checkout
-	br = branch
-	up = rebase
-	ci = commit
-	sb = show-branch
-	s = status -s
-	l = log --graph --decorate --oneline -n20
 	a = add
 	aa = add --all
+	br = branch
 	ca = commit --amend
 	can = commit --amend --no-edit
-	cg = config --global
-	lw = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" -n20
-	lwa = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" --all
-	la = log --graph --decorate --oneline --all
-	cf = show --name-status
+	confg = config --global
+	changed = update-index --no-assume-unchanged
+	ci = commit
+	co = checkout
+	l = log --graph --decorate --oneline -n20
+	la = log --graph --decorate --oneline -n20 --all
+	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
 	lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
 	logmy = log --all -n10 --author=\"Lukas Trumm\"
+	lw = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" -n20
+	lwa = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" --all
+	s = status -s
+	sf = show --name-status
+	st = status
 	unchanged = update-index --assume-unchanged
-	changed = update-index --no-assume-unchanged
-	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
+	bra = branch -a
+	fe = fetch
+	cg = config --global
+	aliases = config --global --get-regexp alias
+	cm = commit -m
+	lb = log --graph --decorate --oneline -n20 --branches
 [merge]
 	tool = gvimdiff
 [push]
@@ -32,4 +36,4 @@
 	status = auto
 	branch = auto
 [include]
-    path = .gitconfig.local
+	path = .gitconfig.local
