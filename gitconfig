@@ -1,30 +1,37 @@
 [alias]
+	# add
 	a = add
 	aa = add --all
+	# branch
 	br = branch
-	ca = commit --amend
-	can = commit --amend --no-edit
-	confg = config --global
-	changed = update-index --no-assume-unchanged
-	ci = commit
+	bra = branch -a
 	co = checkout
+	# commit
+	can = commit --amend --no-edit
+	ci = commit
+	cm = commit -m
+	ca = commit -a -m
+	# config
+	aliases = config --global --get-regexp alias
+	cg = config --global --includes
+	# log
 	l = log --graph --decorate --oneline -n20
 	la = log --graph --decorate --oneline -n20 --all
-	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
+	lb = log --graph --decorate --oneline -n20 --branches
 	lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
 	logmy = log --all -n10 --author=\"Lukas Trumm\"
 	lw = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" -n20
 	lwa = log --pretty=format:\"%h %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %an  %s\" --all
+	# remote
+	fe = fetch
+	# status
+	st = status
 	s = status -s
 	sf = show --name-status
-	st = status
+	# update
+	changed = update-index --no-assume-unchanged
 	unchanged = update-index --assume-unchanged
-	bra = branch -a
-	fe = fetch
-	cg = config --global
-	aliases = config --global --get-regexp alias
-	cm = commit -m
-	lb = log --graph --decorate --oneline -n20 --branches
+	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
 [merge]
 	tool = gvimdiff
 [push]
