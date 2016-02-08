@@ -417,8 +417,10 @@ nnoremap gV `[v`]
 nnoremap <LocalLeader>" m`viw<esc>a"<esc>hbi"<esc>lel``
 nnoremap <LocalLeader>' m`viw<esc>a'<esc>hbi'<esc>lel``
 " Toggle between single and double quotes
-nnoremap g' m`:s/['"]/\="'\""[submatch(0)!='"']/g<CR>``
-vnoremap g' m`:s/['"]/\="'\""[submatch(0)!='"']/g<CR>``
+nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
+vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
+" Toggle between backslashes and forward slashes
+noremap <silent> g/ :ToggleSlash<CR>
 
 " ===== Windows and Buffers =====
 " Set working dir to current file dir, only for current window
@@ -1287,3 +1289,20 @@ if has("gui_running")
 endif
 " End of position saving script
 
+" ===== Toggle slashes =====
+" http://vim.wikia.com/wiki/Change_between_backslash_and_forward_slash
+function! ToggleSlash(independent) range
+  let from = ''
+  for lnum in range(a:firstline, a:lastline)
+    let line = getline(lnum)
+    let first = matchstr(line, '[/\\]')
+    if !empty(first)
+      if a:independent || empty(from)
+        let from = first
+      endif
+      let opposite = (from == '/' ? '\' : '/')
+      call setline(lnum, substitute(line, from, opposite, 'g'))
+    endif
+  endfor
+endfunction
+command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
