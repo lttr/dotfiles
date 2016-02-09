@@ -86,7 +86,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'triglav/vim-visual-increment'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
-Plug 'vim-scripts/Improved-paragraph-motion'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'vim-scripts/dbext.vim'
@@ -191,7 +190,7 @@ endif
 " ==============================================================================
 
 "  ===== Language =====
-language us
+" language us
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
