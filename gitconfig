@@ -11,13 +11,17 @@
 	bra = branch -a
 	co = checkout
 	# commit
-	can = commit --amend --no-edit
+	can = commit --amend --no-edit  # add staged to last commit (into 'can')
 	ci = commit
 	cm = commit -m
-	ca = commit -a -m
+	ca = commit -a -m   # commit all changes in tracked files
 	# config
 	aliases = config --global --includes --get-regexp alias
 	cg = config --global --includes
+	# diff
+	d = diff            # changes not staged yet
+	ds = diff --staged  # what is already staged in the index
+	dh = diff HEAD      # all changes from last commit
 	# log
 	l = log --graph --decorate --oneline -n20
 	la = log --graph --decorate --oneline -n20 --all
