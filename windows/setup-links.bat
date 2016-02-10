@@ -30,10 +30,3 @@ rmdir %USERPROFILE%\.freemind
 mklink /d %USERPROFILE%\.freemind %SYNC_DIR%\conf\freemind
 attrib /L +H %USERPROFILE%\.freemind
 
-rmdir %USERPROFILE%\.vim
-mklink /d %USERPROFILE%\.vim %SYNC_DIR%\conf\vim
-attrib /L +H %USERPROFILE%\.vim
-rmdir %USERPROFILE%\vimfiles
-mklink /d %USERPROFILE%\vimfiles %SYNC_DIR%\conf\vim
-attrib /L +H %USERPROFILE%\vimfiles
-
