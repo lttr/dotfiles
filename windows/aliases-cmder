@@ -13,20 +13,21 @@ history=cat %CMDER_ROOT%\config\.history
 unalias=alias /d $1
 
 ;= ===== Directories =====
-dev=cd %USERPROFILE%\dev
-desktop=cd %USERPROFILE%\Desktop
-desk=cd %USERPROFILE%\Desktop
-dotfiles=cd %SYNC_DIR%\conf\dotfiles
-home=cd %USERPROFILE%
+cdvagrant=cd C:\Users\Lukas\Virtualization\Vagrant\centos
+cms=cd c:\work\cms\head\src
 conf=cd %SYNC_DIR%\conf
+desk=cd %USERPROFILE%\Desktop
+desktop=cd %USERPROFILE%\Desktop
+dev=cd %USERPROFILE%\dev
+dotfiles=cd %USERPROFILE%\dotfiles
+fbcs=cd c:\work\fbcs\workspace\head\COMMON_SYSTEM\
+home=cd %USERPROFILE%
 scripts=cd %SYNC_DIR%\scripts
 syncdir=cd %SYNC_DIR%
-utils=cd %SYNC_DIR%\utils
-vimfiles=cd %SYNC_DIR%\conf\vim
-work=cd c:\Work
 tasks=cd %USERPROFILE%\Tasks
+utils=cd %SYNC_DIR%\utils
+vimfiles=cd %USERPROFILE%\vim
+work=cd c:\Work
 
 ;= ===== Integration =====
 tc="c:\Program Files\totalcmd\TOTALCMD64.EXE" /O %CD%
-cdvagrant=cd C:\Users\Lukas\Virtualization\Vagrant\centos  
-fbcs=cd c:\work\fbcs\workspace\head\COMMON_SYSTEM\  
