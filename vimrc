@@ -573,8 +573,9 @@ augroup END
 " ===== Dosbatch =====
 augroup dosbatch
     autocmd!
+	autocmd FileType dosbatch set formatoptions -=o
     " Run dosbatch bat file
-    autocmd FileType dosbatch nnoremap <buffer> <leader>c :w<CR>:Clam %:p<CR>gg<C-w>w
+    autocmd FileType dosbatch nnoremap <buffer> <leader>r :w<CR>:Clam %:p<CR>gg<C-w>w
 augroup END
 
 " ===== HTML =====
@@ -812,8 +813,8 @@ let g:formatters_sql = ['my_sql']
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
 nnoremap <c-p> :CtrlP<cr>
-" Set alt+p for most recently used files
-nnoremap <a-p> :CtrlPMRUFiles<cr>
+" Set ctrl+h for most recently used files ('h'istory)
+nnoremap <c-h> :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
     \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
@@ -896,7 +897,9 @@ let g:lightline = {
     \ },
     \ 'inactive': {
     \   'left': [ [ 'filename', 'modified' ] ],
-    \   'right': [ [  ], [ '', 'lineinfo', 'percentage' ] ]
+	\   'right': [ [ 'fugitive' ],
+	\              [ '' ],
+	\              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
     \ },
     \ 'component': {
     \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
