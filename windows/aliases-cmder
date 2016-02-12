@@ -28,6 +28,7 @@ tasks=cd %USERPROFILE%\Tasks
 utils=cd %SYNC_DIR%\utils
 vimfiles=cd %USERPROFILE%\vim
 work=cd c:\Work
+sandbox=cd %USERPROFILE%\sandbox  
 
 ;= ===== Integration =====
 tc="c:\Program Files\totalcmd\TOTALCMD64.EXE" /O %CD%
