@@ -12,6 +12,10 @@ del /A:H %USERPROFILE%\.vrapperrc
 mklink %USERPROFILE%\.vrapperrc %USERPROFILE%\dotfiles\vrapperrc
 attrib /L +H %USERPROFILE%\.vrapperrc
 
+del /A:H %USERPROFILE%\.ideavimrc
+mklink %USERPROFILE%\.ideavimrc %USERPROFILE%\dotfiles\vrapperrc
+attrib /L +H %USERPROFILE%\.ideavimrc
+
 
 @REM Other links
 
