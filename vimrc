@@ -829,9 +829,6 @@ hi def link CSVColumnHeaderEven vimCommentString
 hi def link CSVColumnOdd        vimSynMtchOpt
 hi def link CSVColumnEven       normal
 
-" ===== dbext =====
-let g:dbext_default_profile_mysql_local = 'type=MYSQL:user=root:passwd=password:host=localhost:port=3306:dbname=esch'
-
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
 let g:delimitMate_expand_space = 1  " Expand the <space> on both sides
