@@ -197,7 +197,7 @@ set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
 " ===== Font =====
 if has('unix')
-  set guifont=Monospace
+  set guifont=Monospace\ 12
 else
   set guifont=Consolas:h11 
 endif
