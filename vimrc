@@ -850,18 +850,17 @@ let g:emmet_html5           = 1
 " ===== Fugitive =====
 augroup fugitive
     autocmd!
+	" delete w fugitive buffer from buffer list when no longer visible
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
-
-	" command Greview :Git! diff --staged
-	" nnoremap <leader>gr :Greview<cr>
 
 	nnoremap <Leader>ga :Git add %:p<CR><CR>
 	nnoremap <Leader>gs :Gstatus<CR>
 	nnoremap <Leader>gc :Gcommit -v -q<CR>
 	nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
 	nnoremap <Leader>gd :Gdiff<CR>
+	nnoremap <Leader>gds :Git! diff --staged
 	nnoremap <Leader>ge :Gedit<CR>
-	" nnoremap <Leader>gr :Gread<CR>
+	nnoremap <Leader>gr :Gread<CR>
 	nnoremap <Leader>gw :Gwrite<CR><CR>
 	nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
 	nnoremap <Leader>gp :Ggrep<Space>
