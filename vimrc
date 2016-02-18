@@ -46,7 +46,7 @@ Plug 'gregsexton/gitv' ",                   { 'on': 'Gitv'              }
 Plug 'groenewege/vim-less'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'honza/vim-snippets'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'janiczek/vim-latte'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/vim-journal'
@@ -216,21 +216,27 @@ set guitablabel=%f
 " ===== Status line  =====
 " Currently using Lightline plugin
 " useful tips: http://stackoverflow.com/q/5375240
-" set noruler                                      " No useful info in ruler for me
-" set laststatus =2                                " Always show statusline
-" " Left side
-" set statusline =
-" set statusline +=\ %<%f                          " tail of the filename
-" set statusline +=\ %m                            " modified flag
-" set statusline +=\ %r                            " read only flag
-" set statusline +=\ %=                            " left/right separator
-" " Right side
-" set statusline +=\ \|\ %{&ft}                        " filetype (neither %y nor %Y does fit)
-" set statusline +=\ \|\ %{strlen(&fenc)?&fenc:'none'} " file encoding
-" set statusline +=\ \|\ %{toupper(strpart(&ff,0,1))}  " file format
-" set statusline +=\ \|\ %l-%c                         " total lines and virtual column number
-" set statusline +=\ \|\ %p
-" set statusline +=\                                   " right margin
+set noruler                                          " No useful info in ruler for me
+set laststatus =2                                    " Always show statusline
+
+" Left side
+set statusline =
+set statusline +=\ %<%f                              " tail of the filename
+set statusline +=\ %m                                " modified flag
+set statusline +=\ %r                                " read only flag
+" insert current git branch name, 7 chars from commit in case of detached HEAD 
+set statusline+=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
+
+" Separator
+set statusline +=\ %=                                " left/right separator
+
+" Right side
+set statusline +=\ \|\ %{&ft}                        " filetype (neither %y nor %Y does fit)
+set statusline +=\ \|\ %{&fenc}                      " file encoding
+set statusline +=\ \|\ %{strpart(&ff,0,1)}           " file format
+set statusline +=\ \|\ %l:%c                         " total lines and virtual column number
+set statusline +=\ \|\ %P                            " percentage
+set statusline +=\                                   " right margin
 
 " ===== Syntax highlighting =====
 syntax enable
@@ -882,32 +888,32 @@ let g:goyo_margin_bottom=2 " (default: 4)
 " ===== IndentLine =====
 let g:indentLine_enabled = 0
 
-" ===== Lightline =====
-let g:lightline = {
-    \ 'colorscheme': 'solarized',
-    \ 'active': {
-    \   'left': [ [ 'paste' ],
-    \             [ 'readonly', 'filename', 'modified' ] ],
-    \   'right': [ [ 'fugitive' ],
-    \              [ '' ],
-    \              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
-    \ },
-    \ 'inactive': {
-    \   'left': [ [ 'filename', 'modified' ] ],
-	\   'right': [ [ 'fugitive' ],
-	\              [ '' ],
-	\              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
-    \ },
-    \ 'component': {
-    \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
-    \   'fileformat': '%{toupper(strpart(&ff,0,1))}',
-    \   'lineinfo': '%l:%c',
-	\   'percentage': '%P'
-    \ },
-    \ 'component_visible_condition': {
-    \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-    \ }
-    \ }
+" " ===== Lightline =====
+" let g:lightline = {
+"     \ 'colorscheme': 'solarized',
+"     \ 'active': {
+"     \   'left': [ [ 'paste' ],
+"     \             [ 'readonly', 'filename', 'modified' ] ],
+"     \   'right': [ [ 'fugitive' ],
+"     \              [ '' ],
+"     \              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
+"     \ },
+"     \ 'inactive': {
+"     \   'left': [ [ 'filename', 'modified' ] ],
+" 	\   'right': [ [ 'fugitive' ],
+" 	\              [ '' ],
+" 	\              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
+"     \ },
+"     \ 'component': {
+"     \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+"     \   'fileformat': '%{toupper(strpart(&ff,0,1))}',
+"     \   'lineinfo': '%l:%c',
+" 	\   'percentage': '%P'
+"     \ },
+"     \ 'component_visible_condition': {
+"     \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+"     \ }
+"     \ }
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log' 
