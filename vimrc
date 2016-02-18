@@ -430,7 +430,7 @@ noremap <silent> g/ :ToggleSlash<CR>
 
 " ===== Windows and Buffers =====
 " Set working dir to current file dir, only for current window
-nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
+nnoremap <leader>. :lcd "%:p:h"<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 
 " Open previous buffer
 noremap <leader>v :vsplit<CR>:bp<CR>
