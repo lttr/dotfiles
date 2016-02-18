@@ -23,8 +23,9 @@
 	ds = diff --staged  # what is already staged in the index
 	dh = diff HEAD      # all changes from last commit
 	# log
-	l = log --graph --decorate --oneline -n20 --branches
+	l = log --graph --decorate --oneline -n20
 	la = log --graph --decorate --oneline -n20 --all
+	lb = log --graph --decorate --oneline -n20 --branches
 	lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
 	logmy = log --all -n10 --author=\"Lukas Trumm\"
 	lw = log --pretty=format:\"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b\" -n20 --graph --branches
