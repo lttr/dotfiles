@@ -97,6 +97,7 @@ Plug 'vim-voom/VOoM' ",                     { 'on': 'Voom'              }
 Plug 'vobornik/vim-mql4'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
+Plug 'hdima/python-syntax'
 
 call plug#end()
 
@@ -707,7 +708,8 @@ augroup END
 augroup python
     autocmd!
     autocmd FileType python let python_highlight_all =1
-    autocmd FileType python setlocal textwidth  =79
+    autocmd FileType python setlocal textwidth =79
+	autocmd FileType python setlocal tabstop   =4
 
     if has('win32')
         autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
