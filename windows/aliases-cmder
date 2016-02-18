@@ -22,13 +22,14 @@ dev=cd %USERPROFILE%\dev
 dotfiles=cd %USERPROFILE%\dotfiles
 fbcs=cd c:\work\fbcs\workspace\head\COMMON_SYSTEM\
 home=cd %USERPROFILE%
+linis=cd c:\work\linis\SafetyMonitor\l2py  
+sandbox=cd %USERPROFILE%\sandbox  
 scripts=cd %SYNC_DIR%\scripts
 syncdir=cd %SYNC_DIR%
 tasks=cd %USERPROFILE%\Tasks
 utils=cd %SYNC_DIR%\utils
 vimfiles=cd %USERPROFILE%\vim
 work=cd c:\Work
-sandbox=cd %USERPROFILE%\sandbox  
 
 ;= ===== Integration =====
 tc="c:\Program Files\totalcmd\TOTALCMD64.EXE" /O %CD%
