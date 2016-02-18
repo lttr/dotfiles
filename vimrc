@@ -626,7 +626,13 @@ augroup jira
 augroup END
 
 " Create Jira style aligned table from tab separated items of one paragraph
-command! JiraTable :call JiraTable()
+" First line will have double | (pipe) characters as separators
+command! JiraTable normal
+	\ vip:s/\t/|/g<CR>
+	\ vip:s/^/|\ /<CR>
+	\ vip:s/$/\ |/<CR>
+	\ vip:Tabularize/|<CR>
+	\ {j:s/|\ \?/||/g<CR>
 
 " ===== Markdown =====
 augroup markdown
@@ -671,14 +677,25 @@ augroup markdown
     autocmd FileType markdown nnoremap <LocalLeader>l :s/\v((https?\|www).*\/)([^\/ \t)]+)(\/?)/[\3](&)/<CR>vi[
 augroup END
 
-" Create Markdown (GFM) style table from tab separated items of one paragraph
-command! MDtable :call MDtable()
+" Creates Markdown (GFM) style table from tab separated items of one paragraph
+" Second line will be a separator between head and body of the table
+command! MDtable normal
+	\ vip:s/\t/|/g<CR>
+	\ vip:Tabularize/|<CR>
+	\ yyp:s/[^ |]/-/g<CR>
+	\ :s/\([^|]\)\ \([^ |]\)/\1-\2/g<CR>
+
 " Create Markdown ordered list
-command! MDlist :call MDlist()
+" Adds numbers and align the list
+command! MDlist normal
+	\ vipI1. }k
+	\ :Tabularize/^[^ ]*\zs\ /l0
+
 " Create Markdown main heading from file name
-command! MDfiletohead :call MDfiletohead()
-" Save as Markdown file with file name same as main heading
-command! MDheadtofile :call MDheadtofile()
+command! MDfiletohead normal
+	\ ggOi%dF.x0vU
+	\ yypVr=o
+
 " Creates Markdown style web links
 " Replaces any row and following row with URL with Markdown syntax for links
 command! MDlinks :%s/\(.*\)\n\(\(http\|www\).*\)/[\1](\2)/<CR>
@@ -1105,43 +1122,6 @@ function! ToggleTodo()
         endif
     endif
     normal j
-endfunction
-
-" Creates Jira style table from tab separated items of one paragraph
-" First line will have double | (pipe) characters as separators
-function! JiraTable()
-    execute "normal! vip:s/\t/|/g<CR>"
-    execute "normal! vip:s/^/|\ /<CR>"
-    execute "normal! vip:s/$/\ |/<CR>"
-    execute "normal! vip:Tab/|<CR>"
-    execute "normal! {j:s/|\ \?/||/g<CR>"
-endfunction
-
-" Creates Markdown (GFM) style table from tab separated items of one paragraph
-" Second line will be a separator between head and body of the table
-function! MDtable()
-    normal vip:s/\t/|/g
-vip:Tab/|
-yyp:s/[^ |]/-/g
-:s/\([^|]\)\ \([^ |]\)/\1-\2/g
-endfunction
-
-" Creates Markdown orderded list
-" Adds numbers and align the list
-function! MDlist()
-    normal vipI1. }k
-    :Tab/^[^ ]*\zs\ /l0
-endfunction
-
-" Create Markdown main heading from file name
-function! MDfiletohead()
-    normal ggOi%dF.x0vU:s/-/\ /g
-yypVr=o
-endfunction
-
-" Save as Markdown file with file name same as main heading
-function! MDheadtofile()
-    normal gg0v$hy:w ".md
 endfunction
 
 " Creates Perl like list definition from lines
