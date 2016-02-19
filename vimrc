@@ -5,7 +5,7 @@
 " Source the _vimrc and _gvimrc file after saving it
 augroup configuration
     autocmd!
-    autocmd BufWritePost _vimrc source $MYVIMRC
+    autocmd BufWritePost vimrc source $MYVIMRC
 augroup END
 
 " }}}
@@ -252,26 +252,13 @@ set synmaxcol  =500             " Max column in which to search for syntax items
 set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
 
 " ===== Fonts customization =====
-" TODO this is not a systematic approach
 
-" Hide non text lines
-hi NonText guifg=#c2c0ba        
-" Markdown
-hi Title guifg=#586e75
-hi htmlBold gui=bold guifg=#839496
-hi mkdIndentCode guifg=#b58900
-hi mkdCode guifg=#b58900
-hi mkdURL guifg=#839496
-hi mkdID guifg=#b58900
 " Search
-hi Search guifg=#e7dfc6 guibg=#073642
-hi IncSearch guifg=#e7dfc6 guibg=#073642
-" Error messages
-hi! ErrorMsg guibg=#cb4b16 guifg=#fdf6e3
-" Fold column same like background
-hi FoldColumn guibg=#fdf6e3
+" hi Search guifg=#e7dfc6 guibg=#073642
+" hi IncSearch guifg=#e7dfc6 guibg=#073642
 " Row numbers
 hi LineNr guifg=#c2c0ba
+hi LineNr ctermfg=251
 
 " }}}
 " ==============================================================================
@@ -1292,3 +1279,4 @@ function! ToggleSlash(independent) range
   endfor
 endfunction
 command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
+
