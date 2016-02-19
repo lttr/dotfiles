@@ -41,8 +41,6 @@
 	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
 [push]
 	default = simple
-[credential]
-	helper = manager
 [color]
 	diff = auto
 	status = auto
