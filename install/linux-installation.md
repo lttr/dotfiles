@@ -10,6 +10,16 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
 sudo dpkg -i google-chrome*.deb
 ```
 
+Install Dropbox
+[Dropbox helpcenter](https://www.dropbox.com/en/help/246)
+```
+sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 5044912E
+sudo add-apt-repository "deb http://linux.dropbox.com/ubuntu $(lsb_release -sc) main"
+sudo apt-get update
+sudo apt-get install nautilus-dropbox
+```
+
+
 Probably update apt-get
 ```
 sudo apt-get -f install
