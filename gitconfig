@@ -29,6 +29,7 @@
 	lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
 	logmy = log --all -n10 --author=\"Lukas Trumm\"
 	lw = log --pretty=format:\"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b\" -n20 --graph --branches
+	h = log --pretty=format:\"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b\" --all --follow  # history of a file
 	sf = show --name-status
 	# remote
 	fe = fetch
