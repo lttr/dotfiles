@@ -10,6 +10,15 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_i386.deb
 sudo dpkg -i google-chrome*.deb
 ```
 
+newer:
+```
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> 
+/etc/apt/sources.list.d/google.list'
+sudo apt-get update 
+sudo apt-get install google-chrome-stable
+```
+
 Install Dropbox
 [Dropbox helpcenter](https://www.dropbox.com/en/help/246)
 ```
@@ -33,6 +42,15 @@ sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
 sudo apt-get install -y curl vim git zsh silversearcher-ag xdotool xbindkeys gpick python-setuptools rcm
 sudo chsh -s $(which zsh) $(whoami)
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+```
+
+Install git credential helper for gnome
+```
+sudo apt-get install libgnome-keyring-dev
+cd /usr/share/doc/git/contrib/credential/gnome-keyring
+sudo make
+git config --global credential.helper 
+/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 ```
 
 Neovim
@@ -134,9 +152,41 @@ sudo ./quicktile/setup.py install
 [how-to-add-display-resolution-fo-an-lcd-in-ubuntu-12-04-xrandr-problem](http://askubuntu.com/questions/138408/how-to-add-display-resolution-fo-an-lcd-in-ubuntu-12-04-xrandr-problem)
 
 ```
-cvt -r 1920 1200
+cvt -r 1920 1200 60
 xrandr --newmode "1920x1200R"  154.00  1920 1968 2000 2080  1200 1203 1209 1235 +hsync -vsync
 xrandr --addmode DVI-I-1 "1920x1200R"
 xrandr --output DVI-I-1 --mode "1920x1200R"
+```
+
+## Themes
+
+Paper theme
+```
+sudo add-apt-repository ppa:snwh/pulp
+sudo apt-get update && sudo apt-get install paper-icon-theme paper-gtk-theme
+```
+
+Gnome keybindings
+```
+gsettings list-recursively org.gnome.shell.keybindings > gnome-keys-export
+```
+
+
+Set up directories
+```
+rmdir Downloads Desktop Music Pictures Public Templates Videos
+mkdir bin down opt sandbox tasks
+```
+
+Set up krusader settings
+```
+mv ~/.kde/share/config/krusaderrc ~/Dropbox/conf/krusader
+ln -s ~/Dropbox/conf/krusader/krusaderrc ~/.kde/share/config/krusaderrc 
+mv ~/.kde/share/apps/krusader/krbookmarks.xml ~/Dropbox/conf/krusader
+ln -s ~/Dropbox/conf/krusader/krbookmarks.xml ~/.kde/share/apps/krusader/krbookmarks.xml 
+mv ~/.kde/share/apps/krusader/krusaderui.rc ~/Dropbox/conf/krusader
+ln -s ~/Dropbox/conf/krusader/krusaderui.rc ~/.kde/share/apps/krusader/krusaderui.rc 
+mv ~/.kde/share/apps/krusader/useractions.xml ~/Dropbox/conf/krusader
+ln -s ~/Dropbox/conf/krusader/useractions.xml ~/.kde/share/apps/krusader/useractions.xml 
 ```
 
