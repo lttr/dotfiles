@@ -101,6 +101,7 @@ cd gnome-terminal-colors-solarized
 ./set_light.sh
 ```
 ### Caps Lock vs Escape
+Does not work on Ubuntu Gnome, the tweak tool there is handy though
 ```
 /usr/bin/setxkbmap -option 'caps:swapescape'
 ```
