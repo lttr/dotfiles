@@ -68,5 +68,19 @@ shell-extension-install $GNOME_VERSION 358
 shell-extension-install $GNOME_VERSION 949
 
 
+# Configuration
+
+# shell theme
+gsettings set org.gnome.shell.extensions.user-theme name "Paper"
+# cursor theme
+gsettings set org.gnome.desktop.interface cursor-theme "Paper"
+# gtk theme
+gsettings set org.gnome.desktop.interface gtk-theme "Paper"
+# icon theme
+gsettings set org.gnome.desktop.interface icon-theme "Paper"
+
+
 # Restart Gnome shell
 gnome-shell --replace &
+
+
