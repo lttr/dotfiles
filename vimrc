@@ -129,9 +129,9 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 set backup                     " Make backups
 execute ':silent !mkdir -p ~/.vim/backups'
 execute ':silent !mkdir -p ~/.vim/undos'
-set backupdir  =~/.vim/backups " List of directory names for backup files
-set directory  =~/.vim/backups " List of directory names for swap files
-set undodir    =~/.vim/undos   " List of directory names for undo files
+set backupdir  =~/vimfiles/backups " List of directory names for backup files
+set directory  =~/vimfiles/backups " List of directory names for swap files
+set undodir    =~/vimfiles/undos   " List of directory names for undo files
 set undofile                   " Automatically saves undo history to an undo file
 set undolevels =1000           " Maximum number of changes that can be undone
 set undoreload =10000          " Maximum number lines to save for undo on a buffer reload
@@ -605,6 +605,12 @@ augroup END
 augroup javascript
     autocmd!
     autocmd Filetype javascript nnoremap <buffer> <CR> :w<CR>
+augroup END
+
+" ===== Json =====
+augroup json
+	autocmd!
+	autocmd Filetype json nnoremap <leader>f :%!python -m json.tool<CR>
 augroup END
 
 " ===== Jira =====
