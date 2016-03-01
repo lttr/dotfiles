@@ -31,6 +31,7 @@
 	lw = log --pretty=format:\"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b\" -n20 --graph --branches
 	h = log --pretty=format:\"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b\" --all --follow  # history of a file
 	sf = show --name-status
+	find = log --all --name-status --grep
 	# remote
 	fe = fetch
 	# status
