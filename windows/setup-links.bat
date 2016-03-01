@@ -19,11 +19,11 @@ attrib /L +H %USERPROFILE%\.ideavimrc
 
 @REM Other links
 
-del c:\cmder\config\aliases
-mklink c:\cmder\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
+del c:\tools\cmder\config\aliases
+mklink c:\tools\cmder\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
 
-del c:\cmder\config\ConEmu.xml
-mklink c:\cmder\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
+del c:\tools\cmder\config\ConEmu.xml
+mklink c:\tools\cmder\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
 
 del %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml
 mklink %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml %SYNC_DIR%\conf\mremoteng\extApps.xml
