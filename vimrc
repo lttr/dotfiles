@@ -129,9 +129,15 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 set backup                     " Make backups
 execute ':silent !mkdir -p ~/.vim/backups'
 execute ':silent !mkdir -p ~/.vim/undos'
-set backupdir  =~/vimfiles/backups " List of directory names for backup files
-set directory  =~/vimfiles/backups " List of directory names for swap files
-set undodir    =~/vimfiles/undos   " List of directory names for undo files
+if has('unix')
+    set backupdir =~/.vim/backups
+    set directory =~/.vim/backups
+    set undodir   =~/.vim/undos
+else
+    set backupdir  =~/vimfiles/backups " List of directory names for backup files
+    set directory  =~/vimfiles/backups " List of directory names for swap files
+    set undodir    =~/vimfiles/undos   " List of directory names for undo files
+endif
 set undofile                   " Automatically saves undo history to an undo file
 set undolevels =1000           " Maximum number of changes that can be undone
 set undoreload =10000          " Maximum number lines to save for undo on a buffer reload
