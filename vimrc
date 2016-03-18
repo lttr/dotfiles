@@ -31,7 +31,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Raimondi/delimitMate'
 Plug 'Yggdroot/indentLine' ",               { 'on': 'IndentLinesEnable' }
 Plug 'airblade/vim-gitgutter' ",            { 'on': 'GitGutterToggle'   }
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 Plug 'bonsaiben/bootstrap-snippets' ",      { 'for': 'html'             }
 Plug 'chrisbra/csv.vim' ",                  { 'for': 'csv'              }
 Plug 'chrisbra/unicode.vim'
@@ -127,16 +127,16 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 
 " ===== Directories ====== 
 set backup                     " Make backups
-execute ':silent !mkdir -p ~/.vim/backups'
-execute ':silent !mkdir -p ~/.vim/undos'
 if has('unix')
-    set backupdir =~/.vim/backups
-    set directory =~/.vim/backups
-    set undodir   =~/.vim/undos
+	execute ':silent !mkdir -p ~/.vim/backups'
+	execute ':silent !mkdir -p ~/.vim/undos'
+	set backupdir  =~/.vim/backups " List of directory names for backup files
+	set directory  =~/.vim/backups " List of directory names for swap files
+	set undodir    =~/.vim/undos   " List of directory names for undo files
 else
-    set backupdir  =~/vimfiles/backups " List of directory names for backup files
-    set directory  =~/vimfiles/backups " List of directory names for swap files
-    set undodir    =~/vimfiles/undos   " List of directory names for undo files
+	set backupdir  =~/vimfiles/backups " List of directory names for backup files
+	set directory  =~/vimfiles/backups " List of directory names for swap files
+	set undodir    =~/vimfiles/undos   " List of directory names for undo files
 endif
 set undofile                   " Automatically saves undo history to an undo file
 set undolevels =1000           " Maximum number of changes that can be undone
@@ -383,10 +383,8 @@ nnoremap <leader>V :split $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
 nnoremap <leader>gg :GitGutterToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <F3> :NERDTreeToggle<CR>
+nnoremap <F2> :NERDTreeFind<CR>
+nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
@@ -402,11 +400,11 @@ inoremap <C-s> <Esc>:update<CR>
 " ===== Searching =====
 " Visual search and Save search for later n. usage = multiple renaming
 " Even more powerful with cgn = change next occurance, than 
-nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
-vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>
+nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
+vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
 nnoremap gs :%s//g<Left><Left>
-vnoremap gs y:%s#<C-r>"##g<Left><Left>
+vnoremap gs y:%s#\><C-r>\>"##g<Left><Left>
 " Go substitute word
 nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
 
@@ -425,7 +423,7 @@ noremap <silent> g/ :ToggleSlash<CR>
 
 " ===== Windows and Buffers =====
 " Set working dir to current file dir, only for current window
-nnoremap <leader>. :lcd "%:p:h"<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
+nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 
 " Open previous buffer
 noremap <leader>v :vsplit<CR>:bp<CR>
@@ -461,8 +459,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 " Move screen 10 characters left or right in wrap mode
-nnoremap gh 10zh
-nnoremap gl 10zl
+nnoremap gh 40zh
+nnoremap gl 40zl
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
@@ -548,6 +546,7 @@ command! XMLSimplify :silent call XMLSimplify()
 " Common shortcuts
 " <leader>c = compile
 " <leader>r = run
+" <leader>t = test
 " <leader>h = help
 " <leader>k = check style
 " <leader>f = format
@@ -611,6 +610,7 @@ augroup END
 augroup javascript
     autocmd!
     autocmd Filetype javascript nnoremap <buffer> <CR> :w<CR>
+	autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
 augroup END
 
 " ===== Json =====
@@ -755,26 +755,20 @@ augroup sql
     " SQL comments
     autocmd FileType sql setlocal commentstring=--\ %s
 
-    autocmd FileType sql setlocal formatprg="sqlformatter \/is:\"    \" \/tc \/uk \/sk-"
-
     autocmd Filetype sql let g:dbext_default_window_use_horiz = 0  " Use vertical split
     autocmd Filetype sql let g:dbext_default_window_width = 120
+	autocmd Filetype sql let g:dbext_default_always_prompt_for_variables = -1
 
     autocmd FileType sql vnoremap <c-cr> :DBExecVisualSQL<cr>
     autocmd FileType sql nnoremap <c-cr> :DBExecSQLUnderCursor<cr>
 	autocmd FileType sql nnoremap <LocalLeader>r :echo g:dbext_rows_affected - 5<CR>
 
-
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
-    " Indentation of brackets
-    autocmd Filetype sql vnoremap <LocalLeader>s( :s/\(\S\)\ (/\1(/ge<cr><esc>
     " Upper case
-    autocmd Filetype sql vnoremap <LocalLeader>su :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
-    " New lines after keywords
-    autocmd Filetype sql vnoremap <LocalLeader>sp :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\ /&\r\1\t/ge<cr><esc>
-    " Expand
-    autocmd Filetype sql vnoremap <LocalLeader>se :s/\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<left join\>\\|\<inner join\>\\|\<group by\>\\|\<order by\>\)\_.\{-}\t/\U\1\ /ge<cr><esc>
+    autocmd Filetype sql noremap <LocalLeader>u :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
+    " New lines before and after keywords
+    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
 augroup END
 
 " ===== VBA =====
@@ -845,7 +839,7 @@ let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
     \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
 \}
-let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_working_path_mode = 'rc'
 
 " ===== CSV =====
 " let g:csv_no_conceal = 1 " Do not show | instead of ,
