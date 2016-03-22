@@ -49,3 +49,7 @@
 	branch = auto
 [include]
 	path = .gitconfig.local
+[merge]
+	tool = gvimdiff
+	conflictstyle = diff3
+
