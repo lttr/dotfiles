@@ -33,7 +33,7 @@ Plug 'Yggdroot/indentLine' ",               { 'on': 'IndentLinesEnable' }
 Plug 'airblade/vim-gitgutter' ",            { 'on': 'GitGutterToggle'   }
 " Plug 'airblade/vim-rooter'
 Plug 'bonsaiben/bootstrap-snippets' ",      { 'for': 'html'             }
-Plug 'chrisbra/csv.vim' ",                  { 'for': 'csv'              }
+Plug 'chrisbra/csv.vim',                    { 'for': 'csvx' }
 Plug 'chrisbra/unicode.vim'
 Plug 'coderifous/textobj-word-column.vim'
 Plug 'dhruvasagar/vim-table-mode'
@@ -848,6 +848,8 @@ hi def link CSVColumnHeaderOdd  vimCommentString
 hi def link CSVColumnHeaderEven vimCommentString
 hi def link CSVColumnOdd        vimSynMtchOpt
 hi def link CSVColumnEven       normal
+" Trick to switch CSV plugin on when set to file type 'csvx' by Plug
+command! CSVON let &ft='csvx' | let &ft='csv'
 
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
