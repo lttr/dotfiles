@@ -55,8 +55,6 @@ Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'kien/ctrlp.vim'
 Plug 'lttr/sql_iabbr.vim'
-Plug 'lttr/my-vim-syntax'
-Plug 'lttr/my-vim-colors'
 Plug 'majutsushi/tagbar' ",                 { 'on': 'TagbarToggle'      }
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree' ",                   { 'on': 'UndotreeToggle'    }
@@ -128,8 +126,6 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 " ===== Directories ====== 
 set backup                     " Make backups
 if has('unix')
-	execute ':silent !mkdir -p ~/.vim/backups'
-	execute ':silent !mkdir -p ~/.vim/undos'
 	set backupdir  =~/.vim/backups " List of directory names for backup files
 	set directory  =~/.vim/backups " List of directory names for swap files
 	set undodir    =~/.vim/undos   " List of directory names for undo files
@@ -1167,6 +1163,7 @@ endfunction
 " ( Source http://vimrcfu.com/snippet/171 )
 " :Bufferize digraphs
 " :Bufferize syntax
+" :Bufferize highlight
 " :Bufferize map
 " :Bufferize let g:
 function! s:Bufferize(cmd)

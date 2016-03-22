@@ -17,6 +17,8 @@ DOTFILES=(
     vrapperrc
     xbindkeysrc
     zshrc
+	vim/colors
+	vim/syntax
 )
 
 # Backup current dotfiles
