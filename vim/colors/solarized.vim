@@ -642,7 +642,8 @@ if ( has("gui_running") || &t_Co > 8 )
 else
     exe "hi! VertSplit"  .s:fmt_revbb  .s:fg_base00 .s:bg_base02
 endif
-exe "hi! Title"          .s:fmt_bold   .s:fg_orange .s:bg_none
+" exe "hi! Title"          .s:fmt_bold   .s:fg_orange .s:bg_none
+exe "hi! Title"          .s:fmt_bold   .s:fg_base0  .s:bg_none
 exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_base02 .s:fmt_revbb
 " exe "hi! WarningMsg"     .s:fmt_bold   .s:fg_red    .s:bg_none
 exe "hi! WarningMsg"     .s:fmt_none   .s:fg_orange    .s:bg_none
