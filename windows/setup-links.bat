@@ -1,5 +1,7 @@
 @REM Home dotfiles
 
+@echo off
+
 del /A:H %USERPROFILE%\.gitconfig
 mklink %USERPROFILE%\.gitconfig %USERPROFILE%\dotfiles\gitconfig
 attrib /L +H %USERPROFILE%\.gitconfig
@@ -13,23 +15,29 @@ mklink %USERPROFILE%\.vrapperrc %USERPROFILE%\dotfiles\vrapperrc
 attrib /L +H %USERPROFILE%\.vrapperrc
 
 del /A:H %USERPROFILE%\.ideavimrc
-mklink %USERPROFILE%\.ideavimrc %USERPROFILE%\dotfiles\vrapperrc
+mklink %USERPROFILE%\.ideavimrc %USERPROFILE%\dotfiles\ideavimrc
 attrib /L +H %USERPROFILE%\.ideavimrc
 
 
 @REM Other links
 
-del c:\tools\cmder\config\aliases
-mklink c:\tools\cmder\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
+del c:\cmder\config\aliases
+mklink c:\cmder\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
 
-del c:\tools\cmder\config\ConEmu.xml
-mklink c:\tools\cmder\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
+del c:\cmder\config\ConEmu.xml
+mklink c:\cmder\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
 
 del %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml
 mklink %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml %SYNC_DIR%\conf\mremoteng\extApps.xml
 
 
 @REM Directories
+
+rmdir %USERPROFILE%\vimfiles\colors
+mklink /d %USERPROFILE%\vimfiles\colors %USERPROFILE%\dotfiles\vim\colors
+
+rmdir %USERPROFILE%\vimfiles\syntax
+mklink /d %USERPROFILE%\vimfiles\syntax %USERPROFILE%\dotfiles\vim\syntax
 
 rmdir %USERPROFILE%\.docear
 mklink /d %USERPROFILE%\.docear %SYNC_DIR%\conf\docear
