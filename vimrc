@@ -29,35 +29,29 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Raimondi/delimitMate'
-Plug 'Yggdroot/indentLine' ",               { 'on': 'IndentLinesEnable' }
-Plug 'airblade/vim-gitgutter' ",            { 'on': 'GitGutterToggle'   }
-" Plug 'airblade/vim-rooter'
-Plug 'bonsaiben/bootstrap-snippets' ",      { 'for': 'html'             }
-Plug 'chrisbra/csv.vim',                    { 'for': 'csvx' }
+Plug 'airblade/vim-gitgutter' , { 'on': 'GitGutterToggle' }
+Plug 'airblade/vim-rooter'
+Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
+Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
 Plug 'chrisbra/unicode.vim'
 Plug 'coderifous/textobj-word-column.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'drmikehenry/vim-fontsize'
-Plug 'dzeban/vim-log-syntax' ",             { 'for': 'log'              }
+Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
 Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'godlygeek/tabular'
-Plug 'gregsexton/gitv' ",                   { 'on': 'Gitv'              }
+Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
 Plug 'groenewege/vim-less'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'honza/vim-snippets'
-" Plug 'itchyny/lightline.vim'
 Plug 'janiczek/vim-latte'
 Plug 'junegunn/goyo.vim'
-Plug 'junegunn/vim-journal'
-Plug 'justinmk/vim-gtfo'
-Plug 'kana/vim-textobj-function'
-Plug 'kana/vim-textobj-user'
 Plug 'kien/ctrlp.vim'
 Plug 'lttr/sql_iabbr.vim'
-Plug 'majutsushi/tagbar' ",                 { 'on': 'TagbarToggle'      }
+Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mattn/emmet-vim'
-Plug 'mbbill/undotree' ",                   { 'on': 'UndotreeToggle'    }
+Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'moll/vim-bbye'
 Plug 'othree/xml.vim'
@@ -65,7 +59,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim'
 Plug 'salsifis/vim-transpose'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree' ",               { 'on': 'NERDTreeToggle'    }
+Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
 Plug 'sickill/vim-pasta'
@@ -91,8 +85,8 @@ Plug 'vim-scripts/gnuplot.vim'
 Plug 'vim-scripts/loremipsum'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/visSum.vim'
-Plug 'vim-voom/VOoM' ",                     { 'on': 'Voom'              }
-Plug 'vobornik/vim-mql4'
+Plug 'vim-voom/VOoM'
+Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-shell'
 Plug 'hdima/python-syntax'
@@ -176,11 +170,10 @@ set shiftwidth  =4             " Number of spaces to use for each step of indent
 set shiftround                 " Round the size of indentation (using < and >) to shiftwidth
 set virtualedit =""            " Do not move the cursor behind last char
 " Following are not needed after vim-sleuth plugin is installed
-" set noexpandtab              " Use <Tab>s
-" set autoindent               " Copy indent from current line when starting a new line
-" set copyindent               " Autoindent the new line
-" set smarttab                 " Inserts or deletes blanks according to tab settings
-" set smartindent              " Try to be smart when starting a new line in some conditions
+set autoindent               " Copy indent from current line when starting a new line
+set copyindent               " Autoindent the new line
+set smarttab                 " Inserts or deletes blanks according to tab settings
+set smartindent              " Try to be smart when starting a new line in some conditions
 
 " ===== Wrapping =====
 set textwidth =0               " Maximum width of text that is being inserted (0 = no hard wrap)
@@ -257,9 +250,6 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 
 " ===== Fonts customization =====
 
-" Search
-" hi Search guifg=#e7dfc6 guibg=#073642
-" hi IncSearch guifg=#e7dfc6 guibg=#073642
 " Row numbers
 hi LineNr guifg=#c2c0ba
 hi LineNr ctermfg=251
@@ -380,7 +370,6 @@ nnoremap <leader>V :split $MYVIMRC<CR>
 " ===== Plugin toggles =====
 nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <F2> :NERDTreeFind<CR>
-nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
@@ -400,9 +389,11 @@ nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
 vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
 nnoremap gs :%s//g<Left><Left>
-vnoremap gs y:%s#\><C-r>\>"##g<Left><Left>
+vnoremap gs y:%s#<C-r>"##g<Left><Left>
 " Go substitute word
 nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
+" Go count occurances
+noremap gC :%s///gn<CR>
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
@@ -506,6 +497,7 @@ command! Extract :call Extract()
 " ===== Lists =====
 " Creates Perl style list definition from paragraph of items on lines
 command! -nargs=* ToList call MakeListFromLines(<q-args>)
+command! -nargs=* ToListClear call MakeClearListFromLines(<q-args>)
 " Reverse from the list to lines
 command! ToLines :call MakeLinesFromList()
 command! ToLinesClear :call MakeClearLinesFromList()
@@ -862,7 +854,7 @@ let g:emmet_html5           = 1
 " ===== Fugitive =====
 augroup fugitive
     autocmd!
-	" delete w fugitive buffer from buffer list when no longer visible
+	" delete fugitive buffer from buffer list when no longer visible
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 
 	nnoremap <Leader>ga :Git add %:p<CR><CR>
@@ -936,7 +928,8 @@ let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascri
 nnoremap <c-s-N> yiwvip:MultipleCursorsFind <c-r>"<CR>
 
 " ===== NERDTree =====
-let NERDTreeDirArrows=1
+let NERDTreeQuitOnOpen=1
+let NERDTreeIgnore=['\.pyc$', '\~$', '__\.pyc$']
 
 " ===== Pathogen plugin =====
 " execute pathogen#infect()
@@ -1120,11 +1113,23 @@ endfunction
 " Creates Perl like list definition from lines
 " Assumes that lines form a separated paragraph
 function! MakeListFromLines(...)
+	if a:0 > 0
+		execute "normal! vip$A".a:1."vip0I".a:1.""
+		normal vip$A,vipJA$x0
+	else
+		normal vip$A,vipJA$x0
+	endif
+endfunction
+function! MakeClearListFromLines(...)
     if a:0 > 0
         execute "normal! vip$A".a:1."vip0I".a:1.""
         normal vip$A,vipJA$x0
+		s/[ \t]\+//g
+		s/,/,\ /g
     else
         normal vip$A,vipJA$x0
+		s/[ \t]\+//g
+		s/,/,\ /g
     endif
 endfunction
 
