@@ -110,8 +110,8 @@ nnoremap <space>' m`viw<esc>a'<esc>hbi'<esc>lel``
 
 " ===== Unimpaired functionality =====
 " next and previous buffers (tabs)
-nnoremap ]b :bn<CR>
-nnoremap [b :bp<CR>
+nnoremap ]b gt
+nnoremap [b gT
 " add lines before and after current line
 nnoremap ]<space> m`o<Esc>``
 nnoremap [<space> m`O<Esc>``
