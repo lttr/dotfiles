@@ -854,25 +854,35 @@ let g:emmet_html5           = 1
 " ===== Fugitive =====
 augroup fugitive
     autocmd!
+	" [Source](http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/)
 	" delete fugitive buffer from buffer list when no longer visible
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
+
+    " Go up a level in git tree
+	autocmd User fugitive 
+		\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+		\   nnoremap <buffer> .. :edit %:h<CR> |
+		\ endif
 
 	nnoremap <Leader>ga :Git add %:p<CR><CR>
 	nnoremap <Leader>gs :Gstatus<CR>
 	nnoremap <Leader>gc :Gcommit -v -q<CR>
 	nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
 	nnoremap <Leader>gd :Gdiff<CR>
-	nnoremap <Leader>gds :Git! diff --staged
+	nnoremap <Leader>gdh :Gdiff -<CR>
+	nnoremap <Leader>gdd :Git! diff<CR>
+	nnoremap <Leader>gds :Git! diff --staged<CR>
 	nnoremap <Leader>ge :Gedit<CR>
 	nnoremap <Leader>gr :Gread<CR>
 	nnoremap <Leader>gw :Gwrite<CR><CR>
 	nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+	nnoremap <Leader>gll :Git l<CR>
 	nnoremap <Leader>gp :Ggrep<Space>
 	nnoremap <Leader>gm :Gmove<Space>
 	nnoremap <Leader>gb :Git branch<Space>
 	nnoremap <Leader>go :Git checkout<Space>
-	nnoremap <Leader>gps :Dispatch! git push<CR>
-	nnoremap <Leader>gpl :Dispatch! git pull<CR>
+	nnoremap <Leader>gps :Git push
+	nnoremap <Leader>gpl :Git pull
 augroup END
 
 " ===== GitGutter =====
