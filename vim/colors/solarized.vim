@@ -653,23 +653,27 @@ exe "hi! FoldColumn"     .s:fmt_none   .s:fg_base0  .s:bg_base02
 if      (g:solarized_diffmode=="high")
 exe "hi! DiffAdd"        .s:fmt_revr   .s:fg_green  .s:bg_none
 exe "hi! DiffChange"     .s:fmt_revr   .s:fg_yellow .s:bg_none
-exe "hi! DiffDelete"     .s:fmt_revr   .s:fg_red    .s:bg_none
+" exe "hi! DiffDelete"     .s:fmt_revr   .s:fg_red    .s:bg_none
+exe "hi! DiffDelete"     .s:fmt_revr   .s:fg_orange    .s:bg_none
 exe "hi! DiffText"       .s:fmt_revr   .s:fg_blue   .s:bg_none
 elseif  (g:solarized_diffmode=="low")
 exe "hi! DiffAdd"        .s:fmt_undr   .s:fg_green  .s:bg_none   .s:sp_green
 exe "hi! DiffChange"     .s:fmt_undr   .s:fg_yellow .s:bg_none   .s:sp_yellow
-exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_none
+" exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_none
+exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_orange    .s:bg_none
 exe "hi! DiffText"       .s:fmt_undr   .s:fg_blue   .s:bg_none   .s:sp_blue
 else " normal
     if has("gui_running")
 exe "hi! DiffAdd"        .s:fmt_bold   .s:fg_green  .s:bg_base02 .s:sp_green
 exe "hi! DiffChange"     .s:fmt_bold   .s:fg_yellow .s:bg_base02 .s:sp_yellow
-exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_base02
+" exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_base02
+exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_orange    .s:bg_base02
 exe "hi! DiffText"       .s:fmt_bold   .s:fg_blue   .s:bg_base02 .s:sp_blue
     else
 exe "hi! DiffAdd"        .s:fmt_none   .s:fg_green  .s:bg_base02 .s:sp_green
 exe "hi! DiffChange"     .s:fmt_none   .s:fg_yellow .s:bg_base02 .s:sp_yellow
-exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
+" exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
+exe "hi! DiffDelete"     .s:fmt_none   .s:fg_orange    .s:bg_base02
 exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_base02 .s:sp_blue
     endif
 endif
@@ -677,10 +681,12 @@ endif
 "I want light left column
 exe "hi! SignColumn"     .s:bg_none   .s:fg_base0
 exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_red
+" exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_red
+exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_yellow
 exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_violet
 exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_cyan
-exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_yellow
+" exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_yellow
+exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_orange
 exe "hi! Pmenu"          .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
 exe "hi! PmenuSel"       .s:fmt_none   .s:fg_base01 .s:bg_base2   .s:fmt_revbb
 exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_base2  .s:bg_base0   .s:fmt_revbb
@@ -759,9 +765,11 @@ hi! link gitcommitDiscarded gitcommitComment
 hi! link gitcommitSelected  gitcommitComment
 exe "hi! gitcommitUnmerged"     .s:fmt_bold     .s:fg_green     .s:bg_none
 exe "hi! gitcommitOnBranch"     .s:fmt_bold     .s:fg_base01    .s:bg_none
-exe "hi! gitcommitBranch"       .s:fmt_bold     .s:fg_magenta   .s:bg_none
+" exe "hi! gitcommitBranch"       .s:fmt_bold     .s:fg_magenta   .s:bg_none
+exe "hi! gitcommitBranch"       .s:fmt_none     .s:fg_magenta   .s:bg_none
 hi! link gitcommitNoBranch gitcommitBranch
-exe "hi! gitcommitDiscardedType".s:fmt_none     .s:fg_red       .s:bg_none
+" exe "hi! gitcommitDiscardedType".s:fmt_none     .s:fg_red       .s:bg_none
+exe "hi! gitcommitDiscardedType".s:fmt_none     .s:fg_orange       .s:bg_none
 exe "hi! gitcommitSelectedType" .s:fmt_none     .s:fg_green     .s:bg_none
 "exe "hi! gitcommitUnmergedType"
 "exe "hi! gitcommitType"
@@ -769,7 +777,8 @@ exe "hi! gitcommitSelectedType" .s:fmt_none     .s:fg_green     .s:bg_none
 "exe "hi! gitcommitHeader"
 exe "hi! gitcommitHeader"       .s:fmt_none     .s:fg_base01    .s:bg_none
 exe "hi! gitcommitUntrackedFile".s:fmt_bold     .s:fg_cyan      .s:bg_none
-exe "hi! gitcommitDiscardedFile".s:fmt_bold     .s:fg_red       .s:bg_none
+" exe "hi! gitcommitDiscardedFile".s:fmt_bold     .s:fg_red       .s:bg_none
+exe "hi! gitcommitDiscardedFile".s:fmt_bold     .s:fg_orange       .s:bg_none
 exe "hi! gitcommitSelectedFile" .s:fmt_bold     .s:fg_green     .s:bg_none
 exe "hi! gitcommitUnmergedFile" .s:fmt_bold     .s:fg_yellow    .s:bg_none
 exe "hi! gitcommitFile"         .s:fmt_bold     .s:fg_base0     .s:bg_none
@@ -1031,7 +1040,8 @@ function! s:SolarizedHiTrail()
         hi! clear solarizedTrailingSpace
     else
         syn match solarizedTrailingSpace "\s*$"
-        exe "hi! solarizedTrailingSpace " .s:fmt_undr .s:fg_red .s:bg_none .s:sp_red
+        " exe "hi! solarizedTrailingSpace " .s:fmt_undr .s:fg_red .s:bg_none .s:sp_red
+		exe "hi! solarizedTrailingSpace " .s:fmt_undr .s:fg_orange .s:bg_none .s:sp_red
     endif
 endfunction  
 augroup SolarizedHiTrail
