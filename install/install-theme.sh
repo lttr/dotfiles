@@ -80,6 +80,9 @@ gsettings set org.gnome.desktop.interface gtk-theme "Paper"
 gsettings set org.gnome.desktop.interface icon-theme "Paper"
 
 
+# Update fonts
+fc-cache -f -v
+
 # Restart Gnome shell
 gnome-shell --replace &
 

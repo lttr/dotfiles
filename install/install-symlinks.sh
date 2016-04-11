@@ -1,8 +1,10 @@
 #!/bin/bash
 
 set -e
+DOTFILES_BACKUP=~/dotfiles_backup
+mkdir -p $DOTFILES_BACKUP
 
-# ===== Symlink dotfiles =====
+# ===== Dotfiles =====
 
 # The full path of the parent dir is the dotfiles dir
 cd "$(dirname "$0")/.."
@@ -17,29 +19,38 @@ DOTFILES=(
     vimrc
     vrapperrc
     xbindkeysrc
+	xinitrc
+	Xresources
+	xsessionrc
     zshrc
 	vim/colors
 	vim/syntax
+	config/i3/config
+	bin
 )
-
-# Backup current dotfiles
-DOTFILES_BACKUP=~/dotfiles_backup
-mkdir -p $DOTFILES_BACKUP
 
 for dotfile in ${DOTFILES[@]}; do
 	if [[ -e ~/.$dotfile ]]; then
-		cp -b ~/.$dotfile $DOTFILES_BACKUP
-		rm ~/.$dotfile
+		cp -rb ~/.$dotfile $DOTFILES_BACKUP
+		echo "Dotfile backuped: ~/.$dotfile"
 	fi
-done
-
-# Symlink new dotfiles
-for dotfile in ${DOTFILES[@]}; do
 	ln -sf ${DOTFILES_ROOT}/$dotfile ~/.$dotfile
+	echo "Symlink created: ~/.$dotfile"
 done
 
 
-# ===== Symlink application configuration =====
+# ===== Bin =====
+if [[ -d ~/bin ]]; then
+	cp -rb ~/bin $DOTFILES_BACKUP
+	echo "~/bin backuped"
+fi
+ln -sf ${DOTFILES_ROOT}/bin ~/bin
+echo "Symlink created: ~/bin"
+
+
+# ===== Syncfiles =====
+
+SYNCDIR=~/Dropbox
 
 # Krusader
 KRUSADER_FILES=(
@@ -54,8 +65,13 @@ for krusader_file in "${KRUSADER_FILES[@]}"; do
 		rm $krusader_file
 	fi
 done
-KRUSADER_CONF=~/Dropbox/conf/krusader
+KRUSADER_CONF=${SYNCDIR}/conf/krusader
 ln -sf $KRUSADER_CONF/krusaderrc ~/.kde/share/config/krusaderrc 
 ln -sf $KRUSADER_CONF/krbookmarks.xml ~/.kde/share/apps/krusader/krbookmarks.xml 
 ln -sf $KRUSADER_CONF/krusaderui.rc ~/.kde/share/apps/krusader/krusaderui.rc 
 ln -sf $KRUSADER_CONF/useractions.xml ~/.kde/share/apps/krusader/useractions.xml 
+echo "Krusader configuration symlinked"
+
+# Fonts
+ln -sfn ${SYNCDIR}/conf/fonts ~/.fonts
+echo "Fonts symlinked"
