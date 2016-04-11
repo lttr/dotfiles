@@ -577,6 +577,18 @@ augroup syntax-sugar
     autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
+" ===== Bash =====
+augroup bash
+    autocmd!
+    autocmd BufRead,BufNewFile *.bash set filetype=sh
+augroup END
+
+" ===== Config =====
+augroup config
+	autocmd!
+	autocmd BufRead,BufNewFile *config set filetype=conf
+augroup END
+
 " ===== Dosbatch =====
 augroup dosbatch
     autocmd!
