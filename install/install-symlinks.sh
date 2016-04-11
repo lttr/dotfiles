@@ -13,6 +13,7 @@ DOTFILES=(
     gitconfig
     #gitignore_global
     ideavimrc
+    kdiff3rc
     vimrc
     vrapperrc
     xbindkeysrc

@@ -18,6 +18,9 @@ del /A:H %USERPROFILE%\.ideavimrc
 mklink %USERPROFILE%\.ideavimrc %USERPROFILE%\dotfiles\ideavimrc
 attrib /L +H %USERPROFILE%\.ideavimrc
 
+del /A:H %USERPROFILE%\.kdiff3rc
+mklink %USERPROFILE%\.kdiff3rc %USERPROFILE%\dotfiles\kdiff3rc
+attrib /L +H %USERPROFILE%\.kdiff3rc
 
 @REM Other links
 
