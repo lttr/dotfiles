@@ -9,19 +9,25 @@ sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /et
 # Skype
 sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 
+# Infinality for better fonts
+sudo add-apt-repository ppa:no1wantdthisname/ppa
 
 # ===== Install apt packages =====
 
 sudo apt-get update
 
 PACKAGES=(
+	compton
 	curl
 	dos2unix
+	fontconfig-infinality
 	freemind
 	git
 	gnuplot
 	google-chrome-stable
 	gpick
+	i3
+	i3blocks
 	inkscape
 	jabref
 	keepass2
@@ -31,8 +37,9 @@ PACKAGES=(
 	libindicator7
 	libxss1
 	lyx
+	lxappearance
 	nautilus-dropbox
-	# neovim
+	neovim
 	nodejs
 	npm
 	openvpn
@@ -46,6 +53,7 @@ PACKAGES=(
 	python-setuptools
 	python-wnck
 	python-xlib
+	rofi
 	qstardict
 	silversearcher-ag
 	skype
@@ -75,7 +83,7 @@ done
 
 # gsettings-info
 git clone https://github.com/jmatsuzawa/gsettings-info ~/opt/gsettings-info
-ln -s gsettings-info/gsettings-info ~/bin/gsettings-info
+ln -s ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
 
 
 # ===== Proprietary drivers =====
