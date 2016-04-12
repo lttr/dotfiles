@@ -13,7 +13,6 @@ history=cat %CMDER_ROOT%\config\.history
 unalias=alias /d $1
 
 ;= ===== Directories =====
-cdvagrant=cd C:\Users\Lukas\Virtualization\Vagrant\centos
 cms=cd c:\work\cms\head\src
 conf=cd %SYNC_DIR%\conf
 desk=cd %USERPROFILE%\Desktop
@@ -28,6 +27,7 @@ scripts=cd %SYNC_DIR%\scripts
 syncdir=cd %SYNC_DIR%
 tasks=cd %USERPROFILE%\Tasks
 utils=cd %SYNC_DIR%\utils
+vagdir=cd %USERPROFILE%\virtuals\Vagrant
 vimfiles=cd %USERPROFILE%\vim
 work=cd c:\Work
 

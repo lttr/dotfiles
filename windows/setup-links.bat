@@ -24,11 +24,11 @@ attrib /L +H %USERPROFILE%\.kdiff3rc
 
 @REM Other links
 
-del c:\cmder\config\aliases
-mklink c:\cmder\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
+del %CMDER_ROOT%\config\aliases
+mklink %CMDER_ROOT%\config\aliases %USERPROFILE%\dotfiles\windows\aliases-cmder
 
-del c:\cmder\config\ConEmu.xml
-mklink c:\cmder\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
+del %CMDER_ROOT%\config\ConEmu.xml
+mklink %CMDER_ROOT%\config\ConEmu.xml %SYNC_DIR%\conf\cmder\cmder-settings-%PLACE%.xml
 
 del %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml
 mklink %USERPROFILE%\AppData\Roaming\mRemoteNG\extApps.xml %SYNC_DIR%\conf\mremoteng\extApps.xml
