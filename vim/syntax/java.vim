@@ -293,21 +293,18 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaFuncDef		Function
   JavaHiLink javaVarArg			Function
   JavaHiLink javaBraces			Function
-  " JavaHiLink javaBranch			Conditional
-  JavaHiLink javaBranch			Type
+  JavaHiLink javaBranch			Conditional
   JavaHiLink javaUserLabelRef		javaUserLabel
   JavaHiLink javaLabel			Label
   JavaHiLink javaUserLabel		Label
-  " JavaHiLink javaConditional		Conditional
-  JavaHiLink javaConditional		Type
-  " JavaHiLink javaRepeat			Repeat
-  JavaHiLink javaRepeat			Type
+  JavaHiLink javaConditional		Conditional
+  JavaHiLink javaRepeat			Repeat
   JavaHiLink javaExceptions		Exception
   JavaHiLink javaAssert			Statement
   JavaHiLink javaStorageClass		StorageClass
-  JavaHiLink javaMethodDecl		javaStorageClass
-  JavaHiLink javaClassDecl		javaStorageClass
-  JavaHiLink javaScopeDecl		javaStorageClass
+  JavaHiLink javaMethodDecl		Statement
+  JavaHiLink javaClassDecl		Statement
+  JavaHiLink javaScopeDecl		Statement
   JavaHiLink javaBoolean		Boolean
   JavaHiLink javaSpecial		Special
   JavaHiLink javaSpecialError		Error
@@ -318,10 +315,8 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaNumber			Number
   JavaHiLink javaError			Error
   JavaHiLink javaStringError		Error
-  " JavaHiLink javaStatement		Statement
-  JavaHiLink javaStatement		Type
-  " JavaHiLink javaOperator		Operator
-  JavaHiLink javaOperator		Type
+  JavaHiLink javaStatement		Statement
+  JavaHiLink javaOperator		Statement
   JavaHiLink javaComment		Comment
   JavaHiLink javaDocComment		Comment
   JavaHiLink javaLineComment		Comment
@@ -343,8 +338,7 @@ if version >= 508 || !exists("did_java_syn_inits")
   " unlet b:current_syntax
 
   JavaHiLink javaType			Type
-  " JavaHiLink javaExternal		Include
-  JavaHiLink javaExternal		Type
+  JavaHiLink javaExternal		Statement
 
   JavaHiLink htmlComment		Special
   JavaHiLink htmlCommentPart		Special

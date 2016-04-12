@@ -235,28 +235,20 @@ if version >= 508 || !exists("did_sql_syn_inits")
 
     HiLink sqlComment       Comment
     HiLink sqlError         Error
-    " HiLink sqlFunction      Function
-	HiLink sqlFunction      Statement
+    HiLink sqlFunction      Function
     HiLink sqlUnknownFunc   Exception
-    " HiLink sqlKeyword       Special
-	HiLink sqlKeyword       Type
+	HiLink sqlKeyword       Statement
     HiLink sqlConditional   Conditional
-    " HiLink sqlNumber        Number
-	HiLink sqlNumber        Identifier
-    " HiLink sqlOperator      Operator
-	" HiLink sqlOperator      Type
-	HiLink sqlOperator      Statement
+    HiLink sqlNumber        Number
+    HiLink sqlOperator      Operator
     HiLink sqlParen         Comment
     HiLink sqlParenEmpty    Operator
-    " HiLink sqlParenFunc     Function
-	HiLink sqlParenFunc     Statement
+    HiLink sqlParenFunc     Function
     HiLink sqlSpecial       Keyword
-    " HiLink sqlStatement     Statement
-	HiLink sqlStatement     Type
+    HiLink sqlStatement     Statement
     HiLink sqlString        String
     HiLink sqlTodo          Todo
-    " HiLink sqlType          Type
-	HiLink sqlType          Statement
+    HiLink sqlType          Type
     HiLink sqlVariable      Identifier
     HiLink sqlAnyString     sqlString
     HiLink sqlAnyVariable   sqlVariable
