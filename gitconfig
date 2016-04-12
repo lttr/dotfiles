@@ -22,6 +22,11 @@
 	d = diff            # changes not staged yet
 	ds = diff --staged  # what is already staged in the index
 	dh = diff HEAD      # all changes from last commit
+	# files
+	changed = update-index --no-assume-unchanged
+	unchanged = update-index --assume-unchanged
+	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
+	ignored = ls-files --other --ignored --exclude-standard
 	# log
 	l = log --graph --decorate --oneline -n20
 	la = log --graph --decorate --oneline -n20 --all
@@ -37,10 +42,6 @@
 	# status
 	st = status
 	s = status -s
-	# update
-	changed = update-index --no-assume-unchanged
-	unchanged = update-index --assume-unchanged
-	listunchanged = !git ls-files -v | grep "^[[:lower:]]"
 [push]
 	default = simple
 [color]
