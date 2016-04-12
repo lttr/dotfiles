@@ -29,7 +29,6 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Raimondi/delimitMate'
-Plug 'airblade/vim-gitgutter' , { 'on': 'GitGutterToggle' }
 Plug 'airblade/vim-rooter'
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -70,6 +69,7 @@ Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
@@ -87,9 +87,9 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/visSum.vim'
 Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-shell'
-Plug 'hdima/python-syntax'
+Plug 'klen/python-mode'
+Plug 'idanarye/vim-vebugger'
+Plug 'Shougo/vimproc.vim'
 
 call plug#end()
 
@@ -364,11 +364,11 @@ cnoremap <RightMouse> <c-r>*
 " Open current document in browser (save it before)
 nnoremap <leader>o :w<CR>:OpenInVivaldi<CR>
 
-" ===== Open configuration files =====
+" ===== Open and reload $MYVIMRC =====
 nnoremap <leader>V :split $MYVIMRC<CR>
+nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
-nnoremap <leader>gg :GitGutterToggle<CR>
 nnoremap <F2> :NERDTreeFind<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
@@ -382,10 +382,11 @@ noremap  <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <Esc>:update<CR>
 
-" ===== Searching =====
+" ===== Searching and replacing =====
 " Visual search and Save search for later n. usage = multiple renaming
 " Even more powerful with cgn = change next occurance, than 
-nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
+nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
+nnoremap gR /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
 vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
 nnoremap gs :%s//g<Left><Left>
@@ -394,6 +395,8 @@ vnoremap gs y:%s#<C-r>"##g<Left><Left>
 nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
 " Go count occurances
 noremap gC :%s///gn<CR>
+" Go find from clipboard
+noremap gF /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
@@ -713,9 +716,11 @@ augroup END
 " ===== Python =====
 augroup python
     autocmd!
-    autocmd FileType python let python_highlight_all =1
     autocmd FileType python setlocal textwidth =79
 	autocmd FileType python setlocal tabstop   =4
+
+	autocmd FileType python noremap <leader>f :Autoformat<CR>
+	autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
     if has('win32')
         autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
@@ -812,11 +817,14 @@ augroup END
 " ===== Ag =====
 let g:ag_prg="ag --vimgrep --smart-case"
 let g:ag_highlight=1
+let g:ag_working_path_mode='r'
 
 " ===== Autoformat =====
 " sql - Indent String is 4 space and enable Trailing Commas
 let g:formatdef_my_sql = 'sqlformatter /is:"    " /tc /uk /sk-'
 let g:formatters_sql = ['my_sql']
+let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
@@ -876,7 +884,6 @@ augroup fugitive
 	nnoremap <Leader>gr :Gread<CR>
 	nnoremap <Leader>gw :Gwrite<CR><CR>
 	nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
-	nnoremap <Leader>gll :Git l<CR>
 	nnoremap <Leader>gp :Ggrep<Space>
 	nnoremap <Leader>gm :Gmove<Space>
 	nnoremap <Leader>gb :Git branch<Space>
@@ -946,6 +953,12 @@ let NERDTreeIgnore=['\.pyc$', '\~$', '__\.pyc$']
 
 " ===== PIV (PHP integration for VIM) =====
 let g:DisableAutoPHPFolding = 1
+
+" ===== Pymode =====
+let g:pymode_lint_on_write = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport_import_after_complete = 1
+let g:pymode_syntax_all =1
 
 " ===== Restart =====
 let g:restart_sessionoptions = "restartsession"
