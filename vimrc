@@ -286,19 +286,18 @@ let maplocalleader = "\<space>"
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-" without `` at the end of mapping
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==g
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " ===== Change indentation =====
-nnoremap <A-h> <<
-nnoremap <A-l> >>
-vnoremap <A-h> <gv
-vnoremap <A-l> >gv
+" nnoremap <C-h> <<
+nnoremap <C-l> >>
+" vnoremap <C-h> <gv
+vnoremap <C-l> >gv
 " Maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
@@ -374,7 +373,9 @@ nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
 " ===== Programming shortcuts =====
+" Switch end of line character
 nnoremap <LocalLeader>; m`A;<esc>``
+nnoremap <LocalLeader>, m`A,<esc>``
 
 " ===== Saving buffer =====
 " Use ctrl+s for saving, also in Insert mode (from mswin.vim) 
@@ -410,6 +411,8 @@ nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
 vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
 " Toggle between backslashes and forward slashes
 noremap <silent> g/ :ToggleSlash<CR>
+" Toggle leading dash
+noremap g- m`:s#^-\?\ *#\=submatch(0) == '- ' ? '' : '- '#g<CR>``
 
 " ===== Windows and Buffers =====
 " Set working dir to current file dir, only for current window
@@ -444,10 +447,10 @@ nnoremap <Tab> <C-W>w
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
 " Jump to left or right window
-nnoremap <C-l> <C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
+nnoremap <A-l> <C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
 " Move screen 10 characters left or right in wrap mode
 nnoremap gh 40zh
 nnoremap gl 40zl
@@ -536,11 +539,13 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " Common shortcuts
 " <leader>c = compile
-" <leader>r = run
+" <leader>r = run and output to new buffer
+" <leader>R = run external command
 " <leader>t = test
-" <leader>h = help
+" <leader>h = help for current word
 " <leader>k = check style
-" <leader>f = format
+" <leader>f = format file
+" <c-cr>    = run current block or line
 
 " ===== Misc filetypes =====
 
@@ -554,12 +559,6 @@ augroup syntax-sugar
     autocmd!
     " Make it so that a curly brace automatically inserts an indented line
     autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
-augroup END
-
-" ===== Bash =====
-augroup bash
-    autocmd!
-    autocmd BufRead,BufNewFile *.bash set filetype=sh
 augroup END
 
 " ===== Dosbatch =====
@@ -631,15 +630,16 @@ augroup markdown
     autocmd!
     autocmd FileType modula2  setlocal ft         =markdown
     autocmd FileType markdown setlocal textwidth  =80
-    autocmd FileType markdown setlocal autoindent
-    " autocmd FileType markdown noremap <buffer> <Space> :silent call ToggleTodo()<CR>
+    autocmd FileType markdown setlocal comments=b:*,b:+,n:>,b:-
 
     autocmd FileType markdown command! Outline :Voom markdown
 
-    " Underline heading
-    autocmd FileType markdown nnoremap <LocalLeader>h m`^y$o<Esc>pVr=``
+    " From dash separated heading to spaces and capital letter
+    autocmd FileType markdown nnoremap <LocalLeader>h :s/-/\ /g<CR>~h
+
     " Prefix # heading
     autocmd FileType markdown nnoremap <LocalLeader>0 m`:s/^\(#*\)\ \?//<CR>``
+	" Underline H1
     autocmd FileType markdown nnoremap <LocalLeader>1 yypVr=<Esc>
     autocmd FileType markdown nnoremap <LocalLeader>2 m`:s/^\(#*\)\ \?/##\ /<CR>``
     autocmd FileType markdown nnoremap <LocalLeader>3 m`:s/^\(#*\)\ \?/###\ /<CR>``
@@ -667,6 +667,9 @@ augroup markdown
     autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md
     " Link from address - last segment to be the text
     autocmd FileType markdown nnoremap <LocalLeader>l :s/\v((https?\|www).*\/)([^\/ \t)]+)(\/?)/[\3](&)/<CR>vi[
+    " Link from link text and link itself on the next line
+	autocmd FileType markdown nnoremap <LocalLeader>L A]<Esc>I[<Esc>jA)<Esc>I(<Esc>kJx0
+
 augroup END
 
 " Creates Markdown (GFM) style table from tab separated items of one paragraph
@@ -686,6 +689,7 @@ command! MDlist normal
 " Create Markdown main heading from file name
 command! MDfiletohead normal
 	\ ggOi%dF.x0vU
+	\ :s/-/\ /g<CR>
 	\ yypVr=o
 
 " Creates Markdown style web links
@@ -732,12 +736,19 @@ augroup python
     autocmd FileType python noremap <buffer> <leader>r :w<CR>:Clam python %<CR><C-w>h
 augroup END
 
-" ===== Shell =====
+" ===== Shell and bash =====
 augroup sh
     autocmd!
+	" Bash as sh filetype
+	autocmd BufRead,BufNewFile *.bash set filetype=sh
+	autocmd BufRead,BufNewFile *.bash set fileformat=unix
+	autocmd BufRead,BufNewFile *.sh set fileformat=unix
+	autocmd BufRead,BufNewFile *.zsh set fileformat=unix
     " Run current row as command
     autocmd FileType sh nnoremap <c-cr> ^y$:!<c-r>"<cr>
+	autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
 augroup END
+
 
 " ===== SQL =====
 augroup sql
@@ -748,12 +759,8 @@ augroup sql
     " SQL comments
     autocmd FileType sql setlocal commentstring=--\ %s
 
-    autocmd Filetype sql let g:dbext_default_window_use_horiz = 0  " Use vertical split
-    autocmd Filetype sql let g:dbext_default_window_width = 120
-	autocmd Filetype sql let g:dbext_default_always_prompt_for_variables = -1
-
-    autocmd FileType sql vnoremap <c-cr> :DBExecVisualSQL<cr>
-    autocmd FileType sql nnoremap <c-cr> :DBExecSQLUnderCursor<cr>
+	autocmd FileType sql nnoremap <c-cr> :w<CR>:DBExecSQLUnderCursor<CR>
+    autocmd FileType sql vnoremap <c-cr> <CR>:DBExecVisualSQL<CR>
 	autocmd FileType sql nnoremap <LocalLeader>r :echo g:dbext_rows_affected - 5<CR>
 
     " Spaces works better then tabs for MySQL
@@ -761,7 +768,7 @@ augroup sql
     " Upper case
     autocmd Filetype sql noremap <LocalLeader>u :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
     " New lines before and after keywords
-    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
+    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\\|;\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
 augroup END
 
 " ===== VBA =====
@@ -784,9 +791,9 @@ augroup END
 
 " ===== XML (and HTML) =====
 " previous tag on same indentation level
-nnoremap <C-K> ?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nww
+" nnoremap <C-S-K> ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
 " next tag on same indentation level
-nnoremap <C-J> /^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>ww
+" nnoremap <C-S-J> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
 " Up one level = go to parent tag
 nnoremap <leader>hu vat`<<Esc>
 " Expand content of a tag
@@ -829,8 +836,8 @@ let g:formatters_python = ['autopep8']
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
 nnoremap <c-p> :CtrlP<cr>
-" Set ctrl+h for most recently used files ('h'istory)
-nnoremap <c-h> :CtrlPMRUFiles<cr>
+" Set ctrl+; for most recently used files
+nnoremap <c-m> :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
     \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
@@ -846,6 +853,16 @@ hi def link CSVColumnOdd        vimSynMtchOpt
 hi def link CSVColumnEven       normal
 " Trick to switch CSV plugin on when set to file type 'csvx' by Plug
 command! CSVON let &ft='csvx' | let &ft='csv'
+
+" ===== dbext =====
+autocmd Filetype sql let g:dbext_default_window_use_horiz = 0  " Use vertical split
+autocmd Filetype sql let g:dbext_default_window_width = 120
+autocmd Filetype sql let g:dbext_default_always_prompt_for_variables = -1
+" show scrollbar after successful 
+function! DBextPostResult(db_type, buf_nr)
+	setlocal guioptions+=b
+endfunction
+
 
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
