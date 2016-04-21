@@ -3,10 +3,70 @@
 ;= ==============================================================================
 
 ;= ===== Unix like aliases =====
-ls=ls --show-control-chars -F --color $*
-ll=ls -l
-la=ls -al
-ln=ln -v
+
+;= Viewers
+les=less
+lesf=less +F
+
+;= Directories
+;= l=ls --color -lhFA ^| grep "^d" && ls --color -lhFA ^| grep -v "^d\|total"
+..=cd ..
+...=cd ../..
+....=cd ../../..
+ls=ls -F --show-control-chars --color $*
+l=ls -FA --show-control-chars --color $*
+ll=ls -lhF --show-control-chars --color $*
+la=ls -lhFA --show-control-chars --color $*
+
+;= Config files
+ealias=gvim %USERPROFILE%\dotfiles\windows\aliases-cmder
+evimrc=gvim %USERPROFILE%\dotfiles\vimrc
+
+;= Git
+
+ga=git add $*
+gaa=git add --all
+gunstage=git reset -- $*
+
+gbr=git branch
+gbra=git branch -a
+gco=git checkout $*
+
+gcan=git commit --amend --no-edit
+gci=git commit $*
+gcm=git commit -m $*
+gca=git commit -a -m $*
+
+galiases=git config --global --includes --get-regexp alias
+gcg=git config --global --includes $*
+
+gd=git diff $*
+gds=git diff --staged $*
+gdh=git diff HEAD $*
+
+gchanged=git update-index --no-assume-unchanged $*
+gunchanged=git update-index --assume-unchanged $*
+glistunchanged=git ls-files -v|grep "^[[:lower:]]"
+gignored=git ls-files --other --ignored --exclude-standard
+
+gl=git log --graph --decorate --oneline -n20 $*
+gla=git log --graph --decorate --oneline -n20 --all $*
+glb=git log --graph --decorate --oneline -n20 --branches $*
+glmy=git log --graph --decorate --oneline --all -n20 --author="Lukas Trumm" $*
+glogmy=git log --all -n10 --author="Lukas Trumm" $*
+glw=git log --pretty=format:"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b" -n20 --graph --branches $*
+gh=git log --pretty=format:"%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b" --all --follow $*
+gsf=git show --name-status $*
+gfind=git log --all --name-status --grep $*
+
+gfe=git fetch
+
+gst=git status
+gs=git status -s
+
+;= Programs
+vag=vagrant $*
+
 
 ;= ===== CmdEr specific aliases =====
 history=cat %CMDER_ROOT%\config\.history
@@ -21,8 +81,8 @@ dev=cd %USERPROFILE%\dev
 dotfiles=cd %USERPROFILE%\dotfiles
 fbcs=cd c:\work\fbcs\workspace\head\COMMON_SYSTEM\
 home=cd %USERPROFILE%
-linis=cd c:\work\linis\SafetyMonitor\l2py  
-sandbox=cd %USERPROFILE%\sandbox  
+linis=cd c:\work\linis\SafetyMonitor\l2py
+sandbox=cd %USERPROFILE%\sandbox
 scripts=cd %SYNC_DIR%\scripts
 syncdir=cd %SYNC_DIR%
 tasks=cd %USERPROFILE%\Tasks
@@ -32,4 +92,4 @@ vimfiles=cd %USERPROFILE%\vim
 work=cd c:\Work
 
 ;= ===== Integration =====
-tc="c:\Program Files\totalcmd\TOTALCMD64.EXE" /O %CD%
+tc="C:\install\TOTALCMD.EXE" /O %CD%
