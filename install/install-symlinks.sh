@@ -1,8 +1,6 @@
 #!/bin/bash
 
 set -e
-DOTFILES_BACKUP=~/dotfiles_backup
-mkdir -p $DOTFILES_BACKUP
 
 # ===== Dotfiles =====
 
@@ -25,9 +23,13 @@ DOTFILES=(
     zshrc
 	vim/colors
 	vim/syntax
-	config/i3/config
+	i3
 	bin
 )
+
+# Backup current dotfiles
+DOTFILES_BACKUP=~/dotfiles_backup
+mkdir -p $DOTFILES_BACKUP
 
 for dotfile in ${DOTFILES[@]}; do
 	if [[ -e ~/.$dotfile ]]; then

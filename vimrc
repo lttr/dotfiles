@@ -577,18 +577,6 @@ augroup syntax-sugar
     autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
-" ===== Bash =====
-augroup bash
-    autocmd!
-    autocmd BufRead,BufNewFile *.bash set filetype=sh
-augroup END
-
-" ===== Config =====
-augroup config
-	autocmd!
-	autocmd BufRead,BufNewFile *config set filetype=conf
-augroup END
-
 " ===== Dosbatch =====
 augroup dosbatch
     autocmd!
@@ -756,6 +744,9 @@ augroup python
 
     autocmd FileType python noremap <leader>f :Autoformat<CR>
     autocmd FileType python noremap <leader>k :PymodeLint<CR>
+
+	autocmd FileType python noremap <leader>f :Autoformat<CR>
+	autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
     if has('win32')
         autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
