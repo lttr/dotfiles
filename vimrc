@@ -18,7 +18,10 @@ if has('unix')
     if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
+    augroup plug
+        autocmd!
+        autocmd VimEnter * PlugInstall | source $MYVIMRC
+    augroup END
     endif
 endif
 
@@ -102,14 +105,12 @@ set backspace=indent,eol,start " Allow backspase in insert mode
 set autoread                   " Relaod files changed outside Vim
 set nrformats  =alpha          " Think about all formats as decimal
 set history    =500            " Keep 200 items in history of Ex commands
-" Message abbreviations, truncate file messages, dont warn if existing swap files, 
+" Message abbreviations, truncate file messages, dont warn if existing swap files,
 " hide the welcome screen, truncate other long messages
 set shortmess  =atAIT
 set nostartofline              " Don't jump to first character when paging
 set number                     " Line numbers before lines
 set iskeyword+=-               " Count strings joined by dashes as words
-
-" experimental
 set noshelltemp  " Should avoid some cmd windows for external commands
 
 " ===== Buffers =====
@@ -117,22 +118,22 @@ set hidden                     " Allow buffer switching without saving
 set splitright                 " Puts new vsplit windows to the right of the current
 set splitbelow                 " Puts new split windows to the bottom of the current
 
-" ===== Directories ====== 
+" ===== Directories ======
 set backup                     " Make backups
 if has('unix')
-	set backupdir  =~/.vim/backups " List of directory names for backup files
-	set directory  =~/.vim/backups " List of directory names for swap files
-	set undodir    =~/.vim/undos   " List of directory names for undo files
+    set backupdir  =~/.vim/backups " List of directory names for backup files
+    set directory  =~/.vim/backups " List of directory names for swap files
+    set undodir    =~/.vim/undos   " List of directory names for undo files
 else
-	set backupdir  =~/vimfiles/backups " List of directory names for backup files
-	set directory  =~/vimfiles/backups " List of directory names for swap files
-	set undodir    =~/vimfiles/undos   " List of directory names for undo files
+    set backupdir  =~/vimfiles/backups " List of directory names for backup files
+    set directory  =~/vimfiles/backups " List of directory names for swap files
+    set undodir    =~/vimfiles/undos   " List of directory names for undo files
 endif
 set undofile                   " Automatically saves undo history to an undo file
 set undolevels =1000           " Maximum number of changes that can be undone
 set undoreload =10000          " Maximum number lines to save for undo on a buffer reload
 set writebackup                " Make a backup before overwriting a file
-set tags       =./tags;        " Find tags file in parent dirs (;) starting in current dir (./)
+set tags       =./.tags;        " Find tags file in parent dirs (;) starting in current dir (./)
 
 " ===== Folding =====
 set foldlevel  =3              " Expand level 1 folds
@@ -174,6 +175,7 @@ set autoindent               " Copy indent from current line when starting a new
 set copyindent               " Autoindent the new line
 set smarttab                 " Inserts or deletes blanks according to tab settings
 set smartindent              " Try to be smart when starting a new line in some conditions
+set expandtab                " Force spaces over tabs and with :retab
 
 " ===== Wrapping =====
 set textwidth =0               " Maximum width of text that is being inserted (0 = no hard wrap)
@@ -197,19 +199,20 @@ set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 if has('unix')
   set guifont=Monospace\ 12
 else
-  set guifont=Consolas:h11 
+  set guifont=Consolas:h11
 endif
 
 " ===== GUI adjustments =====
 set guioptions-=b " Hide horizontal (bottom) scrollbar
 set guioptions-=e " Text based tabs
 set guioptions-=l " Hide left vertical scrollbar
-set guioptions-=L 
+set guioptions-=L
 set guioptions-=m " Remove menu bar
-" set guioptions-=r
-set guioptions-=R 
+set guioptions-=R
 set guioptions-=T " Remove toolbar
 set guitablabel=%f
+
+nnoremap <silent> <F9> :call ToggleFlag('guioptions', 'b')<CR>
 
 " ===== Status line  =====
 " Currently using Lightline plugin
@@ -222,7 +225,7 @@ set statusline =
 set statusline +=\ %<%f                              " tail of the filename
 set statusline +=\ %m                                " modified flag
 set statusline +=\ %r                                " read only flag
-" insert current git branch name, 7 chars from commit in case of detached HEAD 
+" insert current git branch name, 7 chars from commit in case of detached HEAD
 set statusline+=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
 
 " Separator
@@ -307,7 +310,7 @@ vnoremap > >gv
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " ===== Consistency =====
-" Make the behaviour of Y consistent with D and C 
+" Make the behaviour of Y consistent with D and C
 " (do the action from here to the end of line)
 nnoremap Y y$
 
@@ -378,14 +381,14 @@ nnoremap <LocalLeader>; m`A;<esc>``
 nnoremap <LocalLeader>, m`A,<esc>``
 
 " ===== Saving buffer =====
-" Use ctrl+s for saving, also in Insert mode (from mswin.vim) 
+" Use ctrl+s for saving, also in Insert mode (from mswin.vim)
 noremap  <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <Esc>:update<CR>
 
 " ===== Searching and replacing =====
 " Visual search and Save search for later n. usage = multiple renaming
-" Even more powerful with cgn = change next occurance, than 
+" Even more powerful with cgn = change next occurance, than
 nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
 nnoremap gR /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
 vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
@@ -393,11 +396,13 @@ vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 nnoremap gs :%s//g<Left><Left>
 vnoremap gs y:%s#<C-r>"##g<Left><Left>
 " Go substitute word
-nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
 " Go count occurances
 noremap gC :%s///gn<CR>
 " Go find from clipboard
 noremap gF /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
+" Go find from yank register
+noremap g/ /<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
@@ -410,7 +415,7 @@ nnoremap <LocalLeader>' m`viw<esc>a'<esc>hbi'<esc>lel``
 nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
 vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
 " Toggle between backslashes and forward slashes
-noremap <silent> g/ :ToggleSlash<CR>
+noremap <silent> g\ :ToggleSlash<CR>
 " Toggle leading dash
 noremap g- m`:s#^-\?\ *#\=submatch(0) == '- ' ? '' : '- '#g<CR>``
 
@@ -429,7 +434,7 @@ nnoremap <C-Up> :resize +2<CR>
 nnoremap <C-Down> :resize -2<CR>
 
 " Set middle button to close tab
-nnoremap <MiddleMouse> :tabclose<CR> 
+nnoremap <MiddleMouse> :tabclose<CR>
 
 " ===== Moving in buffer =====
 " Move commands acting on display lines
@@ -552,7 +557,7 @@ command! XMLSimplify :silent call XMLSimplify()
 augroup global
     autocmd!
     " Cursor on last editing place in every opened file
-    autocmd BufReadPost * normal `"     
+    autocmd BufReadPost * normal `"
 augroup END
 
 augroup syntax-sugar
@@ -564,7 +569,7 @@ augroup END
 " ===== Dosbatch =====
 augroup dosbatch
     autocmd!
-	autocmd FileType dosbatch set formatoptions -=o
+    autocmd FileType dosbatch set formatoptions -=o
     " Run dosbatch bat file
     autocmd FileType dosbatch nnoremap <buffer> <leader>r :w<CR>:Clam %:p<CR>gg<C-w>w
 augroup END
@@ -592,21 +597,19 @@ augroup java
     autocmd!
     autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:!javac %<CR>
     autocmd Filetype java nnoremap <buffer> <leader>r :Clam java -cp . %:r<CR>
-    autocmd FileType java set tags=tags;$SYNC_DIR/dev/sources/java/java-jdk8-src/tags
-    " autocmd FileType java set tags=tags;
 augroup END
 
 " ===== JavaScript =====
 augroup javascript
     autocmd!
     autocmd Filetype javascript nnoremap <buffer> <CR> :w<CR>
-	autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
+    autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
 augroup END
 
 " ===== Json =====
 augroup json
-	autocmd!
-	autocmd Filetype json nnoremap <leader>f :%!python -m json.tool<CR>
+    autocmd!
+    autocmd Filetype json nnoremap <leader>f :%!python -m json.tool<CR>
 augroup END
 
 " ===== Jira =====
@@ -619,11 +622,11 @@ augroup END
 " Create Jira style aligned table from tab separated items of one paragraph
 " First line will have double | (pipe) characters as separators
 command! JiraTable normal
-	\ vip:s/\t/|/g<CR>
-	\ vip:s/^/|\ /<CR>
-	\ vip:s/$/\ |/<CR>
-	\ vip:Tabularize/|<CR>
-	\ {j:s/|\ \?/||/g<CR>
+    \ vip:s/\t/|/g<CR>
+    \ vip:s/^/|\ /<CR>
+    \ vip:s/$/\ |/<CR>
+    \ vip:Tabularize/|<CR>
+    \ {j:s/|\ \?/||/g<CR>
 
 " ===== Markdown =====
 augroup markdown
@@ -639,7 +642,7 @@ augroup markdown
 
     " Prefix # heading
     autocmd FileType markdown nnoremap <LocalLeader>0 m`:s/^\(#*\)\ \?//<CR>``
-	" Underline H1
+    " Underline H1
     autocmd FileType markdown nnoremap <LocalLeader>1 yypVr=<Esc>
     autocmd FileType markdown nnoremap <LocalLeader>2 m`:s/^\(#*\)\ \?/##\ /<CR>``
     autocmd FileType markdown nnoremap <LocalLeader>3 m`:s/^\(#*\)\ \?/###\ /<CR>``
@@ -668,29 +671,29 @@ augroup markdown
     " Link from address - last segment to be the text
     autocmd FileType markdown nnoremap <LocalLeader>l :s/\v((https?\|www).*\/)([^\/ \t)]+)(\/?)/[\3](&)/<CR>vi[
     " Link from link text and link itself on the next line
-	autocmd FileType markdown nnoremap <LocalLeader>L A]<Esc>I[<Esc>jA)<Esc>I(<Esc>kJx0
+    autocmd FileType markdown nnoremap <LocalLeader>L A]<Esc>I[<Esc>jA)<Esc>I(<Esc>kJx0
 
 augroup END
 
 " Creates Markdown (GFM) style table from tab separated items of one paragraph
 " Second line will be a separator between head and body of the table
 command! MDtable normal
-	\ vip:s/\t/|/g<CR>
-	\ vip:Tabularize/|<CR>
-	\ yyp:s/[^ |]/-/g<CR>
-	\ :s/\([^|]\)\ \([^ |]\)/\1-\2/g<CR>
+    \ vip:s/\t/|/g<CR>
+    \ vip:Tabularize/|<CR>
+    \ yyp:s/[^ |]/-/g<CR>
+    \ :s/\([^|]\)\ \([^ |]\)/\1-\2/g<CR>
 
 " Create Markdown ordered list
 " Adds numbers and align the list
 command! MDlist normal
-	\ vipI1. }k
-	\ :Tabularize/^[^ ]*\zs\ /l0
+    \ vipI1. }k
+    \ :Tabularize/^[^ ]*\zs\ /l0
 
 " Create Markdown main heading from file name
 command! MDfiletohead normal
-	\ ggOi%dF.x0vU
-	\ :s/-/\ /g<CR>
-	\ yypVr=o
+    \ ggOi%dF.x0vU
+    \ :s/-/\ /g<CR>
+    \ yypVr=o
 
 " Creates Markdown style web links
 " Replaces any row and following row with URL with Markdown syntax for links
@@ -702,10 +705,10 @@ augroup pascal
     " Comments for pascal
     autocmd FileType pascal setlocal commentstring={%s}
     " Compile pascal with FPC
-    autocmd FileType pascal noremap <buffer> <leader>c 
+    autocmd FileType pascal noremap <buffer> <leader>c
                 \:w<CR>:silent !cmd /c "c:\Program Files (x86)\FPC\bin\i386-win32\fpc.exe" %<CR>
     " Run pascal program
-    autocmd FileType pascal noremap <buffer> <leader>r 
+    autocmd FileType pascal noremap <buffer> <leader>r
                 \:w<CR>:execute "!" . expand('%:s?pas?exe?:p')<CR>
 augroup END
 
@@ -721,10 +724,10 @@ augroup END
 augroup python
     autocmd!
     autocmd FileType python setlocal textwidth =79
-	autocmd FileType python setlocal tabstop   =4
+    autocmd FileType python setlocal tabstop   =4
 
-	autocmd FileType python noremap <leader>f :Autoformat<CR>
-	autocmd FileType python noremap <leader>k :PymodeLint<CR>
+    autocmd FileType python noremap <leader>f :Autoformat<CR>
+    autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
     if has('win32')
         autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
@@ -739,29 +742,29 @@ augroup END
 " ===== Shell and bash =====
 augroup sh
     autocmd!
-	" Bash as sh filetype
-	autocmd BufRead,BufNewFile *.bash set filetype=sh
-	autocmd BufRead,BufNewFile *.bash set fileformat=unix
-	autocmd BufRead,BufNewFile *.sh set fileformat=unix
-	autocmd BufRead,BufNewFile *.zsh set fileformat=unix
+    " Bash as sh filetype
+    autocmd BufRead,BufNewFile *.bash set filetype=sh
+    autocmd BufRead,BufNewFile *.bash set fileformat=unix
+    autocmd BufRead,BufNewFile *.sh set fileformat=unix
+    autocmd BufRead,BufNewFile *.zsh set fileformat=unix
     " Run current row as command
     autocmd FileType sh nnoremap <c-cr> ^y$:!<c-r>"<cr>
-	autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
+    autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
 augroup END
 
 
 " ===== SQL =====
 augroup sql
     autocmd!
-	" Set filetype automatically
-	autocmd BufRead,BufNewFile *.ddl setlocal filetype=sql
+    " Set filetype automatically
+    autocmd BufRead,BufNewFile *.ddl setlocal filetype=sql
 
     " SQL comments
     autocmd FileType sql setlocal commentstring=--\ %s
 
-	autocmd FileType sql nnoremap <c-cr> :w<CR>:DBExecSQLUnderCursor<CR>
+    autocmd FileType sql nnoremap <c-cr> :w<CR>:DBExecSQLUnderCursor<CR>
     autocmd FileType sql vnoremap <c-cr> <CR>:DBExecVisualSQL<CR>
-	autocmd FileType sql nnoremap <LocalLeader>r :echo g:dbext_rows_affected - 5<CR>
+    autocmd FileType sql nnoremap <LocalLeader>r :echo g:dbext_rows_affected - 5<CR>
 
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
@@ -779,7 +782,7 @@ augroup vba
 augroup END
 
 " Opens browser with Microsoft MSDN search for current key word
-command! MSDN :silent :OpenBrowser 
+command! MSDN :silent :OpenBrowser
             \http://social.msdn.microsoft.com/Search/en-US?query=
             \<c-r><c-w><CR>
 
@@ -855,14 +858,9 @@ hi def link CSVColumnEven       normal
 command! CSVON let &ft='csvx' | let &ft='csv'
 
 " ===== dbext =====
-autocmd Filetype sql let g:dbext_default_window_use_horiz = 0  " Use vertical split
-autocmd Filetype sql let g:dbext_default_window_width = 120
-autocmd Filetype sql let g:dbext_default_always_prompt_for_variables = -1
-" show scrollbar after successful 
-function! DBextPostResult(db_type, buf_nr)
-	setlocal guioptions+=b
-endfunction
-
+let g:dbext_default_window_use_horiz = 0  " Use vertical split
+let g:dbext_default_window_width = 120
+let g:dbext_default_always_prompt_for_variables = -1
 
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
@@ -879,34 +877,34 @@ let g:emmet_html5           = 1
 " ===== Fugitive =====
 augroup fugitive
     autocmd!
-	" [Source](http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/)
-	" delete fugitive buffer from buffer list when no longer visible
+    " [Source](http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/)
+    " delete fugitive buffer from buffer list when no longer visible
     autocmd BufReadPost fugitive://* setlocal bufhidden=delete
 
     " Go up a level in git tree
-	autocmd User fugitive 
-		\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-		\   nnoremap <buffer> .. :edit %:h<CR> |
-		\ endif
+    autocmd User fugitive
+        \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+        \   nnoremap <buffer> .. :edit %:h<CR> |
+        \ endif
 
-	nnoremap <Leader>ga :Git add %:p<CR><CR>
-	nnoremap <Leader>gs :Gstatus<CR>
-	nnoremap <Leader>gc :Gcommit -v -q<CR>
-	nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
-	nnoremap <Leader>gd :Gdiff<CR>
-	nnoremap <Leader>gdh :Gdiff -<CR>
-	nnoremap <Leader>gdd :Git! diff<CR>
-	nnoremap <Leader>gds :Git! diff --staged<CR>
-	nnoremap <Leader>ge :Gedit<CR>
-	nnoremap <Leader>gr :Gread<CR>
-	nnoremap <Leader>gw :Gwrite<CR><CR>
-	nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
-	nnoremap <Leader>gp :Ggrep<Space>
-	nnoremap <Leader>gm :Gmove<Space>
-	nnoremap <Leader>gb :Git branch<Space>
-	nnoremap <Leader>go :Git checkout<Space>
-	nnoremap <Leader>gps :Git push
-	nnoremap <Leader>gpl :Git pull
+    nnoremap <Leader>ga :Git add %:p<CR><CR>
+    nnoremap <Leader>gs :Gstatus<CR>
+    nnoremap <Leader>gc :Gcommit -v -q<CR>
+    nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
+    nnoremap <Leader>gd :Gdiff<CR>
+    nnoremap <Leader>gdh :Gdiff -<CR>
+    nnoremap <Leader>gdd :Git! diff<CR>
+    nnoremap <Leader>gds :Git! diff --staged<CR>
+    nnoremap <Leader>ge :Gedit<CR>
+    nnoremap <Leader>gr :Gread<CR>
+    nnoremap <Leader>gw :Gwrite<CR><CR>
+    nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+    nnoremap <Leader>gp :Ggrep<Space>
+    nnoremap <Leader>gm :Gmove<Space>
+    nnoremap <Leader>gb :Git branch<Space>
+    nnoremap <Leader>go :Git checkout<Space>
+    nnoremap <Leader>gps :Git push
+    nnoremap <Leader>gpl :Git pull
 augroup END
 
 " ===== GitGutter =====
@@ -937,15 +935,15 @@ let g:indentLine_enabled = 0
 "     \ },
 "     \ 'inactive': {
 "     \   'left': [ [ 'filename', 'modified' ] ],
-" 	\   'right': [ [ 'fugitive' ],
-" 	\              [ '' ],
-" 	\              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
+"   \   'right': [ [ 'fugitive' ],
+"   \              [ '' ],
+"   \              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
 "     \ },
 "     \ 'component': {
 "     \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
 "     \   'fileformat': '%{toupper(strpart(&ff,0,1))}',
 "     \   'lineinfo': '%l:%c',
-" 	\   'percentage': '%P'
+"   \   'percentage': '%P'
 "     \ },
 "     \ 'component_visible_condition': {
 "     \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
@@ -953,7 +951,7 @@ let g:indentLine_enabled = 0
 "     \ }
 
 " ===== LogViewer =====
-let g:LogViewer_Filetypes = 'log' 
+let g:LogViewer_Filetypes = 'log'
 
 " ===== Markdown =====
 let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
@@ -1031,7 +1029,7 @@ function! SaveSession()
 endfunction
 function! RestoreSession()
     " if filereadable('~/vimsession')
-        execute 'so ~/vimsession' 
+        execute 'so ~/vimsession'
         if bufexists(1)
             for l in range(1, bufnr('$'))
                 if bufwinnr(l) == -1
@@ -1098,7 +1096,7 @@ function! XMLSimplify()
     g/^\s*$/d
 endfunction
 
-" Strips tags from a buffer. The expression is non-greedy and catches tags that span multiple lines. 
+" Strips tags from a buffer. The expression is non-greedy and catches tags that span multiple lines.
 function! StripTags()
     s/<\_.\{-1,\}>//g
     " remove empty lines
@@ -1153,23 +1151,23 @@ endfunction
 " Creates Perl like list definition from lines
 " Assumes that lines form a separated paragraph
 function! MakeListFromLines(...)
-	if a:0 > 0
-		execute "normal! vip$A".a:1."vip0I".a:1.""
-		normal vip$A,vipJA$x0
-	else
-		normal vip$A,vipJA$x0
-	endif
+    if a:0 > 0
+        execute "normal! vip$A".a:1."vip0I".a:1.""
+        normal vip$A,vipJA$x0
+    else
+        normal vip$A,vipJA$x0
+    endif
 endfunction
 function! MakeClearListFromLines(...)
     if a:0 > 0
         execute "normal! vip$A".a:1."vip0I".a:1.""
         normal vip$A,vipJA$x0
-		s/[ \t]\+//g
-		s/,/,\ /g
+        s/[ \t]\+//g
+        s/,/,\ /g
     else
         normal vip$A,vipJA$x0
-		s/[ \t]\+//g
-		s/,/,\ /g
+        s/[ \t]\+//g
+        s/,/,\ /g
     endif
 endfunction
 
@@ -1198,12 +1196,17 @@ function! Xpath(arg)
 endfunction
 
 " Extract the matches of last search from current buffer
+" TODO does not work
 function! Extract()
     v//d
-    execute "normal! :%s/.\\{-}\\(" . @/ . "\\).*/\\1/g<cr>"
+    let i = 1
+    for line in getline(1,'$')
+        call setline(i, substitute(line, '.\{-}\(<c-r>/\).*', '\1', 'g'))
+        let i = i + 1
+    endfor
 endfunction
 
-" Some vim commands output quite a lot of text and it would 
+" Some vim commands output quite a lot of text and it would
 " be nice to get the output in a more readable format.
 " ( Source http://vimrcfu.com/snippet/171 )
 " :Bufferize digraphs
@@ -1332,3 +1335,12 @@ function! ToggleSlash(independent) range
 endfunction
 command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
 
+" ===== Toogle options flag =====
+function! ToggleFlag(option,flag)
+  exec ('let lopt = &' . a:option)
+  if lopt =~ (".*" . a:flag . ".*")
+    exec ('set ' . a:option . '-=' . a:flag)
+  else
+    exec ('set ' . a:option . '+=' . a:flag)
+  endif
+endfunction
