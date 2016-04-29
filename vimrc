@@ -386,6 +386,8 @@ noremap  <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <Esc>:update<CR>
 
+command! E normal :silent w<CR>:silent e<CR>
+
 " ===== Searching and replacing =====
 " Visual search and Save search for later n. usage = multiple renaming
 " Even more powerful with cgn = change next occurance, than
@@ -406,6 +408,9 @@ noremap g/ /<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
+
+command! V normal :v//d<CR>
+command! D normal :g//d<CR>
 
 " ===== Strings =====
 " Surround current word
