@@ -16,7 +16,7 @@ augroup END
 " Automatic installation of Plug
 if has('unix')
     if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     augroup plug
         autocmd!
@@ -28,6 +28,8 @@ endif
 call plug#begin()
 
 Plug 'gregsexton/MatchTag'
+Plug 'ryanoasis/vim-devicons'
+Plug 'vim-scripts/Yankitute'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
@@ -175,7 +177,8 @@ set virtualedit =""            " Do not move the cursor behind last char
 set autoindent               " Copy indent from current line when starting a new line
 set copyindent               " Autoindent the new line
 set smarttab                 " Inserts or deletes blanks according to tab settings
-set smartindent              " Try to be smart when starting a new line in some conditions
+" set smartindent              " Try to be smart when starting a new line in some conditions
+set cindent
 set expandtab                " Force spaces over tabs and with :retab
 
 " ===== Wrapping =====
@@ -198,9 +201,9 @@ set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
 " ===== Font =====
 if has('unix')
-  set guifont=Monospace\ 12
+    set guifont=Monospace\ 12
 else
-  set guifont=Consolas:h11
+  set guifont=Consolas:h12
 endif
 
 " ===== GUI adjustments =====
@@ -349,9 +352,9 @@ nnoremap <C-z> <Esc>
 
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
-nmap <LocalLeader>+ O<esc>78i=<esc>gccjo<esc>78i=<esc>gcckgcc0a<space><esc>
+nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
 " Make commented subheading from current line, using Commentary plugin (no 'noremap')
-nmap <LocalLeader>= I<space><esc>A<space><esc>05i=<esc>$5a=<esc>gcc
+nmap <LocalLeader>= I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
 " ===== Increment =====
 nnoremap <silent> g<C-a> :<C-u>call Increment('next', v:count1)<CR>
@@ -392,20 +395,20 @@ command! E normal :silent w<CR>:silent e<CR>
 " ===== Searching and replacing =====
 " Visual search and Save search for later n. usage = multiple renaming
 " Even more powerful with cgn = change next occurance, than
-nnoremap gr /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
-nnoremap gR /\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
-vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>gvo
+nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
+nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
+vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
 nnoremap gs :%s//g<Left><Left>
 vnoremap gs y:%s#<C-r>"##g<Left><Left>
 " Go substitute word
-nnoremap gss :set hls<CR>/\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
+nnoremap gss :set hls<CR>/\V\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
 " Go count occurances
 noremap gC :%s///gn<CR>
 " Go find from clipboard
 noremap gF /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
-noremap g/ /<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
+noremap g/ /\V<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
@@ -510,6 +513,8 @@ command! Do :windo diffoff
 " ===== Extract matches =====
 " Extract the matches of last search from current buffer
 command! Extract :call Extract()
+" Extract matching lines into new buffer (http://vim.wikia.com/wiki/VimTip1063)
+command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
 " ===== Lists =====
 " Creates Perl style list definition from paragraph of items on lines
@@ -577,6 +582,7 @@ augroup dosbatch
     autocmd!
     autocmd FileType dosbatch set formatoptions -=o
     " Run dosbatch bat file
+    autocmd FileType dosbatch nnoremap <c-cr> ^y$:!<c-r>"<cr>
     autocmd FileType dosbatch nnoremap <buffer> <leader>r :w<CR>:Clam %:p<CR>gg<C-w>w
 augroup END
 
@@ -628,12 +634,15 @@ augroup END
 
 " Create Jira style aligned table from tab separated items of one paragraph
 " First line will have double | (pipe) characters as separators
-command! JiraTable normal
+command! TTabToJira normal
     \ vip:s/\t/|/g<CR>
     \ vip:s/^/|\ /<CR>
     \ vip:s/$/\ |/<CR>
     \ vip:Tabularize/|<CR>
     \ {j:s/|\ \?/||/g<CR>
+
+" Create Jira style table from MySQL console output
+command! TMysqlToJira normal vap:g/^+/d<CR>kvipo<ESC>:s/\ \?|/||/g<CR>
 
 " ===== Markdown =====
 augroup markdown
@@ -742,8 +751,9 @@ augroup python
     if has('unix')
         autocmd FileType python noremap <buffer> <leader>h :!pydoc <c-r><c-w><CR>
     endif
-    autocmd FileType python noremap <buffer> <leader>R :w<CR>:silent !python %<CR>
-    autocmd FileType python noremap <buffer> <leader>r :w<CR>:Clam python %<CR><C-w>h
+    autocmd FileType python nnoremap <buffer> <leader>R :w<CR>:silent !python %<CR>
+    autocmd FileType python nnoremap <buffer> <leader>r :w<CR>:Clam python %<CR><C-w>h
+    autocmd FileType python vnoremap <buffer> <leader>r :ClamVisual python<CR>
 augroup END
 
 " ===== Shell and bash =====
@@ -769,16 +779,15 @@ augroup sql
     " SQL comments
     autocmd FileType sql setlocal commentstring=--\ %s
 
-    autocmd FileType sql nnoremap <c-cr> :w<CR>:DBExecSQLUnderCursor<CR>
-    autocmd FileType sql vnoremap <c-cr> <CR>:DBExecVisualSQL<CR>
-    autocmd FileType sql nnoremap <LocalLeader>r :echo g:dbext_rows_affected - 5<CR>
+    autocmd FileType sql nnoremap <c-cr> :w<CR>:call HowLong("DBExecSQLUnderCursor")<CR>
+    autocmd FileType sql vnoremap <unique> <c-cr> <Plug>DBExecVisualSQL
 
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
     " Upper case
-    autocmd Filetype sql noremap <LocalLeader>u :s/\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
+    autocmd Filetype sql noremap <LocalLeader>u :s/\<distinct\>\\|\<having\>\\|\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
     " New lines before and after keywords
-    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<select\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\\|;\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
+    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\\|;\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
 augroup END
 
 " ===== VBA =====
@@ -926,9 +935,6 @@ nmap <Leader>ggr <Plug>GitGutterRevertHunk
 let g:goyo_width=100 "(default: 80)
 let g:goyo_margin_top=2 " (default: 4)
 let g:goyo_margin_bottom=2 " (default: 4)
-
-" ===== IndentLine =====
-let g:indentLine_enabled = 0
 
 " " ===== Lightline =====
 " let g:lightline = {
@@ -1364,4 +1370,55 @@ function! JumpToCSS()
       execute ":vim '.".expand('<cword>')."' **/*.css"
     endif
   endif
+endfunction
+
+" Measure the time a given command takes to finish and store it in register t
+" Use python to gain miliseconds precision
+" Originally from:
+" http://vim.wikia.com/wiki/Measure_time_taken_to_execute_a_command
+function! HowLong( command )
+python <<EOF
+import vim
+import time
+start = time.clock()
+vim.command("execute a:command")
+end = time.clock()
+duration = end - start
+vim.command("let @t = string({0:.2f})".format(duration))
+EOF
+endfunction
+
+" Prints number of rows, duration and connection details of the performed query
+" Called by dbext after query is finished
+" Also clears the lines which are not parts of the result
+function! DBextPostResult(db_type, buf_nr) 
+    let l:connection = getline(line('.'))
+    let l:connection = substitute(l:connection, '\s\+', '\ ', 'g')
+    /mysql.*command\ line\ interface/d
+    /^Connection/d
+    redraw
+    let l:count = eval(g:dbext_rows_affected - 5)
+    if 0 > l:count
+        let l:count = 0
+    endif
+    let l:rows = "rows"
+    if 1 == l:count
+        let l:rows = "row"
+    endif
+    let l:msg =  l:count." ".l:rows." returned in ".@t." seconds (".l:connection.")"
+    let @r = l:msg
+    echom l:msg
+endfunction
+
+" Source https://gist.github.com/iburago/734422
+function! ToggleIndentGuidesSpaces()
+	if exists('b:iguides_spaces')
+		call matchdelete(b:iguides_spaces)
+		unlet b:iguides_spaces
+	else
+		let pos = range(1, &l:textwidth, &l:shiftwidth)
+		call map(pos, '"\\%" . v:val . "v"')
+		let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
+		let b:iguides_spaces = matchadd('CursorLine', pat)
+	endif
 endfunction
