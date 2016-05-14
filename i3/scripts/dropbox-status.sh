@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+ICON_DB=
+ICON_DOWN=
+ICON_UP=
+ICON_OFF=
+ICON_UNKNOWN=
+
+dropbox running
+
+if [[ $? -eq 1 ]]; then
+	#Dropbox is running
+	STATUS=$(dropbox status)
+
+	if [[ $STATUS =~ "Download" ]]; then
+		# Dropbox is downloading
+		echo $ICON_DOWN
+	elif [[ $STATUS =~ "Upload" ]]; then
+		# Dropbox is Uploading
+		echo $ICON_UP
+	elif [[ $STATUS =~ "Up to date" ]]; then
+		# Dropbox is up to date
+		echo $ICON_DB
+	else
+		# Dropbox is doing something else
+		echo $ICON_UNKNOWN
+	fi
+else
+	# Dropbox is not running
+	echo $ICON_OFF
+fi
+
