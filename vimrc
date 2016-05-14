@@ -2,10 +2,10 @@
 "  .vimrc of Lukas Trumm {{{1
 " ==============================================================================
 
-" Source the _vimrc and _gvimrc file after saving it
+" Source the vimrc file after saving it
 augroup configuration
     autocmd!
-    autocmd BufWritePost vimrc source $MYVIMRC
+    autocmd BufWritePost .vimrc,_vimrc,vimrc source $MYVIMRC
 augroup END
 
 " }}}
@@ -27,6 +27,7 @@ endif
 
 call plug#begin()
 
+Plug 'gregsexton/MatchTag'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
@@ -582,9 +583,10 @@ augroup END
 " ===== HTML =====
 augroup html
     autocmd!
-    autocmd FileType html setlocal dictionary+=$HOME/vimfiles/bundle/bootstrap-snippets/dictionary
-    autocmd FileType html noremap <leader>f :!tidy -xml -q -i -w 0 --show-errors 0
-                \ -config ~/vimfiles/ftplugin/tidyrc_html.txt <CR>
+    autocmd FileType html setlocal tabstop=2
+    autocmd FileType html setlocal softtabstop=2
+    autocmd FileType html setlocal shiftwidth=2
+    nnoremap <c-]> :call JumpToCSS()<CR>
 augroup END
 
 " ===== Gnuplot =====
@@ -803,12 +805,12 @@ augroup END
 " next tag on same indentation level
 " nnoremap <C-S-J> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
 " Up one level = go to parent tag
-nnoremap <leader>hu vat`<<Esc>
+nnoremap <LocalLeader>hu vat`<<Esc>
 " Expand content of a tag
-nnoremap <leader>he vitdi<CR><Esc>O<C-r>"<Esc>
-vnoremap <leader>he di<CR><Esc>O<C-r>"
+nnoremap <LocalLeader>he vitdi<CR><Esc>O<C-r>"<Esc>
+vnoremap <LocalLeader>he di<CR><Esc>O<C-r>"
 " Shrink content of a tag
-nnoremap <leader>hs kJxJxh
+nnoremap <LocalLeader>hs kJxJxh
 " Move tag with descendants DOWN
 nnoremap <A-J> vatVd/^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>wwPvatV
 vnoremap <A-J> d/^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>wwPvatV
@@ -1014,9 +1016,9 @@ let g:voom_tree_placement = "right"
 command! Outline :Voom
 
 " ===== Xml.vim =====
-let xml_tag_completion_map = "<c-l>"
-" let g:xml_warn_on_duplicate_mapping = 1
-" let xml_no_html = 1
+" let xml_tag_completion_map = "<c-l>"
+let g:xml_warn_on_duplicate_mapping = 1
+let xml_no_html = 1
 
 " ===== Zeavim - Zeal integration =====
 let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
@@ -1347,5 +1349,19 @@ function! ToggleFlag(option,flag)
     exec ('set ' . a:option . '-=' . a:flag)
   else
     exec ('set ' . a:option . '+=' . a:flag)
+  endif
+endfunction
+
+" Source http://stackoverflow.com/questions/12833189
+function! JumpToCSS()
+  let id_pos = searchpos("id", "nb", line('.'))[1]
+  let class_pos = searchpos("class", "nb", line('.'))[1]
+
+  if class_pos > 0 || id_pos > 0
+    if class_pos < id_pos
+      execute ":vim '#".expand('<cword>')."' **/*.css"
+    elseif class_pos > id_pos
+      execute ":vim '.".expand('<cword>')."' **/*.css"
+    endif
   endif
 endfunction
