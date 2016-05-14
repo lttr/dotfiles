@@ -813,7 +813,7 @@ exe "hi! javaScript"        .s:fmt_none .s:fg_yellow .s:bg_none
 exe "hi! cssFunctionName"   .s:fmt_none .s:fg_base0 .s:bg_none
 exe "hi! cssBraces"         .s:fmt_none .s:fg_base0 .s:bg_none
 exe "hi! cssClassName"      .s:fmt_none .s:fg_base0 .s:bg_none
-exe "hi! cssTagName"        .s:fmt_none .s:fg_blue  .s:bg_none
+exe "hi! cssTagName"        .s:fmt_none .s:fg_base0 .s:bg_none
 "}}}
 " perl highlighting "{{{
 " ---------------------------------------------------------------------
