@@ -1,3 +1,14 @@
+#          _  _                        
+#    __ _ | |(_)  __ _  ___   ___  ___ 
+#   / _` || || | / _` |/ __| / _ \/ __|
+#  | (_| || || || (_| |\__ \|  __/\__ \
+#   \__,_||_||_| \__,_||___/ \___||___/
+#
+#  Lukas Trumm, since 2016
+
+
+
+
 # Unix
 # alias ll="ls -l"
 # alias la="ls -al"
@@ -7,13 +18,11 @@
 # alias v="$VISUAL"
 
 # Pretty print the path
-alias path='echo $PATH | tr -s ":" "\n"'
+alias pa='echo $PATH | tr -s ":" "\n"'
 
 alias apti='sudo apt-get install -y'
 alias apts='apt search'
 
-alias reboot='sudo shutdown -r now'
-alias shutdown='sudo shutdown now'
-alias logout='gnome-session-quit --logout --no-prompt'
-
 alias tp='trash-put'
+
+alias dotfiles='cd ~/dotfiles'

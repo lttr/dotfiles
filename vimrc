@@ -1,5 +1,14 @@
+"          _                       
+"  __   __(_) _ __ ___   _ __  ___ 
+"  \ \ / /| || '_ ` _ \ | '__|/ __|
+"   \ V / | || | | | | || |  | (__ 
+"    \_/  |_||_| |_| |_||_|   \___|
+"
+"  Lukas Trumm, since 2014
+
+
 " ==============================================================================
-"  .vimrc of Lukas Trumm {{{1
+"  Source vimrc {{{
 " ==============================================================================
 
 " Source the vimrc file after saving it
@@ -8,9 +17,10 @@ augroup configuration
     autocmd BufWritePost .vimrc,_vimrc,vimrc source $MYVIMRC
 augroup END
 
+
 " }}}
 " ============================================================================
-"  Plugins {{{1
+"  Plugins {{{
 " ============================================================================
 
 " Automatic installation of Plug
@@ -101,7 +111,7 @@ call plug#end()
 
 " }}}
 " ==============================================================================
-"  General settings {{{1
+"  General settings {{{
 " ==============================================================================
 set confirm                    " Less errors, more questions
 set backspace=indent,eol,start " Allow backspase in insert mode
@@ -190,7 +200,7 @@ endif
 
 " }}}
 " ==============================================================================
-"  Appearance {{{1
+"  Appearance {{{
 " ==============================================================================
 
 "  ===== Language =====
@@ -263,7 +273,7 @@ hi LineNr ctermfg=251
 
 " }}}
 " ==============================================================================
-"  Completion {{{1
+"  Completion {{{
 " ==============================================================================
 
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
@@ -282,7 +292,7 @@ set complete-=i
 
 " }}}
 " ==============================================================================
-"  Global shortcuts {{{1
+"  Global shortcuts {{{
 " ==============================================================================
 
 " ===== MapLeaders =====
@@ -475,7 +485,7 @@ nnoremap <expr> <leader>w ':set wrap! go'.'-+'[&wrap]."=b\r"
 
 " }}}
 " ==============================================================================
-"  Appearance shortcuts {{{1
+"  Appearance shortcuts {{{
 " ==============================================================================
 
 " ===== Font size =====
@@ -491,7 +501,7 @@ noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 " }}}
 " ==============================================================================
-"  General commands {{{1
+"  General commands {{{
 " ==============================================================================
 
 " ===== Bufferize =====
@@ -550,7 +560,7 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " }}}
 " ==============================================================================
-"  Filetype specific commands {{{1
+"  Filetype specific commands {{{
 " ==============================================================================
 
 " Common shortcuts
@@ -840,7 +850,7 @@ augroup END
 
 " }}}
 " ==============================================================================
-"  Plugin settings {{{1
+"  Plugin settings {{{
 " ==============================================================================
 
 " ===== Ag =====
@@ -969,6 +979,13 @@ let g:goyo_margin_bottom=2 " (default: 4)
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log'
 
+" ===== Open browser =====
+" If it looks like URI, open an URI under cursor.
+" Otherwise, search a word under cursor.
+nmap F6 <Plug>(openbrowser-smart-search)
+vmap F6 <Plug>(openbrowser-smart-search)
+
+
 " ===== Markdown =====
 let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
 
@@ -1034,7 +1051,7 @@ let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 
 " }}}
 " ==============================================================================
-"  Functions {{{1
+"  Functions {{{
 " ==============================================================================
 
 " Sessions from http://stackoverflow.com/a/10525050
