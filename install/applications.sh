@@ -12,20 +12,29 @@ sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -
 # Infinality for better fonts
 sudo add-apt-repository ppa:no1wantdthisname/ppa
 
+# Vivaldi?
+
 # ===== Install apt packages =====
 
 sudo apt-get update
 
 PACKAGES=(
+    artha
 	compton
 	curl
+	dict
+	dict-gcide
+	dict-freedict-eng-ces
+	dict-freedict-ces-eng
 	dos2unix
 	fontconfig-infinality
 	freemind
 	git
+	gimp
 	gnuplot
 	google-chrome-stable
 	gpick
+	gthumb
 	i3
 	i3blocks
 	inkscape
@@ -55,6 +64,7 @@ PACKAGES=(
 	python-xlib
 	rofi
 	qstardict
+	scrot
 	silversearcher-ag
 	skype
 	stardict-czech
@@ -81,9 +91,18 @@ done
 
 # ===== Custom applications =====
 
+cd opt
+
 # gsettings-info
 git clone https://github.com/jmatsuzawa/gsettings-info ~/opt/gsettings-info
-ln -s ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
+# ln -s ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
+
+# xkblayout-state
+git clone https://github.com/nonpop/xkblayout-state.git 
+cd xkblayout-state
+make
+cd
+# ln -s ~/opt/xkblayout-state/xkblayout-state ~/bin/xkblayout-state
 
 
 # ===== Proprietary drivers =====

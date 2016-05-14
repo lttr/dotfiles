@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -8,23 +8,19 @@ set -e
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 DOTFILES=(
-    #aliases
-    #dircolors
+    aliases
     gitconfig
-    #gitignore_global
     ideavimrc
     kdiff3rc
     vimrc
     vrapperrc
-    xbindkeysrc
-	xinitrc
-	Xresources
-	xsessionrc
-    zshrc
 	vim/colors
 	vim/syntax
 	i3
-	bin
+	config/dunst/dunstrc
+	zshrc
+	zshenv
+	zprofile
 )
 
 # Backup current dotfiles
@@ -46,7 +42,8 @@ if [[ -d ~/bin ]]; then
 	cp -rb ~/bin $DOTFILES_BACKUP
 	echo "~/bin backuped"
 fi
-ln -sf ${DOTFILES_ROOT}/bin ~/bin
+rm -r ~/bin
+ln -s ${DOTFILES_ROOT}/bin ~/bin
 echo "Symlink created: ~/bin"
 
 
