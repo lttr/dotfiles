@@ -1,7 +1,7 @@
-"          _                       
-"  __   __(_) _ __ ___   _ __  ___ 
+"          _
+"  __   __(_) _ __ ___   _ __  ___
 "  \ \ / /| || '_ ` _ \ | '__|/ __|
-"   \ V / | || | | | | || |  | (__ 
+"   \ V / | || | | | | || |  | (__
 "    \_/  |_||_| |_| |_||_|   \___|
 "
 "  Lukas Trumm, since 2014
@@ -755,8 +755,8 @@ augroup python
     autocmd FileType python noremap <leader>f :Autoformat<CR>
     autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
-	autocmd FileType python noremap <leader>f :Autoformat<CR>
-	autocmd FileType python noremap <leader>k :PymodeLint<CR>
+    autocmd FileType python noremap <leader>f :Autoformat<CR>
+    autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
     if has('win32')
         autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
@@ -1411,7 +1411,7 @@ endfunction
 " Prints number of rows, duration and connection details of the performed query
 " Called by dbext after query is finished
 " Also clears the lines which are not parts of the result
-function! DBextPostResult(db_type, buf_nr) 
+function! DBextPostResult(db_type, buf_nr)
     let l:connection = getline(line('.'))
     let l:connection = substitute(l:connection, '\s\+', '\ ', 'g')
     /mysql.*command\ line\ interface/d
@@ -1432,13 +1432,13 @@ endfunction
 
 " Source https://gist.github.com/iburago/734422
 function! ToggleIndentGuidesSpaces()
-	if exists('b:iguides_spaces')
-		call matchdelete(b:iguides_spaces)
-		unlet b:iguides_spaces
-	else
-		let pos = range(1, &l:textwidth, &l:shiftwidth)
-		call map(pos, '"\\%" . v:val . "v"')
-		let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
-		let b:iguides_spaces = matchadd('CursorLine', pat)
-	endif
+    if exists('b:iguides_spaces')
+        call matchdelete(b:iguides_spaces)
+        unlet b:iguides_spaces
+    else
+        let pos = range(1, &l:textwidth, &l:shiftwidth)
+        call map(pos, '"\\%" . v:val . "v"')
+        let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
+        let b:iguides_spaces = matchadd('CursorLine', pat)
+    endif
 endfunction
