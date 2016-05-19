@@ -363,7 +363,7 @@ nnoremap <C-z> <Esc>
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
 nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
-" Make commented subheading from current line, using Commentary plugin (no 'noremap')
+nmap <LocalLeader>- Oi<Esc>gcclDjgccw~oi<Esc>gcclDj
 nmap <LocalLeader>= I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
 " ===== Increment =====
