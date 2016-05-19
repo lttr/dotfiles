@@ -26,12 +26,12 @@ augroup END
 " Automatic installation of Plug
 if has('unix')
     if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    augroup plug
-        autocmd!
-        autocmd VimEnter * PlugInstall | source $MYVIMRC
-    augroup END
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        augroup plug
+            autocmd!
+            autocmd VimEnter * PlugInstall | source $MYVIMRC
+        augroup END
     endif
 endif
 
@@ -195,7 +195,7 @@ set expandtab                " Force spaces over tabs and with :retab
 set textwidth =0               " Maximum width of text that is being inserted (0 = no hard wrap)
 set linebreak                  " Dont wrap words
 if exists("&breakindent")
-  set breakindent              " Soft wrapped lines will continue visually indented (since vim 7.4.x)
+    set breakindent              " Soft wrapped lines will continue visually indented (since vim 7.4.x)
 endif
 
 " }}}
@@ -213,7 +213,7 @@ set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 if has('unix')
     set guifont=Monospace\ 12
 else
-  set guifont=Consolas:h12
+    set guifont=Consolas:h12
 endif
 
 " ===== GUI adjustments =====
@@ -495,9 +495,9 @@ nnoremap <F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (sub
 " ===== Highlighting =====
 " Show highlight groups under cursor
 noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . "> fgcolor<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg") . ">"<CR>
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . "> fgcolor<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg") . ">"<CR>
 
 " }}}
 " ==============================================================================
@@ -645,11 +645,11 @@ augroup END
 " Create Jira style aligned table from tab separated items of one paragraph
 " First line will have double | (pipe) characters as separators
 command! TTabToJira normal
-    \ vip:s/\t/|/g<CR>
-    \ vip:s/^/|\ /<CR>
-    \ vip:s/$/\ |/<CR>
-    \ vip:Tabularize/|<CR>
-    \ {j:s/|\ \?/||/g<CR>
+            \ vip:s/\t/|/g<CR>
+            \ vip:s/^/|\ /<CR>
+            \ vip:s/$/\ |/<CR>
+            \ vip:Tabularize/|<CR>
+            \ {j:s/|\ \?/||/g<CR>
 
 " Create Jira style table from MySQL console output
 command! TMysqlToJira normal vap:g/^+/d<CR>kvipo<ESC>:s/\ \?|/||/g<CR>
@@ -704,22 +704,22 @@ augroup END
 " Creates Markdown (GFM) style table from tab separated items of one paragraph
 " Second line will be a separator between head and body of the table
 command! MDtable normal
-    \ vip:s/\t/|/g<CR>
-    \ vip:Tabularize/|<CR>
-    \ yyp:s/[^ |]/-/g<CR>
-    \ :s/\([^|]\)\ \([^ |]\)/\1-\2/g<CR>
+            \ vip:s/\t/|/g<CR>
+            \ vip:Tabularize/|<CR>
+            \ yyp:s/[^ |]/-/g<CR>
+            \ :s/\([^|]\)\ \([^ |]\)/\1-\2/g<CR>
 
 " Create Markdown ordered list
 " Adds numbers and align the list
 command! MDlist normal
-    \ vipI1. }k
-    \ :Tabularize/^[^ ]*\zs\ /l0
+            \ vipI1. }k
+            \ :Tabularize/^[^ ]*\zs\ /l0
 
 " Create Markdown main heading from file name
 command! MDfiletohead normal
-    \ ggOi%dF.x0vU
-    \ :s/-/\ /g<CR>
-    \ yypVr=o
+            \ ggOi%dF.x0vU
+            \ :s/-/\ /g<CR>
+            \ yypVr=o
 
 " Creates Markdown style web links
 " Replaces any row and following row with URL with Markdown syntax for links
@@ -871,9 +871,9 @@ nnoremap <c-p> :CtrlP<cr>
 " Set ctrl+; for most recently used files
 nnoremap <c-m> :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
-    \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
-\}
+            \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
+            \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
+            \}
 let g:ctrlp_working_path_mode = 'rc'
 
 " ===== CSV =====
@@ -912,9 +912,9 @@ augroup fugitive
 
     " Go up a level in git tree
     autocmd User fugitive
-        \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-        \   nnoremap <buffer> .. :edit %:h<CR> |
-        \ endif
+                \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+                \   nnoremap <buffer> .. :edit %:h<CR> |
+                \ endif
 
     nnoremap <Leader>ga :Git add %:p<CR><CR>
     nnoremap <Leader>gs :Gstatus<CR>
@@ -1026,9 +1026,9 @@ let g:SuperTabLongestHighlight = 0
 
 " ===== Syntastic =====
 let g:syntastic_mode_map = {
-    \ "mode": "passive",
-    \ "active_filetypes": [],
-    \ "passive_filetypes": [] }
+            \ "mode": "passive",
+            \ "active_filetypes": [],
+            \ "passive_filetypes": [] }
 
 " ===== Table Mode =====
 let g:table_mode_corner     = "|"
@@ -1062,14 +1062,14 @@ function! SaveSession()
 endfunction
 function! RestoreSession()
     " if filereadable('~/vimsession')
-        execute 'so ~/vimsession'
-        if bufexists(1)
-            for l in range(1, bufnr('$'))
-                if bufwinnr(l) == -1
-                    exec 'sbuffer ' . l
-                endif
-            endfor
-        endif
+    execute 'so ~/vimsession'
+    if bufexists(1)
+        for l in range(1, bufnr('$'))
+            if bufwinnr(l) == -1
+                exec 'sbuffer ' . l
+            endif
+        endfor
+    endif
     " else
     "     echo 'Error: File with session not readable.'
     " endif
@@ -1096,23 +1096,23 @@ endfunction
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-          \ | wincmd p | diffthis
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                \ | wincmd p | diffthis
 endif
 
 " Word Frequency function creates new file with words and their frequencies
 function! WordFrequency() range
-  let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
-  let frequencies = {}
-  for word in all
-    let frequencies[word] = get(frequencies, word, 0) + 1
-  endfor
-  new
-  setlocal buftype=nofile bufhidden=hide noswapfile tabstop=20
-  for [key,value] in items(frequencies)
-    call append('$', key."\t".value)
-  endfor
-  sort i
+    let all = split(join(getline(a:firstline, a:lastline)), '\A\+')
+    let frequencies = {}
+    for word in all
+        let frequencies[word] = get(frequencies, word, 0) + 1
+    endfor
+    new
+    setlocal buftype=nofile bufhidden=hide noswapfile tabstop=20
+    for [key,value] in items(frequencies)
+        call append('$', key."\t".value)
+    endfor
+    sort i
 endfunction
 command! -range=% WordFrequency <line1>,<line2>call WordFrequency()
 
@@ -1146,21 +1146,21 @@ endfunction
 " Highlights duplicated lines in given range
 " from http://stackoverflow.com/a/1270689
 function! HighlightRepeats() range
-  let lineCounts = {}
-  let lineNum = a:firstline
-  while lineNum <= a:lastline
-    let lineText = getline(lineNum)
-    if lineText != ""
-      let lineCounts[lineText] = (has_key(lineCounts, lineText) ? lineCounts[lineText] : 0) + 1
-    endif
-    let lineNum = lineNum + 1
-  endwhile
-  exe 'syn clear Repeat'
-  for lineText in keys(lineCounts)
-    if lineCounts[lineText] >= 2
-      exe 'syn match Repeat "^' . escape(lineText, '".\^$*[]') . '$"'
-    endif
-  endfor
+    let lineCounts = {}
+    let lineNum = a:firstline
+    while lineNum <= a:lastline
+        let lineText = getline(lineNum)
+        if lineText != ""
+            let lineCounts[lineText] = (has_key(lineCounts, lineText) ? lineCounts[lineText] : 0) + 1
+        endif
+        let lineNum = lineNum + 1
+    endwhile
+    exe 'syn clear Repeat'
+    for lineText in keys(lineCounts)
+        if lineCounts[lineText] >= 2
+            exe 'syn match Repeat "^' . escape(lineText, '".\^$*[]') . '$"'
+        endif
+    endfor
 endfunction
 
 " Toggles x and / characters in checkboxes
@@ -1248,14 +1248,14 @@ endfunction
 " :Bufferize map
 " :Bufferize let g:
 function! s:Bufferize(cmd)
-  let cmd = a:cmd
-  redir => output
-  silent exe cmd
-  redir END
-  new
-  " setlocal nonumber
-  call setline(1, split(output, "\n"))
-  set nomodified
+    let cmd = a:cmd
+    redir => output
+    silent exe cmd
+    redir END
+    new
+    " setlocal nonumber
+    call setline(1, split(output, "\n"))
+    set nomodified
 endfunction
 
 " Increments the current digit instead of whole number
@@ -1289,107 +1289,107 @@ endfun
 
 " ===== Script to save gvim window position =====
 if has("gui_running")
-  function! ScreenFilename()
-    if has('amiga')
-      return "s:.vimsize"
-    elseif has('win32')
-      return $HOME.'\_vimsize'
-    else
-      return $HOME.'/.vimsize'
-    endif
-  endfunction
-
-  function! ScreenRestore()
-    " Restore window size (columns and lines) and position
-    " from values stored in vimsize file.
-    " Must set font first so columns and lines are based on font size.
-    let f = ScreenFilename()
-    if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      for line in readfile(f)
-        let sizepos = split(line)
-        if len(sizepos) == 5 && sizepos[0] == vim_instance
-          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
-          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
-          return
+    function! ScreenFilename()
+        if has('amiga')
+            return "s:.vimsize"
+        elseif has('win32')
+            return $HOME.'\_vimsize'
+        else
+            return $HOME.'/.vimsize'
         endif
-      endfor
-    endif
-  endfunction
+    endfunction
 
-  function! ScreenSave()
-    " Save window size and position.
-    if has("gui_running") && g:screen_size_restore_pos
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
-            \ (getwinposx()<0?0:getwinposx()) . ' ' .
-            \ (getwinposy()<0?0:getwinposy())
-      let f = ScreenFilename()
-      if filereadable(f)
-        let lines = readfile(f)
-        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
-        call add(lines, data)
-      else
-        let lines = [data]
-      endif
-      call writefile(lines, f)
-    endif
-  endfunction
+    function! ScreenRestore()
+        " Restore window size (columns and lines) and position
+        " from values stored in vimsize file.
+        " Must set font first so columns and lines are based on font size.
+        let f = ScreenFilename()
+        if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
+            let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+            for line in readfile(f)
+                let sizepos = split(line)
+                if len(sizepos) == 5 && sizepos[0] == vim_instance
+                    silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
+                    silent! execute "winpos ".sizepos[3]." ".sizepos[4]
+                    return
+                endif
+            endfor
+        endif
+    endfunction
 
-  if !exists('g:screen_size_restore_pos')
-    let g:screen_size_restore_pos = 1
-  endif
-  if !exists('g:screen_size_by_vim_instance')
-    let g:screen_size_by_vim_instance = 1
-  endif
-  augroup vimgui
-    autocmd!
-    autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-    autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
-  augroup END
+    function! ScreenSave()
+        " Save window size and position.
+        if has("gui_running") && g:screen_size_restore_pos
+            let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+            let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
+                        \ (getwinposx()<0?0:getwinposx()) . ' ' .
+                        \ (getwinposy()<0?0:getwinposy())
+            let f = ScreenFilename()
+            if filereadable(f)
+                let lines = readfile(f)
+                call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
+                call add(lines, data)
+            else
+                let lines = [data]
+            endif
+            call writefile(lines, f)
+        endif
+    endfunction
+
+    if !exists('g:screen_size_restore_pos')
+        let g:screen_size_restore_pos = 1
+    endif
+    if !exists('g:screen_size_by_vim_instance')
+        let g:screen_size_by_vim_instance = 1
+    endif
+    augroup vimgui
+        autocmd!
+        autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+        autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+    augroup END
 endif
 " End of position saving script
 
 " ===== Toggle slashes =====
 " http://vim.wikia.com/wiki/Change_between_backslash_and_forward_slash
 function! ToggleSlash(independent) range
-  let from = ''
-  for lnum in range(a:firstline, a:lastline)
-    let line = getline(lnum)
-    let first = matchstr(line, '[/\\]')
-    if !empty(first)
-      if a:independent || empty(from)
-        let from = first
-      endif
-      let opposite = (from == '/' ? '\' : '/')
-      call setline(lnum, substitute(line, from, opposite, 'g'))
-    endif
-  endfor
+    let from = ''
+    for lnum in range(a:firstline, a:lastline)
+        let line = getline(lnum)
+        let first = matchstr(line, '[/\\]')
+        if !empty(first)
+            if a:independent || empty(from)
+                let from = first
+            endif
+            let opposite = (from == '/' ? '\' : '/')
+            call setline(lnum, substitute(line, from, opposite, 'g'))
+        endif
+    endfor
 endfunction
 command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
 
 " ===== Toogle options flag =====
 function! ToggleFlag(option,flag)
-  exec ('let lopt = &' . a:option)
-  if lopt =~ (".*" . a:flag . ".*")
-    exec ('set ' . a:option . '-=' . a:flag)
-  else
-    exec ('set ' . a:option . '+=' . a:flag)
-  endif
+    exec ('let lopt = &' . a:option)
+    if lopt =~ (".*" . a:flag . ".*")
+        exec ('set ' . a:option . '-=' . a:flag)
+    else
+        exec ('set ' . a:option . '+=' . a:flag)
+    endif
 endfunction
 
 " Source http://stackoverflow.com/questions/12833189
 function! JumpToCSS()
-  let id_pos = searchpos("id", "nb", line('.'))[1]
-  let class_pos = searchpos("class", "nb", line('.'))[1]
+    let id_pos = searchpos("id", "nb", line('.'))[1]
+    let class_pos = searchpos("class", "nb", line('.'))[1]
 
-  if class_pos > 0 || id_pos > 0
-    if class_pos < id_pos
-      execute ":vim '#".expand('<cword>')."' **/*.css"
-    elseif class_pos > id_pos
-      execute ":vim '.".expand('<cword>')."' **/*.css"
+    if class_pos > 0 || id_pos > 0
+        if class_pos < id_pos
+            execute ":vim '#".expand('<cword>')."' **/*.css"
+        elseif class_pos > id_pos
+            execute ":vim '.".expand('<cword>')."' **/*.css"
+        endif
     endif
-  endif
 endfunction
 
 " Measure the time a given command takes to finish and store it in register t
@@ -1397,11 +1397,11 @@ endfunction
 " Originally from:
 " http://vim.wikia.com/wiki/Measure_time_taken_to_execute_a_command
 function! HowLong( command )
-python <<EOF
-import vim
-import time
-start = time.clock()
-vim.command("execute a:command")
+    python <<EOF
+    import vim
+    import time
+    start = time.clock()
+    vim.command("execute a:command")
 end = time.clock()
 duration = end - start
 vim.command("let @t = string({0:.2f})".format(duration))
