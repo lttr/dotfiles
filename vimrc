@@ -363,7 +363,7 @@ nnoremap <C-z> <Esc>
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
 nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
-nmap <LocalLeader>- Oi<Esc>gcclDjgccw~oi<Esc>gcclDj
+nmap <LocalLeader>- Oi<Esc>gcclDjgccwvUoi<Esc>gcclDj
 nmap <LocalLeader>= I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
 " ===== Increment =====
@@ -890,6 +890,7 @@ command! CSVON let &ft='csvx' | let &ft='csv'
 let g:dbext_default_window_use_horiz = 0  " Use vertical split
 let g:dbext_default_window_width = 120
 let g:dbext_default_always_prompt_for_variables = -1
+let g:dbext_default_MYSQL_extra = '-vv -t'
 
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
@@ -1397,35 +1398,50 @@ endfunction
 " Originally from:
 " http://vim.wikia.com/wiki/Measure_time_taken_to_execute_a_command
 function! HowLong( command )
-    python <<EOF
-    import vim
-    import time
-    start = time.clock()
-    vim.command("execute a:command")
+python <<EOF
+import vim
+import time
+start = time.clock()
+vim.command("execute a:command")
 end = time.clock()
 duration = end - start
 vim.command("let @t = string({0:.2f})".format(duration))
 EOF
 endfunction
 
-" Prints number of rows, duration and connection details of the performed query
-" Called by dbext after query is finished
-" Also clears the lines which are not parts of the result
+" Prints number of rows, duration and connection details
+" of the performed query (MySQL).
+" - Called by dbext after query is finished
+" - Clears the lines which are not parts of the result
+" - Assumes -vv and -t options are set
+" - Saves message in @r register
 function! DBextPostResult(db_type, buf_nr)
+    " Info from result
     let l:connection = getline(line('.'))
     let l:connection = substitute(l:connection, '\s\+', '\ ', 'g')
+    let l:rowsline = getline(search('^\d\+ row\|^Empty\ set'))
+
+    " Result cleanup
+    %s/^--------------\_.*--------------$//ge
     /mysql.*command\ line\ interface/d
     /^Connection/d
+    /^Bye/d
+    /^\d\+ row/d
+    /^\s*$/d
+    %s//1/ge
+
+    " Create message
     redraw
-    let l:count = eval(g:dbext_rows_affected - 5)
-    if 0 > l:count
+    let l:count = matchstr(l:rowsline, '\d\+\ze row')
+    if l:count == ""
         let l:count = 0
     endif
     let l:rows = "rows"
     if 1 == l:count
         let l:rows = "row"
     endif
-    let l:msg =  l:count." ".l:rows." returned in ".@t." seconds (".l:connection.")"
+    let l:msg =  l:count." ".l:rows." returned in ".@t
+    let l:msg .= " seconds (".l:connection.")"
     let @r = l:msg
     echom l:msg
 endfunction
