@@ -341,11 +341,11 @@ nnoremap <C-c>w m`viw"+y``
 " copy WORD
 nnoremap <C-c>W m`viW"+y``
 " paste
-nnoremap <C-v> "+p
+nnoremap <C-V> "+p
 " paste from insert mode
-inoremap <C-v> <Esc>"+p
+inoremap <C-V> <Esc>"+p
 " paste over in visual mode
-vnoremap <C-v> d"+gP
+vnoremap <C-V> d"+gP
 " Replace selection with yanked or deleted text
 " TODO Does not work correctly at the end of a line
 vnoremap s "_dgp
@@ -475,6 +475,10 @@ nnoremap <A-l> <C-w>l
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
+nnoremap <Esc>l <C-w>l
+nnoremap <Esc>h <C-w>h
+nnoremap <Esc>j <C-w>j
+nnoremap <Esc>k <C-w>k
 " Move screen 10 characters left or right in wrap mode
 nnoremap gh 40zh
 nnoremap gl 40zl
@@ -723,7 +727,7 @@ command! MDfiletohead normal
 
 " Creates Markdown style web links
 " Replaces any row and following row with URL with Markdown syntax for links
-command! MDlinks :%s/\(.*\)\n\(\(http\|www\).*\)/[\1](\2)/<CR>
+command! MDlinks %s/\(.*\)\n\(\(http\|www\).*\)/[\1](\2)/
 
 " ===== Pascal =====
 augroup pascal
@@ -1381,15 +1385,14 @@ endfunction
 
 " Source http://stackoverflow.com/questions/12833189
 function! JumpToCSS()
-    let id_pos = searchpos("id", "nb", line('.'))[1]
-    let class_pos = searchpos("class", "nb", line('.'))[1]
+  let id_pos = searchpos("id", "nb", line('.'))[1]
+  let class_pos = searchpos("class", "nb", line('.'))[1]
 
-    if class_pos > 0 || id_pos > 0
-        if class_pos < id_pos
-            execute ":vim '#".expand('<cword>')."' **/*.css"
-        elseif class_pos > id_pos
-            execute ":vim '.".expand('<cword>')."' **/*.css"
-        endif
+  if class_pos > 0 || id_pos > 0
+    if class_pos < id_pos
+      execute ":vim '#".expand('<cword>')."' **/*.*ss"
+    elseif class_pos > id_pos
+      execute ":vim '.".expand('<cword>')."' **/*.*ss"
     endif
 endfunction
 
