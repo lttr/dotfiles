@@ -1,8 +1,23 @@
-# Remove unnecessary directories from home
-rmdir ~/Documents ~/Downloads ~/Desktop ~/Music ~/Pictures ~/Public ~/Templates ~/Videos
+#!/usr/bin/env bash
 
-# Make useful directories in home
-mkdir ~/bin ~/down ~/opt ~/sandbox ~/tasks
+# Remove unnecessary directories from home
+rmdir ~/Desktop 
+rmdir ~/Documents 
+rmdir ~/Downloads 
+rmdir ~/Music 
+rmdir ~/Pictures 
+rmdir ~/Public 
+rmdir ~/Templates 
+rmdir ~/Videos
+
+# Make useful directories inside home
+mkdir -p ~/bin 
+mkdir -p ~/down 
+mkdir -p ~/opt 
+mkdir -p ~/sandbox 
+mkdir -p ~/tasks
 
 # Prepare dirs for vim
-mkdir ~/.vim ~/.vim/backups ~/.vim/undos
+mkdir -p ~/.vim 
+mkdir -p ~/.vim/backups 
+mkdir -p ~/.vim/undos

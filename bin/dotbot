@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+BASEDIR="$HOME/dotfiles"
+DOTBOT_DIR="dotbot"
+DOTBOT_BIN="bin/dotbot"
+EXE="${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" 
+
+CONFIG_SUFFIX=".conf.yaml"
+CONFIG_DIR="${BASEDIR}/install"
+
+GOALS=(
+    dirs
+    apps
+    symlinks
+)
+
+help() {
+    echo "Usage: dotbot [ACTION] [GOAL]"
+    echo "Without args - show this help"
+    echo "ACTIONs: "
+    echo "    goals   - list GOALs"
+    echo "    list    - list tasks in GOAL"
+    echo "    install - apply tasks in GOAL"
+    echo "    upgrade - upgrade dotbot"
+}
+
+test_config() {
+    if [[ ! -f "${CONFIG_PATH}" ]]; then
+        echo "Configuration file ${CONFIG} does not exist in ${CONFIG_DIR}!"
+        exit 1
+    fi
+}
+
+if [[ $# == 0 ]]; then
+    help
+    exit 0
+fi
+
+ACTION="$1"
+GOAL="$2"
+CONFIG="${GOAL}${CONFIG_SUFFIX}"
+CONFIG_PATH="${CONFIG_DIR}/${CONFIG}" 
+
+case "$ACTION" in
+    goals)
+        for i in ${GOALS[@]}; do
+            echo $i
+        done
+        ;;
+    list)
+        case "$GOAL" in
+            dirs)
+                cat "${CONFIG_DIR}/directories.sh"
+                ;;
+            apps)
+                cat "${CONFIG_DIR}/applications.sh" | awk '/^PACKAGES/,/^)/'
+                ;;
+            symlinks)
+                test_config
+                cat "${CONFIG_PATH}" | awk '/- link/,0' | grep -v '^$'
+                ;;
+            *)
+                echo "GOAL?"
+                ;;
+        esac
+        ;;
+    install)
+        test_config
+        case "$GOAL" in
+            dirs)
+                "${CONFIG_DIR}/directories.sh"
+                ;;
+            apps)
+                "${CONFIG_DIR}/applications.sh"
+                ;;
+            symlinks)
+                "$EXE" -d "${BASEDIR}" -c "${CONFIG_PATH}"
+                ;;
+            all)
+                "${CONFIG_DIR}/directories.sh"
+                "${CONFIG_DIR}/applications.sh"
+                "$EXE" -d "${BASEDIR}" -c "${CONFIG_PATH}"
+                ;;
+        esac
+        ;;
+    upgrade)
+        cd "${BASEDIR}"
+        git submodule update --init --recursive "${DOTBOT_DIR}"
+        ;;
+    *)
+        help
+        ;;
+esac
+

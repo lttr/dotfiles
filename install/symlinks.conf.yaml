@@ -1,0 +1,38 @@
+- defaults:
+    link:
+        relink: true
+        create: true
+
+- clean: ['~', '~/.config']
+
+- link:
+    ~/.agignore: agignore
+    ~/.aliases: aliases
+    ~/.gitconfig: gitconfig
+    ~/.ideavimrc: ideavimrc
+    ~/.kdiff3rc: kdiff3rc
+    ~/.vimrc: vimrc
+    ~/.vrapperrc: vrapperrc
+    ~/.config/dunst/dunstrc: dunstrc
+    ~/.zshrc: zshrc
+    ~/.zshenv: zshenv
+    ~/.zprofile: zprofile
+
+    ~/.i3: i3
+    ~/.vim/colors: vim/colors
+    ~/.vim/syntax: vim/syntax
+
+    ~/bin : bin
+
+    ~/.kde/share/config/krusaderrc:
+        path: ../Dropbox/conf/krusader/krusaderrc
+    ~/.kde/share/apps/krusader/krbookmarks.xml:
+        path: ../Dropbox/conf/krusader/krbookmarks.xml
+    ~/.kde/share/apps/krusader/krusaderui.rc:
+        path: ../Dropbox/conf/krusader/krusaderui.rc
+    ~/.kde/share/apps/krusader/useractions.xml:
+        path: ../Dropbox/conf/krusader/useractions.xml
+
+    ~/.fonts:
+        path: ../Dropbox/conf/fonts
+
