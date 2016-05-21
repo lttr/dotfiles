@@ -21,3 +21,7 @@ export LC_MONETARY=cs_CZ.UTF-8
 # (I use it in vim)
 stty start undef
 stty stop undef
+
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi
