@@ -275,7 +275,7 @@ bindsym $mod+Ctrl+0 move container to workspace $ws_skype ; workspace $ws_skype
 
 # Scratchpad - hidden workspace
 bindsym $mod+z move scratchpad
-bindsym $mod+Shift+z scratchpad show
+bindsym $mod+s scratchpad show
 
 # Toggle workspaces
 bindsym $mod+Tab workspace back_and_forth
@@ -346,6 +346,7 @@ for_window [class="Nautilus"] floating enable
 for_window [class="Qstardict"] floating enable
 for_window [class="lxappearance"] floating enable
 for_window [class="Gnome-tweak-tool"] floating enable
+for_window [class="Gnome-font-view"] floating enable
 
 
 # =================================================================
