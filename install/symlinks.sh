@@ -8,6 +8,7 @@ set -e
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 DOTFILES=(
+    agignore
     aliases
     gitconfig
     ideavimrc
@@ -16,7 +17,6 @@ DOTFILES=(
     vrapperrc
 	vim/colors
 	vim/syntax
-	i3
 	config/dunst/dunstrc
 	zshrc
 	zshenv
@@ -36,6 +36,14 @@ for dotfile in ${DOTFILES[@]}; do
 	echo "Symlink created: ~/.$dotfile"
 done
 
+# ===== i3 =====
+if [[ -d ~/.i3 ]]; then
+    cp -rb ~/.i3 $DOTFILES_BACKUP
+    echo "~/.i3 backuped"
+fi
+rm -r ~/.i3
+ln -s ${DOTFILES_ROOT}/i3 ~/.i3
+echo "Symlink created: ~/.i3"
 
 # ===== Bin =====
 if [[ -d ~/bin ]]; then

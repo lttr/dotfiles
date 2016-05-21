@@ -79,6 +79,8 @@ gsettings set org.gnome.desktop.interface gtk-theme "Paper"
 # icon theme
 gsettings set org.gnome.desktop.interface icon-theme "Paper"
 
+# Patched font
+cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -
 
 # Update fonts
 fc-cache -f -v
@@ -87,3 +89,4 @@ fc-cache -f -v
 gnome-shell --replace &
 
 
+cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -

@@ -3,8 +3,8 @@
 # ===== Prepare sources =====
 
 # Google Chrome
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+# wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+# sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
 # Skype
 sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
@@ -63,14 +63,12 @@ PACKAGES=(
 	python-wnck
 	python-xlib
 	rofi
-	qstardict
 	scrot
 	silversearcher-ag
 	skype
-	stardict-czech
-	stardict-english-czech
 	tmux
 	trash-cli
+	tree
 	umlet
 	virtualbox
 	vagrant
@@ -91,21 +89,27 @@ done
 
 # ===== Custom applications =====
 
-cd opt
+cd ~/opt
 
 # gsettings-info
-git clone https://github.com/jmatsuzawa/gsettings-info ~/opt/gsettings-info
-# ln -s ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
+git clone https://github.com/jmatsuzawa/gsettings-info
+ln -sf ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
 
 # xkblayout-state
 git clone https://github.com/nonpop/xkblayout-state.git 
 cd xkblayout-state
 make
-cd
-# ln -s ~/opt/xkblayout-state/xkblayout-state ~/bin/xkblayout-state
+ln -sf ~/opt/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
 
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git
+fzf/install
+
+cd
 
 # ===== Proprietary drivers =====
 
 # Consider configuring drivers in Software & updates -> Drivers
 
+cd ~/opt && tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
+cd fasd-1.0.1 && sudo make install
