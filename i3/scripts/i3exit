@@ -12,7 +12,11 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        lock && systemctl suspend
+        if [[ $PLACE == 'home' ]]; then
+            systemctl suspend
+        else
+            lock && systemctl suspend
+        fi
         ;;
     hibernate)
         lock && systemctl hibernate
