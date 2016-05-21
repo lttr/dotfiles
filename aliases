@@ -55,6 +55,10 @@ alias apts='apt search'
 
 alias tp='trash-put'
 
+# Dictionaries
+alias aj='dict -d fd-eng-ces'
+alias eng='dict -d gcide'
+
 # =================================================================
 #                              Git
 # =================================================================
