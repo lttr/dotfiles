@@ -105,6 +105,13 @@ ln -sf ~/opt/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
 git clone --depth 1 https://github.com/junegunn/fzf.git
 fzf/install
 
+# git-credential-helper
+git clone git://github.com/pah/git-credential-helper.git
+BACKEND=gnome-keyring
+cd git-credential-helper/$BACKEND
+make
+cp git-credential-$BACKEND ~/bin/
+
 cd
 
 # ===== Proprietary drivers =====
