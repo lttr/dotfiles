@@ -66,6 +66,8 @@ gs=git status -s
 
 ;= Programs
 vag=vagrant $*
+ipy=ipython $*
+vi=gvim $*
 
 
 ;= ===== CmdEr specific aliases =====
@@ -87,9 +89,14 @@ scripts=cd %SYNC_DIR%\scripts
 syncdir=cd %SYNC_DIR%
 tasks=cd %USERPROFILE%\Tasks
 utils=cd %SYNC_DIR%\utils
+tia=cd %SYNC_DIR%\ia
 vagdir=cd %USERPROFILE%\virtuals\Vagrant
 vimfiles=cd %USERPROFILE%\vim
 work=cd c:\Work
 
 ;= ===== Integration =====
 tc="C:\install\TOTALCMD.EXE" /O %CD%
+
+;= ===== Search =====
+ag=ag --smart-case --pager="less -FIMRX" $*
+grep=grep -i $*

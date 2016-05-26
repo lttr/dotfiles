@@ -42,7 +42,7 @@ alias ezsh="$EDITOR ~/dotfiles/zshrc"
 #                           Shortcuts
 # =================================================================
 alias dotf='cd ~/dotfiles'
-alias ia='cd ~/Dropbox/ia'
+alias tia='cd ~/Dropbox/ia'
 
 
 # =================================================================
@@ -54,6 +54,8 @@ alias apti='sudo apt-get install -y'
 alias apts='apt search'
 
 alias tp='trash-put'
+
+alias ipy='ipython'
 
 # Dictionaries
 alias aj='dict -d fd-eng-ces'
@@ -107,6 +109,12 @@ alias gs="git status -s"
 #                             Other
 # =================================================================
 alias pa='echo $PATH | tr -s ":" "\n"'
+
+
+# =================================================================
+#                             Search
+# =================================================================
+alias ag='ag --smart-case --pager="less -FIMRX"'
 
 
 # =================================================================
