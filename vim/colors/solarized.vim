@@ -706,6 +706,7 @@ hi! link lCursor Cursor
 "exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base02
 " exe "hi! MatchParen"     .s:fmt_bold   .s:fg_base1    .s:bg_base02
 exe "hi! MatchParen"     .s:fmt_none   .s:fg_blue    .s:bg_base02
+exe "hi! xmlTag"        .s:fmt_none   .s:fg_blue   .s:bg_none
 
 "}}}
 " vim syntax highlighting "{{{
