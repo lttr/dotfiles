@@ -391,8 +391,9 @@ nnoremap <leader>G :Goyo<CR>
 
 " ===== Programming shortcuts =====
 " Switch end of line character
-nnoremap <LocalLeader>; m`A;<esc>``
-nnoremap <LocalLeader>, m`A,<esc>``
+nnoremap <LocalLeader>; m`:s/;\?$/\=submatch(0) == ';' ? '' : ';'/<CR>``
+nnoremap <LocalLeader>: m`:s/:\?$/\=submatch(0) == ':' ? '' : ':'/<CR>``
+nnoremap <LocalLeader>, m`:s/,\?$/\=submatch(0) == ',' ? '' : ','/<CR>``
 
 " ===== Saving buffer =====
 " Use ctrl+s for saving, also in Insert mode (from mswin.vim)
@@ -939,6 +940,8 @@ augroup fugitive
     nnoremap <Leader>go :Git checkout<Space>
     nnoremap <Leader>gps :Git push
     nnoremap <Leader>gpl :Git pull
+    nnoremap <Leader>gv :Gitv<CR>
+    nnoremap <Leader>gf :Gitv!<CR>
 augroup END
 
 " ===== GitGutter =====
@@ -1424,14 +1427,17 @@ function! DBextPostResult(db_type, buf_nr)
     let l:connection = substitute(l:connection, '\s\+', '\ ', 'g')
     let l:rowsline = getline(search('^\d\+ row\|^Empty\ set'))
 
+    " Save original
+    let @o = join(getline(1,'$'), "\n")
+
     " Result cleanup
-    %s/^--------------\_.*--------------$//ge
-    /mysql.*command\ line\ interface/d
-    /^Connection/d
-    /^Bye/d
-    /^\d\+ row/d
-    /^\s*$/d
-    %s//1/ge
+    silent! %s/^--------------\_.*--------------$//ge
+    silent! /mysql.*command\ line\ interface/d
+    silent! /^Connection/d
+    silent! /^Bye/d
+    silent! /^\d\+ row/d
+    silent! /^\s*$/d
+    silent! %s//1/ge
 
     " Create message
     redraw
