@@ -1,0 +1,48 @@
+snippet *
+	SELECT * FROM ${1:table} LIMIT 100;
+snippet sw
+	SELECT
+		*
+	FROM
+		${1:table}
+	WHERE
+		${2:condition}
+	;
+snippet sw
+	SELECT
+		*
+	FROM
+		${1:table}
+	WHERE
+		${2:condition}
+	;
+snippet foreign
+	SELECT
+		column_name,
+		concat(referenced_table_name, '.', referenced_column_name) AS reference
+	FROM
+		information_schema.key_column_usage
+	WHERE
+		table_schema = 'schema'
+		AND table_name = 'table'
+		AND column_name = 'column';
+snippet usage
+	SELECT
+		concat(table_name, '.', column_name) AS usage
+	FROM
+		information_schema.key_column_usage
+	WHERE
+		referenced_table_schema = 'fbcs'
+		AND referenced_table_name = 'functional_module'
+		AND referenced_column_name = 'id';
+snippet size
+	SELECT
+		table_name,
+		round(((data_length + index_length) / 1024 / 1024), 2) 'size in MB' 
+	FROM
+		information_schema.tables 
+	WHERE
+		table_schema = 'fbcs'
+		AND table_name = 'day'
+	ORDER BY
+		(data_length + index_length) DESC;

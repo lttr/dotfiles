@@ -1,0 +1,60 @@
+snippet py
+	#!/usr/bin/env python
+snippet py3
+	#!/usr/bin/env python3
+snippet coding
+	# -*- coding: utf-8 -*-
+snippet im
+	import ${0:module}
+snippet fi
+	from ${0:package} import ${1:module}
+snippet doc
+	"""
+	${1}
+	"""
+snippet wi
+	with ${1:expr} as ${2:var}:
+		${0}
+snippet mysql
+	import MySQLdb
+
+	db = MySQLdb.connect('host','user','password','db' )
+	cursor = db.cursor()
+
+	query = """
+		SELECT
+			*
+		FROM
+			table
+	"""
+
+	cursor.execute(query)
+	data = cursor.fetchall()
+	headrow = [ i[0] for i in cursor.description ]
+
+	db.close()
+snippet out
+	with open(output_file_name, 'wb') as fh:
+		fh.write(${1})
+snippet in
+	with open(input_file_name, 'r') as fh:
+		text = fh.read()
+snippet linesin
+	with open(input_file_name) as fh:
+		for line in fh:
+			${0}
+snippet csvout
+	import csv
+
+	with open('out.csv', 'wb') as fh:
+		writer = csv.writer(fh)
+		writer.writerow(headrow)
+		writer.writerows(data)
+snippet csvin
+	import csv
+
+	with open('in.csv', 'r') as fh:
+		reader = csv.reader(fh)
+		header = reader.next()
+		for row in reader:
+			foo, bar, baz = row
