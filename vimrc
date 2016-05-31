@@ -607,7 +607,7 @@ augroup html
     autocmd FileType html setlocal tabstop=2
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2
-    nnoremap <c-]> :call JumpToCSS()<CR>
+    autocmd FileType html setlocal nnoremap <c-]> :call JumpToCSS()<CR>
 augroup END
 
 " ===== Gnuplot =====
@@ -896,6 +896,11 @@ let g:dbext_default_window_use_horiz = 0  " Use vertical split
 let g:dbext_default_window_width = 120
 let g:dbext_default_always_prompt_for_variables = -1
 let g:dbext_default_MYSQL_extra = '-vv -t'
+if has('win32')
+    let g:dbext_default_history_file = '~/vimfiles/dbext_history'
+elseif has('unix')
+    let g:dbext_default_history_file = '~/.vim/dbext_history'
+endif
 
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
