@@ -19,6 +19,9 @@
 #                             Startup
 # =================================================================
 
+# Setup my hardware
+exec --no-startup-id setup-hardware
+
 # Terminal
 exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal; workspace 1'
 
@@ -191,10 +194,10 @@ bindsym $mod+l focus right
 bindsym Mod1+Tab focus right
 
 # Move windows inside one workspace
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 200
+bindsym $mod+Shift+j move down 200
+bindsym $mod+Shift+k move up 200
+bindsym $mod+Shift+l move right 200
 
 # Alternative windows moving
 bindsym $mod+Left move left
@@ -293,7 +296,7 @@ bindsym $mod+Ctrl+p move container to workspace prev; workspace next
 # HACK: I was not able to configure workspaces with unicode
 # characters which would have specific initial applications
 # started and were properly numbered to keep specific order.
-exec --no-startup-id ~/.i3/scripts/rename-workspaces.sh
+exec --no-startup-id ~/.i3/scripts/rename-workspaces
 
 
 # =================================================================
@@ -307,7 +310,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+e exec nautilus
 
 # Password manager
-bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window.sh keepassx
+bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window keepass2
+bindsym $mod+Ctrl+l exec "keepass2 --auto-type-selected"
 
 
 # =================================================================
@@ -329,7 +333,7 @@ bindsym $mod+slash move position center
 
 # Toggle tiling / floating
 floating_modifier $mod
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Ctrl+space floating toggle
 
 # Toggle focus between tiling / floating
 bindsym $mod+space focus mode_toggle
@@ -340,13 +344,15 @@ bindsym --whole-window $mod+button2 floating toggle
 
 # Floating applications (xprop command for window class)
 for_window [class="ARandR"] floating enable
+for_window [class="Artha"] floating enable
+for_window [class="Gnome-font-view"] floating enable
+for_window [class="Gnome-tweak-tool"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="Keepassx"] floating enable
 for_window [class="Nautilus"] floating enable
 for_window [class="Qstardict"] floating enable
+for_window [class="Skype"] floating enable
 for_window [class="lxappearance"] floating enable
-for_window [class="Gnome-tweak-tool"] floating enable
-for_window [class="Gnome-font-view"] floating enable
 
 
 # =================================================================
@@ -392,7 +398,7 @@ mode "  " {
 # =================================================================
 
 # Source: https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (t) shutdown
 
 bindsym $mod+Pause mode "$mode_system"
 
@@ -402,7 +408,7 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id ~/.i3/scripts/i3exit suspend, mode "default"
     bindsym h exec --no-startup-id ~/.i3/scripts/i3exit hibernate, mode "default"
     bindsym r exec --no-startup-id ~/.i3/scripts/i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.i3/scripts/i3exit shutdown, mode "default"
+    bindsym t exec --no-startup-id ~/.i3/scripts/i3exit shutdown, mode "default"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
