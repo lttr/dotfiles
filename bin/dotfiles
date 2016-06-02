@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+# Small utility for managing dofiles
+# * changes current directory to dotfiles dir
+# * lists install scripts
+# * executes install scripts
+
+# Depends on: [dotbot](https://github.com/anishathalye/dotbot)
+
+set -e
+
+# Constants
+DOTFILES="$HOME/dotfiles"
+CONFIG_SUFFIX=".conf.yaml"
+INSTALL_DIR="${DOTFILES}/install"
+CONFIG_DIR="${DOTFILES}/install/config"
+
+# Functions
+help() {
+    echo "Usage: dotfiles [action] [script]"
+    echo "Actions: "
+    echo "    help => shows this help"
+    echo "    list => list available scripts"
+    echo "    list script => cat given script"
+    echo "    install script => run given script"
+}
+
+test-config() {
+    if [[ ! -f "$1" ]]; then
+        echo "Configuration file $1 does not exist!"
+        exit 1
+    fi
+}
+
+# First argument = action
+ACTION="$1"
+ACTION="${ACTION:=help}"
+
+# Second argument = script
+SCRIPT="$2"
+SCRIPT="${SCRIPT:=all}"
+
+
+case "$ACTION" in
+    help | h)
+        help
+        ;;
+    list | l)
+        case "$SCRIPT" in
+            all)
+                find "${INSTALL_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+                ;;
+            config)
+                find "${CONFIG_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+                ;;
+            *)
+                cat "${INSTALL_DIR}/${SCRIPT}"
+                ;;
+        esac
+        ;;
+    install | i)
+        CONFIG_PATH="${CONFIG_DIR}/${SCRIPT}" 
+        source $CONFIG_PATH
+        ;;
+    *)
+        help
+        ;;
+esac
+

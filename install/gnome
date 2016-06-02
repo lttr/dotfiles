@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+
+# =================================================================
+#                          Gnome desktop
+# =================================================================
+
+# disable fancy gnome animations
+gsettings set org.gnome.desktop.interface enable-animations false
+
+# disable cursor blinking
+gsettings set org.gnome.desktop.interface cursor-blink false
+
+# do not accelerate mouse cursor
+gsettings set org.gnome.desktop.peripherals.mouse speed "-1"
+
+
+# =================================================================
+#                         Gnome terminal
+# =================================================================
+
+
+# Hide menu
+gsettings set "org.gnome.Terminal.Legacy.Settings" default-show-menubar false
+gsettings set org.gnome.Terminal.Legacy.Keybindings paste '<Primary><Shift>v'
+profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+profile=${profile:1:-1} # remove leading and trailing single quotes
+
+# Import terminal settings
+dconf load /org/gnome/terminal/ < config/gnome-terminal.dconf
+
+
+# =================================================================
+#                           Mime types
+# =================================================================
+xdg-mime default vivaldi-stable.desktop test/html
+xdg-mime default vivaldi-stable.desktop x-scheme-handler/http
+xdg-mime default vivaldi-stable.desktop x-scheme-handler/https
+xdg-mime default vivaldi-stable.desktop x-scheme-handler/about
+
+
+
+# =================================================================
+#                             Theme
+# =================================================================
+
+# shell theme
+gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
+# cursor theme
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ (White)"
+# gtk theme
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+# icon theme
+gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
+
+
+# Set GTK theme for Qt apps
+if grep -Fxq "style=GTK+" ~/.config/Trolltech.conf
+then
+    echo "GTK theme for Qt apps already set"
+else
+    echo "[Qt]" >> ~/.config/Trolltech.conf
+    echo "style=GTK+" >> ~/.config/Trolltech.conf
+fi
+
+
+# =================================================================
+#                            Refresh
+# =================================================================
+
+# Update fonts
+fc-cache -f -v
+
+# Restart Gnome shell
+gnome-shell --replace &
+
+
+# Patched font
+# cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -
+
+# Install Paper theme
+# sudo add-apt-repository -y ppa:snwh/pulp
+# sudo apt-get update
+# sudo apt-get install -y paper-icon-theme paper-gtk-theme
+
+# Install shell extension tool
+#wget -O ~/bin/shell-extension-install https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/gnome-extension/shell-extension-install
+#chmod +x ~/bin/shell-extension-install
+
+# GNOME_VERSION=3.16
+
+# User themes
+# https://extensions.gnome.org/extension/19/user-themes/
+#shell-extension-install $GNOME_VERSION 19

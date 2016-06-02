@@ -4,11 +4,17 @@ lock() {
     i3lock --color "#504945"
 }
 
+close_applications() {
+    xdotool search --class ".*" | xargs -inum xdotool getwindowpid num 2> /dev/null | grep "^[0-9]" | uniq -u | xargs kill
+}
+
 case "$1" in
     lock)
         lock
         ;;
     logout)
+        close_applications
+        sleep 5
         i3-msg exit
         ;;
     suspend)
@@ -19,12 +25,20 @@ case "$1" in
         fi
         ;;
     hibernate)
-        lock && systemctl hibernate
+        if [[ $PLACE == 'home' ]]; then
+            systemctl hibernate
+        else
+            lock && systemctl hibernate
+        fi
         ;;
     reboot)
+        close_applications
+        sleep 5
         systemctl reboot
         ;;
     shutdown)
+        close_applications
+        sleep 5
         systemctl poweroff
         ;;
     *)

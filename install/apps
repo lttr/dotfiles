@@ -12,7 +12,6 @@ sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -
 # Infinality for better fonts
 sudo add-apt-repository ppa:no1wantdthisname/ppa
 
-# Vivaldi?
 
 # ===== Install apt packages =====
 
@@ -40,28 +39,29 @@ PACKAGES=(
     inkscape
     jabref
     keepass2
+    kdeconnect
     krusader
-    libappindicator1
+    # libappindicator1
     libgnome-keyring-dev
-    libindicator7
-    libxss1
-    lyx
+    # libindicator7
+    # libxss1
+    # lyx
     lxappearance
     nautilus-dropbox
     neovim
     nodejs
     npm
     openvpn
-    python
-    python3-dev
-    python3-pip
-    python-dbus
-    python-dev
-    python-gtk2
-    python-pip
-    python-setuptools
-    python-wnck
-    python-xlib
+    # python
+    # python3-dev
+    # python3-pip
+    # python-dbus
+    # python-dev
+    # python-gtk2
+    # python-pip
+    # python-setuptools
+    # python-wnck
+    # python-xlib
     rofi
     scrot
     silversearcher-ag
@@ -72,7 +72,7 @@ PACKAGES=(
     umlet
     virtualbox
     vagrant
-    viking
+    # viking
     vim-gtk
     vlc
     wmctrl
@@ -81,10 +81,15 @@ PACKAGES=(
     zsh
 )
 
+log() {
+    echo "=================================================="
+    echo "Installing $1"
+    echo "=================================================="
+}
 
 for package in ${PACKAGES[@]}; do
-  sudo apt-get install -y $package
-  echo $package
+    log $package
+    sudo apt-get install -y $package
 done
 
 
@@ -92,22 +97,23 @@ done
 
 cd ~/opt
 
-# gsettings-info
+
+log 'gsettings-info'
 git clone https://github.com/jmatsuzawa/gsettings-info
 ln -sf ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
 
-# xkblayout-state
+log 'xkblayout-state'
 git clone https://github.com/nonpop/xkblayout-state.git
 cd xkblayout-state
 make
 cd ~/opt
 ln -sf ~/opt/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
 
-# fzf
+log 'fzf'
 git clone --depth 1 https://github.com/junegunn/fzf.git
 fzf/install
 
-# git-credential-helper
+log 'git-credential-helper'
 git clone git://github.com/pah/git-credential-helper.git
 BACKEND=gnome-keyring
 cd git-credential-helper/$BACKEND
@@ -115,15 +121,22 @@ make
 cp git-credential-$BACKEND ~/bin/
 cd ~/opt
 
-# fasd
-cd ~/opt && tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
+log 'fasd'
+tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
 cd fasd-1.0.1
 sudo make install
 cd ~/opt
 
+log 'vivaldi'
+git clone https://gist.github.com/b5aca855f2d05ba14836.git vivaldi-install
+cd vivaldi-install
+sudo sh install-vivaldi.sh --snapshot
+sudo mv /usr/local/bin/vivaldi-snapshot /usr/local/bin/vivaldi
+cd ~/opt
+
+log 'antibody'
+curl -s https://raw.githubusercontent.com/getantibody/installer/master/install | bash -s
+
+
 cd
-
-# ===== Proprietary drivers =====
-
-# Consider configuring drivers in Software & updates -> Drivers
 

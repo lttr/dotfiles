@@ -1,0 +1,5 @@
+#!/bin/sh
+wmctrl -l | while read -r line
+do
+    wmctrl -c `echo "$line" | sed 's/.*  [0-9]* [a-z-]* //'`
+done

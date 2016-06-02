@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Remove unnecessary directories from home
+[ -d Desktop   ] && rmdir ~/Desktop
+[ -d Documents ] && rmdir ~/Documents
+[ -d Downloads ] && rmdir ~/Downloads
+[ -d Music     ] && rmdir ~/Music
+[ -d Pictures  ] && rmdir ~/Pictures
+[ -d Public    ] && rmdir ~/Public
+[ -d Templates ] && rmdir ~/Templates
+[ -d Videos    ] && rmdir ~/Videos
+
+# Make useful directories inside home
+mkdir -p ~/bin 
+mkdir -p ~/down 
+mkdir -p ~/opt 
+mkdir -p ~/sandbox 
+mkdir -p ~/tasks
+
+# Prepare dirs for vim
+mkdir -p ~/.vim 
+mkdir -p ~/.vim/backups 
+mkdir -p ~/.vim/undos
+
+# Prepare directory for mounting data partition
+sudo mkdir -p /media/data
+
+# Symlink data directories
+BASEDIR=/media/data/Users/Lukas
+ln -s ${BASEDIR}/dev ~/code
+ln -s ${BASEDIR}/Fotky ~/fotky
+ln -s ${BASEDIR}/Grafika ~/grafika
+ln -s ${BASEDIR}/Hry ~/hry
+ln -s ${BASEDIR}/Hudba ~/hudba
+ln -s ${BASEDIR}/Informace ~/informace
+ln -s ${BASEDIR}/Moje ~/moje
+ln -s ${BASEDIR}/PC ~/pc
+ln -s ${BASEDIR}/Skaut ~/skaut
+ln -s ${BASEDIR}/Web ~/web
