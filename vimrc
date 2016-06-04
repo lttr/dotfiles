@@ -23,18 +23,6 @@ augroup END
 "  Plugins {{{
 " ============================================================================
 
-" Automatic installation of Plug
-if has('unix')
-    if empty(glob('~/.vim/autoload/plug.vim'))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs'
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        augroup plug
-            autocmd!
-            autocmd VimEnter * PlugInstall | source $MYVIMRC
-        augroup END
-    endif
-endif
-
 call plug#begin()
 
 Plug 'gregsexton/MatchTag'

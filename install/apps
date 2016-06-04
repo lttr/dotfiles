@@ -26,6 +26,7 @@ PACKAGES=(
     dict-freedict-eng-ces
     dict-freedict-ces-eng
     dos2unix
+    feh
     fontconfig-infinality
     freemind
     git
@@ -42,14 +43,17 @@ PACKAGES=(
     kdeconnect
     krusader
     # libappindicator1
-    libgnome-keyring-dev
+    # libgnome-keyring-dev
     # libindicator7
     # libxss1
     # lyx
     lxappearance
     nautilus-dropbox
     neovim
+    network-manager-pptp
+    network-manager-vpnc
     nodejs
+    numlockx
     npm
     openvpn
     # python
@@ -62,6 +66,7 @@ PACKAGES=(
     # python-setuptools
     # python-wnck
     # python-xlib
+    remmina
     rofi
     scrot
     silversearcher-ag
@@ -97,6 +102,9 @@ done
 
 cd ~/opt
 
+log 'vim'
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
 
 log 'gsettings-info'
 git clone https://github.com/jmatsuzawa/gsettings-info
