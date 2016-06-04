@@ -2,13 +2,13 @@
 
 # Scroll down
 if [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
-	amixer -D pulse sset Master 5%+
+	amixer -D pulse sset Master 5%+ >/dev/null
 # Middle click
 elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
-	amixer -D pulse sset Master toggle
+	amixer -D pulse sset Master toggle >dev/null
 # Scroll up
 elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
-	amixer -q sset Capture 5%-
+	amixer -D pulse sset Master 5%- >/dev/null
 fi
 
 vol=$(/usr/share/i3blocks/volume 5 pulse)
