@@ -26,7 +26,7 @@ alias l="ls -FA --show-control-chars --color"
 alias ll="ls -lhF --show-control-chars --color"
 alias la="ls -lhFA --show-control-chars --color"
 
-alias les="less"
+alias le="less"
 alias lesf="less +F"
 
 
@@ -36,6 +36,7 @@ alias lesf="less +F"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
+alias ealias="$EDITOR ~/dotfiles/aliases"
 
 
 # =================================================================
@@ -132,10 +133,10 @@ alias -s png=gthumb
 alias -s jpg=gthumb
 alias -s gif=gthumb
 # Text
-alias -s txt=vim
-alias -s md=vim
-alias -s py=vim
-alias -s java=vim
-alias -s php=vim
-alias -s js=vim
-alias -s css=vim
+alias -s txt=$EDITOR
+alias -s md=$EDITOR
+alias -s py=$EDITOR
+alias -s java=$EDITOR
+alias -s php=$EDITOR
+alias -s js=$EDITOR
+alias -s css=$EDITOR
