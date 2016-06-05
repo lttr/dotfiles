@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo "=================================================="
+echo "Setup directories"
+echo "=================================================="
+
 # Remove unnecessary directories from home
 [ -d Desktop   ] && rmdir ~/Desktop
 [ -d Documents ] && rmdir ~/Documents
@@ -9,6 +13,8 @@
 [ -d Public    ] && rmdir ~/Public
 [ -d Templates ] && rmdir ~/Templates
 [ -d Videos    ] && rmdir ~/Videos
+
+echo "Unnecessary directories removed"
 
 # Make useful directories inside home
 mkdir -p ~/bin 
@@ -23,6 +29,8 @@ mkdir -p ~/.vim/undos
 
 # Prepare directory for mounting data partition
 sudo mkdir -p /media/data
+
+echo "Useful directories created"
 
 # Symlink data directories
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
@@ -50,3 +58,4 @@ elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     ln -sfn ${HOME_DIR}/virtuals ~/virtuals
 fi
 
+echo "Data directories symlinked"
