@@ -13,11 +13,11 @@ echo "=================================================="
 [ -d Public    ] && rmdir ~/Public
 [ -d Templates ] && rmdir ~/Templates
 [ -d Videos    ] && rmdir ~/Videos
+[ -d bin       ] && rmdir ~/bin
 
 echo "Unnecessary directories removed"
 
 # Make useful directories inside home
-mkdir -p ~/bin 
 mkdir -p ~/down 
 mkdir -p ~/opt 
 mkdir -p ~/sandbox 
