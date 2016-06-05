@@ -104,5 +104,5 @@ pip install -r ~/dotfiles/install/config/python-packages.txt
 while read package; do
     [[ "$line" =~ ^#.*$ ]] && continue # skip commented lines
     log "npm package $package"
-    npm install -g "$package"
+    sudo npm install -g "$package"
 done < ~/dotfiles/install/config/nodejs-packages.txt
