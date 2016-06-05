@@ -1,0 +1,6 @@
+csvkit
+ipython
+openpyxl
+pandas
+pycrypto
+pytz

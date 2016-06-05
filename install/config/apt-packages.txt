@@ -1,0 +1,66 @@
+artha
+compton
+curl
+dict
+dict-gcide
+dict-freedict-eng-ces
+dict-freedict-ces-eng
+dos2unix
+feh
+fontconfig-infinality
+freemind
+git
+gimp
+gnuplot
+google-chrome-stable
+gpick
+gthumb
+i3
+i3blocks
+inkscape
+jabref
+keepass2
+kdeconnect
+krusader
+# libappindicator1
+# libgnome-keyring-dev
+# libindicator7
+# libxss1
+# lyx
+lxappearance
+nautilus-dropbox
+neovim
+network-manager-pptp
+network-manager-vpnc
+nodejs
+numlockx
+npm
+openvpn
+# python
+# python3-dev
+# python3-pip
+# python-dbus
+# python-dev
+# python-gtk2
+# python-pip
+# python-setuptools
+# python-wnck
+# python-xlib
+remmina
+rofi
+scrot
+silversearcher-ag
+skype
+tmux
+trash-cli
+tree
+umlet
+virtualbox
+vagrant
+# viking
+vim-gtk
+vlc
+wmctrl
+xbindkeys
+xdotool
+zsh
