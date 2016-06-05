@@ -27,7 +27,7 @@ profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
 profile=${profile:1:-1} # remove leading and trailing single quotes
 
 # Import terminal settings
-dconf load /org/gnome/terminal/ < config/gnome-terminal.dconf
+dconf load /org/gnome/terminal/ < ~/dotfiles/install/config/gnome-terminal.dconf
 
 
 # =================================================================
@@ -37,7 +37,6 @@ xdg-mime default vivaldi-stable.desktop test/html
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/http
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/https
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/about
-
 
 
 # =================================================================
@@ -70,10 +69,6 @@ fi
 
 # Update fonts
 fc-cache -f -v
-
-# Restart Gnome shell
-gnome-shell --replace &
-
 
 # Patched font
 # cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -

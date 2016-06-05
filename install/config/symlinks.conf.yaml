@@ -7,7 +7,6 @@
 
 - link:
     ~/.agignore: agignore
-    ~/.aliases: aliases
     ~/.gitconfig: gitconfig
     ~/.ideavimrc: ideavimrc
     ~/.kdiff3rc: kdiff3rc
@@ -16,7 +15,6 @@
     ~/.config/dunst/dunstrc: dunstrc
     ~/.zshrc: zshrc
     ~/.zshenv: zshenv
-    ~/.zprofile: zprofile
 
     ~/.i3: i3
     ~/.vim/colors: vim/colors

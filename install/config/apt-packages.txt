@@ -1,16 +1,15 @@
-artha
 compton
 curl
 dict
-dict-gcide
-dict-freedict-eng-ces
 dict-freedict-ces-eng
+dict-freedict-eng-ces
+dict-gcide
+dmz-cursor-theme
 dos2unix
 feh
 fontconfig-infinality
-freemind
-git
 gimp
+git
 gnuplot
 google-chrome-stable
 gpick
@@ -19,46 +18,31 @@ i3
 i3blocks
 inkscape
 jabref
-keepass2
 kdeconnect
+keepass2
 krusader
-# libappindicator1
-# libgnome-keyring-dev
-# libindicator7
-# libxss1
-# lyx
 lxappearance
 nautilus-dropbox
 neovim
 network-manager-pptp
 network-manager-vpnc
 nodejs
-numlockx
 npm
+numlockx
 openvpn
-# python
-# python3-dev
-# python3-pip
-# python-dbus
-# python-dev
-# python-gtk2
-# python-pip
-# python-setuptools
-# python-wnck
-# python-xlib
 remmina
 rofi
 scrot
 silversearcher-ag
 skype
+sshpass
 tmux
 trash-cli
 tree
 umlet
-virtualbox
 vagrant
-# viking
 vim-gtk
+virtualbox
 vlc
 wmctrl
 xbindkeys

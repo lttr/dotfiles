@@ -17,50 +17,76 @@ CONFIG_DIR="${DOTFILES}/install/config"
 
 # Functions
 help() {
-    echo "Usage: dotfiles [action] [script]"
-    echo "Actions: "
-    echo "    help => shows this help"
-    echo "    list => list available scripts"
-    echo "    list script => cat given script"
-    echo "    install script => run given script"
+    echo "Usage: dotfiles [action] [type] [file]"
+    echo "Actions:"
+    echo "    help               => shows this help"
+    echo "    list script        => list available install scripts"
+    echo "    list config        => list available config files"
+    echo "    list script [file] => cat given script file"
+    echo "    list config [file] => cat given config file"
+    echo "    edit script [file] => edit given script file"
+    echo "    edit config [file] => edit given config file"
+    echo "    install [file]     => run given script file"
+    echo "    install all        => run all scripts (install whole machine)"
 }
 
-test-config() {
-    if [[ ! -f "$1" ]]; then
-        echo "Configuration file $1 does not exist!"
-        exit 1
-    fi
-}
-
-# First argument = action
 ACTION="$1"
-ACTION="${ACTION:=help}"
-
-# Second argument = script
-SCRIPT="$2"
-SCRIPT="${SCRIPT:=all}"
+TYPE="$2"
+FILE="$3"
 
 
 case "$ACTION" in
-    help | h)
+    help | h | "")
         help
         ;;
     list | l)
-        case "$SCRIPT" in
-            all)
-                find "${INSTALL_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+        case "$TYPE" in
+            script | s)
+                case "$FILE" in
+                    "") 
+                        find "${INSTALL_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+                        ;;
+                    *)
+                        find "${INSTALL_DIR}" -maxdepth 1 -name "*${FILE}*" -exec cat "{}" \;
+                esac
                 ;;
-            config)
-                find "${CONFIG_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+            config | c)
+                case "$FILE" in
+                    "") 
+                        find "${CONFIG_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
+                        ;;
+                    *)
+                        find "${CONFIG_DIR}" -maxdepth 1 -name "*${FILE}*" -exec cat "{}" \;
+                esac
                 ;;
             *)
-                cat "${INSTALL_DIR}/${SCRIPT}"
+                echo "Please specify type {script|s|config|c}"
+                ;;
+        esac
+        ;;
+    edit | e)
+        case "$TYPE" in
+            script | s)
+                find "${INSTALL_DIR}" -maxdepth 1 -name "*${FILE}*" -exec $EDITOR "{}" \;
+                ;;
+            config | c)
+                find "${CONFIG_DIR}" -maxdepth 1 -name "*${FILE}*" -exec $EDITOR "{}" \;
+                ;;
+            *)
+                echo "Please specify type {script|s|config|c}"
                 ;;
         esac
         ;;
     install | i)
-        CONFIG_PATH="${CONFIG_DIR}/${SCRIPT}" 
-        source $CONFIG_PATH
+        # $TYPE has the role of $FILE here
+        case "$TYPE" in
+            all)
+                find "${INSTALL_DIR}" -maxdepth 1 -type f | sort | xargs source
+                ;;
+            *)
+                find "${INSTALL_DIR}" -maxdepth 1 -name "*${TYPE}*" -exec "{}" \;
+                ;;
+        esac
         ;;
     *)
         help

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Remove unnecessary directories from home
+[ -d Desktop   ] && rmdir ~/Desktop
+[ -d Documents ] && rmdir ~/Documents
+[ -d Downloads ] && rmdir ~/Downloads
+[ -d Music     ] && rmdir ~/Music
+[ -d Pictures  ] && rmdir ~/Pictures
+[ -d Public    ] && rmdir ~/Public
+[ -d Templates ] && rmdir ~/Templates
+[ -d Videos    ] && rmdir ~/Videos
+
+# Make useful directories inside home
+mkdir -p ~/bin 
+mkdir -p ~/down 
+mkdir -p ~/opt 
+mkdir -p ~/sandbox 
+
+# Prepare dirs for vim
+mkdir -p ~/.vim 
+mkdir -p ~/.vim/backups 
+mkdir -p ~/.vim/undos
+
+# Prepare directory for mounting data partition
+sudo mkdir -p /media/data
+
+# Symlink data directories
+if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
+    HOME_DIR=/media/data/Users/Lukas
+    ln -sn ${HOME_DIR}/dev ~/code
+    ln -sn ${HOME_DIR}/Fotky ~/fotky
+    ln -sn ${HOME_DIR}/Grafika ~/grafika
+    ln -sn ${HOME_DIR}/Hry ~/hry
+    ln -sn ${HOME_DIR}/Hudba ~/hudba
+    ln -sn ${HOME_DIR}/Informace ~/informace
+    ln -sn ${HOME_DIR}/Moje ~/moje
+    ln -sn ${HOME_DIR}/PC ~/pc
+    ln -sn ${HOME_DIR}/Skaut ~/skaut
+    ln -sn ${HOME_DIR}/tasks ~/tasks
+    ln -sn ${HOME_DIR}/Web ~/web
+elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
+    MOUNT_DIR=/media/data
+    ln -sn ${MOUNT_DIR}/work ~/work
+    HOME_DIR=${MOUNT_DIR}/Users/Lukas
+    ln -sn ${HOME_DIR}/tasks ~/tasks
+    ln -sn ${HOME_DIR}/unicorn ~/unicorn
+    ln -sn ${HOME_DIR}/installations ~/installations
+    ln -sn ${HOME_DIR}/materials ~/materials
+    ln -sn ${HOME_DIR}/workspaces ~/workspaces
+    ln -sn ${HOME_DIR}/virtuals ~/virtuals
+fi
+
