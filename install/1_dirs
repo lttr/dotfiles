@@ -27,26 +27,26 @@ sudo mkdir -p /media/data
 # Symlink data directories
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     HOME_DIR=/media/data/Users/Lukas
-    ln -sn ${HOME_DIR}/dev ~/code
-    ln -sn ${HOME_DIR}/Fotky ~/fotky
-    ln -sn ${HOME_DIR}/Grafika ~/grafika
-    ln -sn ${HOME_DIR}/Hry ~/hry
-    ln -sn ${HOME_DIR}/Hudba ~/hudba
-    ln -sn ${HOME_DIR}/Informace ~/informace
-    ln -sn ${HOME_DIR}/Moje ~/moje
-    ln -sn ${HOME_DIR}/PC ~/pc
-    ln -sn ${HOME_DIR}/Skaut ~/skaut
-    ln -sn ${HOME_DIR}/tasks ~/tasks
-    ln -sn ${HOME_DIR}/Web ~/web
+    ln -sfn ${HOME_DIR}/dev ~/code
+    ln -sfn ${HOME_DIR}/Fotky ~/fotky
+    ln -sfn ${HOME_DIR}/Grafika ~/grafika
+    ln -sfn ${HOME_DIR}/Hry ~/hry
+    ln -sfn ${HOME_DIR}/Hudba ~/hudba
+    ln -sfn ${HOME_DIR}/Informace ~/informace
+    ln -sfn ${HOME_DIR}/Moje ~/moje
+    ln -sfn ${HOME_DIR}/PC ~/pc
+    ln -sfn ${HOME_DIR}/Skaut ~/skaut
+    ln -sfn ${HOME_DIR}/tasks ~/tasks
+    ln -sfn ${HOME_DIR}/Web ~/web
 elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     MOUNT_DIR=/media/data
-    ln -sn ${MOUNT_DIR}/work ~/work
+    ln -sfn ${MOUNT_DIR}/work ~/work
     HOME_DIR=${MOUNT_DIR}/Users/Lukas
-    ln -sn ${HOME_DIR}/tasks ~/tasks
-    ln -sn ${HOME_DIR}/unicorn ~/unicorn
-    ln -sn ${HOME_DIR}/installations ~/installations
-    ln -sn ${HOME_DIR}/materials ~/materials
-    ln -sn ${HOME_DIR}/workspaces ~/workspaces
-    ln -sn ${HOME_DIR}/virtuals ~/virtuals
+    ln -sfn ${HOME_DIR}/tasks ~/tasks
+    ln -sfn ${HOME_DIR}/unicorn ~/unicorn
+    ln -sfn ${HOME_DIR}/installations ~/installations
+    ln -sfn ${HOME_DIR}/materials ~/materials
+    ln -sfn ${HOME_DIR}/workspaces ~/workspaces
+    ln -sfn ${HOME_DIR}/virtuals ~/virtuals
 fi
 
