@@ -36,7 +36,7 @@ while read package; do
     [[ "$line" =~ ^#.*$ ]] && continue # skip commented lines
     log "apt package $package"
     sudo apt-get install -y "$package"
-done < config/apt-packages.txt
+done < ~/dotfiles/install/config/apt-packages.txt
 
 
 # =================================================================
@@ -93,7 +93,7 @@ curl -s https://raw.githubusercontent.com/getantibody/installer/master/install |
 #                        Python packages
 # =================================================================
 log "pip packages"
-pip install -r config/python-packages.txt
+pip install -r ~/dotfiles/install/config/python-packages.txt
 
 
 # =================================================================
@@ -103,4 +103,4 @@ while read package; do
     [[ "$line" =~ ^#.*$ ]] && continue # skip commented lines
     log "npm package $package"
     npm install -g "$package"
-done < config/nodejs-packages.txt
+done < ~/dotfiles/install/config/nodejs-packages.txt
