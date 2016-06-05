@@ -330,6 +330,14 @@ bindsym $mod+Ctrl+l exec "keepass2 --auto-type"
 bindsym $mod+equal exec amixer -D pulse sset Master 5%+
 bindsym $mod+minus exec amixer -D pulse sset Master 5%-
 bindsym $mod+bracketleft exec amixer -D pulse sset Master toggle
+
+# pulse audio volume control
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
+bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
+bindsym XF86AudioMicMute exec amixer -q sset Capture toggle
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
       
 
 # =================================================================

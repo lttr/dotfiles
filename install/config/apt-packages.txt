@@ -45,6 +45,7 @@ vim-gtk
 virtualbox
 vlc
 wmctrl
+xbacklight
 xbindkeys
 xdotool
 zsh

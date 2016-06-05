@@ -20,6 +20,7 @@ alias cd.="cd $(readlink -f .)"
 # =================================================================
 #                            Listing
 # =================================================================
+alias ls="ls --show-control-chars --color"
 alias l="ls -F --show-control-chars --color"
 alias ll="ls -lhF --show-control-chars --color"
 alias la="ls -lhFA --show-control-chars --color"
