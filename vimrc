@@ -786,7 +786,7 @@ augroup sql
     autocmd FileType sql setlocal commentstring=--\ %s
 
     autocmd FileType sql nnoremap <c-cr> :w<CR>:call HowLong("DBExecSQLUnderCursor")<CR>
-    autocmd FileType sql vnoremap <unique> <c-cr> <Plug>DBExecVisualSQL
+    autocmd FileType sql vnoremap <c-cr> <Plug>DBExecVisualSQL
 
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
@@ -931,8 +931,6 @@ augroup fugitive
     nnoremap <Leader>gm :Gmove<Space>
     nnoremap <Leader>gb :Git branch<Space>
     nnoremap <Leader>go :Git checkout<Space>
-    nnoremap <Leader>gps :Git push
-    nnoremap <Leader>gpl :Git pull
     nnoremap <Leader>gv :Gitv<CR>
     nnoremap <Leader>gf :Gitv!<CR>
 augroup END
@@ -1008,6 +1006,7 @@ let g:pymode_lint_on_write = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_autoimport_import_after_complete = 1
 let g:pymode_syntax_all =1
+let g:pymode_rope_project_root = "~/.ropeproject"
 
 " ===== Restart =====
 let g:restart_sessionoptions = "restartsession"
