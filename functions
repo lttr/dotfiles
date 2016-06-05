@@ -1,0 +1,13 @@
+#    __                      _    _                    
+#   / _| _   _  _ __    ___ | |_ (_)  ___   _ __   ___ 
+#  | |_ | | | || '_ \  / __|| __|| | / _ \ | '_ \ / __|
+#  |  _|| |_| || | | || (__ | |_ | || (_) || | | |\__ \
+#  |_|   \__,_||_| |_| \___| \__||_| \___/ |_| |_||___/
+#                                                      
+
+
+#!/usr/bin/env bash
+
+apt-list() {
+    comm -23 <( apt-mark showmanual | sort -u ) <( gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u )
+}
