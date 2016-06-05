@@ -84,7 +84,7 @@ case "$ACTION" in
                 for SCRIPT in ${INSTALL_DIR}/*
                 do
                     if [ -f $SCRIPT -a -x $SCRIPT ]; then
-                        echo $SCRIPT
+                        $SCRIPT
                     fi
                 done
                 ;;
