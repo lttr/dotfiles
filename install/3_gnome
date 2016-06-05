@@ -37,6 +37,7 @@ xdg-mime default vivaldi-stable.desktop x-scheme-handler/http
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/https
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/about
 
+echo "Mime types set"
 
 # =================================================================
 #                             Theme
@@ -62,6 +63,7 @@ else
     echo "GTK theme for Qt apps set"
 fi
 
+echo "Gnome theme updated"
 
 # =================================================================
 #                            Refresh
@@ -69,6 +71,8 @@ fi
 
 # Update fonts
 fc-cache -f -v
+
+echo "Font cache updated"
 
 # Patched font
 # cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -
