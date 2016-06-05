@@ -26,7 +26,7 @@ echo "Gsettings updated"
 # Import terminal settings
 dconf load /org/gnome/terminal/ < ~/dotfiles/install/config/gnome-terminal.dconf
 
-echo "Gsettings updated"
+echo "Gnome-terminal settings loaded"
 
 # =================================================================
 #                           Mime types
@@ -55,7 +55,7 @@ gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 # Set GTK theme for Qt apps
 if grep -Fxq "style=GTK+" ~/.config/Trolltech.conf
 then
-    # "GTK theme for Qt apps already set"
+    : # "GTK theme for Qt apps already set"
 else
     echo "[Qt]" >> ~/.config/Trolltech.conf
     echo "style=GTK+" >> ~/.config/Trolltech.conf
