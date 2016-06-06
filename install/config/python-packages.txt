@@ -1,5 +1,5 @@
 csvkit
-ipython
+jira
 openpyxl
 pandas
 pycrypto

@@ -43,6 +43,7 @@ echo "Mime types set"
 #                             Theme
 # =================================================================
 
+# This may not work, additional manual setup in lxappearance will probably be needed
 # shell theme
 gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
 # cursor theme
