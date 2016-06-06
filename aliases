@@ -59,6 +59,7 @@ alias ipy='ipython'
 
 # Dictionaries
 alias aj='dict -d fd-eng-ces'
+alias cz='dict -d fd-ces-eng'
 alias eng='dict -d gcide'
 
 # =================================================================
@@ -134,7 +135,6 @@ alias -s gif=gthumb
 # Text
 alias -s txt=$EDITOR
 alias -s md=$EDITOR
-alias -s py=$EDITOR
 alias -s java=$EDITOR
 alias -s php=$EDITOR
 alias -s js=$EDITOR
