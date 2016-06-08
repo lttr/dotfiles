@@ -45,8 +45,8 @@ Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'godlygeek/tabular'
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
-Plug 'groenewege/vim-less'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less' , { 'for': 'less' }
+Plug 'hail2u/vim-css3-syntax' , { 'for': 'css' }
 Plug 'honza/vim-snippets'
 Plug 'janiczek/vim-latte'
 Plug 'junegunn/goyo.vim'
@@ -58,16 +58,16 @@ Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'moll/vim-bbye'
 Plug 'othree/xml.vim'
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
 Plug 'rking/ag.vim'
 Plug 'salsifis/vim-transpose'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'scrooloose/syntastic'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'sickill/vim-pasta'
 Plug 'sjl/clam.vim'
-Plug 'skammer/vim-css-color'
+" Plug 'skammer/vim-css-color'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tlib_vim'
@@ -84,14 +84,14 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/argtextobj.vim'
-Plug 'vim-scripts/dbext.vim'
+Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim'
 Plug 'vim-scripts/loremipsum'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/visSum.vim'
 Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
-Plug 'klen/python-mode'
+Plug 'klen/python-mode' , { 'for': 'python' }
 Plug 'idanarye/vim-vebugger'
 Plug 'Shougo/vimproc.vim'
 
