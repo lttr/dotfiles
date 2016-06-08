@@ -3,20 +3,20 @@ dotfiles
 
 ## Install
 
-It can be installed on top of a fresh Ubuntu Gnome 15 with:
+Expects:
+- Fresh installation of Ubuntu Gnome 16
+- git `sudo apt-get install git`
+- home dir `cd ~`
 
+Clone repo and dependencies:
 ```
-sh -c "$(wget https://raw.githubusercontent.com/lttr/dotfiles/master/install/download-and-install-all.sh -O -)"
+git clone --recursive https://github.com/lttr/dotfiles
 ```
 
-
-## Content
-
-
-## Notes
-
-Every install script starts with `set -e` which cause a script to fail 
-imediately after error.
+Install everything using _dotfiles_ utility script:
+```
+./dotfiles/bin/dotfiles install all
+```
 
 ## Thanks
 
