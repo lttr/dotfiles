@@ -1,0 +1,23 @@
+#!/usr/bin/expect -f
+
+# Connects via ssh with given password
+# Automatically confirms question (usually host's fingerprint)
+#
+# Usage: ssh-connect username@host password
+
+set program [lindex $argv 0]
+set userandhost [lindex $argv 1]
+set pass [lindex $argv 2]
+
+spawn $program $userandhost
+
+expect {
+-re ".*es.*o.*" {
+exp_send "yes\r"
+exp_continue
+}
+-re ".*sword.*" {
+exp_send $pass\n
+}
+}
+interact

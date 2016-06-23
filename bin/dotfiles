@@ -79,6 +79,7 @@ case "$ACTION" in
         ;;
     install | i)
         # $TYPE has the role of $FILE here
+        [ -n "$FILE" ] && echo "Just one argument for action install is needed." && exit 1
         case "$TYPE" in
             all)
                 for SCRIPT in ${INSTALL_DIR}/*

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+i3-msg -t get_workspaces | jq -r '.[] | .num' | while read WS
+do
+    i3-msg workspace number "$WS"
+    i3-msg move workspace to output left
+    sleep 0.2
+done
