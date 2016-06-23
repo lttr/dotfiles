@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 #          _  _
 #    __ _ | |(_)  __ _  ___   ___  ___
 #   / _` || || | / _` |/ __| / _ \/ __|
@@ -18,6 +19,12 @@ alias cd.="cd $(readlink -f .)"
 
 
 # =================================================================
+#                          Environment
+# =================================================================
+alias path='echo $PATH | tr -s ":" "\n"'
+
+
+# =================================================================
 #                            Listing
 # =================================================================
 alias ls="ls --show-control-chars --color"
@@ -25,7 +32,7 @@ alias l="ls -F --show-control-chars --color"
 alias ll="ls -lhF --show-control-chars --color"
 alias la="ls -lhFA --show-control-chars --color"
 
-alias le="less"
+alias le="less -FiMRX"
 alias lesf="less +F"
 
 
@@ -36,13 +43,13 @@ alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias ealias="$EDITOR ~/dotfiles/aliases"
+alias efunc="$EDITOR ~/dotfiles/functions"
 
 
 # =================================================================
-#                           Shortcuts
+#                          Directories
 # =================================================================
 alias dotf='cd ~/dotfiles'
-alias tia='cd ~/Dropbox/ia'
 
 
 # =================================================================
@@ -56,11 +63,13 @@ alias apts='apt search'
 alias tp='trash-put'
 
 alias ipy='ipython'
+alias py='python'
 
-# Dictionaries
-alias aj='dict -d fd-eng-ces'
-alias cz='dict -d fd-ces-eng'
-alias eng='dict -d gcide'
+alias xmlstar='xmlstarlet'
+
+# Show czech calendar with Monday as the first day of a week
+alias cal='LC_TIME=cs_CZ.UTF-8 ncal -MC'
+
 
 # =================================================================
 #                              Git
@@ -107,15 +116,10 @@ alias gs="git status -s"
 
 
 # =================================================================
-#                             Other
-# =================================================================
-alias pa='echo $PATH | tr -s ":" "\n"'
-
-
-# =================================================================
 #                             Search
 # =================================================================
-alias ag='ag --smart-case --pager="less -FIMRX"'
+alias ag='ag --smart-case --color-match "30;47"'
+alias agl='ag --smart-case --color-match "30;47" --pager="less -FiMRX"'
 
 
 # =================================================================
@@ -124,18 +128,19 @@ alias ag='ag --smart-case --pager="less -FIMRX"'
 alias -g G="| grep -i"
 alias -g H="| head"
 alias -g T="| tail"
-alias -g L="| less"
+alias -g L="| less -FiMRX"
 alias -g A="| ag -i"
 alias -g C="| wc -l"
 
 # Images
-alias -s png=gthumb
-alias -s jpg=gthumb
 alias -s gif=gthumb
+alias -s jpg=gthumb
+alias -s png=gthumb
+
 # Text
-alias -s txt=$EDITOR
-alias -s md=$EDITOR
-alias -s java=$EDITOR
-alias -s php=$EDITOR
-alias -s js=$EDITOR
 alias -s css=$EDITOR
+alias -s java=$EDITOR
+alias -s js=$EDITOR
+alias -s md=$EDITOR
+alias -s php=$EDITOR
+alias -s txt=$EDITOR

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 #    __                      _    _                    
 #   / _| _   _  _ __    ___ | |_ (_)  ___   _ __   ___ 
 #  | |_ | | | || '_ \  / __|| __|| | / _ \ | '_ \ / __|
@@ -6,8 +7,116 @@
 #                                                      
 
 
-#!/usr/bin/env bash
+# =================================================================
+#                            Packages
+# =================================================================
 
 apt-list() {
     comm -23 <( apt-mark showmanual | sort -u ) <( gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u )
 }
+
+# =================================================================
+#                          Dictionaries
+# =================================================================
+
+# Try to find word in dictionary, remove clutter from output
+
+aj() {
+    dict -d fd-eng-ces "$1" | grep -v '^From ' | grep -v '^$' | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
+}
+
+cz() {
+    dict -d fd-ces-eng "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
+}
+
+eng() {
+    dict -d gcide "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
+}
+
+# =================================================================
+#                       Utility functions
+# =================================================================
+
+app-running() {
+    ps aux | grep -i "$1" >/dev/null
+    if [[ $? == 0 ]]; then
+        echo "yes"
+    else
+        echo "no"
+    fi
+}
+
+# Just open the file as you can
+open() {
+    xdg-open "$1"
+}
+o() { open "$1" }
+
+# Open text files in current terminal, other files separately
+open_in_bg_and_close() {
+    [[ ! -f "$1" ]] && exit 1
+    if [[ "$(file -L "$1")" =~ "text" ]]; then
+        xdg-open "$1"
+    else
+        # open separately, suppress output and don't exit when
+        # parent terminal exits
+        ( xdg-open "$1" &>/dev/null & )
+        exit 0
+    fi
+}
+ob() { open_in_bg_and_close "$1" }
+
+
+# =================================================================
+#                              Git
+# =================================================================
+
+
+# =================================================================
+#                              Work
+# =================================================================
+
+# Interactively select a sql file with database connection
+# Last edited files will be closer
+# Using dbext in vim
+dbext() {
+    vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
+}
+
+fo() {
+    ob "$(find . \
+                -follow \
+                -type d \
+                -path '*/\.*' -prune \
+                -o
+                -follow \
+                -type f \
+                | fzf)"
+}
+
+# =================================================================
+#                          Improvements
+# =================================================================
+
+mvf() {
+    dir="${@: -1}"
+    tmp="$dir"; tmp="${tmp: -1}"
+    [ "$tmp" != "/" ] && dir="$(dirname "$dir")"
+    [ ! -d "$dir" ] ||
+    mkdir -p "$dir" &&
+    mv "$@"
+}
+
+
+# =================================================================
+#                        My applications
+# =================================================================
+
+tia() {
+    if [ -z "$@" ]; then
+        cd ~/Dropbox/ia
+    else
+        ag "$@" ~/Dropbox/ia/
+    fi
+}
+

@@ -6,13 +6,18 @@
 #  /___||___/|_| |_||_|   \___|
 #
 
+# =================================================================
+#                            Autoload
+# =================================================================
+
+autoload -U history-search-end
+autoload -U zmv
+
 
 # =================================================================
 #                            Options
 # =================================================================
 
-
-autoload -U history-search-end
 
 # append history list to the history file (important for multiple parallel zsh sessions!)
 setopt inc_append_history
@@ -55,19 +60,21 @@ source ~/dotfiles/functions
 #                             Colors
 # =================================================================
 
-eval $(dircolors ~/dotfiles/dircolors)
+eval $(dircolors ~/dotfiles/colors/dircolors)
 
 
 # =================================================================
 #                            Plugins
 # =================================================================
 
+# Antibody
 source <(antibody init)
-
 antibody bundle < ~/dotfiles/antibody/bundles.txt
 
+# Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Fasd
 eval "$(fasd --init auto)"
 
 
@@ -75,4 +82,16 @@ eval "$(fasd --init auto)"
 #                          Local config
 # =================================================================
 
-[[ -f ~/.zshrc_local ]] && source ~/.zshrc_local
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.aliases.local ]] && source ~/.aliases.local
+[[ -f ~/.functions.local ]] && source ~/.functions.local
+
+# 0 -- vanilla completion (abc => abc)
+# 1 -- smart case completion (abc => Abc)
+# 2 -- word flex completion (abc => A-big-Car)
+# 3 -- full flex completion (abc => ABraCadabra)
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
+
