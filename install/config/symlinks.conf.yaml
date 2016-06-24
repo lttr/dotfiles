@@ -14,6 +14,7 @@
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.vrapperrc: vrapperrc
+    ~/.Xresources: Xresources
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
 
