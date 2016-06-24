@@ -446,12 +446,6 @@ exec --no-startup-id krusader
 # Vivaldi browser
 exec --no-startup-id vivaldi
 
-# Skype
-exec --no-startup-id skype
-
-# Evolution
-exec --no-startup-id evolution
-
 # Daemons
 exec dropbox start
 
