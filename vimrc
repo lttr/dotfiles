@@ -113,6 +113,7 @@ set nostartofline              " Don't jump to first character when paging
 set number                     " Line numbers before lines
 set iskeyword+=-               " Count strings joined by dashes as words
 set noshelltemp  " Should avoid some cmd windows for external commands
+set modeline                   " Make sure modelines are read
 
 " ===== Buffers =====
 set hidden                     " Allow buffer switching without saving
@@ -196,6 +197,11 @@ endif
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
+
+" change cursor shape in terminal:
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
 
 " ===== Font =====
 if has('unix')
@@ -287,7 +293,9 @@ set complete-=i
 " Set leader keys to ensure their assignment
 " <Leader> for global shortcuts, <LocalLeader> for more specific and local usage
 let mapleader = ","
-let maplocalleader = "\<space>"
+let maplocalleader = "\<Space>"
+" nnoremap <Space> <nop>
+" let maplocalleader = " "
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
@@ -352,7 +360,7 @@ nnoremap <C-z> <Esc>
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
 nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
 nmap <LocalLeader>- Oi<Esc>gcclDjgccwvUoi<Esc>gcclDj
-nmap <LocalLeader>= I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
+nmap <LocalLeader>_ I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
 " ===== Increment =====
 nnoremap <silent> g<C-a> :<C-u>call Increment('next', v:count1)<CR>
@@ -687,8 +695,8 @@ augroup markdown
 
     " Save mkd file
     autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md
-    " Link from address - last segment to be the text
-    autocmd FileType markdown nnoremap <LocalLeader>l :s/\v((https?\|www).*\/)([^\/ \t)]+)(\/?)/[\3](&)/<CR>vi[
+    " Link from address - last segment to be the text - select the text
+    autocmd FileType markdown nnoremap <LocalLeader>l :s/\v((https?\|www).*\/)([^\/ \t)]+)(\/?)/[\3](&)/<CR>vi[<C-g>
     " Link from link text and link itself on the next line
     autocmd FileType markdown nnoremap <LocalLeader>L A]<Esc>I[<Esc>jA)<Esc>I(<Esc>kJx0
 
@@ -767,11 +775,12 @@ augroup sh
     autocmd!
     " Bash as sh filetype
     autocmd BufRead,BufNewFile *.bash set filetype=sh
+    autocmd BufRead,BufNewFile *.zsh set filetype=sh
     autocmd BufRead,BufNewFile *.bash set fileformat=unix
     autocmd BufRead,BufNewFile *.sh set fileformat=unix
     autocmd BufRead,BufNewFile *.zsh set fileformat=unix
     " Run current row as command
-    autocmd FileType sh nnoremap <c-cr> ^y$:!<c-r>"<cr>
+    autocmd FileType sh nnoremap <LocalLeader>r ^y$:!<c-r>"<cr>
     autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
 augroup END
 
@@ -785,8 +794,8 @@ augroup sql
     " SQL comments
     autocmd FileType sql setlocal commentstring=--\ %s
 
-    autocmd FileType sql nnoremap <c-cr> :w<CR>:call HowLong("DBExecSQLUnderCursor")<CR>
-    autocmd FileType sql vnoremap <c-cr> <Plug>DBExecVisualSQL
+    autocmd FileType sql nnoremap <LocalLeader>r :w<CR>:call HowLong("DBExecSQLUnderCursor")<CR>
+    autocmd FileType sql vnoremap <Leader>r <Plug>DBExecVisualSQL
 
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
@@ -835,8 +844,8 @@ vnoremap <A-K> d?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nwwPvatV
 
 augroup xml
     autocmd!
-    autocmd FileType xml nnoremap <leader>f :%!xmlstar fo -s 4<CR>
-    autocmd FileType xml vnoremap <leader>f :!xmlstar fo -s 4<CR>
+    autocmd FileType xml nnoremap <leader>f :%!xmlstarlet fo -s 4<CR>
+    autocmd FileType xml vnoremap <leader>f :!xmlstarlet fo -s 4<CR>
     " check if XML is wellformed
     command! Wellformed :!xmllint --noout %<CR>
 augroup END
@@ -860,9 +869,9 @@ let g:formatters_python = ['autopep8']
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
-nnoremap <c-p> :CtrlP<cr>
-" Set ctrl+; for most recently used files
-nnoremap <c-m> :CtrlPMRUFiles<cr>
+nnoremap <C-p> :CtrlP<cr>
+" Set ,m for most recently used files
+nnoremap <Leader>m :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
             \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
@@ -1430,6 +1439,15 @@ function! DBextPostResult(db_type, buf_nr)
     silent! /^\d\+ row/d
     silent! /^\s*$/d
     silent! %s//1/ge
+
+    " Resize buffer
+    let l:line_length = len(getline(line('.')))
+    if l:line_length >= 130
+        execute "wincmd J"
+    else
+        execute "wincmd L"
+        execute "vertical resize 100"
+    endif
 
     " Create message
     redraw
