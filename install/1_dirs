@@ -18,7 +18,6 @@ echo "=================================================="
 echo "Unnecessary directories removed"
 
 # Make useful directories inside home
-mkdir -p ~/down 
 mkdir -p ~/opt 
 mkdir -p ~/sandbox 
 
@@ -35,6 +34,7 @@ echo "Useful directories created"
 # Symlink data directories
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     HOME_DIR=/media/data/Users/Lukas
+    ln -sfn ${HOME_DIR}/down ~/down
     ln -sfn ${HOME_DIR}/dev ~/code
     ln -sfn ${HOME_DIR}/Fotky ~/fotky
     ln -sfn ${HOME_DIR}/Grafika ~/grafika
@@ -50,6 +50,7 @@ elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     MOUNT_DIR=/media/data
     ln -sfn ${MOUNT_DIR}/work ~/work
     HOME_DIR=${MOUNT_DIR}/Users/Lukas
+    ln -sfn ${HOME_DIR}/down ~/down
     ln -sfn ${HOME_DIR}/tasks ~/tasks
     ln -sfn ${HOME_DIR}/unicorn ~/unicorn
     ln -sfn ${HOME_DIR}/installations ~/installations

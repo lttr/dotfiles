@@ -32,10 +32,20 @@ echo "Gnome-terminal settings loaded"
 #                           Mime types
 # =================================================================
 
-xdg-mime default vivaldi-stable.desktop test/html
+xdg-mime default vivaldi-stable.desktop text/html
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/http
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/https
 xdg-mime default vivaldi-stable.desktop x-scheme-handler/about
+
+xdg-mime default vim.desktop text/plain
+
+xdg-mime default gthumb.desktop image/bpm
+xdg-mime default gthumb.desktop image/gif
+xdg-mime default gthumb.desktop image/ico
+xdg-mime default gthumb.desktop image/jpeg
+xdg-mime default gthumb.desktop image/jpg
+xdg-mime default gthumb.desktop image/png
+xdg-mime default gthumb.desktop image/tiff
 
 echo "Mime types set"
 
@@ -71,9 +81,9 @@ echo "Gnome theme updated"
 # =================================================================
 
 # Update fonts
-fc-cache -f -v
+# fc-cache -f -v
 
-echo "Font cache updated"
+# echo "Font cache updated"
 
 # Patched font
 # cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -
