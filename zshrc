@@ -35,6 +35,19 @@ HISTSIZE=10000
 SAVEHIST=10000
 KEYTIMEOUT=1
 
+# =================================================================
+#                           Completion
+# =================================================================
+
+# 0 -- vanilla completion (abc => abc)
+# 1 -- smart case completion (abc => Abc)
+# 2 -- word flex completion (abc => A-big-Car)
+# 3 -- full flex completion (abc => ABraCadabra)
+zstyle ':completion:*' matcher-list '' \
+  'm:{a-z\-}={A-Z\_}' \
+  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+  'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
+
 
 # =================================================================
 #                              Keys
@@ -85,13 +98,3 @@ eval "$(fasd --init auto)"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 [[ -f ~/.functions.local ]] && source ~/.functions.local
-
-# 0 -- vanilla completion (abc => abc)
-# 1 -- smart case completion (abc => Abc)
-# 2 -- word flex completion (abc => A-big-Car)
-# 3 -- full flex completion (abc => ABraCadabra)
-zstyle ':completion:*' matcher-list '' \
-  'm:{a-z\-}={A-Z\_}' \
-  'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
-  'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
-

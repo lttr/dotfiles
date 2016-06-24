@@ -7,14 +7,15 @@
 
 - link:
     ~/.agignore: agignore
+    ~/.config/dunst/dunstrc: dunstrc
     ~/.gitconfig: gitconfig
     ~/.ideavimrc: ideavimrc
     ~/.kdiff3rc: kdiff3rc
+    ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.vrapperrc: vrapperrc
-    ~/.config/dunst/dunstrc: dunstrc
-    ~/.zshrc: zshrc
     ~/.zshenv: zshenv
+    ~/.zshrc: zshrc
 
     ~/.i3: i3
     ~/.vim/colors: vim/colors
