@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+MAXDEPTH=6
+
+handle_selection() {
+    if [[ "$1" ]]; then
+        name="$1"
+        if [[ -f "$name" ]]; then
+            ( xdg-open "$name" &>/dev/null & )
+        else
+            notify-send -u low "File" "No file called $name."
+        fi
+    fi
+}
+
+handle_selection "$( find -L ~ -maxdepth $MAXDEPTH ! -path "*/\.*" -type f \
+    -name "*.doc*" \
+    -or -name "*.xls*" \
+    -or -name "*.odt*" \
+    -or -name "*.pdf*" \
+    | rofi -dmenu -i -fuzzy -p "doc: " )"

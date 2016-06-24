@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Right click
+if [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+    gnome-calendar
+fi
+
+echo $(date '+%-d.%-m.')

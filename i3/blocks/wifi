@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+ICON=
+
+# Right click
+if [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+    wifi_stats="$(nmcli dev wifi | grep '^\*\s\+' | tail -1 | awk '{print $2, $7"%", $9}')"
+    notify-send -u low "Wifi status" "$wifi_stats"
+fi
+
+# Status
+nmcli dev | grep "wifi.*connected" &>/dev/null
+
+if [[ $? == 0 ]]; then
+    echo $ICON
+else
+    echo ""
+fi
+

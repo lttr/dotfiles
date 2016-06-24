@@ -3,7 +3,7 @@
 # Scroll down
 if [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
 	amixer -D pulse sset Master 5%+ >/dev/null
-# Middle click
+# Right click
 elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
 	amixer -D pulse sset Master toggle >dev/null
 # Scroll up

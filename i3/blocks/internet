@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+
+# Right click
+if [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+    ping_time="ping $(ping -c1 8.8.8.8 | grep 'time=' | sed 's/.*time=//')"
+    ipaddr="$(. /usr/share/i3blocks/iface | head -1)"
+    notify-send -u low "Dropbox status" "$ping_time\n$ipaddr"
+fi
+
+ping -c1 8.8.8.8 > /dev/null
+
+if [[ $? -eq 0 ]]; then
+	echo 
+else
+	echo 
+fi

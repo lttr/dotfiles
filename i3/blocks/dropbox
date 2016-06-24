@@ -6,6 +6,13 @@ ICON_UP=
 ICON_OFF=
 ICON_UNKNOWN=
 
+
+# Right click
+if [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+    notify-send -u low "Dropbox status" "$(dropbox status)"
+fi
+
+
 dropbox running
 
 if [[ $? -eq 1 ]]; then

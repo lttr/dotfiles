@@ -18,14 +18,14 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        if [[ $PLACE == 'home' ]]; then
+        if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
             systemctl suspend
         else
             lock && systemctl suspend
         fi
         ;;
     hibernate)
-        if [[ $PLACE == 'home' ]]; then
+        if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
             systemctl hibernate
         else
             lock && systemctl hibernate

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+MAXDEPTH=4
+TERMINAL=gnome-terminal
+EDITOR=vim
+
+handle_selection() {
+    if [[ "$1" ]]; then
+        name="$1"
+        if [[ -f "$name" ]]; then
+            ( $TERMINAL -e "$EDITOR $name" &>/dev/null & )
+        else
+            notify-send -u low "File" "No file called $name."
+        fi
+    fi
+}
+
+handle_selection "$( find -L ~ -maxdepth $MAXDEPTH ! -path "*/\.*" -type f \
+    -exec grep -Iq . {} \; -and -print \
+    | rofi -dmenu -i -fuzzy -p "file: " )"

@@ -22,20 +22,8 @@
 # Setup my hardware
 exec --no-startup-id setup-hardware
 
-# Terminal
-exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal; workspace 1'
-
-# Krusader
-exec --no-startup-id i3-msg 'workspace 3; exec krusader; workspace 1'
-
-# Vivaldi browser
-exec --no-startup-id vivaldi
-
-# ===== Applets =====
-exec --no-startup-id nm-applet
-
-# ===== Deamons =====
-exec dropbox start
+# Load Xresources
+exec --no-startup-id xrdb -load ~/.Xresources
 
 
 # =================================================================
@@ -60,13 +48,11 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i
 # Font
 font pango:System San Francisco Display 11
 
-# Wallpaper
-exec_always --no-startup-id feh --bg-scale ~/Dropbox/conf/wallpaper/siska.jpg
+# Wallpapers
+exec --no-startup-id nitrogen --restore
 
 # Opacity
 exec_always --no-startup-id compton -f -I 0.25 -O 0.25 -D 2
-
-# ===== Colors =====
 
 # Definition of Gruvbox colors
 
@@ -120,42 +106,22 @@ client.urgent           $faded_orange $faded_orange $light1 $light1
 #                             I3 bar
 # =================================================================
 
-# Show tray icons with shortcut
-# It actually show the second bar which is identical 
-# but has the tray icons permitted
-bindsym $mod+m bar mode toggle 
-
-# bar {
-#     tray_output none
-#     modifier Mod3
-
-# 	status_command i3blocks -c ~/.i3/i3blocks.conf
-
-# 	# hide the order numbers of workspaces
-#     strip_workspace_numbers yes
-# 	colors {
-# 		background $dark2
-# 		statusline $dark2
-# 		separator  $gray_244
-# 		#                  border backgr text
-# 		focused_workspace  $dark4 $dark4 $light1
-# 		active_workspace   $dark4 $dark4 $light1
-# 		inactive_workspace $dark2 $dark2 $light3 
-# 		urgent_workspace   $faded_orange $faded_orange $light1
-# 	}
-# }
+bindsym $mod+Mod1+space bar mode toggle 
 
 bar {
+    # Disable tray area - status icons on i3bar are prettier and more configurable
     tray_output none
-    # mode hide
-    # hidden_state hide
-    # modifier Mod3
 
+    # Disable swiching workspaces with mouse wheel
     wheel_up_cmd nop
     wheel_down_cmd nop
 
-    status_command i3blocks -c ~/.i3/i3blocks.conf
+    # Remove the 'X:' from the beginning of the worspace names
     strip_workspace_numbers yes
+
+    # Program which controls the status icons area
+    status_command i3blocks -c ~/.i3/blocks.conf
+
     colors {
         background $dark2
         statusline $dark2
@@ -172,9 +138,9 @@ bar {
 #                              Dmenu
 # =================================================================
 
-# Dark Rofi
-bindsym $mod+g exec rofi -show run -font "System San Francisco 13" -fg "#bdae93" -hlbg "#bdae93" -bg "#504945" -bc "#504945" -hlfg "#504945" -opacity "95"
-
+bindsym $mod+d exec ~/.i3/scripts/open-document
+bindsym $mod+f exec ~/.i3/scripts/open-text-file
+bindsym $mod+g exec rofi -show run
 
 
 # =================================================================
@@ -198,7 +164,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# Cycle through windows in current workspace ~ Windows style
+# Cycle through windows in current workspace (Windows style)
 bindsym Mod1+Tab focus right
 
 # Move windows inside one workspace
@@ -214,9 +180,10 @@ bindsym $mod+Shift+Right move right 200
 
 # Change mode to vertical
 bindsym $mod+v split v
+bindsym $mod+Shift+v split h
 
 # Fullscreen window
-bindsym $mod+f fullscreen toggle
+bindsym $mod+F11 fullscreen toggle
 
 # Change layout
 bindsym $mod+w layout tabbed
@@ -224,6 +191,13 @@ bindsym $mod+q layout toggle split
 
 # Border changing
 bindsym $mod+b border toggle
+
+# Urgent window jump
+bindsym $mod+u [urgent=latest] focus
+
+# Focus applications
+bindsym $mod+t [class="Krusader"] focus
+bindsym $mod+a [class="vivaldi*"] focus
 
 
 # =================================================================
@@ -235,12 +209,13 @@ set $ws_browser "1: browser"
 set $ws_term    "2: terminal"
 set $ws_files   "3: files"
 set $ws_code    "4: code"
-set $ws_5       "5: 5"
-set $ws_6       "6: 6"
-set $ws_7       "7: 7"
-set $ws_8       "8: 8"
-set $ws_mail    "9: mail"
-set $ws_skype   "10: skype"
+set $ws_5       "5: db"
+set $ws_6       "6: 6"
+set $ws_7       "7: 7"
+set $ws_8       "8: 8"
+set $ws_mail    "9: "
+set $ws_skype   "10: "
+set $ws_secondary "11: "
 
 # Goto workspaces
 bindsym $mod+1 workspace $ws_browser
@@ -253,11 +228,7 @@ bindsym $mod+7 workspace $ws_7
 bindsym $mod+8 workspace $ws_8
 bindsym $mod+9 workspace $ws_mail
 bindsym $mod+0 workspace $ws_skype
-
-# Goto applications
-bindsym $mod+c [class="Gnome-terminal"] focus
-bindsym $mod+t [class="Krusader"] focus
-bindsym $mod+a [class="vivaldi-stable"] focus
+bindsym $mod+minus workspace $ws_secondary
 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws_browser
@@ -270,6 +241,7 @@ bindsym $mod+Shift+7 move container to workspace $ws_7
 bindsym $mod+Shift+8 move container to workspace $ws_8
 bindsym $mod+Shift+9 move container to workspace $ws_mail
 bindsym $mod+Shift+0 move container to workspace $ws_skype
+bindsym $mod+Shift+minus move container to workspace $ws_secondary
 
 # Move focused container and switch workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws_browser ; workspace $ws_browser
@@ -282,6 +254,7 @@ bindsym $mod+Ctrl+7 move container to workspace $ws_7 ; workspace $ws_7
 bindsym $mod+Ctrl+8 move container to workspace $ws_8 ; workspace $ws_8
 bindsym $mod+Ctrl+9 move container to workspace $ws_mail ; workspace $ws_mail
 bindsym $mod+Ctrl+0 move container to workspace $ws_skype ; workspace $ws_skype
+bindsym $mod+Ctrl+minus move container to workspace $ws_secondary ; workspace $ws_secondary
 
 # Scratchpad - hidden workspace
 bindsym $mod+z move scratchpad
@@ -299,11 +272,11 @@ bindsym $mod+Shift+p move container to workspace prev
 bindsym $mod+Ctrl+n move container to workspace next; workspace prev
 bindsym $mod+Ctrl+p move container to workspace prev; workspace next
 
-# Final renaming of workspaces
-# HACK: I was not able to configure workspaces with unicode
-# characters which would have specific initial applications
-# started and were properly numbered to keep specific order.
-exec --no-startup-id ~/.i3/scripts/rename-workspaces
+# Displays
+bindsym $mod+Ctrl+Shift+Left move workspace to output left
+bindsym $mod+Ctrl+Shift+Down move workspace to output down
+bindsym $mod+Ctrl+Shift+Up move workspace to output up
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
 
 
 # =================================================================
@@ -318,8 +291,8 @@ bindsym $mod+e exec nautilus
 
 # Password manager
 bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window keepass2
-bindsym $mod+Ctrl+Shift+l exec "keepass2 --auto-type-selected"
 bindsym $mod+Ctrl+l exec "keepass2 --auto-type"
+bindsym $mod+Ctrl+Shift+l exec "keepass2 --auto-type-selected"
 
 
 # =================================================================
@@ -327,11 +300,11 @@ bindsym $mod+Ctrl+l exec "keepass2 --auto-type"
 # =================================================================
 
 # Volume - keys near to right Win modifier
-bindsym $mod+equal exec amixer -D pulse sset Master 5%+
-bindsym $mod+minus exec amixer -D pulse sset Master 5%-
-bindsym $mod+bracketleft exec amixer -D pulse sset Master toggle
+bindsym $mod+bracketleft exec amixer -D pulse sset Master 5%+
+bindsym $mod+bracketright exec amixer -D pulse sset Master 5%-
+bindsym $mod+apostrophe exec amixer -D pulse sset Master toggle
 
-# pulse audio volume control
+# pulse audio volume control (run xev for special keys names)
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%-
 bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
@@ -358,13 +331,18 @@ bindsym $mod+space focus mode_toggle
 bindsym --release button2 floating toggle
 bindsym --whole-window $mod+button2 floating toggle
 
-# Floating applications (xprop command for window class)
-for_window [class="ARandR"] floating enable
+# Floating applications (run xprop for window class)
+for_window [class="Arandr"] floating enable
 for_window [class="Artha"] floating enable
 for_window [class="Gnome-font-view"] floating enable
+for_window [class="Gnome-calendar"] floating enable
 for_window [class="Gnome-tweak-tool"] floating enable
 for_window [class="Gpick"] floating enable
-for_window [class="Keepassx"] floating enable
+for_window [class="Keditbookmarks"] floating enable
+for_window [class="KeePass2"] floating enable
+for_window [class="Krusader" title="Copying*"] floating enable
+for_window [class="Krusader" title="Moving*"] floating enable
+for_window [class="Krusader" title="Progress*"] floating enable
 for_window [class="Nautilus"] floating enable
 for_window [class="Qstardict"] floating enable
 for_window [class="Skype"] floating enable
@@ -375,11 +353,16 @@ for_window [class="lxappearance"] floating enable
 #                     Window characteristics
 # =================================================================
 
-# Skype
+# Force specific workspace
+assign [class="vivaldi"] → $ws_browser
+assign [class="Krusader"] → $ws_files
+assign [class="Evolution"] → $ws_mail
 assign [class="Skype"] → $ws_skype
 
-# Vivaldi
-for_window [class="vivaldi-stable"] border none
+# Borders
+for_window [class="vivaldi*"] border none
+for_window [class="jetbrains-idea"] border pixel 1
+for_window [class="Gnome-calendar"] border pixel 1
 
 
 # =================================================================
@@ -416,7 +399,7 @@ mode "  " {
 # Source: https://faq.i3wm.org/question/239/how-do-i-suspendlockscreen-and-logout.1.html
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (t) shutdown
 
-bindsym $mod+Pause mode "$mode_system"
+bindsym $mod+Escape mode "$mode_system"
 
 mode "$mode_system" {
     bindsym l exec --no-startup-id ~/.i3/scripts/i3exit lock, mode "default"
@@ -450,6 +433,27 @@ bindsym Print exec scrot -e 'mv $f ~/tasks/$f'
 # Printscreen current window (Ctrl+PrintScreen)
 bindsym Ctrl+Print exec scrot -u -e 'mv $f ~/tasks/$f'
 # Printscreen selection (Ctrl+Alt+PrintScreen)
-bindsym Ctrl+Mod1+Print exec scrot -s -e 'mv $f ~/tasks/$f'
+bindsym Ctrl+Shift+Print exec scrot -s -e 'mv $f ~/tasks/$f'
 
+
+# =================================================================
+#                      Applications startup
+# =================================================================
+
+# Krusader
+exec --no-startup-id krusader
+
+# Vivaldi browser
+exec --no-startup-id vivaldi
+
+# Skype
+exec --no-startup-id skype
+
+# Evolution
+exec --no-startup-id evolution
+
+# Daemons
+exec dropbox start
+
+exec --no-startup-id ~/.i3/scripts/setup-workspaces
 
