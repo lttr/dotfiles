@@ -99,13 +99,19 @@ alias gunchanged="git update-index --assume-unchanged"
 alias glistunchanged="git ls-files -v|grep '^[[:lower:]]'"
 alias gignored="git ls-files --other --ignored --exclude-standard"
 
+logformat='log --graph --abbrev-commit --decorate --format=format:"%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(dim white)(%an)%C(reset)%C(bold green)%d%C(reset)"'
+
 alias gl="git log --graph --decorate --oneline -n20"
-alias gla="git log --graph --decorate --oneline -n20 --all"
-alias glb="git log --graph --decorate --oneline -n20 --branches"
-alias glmy="git log --graph --decorate --oneline --all -n20 --author="Lukas Trumm""
-alias glogmy="git log --all -n10 --author='Lukas Trumm'"
-alias glw="git log --pretty=format:'%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b' -n20 --graph --branches"
-alias gh="git log --pretty=format:'%h%d %ci%x08%x08%x08%x08%x08%x08%x08%x08%x08 %s @%an %b' --all --follow"
+alias gla="git log --graph --decorate --oneline"
+alias gle="git log --graph --decorate --oneline --all -n20"
+alias glea="git log --graph --decorate --oneline --all"
+alias glmy="git log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\""
+alias gm="git $logformat -n20"
+alias gma="git $logformat"
+alias gme="git $logformat --all -n20"
+alias gmea="git $logformat --all"
+alias gh="git $logformat --all --follow"
+
 alias gsf="git show --name-status"
 alias gfind="git log --all --name-status --grep"
 
