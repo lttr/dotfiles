@@ -24,6 +24,9 @@
 
     ~/bin : bin
 
+    ~/.config/mc:
+        path: ../Dropbox/conf/mc
+
     ~/.kde/share/config/krusaderrc:
         path: ../Dropbox/conf/krusader/krusaderrc
     ~/.kde/share/apps/krusader/krbookmarks.xml:

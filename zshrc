@@ -75,6 +75,12 @@ source ~/dotfiles/functions
 
 eval $(dircolors ~/dotfiles/colors/dircolors)
 
+export FZF_DEFAULT_OPTS="
+    --color bg+:7,info:3
+"
+
+export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
+
 
 # =================================================================
 #                            Plugins
@@ -91,6 +97,7 @@ antibody bundle < ~/dotfiles/antibody/bundles.txt
 eval "$(fasd --init auto)"
 
 
+
 # =================================================================
 #                          Local config
 # =================================================================
@@ -98,3 +105,4 @@ eval "$(fasd --init auto)"
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 [[ -f ~/.functions.local ]] && source ~/.functions.local
+

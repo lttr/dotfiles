@@ -27,6 +27,7 @@ keepass2
 krusader
 libmysqlclient-dev
 lxappearance
+mc
 nautilus-dropbox
 neovim
 network-manager-pptp
