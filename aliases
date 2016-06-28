@@ -27,7 +27,6 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # =================================================================
 #                            Listing
 # =================================================================
-alias ls="ls --show-control-chars --color"
 alias l="ls -F --show-control-chars --color"
 alias ll="ls -lhF --show-control-chars --color"
 alias la="ls -lhFA --show-control-chars --color"
@@ -50,6 +49,7 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 #                          Directories
 # =================================================================
 alias dotf='cd ~/dotfiles'
+alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
 
 
 # =================================================================
