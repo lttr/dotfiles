@@ -4,10 +4,8 @@ libindicator7
 libxss1
 lyx
 python
-python-dbus
 python-dev
 python-gtk2
-python-pip
 python-setuptools
 python-wnck
 python-xlib
