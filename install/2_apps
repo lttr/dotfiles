@@ -90,6 +90,9 @@ cd ~/opt
 log 'antibody'
 curl -s https://raw.githubusercontent.com/getantibody/installer/master/install | bash -s
 
+log 'tmux-plugin-manager'
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 
 # =================================================================
 #                        Python packages
