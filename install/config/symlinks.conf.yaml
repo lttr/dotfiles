@@ -24,6 +24,9 @@
 
     ~/bin : bin
 
+    ~/.gtkrc-2.0-gnome-color-chooser:
+        colors/gtkrc-2.0-gnome-color-chooser
+
     ~/.config/mc:
         path: ../Dropbox/conf/mc
 
