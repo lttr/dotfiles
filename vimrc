@@ -187,6 +187,10 @@ if exists("&breakindent")
     set breakindent              " Soft wrapped lines will continue visually indented (since vim 7.4.x)
 endif
 
+" ===== Mouse =====
+set mouse=a
+
+
 " }}}
 " ==============================================================================
 "  Appearance {{{

@@ -4,8 +4,9 @@ schema-version=uint32 3
 default-show-menubar=false
 
 [legacy/keybindings]
-paste='<Primary><Shift>v'
-toggle-menubar='<Primary><Shift>h'
+paste='<Primary>v'
+copy='<Primary><Shift>c'
+toggle-menubar='<Primary><Shift>m'
 
 [legacy/profiles:]
 list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
@@ -16,7 +17,7 @@ foreground-color='rgb(101,123,131)'
 visible-name='Lukas-gnome-profile'
 scrollbar-policy='never'
 palette=['rgb(7,54,66)', 'rgb(220,50,47)', 'rgb(133,153,0)', 'rgb(181,137,0)', 'rgb(38,139,210)', 'rgb(211,54,130)', 'rgb(42,161,152)', 'rgb(238,232,213)', 'rgb(0,43,54)', 'rgb(203,75,22)', 'rgb(88,110,117)', 'rgb(101,123,131)', 'rgb(131,148,150)', 'rgb(108,113,196)', 'rgb(147,161,161)', 'rgb(253,246,227)']
-custom-command='zsh'
+custom-command='tmux'
 scroll-on-output=true
 use-custom-command=true
 use-theme-colors=false
