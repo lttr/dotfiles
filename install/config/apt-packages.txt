@@ -7,10 +7,12 @@ dict-freedict-eng-ces
 dict-gcide
 dmz-cursor-theme
 dos2unix
+expect
 feh
 fontconfig-infinality
 gimp
 git
+gnome-color-chooser
 gnuplot
 google-chrome-stable
 gpick
@@ -33,10 +35,12 @@ neovim
 network-manager-pptp
 network-manager-vpnc
 nitrogen
+nmap
 nodejs
 npm
 numlockx
 openvpn
+pandoc
 python-dbus
 python-ipython
 python-mysqldb
@@ -60,4 +64,5 @@ wmctrl
 xbacklight
 xbindkeys
 xdotool
+xmlstarlet
 zsh
