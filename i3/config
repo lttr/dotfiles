@@ -140,6 +140,7 @@ bar {
 
 bindsym $mod+d exec ~/.i3/scripts/open-document
 bindsym $mod+f exec ~/.i3/scripts/open-text-file
+bindsym $mod+c exec ~/.i3/scripts/kill-process
 bindsym $mod+g exec rofi -show run
 
 

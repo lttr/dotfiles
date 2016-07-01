@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+handle_selection() {
+    pid=$(echo "$1" | awk '{print $1}')
+    cmd=$(echo "$1" | awk 'OFS="";$1=$2=$3="";{print}')
+    kill $pid
+    notify-send -u low "Process killed" "pid: $pid \ncmd:\n${cmd:0:50}"
+}
+
+handle_selection "$( \
+    ps -eo pid,user,start_time,cmd --sort -start_time \
+    | rofi -dmenu -i -fuzzy -p "kill: " )"
