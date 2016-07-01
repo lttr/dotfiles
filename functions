@@ -15,6 +15,7 @@ apt-list() {
     comm -23 <( apt-mark showmanual | sort -u ) <( gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u )
 }
 
+
 # =================================================================
 #                          Dictionaries
 # =================================================================
@@ -33,8 +34,9 @@ eng() {
     dict -d gcide "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
 }
 
+
 # =================================================================
-#                       Utility functions
+#                       Applications
 # =================================================================
 
 app-running() {
@@ -46,6 +48,11 @@ app-running() {
     fi
 }
 
+
+# =================================================================
+#                             Files
+# =================================================================
+
 # Just open the file as you can
 open() {
     xdg-open "$1"
@@ -53,19 +60,91 @@ open() {
 o() { open "$1" }
 
 # Open text files in current terminal, other files separately
-open_in_bg_and_close() {
-    [[ ! -f "$1" ]] && exit 1
-    if [[ "$(file -L "$1")" =~ "text" ]]; then
-        xdg-open "$1"
+open_smart() {
+    if [[ -f "$1" ]]; then
+        name="$1"
+        # make sure the access time of the file is updated
+        touch -a -t $(date +%Y%m%d%H%M.%S) $name
+        if file -L "$name" | grep -q text ; then
+            # open text files in editor
+            ${EDITOR:-vim} $name
+        else
+            # open separately, suppress output and don't exit when
+            # parent terminal exits
+            ( xdg-open "$name" &>/dev/null & )
+        fi
     else
-        # open separately, suppress output and don't exit when
-        # parent terminal exits
-        ( xdg-open "$1" &>/dev/null & )
-        exit 0
+        notify-send -u low "open_smart" "No file called '$name' found."
     fi
 }
-ob() { open_in_bg_and_close "$1" }
 
+# Open a document found in home and selected by fzf
+open_doc() {
+    local MAXDEPTH=6
+    open_smart "$( find -L ~ \
+        -maxdepth $MAXDEPTH \
+        ! -path "*/\.*" -type f \
+        -name "*.doc*" \
+        -or -name "*.xls*" \
+        -or -name "*.odt*" \
+        -or -name "*.pdf*" \
+        | fzf )" 
+}
+odoc() { open_doc "$1" }
+
+# Open a text file found in home and selected by fzf
+open_file() {
+    local MAXDEPTH=4
+    open_smart "$( find -L ~ \
+        -maxdepth $MAXDEPTH \
+        ! -path "*/\.*" \
+        -type f \
+        -exec grep -Iq . {} \; \
+        -and -print \
+        | fzf )"
+}
+of() { open_file "$1" }
+
+
+# =================================================================
+#                          Directories
+# =================================================================
+
+# Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
+
+# Change (jump) to recent directory
+j() {
+    local dir="$(fasd -ld "$@")"
+    [[ -d "$dir" ]] && pushd "$dir"
+}
+
+# Change to recent directory, select with fzf
+jj() {
+    local dir
+    dir=$(fasd -Rdl |\
+        sed "s:$HOME:~:" |\
+        fzf --no-sort +m -q "$*" |\
+        sed "s:~:$HOME:")\
+    && pushd "$dir"
+}
+
+# Change to a subdirectory, select with fzf
+jd() {
+    local dir
+    dir=$(find ${1:-*} -path '*/\.*'\
+        -prune -o -type d\
+        -print 2> /dev/null | fzf +m)
+    [ -d "$dir" ] && pushd "$dir"
+}
+
+# Change to a subdirector which contains a given file, select with fzf
+jf() {
+    local file
+    local dir
+    file=$(fzf +m -q "$1")\
+        && dir=$(dirname "$file")
+    [ -d "$dir" ] && pushd "$dir"
+}
 
 # =================================================================
 #                              Git
@@ -83,17 +162,6 @@ dbext() {
     vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
 }
 
-fo() {
-    ob "$(find . \
-                -follow \
-                -type d \
-                -path '*/\.*' -prune \
-                -o
-                -follow \
-                -type f \
-                | fzf)"
-}
-
 # =================================================================
 #                          Improvements
 # =================================================================
@@ -107,18 +175,6 @@ mvf() {
     mv "$@"
 }
 
-
-# =================================================================
-#                        My applications
-# =================================================================
-
-tia() {
-    if [ -z "$@" ]; then
-        cd ~/Dropbox/ia
-    else
-        ag "$@" ~/Dropbox/ia/
-    fi
-}
 
 # =================================================================
 #                              Tmux
@@ -153,3 +209,9 @@ zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' ignore-line current
 zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' menu yes select interactive
 zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a-zA-Z}'
 # }}}
+#
+
+# =================================================================
+#                          Experimantal
+# =================================================================
+
