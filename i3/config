@@ -301,8 +301,8 @@ bindsym $mod+Ctrl+Shift+l exec "keepass2 --auto-type-selected"
 # =================================================================
 
 # Volume - keys near to right Win modifier
-bindsym $mod+bracketleft exec amixer -D pulse sset Master 5%+
-bindsym $mod+bracketright exec amixer -D pulse sset Master 5%-
+bindsym $mod+bracketright exec amixer -D pulse sset Master 5%+
+bindsym $mod+bracketleft exec amixer -D pulse sset Master 5%-
 bindsym $mod+apostrophe exec amixer -D pulse sset Master toggle
 
 # pulse audio volume control (run xev for special keys names)
@@ -362,6 +362,7 @@ assign [class="Skype"] → $ws_skype
 
 # Borders
 for_window [class="vivaldi*"] border none
+for_window [class="google-chrome*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
 
