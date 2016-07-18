@@ -1,13 +1,38 @@
 #!/usr/bin/env bash
 
+MY_APPS_DIR=~/opt
+MY_INSTALL_CONFIG_DIR=~/dotfiles/install/config
+MY_APT_PACKAGES_FILE=apt-packages.txt
+MY_PYTHON_PACKAGES_FILE=python-packages.txt
+MY_NODE_PACKAGES_FILE=nodejs-packages.txt
+
 # =================================================================
 #                           Functions
 # =================================================================
 
-log() {
+log_installing() {
+    echo
     echo "=================================================="
     echo "Installing $1"
     echo "=================================================="
+}
+
+already_installed() {
+    echo
+    echo "=================================================="
+    echo "$1 already installed."
+    echo "=================================================="
+}
+
+check_custom_app() {
+    command -v "$1" >/dev/null 2>&1
+    if [[ $? == 0 || -d "~/opt/$1" ]]; then
+        already_installed "$1"
+        return 1
+    else
+        log_installing "$1"
+        return 0
+    fi
 }
 
 
@@ -15,11 +40,16 @@ log() {
 #                        Prepare sources
 # =================================================================
 
-log "custom apt package sources"
+log_installing "Custom apt package sources"
 
 # Google Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+if grep -Fxq "deb http://dl.google.com/linux/chrome/deb/ stable main" /etc/apt/sources.list.d/google.list
+then
+    : # Already set
+else
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+fi
 
 # Skype
 sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
@@ -32,73 +62,84 @@ sudo add-apt-repository ppa:no1wantdthisname/ppa
 #                      Install apt packages
 # =================================================================
 
+log_installing "########## apt-get update ##########"
 sudo apt-get update
 
 while read package; do
     [[ "$line" =~ ^#.*$ ]] && continue # skip commented lines
-    log "apt package: $package"
+    log_installing "apt package: $package"
     sudo apt-get install -y "$package"
-done < ~/dotfiles/install/config/apt-packages.txt
+done < $MY_INSTALL_CONFIG_DIR/$MY_APT_PACKAGES_FILE
 
 
 # =================================================================
 #                      Custom applications
 # =================================================================
 
-cd ~/opt
+cd $MY_APPS_DIR
 
-log 'vim'
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugInstall +qall
+if check_custom_app 'vim'; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +qall
+fi
 
-log 'gsettings-info'
-git clone https://github.com/jmatsuzawa/gsettings-info
-ln -sf ~/opt/gsettings-info/gsettings-info ~/bin/gsettings-info
+if check_custom_app 'gsettings-info'; then
+    git clone https://github.com/jmatsuzawa/gsettings-info
+    ln -sf $MY_APPS_DIR/gsettings-info/gsettings-info ~/bin/gsettings-info
+fi
 
-log 'xkblayout-state'
-git clone https://github.com/nonpop/xkblayout-state.git
-cd xkblayout-state
-make
-cd ~/opt
-ln -sf ~/opt/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
+if check_custom_app 'xkblayout-state'; then
+    git clone https://github.com/nonpop/xkblayout-state.git
+    cd xkblayout-state
+    make
+    cd $MY_APPS_DIR
+    ln -sf $MY_APPS_DIR/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
+fi
 
-log 'fzf'
-git clone --depth 1 https://github.com/junegunn/fzf.git
-fzf/install
+if check_custom_app 'fzf'; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git
+    fzf/install
+fi
 
-log 'git-credential-helper'
-git clone git://github.com/pah/git-credential-helper.git
-BACKEND=gnome-keyring
-cd git-credential-helper/$BACKEND
-make
-cp git-credential-$BACKEND ~/bin/
-cd ~/opt
+if check_custom_app 'git-credential-helper'; then
+    git clone git://github.com/pah/git-credential-helper.git
+    BACKEND=gnome-keyring
+    cd git-credential-helper/$BACKEND
+    make
+    cp git-credential-$BACKEND ~/bin/
+    cd $MY_APPS_DIR
+fi
 
-log 'fasd'
-tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
-cd fasd-1.0.1
-sudo make install
-cd ~/opt
+if check_custom_app 'fasd'; then
+    tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
+    cd fasd-1.0.1
+    sudo make install
+    cd $MY_APPS_DIR
+fi
 
-log 'vivaldi'
-git clone https://gist.github.com/b5aca855f2d05ba14836.git vivaldi-install
-cd vivaldi-install
-sudo sh install-vivaldi.sh --snapshot
-sudo mv /usr/local/bin/vivaldi-snapshot /usr/local/bin/vivaldi
-cd ~/opt
+if check_custom_app 'vivaldi'; then
+    git clone https://gist.github.com/b5aca855f2d05ba14836.git vivaldi-install
+    cd vivaldi-install
+    sudo sh install-vivaldi.sh --snapshot
+    sudo mv /usr/local/bin/vivaldi-snapshot /usr/local/bin/vivaldi
+    cd $MY_APPS_DIR
+fi
 
-log 'antibody'
-curl -s https://raw.githubusercontent.com/getantibody/installer/master/install | bash -s
+if check_custom_app 'antibody'; then
+    curl -s https://raw.githubusercontent.com/getantibody/installer/master/install | bash -s
+fi
 
-log 'tmux-plugin-manager'
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d ~/.tmux/plugins/tpm ]; then
+    log_installing 'tmux-plugin-manager'
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
 
 # =================================================================
 #                        Python packages
 # =================================================================
-log "pip packages"
-pip install -r ~/dotfiles/install/config/python-packages.txt
+log_installing "pip packages"
+pip install -r $MY_INSTALL_PACKAGES_FILE/$MY_PYTHON_PACKAGES_FILE
 
 
 # =================================================================
@@ -106,6 +147,6 @@ pip install -r ~/dotfiles/install/config/python-packages.txt
 # =================================================================
 while read package; do
     [[ "$line" =~ ^#.*$ ]] && continue # skip commented lines
-    log "npm package $package"
+    log_installing "npm package $package"
     sudo npm install -g "$package"
-done < ~/dotfiles/install/config/nodejs-packages.txt
+done < $MY_INSTALL_CONFIG_DIR/$MY_NODE_PACKAGES_FILE
