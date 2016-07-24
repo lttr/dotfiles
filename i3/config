@@ -323,7 +323,7 @@ bindsym $mod+slash move position center
 
 # Toggle tiling / floating
 floating_modifier $mod
-bindsym $mod+Ctrl+space floating toggle
+bindsym $mod+m floating toggle
 
 # Toggle focus between tiling / floating
 bindsym $mod+space focus mode_toggle
