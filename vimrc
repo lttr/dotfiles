@@ -197,15 +197,17 @@ set mouse=a
 " ==============================================================================
 
 "  ===== Language =====
-" language us
+language us
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
 " change cursor shape in terminal:
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+if has('unix')
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
+endif
 
 " ===== Font =====
 if has('unix')
