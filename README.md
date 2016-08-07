@@ -63,6 +63,6 @@ dotfiles i symlinks
 
 ## Thanks
 
-[github](http://dotfiles.github.io/)
-[alexbooker/dotfiles](https://github.com/alexbooker/dotfiles)
-[skwp/dotfiles](https://github.com/skwp/dotfiles)
+- [github](http://dotfiles.github.io/)
+- [alexbooker/dotfiles](https://github.com/alexbooker/dotfiles)
+- [skwp/dotfiles](https://github.com/skwp/dotfiles)
