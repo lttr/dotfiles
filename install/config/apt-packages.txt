@@ -29,6 +29,7 @@ keepass2
 krusader
 libmysqlclient-dev
 lxappearance
+maven
 mc
 nautilus-dropbox
 neovim
