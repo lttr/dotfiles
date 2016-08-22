@@ -7,6 +7,7 @@ dict-freedict-eng-ces
 dict-gcide
 dmz-cursor-theme
 dos2unix
+doublecmd
 expect
 feh
 fontconfig-infinality
