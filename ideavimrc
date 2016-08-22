@@ -2,13 +2,11 @@
 
 " vim: set ft=vim:
 
-" Settings
-" ========
 
+" ===== Settings =====
 set hlsearch
 set ignorecase
 set incsearch
-
 set smartindent
 set autoindent
 set smartcase
@@ -20,38 +18,54 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 
+" ===== Plugins =====
 set surround
+
+
+" ===== Buffers =====
+nnoremap ,q :q<CR>
 
 " ===== Consistency =====
 nnoremap Y y$
-vnoremap s "_dgP
 vnoremap p "_dgP
 
-" ===== Exiting =====
-nnoremap ,q :q<cr>
-
-" ===== Moving in buffer =====
-nnoremap H 0
-nnoremap L $
-
-" ===== Programming shortcuts =====
+" ===== Editing =====
 nnoremap <space>; m`A;<esc>``
 
 " ===== Searching =====
 nnoremap gr viwy/<C-r>"<CR><C-o>:set hlsearch<CR>
 vnoremap gr y/<C-r>"<CR><C-o>:set hlsearch<CR>
 nnoremap gV `[v`]
+
+" ===== Moving =====
+nnoremap g; :action JumpToLastChange<CR>
  
-" ===== Strings =====
-nnoremap <space>" viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <space>' viw<esc>a'<esc>hbi'<esc>lel
+" ===== Navigation =====
+nnoremap <c-o> :action Back<CR>
+nnoremap <c-i> :action Forward<CR>
+nnoremap ]e :action GotoNextError<CR>
+nnoremap [e :action GotoPreviousError<CR>
+nnoremap g<c-o> <c-o>
+nnoremap g<c-i> <c-i>
+
+nnoremap <c-]> :action GotoImplementation<CR>
+nnoremap <c-[> :action GotoSuperMethod<CR>
+
+" ===== Source =====
+nnoremap gcc :action CommentByLineComment<CR>
 
 " ===== Unimpaired functionality =====
 nnoremap ]b gt
 nnoremap [b gT
-nnoremap ]<space> m`o<Esc>``
-nnoremap [<space> m`O<Esc>``
-
-nnoremap coh :set<space>hlsearch!<CR>
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<CR>
+nnoremap ]q :action NextOccurence<CR>
+nnoremap [m :action MethodUp<CR>
+nnoremap ]m :action MethodDown<CR>
+nnoremap [c :action VcsShowPrevChangeMarker<CR>
+nnoremap ]c :action VcsShowNextChangeMarker<CR>
+nnoremap coh :nohlsearch<CR>
 nnoremap col :action EditorToggleShowWhitespaces<CR>
 nnoremap cor :set<space>relativenumber!<CR>
+nnoremap cow :action EditorToggleUseSoftWraps<CR>
