@@ -134,6 +134,13 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+if [ ! -f ~/opt/gdrive ]; then
+    log_installing 'gdrive'
+    wget -O gdrive "https://drive.google.com/uc?id=0B3X9GlR6Embnb095MGxEYmJhY2c"
+    chmod +x gdrive
+    ln -fs ~/opt/gdrive ~/dotfiles/bin/gdrive
+fi
+
 
 # =================================================================
 #                        Python packages
