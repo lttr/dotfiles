@@ -211,7 +211,7 @@ endif
 
 " ===== Font =====
 if has('unix')
-    set guifont=Monospace\ 12
+    set guifont=DejaVu\ Sans\ Mono\ 12
 else
     set guifont=Consolas:h12
 endif
