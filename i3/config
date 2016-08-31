@@ -106,7 +106,7 @@ client.urgent           $faded_orange $faded_orange $light1 $light1
 #                             I3 bar
 # =================================================================
 
-bindsym $mod+Mod1+space bar mode toggle 
+bindsym $mod+Shift+b bar mode toggle 
 
 bar {
     # Disable tray area - status icons on i3bar are prettier and more configurable
