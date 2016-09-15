@@ -197,7 +197,11 @@ set mouse=a
 " ==============================================================================
 
 "  ===== Language =====
-language en_US.UTF-8
+if has('unix')
+    language en_US.UTF-8
+else
+    language us
+endif
 
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
