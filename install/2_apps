@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MY_APPS_DIR=~/opt
+MY_APPS_DIR=${HOME}/opt
 MY_INSTALL_CONFIG_DIR=~/dotfiles/install/config
 MY_APT_PACKAGES_FILE=apt-packages.txt
 MY_PYTHON_PACKAGES_FILE=python-packages.txt
@@ -141,6 +141,9 @@ if [ ! -f ~/opt/gdrive ]; then
     ln -fs ~/opt/gdrive ~/dotfiles/bin/gdrive
 fi
 
+if [ ! -f ~/opt/sdkman ]; then
+    export SDKMAN_DIR="${MY_APPS_DIR}/sdkman" && curl -s "https://get.sdkman.io" | bash
+fi
 
 # =================================================================
 #                        Python packages

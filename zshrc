@@ -106,3 +106,7 @@ eval "$(fasd --init auto)"
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 [[ -f ~/.functions.local ]] && source ~/.functions.local
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/opt/sdkman"
+[[ -s "$HOME/opt/sdkman/bin/sdkman-init.sh" ]] && source "$HOME/opt/sdkman/bin/sdkman-init.sh"

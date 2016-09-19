@@ -25,15 +25,14 @@ augroup END
 
 call plug#begin()
 
-Plug 'gregsexton/MatchTag'
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-scripts/Yankitute'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Raimondi/delimitMate'
+Plug 'Shougo/vimproc.vim'
 Plug 'airblade/vim-rooter'
+Plug 'andreshazard/vim-freemarker' , { 'for': 'freemarker' }
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
 Plug 'chrisbra/unicode.vim'
@@ -44,13 +43,16 @@ Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
 Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'godlygeek/tabular'
+Plug 'gregsexton/MatchTag'
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
 Plug 'groenewege/vim-less' , { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax' , { 'for': 'css' }
 Plug 'honza/vim-snippets'
+Plug 'idanarye/vim-vebugger'
 Plug 'janiczek/vim-latte'
 Plug 'junegunn/goyo.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'klen/python-mode' , { 'for': 'python' }
 Plug 'lttr/sql_iabbr.vim'
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mattn/emmet-vim'
@@ -60,14 +62,13 @@ Plug 'moll/vim-bbye'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
 Plug 'rking/ag.vim'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'salsifis/vim-transpose'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'scrooloose/syntastic'
-" Plug 'sheerun/vim-polyglot'
 Plug 'sickill/vim-pasta'
 Plug 'sjl/clam.vim'
-" Plug 'skammer/vim-css-color'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tlib_vim'
@@ -83,6 +84,7 @@ Plug 'triglav/vim-visual-increment'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
 Plug 'vim-scripts/Rename'
+Plug 'vim-scripts/Yankitute'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim'
@@ -91,9 +93,6 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/visSum.vim'
 Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
-Plug 'klen/python-mode' , { 'for': 'python' }
-Plug 'idanarye/vim-vebugger'
-Plug 'Shougo/vimproc.vim'
 
 call plug#end()
 
