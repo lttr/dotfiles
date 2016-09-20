@@ -366,7 +366,7 @@ assign [class="Doublecmd"] → $ws_files
 assign [class="Evolution"] → $ws_mail
 assign [class="Skype"] → $ws_skype
 assign [class="Image*"] → $ws_6
-assign [class="*Intellij IDEA*"] → $ws_code
+assign [class="jetbrains-idea"] → $ws_code
 
 # Borders
 for_window [class="vivaldi*"] border none
