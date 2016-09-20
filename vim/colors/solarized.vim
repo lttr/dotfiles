@@ -546,9 +546,11 @@ exe "hi! Constant"       .s:fmt_none   .s:fg_cyan   .s:bg_none
 "       *Constant        any constant
 "        String          a string constant: "this is a string"
 "        Character       a character constant: 'c', '\n'
-"        Number          a number constant: 234, 0xff
 "        Boolean         a boolean constant: TRUE, false
 "        Float           a floating point constant: 2.3e10
+
+exe "hi! Number"       .s:fmt_none   .s:fg_green   .s:bg_none
+"        Number          a number constant: 234, 0xff
 
 " exe "hi! Identifier"     .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! Identifier"     .s:fmt_none   .s:fg_base0   .s:bg_none

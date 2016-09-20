@@ -301,7 +301,7 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaRepeat			Repeat
   JavaHiLink javaExceptions		Exception
   JavaHiLink javaAssert			Statement
-  JavaHiLink javaStorageClass		StorageClass
+  JavaHiLink javaStorageClass		Statement
   JavaHiLink javaMethodDecl		Statement
   JavaHiLink javaClassDecl		Statement
   JavaHiLink javaScopeDecl		Statement
@@ -337,7 +337,7 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaCommentStar		Comment
   " unlet b:current_syntax
 
-  JavaHiLink javaType			Type
+  JavaHiLink javaType			Statement
   JavaHiLink javaExternal		Statement
 
   JavaHiLink htmlComment		Special
