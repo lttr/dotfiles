@@ -628,9 +628,24 @@ augroup END
 " ===== Java =====
 augroup java
     autocmd!
-    autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:!javac %<CR>
-    autocmd Filetype java nnoremap <buffer> <leader>r :Clam java -cp . %:r<CR>
+    autocmd Filetype java set makeprg=javac\ % 
+    autocmd Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+    autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:make<CR>:cwindow<CR><CR>
+    autocmd Filetype java nnoremap <buffer> <leader>r :call RunJava()<CR>
 augroup END
+
+function! RunJava()
+    write
+    lcd %:p:h
+    silent! make
+    botright cwindow
+    normal <CR>
+    if (len(getqflist()) < 1)
+        Clam java %:r
+        wincmd w
+    endif
+    redraw!
+endfunction
 
 " ===== JavaScript =====
 augroup javascript

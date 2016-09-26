@@ -21,6 +21,7 @@
     ~/.i3: i3
     ~/.vim/colors: vim/colors
     ~/.vim/syntax: vim/syntax
+    ~/.vim/snippets: vim/snippets
 
     ~/bin : bin
 
