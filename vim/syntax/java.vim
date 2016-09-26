@@ -48,11 +48,11 @@ syn keyword javaError		goto const
 syn keyword javaConditional	if else switch
 syn keyword javaRepeat		while for do
 syn keyword javaBoolean		true false
-syn keyword javaConstant	null
 syn keyword javaTypedef		this super
 syn keyword javaOperator	new instanceof
 syn keyword javaType		boolean char byte short int long float double
 syn keyword javaType		void
+syn keyword javaNull		null
 syn keyword javaStatement	return
 syn keyword javaStorageClass	static synchronized transient volatile final strictfp serializable
 syn keyword javaExceptions	throw try catch finally
@@ -305,7 +305,8 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaMethodDecl		Statement
   JavaHiLink javaClassDecl		Statement
   JavaHiLink javaScopeDecl		Statement
-  JavaHiLink javaBoolean		Boolean
+  JavaHiLink javaBoolean		Type
+  JavaHiLink javaNull	        	Type
   JavaHiLink javaSpecial		Special
   JavaHiLink javaSpecialError		Error
   JavaHiLink javaSpecialCharError	Error
@@ -321,7 +322,7 @@ if version >= 508 || !exists("did_java_syn_inits")
   JavaHiLink javaDocComment		Comment
   JavaHiLink javaLineComment		Comment
   JavaHiLink javaConstant		Constant
-  JavaHiLink javaTypedef		Typedef
+  JavaHiLink javaTypedef		Statement
   JavaHiLink javaTodo			Todo
   JavaHiLink javaAnnotation		PreProc
 
