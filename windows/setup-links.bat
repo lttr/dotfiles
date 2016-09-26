@@ -42,15 +42,6 @@ mklink /d %USERPROFILE%\vimfiles\colors %USERPROFILE%\dotfiles\vim\colors
 rmdir %USERPROFILE%\vimfiles\syntax
 mklink /d %USERPROFILE%\vimfiles\syntax %USERPROFILE%\dotfiles\vim\syntax
 
-rmdir %USERPROFILE%\.docear
-mklink /d %USERPROFILE%\.docear %SYNC_DIR%\conf\docear
-attrib /L +H %USERPROFILE%\.docear
-
-rmdir %USERPROFILE%\.dbeaver
-mklink /d %USERPROFILE%\.dbeaver %SYNC_DIR%\conf\dbeaver
-attrib /L +H %USERPROFILE%\.dbeaver
-
-rmdir %USERPROFILE%\.freemind
-mklink /d %USERPROFILE%\.freemind %SYNC_DIR%\conf\freemind
-attrib /L +H %USERPROFILE%\.freemind
+rmdir %USERPROFILE%\vimfiles\snippets
+mklink /d %USERPROFILE%\vimfiles\snippets %USERPROFILE%\dotfiles\vim\snippets
 
