@@ -380,22 +380,18 @@ for_window [class="Gnome-calendar"] border pixel 1
 #                        Windows resizing
 # =================================================================
 
-bindsym $mod+Home resize shrink height 10 px or 10 ppt
-bindsym $mod+End resize grow height 10 px or 10 ppt
+# Aligns with $mod+m for floating window and $mod+slash for centering a window
+bindsym $mod+comma exec "i3-msg resize set 1200 900 && i3-msg move position center"
+bindsym $mod+period exec "i3-msg resize set 1600 1000 && i3-msg move position center"
 
 # Resize mode
 bindsym $mod+r mode "  "
 
 mode "  " {
-    bindsym l resize shrink width 10 px or 10 ppt
-    bindsym j resize grow height 10 px or 10 ppt
-    bindsym k resize shrink height 10 px or 10 ppt
-    bindsym h resize grow width 10 px or 10 ppt
-
-    bindsym Right resize shrink width 10 px or 10 ppt
-    bindsym Down  resize grow height 10 px or 10 ppt
-    bindsym Up    resize shrink height 10 px or 10 ppt
-    bindsym Left  resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 50 px or 50 ppt
+    bindsym j resize grow height 50 px or 50 ppt
+    bindsym k resize shrink height 50 px or 50 ppt
+    bindsym l resize grow width 50 px or 50 ppt
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
