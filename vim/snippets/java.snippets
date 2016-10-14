@@ -1,9 +1,8 @@
-snippet c
-	class ${1:`vim_snippets#Filename("$1", "")`} {
-		${0}
-	}
 snippet sout
 	System.out.print(${0});
+
+snippet list
+	List<${1:Object}> ${2:list} = new ArrayList<$1>();${0}
 
 snippet psv
 	public static void ${0}
@@ -11,3 +10,15 @@ snippet prsv
 	private static void ${0}
 snippet psf
 	public static final ${0}
+
+snippet de
+	default ${0}
+
+snippet cls
+	class ${1} {
+		${2}
+	}
+snippet inf
+	interface ${1} {
+		${2}
+	}
