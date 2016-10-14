@@ -22,12 +22,11 @@ set shiftwidth=4
 set surround
 
 
-" ===== Buffers =====
-nnoremap ,q :q<CR>
-
 " ===== Consistency =====
 nnoremap Y y$
 vnoremap p "_dgP
+vnoremap < <gv
+vnoremap > >gv
 
 " ===== Editing =====
 nnoremap <space>; m`A;<esc>``
@@ -69,3 +68,8 @@ nnoremap coh :nohlsearch<CR>
 nnoremap col :action EditorToggleShowWhitespaces<CR>
 nnoremap cor :set<space>relativenumber!<CR>
 nnoremap cow :action EditorToggleUseSoftWraps<CR>
+
+" ===== Windows =====
+nnoremap ,q :q<CR>
+nnoremap ,v :vs<CR>
+
