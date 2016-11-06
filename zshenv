@@ -32,4 +32,4 @@ export LC_TELEPHONE=cs_CZ.UTF-8
 export LC_MEASUREMENT=en_GB.UTF-8
 export LC_IDENTIFICATION=cs_CZ.UTF-8
 
-export VAGRANT_HOME=~/virtuals/vagrant.d
+export VAGRANT_HOME=~/vagrants/vagrant.d
