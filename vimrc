@@ -93,6 +93,7 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'vim-scripts/visSum.vim'
 Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
+Plug 'vim-scripts/vim-auto-save'
 
 call plug#end()
 
@@ -609,6 +610,7 @@ augroup END
 " ===== HTML =====
 augroup html
     autocmd!
+    autocmd BufRead,BufNewFile *.cshtml set filetype=html
     autocmd FileType html setlocal tabstop=2
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2

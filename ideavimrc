@@ -47,9 +47,6 @@ nnoremap [e :action GotoPreviousError<CR>
 nnoremap g<c-o> <c-o>
 nnoremap g<c-i> <c-i>
 
-nnoremap <c-]> :action GotoImplementation<CR>
-nnoremap <c-[> :action GotoSuperMethod<CR>
-
 " ===== Source =====
 nnoremap gcc :action CommentByLineComment<CR>
 
