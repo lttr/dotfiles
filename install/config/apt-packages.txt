@@ -14,7 +14,6 @@ fontconfig-infinality
 gimp
 git
 gnome-color-chooser
-gnuplot
 google-chrome-stable
 gpick
 gthumb
@@ -22,7 +21,6 @@ htop
 i3
 i3blocks
 inkscape
-jabref
 jq
 kde-baseapps-bin
 kdeconnect
@@ -36,7 +34,6 @@ nautilus-dropbox
 neovim
 network-manager-pptp
 network-manager-vpnc
-nitrogen
 nmap
 nodejs
 npm
@@ -50,7 +47,6 @@ python-pip
 remmina
 rofi
 scrot
-shutter
 silversearcher-ag
 skype
 sshpass
