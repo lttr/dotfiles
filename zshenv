@@ -16,6 +16,7 @@ export PAGER=/usr/bin/less
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/vivaldi
+export TERM=rxvt-unicode-256color
 
 export LANG=en_GB.UTF-8
 export LANGUAGE=en_GB.UTF-8
@@ -33,3 +34,5 @@ export LC_MEASUREMENT=en_GB.UTF-8
 export LC_IDENTIFICATION=cs_CZ.UTF-8
 
 export VAGRANT_HOME=~/vagrants/vagrant.d
+
+export PURE_CMD_MAX_EXEC_TIME=10000
