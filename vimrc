@@ -72,6 +72,7 @@ Plug 'sjl/clam.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -630,6 +631,8 @@ augroup END
 " ===== Java =====
 augroup java
     autocmd!
+    autocmd BufRead,BufNewFile *.jshell set filetype=java
+    autocmd BufRead,BufNewFile *.jsh set filetype=java
     autocmd Filetype java set makeprg=javac\ % 
     autocmd Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
     autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:make<CR>:cwindow<CR><CR>
@@ -1022,9 +1025,6 @@ vmap F6 <Plug>(openbrowser-smart-search)
 
 " ===== Markdown =====
 let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
-
-" ===== Multiple cursors =====
-nnoremap <c-s-N> yiwvip:MultipleCursorsFind <c-r>"<CR>
 
 " ===== NERDTree =====
 let NERDTreeQuitOnOpen=1
