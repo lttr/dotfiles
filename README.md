@@ -1,13 +1,13 @@
 dotfiles
 ========
 
-This is a collection of files for configuration and installation of my development machines. This is a great way how to manage the settings of your applications, install new machine easily or share the way you work with others. 
+This is a collection of files for configuration and installation of my development machines. This is a great way how to manage the settings of your applications, install new machine easily or share the way you work with others.
 See more on the links under _Thanks_.
 
 
 ## What is inside
 
-Scripts for installing:
+#### Scripts for installing
 - directory structure
 - applications
     * via apt-get
@@ -17,25 +17,30 @@ Scripts for installing:
 - gnome settings
 - symbolic links
 
-Configuration files
-- ag (searching program)
-- aliases (for command line)
-- antibody (plugins for zsh)
-- color schemes
-- dunst (notifications in i3)
-- vim simulations (ideavim, vrapper)
-- git (aliases, config)
-- i3 (window manager)
-- kdiff3 (diff program)
-- tmux (terminal on the next level)
-- vim (the most ergonomic editor)
-- some stuff for Windows
-- zsh (just a better program launcher :)
+#### Configuration files
+- `ag` (searching program)
+- `antibody` (plugins for zsh)
+- `dunst` (notifications in i3)
+- `vim` simulations (ideavim, vrapper)
+- `git` (aliases, config)
+- `i3` (window manager)
+- `kdiff3` (diff program)
+- `ranger` (directories browser)
+- `rofi` (program launcher)
+- `tmux` (terminal on the next level)
+- `urxvt` (capable terminal)
+- `vim` (the most ergonomic editor)
+- `zsh` (just a better program launcher :)
 
-Usefull scripts
+#### Usefull scripts
 - for connections
 - for environment and hardware setup
 - shortcuts for applications
+
+#### Others
+- aliases and functions (for command line)
+- color schemes
+- some stuff for Windows
 
 
 ## How to install
