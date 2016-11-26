@@ -51,7 +51,7 @@ Plug 'honza/vim-snippets'
 Plug 'idanarye/vim-vebugger'
 Plug 'janiczek/vim-latte'
 Plug 'junegunn/goyo.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'klen/python-mode' , { 'for': 'python' }
 Plug 'lttr/sql_iabbr.vim'
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
@@ -62,7 +62,7 @@ Plug 'moll/vim-bbye'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
 Plug 'rking/ag.vim'
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 Plug 'salsifis/vim-transpose'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
@@ -216,7 +216,7 @@ endif
 
 " ===== Font =====
 if has('unix')
-    set guifont=DejaVu\ Sans\ Mono\ 12
+    set guifont=DejaVuSansMonoForPowerline\ Nerd\ Font\ 12
 else
     set guifont=Consolas:h12
 endif
@@ -274,7 +274,11 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 
 " Row numbers
 hi LineNr guifg=#c2c0ba
-hi LineNr ctermfg=251
+if $TERM == 'rxvt-unicode-256color'
+    hi LineNr ctermfg=58
+else
+    hi LineNr ctermfg=251
+endif
 
 " }}}
 " ==============================================================================

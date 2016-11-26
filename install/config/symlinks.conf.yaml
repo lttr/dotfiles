@@ -19,6 +19,7 @@
     ~/.zshrc: zshrc
 
     ~/.i3: i3
+    ~/.urxvt: urxvt
     ~/.vim/colors: vim/colors
     ~/.vim/syntax: vim/syntax
     ~/.vim/snippets: vim/snippets
