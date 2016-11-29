@@ -538,7 +538,7 @@ command! Do :windo diffoff
 
 " ===== Extract matches =====
 " Extract the matches of last search from current buffer
-command! Extract :call Extract()
+command! Extract :%Yankitute//&/g
 " Extract matching lines into new buffer (http://vim.wikia.com/wiki/VimTip1063)
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a
 
@@ -1265,17 +1265,6 @@ endfunction
 function! Xpath(arg)
     echo a:arg
     execute '%!xmlstar sel -t -c "a:arg"'
-endfunction
-
-" Extract the matches of last search from current buffer
-" TODO does not work
-function! Extract()
-    v//d
-    let i = 1
-    for line in getline(1,'$')
-        call setline(i, substitute(line, '.\{-}\(<c-r>/\).*', '\1', 'g'))
-        let i = i + 1
-    endfor
 endfunction
 
 " Some vim commands output quite a lot of text and it would
