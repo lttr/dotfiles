@@ -39,15 +39,6 @@ eng() {
 #                       Applications
 # =================================================================
 
-app-running() {
-    ps aux | grep -i "$1" >/dev/null
-    if [[ $? == 0 ]]; then
-        echo "yes"
-    else
-        echo "no"
-    fi
-}
-
 # Change current directory according to Ranger
 function rg {
     tempfile="$(mktemp)"
@@ -85,7 +76,7 @@ open_smart() {
             ( xdg-open "$name" &>/dev/null & )
         fi
     else
-        notify-send -u low "open_smart" "No file called '$name' found."
+        echo "No file called '$name' found."
     fi
 }
 
@@ -147,13 +138,16 @@ extract() {
 		else
 			echo "'$1' - file does not exist"
 		fi
-fi
+    fi
 }
+x() { extract "$1" }
+
 
 # =================================================================
 #                          Directories
 # =================================================================
 
+# Directories jumping
 # Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
 
 # Change (jump) to recent directory
@@ -181,7 +175,7 @@ jd() {
     [ -d "$dir" ] && pushd "$dir"
 }
 
-# Change to a subdirector which contains a given file, select with fzf
+# Change to a subdirectory which contains a given file, select with fzf
 jf() {
     local file
     local dir
@@ -189,6 +183,7 @@ jf() {
         && dir=$(dirname "$file")
     [ -d "$dir" ] && pushd "$dir"
 }
+
 
 # =================================================================
 #                              Git
@@ -206,17 +201,21 @@ dbext() {
     vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
 }
 
+
 # =================================================================
 #                          Improvements
 # =================================================================
 
-mvf() {
-    dir="${@: -1}"
-    tmp="$dir"; tmp="${tmp: -1}"
-    [ "$tmp" != "/" ] && dir="$(dirname "$dir")"
-    [ ! -d "$dir" ] ||
-    mkdir -p "$dir" &&
-    mv "$@"
+# Make directory, inform about the result and change current directory into it.
+# Use only the first argument.
+mkcd() {
+    if [ ! -n "$1" ]; then
+        echo "Enter a directory name"
+    elif [ -d "$1" ]; then
+        echo "'$1' already exists"
+    else
+        mkdir -pv "$1" && cd "$1"
+    fi
 }
 
 
@@ -252,8 +251,7 @@ zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' ignore-line current
 # display the (interactive) menu on first execution of the hotkey
 zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' menu yes select interactive
 zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a-zA-Z}'
-# }}}
-#
+
 
 # =================================================================
 #                          Experimantal
