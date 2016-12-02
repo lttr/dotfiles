@@ -3,7 +3,7 @@
 IA_DIR=~/Dropbox/ia
 
 handle_selection() {
-    open_smart "$IA_DIR/$1"
+    $EDITOR "$IA_DIR/$1"
 }
 
 if [[ -z "$@" ]]

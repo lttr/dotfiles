@@ -59,7 +59,6 @@ function rg {
 open() {
     xdg-open "$1"
 }
-o() { open "$1" }
 
 # Open text files in current terminal, other files separately
 open_smart() {
@@ -79,6 +78,7 @@ open_smart() {
         echo "No file called '$name' found."
     fi
 }
+o() { open_smart "$1" }
 
 # Open a document found in home and selected by fzf
 open_doc() {

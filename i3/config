@@ -20,7 +20,7 @@
 # =================================================================
 
 # Setup my hardware
-exec --no-startup-id setup-hardware
+exec --no-startup-id ~/dotfiles/scripts/hardware/setup-hardware.sh
 
 # Load Xresources
 exec --no-startup-id xrdb -load ~/.Xresources

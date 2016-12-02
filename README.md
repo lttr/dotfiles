@@ -59,11 +59,11 @@ git clone --recursive https://github.com/lttr/dotfiles
 
 Install everything using _dotfiles_ utility script:
 ```
-./dotfiles/bin/dotfiles install all
+./dotfiles/scripts/user/dotfiles.sh install all
 ```
 Or install only symlinks (shortcut version of the utility script)
 ```
-dotfiles i symlinks
+./dotfiles/scripts/user/dotfiles.sh i sym
 ```
 
 ## Thanks

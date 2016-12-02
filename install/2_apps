@@ -138,7 +138,7 @@ if [ ! -f ~/opt/gdrive ]; then
     log_installing 'gdrive'
     wget -O gdrive "https://drive.google.com/uc?id=0B3X9GlR6Embnb095MGxEYmJhY2c"
     chmod +x gdrive
-    ln -fs ~/opt/gdrive ~/dotfiles/bin/gdrive
+    ln -fs ~/opt/gdrive ~/bin/gdrive
 fi
 
 if [ ! -f ~/opt/sdkman ]; then

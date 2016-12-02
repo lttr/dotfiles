@@ -13,21 +13,24 @@ echo "=================================================="
 [ -d Public    ] && rmdir ~/Public
 [ -d Templates ] && rmdir ~/Templates
 [ -d Videos    ] && rmdir ~/Videos
-[ -d bin       ] && rmdir ~/bin
 
 echo "Unnecessary directories removed"
 
 # Make useful directories inside home
-mkdir -p ~/opt 
-mkdir -p ~/sandbox 
+mkdir -p ~/bin
+mkdir -p ~/opt
+mkdir -p ~/sandbox
 
 # Prepare dirs for vim
-mkdir -p ~/.vim 
-mkdir -p ~/.vim/backups 
+mkdir -p ~/.vim
+mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undos
 
-# Prepare directory for mounting data partition
+# Prepare directories for mounting partitions
 sudo mkdir -p /media/data
+sudo mkdir -p /media/hdd
+sudo mkdir -p /media/zalohy_tucanek
+sudo mkdir -p /media/spolecne_uloziste
 
 echo "Useful directories created"
 
