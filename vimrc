@@ -906,7 +906,7 @@ nnoremap <C-p> :CtrlP<cr>
 " Set ,m for most recently used files
 nnoremap <Leader>m :CtrlPMRUFiles<cr>
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target)$',
+            \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components)$',
             \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
             \}
 let g:ctrlp_working_path_mode = 'rc'
