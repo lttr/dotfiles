@@ -46,7 +46,7 @@ Plug 'godlygeek/tabular'
 Plug 'gregsexton/MatchTag'
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
 Plug 'groenewege/vim-less' , { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax' , { 'for': 'css' }
+Plug 'hail2u/vim-css3-syntax'
 Plug 'honza/vim-snippets'
 Plug 'idanarye/vim-vebugger'
 Plug 'janiczek/vim-latte'
@@ -95,6 +95,7 @@ Plug 'vim-scripts/visSum.vim'
 Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/vim-auto-save'
+Plug 'othree/javascript-libraries-syntax.vim'
 
 call plug#end()
 
@@ -603,6 +604,11 @@ augroup syntax-sugar
     autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
+" ===== CSS =====
+augroup css
+    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+augroup END
+
 " ===== Dosbatch =====
 augroup dosbatch
     autocmd!
@@ -619,7 +625,7 @@ augroup html
     autocmd FileType html setlocal tabstop=2
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2
-    autocmd FileType html setlocal nnoremap <c-]> :call JumpToCSS()<CR>
+    autocmd FileType html map <F3> :call JumpToCSS()<CR>
 augroup END
 
 " ===== Gnuplot =====
@@ -1413,10 +1419,11 @@ function! JumpToCSS()
 
   if class_pos > 0 || id_pos > 0
     if class_pos < id_pos
-      execute ":vim '#".expand('<cword>')."' **/*.*ss"
+      execute ":vimgrep '#".expand('<cword>')."' *.html **/*.*ss"
     elseif class_pos > id_pos
-      execute ":vim '.".expand('<cword>')."' **/*.*ss"
+      execute ":vimgrep '.".expand('<cword>')."' *.html **/*.*ss"
     endif
+  endif
 endfunction
 
 " Measure the time a given command takes to finish and store it in register t
