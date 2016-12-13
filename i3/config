@@ -448,9 +448,6 @@ bindsym Ctrl+Shift+Print exec scrot -s -e 'mv $f ~/tasks/$f'
 #                      Applications startup
 # =================================================================
 
-# File manager
-# exec --no-startup-id doublecmd
-
 # Vivaldi browser
 exec --no-startup-id vivaldi
 

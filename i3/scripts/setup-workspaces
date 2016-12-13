@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
-    skype &
-    evolution &
+    # skype &
+    # evolution &
 fi
 
 
