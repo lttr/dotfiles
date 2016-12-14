@@ -25,6 +25,8 @@ augroup END
 
 call plug#begin()
 
+Plug 'milkypostman/vim-togglelist'
+Plug 'PeterRincker/vim-argumentative'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'KabbAmine/zeavim.vim'
@@ -40,7 +42,6 @@ Plug 'coderifous/textobj-word-column.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'drmikehenry/vim-fontsize'
 Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
-Plug 'ervandew/supertab'
 Plug 'garbas/vim-snipmate'
 Plug 'godlygeek/tabular'
 Plug 'gregsexton/MatchTag'
@@ -61,6 +62,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'moll/vim-bbye'
 Plug 'othree/xml.vim'
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
+Plug 'burnettk/vim-angular'
+Plug 'ternjs/tern_for_vim'
 Plug 'rking/ag.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'salsifis/vim-transpose'
@@ -86,7 +89,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
 Plug 'vim-scripts/Rename'
 Plug 'vim-scripts/Yankitute'
-Plug 'vim-scripts/argtextobj.vim'
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim'
 Plug 'vim-scripts/loremipsum'
@@ -96,6 +98,7 @@ Plug 'vim-voom/VOoM'
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/vim-auto-save'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'vim-scripts/SyntaxComplete'
 
 call plug#end()
 
@@ -193,6 +196,18 @@ endif
 set mouse=a
 
 
+" Leave the insert mode without waiting for another hotkey
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+
+
 " }}}
 " ==============================================================================
 "  Appearance {{{
@@ -286,19 +301,33 @@ endif
 "  Completion {{{
 " ==============================================================================
 
+inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
+    \ "\<lt>C-n>" :
+    \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
+    \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+    \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
+imap <C-@> <C-Space>
+
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
-set omnifunc=syntaxcomplete#Complete
-" show menu when there is more then one item to complete
-" only insert the longest common text of the matches.
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \	if &omnifunc == "" |
+                \	setlocal omnifunc=syntaxcomplete#Complete |
+                \	endif
+endif
+
+" Show menu when there is more then one item to complete
+" Only insert the longest common text of the matches.
 set completeopt=menu,longest
+
 " Make <Tab> select the currently selected choice, same like <cr>
 " If not in completion mode, call snippets expanding function
 imap <expr> <Tab> pumvisible() ? "\<c-y>" : "<Plug>snipMateNextOrTrigger"
 inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
 
-set complete-=i
+" Close preview window
+autocmd CompleteDone * pclose
 
-"...more under SuperTab plugin settings
 
 " }}}
 " ==============================================================================
@@ -315,18 +344,20 @@ let maplocalleader = "\<Space>"
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==g
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+nnoremap <Esc>J :m .+1<CR>==
+nnoremap <Esc>K :m .-2<CR>==
+
+inoremap <Esc>J <Esc>:m .+1<CR>==gi
+inoremap <Esc>K <Esc>:m .-2<CR>==g
+
+vnoremap <Esc>J :m '>+1<CR>gv=gv
+vnoremap <Esc>K :m '<-2<CR>gv=gv
 
 " ===== Change indentation =====
-" nnoremap <C-h> <<
-nnoremap <C-l> >>
-" vnoremap <C-h> <gv
-vnoremap <C-l> >gv
+nnoremap <Esc>H <<
+nnoremap <Esc>L >>
+vnoremap <Esc>H <gv
+vnoremap <Esc>L >gv
 " Maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
@@ -451,6 +482,18 @@ noremap <silent> g\ :ToggleSlash<CR>
 " Toggle leading dash
 noremap g- m`:s#^-\?\ *#\=submatch(0) == '- ' ? '' : '- '#g<CR>``
 
+" ===== Function arguments =====
+nmap ,[ <Plug>Argumentative_Prev
+nmap ,] <Plug>Argumentative_Next
+xmap ,[ <Plug>Argumentative_XPrev
+xmap ,] <Plug>Argumentative_XNext
+nmap ,< <Plug>Argumentative_MoveLeft
+nmap ,> <Plug>Argumentative_MoveRight
+xmap ia <Plug>Argumentative_InnerTextObject
+xmap aa <Plug>Argumentative_OuterTextObject
+omap ia <Plug>Argumentative_OpPendingInnerTextObject
+omap aa <Plug>Argumentative_OpPendingOuterTextObject
+
 " ===== Windows and Buffers =====
 " Set working dir to current file dir, only for current window
 nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
@@ -484,14 +527,15 @@ nnoremap <Tab> <C-W>w
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
 " Jump to left or right window
-nnoremap <A-l> <C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <Esc>l <C-w>l
-nnoremap <Esc>h <C-w>h
-nnoremap <Esc>j <C-w>j
-nnoremap <Esc>k <C-w>k
+nmap <A-l> <C-w>w
+nmap <A-h> <C-w>W
+nmap <A-j> ]m
+nmap <A-k> [m
+" Make it work in terminals
+nmap <Esc>l <C-w>w
+nmap <Esc>h <C-w>W
+nmap <Esc>j ]m
+nmap <Esc>k [m
 " Move screen 10 characters left or right in wrap mode
 nnoremap gh 40zh
 nnoremap gl 40zl
@@ -499,6 +543,12 @@ nnoremap gl 40zl
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
 nnoremap <expr> <leader>w ':set wrap! go'.'-+'[&wrap]."=b\r"
+
+" ===== Location and quickfix windows =====
+let g:toggle_list_no_mappings=1
+nmap <script> <silent> coa :call ToggleLocationList()<CR>
+nmap <script> <silent> coq :call ToggleQuickfixList()<CR>
+
 
 " }}}
 " ==============================================================================
@@ -626,6 +676,11 @@ augroup html
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2
     autocmd FileType html map <F3> :call JumpToCSS()<CR>
+
+    " previous tag on same indentation level
+    autocmd FileType html,xml nnoremap <Esc>k ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
+    " next tag on same indentation level
+    autocmd FileType html,xml nnoremap <Esc>j /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
 augroup END
 
 " ===== Gnuplot =====
@@ -643,7 +698,7 @@ augroup java
     autocmd!
     autocmd BufRead,BufNewFile *.jshell set filetype=java
     autocmd BufRead,BufNewFile *.jsh set filetype=java
-    autocmd Filetype java set makeprg=javac\ % 
+    autocmd Filetype java set makeprg=javac\ %
     autocmd Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
     autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:make<CR>:cwindow<CR><CR>
     autocmd Filetype java nnoremap <buffer> <leader>r :call RunJava()<CR>
@@ -665,8 +720,11 @@ endfunction
 " ===== JavaScript =====
 augroup javascript
     autocmd!
-    autocmd Filetype javascript nnoremap <buffer> <CR> :w<CR>
+    autocmd FileType javascript setlocal tabstop=2
+    autocmd FileType javascript setlocal softtabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2
     autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
+    let g:used_javascript_libs = 'jquery,angular'
 augroup END
 
 " ===== Json =====
@@ -863,24 +921,6 @@ augroup vimfile
 augroup END
 
 " ===== XML (and HTML) =====
-" previous tag on same indentation level
-" nnoremap <C-S-K> ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
-" next tag on same indentation level
-" nnoremap <C-S-J> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
-" Up one level = go to parent tag
-nnoremap <LocalLeader>hu vat`<<Esc>
-" Expand content of a tag
-nnoremap <LocalLeader>he vitdi<CR><Esc>O<C-r>"<Esc>
-vnoremap <LocalLeader>he di<CR><Esc>O<C-r>"
-" Shrink content of a tag
-nnoremap <LocalLeader>hs kJxJxh
-" Move tag with descendants DOWN
-nnoremap <A-J> vatVd/^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>wwPvatV
-vnoremap <A-J> d/^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>wwPvatV
-" Move tag with descendants UP
-nnoremap <A-K> vatVd?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nwwPvatV
-vnoremap <A-K> d?^\s\{<C-r>=indent(".")<CR>}<\w\+<CR>nwwPvatV
-
 augroup xml
     autocmd!
     autocmd FileType xml nnoremap <leader>f :%!xmlstarlet fo -s 4<CR>
@@ -947,7 +987,7 @@ let delimitMate_excluded_ft = "markdown,txt,sh"
 " Run :DelimitMateSwitch to turn on
 
 " ===== Emmet =====
-let g:user_emmet_leader_key = '<c-y>'
+let g:user_emmet_leader_key = '<C-t>'
 let g:emmet_html5           = 1
 
 " ===== Fugitive =====
@@ -1062,12 +1102,6 @@ let g:SuperTabMappingBackward = '<s-c-space>'
 let g:SuperTabDefaultCompletionType = '<c-n>'
 let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 let g:SuperTabLongestHighlight = 0
-" au FileType css let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-" Probably slowing down
-" autocmd FileType *
-"       \ if &omnifunc != '' |
-"       \     call SuperTabChain(&omnifunc, '<c-p>') |
-"       \ endif
 
 " ===== Syntastic =====
 let g:syntastic_mode_map = {
@@ -1503,3 +1537,4 @@ function! ToggleIndentGuidesSpaces()
         let b:iguides_spaces = matchadd('CursorLine', pat)
     endif
 endfunction
+
