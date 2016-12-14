@@ -75,9 +75,30 @@ source ~/dotfiles/functions
 
 eval $(dircolors ~/dotfiles/colors/dircolors)
 
-export FZF_DEFAULT_OPTS="
-    --color bg+:7,info:3
-"
+_gen_fzf_default_opts() {
+  # Solarized colors
+  local base03="234"
+  local base02="235"
+  local base01="240"
+  local base00="241"
+  local base0="244"
+  local base1="245"
+  local base2="254"
+  local base3="230"
+  local yellow="136"
+  local orange="166"
+  local red="160"
+  local magenta="125"
+  local violet="61"
+  local blue="33"
+  local cyan="37"
+  local green="64"
+
+  export FZF_DEFAULT_OPTS="
+    --color fg+:$base01,bg+:$base2,hl:$yellow,hl+:$yellow
+  "
+}
+_gen_fzf_default_opts
 
 export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
 
