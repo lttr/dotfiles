@@ -98,5 +98,5 @@ work=cd c:\Work
 tc="C:\install\TOTALCMD.EXE" /O %CD%
 
 ;= ===== Search =====
-ag=ag --smart-case --pager="less -FIMRX" $*
+ag=ag --smart-case
 grep=grep -i $*
