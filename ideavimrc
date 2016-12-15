@@ -21,6 +21,8 @@ set shiftwidth=4
 " ===== Plugins =====
 set surround
 
+" ===== Code style =====
+nnoremap ,f :action ReformatCode<CR>
 
 " ===== Consistency =====
 nnoremap Y y$
@@ -30,6 +32,7 @@ vnoremap > >gv
 
 " ===== Editing =====
 nnoremap <space>; m`A;<esc>``
+nnoremap <space>, m`A,<esc>``
 
 " ===== Searching =====
 nnoremap gr viwy/<C-r>"<CR><C-o>:set hlsearch<CR>
@@ -67,6 +70,7 @@ nnoremap cor :set<space>relativenumber!<CR>
 nnoremap cow :action EditorToggleUseSoftWraps<CR>
 
 " ===== Windows =====
-nnoremap ,q :q<CR>
-nnoremap ,v :vs<CR>
+nnoremap ,s :action SplitHorizontally<CR>
+nnoremap ,v :action SplitVertically<CR>
+nnoremap ,q :action CloseContent<CR>
 

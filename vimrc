@@ -19,12 +19,13 @@ augroup END
 
 
 " }}}
-" ============================================================================
+" ==============================================================================
 "  Plugins {{{
 " ============================================================================
 
 call plug#begin()
 
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'milkypostman/vim-togglelist'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -70,7 +71,7 @@ Plug 'salsifis/vim-transpose'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'scrooloose/syntastic'
-Plug 'sickill/vim-pasta'
+" Plug 'sickill/vim-pasta'
 Plug 'sjl/clam.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tommcdo/vim-exchange'
@@ -195,7 +196,7 @@ set mouse=a
 
 
 " Leave the insert mode without waiting for another hotkey
-if ! has('gui_running')
+if ! has("gui_running")
     set ttimeoutlen=10
     augroup FastEscape
         autocmd!
@@ -332,6 +333,9 @@ autocmd CompleteDone * pclose
 "  Global shortcuts {{{
 " ==============================================================================
 
+" Initialize Yankstack plugin first
+call yankstack#setup()
+
 " ===== MapLeaders =====
 " Set leader keys to ensure their assignment
 " <Leader> for global shortcuts, <LocalLeader> for more specific and local usage
@@ -342,20 +346,32 @@ let maplocalleader = "\<Space>"
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
-nnoremap <Esc>J :m .+1<CR>==
-nnoremap <Esc>K :m .-2<CR>==
-
-inoremap <Esc>J <Esc>:m .+1<CR>==gi
-inoremap <Esc>K <Esc>:m .-2<CR>==g
-
-vnoremap <Esc>J :m '>+1<CR>gv=gv
-vnoremap <Esc>K :m '<-2<CR>gv=gv
+nnoremap <A-S-J> :m .+1<CR>==
+nnoremap <A-S-K> :m .-2<CR>==
+inoremap <A-S-J> <Esc>:m .+1<CR>==gi
+inoremap <A-S-K> <Esc>:m .-2<CR>==g
+vnoremap <A-S-J> :m '>+1<CR>gv=gv
+vnoremap <A-S-K> :m '<-2<CR>gv=gv
+if ! has("gui_running")
+    nnoremap <Esc>J :m .+1<CR>==
+    nnoremap <Esc>K :m .-2<CR>==
+    inoremap <Esc>J <Esc>:m .+1<CR>==gi
+    inoremap <Esc>K <Esc>:m .-2<CR>==g
+    vnoremap <Esc>J :m '>+1<CR>gv=gv
+    vnoremap <Esc>K :m '<-2<CR>gv=gv
+endif
 
 " ===== Change indentation =====
-nnoremap <Esc>H <<
-nnoremap <Esc>L >>
-vnoremap <Esc>H <gv
-vnoremap <Esc>L >gv
+nnoremap <A-S-H> <<
+nnoremap <A-S-L> >>
+vnoremap <A-S-H> <gv
+vnoremap <A-S-L> >gv
+if ! has("gui_running")
+    nnoremap <Esc>H <<
+    nnoremap <Esc>L >>
+    vnoremap <Esc>H <gv
+    vnoremap <Esc>L >gv
+endif
 " Maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
@@ -387,11 +403,17 @@ nnoremap <C-V> "+p
 inoremap <C-V> <Esc>"+p
 " paste over in visual mode
 vnoremap <C-V> d"+gP
-" Replace selection with yanked or deleted text
-" TODO Does not work correctly at the end of a line
-vnoremap s "_dgp
-" Don't copy the contents of an overwritten selection
-vnoremap p "_dgP
+" Replace current word with yanked or deleted text (stamping)
+nnoremap s "_diwP
+" Don't yank the contents of an overwritten selection (reyank the original content)
+" xnoremap p "_dP
+" Yankstack
+nmap <A-p> <Plug>yankstack_substitute_older_paste
+nmap <A-n> <Plug>yankstack_substitute_newer_paste
+if ! has("gui_running")
+    nmap <Esc>p <Plug>yankstack_substitute_older_paste
+    nmap <Esc>n <Plug>yankstack_substitute_newer_paste
+endif
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
@@ -451,12 +473,11 @@ nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
 nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
 vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
-nnoremap gs :%s//g<Left><Left>
 vnoremap gs y:%s#<C-r>"##g<Left><Left>
 " Go substitute word
 nnoremap gss :set hls<CR>/\V\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
 " Go count occurances
-noremap gC :%s///gn<CR>
+noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
 noremap gF /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
@@ -473,8 +494,8 @@ command! D normal :g//d<CR>
 nnoremap <LocalLeader>" m`viw<esc>a"<esc>hbi"<esc>lel``
 nnoremap <LocalLeader>' m`viw<esc>a'<esc>hbi'<esc>lel``
 " Toggle between single and double quotes
-nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
-vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``
+nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``:set nohls<CR>
+vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``:set nohls<CR>
 " Toggle between backslashes and forward slashes
 noremap <silent> g\ :ToggleSlash<CR>
 " Toggle leading dash
@@ -525,21 +546,26 @@ nnoremap L $
 " ===== Moving in windows =====
 " Cycling windows
 nnoremap <Tab> <C-W>w
+nnoremap <S-Tab> <C-W>W
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
 " Jump to left or right window
-nmap <A-l> <C-w>w
-nmap <A-h> <C-w>W
-nmap <A-j> ]m
-nmap <A-k> [m
-" Make it work in terminals
-nmap <Esc>l <C-w>w
-nmap <Esc>h <C-w>W
-nmap <Esc>j ]m
-nmap <Esc>k [m
+nmap <A-l> <C-w>l
+nmap <A-h> <C-w>h
+nmap <A-j> <C-w>j
+nmap <A-k> <C-w>k
+if ! has("gui_running")
+    nmap <Esc>l <C-w>l
+    nmap <Esc>h <C-w>h
+    nmap <Esc>j <C-w>j
+    nmap <Esc>k <C-w>k
+endif
 " Move screen 10 characters left or right in wrap mode
 nnoremap gh 40zh
 nnoremap gl 40zl
+" Jump around methods
+nmap <C-j> ]m
+nmap <C-k> [m
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
@@ -679,9 +705,9 @@ augroup html
     autocmd FileType html map <F3> :call JumpToCSS()<CR>
 
     " previous tag on same indentation level
-    autocmd FileType html,xml nnoremap <Esc>k ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
+    autocmd FileType html,xml nnoremap <C-k> ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
     " next tag on same indentation level
-    autocmd FileType html,xml nnoremap <Esc>j /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
+    autocmd FileType html,xml nnoremap <C-j> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
 augroup END
 
 " ===== Gnuplot =====
@@ -1539,3 +1565,8 @@ function! ToggleIndentGuidesSpaces()
     endif
 endfunction
 
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+endfunction
