@@ -143,9 +143,7 @@ set writebackup                " Make a backup before overwriting a file
 set tags       =./.tags;        " Find tags file in parent dirs (;) starting in current dir (./)
 
 " ===== Folding =====
-set foldlevel  =3              " Expand level 1 folds
-set foldmethod =manual
-set nofoldenable
+set foldmethod =marker
 
 " ===== Language and encoding =====
 set encoding   =utf-8
