@@ -33,6 +33,7 @@
 
     ~/.config/ranger/commands.py: ranger/commands.py
     ~/.config/ranger/rc.conf: ranger/rc.conf
+    ~/.config/ranger/rifle.conf: ranger/rifle.conf
 
     ~/.config/mc: ../Dropbox/conf/mc
 
@@ -44,9 +45,8 @@
     ~/.fonts: ../Dropbox/conf/fonts
 
     # executable scripts
-    ~/bin/backup-home: scripts/backup/backup-home.sh
     ~/bin/touchpad: scripts/hardware/touchpad.sh
-    ~/bin/dotfiles: scripts/user/dotfiles.sh
+    ~/bin/dot: scripts/user/dotfiles.sh
     ~/bin/mobile-send: scripts/devices/mobile-send.sh
     ~/bin/tia: scripts/user/tia.sh
 

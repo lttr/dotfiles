@@ -60,6 +60,7 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 # =================================================================
 alias dotf='cd ~/dotfiles'
 alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
+alias tiacd='cd ~/Dropbox/ia'
 
 
 # =================================================================

@@ -498,6 +498,9 @@ omap aa <Plug>Argumentative_OpPendingOuterTextObject
 " Set working dir to current file dir, only for current window
 nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 
+" Create new file in the directory next to the opened file
+map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 " Open previous buffer
 noremap <leader>v :vsplit<CR>:bp<CR>
 noremap <leader>s :split<CR>:bp<CR>
