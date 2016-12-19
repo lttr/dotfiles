@@ -84,6 +84,7 @@ Plug 'othree/xml.vim'
 " Javascript
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
 Plug 'burnettk/vim-angular' , { 'for': 'javascript' }
+Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim' , { 'for': 'javascript' }
 
