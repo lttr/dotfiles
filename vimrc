@@ -302,7 +302,7 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 
 " Row numbers
 hi LineNr guifg=#c2c0ba
-if $TERM == 'rxvt-unicode-256color' && $HOST == 'lt-pc-ubuntu'
+if $TERM == 'rxvt-unicode-256color'
     hi LineNr ctermfg=58
 else
     hi LineNr ctermfg=251
