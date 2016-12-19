@@ -284,7 +284,7 @@ URxvt.iso14755 : false
 *background:            S_base3
 *foreground:            S_base00
 *fadeColor:             S_base3
-*cursorColor:           S_base01
+*cursorColor:           S_base00
 *pointerColorBackground:S_base1
 *pointerColorForeground:S_base01
 
