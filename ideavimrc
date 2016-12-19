@@ -27,6 +27,7 @@ nnoremap ,f :action ReformatCode<CR>
 " ===== Consistency =====
 nnoremap Y y$
 vnoremap p "_dgP
+nnoremap s "_diwP
 vnoremap < <gv
 vnoremap > >gv
 
@@ -52,6 +53,7 @@ nnoremap g<c-i> <c-i>
 
 " ===== Source =====
 nnoremap gcc :action CommentByLineComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
 
 " ===== Unimpaired functionality =====
 nnoremap ]b gt
