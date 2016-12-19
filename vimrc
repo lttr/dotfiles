@@ -21,86 +21,106 @@ augroup END
 
 call plug#begin()
 
+" Code generation
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'garbas/vim-snipmate'
+Plug 'tomtom/tlib_vim'
+Plug 'honza/vim-snippets'
+Plug 'lttr/sql_iabbr.vim'
+Plug 'vim-scripts/loremipsum'
+Plug 'vim-scripts/SyntaxComplete'
+
+" Code style
+Plug 'Chiel92/vim-autoformat'
+Plug 'scrooloose/syntastic'
+
+" Documentation
+Plug 'KabbAmine/zeavim.vim'
+Plug 'chrisbra/unicode.vim'
+
+" Editing
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'milkypostman/vim-togglelist'
 Plug 'PeterRincker/vim-argumentative'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Chiel92/vim-autoformat'
-Plug 'KabbAmine/zeavim.vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/vimproc.vim'
-Plug 'airblade/vim-rooter'
-Plug 'andreshazard/vim-freemarker' , { 'for': 'freemarker' }
-Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
-Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
-Plug 'chrisbra/unicode.vim'
-Plug 'coderifous/textobj-word-column.vim'
-Plug 'dhruvasagar/vim-table-mode'
 Plug 'drmikehenry/vim-fontsize'
-Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
-Plug 'garbas/vim-snipmate'
 Plug 'godlygeek/tabular'
-Plug 'gregsexton/MatchTag'
-Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
-Plug 'groenewege/vim-less' , { 'for': 'less' }
-Plug 'hail2u/vim-css3-syntax'
-Plug 'honza/vim-snippets'
-Plug 'idanarye/vim-vebugger'
-Plug 'janiczek/vim-latte'
-Plug 'junegunn/goyo.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'klen/python-mode' , { 'for': 'python' }
-Plug 'lttr/sql_iabbr.vim'
-Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
-Plug 'mattn/emmet-vim'
-Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
+Plug 'coderifous/textobj-word-column.vim'
+Plug 'vim-scripts/vim-auto-save'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'moll/vim-bbye'
-Plug 'othree/xml.vim'
-Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
-Plug 'burnettk/vim-angular'
-Plug 'ternjs/tern_for_vim'
-Plug 'rking/ag.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'salsifis/vim-transpose'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
-Plug 'scrooloose/syntastic'
-" Plug 'sickill/vim-pasta'
-Plug 'sjl/clam.vim'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'vim-scripts/Yankitute'
 Plug 'tommcdo/vim-exchange'
-Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown'
+Plug 'salsifis/vim-transpose'
+Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/visSum.vim'
+Plug 'vim-scripts/matchit.zip'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'triglav/vim-visual-increment'
+Plug 'tpope/vim-unimpaired'
+
+" Files
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'airblade/vim-rooter'
+Plug 'rking/ag.vim'
+Plug 'vim-scripts/Rename'
+Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
+Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
+Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
+Plug 'ryanoasis/vim-devicons'
+
+" Html, xml, css
+Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gregsexton/MatchTag'
+Plug 'groenewege/vim-less' , { 'for': 'less' }
+Plug 'mattn/emmet-vim'
+Plug 'othree/xml.vim'
+
+" Javascript
+Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
+Plug 'burnettk/vim-angular' , { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim' , { 'for': 'javascript' }
+
+" Python
+Plug 'idanarye/vim-vebugger' , { 'for': 'python' }
+Plug 'klen/python-mode' , { 'for': 'python' }
+
+" Special file types
+Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
+Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
+Plug 'andreshazard/vim-freemarker' , { 'for': 'freemarker' }
+Plug 'janiczek/vim-latte' , { 'for': 'latte' }
+Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
+Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
+Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
+Plug 'tpope/vim-markdown' , { 'for': 'markdown' }
+
+" Version control
+Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
+Plug 'tpope/vim-fugitive'
+
+" Window management
+Plug 'milkypostman/vim-togglelist'
+Plug 'junegunn/goyo.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'vim-voom/VOoM'
+Plug 'moll/vim-bbye'
+Plug 'sjl/clam.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
-Plug 'vim-scripts/Rename'
-Plug 'vim-scripts/Yankitute'
-Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
-Plug 'vim-scripts/gnuplot.vim'
-Plug 'vim-scripts/loremipsum'
-Plug 'vim-scripts/matchit.zip'
-Plug 'vim-scripts/visSum.vim'
-Plug 'vim-voom/VOoM'
-Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
-Plug 'vim-scripts/vim-auto-save'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'vim-scripts/SyntaxComplete'
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
 " }}}
 "  General settings {{{ ========================================================
+
 set confirm                    " Less errors, more questions
 set backspace=indent,eol,start " Allow backspase in insert mode
 set autoread                   " Relaod files changed outside Vim
