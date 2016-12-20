@@ -313,8 +313,8 @@ endif
 
 inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
     \ "\<lt>C-n>" :
-    \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-    \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
+    \ "\<lt>C-x>\<lt>C-o><C-r>=pumvisible() ?" .
+    \ "\"\\<lt>C-n>\\<lt>C-p>\\<lt>C-n>\" :" .
     \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 imap <C-@> <C-Space>
 
@@ -330,10 +330,10 @@ endif
 " Only insert the longest common text of the matches.
 set completeopt=menu,longest
 
-" Make <Tab> select the currently selected choice, same like <cr>
+" Make <Tab> select the currently selected choice, same like <CR>
 " If not in completion mode, call snippets expanding function
-imap <expr> <Tab> pumvisible() ? "\<c-y>" : "<Plug>snipMateNextOrTrigger"
-inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<cr>"
+imap <expr> <Tab> pumvisible() ? "\<C-y>" : "<Plug>snipMateNextOrTrigger"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Close preview window
 autocmd CompleteDone * pclose
@@ -426,9 +426,9 @@ endif
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
-nnoremap Q :Bdelete<cr>
+nnoremap Q :Bdelete<CR>
 " Quit window
-nnoremap <leader>q :q<cr>
+nnoremap <leader>q :q<CR>
 " <C-z> minimizes gvim on Windows, which I dont like
 nnoremap <C-z> <Esc>
 
@@ -445,8 +445,8 @@ nnoremap <silent> g<C-x> :<C-u>call Increment('prev', v:count1)<CR>
 " ===== Mouse buttons =====
 " Set right mouse button to do paste
 nnoremap <RightMouse> "*p
-inoremap <RightMouse> <c-r>*
-cnoremap <RightMouse> <c-r>*
+inoremap <RightMouse> <C-r>*
+cnoremap <RightMouse> <C-r>*
 
 " ===== Opening =====
 " Open current document in browser (save it before)
@@ -633,7 +633,7 @@ command! -nargs=* ToListClear call MakeClearListFromLines(<q-args>)
 command! ToLines :call MakeLinesFromList()
 command! ToLinesClear :call MakeClearLinesFromList()
 
-command! FoldLines normal :1,g/^/''+m.|-j!<cr>
+command! FoldLines normal :1,g/^/''+m.|-j!<CR>
 
 " ===== Open buffer in =====
 " Open current document in browser (save it before)
@@ -668,7 +668,7 @@ command! XMLSimplify :silent call XMLSimplify()
 " <leader>h = help for current word
 " <leader>k = check style
 " <leader>f = format file
-" <c-cr>    = run current block or line
+" <C-CR>    = run current block or line
 
 " ===== Misc filetypes =====
 
@@ -694,7 +694,7 @@ augroup dosbatch
     autocmd!
     autocmd FileType dosbatch set formatoptions -=o
     " Run dosbatch bat file
-    autocmd FileType dosbatch nnoremap <c-cr> ^y$:!<c-r>"<cr>
+    autocmd FileType dosbatch nnoremap <C-CR> ^y$:!<C-r>"<CR>
     autocmd FileType dosbatch nnoremap <buffer> <leader>r :w<CR>:Clam %:p<CR>gg<C-w>w
 augroup END
 
@@ -814,10 +814,10 @@ augroup markdown
     autocmd FileType markdown nnoremap <LocalLeader>9 vip<Esc>`<O```<Esc>`>o```<Esc>j
     autocmd FileType markdown vnoremap <LocalLeader>9 <Esc>`<O```<Esc>`>o```<Esc>j
     " quoutes
-    autocmd FileType markdown nnoremap <LocalLeader>> vip<c-q>0I><space><Esc>
-    autocmd FileType markdown vnoremap <LocalLeader>> <c-q>0I><space><Esc>
+    autocmd FileType markdown nnoremap <LocalLeader>> vip<C-q>0I><space><Esc>
+    autocmd FileType markdown vnoremap <LocalLeader>> <C-q>0I><space><Esc>
     " unordered list
-    autocmd FileType markdown nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /<cr>
+    autocmd FileType markdown nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /<CR>
     autocmd FileType markdown vnoremap <LocalLeader>u :s/^.\?/\U&/
 
     " Save mkd file
@@ -887,10 +887,10 @@ augroup python
     autocmd FileType python noremap <leader>k :PymodeLint<CR>
 
     if has('win32')
-        autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <c-r><c-w><CR>
+        autocmd FileType python noremap <buffer> <leader>h :!python -m pydoc <C-r><C-w><CR>
     endif
     if has('unix')
-        autocmd FileType python noremap <buffer> <leader>h :!pydoc <c-r><c-w><CR>
+        autocmd FileType python noremap <buffer> <leader>h :!pydoc <C-r><C-w><CR>
     endif
     autocmd FileType python nnoremap <buffer> <leader>R :w<CR>:silent !python %<CR>
     autocmd FileType python nnoremap <buffer> <leader>r :w<CR>:Clam python %<CR><C-w>h
@@ -907,7 +907,7 @@ augroup sh
     autocmd BufRead,BufNewFile *.sh set fileformat=unix
     autocmd BufRead,BufNewFile *.zsh set fileformat=unix
     " Run current row as command
-    autocmd FileType sh nnoremap <LocalLeader>r ^y$:!<c-r>"<cr>
+    autocmd FileType sh nnoremap <LocalLeader>r ^y$:!<C-r>"<CR>
     autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
 augroup END
 
@@ -927,9 +927,9 @@ augroup sql
     " Spaces works better then tabs for MySQL
     autocmd Filetype sql setlocal expandtab
     " Upper case
-    autocmd Filetype sql noremap <LocalLeader>u :s/\<distinct\>\\|\<having\>\\|\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<cr><esc>
+    autocmd Filetype sql noremap <LocalLeader>u :s/\<distinct\>\\|\<having\>\\|\<update\>\\|\<select\>\\|\<delete\>\\|\<insert\>\\|\<from\>\\|\<where\>\\|\<join\>\\|\< left join\>\\|\<inner join\>\\|\<on\>\\|\<group by\>\\|\<order by\>\\|\<and\>\\|\<or\>\\|\<as\>/\U&/ge<CR><esc>
     " New lines before and after keywords
-    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\\|;\)\ /\r&\r\1\ \ \ \ /ge<cr>:s/\<join\>/\r\ \ \ \ &/g<cr>
+    autocmd Filetype sql noremap <LocalLeader>f :s/\(\(\ \{4}\)*\)\(\<update\>\\|\<from\>\\|\<where\>\\|\<group by\>\\|\<order by\>\\|;\)\ /\r&\r\1\ \ \ \ /ge<CR>:s/\<join\>/\r\ \ \ \ &/g<CR>
 augroup END
 
 " ===== VBA =====
@@ -942,7 +942,7 @@ augroup END
 " Opens browser with Microsoft MSDN search for current key word
 command! MSDN :silent :OpenBrowser
             \http://social.msdn.microsoft.com/Search/en-US?query=
-            \<c-r><c-w><CR>
+            \<C-r><C-w><CR>
 
 " ===== Vim =====
 augroup vimfile
@@ -976,9 +976,9 @@ let g:formatters_python = ['autopep8']
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
-nnoremap <C-p> :CtrlP<cr>
+nnoremap <C-p> :CtrlP<CR>
 " Set ,m for most recently used files
-nnoremap <Leader>m :CtrlPMRUFiles<cr>
+nnoremap <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components)$',
             \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
@@ -1007,7 +1007,7 @@ elseif has('unix')
 endif
 
 " ===== DelimitMate =====
-let g:delimitMate_expand_cr    = 2  " Expand to new line after <cr>
+let g:delimitMate_expand_cr    = 2  " Expand to new line after <CR>
 let g:delimitMate_expand_space = 1  " Expand the <space> on both sides
 " let g:delimitMate_autoclose  = 0  " Do not add closing delimeter automatically
 " let g:delimitMate_offByDefault = 1  " Turn off by default
@@ -1125,10 +1125,10 @@ let g:pymode_rope_project_root = "~/.ropeproject"
 let g:restart_sessionoptions = "restartsession"
 
 " ===== SuperTab =====
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
-let g:SuperTabDefaultCompletionType = '<c-n>'
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+let g:SuperTabMappingForward = '<C-space>'
+let g:SuperTabMappingBackward = '<S-C-space>'
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType = '<C-x><C-o>'
 let g:SuperTabLongestHighlight = 0
 
 " ===== Syntastic =====
@@ -1149,7 +1149,7 @@ let g:voom_tree_placement = "right"
 command! Outline :Voom
 
 " ===== Xml.vim =====
-" let xml_tag_completion_map = "<c-l>"
+" let xml_tag_completion_map = "<C-l>"
 let g:xml_warn_on_duplicate_mapping = 1
 let xml_no_html = 1
 
