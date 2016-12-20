@@ -5,7 +5,7 @@
 "    \_/  |_||_| |_| |_||_|   \___|
 "
 
-"  This vimrc {{{ ============================================================
+"  This vimrc {{{ ==============================================================
 
 "@ Lukas Trumm, since 2014
 
@@ -133,7 +133,7 @@ set shortmess  =atAIT
 set nostartofline              " Don't jump to first character when paging
 set number                     " Line numbers before lines
 set iskeyword+=-               " Count strings joined by dashes as words
-set noshelltemp  " Should avoid some cmd windows for external commands
+set noshelltemp                " Should avoid some cmd windows for external commands
 set modeline                   " Make sure modelines are read
 
 " ===== Buffers =====
@@ -144,9 +144,9 @@ set splitbelow                 " Puts new split windows to the bottom of the cur
 " ===== Directories ======
 set backup                     " Make backups
 if has('unix')
-    set backupdir  =~/.vim/backups " List of directory names for backup files
-    set directory  =~/.vim/backups " List of directory names for swap files
-    set undodir    =~/.vim/undos   " List of directory names for undo files
+    set backupdir  =~/.vim/backups     " List of directory names for backup files
+    set directory  =~/.vim/backups     " List of directory names for swap files
+    set undodir    =~/.vim/undos       " List of directory names for undo files
 else
     set backupdir  =~/vimfiles/backups " List of directory names for backup files
     set directory  =~/vimfiles/backups " List of directory names for swap files
@@ -156,7 +156,7 @@ set undofile                   " Automatically saves undo history to an undo fil
 set undolevels =1000           " Maximum number of changes that can be undone
 set undoreload =10000          " Maximum number lines to save for undo on a buffer reload
 set writebackup                " Make a backup before overwriting a file
-set tags       =./.tags;        " Find tags file in parent dirs (;) starting in current dir (./)
+set tags       =./.tags;       " Find tags file in parent dirs (;) starting in current dir (./)
 
 " ===== Folding =====
 set foldmethod =marker
@@ -192,26 +192,26 @@ set shiftwidth  =4             " Number of spaces to use for each step of indent
 set shiftround                 " Round the size of indentation (using < and >) to shiftwidth
 set virtualedit =""            " Do not move the cursor behind last char
 " Following are not needed after vim-sleuth plugin is installed
-set autoindent               " Copy indent from current line when starting a new line
-set copyindent               " Autoindent the new line
-set smarttab                 " Inserts or deletes blanks according to tab settings
-" set smartindent              " Try to be smart when starting a new line in some conditions
-set cindent
-set expandtab                " Force spaces over tabs and with :retab
+set autoindent                 " Copy indent from current line when starting a new line
+set copyindent                 " Autoindent the new line
+set smarttab                   " Inserts or deletes blanks according to tab settings
+set cindent                    " Apply indentation rules for c-like languages
+set expandtab                  " Force spaces over tabs, also with :retab
 
 " ===== Wrapping =====
 set textwidth =0               " Maximum width of text that is being inserted (0 = no hard wrap)
 set linebreak                  " Dont wrap words
-if exists("&breakindent")
-    set breakindent              " Soft wrapped lines will continue visually indented (since vim 7.4.x)
+if exists('&breakindent')
+    set breakindent            " Soft wrapped lines will continue visually indented (since vim 7.4.x)
 endif
 
 " ===== Mouse =====
-set mouse=a
+set mouse=a                    " Enable the use of mouse in terminal
 
 
-" Leave the insert mode without waiting for another hotkey
-if ! has("gui_running")
+" Leave the insert mode without waiting for another hotkey,
+" because <Esc> is used to simulate <Alt> in some terminals.
+if ! has('gui_running')
     set ttimeoutlen=10
     augroup FastEscape
         autocmd!
@@ -219,7 +219,6 @@ if ! has("gui_running")
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
 
 
 " }}}
@@ -235,61 +234,60 @@ endif
 " ===== Cursor =====
 set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
-" change cursor shape in terminal:
+" Change cursor shape in different modes in terminal
 if has('unix')
-    let &t_SI = "\<Esc>[6 q"
-    let &t_SR = "\<Esc>[4 q"
-    let &t_EI = "\<Esc>[2 q"
+    let &t_SI = '\<Esc>[6 q'
+    let &t_SR = '\<Esc>[4 q'
+    let &t_EI = '\<Esc>[2 q'
 endif
 
 " ===== Font =====
 if has('unix')
+    " Font for vim-devicons
     set guifont=DejaVuSansMonoForPowerline\ Nerd\ Font\ 12
 else
+    " Best Windows font
     set guifont=Consolas:h12
 endif
 
 " ===== GUI adjustments =====
-set guioptions-=b " Hide horizontal (bottom) scrollbar
-set guioptions-=e " Text based tabs
-set guioptions-=l " Hide left vertical scrollbar
-set guioptions-=L
-set guioptions-=m " Remove menu bar
-set guioptions-=R
-set guioptions-=T " Remove toolbar
-set guitablabel=%f
+set guioptions-=b  " Hide horizontal (bottom) scrollbar
+set guioptions-=e  " Text based tabs
+set guioptions-=l  " Hide left vertical scrollbar
+set guioptions-=L  " Hide left scrollbar even when there is vertical split window
+set guioptions-=m  " Remove menu bar
+set guioptions-=R  " Hide right scrollbar even when there is vertical split window
+set guioptions-=T  " Remove toolbar
+set guitablabel=%f " File name in tab
 
-nnoremap <silent> <F9> :call ToggleFlag('guioptions', 'b')<CR>
+" Toggle horizontal scrollbar
+" <coW> corresponds to <cow> for toggle wrap
+nnoremap <silent> coW :call ToggleFlag('guioptions', 'b')<CR>
 
 " ===== Status line  =====
-" Currently using Lightline plugin
-" useful tips: http://stackoverflow.com/q/5375240
-set noruler                                          " No useful info in ruler for me
-set laststatus =2                                    " Always show statusline
-
+set noruler                                 " No useful info in ruler for me
+set laststatus =2                           " Always show statusline
 " Left side
-set statusline =
-set statusline +=\ %<%f                              " tail of the filename
-set statusline +=\ %m                                " modified flag
-set statusline +=\ %r                                " read only flag
-" insert current git branch name, 7 chars from commit in case of detached HEAD
-set statusline+=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
-
+set statusline =                            " Reset of the statusline
+set statusline +=\ %<%f                     " Tail of the filename
+set statusline +=\ %m                       " Modified flag
+set statusline +=\ %r                       " Read only flag
+" Insert current git branch name, 7 chars from commit in case of detached HEAD
+set statusline +=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
 " Separator
-set statusline +=\ %=                                " left/right separator
-
+set statusline +=\ %=                       " Left/right separator
 " Right side
-set statusline +=\ \|\ %{&ft}                        " filetype (neither %y nor %Y does fit)
-set statusline +=\ \|\ %{&fenc}                      " file encoding
-set statusline +=\ \|\ %{strpart(&ff,0,1)}           " file format
-set statusline +=\ \|\ %l:%c                         " total lines and virtual column number
-set statusline +=\ \|\ %P                            " percentage
-set statusline +=\                                   " right margin
+set statusline +=\ \|\ %{&ft}               " Filetype (neither %y nor %Y does fit)
+set statusline +=\ \|\ %{&fenc}             " File encoding
+set statusline +=\ \|\ %{strpart(&ff,0,1)}  " File format
+set statusline +=\ \|\ %l:%c                " Total lines and virtual column number
+set statusline +=\ \|\ %P                   " Percentage
+set statusline +=\                          " Right margin (one space)
 
 " ===== Syntax highlighting =====
 syntax enable
 set background =light
-if !has("gui_running")
+if !has('gui_running')
     set t_Co=256
 endif
 colorscheme solarized
@@ -348,10 +346,8 @@ call yankstack#setup()
 " ===== MapLeaders =====
 " Set leader keys to ensure their assignment
 " <Leader> for global shortcuts, <LocalLeader> for more specific and local usage
-let mapleader = ","
-let maplocalleader = "\<Space>"
-" nnoremap <Space> <nop>
-" let maplocalleader = " "
+let mapleader = ','
+let maplocalleader = '\<Space>'
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
@@ -361,7 +357,7 @@ inoremap <A-S-J> <Esc>:m .+1<CR>==gi
 inoremap <A-S-K> <Esc>:m .-2<CR>==g
 vnoremap <A-S-J> :m '>+1<CR>gv=gv
 vnoremap <A-S-K> :m '<-2<CR>gv=gv
-if ! has("gui_running")
+if ! has('gui_running')
     nnoremap <Esc>J :m .+1<CR>==
     nnoremap <Esc>K :m .-2<CR>==
     inoremap <Esc>J <Esc>:m .+1<CR>==gi
@@ -375,7 +371,7 @@ nnoremap <A-S-H> <<
 nnoremap <A-S-L> >>
 vnoremap <A-S-H> <gv
 vnoremap <A-S-L> >gv
-if ! has("gui_running")
+if ! has('gui_running')
     nnoremap <Esc>H <<
     nnoremap <Esc>L >>
     vnoremap <Esc>H <gv
@@ -416,10 +412,11 @@ vnoremap <C-V> d"+gP
 nnoremap s "_diwP
 " Don't yank the contents of an overwritten selection (reyank the original content)
 " xnoremap p "_dP
+
 " Yankstack
 nmap <A-p> <Plug>yankstack_substitute_older_paste
 nmap <A-n> <Plug>yankstack_substitute_newer_paste
-if ! has("gui_running")
+if ! has('gui_running')
     nmap <Esc>p <Plug>yankstack_substitute_older_paste
     nmap <Esc>n <Plug>yankstack_substitute_newer_paste
 endif
@@ -438,9 +435,11 @@ nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
 nmap <LocalLeader>- Oi<Esc>gcclDjgccwvUoi<Esc>gcclDj
 nmap <LocalLeader>_ I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
-" ===== Increment =====
-nnoremap <silent> g<C-a> :<C-u>call Increment('next', v:count1)<CR>
-nnoremap <silent> g<C-x> :<C-u>call Increment('prev', v:count1)<CR>
+" ===== Macros =====
+" Execute macro recursively -> qqqqq <do something> @qq@q
+" Execute macro over matching lines -> :g/<match>/normal @q
+" Execute macro over selected lines
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 " ===== Mouse buttons =====
 " Set right mouse button to do paste
@@ -548,9 +547,6 @@ noremap j gj
 noremap gj j
 noremap k gk
 noremap gk k
-" More convenient keys for start and end of line
-nnoremap H 0
-nnoremap L $
 
 " ===== Moving in windows =====
 " Cycling windows
@@ -563,7 +559,7 @@ nmap <A-l> <C-w>l
 nmap <A-h> <C-w>h
 nmap <A-j> <C-w>j
 nmap <A-k> <C-w>k
-if ! has("gui_running")
+if ! has('gui_running')
     nmap <Esc>l <C-w>l
     nmap <Esc>h <C-w>h
     nmap <Esc>j <C-w>j
@@ -633,8 +629,6 @@ command! -nargs=* ToListClear call MakeClearListFromLines(<q-args>)
 command! ToLines :call MakeLinesFromList()
 command! ToLinesClear :call MakeClearLinesFromList()
 
-command! FoldLines normal :1,g/^/''+m.|-j!<CR>
-
 " ===== Open buffer in =====
 " Open current document in browser (save it before)
 command! OpenInFirefox :call OpenCurrentDocumentInBrowser('firefox')
@@ -650,6 +644,7 @@ command! StripTags call StripTags()
 
 " ===== Strip trailing whitespaces =====
 command! StripTrailingWhitespace :call StripTrailingWhitespace()
+command! STW :call StripTrailingWhitespace()
 
 " ===== XML and Xpath =====
 " Rewrite the buffer with xpath matches only
@@ -672,25 +667,23 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " ===== Misc filetypes =====
 
-augroup global
+augroup GLOBAL
     autocmd!
     " Cursor on last editing place in every opened file
     autocmd BufReadPost * normal `"
 augroup END
 
-augroup syntax-sugar
+augroup EDITING
     autocmd!
     " Make it so that a curly brace automatically inserts an indented line
     autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
-" ===== CSS =====
-augroup css
+augroup CSS
     autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 augroup END
 
-" ===== Dosbatch =====
-augroup dosbatch
+augroup DOSBATCH
     autocmd!
     autocmd FileType dosbatch set formatoptions -=o
     " Run dosbatch bat file
@@ -698,8 +691,7 @@ augroup dosbatch
     autocmd FileType dosbatch nnoremap <buffer> <leader>r :w<CR>:Clam %:p<CR>gg<C-w>w
 augroup END
 
-" ===== HTML =====
-augroup html
+augroup HTML
     autocmd!
     autocmd BufRead,BufNewFile *.cshtml set filetype=html
     autocmd FileType html setlocal tabstop=2
@@ -713,8 +705,7 @@ augroup html
     autocmd FileType html,xml nnoremap <C-j> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
 augroup END
 
-" ===== Gnuplot =====
-augroup gnuplot
+augroup GNUPLOT
     autocmd!
     " Compile gnuplot graph
     autocmd FileType gnuplot nnoremap <buffer> <leader>c :w<CR>:silent !cmd /c gnuplot -p %<CR>
@@ -723,8 +714,7 @@ augroup gnuplot
     autocmd BufRead,BufNewFile *.plt set filetype=gnuplot
 augroup END
 
-" ===== Java =====
-augroup java
+augroup JAVA
     autocmd!
     autocmd BufRead,BufNewFile *.jshell set filetype=java
     autocmd BufRead,BufNewFile *.jsh set filetype=java
@@ -734,37 +724,20 @@ augroup java
     autocmd Filetype java nnoremap <buffer> <leader>r :call RunJava()<CR>
 augroup END
 
-function! RunJava()
-    write
-    lcd %:p:h
-    silent! make
-    botright cwindow
-    normal <CR>
-    if (len(getqflist()) < 1)
-        Clam java %:r
-        wincmd w
-    endif
-    redraw!
-endfunction
-
-" ===== JavaScript =====
-augroup javascript
+augroup JAVASCRIPT
     autocmd!
     autocmd FileType javascript setlocal tabstop=2
     autocmd FileType javascript setlocal softtabstop=2
     autocmd FileType javascript setlocal shiftwidth=2
     autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
-    let g:used_javascript_libs = 'jquery,angular'
 augroup END
 
-" ===== Json =====
-augroup json
+augroup JSON
     autocmd!
     autocmd Filetype json nnoremap <leader>f :%!python -m json.tool<CR>
 augroup END
 
-" ===== Jira =====
-augroup jira
+augroup JIRA
     autocmd!
     " Set filetype automatically
     autocmd BufRead,BufNewFile *.jira setlocal filetype=jira
@@ -782,8 +755,7 @@ command! TTabToJira normal
 " Create Jira style table from MySQL console output
 command! TMysqlToJira normal vap:g/^+/d<CR>kvipo<ESC>:s/\ \?|/||/g<CR>
 
-" ===== Markdown =====
-augroup markdown
+augroup MARKDOWN
     autocmd!
     autocmd FileType modula2  setlocal ft         =markdown
     autocmd FileType markdown setlocal textwidth  =80
@@ -1064,32 +1036,8 @@ let g:goyo_width=100 "(default: 80)
 let g:goyo_margin_top=2 " (default: 4)
 let g:goyo_margin_bottom=2 " (default: 4)
 
-" " ===== Lightline =====
-" let g:lightline = {
-"     \ 'colorscheme': 'solarized',
-"     \ 'active': {
-"     \   'left': [ [ 'paste' ],
-"     \             [ 'readonly', 'filename', 'modified' ] ],
-"     \   'right': [ [ 'fugitive' ],
-"     \              [ '' ],
-"     \              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
-"     \ },
-"     \ 'inactive': {
-"     \   'left': [ [ 'filename', 'modified' ] ],
-"   \   'right': [ [ 'fugitive' ],
-"   \              [ '' ],
-"   \              [ '', 'filetype', 'fileencoding', 'fileformat', 'lineinfo', 'percentage' ] ]
-"     \ },
-"     \ 'component': {
-"     \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
-"     \   'fileformat': '%{toupper(strpart(&ff,0,1))}',
-"     \   'lineinfo': '%l:%c',
-"   \   'percentage': '%P'
-"     \ },
-"     \ 'component_visible_condition': {
-"     \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-"     \ }
-"     \ }
+" ===== javascript-libraries-syntax =====
+let g:used_javascript_libs = 'jquery,angular'
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log'
@@ -1236,7 +1184,7 @@ endfunction
 
 " Strips tags from a buffer. The expression is non-greedy and catches tags that span multiple lines.
 function! StripTags()
-    s/<\_.\{-1,\}>//g
+    %s/<\_.\{-1,\}>//g
     " remove empty lines
     g/^\s*$/d
 endfunction
@@ -1352,37 +1300,8 @@ function! s:Bufferize(cmd)
     set nomodified
 endfunction
 
-" Increments the current digit instead of whole number
-function! Increment(dir, count)
-    " No number on the current line
-    if !search('\d', 'c', getline('.'))
-        return
-    endif
-
-    " Store cursor position
-    let l:save_pos = getpos('.')
-
-    " Add spaces around the number
-    s/\%#\d/ \0 /
-    call setpos('.', l:save_pos)
-    normal! l
-
-    " Increment or decrement the number
-    if a:dir == 'prev'
-        execute "normal! " . repeat("\<C-x>", a:count)
-    else
-        execute "normal! " . repeat("\<C-a>", a:count)
-    endif
-
-    " Remove the spaces
-    s/\v (\d{-})%#(\d) /\1\2/
-
-    " Restore cursor position
-    call setpos('.', l:save_pos)
-endfun
-
 " ===== Script to save gvim window position =====
-if has("gui_running")
+if has('gui_running')
     function! ScreenFilename()
         if has('amiga')
             return "s:.vimsize"
@@ -1398,7 +1317,7 @@ if has("gui_running")
         " from values stored in vimsize file.
         " Must set font first so columns and lines are based on font size.
         let f = ScreenFilename()
-        if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
+        if has('gui_running') && g:screen_size_restore_pos && filereadable(f)
             let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
             for line in readfile(f)
                 let sizepos = split(line)
@@ -1413,7 +1332,7 @@ if has("gui_running")
 
     function! ScreenSave()
         " Save window size and position.
-        if has("gui_running") && g:screen_size_restore_pos
+        if has('gui_running') && g:screen_size_restore_pos
             let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
             let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
                         \ (getwinposx()<0?0:getwinposx()) . ' ' .
@@ -1564,8 +1483,21 @@ function! ToggleIndentGuidesSpaces()
     endif
 endfunction
 
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 function! ExecuteMacroOverVisualRange()
     echo "@".getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+function! RunJava()
+    write
+    lcd %:p:h
+    silent! make
+    botright cwindow
+    normal <CR>
+    if (len(getqflist()) < 1)
+        Clam java %:r
+        wincmd w
+    endif
+    redraw!
+endfunction
+
