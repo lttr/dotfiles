@@ -87,6 +87,7 @@ Plug 'burnettk/vim-angular' , { 'for': 'javascript' }
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim' , { 'for': 'javascript' }
+Plug 'elzr/vim-json'
 
 " Python
 Plug 'idanarye/vim-vebugger' , { 'for': 'python' }
@@ -347,7 +348,7 @@ call yankstack#setup()
 " Set leader keys to ensure their assignment
 " <Leader> for global shortcuts, <LocalLeader> for more specific and local usage
 let mapleader = ','
-let maplocalleader = '\<Space>'
+let maplocalleader = "\<Space>"
 
 " ===== Bubble lines up and down =====
 " tip from http://vimrcfu.com/snippet/110
@@ -479,6 +480,7 @@ command! E normal :silent w<CR>:silent e<CR>
 " Even more powerful with cgn = change next occurance, than
 nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
 nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
+nnoremap gy /\V<C-r><C-w><CR><C-o>:set hlsearch<CR>viwc
 vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 " Go substitute
 vnoremap gs y:%s#<C-r>"##g<Left><Left>
@@ -623,11 +625,11 @@ command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | new | setlocal bt=
 
 " ===== Lists =====
 " Creates Perl style list definition from paragraph of items on lines
-command! -nargs=* ToList call MakeListFromLines(<q-args>)
-command! -nargs=* ToListClear call MakeClearListFromLines(<q-args>)
+command! -nargs=* Tolist call MakeListFromLines(<q-args>)
+command! -nargs=* Tolistclear call MakeClearListFromLines(<q-args>)
 " Reverse from the list to lines
-command! ToLines :call MakeLinesFromList()
-command! ToLinesClear :call MakeClearLinesFromList()
+command! Tolines :call MakeLinesFromList()
+command! Tolinesclear :call MakeClearLinesFromList()
 
 " ===== Open buffer in =====
 " Open current document in browser (save it before)
@@ -1036,6 +1038,9 @@ let g:goyo_width=100 "(default: 80)
 let g:goyo_margin_top=2 " (default: 4)
 let g:goyo_margin_bottom=2 " (default: 4)
 
+" ===== json =====
+let g:vim_json_warnings=0
+
 " ===== javascript-libraries-syntax =====
 let g:used_javascript_libs = 'jquery,angular'
 
@@ -1055,12 +1060,6 @@ let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascri
 " ===== NERDTree =====
 let NERDTreeQuitOnOpen=1
 let NERDTreeIgnore=['\.pyc$', '\~$', '__\.pyc$']
-
-" ===== Pathogen plugin =====
-" execute pathogen#infect()
-
-" ===== PIV (PHP integration for VIM) =====
-let g:DisableAutoPHPFolding = 1
 
 " ===== Pymode =====
 let g:pymode_lint_on_write = 0
@@ -1260,7 +1259,7 @@ endfunction
 " Creates list of items on separated lines
 " from Perl like list definition of strings
 function! MakeLinesFromList()
-    s/^\s*//
+    s/\s*//g
     s/,/\r/g
 endfunction
 function! MakeClearLinesFromList()
