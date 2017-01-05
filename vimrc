@@ -1039,7 +1039,7 @@ let g:goyo_margin_top=2 " (default: 4)
 let g:goyo_margin_bottom=2 " (default: 4)
 
 " ===== json =====
-let g:vim_json_warnings=0
+let g:vim_json_syntax_conceal = 0
 
 " ===== javascript-libraries-syntax =====
 let g:used_javascript_libs = 'jquery,angular'
