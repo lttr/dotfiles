@@ -198,7 +198,7 @@ bindsym $mod+u [urgent=latest] focus
 
 # Focus applications
 bindsym $mod+t [class="Doublecmd"] focus
-bindsym $mod+a [class="vivaldi*"] focus
+bindsym $mod+a [class="Vivaldi*"] focus
 
 
 # =================================================================
@@ -292,7 +292,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+e exec nautilus
 
 # Password manager
-bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window keepass2
+bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window KeePass2
 bindsym $mod+Ctrl+l exec "keepass2 --auto-type"
 bindsym $mod+Ctrl+Shift+l exec "keepass2 --auto-type-selected"
 
@@ -371,7 +371,7 @@ assign [class="jetbrains-idea"] → $ws_code
 
 # Borders
 for_window [class="vivaldi*"] border none
-for_window [class="google-chrome*"] border none
+for_window [class="Google-chrome"] border none
 for_window [class="Image*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
