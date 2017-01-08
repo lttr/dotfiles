@@ -26,7 +26,7 @@ already_installed() {
 
 check_custom_app() {
     command -v "$1" >/dev/null 2>&1
-    if [[ $? == 0 || -d "~/opt/$1" ]]; then
+    if [[ $? == 0 || -d "$HOME/opt/$1" ]]; then
         already_installed "$1"
         return 1
     else
@@ -43,11 +43,11 @@ check_custom_app() {
 log_installing "Custom apt package sources"
 
 # Google Chrome
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 if grep -Fxq "deb http://dl.google.com/linux/chrome/deb/ stable main" /etc/apt/sources.list.d/google.list
 then
     : # Already set
 else
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 fi
 
@@ -103,6 +103,7 @@ fi
 
 if check_custom_app 'git-credential-helper'; then
     git clone git://github.com/pah/git-credential-helper.git
+    sudo apt-get install libgnome-keyring-dev
     BACKEND=gnome-keyring
     cd git-credential-helper/$BACKEND
     make
@@ -141,7 +142,7 @@ if [ ! -f ~/opt/gdrive ]; then
     ln -fs ~/opt/gdrive ~/bin/gdrive
 fi
 
-if [ ! -f ~/opt/sdkman ]; then
+if check_custom_app 'sdkman'; then
     export SDKMAN_DIR="${MY_APPS_DIR}/sdkman" && curl -s "https://get.sdkman.io" | bash
 fi
 
@@ -149,7 +150,7 @@ fi
 #                        Python packages
 # =================================================================
 log_installing "pip packages"
-pip install -r $MY_INSTALL_PACKAGES_FILE/$MY_PYTHON_PACKAGES_FILE
+pip install -r $MY_INSTALL_CONFIG_DIR/$MY_PYTHON_PACKAGES_FILE
 
 
 # =================================================================

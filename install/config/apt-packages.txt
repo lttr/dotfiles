@@ -7,7 +7,7 @@ dict-freedict-eng-ces
 dict-gcide
 dmz-cursor-theme
 dos2unix
-doublecmd
+doublecmd-gtk
 expect
 feh
 fontconfig-infinality
@@ -44,6 +44,7 @@ python-dbus
 python-ipython
 python-mysqldb
 python-pip
+ranger
 remmina
 rofi
 rxvt-unicode

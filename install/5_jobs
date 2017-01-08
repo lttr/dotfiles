@@ -1,6 +1,8 @@
-#!/usr/bin/env bashsh
+#!/usr/bin/env bash
 
 # Link backup scripts to anacron
 sudo ln -s ~/dotfiles/scripts/backup/run-backup-home-monthly.sh /etc/cron.monthly
 sudo ln -s ~/dotfiles/scripts/backup/run-backup-ztphotos-monthly.sh /etc/cron.monthly
 sudo ln -s ~/dotfiles/scripts/backup/run-backup-home-weekly.sh /etc/cron.weekly
+
+echo "Anacron jobs added"
