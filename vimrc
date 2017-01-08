@@ -237,9 +237,9 @@ set guicursor+=a:blinkon0   " Disable blinking cursor in normal mode
 
 " Change cursor shape in different modes in terminal
 if has('unix')
-    let &t_SI = '\<Esc>[6 q'
-    let &t_SR = '\<Esc>[4 q'
-    let &t_EI = '\<Esc>[2 q'
+    let &t_SI = "\<Esc>[6 q"
+    let &t_SR = "\<Esc>[4 q"
+    let &t_EI = "\<Esc>[2 q"
 endif
 
 " ===== Font =====
