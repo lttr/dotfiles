@@ -51,6 +51,7 @@ alias lesf="less +F"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
+alias eenv="$EDITOR ~/dotfiles/zshenv"
 alias ealias="$EDITOR ~/dotfiles/aliases"
 alias efunc="$EDITOR ~/dotfiles/functions"
 
@@ -61,6 +62,8 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 alias dotf='cd ~/dotfiles'
 alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
 alias tiacd='cd ~/Dropbox/ia'
+# jump to recent directory, like z
+alias j='fasd_cd -d'
 
 
 # =================================================================

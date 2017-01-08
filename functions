@@ -80,33 +80,31 @@ open_smart() {
 }
 o() { open_smart "$1" }
 
+# Locate documents (pdfs, ms office, open doc)
+locate_documents() {
+    # only from /home/user folder, exclude hidden files in home folder
+    # based on extension, with last character optional (like .docx)
+    local RE="\/home\/$USER\/[^\.].*\.\(pdf\|doc\|xls\|ppt\|odt\|ods\|odp\).\?$"
+    locate --ignore-case --regexp $RE
+}
+#
+# Locate text files and scripts
+locate_text_files() {
+    # only from /home/user folder, exclude hidden files in home folder
+    # based on extension
+    local RE="\/home\/$USER\/[^\.].*\.\(txt\|md\|sh\|bash\|zsh\|conf\)$"
+    locate --ignore-case --regexp $RE
+}
+
 # Open a document found in home and selected by fzf
 open_doc() {
-    local MAXDEPTH=6
-    open_smart "$( find -L ~ \
-        -maxdepth $MAXDEPTH \
-        ! -path "*/\.*" -type f \
-        -name "*.doc*" \
-        -or -name "*.xls*" \
-        -or -name "*.odt*" \
-        -or -name "*.pdf*" \
-        | fzf )" 
+    open_smart "$(locate_documents | fzf)"
 }
-odoc() { open_doc "$1" }
 
 # Open a text file found in home and selected by fzf
 open_file() {
-    local MAXDEPTH=4
-    open_smart "$( find -L ~ \
-        -maxdepth $MAXDEPTH \
-        ! -path "*/\.*" \
-        -type f \
-        -exec grep -Iq . {} \; \
-        -and -print \
-        | fzf )"
+    open_smart "$(locate_text_files | fzf)"
 }
-of() { open_file "$1" }
-
 
 # Extract any archive file
 # Source https://github.com/xvoland/Extract 
@@ -149,12 +147,6 @@ x() { extract "$1" }
 
 # Directories jumping
 # Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
-
-# Change (jump) to recent directory
-j() {
-    local dir="$(fasd -ld "$@")"
-    [[ -d "$dir" ]] && pushd "$dir"
-}
 
 # Change to recent directory, select with fzf
 jj() {
