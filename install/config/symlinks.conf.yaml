@@ -6,48 +6,40 @@
 - clean: ['~', '~/.config']
 
 - link:
-
     # dotfiles
+    ~/.Xresources: Xresources
     ~/.agignore: agignore
     ~/.config/dunst/dunstrc: dunstrc
+    ~/.config/ranger/commands.py: ranger/commands.py
+    ~/.config/ranger/rc.conf: ranger/rc.conf
+    ~/.config/ranger/rifle.conf: ranger/rifle.conf
     ~/.gitconfig: gitconfig
     ~/.ideavimrc: ideavimrc
     ~/.kdiff3rc: kdiff3rc
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.vrapperrc: vrapperrc
-    ~/.Xresources: Xresources
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
 
     # dotfolders
-    ~/.i3: i3
-
-    ~/.urxvt: urxvt
-
-    ~/.vim/colors: vim/colors
-    ~/.vim/syntax: vim/syntax
-    ~/.vim/snippets: vim/snippets
-
-    ~/.gtkrc-2.0-gnome-color-chooser: colors/gtkrc-2.0-gnome-color-chooser
-
-    ~/.config/ranger/commands.py: ranger/commands.py
-    ~/.config/ranger/rc.conf: ranger/rc.conf
-    ~/.config/ranger/rifle.conf: ranger/rifle.conf
-
     ~/.config/mc: ../Dropbox/conf/mc
-
-    ~/.kde/share/config/krusaderrc: ../Dropbox/conf/krusader/krusaderrc
+    ~/.fonts: ../Dropbox/conf/fonts
+    ~/.gtkrc-2.0-gnome-color-chooser: colors/gtkrc-2.0-gnome-color-chooser
+    ~/.i3: i3
     ~/.kde/share/apps/krusader/krbookmarks.xml: ../Dropbox/conf/krusader/krbookmarks.xml
     ~/.kde/share/apps/krusader/krusaderui.rc: ../Dropbox/conf/krusader/krusaderui.rc
     ~/.kde/share/apps/krusader/useractions.xml: ../Dropbox/conf/krusader/useractions.xml
-
-    ~/.fonts: ../Dropbox/conf/fonts
+    ~/.kde/share/config/krusaderrc: ../Dropbox/conf/krusader/krusaderrc
+    ~/.urxvt: urxvt
+    ~/.vim/colors: vim/colors
+    ~/.vim/snippets: vim/snippets
+    ~/.vim/syntax: vim/syntax
 
     # executable scripts
-    ~/bin/touchpad: scripts/hardware/touchpad.sh
     ~/bin/dot: scripts/user/dotfiles.sh
     ~/bin/mobile-send: scripts/devices/mobile-send.sh
-    ~/bin/tia: scripts/user/tia.sh
     ~/bin/reduce-photos: scripts/graphics/reduce-photos.sh
+    ~/bin/tia: scripts/user/tia.sh
+    ~/bin/touchpad: scripts/hardware/touchpad.sh
 
