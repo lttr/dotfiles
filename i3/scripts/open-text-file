@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-MAXDEPTH=4
-TERMINAL=gnome-terminal
-EDITOR=vim
-
 handle_selection() {
     if [[ "$1" ]]; then
         name="$1"
@@ -15,6 +11,4 @@ handle_selection() {
     fi
 }
 
-handle_selection "$( find -L ~ -maxdepth $MAXDEPTH ! -path "*/\.*" -type f \
-    -exec grep -Iq . {} \; -and -print \
-    | rofi -dmenu -i -fuzzy -p "file: " )"
+handle_selection "$(locate_text_files | rofi -dmenu -i -fuzzy -p "file: ")"

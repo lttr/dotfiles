@@ -5,7 +5,7 @@
 ! Based on rofi -dump-xresources > .Xresources
 
 ! Enabled modi
-rofi.modi:                           window,run,ssh
+rofi.modi:                           run,window
 ! Window opacity
 rofi.opacity:                        94
 ! Window width
@@ -15,7 +15,8 @@ rofi.lines:                          15
 ! Number of columns
 rofi.columns:                        1
 ! Font to use
-rofi.font:                           System San Francisco 13
+!rofi.font:                           System San Francisco 13
+rofi.font:                           DejaVu Sans Mono 13
 ! Foreground color
 rofi.fg:                             #BDAE93
 ! Background color
