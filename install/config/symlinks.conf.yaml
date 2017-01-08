@@ -49,4 +49,5 @@
     ~/bin/dot: scripts/user/dotfiles.sh
     ~/bin/mobile-send: scripts/devices/mobile-send.sh
     ~/bin/tia: scripts/user/tia.sh
+    ~/bin/reduce-photos: scripts/graphics/reduce-photos.sh
 

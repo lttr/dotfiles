@@ -1,2 +1,5 @@
+bower
+browser-sync
 grunt-cli
 gulp
+yo

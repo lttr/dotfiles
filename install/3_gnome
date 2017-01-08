@@ -76,29 +76,3 @@ fi
 
 echo "Gnome theme updated"
 
-# =================================================================
-#                            Refresh
-# =================================================================
-
-# Update fonts
-# fc-cache -f -v
-
-# echo "Font cache updated"
-
-# Patched font
-# cd ~/.local/share/fonts && curl -fLo "Sauce Code Pro Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/blob/0.7.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf && cd -
-
-# Install Paper theme
-# sudo add-apt-repository -y ppa:snwh/pulp
-# sudo apt-get update
-# sudo apt-get install -y paper-icon-theme paper-gtk-theme
-
-# Install shell extension tool
-#wget -O ~/bin/shell-extension-install https://raw.githubusercontent.com/NicolasBernaerts/ubuntu-scripts/master/ubuntugnome/gnome-extension/shell-extension-install
-#chmod +x ~/bin/shell-extension-install
-
-# GNOME_VERSION=3.16
-
-# User themes
-# https://extensions.gnome.org/extension/19/user-themes/
-#shell-extension-install $GNOME_VERSION 19

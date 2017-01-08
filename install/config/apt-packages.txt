@@ -52,6 +52,7 @@ silversearcher-ag
 skype
 sshpass
 tmux
+transmageddon
 trash-cli
 tree
 umlet
