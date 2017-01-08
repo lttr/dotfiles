@@ -371,6 +371,7 @@ assign [class="jetbrains-idea"] → $ws_code
 
 # Borders
 for_window [class="vivaldi*"] border none
+for_window [class="Doublecmd"] border none
 for_window [class="Google-chrome"] border none
 for_window [class="Image*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
