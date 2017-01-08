@@ -28,10 +28,10 @@ alias path='echo $PATH | tr -s ":" "\n"'
 #                            Hardware
 # =================================================================
 
-alias notebook='xrandr --output eDP1 --auto --output DP2 --off'
-alias monitor='xrandr --output eDP1 --off --output DP2 --auto'
-alias dual='xrandr --output eDP1 --auto --left-of DP2 --output DP2 --auto'
-alias mirror='xrandr --output eDP1 --auto --same-as DP2 --output DP2 --auto'
+alias notebook="xrandr --output eDP1 --auto --output DP2 --off"
+alias monitor="xrandr --output eDP1 --off --output DP2 --auto"
+alias dual="xrandr --output eDP1 --auto --left-of DP2 --output DP2 --auto"
+alias mirror="xrandr --output eDP1 --auto --same-as DP2 --output DP2 --auto"
 
 
 # =================================================================
@@ -43,6 +43,8 @@ alias la="ls -lhFA --show-control-chars --color"
 
 alias le="less -FiMRX"
 alias lesf="less +F"
+
+alias df="df -h"
 
 
 # =================================================================
@@ -59,11 +61,11 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 # =================================================================
 #                          Directories
 # =================================================================
-alias dotf='cd ~/dotfiles'
+alias dotf="cd ~/dotfiles"
 alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
-alias tiacd='cd ~/Dropbox/ia'
+alias tiacd="cd ~/Dropbox/ia"
 # jump to recent directory, like z
-alias j='fasd_cd -d'
+alias j="fasd_cd -d"
 
 
 # =================================================================
@@ -71,18 +73,18 @@ alias j='fasd_cd -d'
 # =================================================================
 alias vag="vagrant"
 
-alias apti='sudo apt-get install -y'
-alias apts='apt search'
+alias apti="sudo apt-get install -y"
+alias apts="apt search"
 
-alias tp='trash-put'
+alias tp="trash-put"
 
-alias ipy='ipython'
-alias py='python'
+alias ipy="ipython"
+alias py="python"
 
-alias xmlstar='xmlstarlet'
+alias xmlstar="xmlstarlet"
 
 # Show czech calendar with Monday as the first day of a week
-alias cal='LC_TIME=cs_CZ.UTF-8 ncal -MC'
+alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC"
 
 
 # =================================================================
