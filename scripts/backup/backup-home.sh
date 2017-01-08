@@ -2,12 +2,13 @@
 
 BACKUP_NAME=home
 
-BACKUP_FREQUENCY=monthly
+BACKUP_FREQUENCY=$1
 
 BACKUP_DISK_MOUNTPOINT=backup_hdd_500
 
 DIRS=(
 ~/Dropbox
+~/dotfiles
 ~/code
 ~/fotky
 ~/grafika
