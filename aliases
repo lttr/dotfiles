@@ -81,6 +81,8 @@ alias tp="trash-put"
 alias ipy="ipython"
 alias py="python"
 
+alias nr="npm run"
+
 alias xmlstar="xmlstarlet"
 
 # Show czech calendar with Monday as the first day of a week
