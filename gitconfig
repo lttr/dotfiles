@@ -78,7 +78,7 @@
     pager = less -FRX
 
 [credential]
-    helper = libsecret
+    helper = gnome-keyring
 
 [merge]
     tool = fugitive
