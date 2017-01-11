@@ -75,6 +75,8 @@
     branch = auto
 
 [core]
+    autocrlf = input
+    eol = lf
     pager = less -FRX
 
 [credential]
