@@ -72,12 +72,12 @@ Plug 'vim-scripts/Rename'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 
 " Html, xml, css
-Plug 'othree/html5.vim'
 Plug 'othree/xml.vim'
-Plug 'gregsexton/MatchTag'
+Plug 'othree/html5.vim'
+Plug 'Valloric/MatchTagAlways'
 Plug 'mattn/emmet-vim'
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax'
@@ -486,7 +486,7 @@ nnoremap gss :set hls<CR>/\V\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
-noremap gF /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
+noremap gB /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
 noremap g/ /\V<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
 
@@ -707,8 +707,6 @@ augroup HTML
     autocmd FileType html,xml inoremap <expr> <CR> Expander()
     " Comp
     autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
-
-    autocmd FileType html let g:html_indent_tags = ''
 augroup END
 
 augroup GNUPLOT
