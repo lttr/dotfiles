@@ -17,7 +17,7 @@ export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/vivaldi
 export TERMINAL=/usr/bin/urxvt
-export TERM=xterm
+export TERM=rxvt-unicode-256color
 
 export LANG=en_GB.UTF-8
 export LANGUAGE=en_GB.UTF-8

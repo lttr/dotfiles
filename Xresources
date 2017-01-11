@@ -237,7 +237,7 @@ rofi.key-ssh:
 !                             URXVT
 ! =================================================================
 
-URxvt.termName:           urxvt
+URxvt.termName:           xterm
 
 URxvt.scrollBar:          off
 URxvt.font:               xft:DroidSansMonoForPowerLine Nerd Font:pixelsize=16:antialias=true:hinting=true,xft:DejaVuSansMonoForPowerline Nerd Font:pixelsize=20:antialias=true:hinting=true
