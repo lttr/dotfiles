@@ -476,9 +476,10 @@ command! E normal :silent w<CR>:silent e<CR>
 " Visual search and Save search for later n. usage = multiple renaming
 " Even more powerful with cgn = change next occurance, than
 nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
+vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
 nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
 nnoremap gy /\V<C-r><C-w><CR><C-o>:set hlsearch<CR>viwc
-vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
+vnoremap gy y/<C-r>"<CR>:set hls<CR>gvc
 " Go substitute
 vnoremap gs y:%s#<C-r>"##g<Left><Left>
 " Go substitute word
