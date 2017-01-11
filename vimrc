@@ -33,6 +33,7 @@ Plug 'vim-scripts/SyntaxComplete'
 " Code style
 Plug 'Chiel92/vim-autoformat'
 Plug 'scrooloose/syntastic'
+Plug 'editorconfig/editorconfig-vim'
 
 " Documentation
 Plug 'KabbAmine/zeavim.vim'
@@ -65,7 +66,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/Rename'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
@@ -74,12 +75,13 @@ Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
 Plug 'ryanoasis/vim-devicons'
 
 " Html, xml, css
+Plug 'othree/html5.vim'
+Plug 'othree/xml.vim'
+Plug 'gregsexton/MatchTag'
+Plug 'mattn/emmet-vim'
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax'
-Plug 'gregsexton/MatchTag'
 Plug 'groenewege/vim-less' , { 'for': 'less' }
-Plug 'mattn/emmet-vim'
-Plug 'othree/xml.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
@@ -300,12 +302,7 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 " ===== Fonts customization =====
 
 " Row numbers
-hi LineNr guifg=#c2c0ba
-if $TERM == 'rxvt-unicode-256color' || $TERM == 'xterm'
-    hi LineNr ctermfg=58
-else
-    hi LineNr ctermfg=251
-endif
+hi LineNr guifg=#c2c0ba ctermfg=250
 
 " }}}
 "  Completion {{{ ==============================================================
@@ -327,7 +324,7 @@ endif
 
 " Show menu when there is more then one item to complete
 " Only insert the longest common text of the matches.
-set completeopt=menu,longest
+set completeopt=menu,longest,preview
 
 " Make <Tab> select the currently selected choice, same like <CR>
 " If not in completion mode, call snippets expanding function
@@ -699,12 +696,19 @@ augroup HTML
     autocmd FileType html setlocal tabstop=2
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2
+    autocmd FileType html,xml setlocal smartindent
     autocmd FileType html map <F3> :call JumpToCSS()<CR>
 
     " previous tag on same indentation level
     autocmd FileType html,xml nnoremap <C-k> ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
     " next tag on same indentation level
     autocmd FileType html,xml nnoremap <C-j> /^\s\{<C-r>=indent(".")<CR>}\S\+<CR>ww
+    " Given <tag>|</tag> when <CR> then jump to next line
+    autocmd FileType html,xml inoremap <expr> <CR> Expander()
+    " Comp
+    autocmd FileType html,xhtml setlocal omnifunc=htmlcomplete#CompleteTags
+
+    autocmd FileType html let g:html_indent_tags = ''
 augroup END
 
 augroup GNUPLOT
@@ -948,13 +952,16 @@ let g:formatters_sql = ['my_sql']
 let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
 let g:formatters_python = ['autopep8']
 
+" ===== Autosave =====
+let g:auto_save_in_insert_mode = 0
+
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
 nnoremap <C-p> :CtrlP<CR>
 " Set ,m for most recently used files
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components)$',
+            \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components|dist)$',
             \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
             \}
 let g:ctrlp_working_path_mode = 'rc'
@@ -988,8 +995,12 @@ let g:delimitMate_expand_space = 1  " Expand the <space> on both sides
 let delimitMate_excluded_ft = "markdown,txt,sh"
 " Run :DelimitMateSwitch to turn on
 
+" ===== EditorConfig =====
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " ===== Emmet =====
-let g:user_emmet_leader_key = '<C-t>'
+let g:user_emmet_leader_key = '<C-g>'
+let g:user_emmet_mode='in'
 let g:emmet_html5           = 1
 
 " ===== Fugitive =====
@@ -1397,9 +1408,9 @@ function! JumpToCSS()
 
   if class_pos > 0 || id_pos > 0
     if class_pos < id_pos
-      execute ":vimgrep '#".expand('<cword>')."' *.html **/*.*ss"
+      execute ":vimgrep '#".expand('<cword>')."' **/*.*ss"
     elseif class_pos > id_pos
-      execute ":vimgrep '.".expand('<cword>')."' *.html **/*.*ss"
+      execute ":vimgrep '.".expand('<cword>')."' **/*.*ss"
     endif
   endif
 endfunction
@@ -1498,5 +1509,22 @@ function! RunJava()
         wincmd w
     endif
     redraw!
+endfunction
+
+function! Expander()
+  let line   = getline(".")
+  let col    = col(".")
+  let first  = line[col-2]
+  let second = line[col-1]
+  let third  = line[col]
+  if first ==# ">"
+    if second ==# "<" && third ==# "/"
+      return "\<CR>\<Esc>O"
+    else
+      return "\<CR>"
+    endif
+  else
+    return "\<CR>"
+  endif
 endfunction
 
