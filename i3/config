@@ -292,7 +292,7 @@ bindsym $mod+Return exec urxvt
 bindsym $mod+e exec nautilus
 
 # Password manager
-bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window KeePass2
+bindsym $mod+Ctrl+k exec ~/.i3/scripts/bring-me-i3-window keepass2 KeePass2
 bindsym $mod+Ctrl+l exec "keepass2 --auto-type"
 bindsym $mod+Ctrl+Shift+l exec "keepass2 --auto-type-selected"
 
