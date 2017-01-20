@@ -85,10 +85,10 @@ Plug 'groenewege/vim-less' , { 'for': 'less' }
 
 " Javascript
 Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
-Plug 'burnettk/vim-angular' , { 'for': 'javascript' }
+Plug 'burnettk/vim-angular'
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim' , { 'for': 'javascript' }
+Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
 
 " Python
@@ -694,9 +694,9 @@ augroup END
 augroup HTML
     autocmd!
     autocmd BufRead,BufNewFile *.cshtml set filetype=html
-    autocmd FileType html setlocal tabstop=2
-    autocmd FileType html setlocal softtabstop=2
-    autocmd FileType html setlocal shiftwidth=2
+    autocmd FileType html,xml setlocal tabstop=2
+    autocmd FileType html,xml setlocal softtabstop=2
+    autocmd FileType html,xml setlocal shiftwidth=2
     autocmd FileType html,xml setlocal smartindent
     autocmd FileType html map <F3> :call JumpToCSS()<CR>
 
@@ -957,6 +957,10 @@ let g:auto_save_in_insert_mode = 0
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
 nnoremap <C-p> :CtrlP<CR>
+" Set ctrl+e for recently used files
+nnoremap <C-e> :CtrlPMRU<CR>
+" Set ctrl+tab for open buffers
+nnoremap <C-Tab> :CtrlPBuffer<CR>
 " Set ,m for most recently used files
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
 let g:ctrlp_custom_ignore = {
