@@ -36,23 +36,42 @@ nnoremap <space>; m`A;<esc>``
 nnoremap <space>, m`A,<esc>``
 
 " ===== Searching and replacing =====
-" Visual search and Save search for later n. usage = multiple renaming
-" Even more powerful with cgn = change next occurance, than
-nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
-vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvho
-nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
-nnoremap gy /\V<C-r><C-w><CR><C-o>:set hlsearch<CR>viwc
-vnoremap gy y/<C-r>"<CR>:set hls<CR>gvhc
+
+" Highlight current word and all same words (or selections)
+nnoremap gr yiw/\V\C\<<C-r>"\><CR><C-o>:set hls<CR>
+vnoremap gr y/\V\C<C-r>"<CR><C-o>:set hls<CR>gvo
+" Case insensitive
+nnoremap gR yiw/\V\c\<<C-r>"\><CR><C-o>:set hls<CR>
+vnoremap gR y/\V\c<C-r>"<CR><C-o>:set hls<CR>gvo
+
+" Change current word (or selection) and then every following one
+nnoremap gy yiw/\V\C<C-r>"<CR><C-o>:set hls<CR>cgn
+vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgn
+" Case insensitive
+nnoremap gY yiw/\V\c<C-r>"<CR><C-o>:set hls<CR>cgn
+vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgn
+
 " Go substitute
-vnoremap gs y:%s#<C-r>"##g<Left><Left>
+vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g<Left><Left>
 " Go substitute word
-nnoremap gss :set hls<CR>/\V\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
+nnoremap gs :set hls<CR>yiw/\<<C-r>"\><CR>:%s/\<<C-r>"\>//g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
-noremap gB /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
+noremap gB /<C-r>*<CR>:set hls<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
-noremap g/ /\V<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
+noremap g/ /\V<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
+
+" ===== Swaping =====
+" Source http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
+" Push current word after next one
+nnoremap <silent> gp "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:nohls<CR>
+" Push current word with previous
+nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:nohls<CR>
+" Push current paragraph after next one
+nnoremap g} {dap}Pj
+" Push current paragraph before previous one
+nnoremap g{ {{dap}P{j
 
 nnoremap gV `[v`]
 

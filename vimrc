@@ -84,7 +84,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less' , { 'for': 'less' }
 
 " Javascript
-Plug 'pangloss/vim-javascript' , { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript'
 Plug 'burnettk/vim-angular'
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
@@ -347,23 +347,6 @@ call yankstack#setup()
 let mapleader = ','
 let maplocalleader = "\<Space>"
 
-" ===== Bubble lines up and down =====
-" tip from http://vimrcfu.com/snippet/110
-nnoremap <A-S-J> :m .+1<CR>==
-nnoremap <A-S-K> :m .-2<CR>==
-inoremap <A-S-J> <Esc>:m .+1<CR>==gi
-inoremap <A-S-K> <Esc>:m .-2<CR>==g
-vnoremap <A-S-J> :m '>+1<CR>gv=gv
-vnoremap <A-S-K> :m '<-2<CR>gv=gv
-if ! has('gui_running')
-    nnoremap <Esc>J :m .+1<CR>==
-    nnoremap <Esc>K :m .-2<CR>==
-    inoremap <Esc>J <Esc>:m .+1<CR>==gi
-    inoremap <Esc>K <Esc>:m .-2<CR>==g
-    vnoremap <Esc>J :m '>+1<CR>gv=gv
-    vnoremap <Esc>K :m '<-2<CR>gv=gv
-endif
-
 " ===== Change indentation =====
 nnoremap <A-S-H> <<
 nnoremap <A-S-L> >>
@@ -473,23 +456,60 @@ inoremap <C-s> <Esc>:update<CR>
 command! E normal :silent w<CR>:silent e<CR>
 
 " ===== Searching and replacing =====
-" Visual search and Save search for later n. usage = multiple renaming
-" Even more powerful with cgn = change next occurance, than
-nnoremap gr /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>
-vnoremap gr y/\V<C-r>"<CR><C-o>:set hlsearch<CR>gvo
-nnoremap gR /\V\<<C-r><C-w>\><CR><C-o>:set hlsearch<CR>viwo
-nnoremap gy /\V<C-r><C-w><CR><C-o>:set hlsearch<CR>viwc
-vnoremap gy y/<C-r>"<CR>:set hls<CR>gvc
+
+" Highlight current word and all same words (or selections)
+nnoremap gr yiw/\V\C\<<C-r>"\><CR><C-o>:set hls<CR>
+vnoremap gr y/\V\C<C-r>"<CR><C-o>:set hls<CR>gvo
+" Case insensitive
+nnoremap gR yiw/\V\c\<<C-r>"\><CR><C-o>:set hls<CR>
+vnoremap gR y/\V\c<C-r>"<CR><C-o>:set hls<CR>gvo
+
+" Change current word (or selection) and then every following one
+nnoremap gy yiw/\V\C<C-r>"<CR><C-o>:set hls<CR>cgn
+vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgn
+" Case insensitive
+nnoremap gY yiw/\V\c<C-r>"<CR><C-o>:set hls<CR>cgn
+vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgn
+
 " Go substitute
-vnoremap gs y:%s#<C-r>"##g<Left><Left>
+vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g<Left><Left>
 " Go substitute word
-nnoremap gss :set hls<CR>/\V\<<C-r><C-w>\><CR>:%s#\<<C-r><C-w>\>##g<Left><Left>
+nnoremap gs :set hls<CR>yiw/\<<C-r>"\><CR>:%s/\<<C-r>"\>//g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
-noremap gB /<C-r>*<CR>:set hlsearch<CR>:echo "Search from clipboard for: ".@/<CR>
+noremap gB /<C-r>*<CR>:set hls<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
-noremap g/ /\V<C-r>"<CR>:set hlsearch<CR>:echo "Search from yank for: ".@/<CR>
+noremap g/ /\V<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
+
+" ===== Swaping =====
+" Source http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
+" Push current word after next one
+nnoremap <silent> gp "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:nohls<CR>
+" Push current word with previous
+nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:nohls<CR>
+" Push current paragraph after next one
+nnoremap g} {dap}Pj
+" Push current paragraph before previous one
+nnoremap g{ {{dap}P{j
+
+" ===== Bubble lines up and down =====
+" Source http://vimrcfu.com/snippet/110
+nnoremap <A-S-J> :m .+1<CR>==
+nnoremap <A-S-K> :m .-2<CR>==
+inoremap <A-S-J> <Esc>:m .+1<CR>==gi
+inoremap <A-S-K> <Esc>:m .-2<CR>==g
+vnoremap <A-S-J> :m '>+1<CR>gv=gv
+vnoremap <A-S-K> :m '<-2<CR>gv=gv
+if ! has('gui_running')
+    nnoremap <Esc>J :m .+1<CR>==
+    nnoremap <Esc>K :m .-2<CR>==
+    inoremap <Esc>J <Esc>:m .+1<CR>==gi
+    inoremap <Esc>K <Esc>:m .-2<CR>==g
+    vnoremap <Esc>J :m '>+1<CR>gv=gv
+    vnoremap <Esc>K :m '<-2<CR>gv=gv
+endif
+
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
@@ -731,10 +751,11 @@ augroup END
 
 augroup JAVASCRIPT
     autocmd!
-    autocmd FileType javascript setlocal tabstop=2
-    autocmd FileType javascript setlocal softtabstop=2
-    autocmd FileType javascript setlocal shiftwidth=2
+    autocmd FileType javascript,json setlocal tabstop=2
+    autocmd FileType javascript,json setlocal softtabstop=2
+    autocmd FileType javascript,json setlocal shiftwidth=2
     autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
+    autocmd Filetype javascript nnoremap <leader>r :!node %<CR>
 augroup END
 
 augroup JSON
@@ -1056,7 +1077,7 @@ let g:goyo_margin_bottom=2 " (default: 4)
 let g:vim_json_syntax_conceal = 0
 
 " ===== javascript-libraries-syntax =====
-let g:used_javascript_libs = 'jquery,angular'
+let g:used_javascript_libs = 'angular'
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log'
