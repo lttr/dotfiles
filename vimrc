@@ -977,13 +977,15 @@ let g:auto_save_in_insert_mode = 0
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
-nnoremap <C-p> :CtrlP<CR>
-" Set ctrl+e for recently used files
-nnoremap <C-e> :CtrlPMRU<CR>
-" Set ctrl+tab for open buffers
-nnoremap <C-Tab> :CtrlPBuffer<CR>
-" Set ,m for most recently used files
+nnoremap <C-p> :CtrlPCurWD<CR>
+nnoremap <Leader>p :CtrlPCurWD<CR>
+
+nnoremap <C-e> :CtrlPMRUFiles<CR>
 nnoremap <Leader>m :CtrlPMRUFiles<CR>
+
+nnoremap <C-Tab> :CtrlPBuffer<CR>
+nnoremap <Leader>b :CtrlPBuffer<CR>
+
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components|dist)$',
             \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$'
