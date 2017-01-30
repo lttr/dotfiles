@@ -458,18 +458,18 @@ command! E normal :silent w<CR>:silent e<CR>
 " ===== Searching and replacing =====
 
 " Highlight current word and all same words (or selections)
-nnoremap gr yiw/\V\C\<<C-r>"\><CR><C-o>:set hls<CR>
+nnoremap gr mmyiw/\V\C\<<C-r>"\><CR>:set hls<CR>`m
 vnoremap gr y/\V\C<C-r>"<CR><C-o>:set hls<CR>gvo
 " Case insensitive
-nnoremap gR yiw/\V\c\<<C-r>"\><CR><C-o>:set hls<CR>
+nnoremap gR mmyiw/\V\c\<<C-r>"\><CR>:set hls<CR>`m
 vnoremap gR y/\V\c<C-r>"<CR><C-o>:set hls<CR>gvo
 
 " Change current word (or selection) and then every following one
 nnoremap gy yiw/\V\C<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgn
+vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgN
 " Case insensitive
 nnoremap gY yiw/\V\c<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgn
+vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgN
 
 " Go substitute
 vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g<Left><Left>
