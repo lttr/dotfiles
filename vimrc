@@ -816,7 +816,10 @@ augroup MARKDOWN
     autocmd FileType markdown vnoremap <LocalLeader>> <C-q>0I><space><Esc>
     " unordered list
     autocmd FileType markdown nnoremap <LocalLeader>u vip:s/^\(\s*\)/\1- /<CR>
-    autocmd FileType markdown vnoremap <LocalLeader>u :s/^.\?/\U&/
+    autocmd FileType markdown vnoremap <LocalLeader>u :s/^\(\s*\)/\1- /<CR>
+    " quoute
+    autocmd FileType markdown nnoremap <LocalLeader>q m`vip:s/^/> /<CR>``
+    autocmd FileType markdown vnoremap <LocalLeader>q m`:s/^/> /<CR>``
 
     " Save mkd file
     autocmd FileType markdown nnoremap <LocalLeader>s :1y<CR> :w <C-r>"<BS>.md
