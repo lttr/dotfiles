@@ -146,6 +146,15 @@ if check_custom_app 'sdkman'; then
     export SDKMAN_DIR="${MY_APPS_DIR}/sdkman" && curl -s "https://get.sdkman.io" | bash
 fi
 
+if check_custom_app 'hub'; then
+    HUB_VER=2.2.9
+    wget https://github.com/github/hub/releases/download/v${HUB_VER}/hub-linux-amd64-${HUB_VER}.tgz
+    tar zxf hub-linux-amd64-${HUB_VER}.tgz
+    sudo ./hub-linux-amd64-${HUB_VER}/install
+    rm -rf hub-linux-amd64-${HUB_VER}
+    rm -rf hub-linux-amd64-${HUB_VER}.tgz
+fi
+
 # =================================================================
 #                        Python packages
 # =================================================================
