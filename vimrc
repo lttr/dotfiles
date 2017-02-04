@@ -108,6 +108,7 @@ Plug 'tpope/vim-markdown' , { 'for': 'markdown' }
 " Version control
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Window management
 Plug 'milkypostman/vim-togglelist'
@@ -1070,6 +1071,7 @@ let g:gitgutter_enabled = 0
 let g:gitgutter_signs = 1
 nmap [g <Plug>GitGutterPrevHunk
 nmap ]g <Plug>GitGutterNextHunk
+nmap <Leader>ggt :GitGutterToggle<CR>
 nmap <Leader>ggs <Plug>GitGutterStageHunk
 nmap <Leader>ggr <Plug>GitGutterRevertHunk
 
