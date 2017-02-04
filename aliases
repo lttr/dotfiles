@@ -128,7 +128,7 @@ alias gm="git $logformat -n20"
 alias gma="git $logformat"
 alias gme="git $logformat --all -n20"
 alias gmea="git $logformat --all"
-alias gh="git $logformat --all --follow"
+alias gfh="git $logformat --all --follow"
 
 alias gsf="git show --name-status"
 alias gfind="git log --all --name-status --grep"
