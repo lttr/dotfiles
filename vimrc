@@ -599,8 +599,9 @@ endif
 nnoremap gh 40zh
 nnoremap gl 40zl
 " Jump around methods
-nmap <C-j> ]m
-nmap <C-k> [m
+nmap <C-j> <nop>
+nmap <C-j> ]m0w
+nmap <C-k> [m0w
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
@@ -610,6 +611,10 @@ nnoremap <expr> <leader>w ':set wrap! go'.'-+'[&wrap]."=b\r"
 let g:toggle_list_no_mappings=1
 nmap <script> <silent> coa :call ToggleLocationList()<CR>
 nmap <script> <silent> coq :call ToggleQuickfixList()<CR>
+
+" ===== Diff =====
+nmap <F7> ]c
+nmap <S-F7> [c
 
 
 " }}}
@@ -1082,11 +1087,29 @@ augroup END
 " ===== GitGutter =====
 let g:gitgutter_enabled = 0
 let g:gitgutter_signs = 1
-nmap [g <Plug>GitGutterPrevHunk
-nmap ]g <Plug>GitGutterNextHunk
-nmap <Leader>ggt :GitGutterToggle<CR>
-nmap <Leader>ggs <Plug>GitGutterStageHunk
-nmap <Leader>ggr <Plug>GitGutterRevertHunk
+nmap <Leader>ht :GitGutterToggle<CR>
+nmap <Leader>hl :GitGutterLineHighlightsToggle<CR>
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterUndoHunk
+nmap <C-z> <Plug>GitGutterUndoHunk
+nmap <F7> <Plug>GitGutterNextHunk
+nmap <S-F7> <Plug>GitGutterPrevHunk
+nmap ]c <Plug>GitGutterNextHunk
+nmap [c <Plug>GitGutterPrevHunk
+nmap <C-F7> :call ToggleHunkPreview()<CR>
+fun! ToggleHunkPreview()
+    let l:isTherePreviewWindow = 0
+    for nr in range(1, winnr('$'))
+        if getwinvar(nr, "&pvw") == 1
+            let l:isTherePreviewWindow = 1
+        endif
+    endfor
+    if l:isTherePreviewWindow == 1
+        silent execute "pclose"
+    else
+        silent execute "GitGutterPreviewHunk"
+    endif
+endf
 
 " ===== Goyo =====
 let g:goyo_width=100 "(default: 80)
