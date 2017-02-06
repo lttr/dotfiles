@@ -499,9 +499,9 @@ nnoremap <silent> gp "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\
 " Push current word with previous
 nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:nohls<CR>
 " Push current paragraph after next one
-nnoremap g} {dap}Pj
+nnoremap g} {jdap}p
 " Push current paragraph before previous one
-nnoremap g{ {{dap}P{j
+nnoremap g{ dap{{p
 
 " ===== Bubble lines up and down =====
 " Source http://vimrcfu.com/snippet/110
@@ -599,9 +599,8 @@ endif
 nnoremap gh 40zh
 nnoremap gl 40zl
 " Jump around methods
-nmap <C-j> <nop>
-nmap <C-j> ]m0w
-nmap <C-k> [m0w
+nnoremap <C-j> j]m?\w\+(<CR>
+nnoremap <C-k> k[m?\w\+(<CR>
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
