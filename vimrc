@@ -761,6 +761,7 @@ augroup JAVA
     autocmd Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
     autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:make<CR>:cwindow<CR><CR>
     autocmd Filetype java nnoremap <buffer> <leader>r :call RunJava()<CR>
+    autocmd Filetype java nnoremap <buffer> <leader>R :call RunJavaWithOutput()<CR>
 augroup END
 
 augroup JAVASCRIPT
@@ -1200,18 +1201,46 @@ fun! ExecuteVisualSelectionWithOutput(program)
 endf
 
 fun! ExecuteCurrentBuffer(program)
-    write
+    silent write
     let stdin = join(getline(1,'$'), "\n")
     let s = system(a:program, stdin)
     echo s
 endf
 
 fun! ExecuteCurrentBufferWithOutput(program)
-    write
+    silent write
     execute 'Clam ' . a:program . ' %'
     call cursor('$', 1)
     wincmd w
 endf
+
+function! RunJavaWithOutput()
+    silent write
+    lcd %:p:h
+    silent! make
+    botright cwindow
+    normal <CR>
+    if (len(getqflist()) < 1)
+        Clam java %:r
+        wincmd w
+    endif
+    redraw!
+endfunction
+
+function! RunJava()
+    silent write
+    lcd %:p:h
+    silent! make
+    botright cwindow
+    normal <CR>
+    if (len(getqflist()) < 1)
+        let s = system('java ' . expand('%:r'))
+        echom ' '
+        echom s
+        echom ' '
+    endif
+endfunction
+
 
 " Sessions from http://stackoverflow.com/a/10525050
 set sessionoptions-=options  " Don't save options
@@ -1592,19 +1621,6 @@ endfunction
 function! ExecuteMacroOverVisualRange()
     echo "@".getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
-function! RunJava()
-    write
-    lcd %:p:h
-    silent! make
-    botright cwindow
-    normal <CR>
-    if (len(getqflist()) < 1)
-        Clam java %:r
-        wincmd w
-    endif
-    redraw!
 endfunction
 
 function! Expander()
