@@ -416,7 +416,9 @@ nnoremap Q :Bdelete<CR>
 " Quit window
 nnoremap <leader>q :q<CR>
 " <C-z> minimizes gvim on Windows, which I dont like
-nnoremap <C-z> <Esc>
+nmap <C-z> <Esc>
+" Close preview window more easily
+nnoremap <S-Esc> :silent! pclose <Bar> cclose <Bar> NERDTreeClose<CR>
 
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
@@ -445,7 +447,7 @@ nnoremap <leader>V :split $MYVIMRC<CR>
 nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
-nnoremap <F2> :NERDTreeFind<CR>
+nnoremap <M-1> :NERDTreeFind<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
