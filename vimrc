@@ -63,6 +63,7 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'triglav/vim-visual-increment'
 Plug 'tpope/vim-unimpaired'
+Plug 'metakirby5/codi.vim'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
@@ -403,6 +404,12 @@ if ! has('gui_running')
     nmap <Esc>n <Plug>yankstack_substitute_newer_paste
 endif
 
+" ===== Execute (run) part of buffer =====
+nnoremap <F2> :exec getline('.')<CR>
+vnoremap <F2> "cy:<c-u>exe getreg("c")<CR>
+nnoremap <S-F2> :exec '!'.getline('.')<CR>
+vnoremap <S-F2> "cy:<c-u>exe '!'.getreg("c")<CR>
+
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
 nnoremap Q :Bdelete<CR>
@@ -678,8 +685,8 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " Common shortcuts
 " <leader>c = compile
-" <leader>r = run and output to new buffer
-" <leader>R = run external command
+" <leader>r = run buffer or selection
+" <leader>R = run buffer or selection with output in split window
 " <leader>t = test
 " <leader>h = help for current word
 " <leader>k = check style
@@ -756,7 +763,11 @@ augroup JAVASCRIPT
     autocmd FileType javascript,json setlocal softtabstop=2
     autocmd FileType javascript,json setlocal shiftwidth=2
     autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
-    autocmd Filetype javascript nnoremap <leader>r :!node %<CR>
+    autocmd Filetype javascript nnoremap <leader>e :call ExecuteCurrentLine('node -e')<CR>
+    autocmd Filetype javascript nnoremap <leader>r :call ExecuteCurrentBuffer('node')<CR>
+    autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
+    autocmd FileType javascript nnoremap <leader>R :call ExecuteCurrentBufferWithOutput('node')<CR>
+    autocmd FileType javascript vnoremap <leader>R <Esc>:call ExecuteVisualSelectionWithOutput('node')<CR>
 augroup END
 
 augroup JSON
@@ -1147,6 +1158,36 @@ let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 
 " }}}
 "  Functions {{{ ===============================================================
+
+fun! ExecuteCurrentLine(program)
+    silent let s = system( a:program . ' ' . shellescape(getline(".")) )
+    echo s
+endf
+
+fun! ExecuteVisualSelection(program)
+    silent let s = system( a:program . ' ' . shellescape(join(getline("'<", "'>"))) )
+    echo s
+endf
+
+fun! ExecuteVisualSelectionWithOutput(program)
+    execute "'<,'>Clam " . a:program
+    call cursor('$', 1)
+    wincmd w
+endf
+
+fun! ExecuteCurrentBuffer(program)
+    write
+    let stdin = join(getline(1,'$'), "\n")
+    let s = system(a:program, stdin)
+    echo s
+endf
+
+fun! ExecuteCurrentBufferWithOutput(program)
+    write
+    execute 'Clam ' . a:program . ' %'
+    call cursor('$', 1)
+    wincmd w
+endf
 
 " Sessions from http://stackoverflow.com/a/10525050
 set sessionoptions-=options  " Don't save options
