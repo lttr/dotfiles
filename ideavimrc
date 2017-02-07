@@ -38,25 +38,25 @@ nnoremap <space>, m`A,<esc>``
 " ===== Searching and replacing =====
 
 " Highlight current word and all same words (or selections)
-nnoremap gr yiw/\V\C\<<C-r>"\><CR><C-o>:set hls<CR>
-vnoremap gr y/\V\C<C-r>"<CR><C-o>:set hls<CR>gvo
+" Case sensitive
+nnoremap gr mmyiw/\C<C-r>"\><CR>`m
+vnoremap gr y/\C<C-r>"<CR>gvh
 " Case insensitive
-nnoremap gR yiw/\V\c\<<C-r>"\><CR><C-o>:set hls<CR>
-vnoremap gR y/\V\c<C-r>"<CR><C-o>:set hls<CR>gvo
+nnoremap gR mmyiw/\c<C-r>"\><CR>`m
+vnoremap gR y/\c<C-r>"<CR>gvh
 
 " Change current word (or selection) and then every following one
-nnoremap gy yiw/\V\C<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgn
+" Case sensitive
+nnoremap gy yiw/\C<C-r>"\><CR>Nciw
+vnoremap gy y/\C<C-r>"<CR>gvhc
 " Case insensitive
-nnoremap gY yiw/\V\c<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgn
+nnoremap gY yiw/\c<C-r>"\><CR>Nciw
+vnoremap gY y/\c<C-r>"<CR>gvhc
 
 " Go substitute
-vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g<Left><Left>
+vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g
 " Go substitute word
-nnoremap gs :set hls<CR>yiw/\<<C-r>"\><CR>:%s/\<<C-r>"\>//g<Left><Left>
-" Go count occurances
-noremap gC m`:%s///gn<CR>``
+nnoremap gs :set hls<CR>yiw/\<<C-r>"\><CR>:%s/\<<C-r>"\>//g
 " Go find from clipboard
 noremap gB /<C-r>*<CR>:set hls<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
@@ -68,15 +68,14 @@ noremap g/ /\V<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
 nnoremap <silent> gp "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:nohls<CR>
 " Push current word with previous
 nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:nohls<CR>
-" Push current paragraph after next one
-nnoremap g} {dap}Pj
-" Push current paragraph before previous one
-nnoremap g{ {{dap}P{j
 
 nnoremap gV `[v`]
 
 " ===== Moving =====
 nnoremap g; :action JumpToLastChange<CR>
+nnoremap g, :action JumpToNextChange<CR>
+nnoremap { :action EditorBackwardParagraph<CR>
+nnoremap } :action EditorForwardParagraph<CR>
  
 " ===== Navigation =====
 nnoremap <c-o> :action Back<CR>

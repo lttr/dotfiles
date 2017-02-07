@@ -468,40 +468,41 @@ command! E normal :silent w<CR>:silent e<CR>
 " ===== Searching and replacing =====
 
 " Highlight current word and all same words (or selections)
-nnoremap gr mmyiw/\V\C\<<C-r>"\><CR>:set hls<CR>`m
-vnoremap gr y/\V\C<C-r>"<CR><C-o>:set hls<CR>gvo
+" Case sensitive
+nnoremap gr mmyiw/\C\<<C-r>"\><CR>:set hls<CR>`m
+vnoremap gr y/\C<C-r>"<CR><C-o>:set hls<CR>gvo
 " Case insensitive
-nnoremap gR mmyiw/\V\c\<<C-r>"\><CR>:set hls<CR>`m
-vnoremap gR y/\V\c<C-r>"<CR><C-o>:set hls<CR>gvo
+nnoremap gR mmyiw/\c\<<C-r>"\><CR>:set hls<CR>`m
+vnoremap gR y/\c<C-r>"<CR><C-o>:set hls<CR>gvo
 
 " Change current word (or selection) and then every following one
-nnoremap gy yiw/\V\C<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gy y/\V\C<C-r>"<CR>:set hls<CR>cgN
+" Case sensitive
+nnoremap gy yiw/\C\<<C-r>"\><CR><C-o>:set hls<CR>cgn
+vnoremap gy y/\C<C-r>"<CR><C-o>:set hls<CR>cgn
 " Case insensitive
-nnoremap gY yiw/\V\c<C-r>"<CR><C-o>:set hls<CR>cgn
-vnoremap gY y/\V\c<C-r>"<CR>:set hls<CR>cgN
+nnoremap gY yiw/\c\<<C-r>"\><CR><C-o>:set hls<CR>cgn
+vnoremap gY y/\c<C-r>"<CR><C-o>:set hls<CR>cgn
 
 " Go substitute
-vnoremap gs y:set hls<CR>/<C-r>"<CR>:%s/<C-r>"//g<Left><Left>
+vnoremap gs y:set hls<CR>/<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>
 " Go substitute word
-nnoremap gs :set hls<CR>yiw/\<<C-r>"\><CR>:%s/\<<C-r>"\>//g<Left><Left>
+nnoremap gs :set hls<CR>*#:%s/\<<C-r>"\>//g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
 noremap gB /<C-r>*<CR>:set hls<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
-noremap g/ /\V<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
+noremap g/ /<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
+
+" Per digit increment
+nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
 
 " ===== Swaping =====
 " Source http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
 " Push current word after next one
 nnoremap <silent> gp "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>/\w\+\_W\+<CR>:nohls<CR>
-" Push current word with previous
+" Push current word before previous
 nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><c-o>:nohls<CR>
-" Push current paragraph after next one
-nnoremap g} {jdap}p
-" Push current paragraph before previous one
-nnoremap g{ dap{{p
 
 " ===== Bubble lines up and down =====
 " Source http://vimrcfu.com/snippet/110
@@ -523,9 +524,6 @@ endif
 
 " Selects the text that was entered during the last insert mode usage
 nnoremap gV `[v`]
-
-command! V normal :v//d<CR>
-command! D normal :g//d<CR>
 
 " ===== Strings =====
 " Surround current word
