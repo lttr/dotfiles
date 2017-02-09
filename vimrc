@@ -632,6 +632,8 @@ noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 " ===== Bufferize =====
 " Print output of MORE viewer into buffer
 command! -nargs=* -complete=command Bufferize call s:Bufferize(<q-args>)
+" Put output of a command into current buffer
+command! -nargs=* -complete=command Echo call s:Echo(<q-args>)
 
 " ===== Closing =====
 " Closes all buffers except the active one
@@ -1429,6 +1431,13 @@ function! s:Bufferize(cmd)
     " setlocal nonumber
     call setline(1, split(output, "\n"))
     set nomodified
+endfunction
+
+function! s:Echo(cmd)
+    redir @e
+    silent exe "echo " . a:cmd
+    redir END
+    put e
 endfunction
 
 " ===== Script to save gvim window position =====
