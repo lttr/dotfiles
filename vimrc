@@ -63,17 +63,14 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'triglav/vim-visual-increment'
 Plug 'tpope/vim-unimpaired'
-Plug 'metakirby5/codi.vim'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'airblade/vim-rooter'
 Plug 'rking/ag.vim'
 Plug 'vim-scripts/Rename'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
-" Plug 'ryanoasis/vim-devicons'
 
 " Html, xml, css
 Plug 'othree/xml.vim'
@@ -86,15 +83,16 @@ Plug 'groenewege/vim-less' , { 'for': 'less' }
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-Plug 'burnettk/vim-angular'
-Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'elzr/vim-json'
 
 " Python
-Plug 'idanarye/vim-vebugger' , { 'for': 'python' }
 Plug 'klen/python-mode' , { 'for': 'python' }
+
+" Tools
+Plug 'metakirby5/codi.vim'
+Plug 'janko-m/vim-test'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -1233,9 +1231,9 @@ function! RunJava()
     normal <CR>
     if (len(getqflist()) < 1)
         let s = system('java ' . expand('%:r'))
-        echom ' '
-        echom s
-        echom ' '
+        echo ' '
+        echo s
+        echo ' '
     endif
 endfunction
 
