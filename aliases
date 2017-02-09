@@ -63,7 +63,7 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 # =================================================================
 alias dotf="cd ~/dotfiles"
 alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
-alias tiacd="cd ~/Dropbox/ia"
+alias iacd="cd ~/Dropbox/ia"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
 
