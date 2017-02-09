@@ -1,8 +1,11 @@
 snippet out
-	System.out.print(${0});
+	System.out.println(${0});
 
 snippet list
 	List<${1:Object}> ${2:list} = new ArrayList<$1>();${0}
+
+snippet hashset
+	Set<${1:Object}> ${2:list} = new HashSet<$1>();${0}
 
 snippet psv
 	public static void ${0}
