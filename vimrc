@@ -66,11 +66,13 @@ Plug 'tpope/vim-unimpaired'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'airblade/vim-rooter'
 Plug 'rking/ag.vim'
-Plug 'vim-scripts/Rename'
 Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
+" Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-eunuch'
 
 " Html, xml, css
 Plug 'othree/xml.vim'
