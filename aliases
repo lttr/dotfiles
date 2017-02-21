@@ -119,7 +119,7 @@ alias gunchanged="git update-index --assume-unchanged"
 alias glistunchanged="git ls-files -v|grep '^[[:lower:]]'"
 alias gignored="git ls-files --other --ignored --exclude-standard"
 
-logformat='log --graph --abbrev-commit --decorate --format=format:"%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(dim white)(%an)%C(reset)%C(bold green)%d%C(reset)"'
+logformat='log --graph --abbrev-commit --decorate --format=format:"%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)"'
 
 alias gl="git log --graph --decorate --oneline -n20"
 alias gla="git log --graph --decorate --oneline"

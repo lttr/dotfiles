@@ -316,7 +316,7 @@ URxvt.iso14755 : false
 
 !! blue dark/light
 *color4:                S_blue
-*color12:               S_base0
+*color12:               S_base1
 
 !! magenta dark/light
 *color5:                S_magenta
@@ -327,8 +327,5 @@ URxvt.iso14755 : false
 *color14:               S_base1
 
 !! white dark/light
-!*color7:                S_base2
-*color7:                S_base0
-!*color15:               S_base3
-! background color (terminal, vim)
+*color7:                S_base2
 *color15:               S_base3
