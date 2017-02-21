@@ -82,6 +82,7 @@ Plug 'mattn/emmet-vim'
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less' , { 'for': 'less' }
+Plug 'chrisbra/Colorizer'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
