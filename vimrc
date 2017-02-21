@@ -595,8 +595,8 @@ endif
 nnoremap gh 40zh
 nnoremap gl 40zl
 " Jump around methods
-nnoremap <C-j> j]m?\w\+(<CR>
-nnoremap <C-k> k[m?\w\+(<CR>
+nmap <C-j> ]m^
+nmap <C-k> [m^
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
