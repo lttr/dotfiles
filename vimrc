@@ -68,16 +68,21 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'airblade/vim-rooter'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeFind' }
+Plug 'vim-scripts/Rename'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'majutsushi/tagbar' , { 'on': 'TagbarToggle' }
 Plug 'mbbill/undotree' , { 'on': 'UndotreeToggle' }
-" Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-eunuch'
+Plug 'airblade/vim-rooter'
+Plug 'wting/gitsessions.vim'
 
 " Html, xml, css
 Plug 'othree/xml.vim'
 Plug 'othree/html5.vim'
-Plug 'Valloric/MatchTagAlways'
+if has('python')
+    Plug 'Valloric/MatchTagAlways'
+endif
 Plug 'mattn/emmet-vim'
 Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
 Plug 'hail2u/vim-css3-syntax'
@@ -88,7 +93,13 @@ Plug 'chrisbra/Colorizer'
 Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'arturbalabanov/vim-angular-template'
 Plug 'elzr/vim-json'
+
+" PHP
+Plug 'shawncplus/phpcomplete.vim' , { 'for': 'php' }
+Plug 'StanAngeloff/php.vim' , { 'for': 'php' }
+Plug 'vim-scripts/Nette'
 
 " Python
 Plug 'klen/python-mode' , { 'for': 'python' }
@@ -101,7 +112,6 @@ Plug 'janko-m/vim-test'
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
 Plug 'dzeban/vim-log-syntax' , { 'for': 'log' }
 Plug 'andreshazard/vim-freemarker' , { 'for': 'freemarker' }
-Plug 'janiczek/vim-latte' , { 'for': 'latte' }
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
@@ -449,6 +459,7 @@ nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
 nnoremap <M-1> :NERDTreeFind<CR>
+nnoremap <M-+> :NERDTreeFind<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
@@ -494,6 +505,8 @@ noremap gC m`:%s///gn<CR>``
 noremap gB /<C-r>*<CR>:set hls<CR>:echo "Search from clipboard for: ".@/<CR>
 " Go find from yank register
 noremap g/ /<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
+" Go find last search pattern but as a whole word
+nnoremap g> /\<<C-r>/\><CR>
 
 " Per digit increment
 nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
@@ -669,6 +682,14 @@ command! Tolinesclear :call MakeClearLinesFromList()
 command! OpenInFirefox :call OpenCurrentDocumentInBrowser('firefox')
 command! OpenInChrome :call OpenCurrentDocumentInBrowser('chrome')
 command! OpenInVivaldi :call OpenCurrentDocumentInBrowser('vivaldi')
+
+let g:openbrowser_browser_commands = [
+            \   {'name': 'rundll32',
+            \    'args': 'rundll32 url.dll,FileProtocolHandler {use_vimproc ? uri : uri_noesc}'},
+            \   {'name': 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+            \    'args': ['start', '{browser}', '{uri}']}
+            \]
+let g:openbrowser_use_vimproc=0
 
 " ===== Repeated lines =====
 command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
@@ -895,6 +916,13 @@ augroup perl
     autocmd FileType perl noremap <buffer> <leader>ca :w<CR><C-w>wggO<Esc>:0r!perl -w #<CR><C-w>w
 augroup END
 
+" ===== PHP =====
+augroup php
+    autocmd!
+    " Set filetype automatically
+    autocmd BufRead,BufNewFile *.latte setlocal filetype=latte
+augroup END
+
 " ===== Python =====
 augroup python
     autocmd!
@@ -962,8 +990,8 @@ augroup END
 
 " Opens browser with Microsoft MSDN search for current key word
 command! MSDN :silent :OpenBrowser
-            \http://social.msdn.microsoft.com/Search/en-US?query=
-            \<C-r><C-w><CR>
+            \ http://social.msdn.microsoft.com/Search/en-US?query=
+            \ <C-r><C-w><CR>
 
 " ===== Vim =====
 augroup vimfile
@@ -1129,16 +1157,30 @@ let g:LogViewer_Filetypes = 'log'
 " ===== Open browser =====
 " If it looks like URI, open an URI under cursor.
 " Otherwise, search a word under cursor.
-nmap F6 <Plug>(openbrowser-smart-search)
-vmap F6 <Plug>(openbrowser-smart-search)
+nmap <F6> <Plug>(openbrowser-smart-search)
+vmap <F6> <Plug>(openbrowser-smart-search)
 
 
 " ===== Markdown =====
 let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
 
 " ===== NERDTree =====
+let NERDTreeChDirMode=2
 let NERDTreeQuitOnOpen=1
 let NERDTreeIgnore=['\.pyc$', '\~$', '__\.pyc$']
+" NerdTree - git
+let g:NERDTreeIndicatorMapCustom = {
+            \ 'Modified'  : '~',
+            \ 'Staged'    : '+',
+            \ 'Untracked' : '*',
+            \ 'Renamed'   : '»',
+            \ 'Unmerged'  : '=',
+            \ 'Deleted'   : '-',
+            \ 'Dirty'     : '×',
+            \ 'Clean'     : '"',
+            \ 'Ignored'   : 'o',
+            \ 'Unknown'   : '?'
+            \ }
 
 " ===== Pymode =====
 let g:pymode_lint_on_write = 0
@@ -1240,28 +1282,6 @@ function! RunJava()
         echo s
         echo ' '
     endif
-endfunction
-
-
-" Sessions from http://stackoverflow.com/a/10525050
-set sessionoptions-=options  " Don't save options
-function! SaveSession()
-    execute 'mksession! ~/vimsession'
-    echo 'Session saved.'
-endfunction
-function! RestoreSession()
-    " if filereadable('~/vimsession')
-    execute 'so ~/vimsession'
-    if bufexists(1)
-        for l in range(1, bufnr('$'))
-            if bufwinnr(l) == -1
-                exec 'sbuffer ' . l
-            endif
-        endfor
-    endif
-    " else
-    "     echo 'Error: File with session not readable.'
-    " endif
 endfunction
 
 function! OpenCurrentDocumentInBrowser(browser)
