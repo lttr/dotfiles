@@ -404,6 +404,7 @@ inoremap <C-V> <Esc>"+p
 vnoremap <C-V> d"+gP
 " Replace current word with yanked or deleted text (stamping)
 nnoremap s "_diwP
+vnoremap s "_dP
 " Don't yank the contents of an overwritten selection (reyank the original content)
 " xnoremap p "_dP
 

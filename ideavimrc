@@ -28,6 +28,7 @@ nnoremap ,f :action ReformatCode<CR>
 nnoremap Y y$
 vnoremap p "_dgP
 nnoremap s "_diwP
+vnoremap s "_dP
 vnoremap < <gv
 vnoremap > >gv
 
