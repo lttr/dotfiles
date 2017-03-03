@@ -133,6 +133,10 @@ Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
 Plug 'tpope/vim-dispatch'
 
+Plug 'Shebang'
+Plug 'fboender/bexec'
+Plug 'JarrodCTaylor/vim-shell-executor'
+
 call plug#end()
 
 " }}}
