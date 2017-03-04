@@ -107,6 +107,8 @@ Plug 'klen/python-mode' , { 'for': 'python' }
 " Tools
 Plug 'metakirby5/codi.vim'
 Plug 'janko-m/vim-test'
+Plug 'Shebang'
+Plug 'fboender/bexec'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -132,10 +134,6 @@ Plug 'sjl/clam.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'tyru/restart.vim'
 Plug 'tpope/vim-dispatch'
-
-Plug 'Shebang'
-Plug 'fboender/bexec'
-Plug 'JarrodCTaylor/vim-shell-executor'
 
 call plug#end()
 
@@ -464,7 +462,9 @@ nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
 nnoremap <M-1> :NERDTreeFind<CR>
+nnoremap <Esc>1 :NERDTreeFind<CR>
 nnoremap <M-+> :NERDTreeFind<CR>
+nnoremap <Esc>+ :NERDTreeFind<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
@@ -1196,6 +1196,9 @@ let g:pymode_rope_project_root = "~/.ropeproject"
 
 " ===== Restart =====
 let g:restart_sessionoptions = "restartsession"
+
+" ===== SetExecutable =====
+command! SetExecutable :call SetExecutable()<CR>
 
 " ===== SuperTab =====
 let g:SuperTabMappingForward = '<C-space>'
