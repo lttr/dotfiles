@@ -573,7 +573,7 @@ omap aa <Plug>Argumentative_OpPendingOuterTextObject
 nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 
 " Create new file in the directory next to the opened file
-map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+map <leader>n :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open previous buffer
 noremap <leader>v :vsplit<CR>:bp<CR>
@@ -718,9 +718,12 @@ command! XMLSimplify :silent call XMLSimplify()
 
 " Common shortcuts
 " <leader>c = compile
+" <leader>e = run current line
+" <leader>E = run current line with output in split window
 " <leader>r = run buffer or selection
 " <leader>R = run buffer or selection with output in split window
-" <leader>t = test
+" <leader>t = run test
+" <leader>R = run test with output in split window
 " <leader>h = help for current word
 " <leader>k = check style
 " <leader>f = format file
@@ -951,18 +954,28 @@ augroup python
     autocmd FileType python vnoremap <buffer> <leader>r :ClamVisual python<CR>
 augroup END
 
-" ===== Shell and bash =====
+" ===== SHELL and BASH and ZSH =====
 augroup sh
     autocmd!
-    " Bash as sh filetype
     autocmd BufRead,BufNewFile *.bash set filetype=sh
     autocmd BufRead,BufNewFile *.zsh set filetype=sh
     autocmd BufRead,BufNewFile *.bash set fileformat=unix
     autocmd BufRead,BufNewFile *.sh set fileformat=unix
     autocmd BufRead,BufNewFile *.zsh set fileformat=unix
-    " Run current row as command
-    autocmd FileType sh nnoremap <LocalLeader>r ^y$:!<C-r>"<CR>
-    autocmd FileType sh nnoremap <buffer> <leader>R :w<CR>:!./%
+
+    if getline(1) =~ ".*env sh"
+        let b:shell = 'sh'
+    elseif getline(1) =~ ".*env zsh"
+        let b:shell = 'zsh'
+    else
+        let b:shell = 'bash'
+    endif
+
+    autocmd FileType sh nnoremap <Leader>e :call ExecuteCurrentLine('bash')
+    autocmd FileType sh nnoremap <Leader>E V:<C-w>BexecVisual()<CR><Esc>
+    autocmd FileType sh nnoremap <Leader>r :Bexec<CR>
+    autocmd FileType sh vnoremap <Leader>r :<C-w>BexecVisual()<CR>
+    autocmd FileType sh nnoremap <Leader><Esc> :BexecCloseOut<CR>
 augroup END
 
 
