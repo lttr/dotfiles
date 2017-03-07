@@ -22,10 +22,10 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         # set quality in percent
         # little blur for great size reduction
         # set as progressive jpg
+            # -gaussian-blur $BLUR \
         mogrify \
             -resize $RESOLUTION \
             -quality $QUALITY \
-            # -gaussian-blur $BLUR \
             -interlace Plane \
             "$arg"
 
