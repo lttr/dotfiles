@@ -96,6 +96,10 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
 Plug 'elzr/vim-json'
 
+" Typescript
+Plug 'Quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim'
+
 " PHP
 Plug 'shawncplus/phpcomplete.vim' , { 'for': 'php' }
 Plug 'StanAngeloff/php.vim' , { 'for': 'php' }
@@ -432,7 +436,7 @@ nnoremap <leader>q :q<CR>
 " <C-z> minimizes gvim on Windows, which I dont like
 nmap <C-z> <Esc>
 " Close preview window more easily
-nnoremap <S-Esc> :silent! pclose <Bar> cclose <Bar> NERDTreeClose<CR>
+nnoremap <S-Esc> :silent! pclose <Bar> cclose <Bar> lclose <Bar> NERDTreeClose<CR>
 
 " ===== Headings =====
 " Make commented heading from current line, using Commentary plugin (no 'noremap')
@@ -515,6 +519,9 @@ nnoremap g> /\<<C-r>/\><CR>
 
 " Per digit increment
 nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
+
+" Project wide search
+nnoremap <C-f> :Ag<Space>
 
 " ===== Swaping =====
 " Source http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
@@ -618,6 +625,9 @@ nnoremap gl 40zl
 " Jump around methods
 nmap <C-j> ]m^
 nmap <C-k> [m^
+" Hide every except current window
+nnoremap <C-S-F12> :only<CR>
+nnoremap <C-F12> :echo 'outline'<CR>
 
 " ===== Wrap mode =====
 " change wrap and set or unset bottom scroll bar
@@ -728,6 +738,7 @@ command! XMLSimplify :silent call XMLSimplify()
 " <leader>k = check style
 " <leader>f = format file
 " <C-CR>    = run current block or line
+" <c-b>     = go to declaration
 
 " ===== Misc filetypes =====
 
@@ -805,6 +816,16 @@ augroup JAVASCRIPT
     autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
     autocmd FileType javascript nnoremap <leader>R :call ExecuteCurrentBufferWithOutput('node')<CR>
     autocmd FileType javascript vnoremap <leader>R <Esc>:call ExecuteVisualSelectionWithOutput('node')<CR>
+augroup END
+
+augroup TYPESCRIPT
+    autocmd!
+    autocmd FileType typescript nmap <buffer> <C-h> :TsuSearch<Space>
+    autocmd FileType typescript nmap <buffer> <C-b> :TsuDefinition<CR>
+    autocmd FileType typescript nmap <buffer> <M-F7> :TsuReferences<CR>
+    autocmd FileType typescript nmap <buffer> <Esc><F7> :TsuReferences<CR>
+    autocmd FileType typescript nmap <buffer> <S-F6> :TsuquyomiRenameSymbol<CR><C-r><C-w>
+    autocmd FileType typescript nmap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
 augroup END
 
 augroup JSON
@@ -1041,8 +1062,13 @@ let g:formatters_sql = ['my_sql']
 let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
 let g:formatters_python = ['autopep8']
 
-" ===== Autosave =====
+" ===== Autosave vim-auto-save =====
 let g:auto_save_in_insert_mode = 0
+augroup AUTOSAVE
+    autocmd!
+    autocmd FileType javascript,typescript,html,css let g:auto_save = 1
+augroup END
+
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
@@ -1094,7 +1120,7 @@ let delimitMate_excluded_ft = "markdown,txt,sh"
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " ===== Emmet =====
-let g:user_emmet_leader_key = '<C-g>'
+let g:user_emmet_leader_key = '<C-y>'
 let g:user_emmet_mode='in'
 let g:emmet_html5           = 1
 
@@ -1129,6 +1155,9 @@ augroup fugitive
     nnoremap <Leader>go :Git checkout<Space>
     nnoremap <Leader>gv :Gitv<CR>
     nnoremap <Leader>gf :Gitv!<CR>
+    nnoremap <c-h> :Gitv!<CR>
+    command! History :Gitv!<CR>
+    command! Log :Gitv<CR>
 augroup END
 
 " ===== GitGutter =====
