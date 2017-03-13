@@ -163,6 +163,7 @@ set modeline                   " Make sure modelines are read
 set hidden                     " Allow buffer switching without saving
 set splitright                 " Puts new vsplit windows to the right of the current
 set splitbelow                 " Puts new split windows to the bottom of the current
+set diffopt+=vertical          " Use vertical layout when using vim as mergetool
 
 " ===== Directories ======
 set backup                     " Make backups
