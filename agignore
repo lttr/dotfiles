@@ -1,3 +1,4 @@
 *.svg
 *.min.js
+*.min.css
 node_modules
