@@ -231,11 +231,11 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptParameters Operator
   HiLink typescriptSuperBlock Operator
 
-  HiLink typescriptEndColons Exception
-  HiLink typescriptOpSymbols Operator
+  HiLink typescriptEndColons Normal
+  HiLink typescriptOpSymbols Normal
   HiLink typescriptLogicSymbols Boolean
   HiLink typescriptBraces Function
-  HiLink typescriptParens Operator
+  HiLink typescriptParens Normal
   HiLink typescriptComment Comment
   HiLink typescriptLineComment Comment
   HiLink typescriptRefComment Include
@@ -244,9 +244,9 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptDocComment Comment
   HiLink typescriptCommentTodo Todo
   HiLink typescriptCvsTag Function
-  HiLink typescriptDocTags Special
-  HiLink typescriptDocSeeTag Function
-  HiLink typescriptDocParam Function
+  HiLink typescriptDocTags Comment
+  HiLink typescriptDocSeeTag Comment
+  HiLink typescriptDocParam Comment
   HiLink typescriptStringS String
   HiLink typescriptStringD String
   HiLink typescriptStringB String
@@ -257,7 +257,7 @@ if version >= 508 || !exists("did_typescript_syn_inits")
   HiLink typescriptPrototype Type
   HiLink typescriptConditional Conditional
   HiLink typescriptBranch Conditional
-  HiLink typescriptIdentifier Identifier
+  HiLink typescriptIdentifier Keyword
   HiLink typescriptRepeat Repeat
   HiLink typescriptStatement Statement
   HiLink typescriptFuncKeyword Function
