@@ -57,6 +57,7 @@ transmageddon
 trash-cli
 tree
 umlet
+unrar
 vagrant
 vim-gtk3-py2
 virtualbox
