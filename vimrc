@@ -47,7 +47,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'drmikehenry/vim-fontsize'
 Plug 'godlygeek/tabular'
 Plug 'coderifous/textobj-word-column.vim'
-Plug 'vim-scripts/vim-auto-save'
+Plug '907th/vim-auto-save'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'vim-scripts/Yankitute'
 Plug 'tommcdo/vim-exchange'
@@ -122,7 +122,7 @@ Plug 'andreshazard/vim-freemarker' , { 'for': 'freemarker' }
 Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
-Plug 'tpope/vim-markdown' , { 'for': 'markdown' }
+Plug 'gabrielelana/vim-markdown' , { 'for': 'markdown' }
 
 " Version control
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
@@ -347,12 +347,16 @@ endif
 
 " Show menu when there is more then one item to complete
 " Only insert the longest common text of the matches.
-set completeopt=menuone,preview,longest
+set completeopt=menu,preview,longest
 
 " Make <Tab> select the currently selected choice, same like <CR>
 " If not in completion mode, call snippets expanding function
 imap <expr> <Tab> pumvisible() ? "\<C-y>" : "<Plug>snipMateNextOrTrigger"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+" Compatibility with IDEA
+inoremap <A-/> <c-n>
+inoremap <A-?> <c-p>
 
 " Close preview window
 autocmd CompleteDone * pclose
@@ -462,7 +466,7 @@ cnoremap <RightMouse> <C-r>*
 
 " ===== Opening =====
 " Open current document in browser (save it before)
-nnoremap <leader>o :w<CR>:OpenInVivaldi<CR>
+nnoremap <leader>o :w<CR>:OpenInChrome<CR>
 
 " ===== Open and reload $MYVIMRC =====
 nnoremap <leader>V :split $MYVIMRC<CR>
@@ -587,8 +591,8 @@ nnoremap <leader>. :lcd %:p:h<CR>:echo "CWD changed to ".expand('%:p:h')<CR>
 map <leader>n :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open previous buffer
-noremap <leader>v :vsplit<CR>:bp<CR>
-noremap <leader>s :split<CR>:bp<CR>
+noremap <C-\> :vsplit<CR>:bp<CR>
+noremap <C-S-\> :split<CR>:bp<CR>
 
 " Changing size of windows
 nnoremap <C-Right> :vertical resize +2<CR>
@@ -651,8 +655,10 @@ nmap <S-F7> [c
 "  Appearance shortcuts {{{ ====================================================
 
 " ===== Font size =====
-nnoremap <S-F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
-nnoremap <F12> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) + 1)', '')<CR>
+if has('gui_running')
+    nnoremap <C-kMinus> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) - 1)', '')<CR>
+    nnoremap <C-kPlus> :let &guifont = substitute(&guifont, ':h\(\d\+\)', '\=":h" . (submatch(1) + 1)', '')<CR>
+endif
 
 " ===== Highlighting =====
 " Show highlight groups under cursor
@@ -663,6 +669,7 @@ noremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 " }}}
 "  General commands {{{ ========================================================
+
 
 " ===== Bufferize =====
 " Print output of MORE viewer into buffer
@@ -755,7 +762,7 @@ augroup END
 augroup EDITING
   autocmd!
   " Make it so that a curly brace automatically inserts an indented line
-  autocmd FileType javascript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
+  autocmd FileType javascript,typescript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
 augroup CSS
@@ -827,7 +834,6 @@ augroup TYPESCRIPT
   autocmd FileType typescript call SetupFiletype_TypeScript()
 augroup END
 fun! SetupFiletype_TypeScript()
-  let g:auto_save = 1 
   let g:tsuquyomi_disable_quickfix = 1
   let g:tsuquyomi_completion_detail = 1
   let g:tsuquyomi_javascript_support = 1
@@ -835,7 +841,7 @@ fun! SetupFiletype_TypeScript()
   setlocal softtabstop=2
   setlocal shiftwidth=2
   nnoremap <buffer> <leader>r :call MakeAndRun('node', 'js')<CR>
-  nnoremap <buffer> <C-h> :TsuSearch<Space>
+  nnoremap <buffer> <C-g> :TsuSearch<Space>
   nnoremap <buffer> <C-b> :TsuDefinition<CR>
   nnoremap <buffer> <M-F7> :TsuReferences<CR>
   nnoremap <buffer> <Esc><F7> :TsuReferences<CR>
@@ -869,6 +875,9 @@ command! TMysqlToJira normal vap:g/^+/d<CR>kvipo<ESC>:s/\ \?|/||/g<CR>
 augroup MARKDOWN
   autocmd!
   autocmd FileType modula2  setlocal ft         =markdown
+  autocmd FileType markdown nmap <C-j> /^#<CR>
+  autocmd FileType markdown nmap <C-k> ?^#<CR>
+  autocmd FileType markdown setlocal formatoptions+=j
   autocmd FileType markdown setlocal textwidth  =80
   autocmd FileType markdown setlocal comments=b:*,b:+,n:>,b:-
 
@@ -1084,6 +1093,7 @@ let g:formatters_python = ['autopep8']
 
 " ===== Autosave vim-auto-save =====
 let g:auto_save_in_insert_mode = 0
+let g:auto_save_silent = 1
 augroup AUTOSAVE
   autocmd!
   autocmd FileType javascript,typescript,html,css let g:auto_save = 1
@@ -1093,13 +1103,10 @@ augroup END
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
 nnoremap <C-p> :CtrlPCurWD<CR>
-nnoremap <Leader>p :CtrlPCurWD<CR>
 
 nnoremap <C-e> :CtrlPMRUFiles<CR>
-nnoremap <Leader>m :CtrlPMRUFiles<CR>
 
 nnoremap <C-Tab> :CtrlPBuffer<CR>
-nnoremap <Leader>b :CtrlPBuffer<CR>
 
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site|target|node_modules|bower_components|dist)$',
@@ -1229,7 +1236,9 @@ vmap <F6> <Plug>(openbrowser-smart-search)
 
 
 " ===== Markdown =====
-let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
+" let g:markdown_fenced_languages = ['bat=dosbatch', 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'java', 'sql', 'sh']
+let g:markdown_enable_spell_checking = 0
+let g:markdown_enable_conceal = 1
 
 " ===== NERDTree =====
 let NERDTreeChDirMode=2
@@ -1261,6 +1270,9 @@ let g:restart_sessionoptions = "restartsession"
 
 " ===== SetExecutable =====
 command! SetExecutable :call SetExecutable()<CR>
+
+" ===== Snipmate =====
+imap <C-t> <Plug>snipMateShow
 
 " ===== SuperTab =====
 " let g:SuperTabMappingForward = '<C-space>'
