@@ -35,8 +35,6 @@ neovim
 network-manager-pptp
 network-manager-vpnc
 nmap
-nodejs
-npm
 numlockx
 openvpn
 pandoc
