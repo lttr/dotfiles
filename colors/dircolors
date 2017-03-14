@@ -180,9 +180,9 @@ CHR  37;44
 
 # Orphaned symlinks (blinking white on red)
 # Blink may or may not work (works on iTerm dark or light, and Putty dark)
-ORPHAN  01;32;43
+ORPHAN  31
 # ... and the files that orphaned symlinks point to (blinking white on red)
-MISSING 01;32;43
+MISSING 31
 
 SETGID 30;43 # file that is setgid (g+s)
 CAPABILITY 30;41 # file with capability
