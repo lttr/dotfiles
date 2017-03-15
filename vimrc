@@ -80,9 +80,7 @@ Plug 'wting/gitsessions.vim'
 " Html, xml, css
 Plug 'othree/xml.vim'
 Plug 'othree/html5.vim'
-if has('python')
-  Plug 'Valloric/MatchTagAlways'
-endif
+Plug 'Valloric/MatchTagAlways' , has('python') ? {} : { 'on' : [] }
 Plug 'mattn/emmet-vim'
 Plug 'jvanja/vim-bootstrap4-snippets'
 Plug 'hail2u/vim-css3-syntax'
@@ -106,7 +104,7 @@ Plug 'bdauria/angular-cli.vim'
 " PHP
 Plug 'shawncplus/phpcomplete.vim' , { 'for': 'php' }
 Plug 'StanAngeloff/php.vim' , { 'for': 'php' }
-Plug 'vim-scripts/Nette'
+Plug 'vim-scripts/Nette' , { 'for': 'php' }
 
 " Python
 Plug 'klen/python-mode' , { 'for': 'python' }
