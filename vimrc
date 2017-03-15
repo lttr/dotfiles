@@ -84,7 +84,7 @@ if has('python')
   Plug 'Valloric/MatchTagAlways'
 endif
 Plug 'mattn/emmet-vim'
-Plug 'bonsaiben/bootstrap-snippets' , { 'for': 'html' }
+Plug 'jvanja/vim-bootstrap4-snippets'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less' , { 'for': 'less' }
 Plug 'chrisbra/Colorizer'
@@ -98,8 +98,10 @@ Plug 'elzr/vim-json'
 
 " Typescript
 Plug 'Quramy/tsuquyomi'
+Plug 'Quramy/vim-js-pretty-template'
 Plug 'leafgarland/typescript-vim'
-Plug 'mhartington/vim-angular2-snippets'
+Plug 'magarcia/vim-angular2-snippets'
+Plug 'bdauria/angular-cli.vim'
 
 " PHP
 Plug 'shawncplus/phpcomplete.vim' , { 'for': 'php' }
@@ -840,6 +842,7 @@ fun! SetupFiletype_TypeScript()
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal shiftwidth=2
+  JsPreTmpl html
   nnoremap <buffer> <leader>r :call MakeAndRun('node', 'js')<CR>
   nnoremap <buffer> <C-g> :TsuSearch<Space>
   nnoremap <buffer> <C-b> :TsuDefinition<CR>
@@ -1223,7 +1226,7 @@ let g:goyo_margin_bottom=2 " (default: 4)
 let g:vim_json_syntax_conceal = 0
 
 " ===== javascript-libraries-syntax =====
-let g:used_javascript_libs = 'angular'
+let g:used_javascript_libs = 'angular,angularjs,angularui,angularuirouter,jasmine'
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log'
@@ -1273,6 +1276,9 @@ command! SetExecutable :call SetExecutable()<CR>
 
 " ===== Snipmate =====
 imap <C-t> <Plug>snipMateShow
+let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['html'] = 'bootstrap4'
 
 " ===== SuperTab =====
 " let g:SuperTabMappingForward = '<C-space>'
