@@ -97,6 +97,7 @@ _gen_fzf_default_opts() {
   export FZF_DEFAULT_OPTS="
     --color fg+:$base01,bg+:$base2,hl:$yellow,hl+:$yellow
   "
+  export FZF_CTRL_T_COMMAND='ag -g ""'
 }
 _gen_fzf_default_opts
 
