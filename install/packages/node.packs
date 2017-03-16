@@ -1,0 +1,7 @@
+@angular/cli
+bower
+browser-sync
+grunt-cli
+gulp
+typescript
+yo
