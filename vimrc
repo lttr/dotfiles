@@ -827,6 +827,8 @@ augroup JAVASCRIPT
   autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
   autocmd FileType javascript nnoremap <leader>R :call ExecuteCurrentBufferWithOutput('node')<CR>
   autocmd FileType javascript vnoremap <leader>R <Esc>:call ExecuteVisualSelectionWithOutput('node')<CR>
+  autocmd FileType javascript nnoremap <leader>t :!npm test --silent %<CR>
+  autocmd FileType javascript nnoremap <leader>T :!npm test --silent --recursive<CR>
 augroup END
 
 augroup TYPESCRIPT
@@ -1022,6 +1024,10 @@ augroup sh
   autocmd FileType sh nnoremap <Leader>r :Bexec<CR>
   autocmd FileType sh vnoremap <Leader>r :<C-w>BexecVisual()<CR>
   autocmd FileType sh nnoremap <Leader><Esc> :BexecCloseOut<CR>
+  if has('win32')
+    " Using git-for-windows executable
+    autocmd FileType sh nnoremap <Leader>r :w<CR>:!bash %<CR>
+  endif
 augroup END
 
 
