@@ -1017,7 +1017,7 @@ augroup sh
     let b:shell = 'bash'
   endif
 
-  autocmd FileType sh nnoremap <Leader>e :call ExecuteCurrentLine('bash')
+  autocmd FileType sh nnoremap <Leader>e :call ExecuteCurrentLine('bash')<CR>
   autocmd FileType sh nnoremap <Leader>E V:<C-w>BexecVisual()<CR><Esc>
   autocmd FileType sh nnoremap <Leader>r :Bexec<CR>
   autocmd FileType sh vnoremap <Leader>r :<C-w>BexecVisual()<CR>
