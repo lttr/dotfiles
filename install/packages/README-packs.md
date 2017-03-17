@@ -133,7 +133,8 @@ Note: `yarn` is quicker but `npm` is fine
 
 **installed**
 ```
-yarn global list
+yarn global ls
+yarn global ls --json 2>/dev/null | jq -cr 'select(.type | test("info")) | .data | split("\"")| .[1]'
 ```
 
 **configured**
@@ -151,15 +152,15 @@ comm -23
 
 **install**
 ```
-apt install <missing>
+yarn global add …
 ```
 
 **updatable**
 ```
-apt list --upgradable
+?
 ```
 
 **update**
 ```
-apt full-upgrade
+yarn global upgrade
 ```
