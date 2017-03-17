@@ -374,6 +374,19 @@ call yankstack#setup()
 let mapleader = ','
 let maplocalleader = "\<Space>"
 
+"
+" TEST
+"
+
+" Translate english word
+nnoremap <Leader>tr :silent :OpenBrowser
+      \ https://translate.google.com/?source=osdd#en/cs/
+      \<C-r><C-w><CR>
+
+nnoremap <A-t> vip:TransposeWords<CR>
+nnoremap T" vip:s/"//g<CR>vip:TransposeWords<CR>
+nnoremap T' vip:s/"//g<CR>vip:TransposeWords<CR>
+
 " ===== Change indentation =====
 nnoremap <A-S-H> <<
 nnoremap <A-S-L> >>
@@ -745,11 +758,12 @@ command! XMLSimplify :silent call XMLSimplify()
 " <leader>R = run buffer or selection with output in split window
 " <leader>t = run test
 " <leader>R = run test with output in split window
-" <leader>h = help for current word
 " <leader>k = check style
 " <leader>f = format file
 " <C-CR>    = run current block or line
 " <c-b>     = go to declaration
+
+nnoremap <c-h> K
 
 " ===== Misc filetypes =====
 
@@ -878,8 +892,8 @@ command! TMysqlToJira normal vap:g/^+/d<CR>kvipo<ESC>:s/\ \?|/||/g<CR>
 augroup MARKDOWN
   autocmd!
   autocmd FileType modula2  setlocal ft         =markdown
-  autocmd FileType markdown nmap <C-j> /^#<CR>
-  autocmd FileType markdown nmap <C-k> ?^#<CR>
+  autocmd FileType markdown nnoremap <C-j> /^#<CR>
+  autocmd FileType markdown nnoremap <C-k> ?^#<CR>
   autocmd FileType markdown setlocal formatoptions+=j
   autocmd FileType markdown setlocal textwidth  =80
   autocmd FileType markdown setlocal comments=b:*,b:+,n:>,b:-
@@ -1189,7 +1203,6 @@ augroup fugitive
   nnoremap <Leader>go :Git checkout<Space>
   nnoremap <Leader>gv :Gitv<CR>
   nnoremap <Leader>gf :Gitv!<CR>
-  nnoremap <c-h> :Gitv!<CR>
   command! History :Gitv!<CR>
   command! Log :Gitv<CR>
 augroup END
