@@ -48,8 +48,9 @@ alias df="df -h"
 
 
 # =================================================================
-#                       Edit config files
+#                            Editing
 # =================================================================
+alias e="$EDITOR"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
