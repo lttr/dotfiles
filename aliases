@@ -83,6 +83,9 @@ alias ipy="ipython"
 alias py="python"
 
 alias nr="npm run"
+alias nt="npm test"
+alias ns="npm start"
+alias nb="npm run build"
 
 alias xmlstar="xmlstarlet"
 

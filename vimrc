@@ -644,8 +644,8 @@ endif
 nnoremap gh 40zh
 nnoremap gl 40zl
 " Jump around methods
-nmap <C-j> ]m^
-nmap <C-k> [m^
+nnoremap <C-j> ]m^
+"nnoremap <C-k> [m^
 " Hide every except current window
 nnoremap <C-S-F12> :only<CR>
 nnoremap <C-F12> :echo 'outline'<CR>
@@ -835,6 +835,9 @@ augroup JAVASCRIPT
   autocmd FileType javascript,json setlocal tabstop=2
   autocmd FileType javascript,json setlocal softtabstop=2
   autocmd FileType javascript,json setlocal shiftwidth=2
+
+  autocmd Filetype javascript nnoremap <C-j> j/=\? \?fun<CR>:set nohls<CR>:let @/ = ""<CR>0
+  autocmd Filetype javascript nnoremap <C-k> /=\? \?fun<CR>N:set nohls<CR>:let @/ = ""<CR>0
   autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
   autocmd Filetype javascript nnoremap <leader>e :call ExecuteCurrentLine('node -e')<CR>
   autocmd Filetype javascript nnoremap <leader>r :call ExecuteCurrentBuffer('node')<CR>
