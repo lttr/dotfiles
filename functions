@@ -202,6 +202,19 @@ fo() {
   fi
 }
 
+# Interactive search in files, open in vim on selected line
+# Ignores lines not matching "\w"
+fa() {
+    local out tokens file line
+    out=$(ag --nobreak --noheading --nocolor "\w" . | fzf --exit-0)
+    IFS=':' tokens=( $out )
+    file=${tokens[1]}
+    line=${tokens[2]}
+    if [ -n "$out" ]; then
+        vim "$file" +${line} +"setlocal cursorline"
+    fi
+}
+
 
 # =================================================================
 #                              Git
