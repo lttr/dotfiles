@@ -247,18 +247,24 @@ URxvt.saveLines:          10000
 
 URxvt.perl-ext-common:    default,selection-to-clipboard,pasta,matcher,searchable-scrollback,keyboard-select,resize-font
 
-URxvt.urlLauncher:        /usr/bin/vivaldi
+URxvt.url-launcher:       /usr/bin/vivaldi
 URxvt.underlineURLs:      True
 URxvt.matcher.button:     1 
+URxvt.keysym.M-u:         perl:matcher:last
+URxvt.keysym.M-m:         perl:matcher:list
 
 URxvt.keysym.Control-Shift-V:   perl:pasta:paste
 URxvt.clipboard.autocopy: true
 URxvt.selectToClipboard:  true
 
-URxvt.intensityStyles: false
+! keyboard-select
+URxvt.keysym.M-v:         perl:keyboard-select:activate
+URxvt.keysym.M-r:         perl:keyboard-select:search
+
+URxvt.intensityStyles:    false
 
 ! Disable Ctrl+Shift default functionality
-URxvt.iso14755 : false
+URxvt.iso14755 :          false
 
 ! Terminal colors
 ! Based on https://github.com/solarized/xresources/blob/master/Xresources.light

@@ -119,6 +119,16 @@ antibody bundle < ~/dotfiles/antibody/bundles.txt
 eval "$(fasd --init auto)"
 
 
+# =================================================================
+#                          Directories
+# =================================================================
+
+# Save current working directory into file.
+# Called by zsh every time current working directory is changed.
+chpwd() {
+  echo "$PWD" > ~/.cwd
+}
+
 
 # =================================================================
 #                          Local config

@@ -287,6 +287,7 @@ bindsym $mod+Ctrl+Shift+Right move workspace to output right
 # Terminal
 # bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+Return exec urxvt -cd `cat ~/.cwd`
 
 # File explorer
 bindsym $mod+e exec nautilus
