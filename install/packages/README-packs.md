@@ -127,7 +127,7 @@ apt list --upgradable
 sudo apt full-upgrade
 ```
 
-### Ubuntu
+### Node
 
 Note: `yarn` is quicker but `npm` is fine
 
@@ -163,4 +163,40 @@ yarn global add …
 **update**
 ```
 yarn global upgrade
+```
+
+### Python
+
+**installed**
+```
+pip list
+pip list 2>/dev/null | awk '{print $1}' | sort
+```
+
+**configured**
+```
+cat python.packs
+cat python.packs | sort
+```
+
+**missing**
+```
+comm -13 \
+  <(pip list 2>/dev/null | awk '{print $1}' | sort) \
+  <(cat python.packs | sort)
+```
+
+**install**
+```
+pip install -r python.packs
+```
+
+**updatable**
+```
+pip list --outdated
+```
+
+**update**
+```
+pip install --requirement python.packs --upgrade
 ```
