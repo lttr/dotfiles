@@ -42,3 +42,6 @@ export LC_IDENTIFICATION=cs_CZ.UTF-8
 export VAGRANT_HOME=~/vagrants/vagrant.d
 
 export PURE_CMD_MAX_EXEC_TIME=10000
+
+# Force zsh to jump over words as in bash (using M-f and M-b on command line)
+export WORDCHARS=''
