@@ -444,10 +444,7 @@ if ! has('gui_running')
 endif
 
 " ===== Execute (run) part of buffer =====
-nnoremap <F2> :exec getline('.')<CR>
-vnoremap <F2> "cy:<c-u>exe getreg("c")<CR>
-nnoremap <S-F2> :exec '!'.getline('.')<CR>
-vnoremap <S-F2> "cy:<c-u>exe '!'.getreg("c")<CR>
+nnoremap <F2> :call ExecuteCurrentLine('bash -c')<CR>
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
