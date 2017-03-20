@@ -14,13 +14,13 @@ _If I want to install and update everything just **process** my configuration._
 
 I want to perform following actions for every group of packages
 
-* list installed packages `packs installed <type>`
-* list packages that should be installed according to configuration `packs configured <type>`
-* list missing packages according to configuration `packs missing <type>`
-* install packages which are not yet installed and list them `packs install <type>`
-* list packages that are installed but can be updated `packs updatable <type>`
-* update packages and list which got update `packs update <type>`
-* process everything `packs process <type>`
+* List installed packages `packs installed <type>`
+* List packages that should be installed according to configuration `packs configured <type>`
+* List missing packages according to configuration `packs missing <type>`
+* Install packages which are not yet installed and list them `packs install <type>`
+* List packages that are installed but can be updated `packs updatable <type>`
+* Update packages and list which got update `packs update <type>`
+* Install everything missing and update every package `packs process <type>`
 
 `<type>` is the package type or keyword `all` for every known type.
 
@@ -83,7 +83,6 @@ if check_custom_app 'antibody'; then
 fi
 if check_custom_app 'fzf'; then
     git clone --depth 1 https://github.com/junegunn/fzf.git
-    fzf/install
 fi
 ```
 
@@ -157,7 +156,8 @@ yarn global add …
 
 **updatable**
 ```
-?
+! not implemented in yarn yet (3/2017) !
+yarn global outdated
 ```
 
 **update**
@@ -196,7 +196,99 @@ pip install -r python.packs
 pip list --outdated
 ```
 
+extra
+```
+comm -23 \
+  <(pip list 2>/dev/null | awk '{print $1}' | sort) \
+  <(cat python.packs | sort)
+```
+
+
 **update**
 ```
 pip install --requirement python.packs --upgrade
+```
+
+### Zsh plugins
+
+
+**installed**
+```
+antibody list
+antibody list | awk -F'-SLASH-' '{print $4"/"$5}' | sort
+```
+
+**configured**
+```
+cat zsh.packs
+```
+
+**missing**
+```
+comm -13 \
+  <(antibody list | awk -F'-SLASH-' '{print $4"/"$5}' | sort) \
+  <(cat zsh.packs | sort)
+```
+
+**install**
+```
+git submodule add
+```
+
+**updatable**
+```
+cd `antibody home`
+git-rs (recursive status)
+```
+
+**update**
+```
+antibody update
+```
+
+**extra**
+```
+comm -23 \
+  <(antibody list | awk -F'-SLASH-' '{print $4"/"$5}' | sort) \
+  <(cat zsh.packs | sort)
+```
+
+
+### Submodules
+
+Git submodules are hard and error prone. Better to understand them well and
+manage them with git commands.
+
+**installed**
+```
+git submodule foreach
+```
+
+**configured**
+```
+git config --file .gitmodules --name-only --get-regexp path
+cat .gitmodules
+```
+
+**missing**
+```
+git config --get-regexp submodule
+git submodule status --recursive | grep '^-'
+```
+
+**install**
+```
+git submodule add
+```
+
+**updatable**
+```
+git config status.submoduleSummary true
+git status
+git submodule status --recursive
+```
+
+**update**
+```
+git submodule update --init
 ```
