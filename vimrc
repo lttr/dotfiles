@@ -114,6 +114,8 @@ Plug 'metakirby5/codi.vim'
 Plug 'janko-m/vim-test'
 Plug 'Shebang'
 Plug 'fboender/bexec'
+Plug 'glts/vim-magnum'
+Plug 'glts/vim-radical'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -444,7 +446,7 @@ if ! has('gui_running')
 endif
 
 " ===== Execute (run) part of buffer =====
-nnoremap <F2> :call ExecuteCurrentLine('bash -c')<CR>
+nnoremap <Leader>E :call ExecuteCurrentLine('bash -c')<CR>
 
 " ===== Exiting =====
 " Quit buffer without closing the window (plugin Bbye)
@@ -761,6 +763,10 @@ command! XMLSimplify :silent call XMLSimplify()
 " <c-b>     = go to declaration
 
 nnoremap <c-h> K
+nnoremap <F2> :cnext<CR>
+nnoremap <S-F2> :cprevious<CR>
+nnoremap <F3> :lnext<CR>
+nnoremap <S-F3> :lprevious<CR>
 
 " ===== Misc filetypes =====
 
@@ -778,6 +784,9 @@ augroup END
 
 augroup CSS
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  let g:colorizer_auto_filetype='css'
+  let g:colorizer_x11_names = 1
+  autocmd BufRead,BufNewFile *.css :ColorSwapFgBg
 augroup END
 
 augroup DOSBATCH
@@ -795,7 +804,7 @@ augroup HTML
   autocmd FileType html,xml setlocal softtabstop=2
   autocmd FileType html,xml setlocal shiftwidth=2
   autocmd FileType html,xml setlocal smartindent
-  autocmd FileType html map <F3> :call JumpToCSS()<CR>
+  autocmd FileType html nnoremap <C-b> :call JumpToCSS()<CR>
 
   " previous tag on same indentation level
   autocmd FileType html,xml nnoremap <C-k> ?^\s\{<C-r>=indent(".")<CR>}\S\+<CR>nww
@@ -860,10 +869,11 @@ fun! SetupFiletype_TypeScript()
   nnoremap <buffer> <leader>r :call MakeAndRun('node', 'js')<CR>
   nnoremap <buffer> <C-g> :TsuSearch<Space>
   nnoremap <buffer> <C-b> :TsuDefinition<CR>
-  nnoremap <buffer> <M-F7> :TsuReferences<CR>
+  nnoremap <buffer> <C-S-G> :TsuReferences<CR>
+  nnoremap <buffer> <A-F7> :TsuReferences<CR>
   nnoremap <buffer> <Esc><F7> :TsuReferences<CR>
   nnoremap <buffer> <S-F6> :TsuquyomiRenameSymbol<CR><C-r><C-w>
-  nnoremap <buffer> <Leader>h : <C-u>echo tsuquyomi#hint()<CR>
+  nnoremap <buffer> <C-h> : <C-u>echo tsuquyomi#hint()<CR>
 endfun
 
 augroup JSON
