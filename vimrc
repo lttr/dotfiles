@@ -125,6 +125,8 @@ Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
 Plug 'gabrielelana/vim-markdown' , { 'for': 'markdown' }
+Plug 'blockloop/vim-swigjs', { 'for': 'swig' }
+Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 
 " Version control
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
@@ -1105,6 +1107,14 @@ augroup xml
   autocmd FileType xml vnoremap <leader>f :!xmlstarlet fo -s 4<CR>
   " check if XML is wellformed
   command! Wellformed :!xmllint --noout %<CR>
+augroup END
+
+
+augroup YAML
+  autocmd!
+  autocmd FileType yaml setlocal tabstop=2
+  autocmd FileType yaml setlocal softtabstop=2
+  autocmd FileType yaml setlocal shiftwidth=2
 augroup END
 
 " }}}
