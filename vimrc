@@ -63,6 +63,7 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'triglav/vim-visual-increment'
 Plug 'tpope/vim-unimpaired'
+Plug 'osyo-manga/vim-over'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
@@ -116,6 +117,7 @@ Plug 'Shebang'
 Plug 'fboender/bexec'
 Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
+Plug 'kannokanno/previm'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -577,6 +579,8 @@ nnoremap gV `[v`]
 " Surround current word
 nnoremap <LocalLeader>" m`viw<esc>a"<esc>hbi"<esc>lel``
 nnoremap <LocalLeader>' m`viw<esc>a'<esc>hbi'<esc>lel``
+" Surround character with space
+nnoremap g<Space> i<Space><Esc>la<Space><Esc>h
 " Toggle between single and double quotes
 nnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``:set nohls<CR>
 vnoremap g' m`:s#['"]#\={"'":'"','"':"'"}[submatch(0)]#g<CR>``:set nohls<CR>
@@ -831,11 +835,11 @@ augroup JAVA
   autocmd!
   autocmd BufRead,BufNewFile *.jshell set filetype=java
   autocmd BufRead,BufNewFile *.jsh set filetype=java
-  autocmd Filetype java set makeprg=javac\ %
+  autocmd Filetype java set makeprg=javac\ -cp\ \".;*\"\ %
   autocmd Filetype java set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-  autocmd Filetype java nnoremap <buffer> <leader>c :w<CR>:make<CR>:cwindow<CR><CR>
-  autocmd Filetype java nnoremap <buffer> <leader>r :call RunJava()<CR>
-  autocmd Filetype java nnoremap <buffer> <leader>R :call RunJavaWithOutput()<CR>
+  autocmd Filetype java nnoremap <buffer> <leader>c :call MyMake()<CR>
+  autocmd Filetype java nnoremap <buffer> <leader>r :call MakeAndRun('java -cp ".;*"', '')<CR>
+  autocmd Filetype java nnoremap <buffer> <leader>R :call MakeAndRunClam('java -cp ".;*"', '')<CR>
 augroup END
 
 augroup JAVASCRIPT
@@ -848,9 +852,9 @@ augroup JAVASCRIPT
   autocmd Filetype javascript nnoremap <C-k> /=\? \?fun<CR>N:set nohls<CR>:let @/ = ""<CR>0
   autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
   autocmd Filetype javascript nnoremap <leader>e :call ExecuteCurrentLine('node -e')<CR>
-  autocmd Filetype javascript nnoremap <leader>r :call ExecuteCurrentBuffer('node')<CR>
+  autocmd Filetype javascript nnoremap <leader>r :call MyRun('node')<CR>
   autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
-  autocmd FileType javascript nnoremap <leader>R :call ExecuteCurrentBufferWithOutput('node')<CR>
+  autocmd FileType javascript nnoremap <leader>R :call MyRunClam('node')<CR>
   autocmd FileType javascript vnoremap <leader>R <Esc>:call ExecuteVisualSelectionWithOutput('node')<CR>
   autocmd FileType javascript nnoremap <leader>t :!npm test --silent %<CR>
   autocmd FileType javascript nnoremap <leader>T :!npm test --silent --recursive<CR>
@@ -869,6 +873,8 @@ fun! SetupFiletype_TypeScript()
   setlocal shiftwidth=2
   JsPreTmpl html
   nnoremap <buffer> <leader>r :call MakeAndRun('node', 'js')<CR>
+  nnoremap <buffer> <leader>R :call MakeAndRunClam('node', 'js')<CR>
+  nnoremap <buffer> <leader>c :call MyMake()<CR>
   nnoremap <buffer> <C-g> :TsuSearch<Space>
   nnoremap <buffer> <C-b> :TsuDefinition<CR>
   nnoremap <buffer> <C-S-G> :TsuReferences<CR>
@@ -1089,16 +1095,9 @@ command! MSDN :silent :OpenBrowser
       \ http://social.msdn.microsoft.com/Search/en-US?query=
       \ <C-r><C-w><CR>
 
-augroup VIM
-  autocmd!
-  autocmd FileType vim call SetupFiletype_Vim()
-augroup END
-fun! SetupFiletype_Vim()
-  setlocal foldmethod=marker
-  setlocal tabstop=2
-  setlocal softtabstop=2
-  setlocal shiftwidth=2
-endfun
+" ===== VIM =====
+autocmd Filetype vim setlocal ts=2 sts=2 sw=2
+autocmd Filetype vim setlocal foldmethod=marker
 
 " ===== XML (and HTML) =====
 augroup xml
@@ -1280,6 +1279,12 @@ vmap <F6> <Plug>(openbrowser-smart-search)
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_conceal = 1
 
+" ===== Multiple cursors =====
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
+let g:multi_cursor_next_key='<C-m>'
+nnoremap gm :MultipleCursorsFind <C-r><C-w><CR>
+
 " ===== NERDTree =====
 let NERDTreeChDirMode=2
 let NERDTreeQuitOnOpen=1
@@ -1409,35 +1414,82 @@ function! RunJava()
   endif
 endfunction
 
-function! RunTypeScript()
-  silent write
-  lcd %:p:h
-  silent! make
-  botright cwindow
-  normal <CR>
+function! MakeAndRun(...)
+  call MyMake()
+  " If no errors run
   if (len(getqflist()) < 1)
-    let s = system('node ' . expand('%:r') . '.js')
-    echo ' '
-    echo s
-    echo ' '
+    " Pass the first optional argument
+    call call("MyRun", a:000)
   endif
 endfunction
 
-function! MakeAndRun(interpreter, extension)
+function! MakeAndRunClam(...)
+  call MyMake()
+  " If no errors run
+  if (len(getqflist()) < 1)
+    " Pass the first optional argument
+    call call("MyRunClam", a:000)
+  endif
+endfunction
+
+function! MyMake()
   silent write
   lcd %:p:h
   silent! make
   botright cwindow
   normal <CR>
-  if (len(getqflist()) < 1)
-    let ext = ''
-    if (len(a:extension) > 0)
-      let ext = '.' . a:extension
+endfunction
+
+function! MyRun(...)
+  silent write
+  if (a:0 < 1)
+    let l:out = "Missing first argument: the interpreter name."
+  elseif (a:0 == 1)
+    let l:interpreter = a:1
+    let l:out = system(l:interpreter . ' ' . expand('%'))
+  elseif (a:0 == 2)
+    " When given extra argument, run with it as different extension,
+    " or no extension at all, it is an empty string
+    let l:interpreter = a:1
+    let l:extension = a:2
+    if (l:extension == '')
+      let l:out = system(l:interpreter . ' ' . expand('%:r'))
+    else
+      let l:out = system(l:interpreter . ' ' . expand('%:r') . '.' . l:extension)
     endif
-    let s = system(a:interpreter . ' ' . expand('%:r') . ext)
-    echo ' '
-    echo s
-    echo ' '
+  elseif (a:0 > 2)
+    let l:out = "Too many arguments."
+  endif
+  echo ' '
+  echo l:out
+  echo ' '
+endfunction
+
+function! MyRunClam(...)
+  silent write
+  if (a:0 < 1)
+    echo "Missing first argument: the interpreter name."
+  elseif (a:0 == 1)
+    let l:interpreter = a:1
+    exe 'Clam ' . l:interpreter . ' ' . expand('%')
+    call cursor('$', 1)
+    wincmd w
+  elseif (a:0 == 2)
+    " When given extra argument, run with it as different extension,
+    " or no extension at all, it is an empty string
+    let l:interpreter = a:1
+    let l:extension = a:2
+    if (l:extension == '')
+      exe 'Clam ' . l:interpreter . ' ' . expand('%:r')
+      call cursor('$', 1)
+      wincmd w
+    else
+      exe 'Clam ' . l:interpreter . ' ' . expand('%:r') . '.' . l:extension
+      call cursor('$', 1)
+      wincmd w
+    endif
+  elseif (a:0 > 2)
+    echo "Too many arguments."
   endif
 endfunction
 

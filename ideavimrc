@@ -33,8 +33,11 @@ vnoremap < <gv
 vnoremap > >gv
 
 " ===== Editing =====
-nnoremap <space>; m`A;<esc>``
-nnoremap <space>, m`A,<esc>``
+nnoremap <space>; A;<Esc>
+nnoremap <space>, A,<Esc>
+
+nnoremap gm :action VimPluginToggle<CR>:action SelectAllOccurrences<CR>
+nnoremap <C-m> :action SelectNextOccurrence<CR>
 
 " ===== Searching and replacing =====
 
