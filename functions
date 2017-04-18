@@ -74,6 +74,8 @@ open_smart() {
             # parent terminal exits
             ( xdg-open "$name" &>/dev/null & )
         fi
+    elif [[ -d "$1" ]]; then
+        ( xdg-open "$1" &>/dev/null & )
     else
         echo "No file called '$name' found."
     fi
