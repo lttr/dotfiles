@@ -507,6 +507,7 @@ nnoremap <LocalLeader>, m`:s/,\?$/\=submatch(0) == ',' ? '' : ','/<CR>``
 noremap  <C-s> :update<CR>
 vnoremap <C-s> <C-C>:update<CR>
 inoremap <C-s> <Esc>:update<CR>
+nnoremap coS :AutoSaveToggle<CR>
 
 command! E normal :silent w<CR>:silent e<CR>
 
@@ -531,7 +532,7 @@ vnoremap gY y/\c<C-r>"<CR><C-o>:set hls<CR>cgn
 " Go substitute
 vnoremap gs y:set hls<CR>/<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>
 " Go substitute word
-nnoremap gs :set hls<CR>*#:%s/\<<C-r>"\>//g<Left><Left>
+nnoremap gs :set hls<CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
@@ -546,6 +547,9 @@ nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
 
 " Project wide search
 nnoremap <C-f> :Ag<Space>
+
+" Interactive replace
+nnoremap <M-S-R> :OverCommandLine<CR>%s/
 
 " ===== Swaping =====
 " Source http://vim.wikia.com/wiki/Swapping_characters,_words_and_lines
