@@ -13,6 +13,7 @@
     ~/.config/ranger/commands.py: ranger/commands.py
     ~/.config/ranger/rc.conf: ranger/rc.conf
     ~/.config/ranger/rifle.conf: ranger/rifle.conf
+    ~/.config/ranger/scope.sh: ranger/scope.sh
     ~/.gitconfig: gitconfig
     ~/.ideavimrc: ideavimrc
     ~/.kdiff3rc: kdiff3rc
