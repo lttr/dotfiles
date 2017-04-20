@@ -198,7 +198,7 @@ bindsym $mod+u [urgent=latest] focus
 
 # Focus applications
 bindsym $mod+t [class="Doublecmd"] focus
-bindsym $mod+a [class="Vivaldi*"] focus
+bindsym $mod+a [class="Google-chrome"] focus
 
 
 # =================================================================
@@ -374,6 +374,7 @@ assign [class="jetbrains-idea"] → $ws_code
 for_window [class="vivaldi*"] border none
 for_window [class="Doublecmd"] border none
 for_window [class="Google-chrome"] border none
+for_window [class="brave"] border none
 for_window [class="Image*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
@@ -451,7 +452,7 @@ bindsym Ctrl+Shift+Print exec scrot -s -e 'mv $f ~/tasks/$f'
 # =================================================================
 
 # Vivaldi browser
-exec --no-startup-id vivaldi
+exec --no-startup-id google-chrome
 
 # Daemons
 exec dropbox start
