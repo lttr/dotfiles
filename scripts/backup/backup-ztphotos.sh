@@ -12,7 +12,7 @@ DIRS=(
 
 TARGET=/media/${BACKUP_DISK_MOUNTPOINT}/backups/${BACKUP_NAME}-${BACKUP_FREQUENCY}/
 
-LOG_FILE=~/.cache/rsync-backup-${BACKUP_NAME}-${BACKUP_FREQUENCY}.log
+LOG_FILE=/home/lukas/.cache/rsync-backup-${BACKUP_NAME}-${BACKUP_FREQUENCY}.log
 
 
 mkdir -p $TARGET
