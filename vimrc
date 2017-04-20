@@ -127,7 +127,7 @@ Plug 'vobornik/vim-mql4' , { 'for': 'mql4' }
 Plug 'vim-scripts/dbext.vim' , { 'for': 'sql' }
 Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
 Plug 'gabrielelana/vim-markdown' , { 'for': 'markdown' }
-Plug 'blockloop/vim-swigjs', { 'for': 'swig' }
+Plug 'blockloop/vim-swigjs', { 'for': 'html' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 
 " Version control
@@ -547,6 +547,7 @@ nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
 
 " Project wide search
 nnoremap <C-f> :Ag<Space>
+vnoremap <C-f> :<C-u>Ag<Space><C-r>*
 
 " Interactive replace
 nnoremap <M-S-R> :OverCommandLine<CR>%s/
@@ -916,8 +917,7 @@ augroup MARKDOWN
   autocmd FileType modula2  setlocal ft         =markdown
   autocmd FileType markdown nnoremap <C-j> /^#<CR>
   autocmd FileType markdown nnoremap <C-k> ?^#<CR>
-  autocmd FileType markdown setlocal formatoptions+=j
-  autocmd FileType markdown setlocal textwidth  =80
+  autocmd FileType markdown setlocal formatoptions=jlnr1
   autocmd FileType markdown setlocal comments=b:*,b:+,n:>,b:-
 
   autocmd FileType markdown command! Outline :Voom markdown
