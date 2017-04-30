@@ -24,7 +24,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
         # set as progressive jpg
             # -gaussian-blur $BLUR \
         mogrify \
-            -resize $RESOLUTION \
+            -resize "${RESOLUTION}x${RESOLUTION}>" \
             -quality $QUALITY \
             -interlace Plane \
             "$arg"
