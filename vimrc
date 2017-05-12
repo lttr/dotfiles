@@ -94,7 +94,7 @@ Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
 Plug 'elzr/vim-json'
-" Plug 'bendavis78/vim-polymer'
+Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
 
 " Typescript
 Plug 'Quramy/tsuquyomi'
