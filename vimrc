@@ -90,10 +90,11 @@ Plug 'chrisbra/Colorizer'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim' , { 'for': 'javascript' }
+Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
 Plug 'elzr/vim-json'
+" Plug 'bendavis78/vim-polymer'
 
 " Typescript
 Plug 'Quramy/tsuquyomi'
@@ -344,16 +345,15 @@ inoremap <C-Space> <C-x><C-o><Down>
 imap <C-@> <C-Space>
 
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-        \	if &omnifunc == "" |
-        \	setlocal omnifunc=syntaxcomplete#Complete |
-        \	endif
-endif
+" if has("autocmd") && exists("+omnifunc")
+"   autocmd Filetype *
+"         \	if &omnifunc == "" |
+"         \	setlocal omnifunc=syntaxcomplete#Complete |
+"         \	endif
+" endif
 
 " Show menu when there is more then one item to complete
-" Only insert the longest common text of the matches.
-set completeopt=menu,preview,longest
+set completeopt=menu,preview
 
 " Make <Tab> select the currently selected choice, same like <CR>
 " If not in completion mode, call snippets expanding function
@@ -361,8 +361,8 @@ imap <expr> <Tab> pumvisible() ? "\<C-y>" : "<Plug>snipMateNextOrTrigger"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Compatibility with IDEA
-inoremap <A-/> <c-n>
-inoremap <A-?> <c-p>
+inoremap <A-/> <c-n><Down>
+inoremap <A-?> <c-p><Down>
 
 " Close preview window
 autocmd CompleteDone * pclose
@@ -436,7 +436,7 @@ inoremap <C-V> <Esc>"+p
 " paste over in visual mode
 vnoremap <C-V> d"+gP
 " Replace current word with yanked or deleted text (stamping)
-nnoremap s "_diwP
+nnoremap s "_diwPb
 vnoremap s "_dP
 " Don't yank the contents of an overwritten selection (reyank the original content)
 " xnoremap p "_dP
@@ -870,9 +870,6 @@ augroup TYPESCRIPT
   autocmd FileType typescript call SetupFiletype_TypeScript()
 augroup END
 fun! SetupFiletype_TypeScript()
-  let g:tsuquyomi_disable_quickfix = 1
-  let g:tsuquyomi_completion_detail = 1
-  let g:tsuquyomi_javascript_support = 1
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal shiftwidth=2
@@ -1266,7 +1263,7 @@ let g:goyo_margin_bottom=2 " (default: 4)
 let g:vim_json_syntax_conceal = 0
 
 " ===== javascript-libraries-syntax =====
-let g:used_javascript_libs = 'angular,angularjs,angularui,angularuirouter,jasmine'
+let g:used_javascript_libs = 'angular,angularjs,angularui,angularuirouter,jasmine,chai,react,d3'
 
 " ===== LogViewer =====
 let g:LogViewer_Filetypes = 'log'
@@ -1342,6 +1339,11 @@ let g:syntastic_mode_map = {
 " ===== Table Mode =====
 let g:table_mode_corner     = "|"
 let g:table_mode_align_char = ":"
+
+" ===== Tsuquyomi =====
+let g:tsuquyomi_disable_quickfix = 1
+let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_javascript_support = 1
 
 " ===== Vim-markdown =====
 let g:vim_markdown_folding_disabled=1
