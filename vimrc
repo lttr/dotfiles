@@ -341,7 +341,7 @@ hi LineNr guifg=#c2c0ba ctermfg=250
 "     \ "\"\\<lt>C-n>\\<lt>C-p>\\<lt>C-n>\" :" .
 "     \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
 
-inoremap <C-Space> <C-x><C-o><Down>
+inoremap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
 
 " function to call when Ctrl-X Ctrl-O pressed in Insert mode
