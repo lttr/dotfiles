@@ -303,7 +303,7 @@ if version >= 508 || !exists("did_javascript_syn_inits")
   HiLink jsClassKeyword         Keyword
   HiLink jsExtendsKeyword       Keyword
   HiLink jsThis                 Special
-  HiLink jsSuper                Constant
+  HiLink jsSuper                Keyword
   HiLink jsNan                  Number
   HiLink jsNull                 Type
   HiLink jsUndefined            Type
@@ -330,8 +330,8 @@ if version >= 508 || !exists("did_javascript_syn_inits")
   HiLink jsSwitchBraces         Noise
   HiLink jsSpecial              Special
   HiLink jsTemplateBraces       Noise
-  HiLink jsGlobalObjects        Constant
-  HiLink jsGlobalNodeObjects    Constant
+  HiLink jsGlobalObjects        Special
+  HiLink jsGlobalNodeObjects    Special
   HiLink jsExceptions           Constant
   HiLink jsBuiltins             Constant
   HiLink jsImport               Include
