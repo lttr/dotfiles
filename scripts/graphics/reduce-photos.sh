@@ -47,7 +47,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
             -quality $QUALITY \
             -auto-orient \
             -interlace Plane \
-            "$STRIP" \
             "$arg"
 
     done
