@@ -160,8 +160,9 @@ alias -g G="| grep -i"
 alias -g H="| head"
 alias -g T="| tail"
 alias -g L="| less -FiMRX"
-alias -g A="| ag -i"
+alias -g A="| ag --smart-case --color-match '30;47'"
 alias -g C="| wc -l"
+alias -g F="| fpp"
 
 # Images
 alias -s gif=gthumb
