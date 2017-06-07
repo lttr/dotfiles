@@ -12,6 +12,7 @@
 
 autoload -U history-search-end
 autoload -U zmv
+autoload -U compinit && compinit -i
 
 
 # =================================================================
@@ -53,6 +54,9 @@ zstyle ':completion:*' matcher-list '' \
   'm:{a-z\-}={A-Z\_}' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
+
+
+fpath=(~/.zsh/completion $fpath)
 
 
 # =================================================================
