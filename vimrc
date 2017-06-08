@@ -60,7 +60,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/visSum.vim'
 Plug 'vim-scripts/matchit.zip'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors' , { 'on': 'MultipleCursorsFind' }
 Plug 'triglav/vim-visual-increment'
 Plug 'tpope/vim-unimpaired'
 Plug 'osyo-manga/vim-over'
@@ -468,12 +468,6 @@ nmap <LocalLeader>+ O<ESC>65i=<ESC>gccjo<ESC>65i=<ESC>gccyiwk:center 64<CR>0Pjj
 nmap <LocalLeader>- Oi<Esc>gcclDjgccwvUoi<Esc>gcclDj
 nmap <LocalLeader>_ I<space><ESC>A<space><ESC>05i=<ESC>$5a=<ESC>gcc
 
-" ===== Macros =====
-" Execute macro recursively -> qqqqq <do something> @qq@q
-" Execute macro over matching lines -> :g/<match>/normal @q
-" Execute macro over selected lines
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
 " ===== Mouse buttons =====
 " Set right mouse button to do paste
 nnoremap <RightMouse> "*p
@@ -873,6 +867,7 @@ fun! SetupFiletype_TypeScript()
   setlocal tabstop=2
   setlocal softtabstop=2
   setlocal shiftwidth=2
+  setlocal makeprg=tsc\ --target=es5\ $*\ %
   JsPreTmpl html
   nnoremap <buffer> <leader>r :call MakeAndRun('node', 'js')<CR>
   nnoremap <buffer> <leader>R :call MakeAndRunClam('node', 'js')<CR>
@@ -1361,7 +1356,7 @@ let xml_no_html = 1
 let g:zv_zeal_directory = "C:\\Program Files (x86)\\zeal\\zeal.exe"
 
 " }}}
-"  Functions {{{ ===============================================================
+"  Utility functions {{{ ===============================================================
 
 fun! ExecuteCurrentLine(program)
   silent let s = system( a:program . ' ' . shellescape(getline(".")) )
@@ -1679,69 +1674,6 @@ function! s:Echo(cmd)
   put e
 endfunction
 
-" ===== Script to save gvim window position =====
-if has('gui_running')
-  function! ScreenFilename()
-    if has('amiga')
-      return "s:.vimsize"
-    elseif has('win32')
-      return $HOME.'\_vimsize'
-    else
-      return $HOME.'/.vimsize'
-    endif
-  endfunction
-
-  function! ScreenRestore()
-    " Restore window size (columns and lines) and position
-    " from values stored in vimsize file.
-    " Must set font first so columns and lines are based on font size.
-    let f = ScreenFilename()
-    if has('gui_running') && g:screen_size_restore_pos && filereadable(f)
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      for line in readfile(f)
-        let sizepos = split(line)
-        if len(sizepos) == 5 && sizepos[0] == vim_instance
-          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
-          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
-          return
-        endif
-      endfor
-    endif
-  endfunction
-
-  function! ScreenSave()
-    " Save window size and position.
-    if has('gui_running') && g:screen_size_restore_pos
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
-            \ (getwinposx()<0?0:getwinposx()) . ' ' .
-            \ (getwinposy()<0?0:getwinposy())
-      let f = ScreenFilename()
-      if filereadable(f)
-        let lines = readfile(f)
-        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
-        call add(lines, data)
-      else
-        let lines = [data]
-      endif
-      call writefile(lines, f)
-    endif
-  endfunction
-
-  if !exists('g:screen_size_restore_pos')
-    let g:screen_size_restore_pos = 1
-  endif
-  if !exists('g:screen_size_by_vim_instance')
-    let g:screen_size_by_vim_instance = 1
-  endif
-  augroup vimgui
-    autocmd!
-    autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-    autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
-  augroup END
-endif
-" End of position saving script
-
 " ===== Toggle slashes =====
 " http://vim.wikia.com/wiki/Change_between_backslash_and_forward_slash
 function! ToggleSlash(independent) range
@@ -1849,24 +1781,6 @@ function! DBextPostResult(db_type, buf_nr)
   echom l:msg
 endfunction
 
-" Source https://gist.github.com/iburago/734422
-function! ToggleIndentGuidesSpaces()
-  if exists('b:iguides_spaces')
-    call matchdelete(b:iguides_spaces)
-    unlet b:iguides_spaces
-  else
-    let pos = range(1, &l:textwidth, &l:shiftwidth)
-    call map(pos, '"\\%" . v:val . "v"')
-    let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
-    let b:iguides_spaces = matchadd('CursorLine', pat)
-  endif
-endfunction
-
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
 function! Expander()
   let line   = getline(".")
   let col    = col(".")
@@ -1884,3 +1798,68 @@ function! Expander()
   endif
 endfunction
 
+" }}}
+"  Behaviour {{{ ===============================================================
+
+" ===== Script to save gvim window position =====
+if has('gui_running')
+  function! ScreenFilename()
+    if has('amiga')
+      return "s:.vimsize"
+    elseif has('win32')
+      return $HOME.'\_vimsize'
+    else
+      return $HOME.'/.vimsize'
+    endif
+  endfunction
+
+  function! ScreenRestore()
+    " Restore window size (columns and lines) and position
+    " from values stored in vimsize file.
+    " Must set font first so columns and lines are based on font size.
+    let f = ScreenFilename()
+    if has('gui_running') && g:screen_size_restore_pos && filereadable(f)
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      for line in readfile(f)
+        let sizepos = split(line)
+        if len(sizepos) == 5 && sizepos[0] == vim_instance
+          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
+          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
+          return
+        endif
+      endfor
+    endif
+  endfunction
+
+  function! ScreenSave()
+    " Save window size and position.
+    if has('gui_running') && g:screen_size_restore_pos
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
+            \ (getwinposx()<0?0:getwinposx()) . ' ' .
+            \ (getwinposy()<0?0:getwinposy())
+      let f = ScreenFilename()
+      if filereadable(f)
+        let lines = readfile(f)
+        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
+        call add(lines, data)
+      else
+        let lines = [data]
+      endif
+      call writefile(lines, f)
+    endif
+  endfunction
+
+  if !exists('g:screen_size_restore_pos')
+    let g:screen_size_restore_pos = 1
+  endif
+  if !exists('g:screen_size_by_vim_instance')
+    let g:screen_size_by_vim_instance = 1
+  endif
+  augroup vimgui
+    autocmd!
+    autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+    autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+  augroup END
+endif
+" End of position saving script
