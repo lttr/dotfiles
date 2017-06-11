@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+MY_APPS_DIR=${HOME}/opt
+
+DOTFILES_DIR="$HOME/dotfiles"
+PACKAGE_LISTS_DIR="$DOTFILES_DIR/packages"
+
+log_installing() {
+    echo
+    echo "=================================================="
+    echo "Installing $1"
+    echo "=================================================="
+}
+
+log_installing "submodules"
+"$PACKAGE_LISTS_DIR/packs.sh" submodule install
+
+log_installing "custom packages"
+"$PACKAGE_LISTS_DIR/packs.sh" custom install
+
+log_installing "ubuntu packages"
+"$PACKAGE_LISTS_DIR/packs.sh" ubuntu install
+
+log_installing "python packages"
+"$PACKAGE_LISTS_DIR/packs.sh" python install
+
+log_installing "nodejs packages"
+"$PACKAGE_LISTS_DIR/packs.sh" node install
+
+log_installing "vim packages"
+"$PACKAGE_LISTS_DIR/packs.sh" vim install
+
+log_installing "zsh packages"
+"$PACKAGE_LISTS_DIR/packs.sh" zsh install

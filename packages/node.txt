@@ -1,7 +1,10 @@
 @angular/cli
 bower
 browser-sync
+dploy
 grunt-cli
 gulp
+hexo
+mocha
 typescript
 yo

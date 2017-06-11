@@ -39,6 +39,7 @@
 
     # executable scripts
     ~/bin/dot: scripts/user/dotfiles.sh
+    ~/bin/packs: packages/packs.sh
     ~/bin/mobile-send: scripts/devices/mobile-send.sh
     ~/bin/reduce-photos: scripts/graphics/reduce-photos.sh
     ~/bin/tia: scripts/user/tia.sh

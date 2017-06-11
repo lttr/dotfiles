@@ -1,29 +1,30 @@
-Idempotent installation for multiple types of packages
+Idempotent installation of different types of packages
 ======================================================
 
-_Proposal for `packs` utility._
+_Implemented in `packs.sh` script._
 
-_Show me **installed** packages and the ones I have **configured** to be
-installed. If there are **missing** packages, **install** them. Show me which
-packages can be **updated** and **update** them._
-
-_If I want to install and update everything just **process** my configuration._
+> Show me **installed** packages and the ones I have **configured** to be
+> installed. If there are **missing** packages, **install** them. Show me which
+> packages can be **updated** and **update** them. If I need to investigate
+> show me the **history** of installations. If I want to install and update 
+> everything just **process** my configuration. Are there anything I installed 
+> **extra**?
 
 
 ## Why
 
-I want to perform following actions for every group of packages
+I want to perform following actions for different types of packages and package
+managers. Who can remember all those commands?
 
-* List installed packages `packs installed <type>`
-* List packages that should be installed according to configuration `packs configured <type>`
-* List missing packages according to configuration `packs missing <type>`
-* Install packages which are not yet installed and list them `packs install <type>`
-* List packages that are installed but can be updated `packs updatable <type>`
-* Update packages and list which got update `packs update <type>`
-* Install everything missing and update every package `packs process <type>`
-
-`<type>` is the package type or keyword `all` for every known type.
-
+* List history of installations `packs <type> history`
+* List installed packages `packs <type> installed`
+* List packages that should be installed according to configuration `packs <type> configured`
+* List missing packages according to configuration `packs <type> missing`
+* List extra packages according to configuration `packs <type> extra`
+* Install packages which are not yet installed and list them `packs <type> install`
+* List packages that are installed but can be updated `packs <type> updatable`
+* Update packages and list which got update `packs <type> update`
+* Install everything missing and update every package `packs <type> process`
 
 ## Package types
 
@@ -37,52 +38,51 @@ I want to perform following actions for every group of packages
 | custom repos    | **submodule**  | `git`      |
 | custom apps     | **custom**     | `bash`     |
 
-## Lists of packages with examples
+## Examples of packages
 
-ubuntu.packs
+#### ubuntu / apt packages
 ```
 tmux
 zsh
 ```
 
-node.packs
+#### nodejs packages
 ```
 gulp
 @angular/cli
 ```
 
-python.packs
+#### python packages
 ```
 csvkit
 pandas
 ```
 
-plugins.vim
+#### vim plugins
 ```
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'do': './install --all' }
 ```
 
-zsh.packs
+#### zsh plugins
 ```
 zsh-users/zsh-completions
 sindresorhus/pure
 ```
 
-.gitmodules
+#### .gitmodules
 ```
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 ```
 
-custom.packs
+#### custom programs
 ```
-if check_custom_app 'antibody'; then
-    curl -s https://raw.githubusercontent.com/getantibody/installer/master/install | bash -s
-fi
-if check_custom_app 'fzf'; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git
+# Vim plugin manager
+if which vim >/dev/null 2>&1; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 ```
 

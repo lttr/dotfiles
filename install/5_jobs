@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
+DOTFILES="$HOME/dotfiles"
+BACKUP_SCRIPTS_DIR="$DOTFILES/scripts/backup"
+
 # Link backup scripts to anacron
-sudo ln -s ~/dotfiles/scripts/backup/run-backup-home-monthly.sh /etc/cron.monthly
-sudo ln -s ~/dotfiles/scripts/backup/run-backup-ztphotos-monthly.sh /etc/cron.monthly
-sudo ln -s ~/dotfiles/scripts/backup/run-backup-home-weekly.sh /etc/cron.weekly
+sudo cp $BACKUP_SCRIPTS_DIR/run-backup-home-monthly.sh \
+    /etc/cron.monthly/run-backup-home-monthly
+sudo cp $BACKUP_SCRIPTS_DIR/run-backup-ztphotos-monthly.sh \
+    /etc/cron.monthly/run-backup-ztphotos-monthly
+sudo cp $BACKUP_SCRIPTS_DIR/run-backup-home-weekly.sh \
+    /etc/cron.weekly/run-backup-home-weekly
 
 echo "Anacron jobs added"
