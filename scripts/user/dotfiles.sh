@@ -89,6 +89,14 @@ case "$ACTION" in
                     fi
                 done
                 ;;
+            test)
+                for SCRIPT in ${INSTALL_DIR}/*
+                do
+                    if [ -f $SCRIPT -a -x $SCRIPT ]; then
+                        echo $SCRIPT
+                    fi
+                done
+                ;;
             "")
                 find "${INSTALL_DIR}" -maxdepth 1 -type f -printf '%f\n' | sort
                 ;;
