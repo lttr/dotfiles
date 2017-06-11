@@ -224,6 +224,7 @@ fa() {
 
 # Easy git commit
 c() {
+    IFS=' '
     git commit -m "$*"
 }
 
