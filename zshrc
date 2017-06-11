@@ -120,7 +120,7 @@ export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
 
 # Antibody
 source <(antibody init)
-antibody bundle < ~/dotfiles/antibody/bundles.txt
+antibody bundle < ~/dotfiles/packages/zsh.txt
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

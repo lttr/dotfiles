@@ -1,7 +1,0 @@
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-completions
-zsh-users/zsh-history-substring-search
-supercrabtree/k
-Tarrasch/zsh-bd
-mafredri/zsh-async
-sindresorhus/pure
