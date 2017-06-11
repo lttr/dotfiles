@@ -114,11 +114,12 @@ Plug 'klen/python-mode' , { 'for': 'python' }
 " Tools
 Plug 'metakirby5/codi.vim'
 Plug 'janko-m/vim-test'
-Plug 'Shebang'
+Plug 'vim-scripts/Shebang'
 Plug 'fboender/bexec'
 Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
 Plug 'kannokanno/previm'
+Plug 'qpkorr/vim-renamer'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -629,7 +630,6 @@ noremap gk k
 
 " ===== Moving in windows =====
 " Cycling windows
-nnoremap <Tab> <C-W>w
 nnoremap <S-Tab> <C-W>W
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
