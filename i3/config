@@ -393,10 +393,11 @@ bindsym $mod+period exec "i3-msg resize set 1600 1000 && i3-msg move position ce
 bindsym $mod+r mode "  "
 
 mode "  " {
-    bindsym h resize shrink width 50 px or 50 ppt
-    bindsym j resize grow height 50 px or 50 ppt
-    bindsym k resize shrink height 50 px or 50 ppt
-    bindsym l resize grow width 50 px or 50 ppt
+    bindsym j exec "i3-msg resize grow height 30 px"
+    bindsym k exec "i3-msg resize shrink height 30 px"
+
+    bindsym h exec "i3-msg resize shrink width 30 px"
+    bindsym l exec "i3-msg resize grow width 30 px"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
