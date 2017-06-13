@@ -1,4 +1,66 @@
 ! =================================================================
+!                              Colors
+! =================================================================
+
+! Gruvbox colors
+#define G_dark0_hard     #1d2021
+#define G_dark0          #282828
+#define G_dark0_soft     #32302f
+#define G_dark1          #3c3836
+#define G_dark2          #504945
+#define G_dark3          #665c54
+#define G_dark4          #7c6f64
+#define G_gray_245       #928374
+#define G_gray_244       #928374
+#define G_light0_hard    #fb4934
+#define G_light0         #fbf1c7
+#define G_light0_soft    #f2e5bc
+#define G_light1         #ebdbb2
+#define G_light2         #d5c4a1
+#define G_light3         #bdae93
+#define G_light4         #a89984
+#define G_bright_red     #fb4934
+#define G_bright_green   #b8bb26
+#define G_bright_yellow  #fabd2f
+#define G_bright_blue    #83a598
+#define G_bright_purple  #d3869b
+#define G_bright_aqua    #8ec07c
+#define G_bright_orange  #fe8019
+#define G_neutral_red    #cc241d
+#define G_neutral_green  #98971a
+#define G_neutral_yellow #d79921
+#define G_neutral_blue   #458588
+#define G_neutral_purple #b16286
+#define G_neutral_aqua   #689d6a
+#define G_neutral_orange #d65d0e
+#define G_faded_red      #9d0006
+#define G_faded_green    #79740e
+#define G_faded_yellow   #b57614
+#define G_faded_blue     #076678
+#define G_faded_purple   #8f3f71
+#define G_faded_aqua     #427b58
+#define G_faded_orange   #af3a03
+
+! Solarized colors
+! Based on https://github.com/solarized/xresources/blob/master/Xresources.light
+#define S_base03         #002b36
+#define S_base02         #073642
+#define S_base01         #586e75
+#define S_base00         #657b83
+#define S_base0          #839496
+#define S_base1          #93a1a1
+#define S_base2          #eee8d5
+#define S_base3          #fdf6e3
+#define S_yellow         #b58900
+#define S_orange         #cb4b16
+#define S_red            #dc322f
+#define S_magenta        #d33682
+#define S_violet         #6c71c4
+#define S_blue           #268bd2
+#define S_cyan           #2aa198
+#define S_green          #859900
+
+! =================================================================
 !                              ROFI
 ! =================================================================
 
@@ -18,43 +80,43 @@ rofi.columns:                        1
 !rofi.font:                           System San Francisco 13
 rofi.font:                           DejaVu Sans Mono 13
 ! Foreground color
-rofi.fg:                             #BDAE93
+rofi.fg:                             G_light3
 ! Background color
-rofi.bg:                             #504945
+rofi.bg:                             G_dark2
 ! Foreground color for active row
-rofi.fg-active:                      #504945
+rofi.fg-active:                      G_dark2
 ! Foreground color for urgent row
-rofi.fg-urgent:                      #DC322F
+rofi.fg-urgent:                      S_red
 ! Foreground color for highlighted active row
-rofi.hlfg-active:                    #504945
+rofi.hlfg-active:                    G_dark2
 ! Foreground color for highlighted urgent row
-rofi.hlfg-urgent:                    #FDF6E3
+rofi.hlfg-urgent:                    S_base3
 ! Background color for active row
-rofi.bg-active:                      #BDAE93
+rofi.bg-active:                      G_light3
 ! Background color for urgent row
-rofi.bg-urgent:                      #BDAE93
+rofi.bg-urgent:                      G_light3
 ! Background color for highlighted active row
-rofi.hlbg-active:                    #BDAE93
+rofi.hlbg-active:                    G_light3
 ! Background color for highlighted urgent row
-rofi.hlbg-urgent:                    #DC322F
+rofi.hlbg-urgent:                    S_red
 ! Background color for alternating row
-rofi.bgalt:                          #504945
+rofi.bgalt:                          G_dark2
 ! Foreground color for highlighted row
-rofi.hlfg:                           #504945
+rofi.hlfg:                           G_dark2
 ! Background color for highlighted row
-rofi.hlbg:                           #BDAE93
+rofi.hlbg:                           G_light3
 ! Border color
-rofi.bc:                             #504945
+rofi.bc:                             G_dark2
 ! Use extended color scheme
 rofi.color-enabled:                  false
 ! Color scheme for normal row
-rofi.color-normal:                   #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
+rofi.color-normal:                   S_base3,S_base03,S_base2,S_base01,S_base2
 ! Color scheme for urgent row
-rofi.color-urgent:                   #fdf6e3,#dc322f,#eee8d5,#dc322f,#fdf6e3
+rofi.color-urgent:                   S_base3,S_red,S_base2,S_red,S_base3
 ! Color scheme for active row
-rofi.color-active:                   #fdf6e3,#268bd2,#eee8d5,#268bd2,#fdf6e3
+rofi.color-active:                   S_base3,S_blue,S_base2,S_blueS_base3
 ! Color scheme window
-rofi.color-window:                   #fdf6e3,#002b36
+rofi.color-window:                   S_base3,S_base03
 ! Border width
 rofi.bw:                             1
 ! Location on screen
@@ -266,26 +328,6 @@ URxvt.intensityStyles:    false
 ! Disable Ctrl+Shift default functionality
 URxvt.iso14755 :          false
 
-! Terminal colors
-! Based on https://github.com/solarized/xresources/blob/master/Xresources.light
-
-#define S_base03        #002b36
-#define S_base02        #073642
-#define S_base01        #586e75
-#define S_base00        #657b83
-#define S_base0         #839496
-#define S_base1         #93a1a1
-#define S_base2         #eee8d5
-#define S_base3         #fdf6e3
-
-#define S_yellow        #b58900
-#define S_orange        #cb4b16
-#define S_red           #dc322f
-#define S_magenta       #d33682
-#define S_violet        #6c71c4
-#define S_blue          #268bd2
-#define S_cyan          #2aa198
-#define S_green         #859900
 
 ! Solarized light
 *background:            S_base3
@@ -294,7 +336,6 @@ URxvt.iso14755 :          false
 *cursorColor:           S_base00
 *pointerColorBackground:S_base1
 *pointerColorForeground:S_base01
-
 
 ! Solarized dark
 !*background:            S_base03
@@ -335,3 +376,4 @@ URxvt.iso14755 :          false
 !! white dark/light
 *color7:                S_base2
 *color15:               S_base3
+
