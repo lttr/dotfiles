@@ -62,9 +62,11 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 # =================================================================
 #                          Directories
 # =================================================================
-alias dotf="cd ~/dotfiles"
 alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
-alias iacd="cd ~/Dropbox/ia"
+alias dotf="cd ~/dotfiles"
+alias ia="cd ~/Dropbox/ia"
+alias code="cd ~/code"
+alias home="cd ~"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
 
@@ -163,6 +165,9 @@ alias -g L="| less -FiMRX"
 alias -g A="| ag --smart-case --color-match '30;47'"
 alias -g C="| wc -l"
 alias -g F="| fpp"
+alias -g IN="..@{u}"
+alias -g OUT="@{u}.."
+alias -g UP="@{u}"
 
 # Images
 alias -s gif=gthumb

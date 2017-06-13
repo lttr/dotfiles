@@ -50,6 +50,17 @@ function rg {
     rm -f -- "$tempfile"
 }
 
+# Browse images
+function images {
+    feh \
+        --image-bg black \
+        --geometry 1600x1000 \
+        --auto-zoom \
+        --title "%u/%l | %n | %wx%h | %S" \
+        --info ";indentify %F" \
+        --hide-pointer \
+        --action ";i3-msg 'workspace 6:  ' && gthumb %F >/dev/null 2>&1"
+}
 
 # =================================================================
 #                             Files
@@ -151,7 +162,8 @@ x() { extract "$1" }
 # Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
 
 # Change to recent directory, select with fzf
-jj() {
+# @ jump recent
+jr() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
@@ -161,6 +173,7 @@ jj() {
 }
 
 # Change to a subdirectory, select with fzf
+# @ jump directory
 jd() {
     local dir
     dir=$(find ${1:-*} -path '*/\.*'\
@@ -170,6 +183,7 @@ jd() {
 }
 
 # Change to a subdirectory which contains a given file, select with fzf
+# @ jump file
 jf() {
     local file
     local dir
@@ -182,8 +196,9 @@ jf() {
 #                             Files
 # =================================================================
 
-# Edit file recently opened in vim
-ee() {
+# Edit file recently opened in vim # file recent
+# @ file recent
+fr() {
     local file
     local ctrlp_mru_cache=~/.cache/ctrlp/mru/cache.txt
     file=$(cat $ctrlp_mru_cache | fzf --query="$1" --exit-0)
@@ -194,7 +209,8 @@ ee() {
 
 # Edit file in current (sub)dir with default editor (press Enter)
 # or GUI application (press Ctrl+o)
-fo() {
+# @ file directory
+fd() {
   local out file key
   IFS=$'\n' out=($(ag -g "$1" | fzf --exit-0 --expect=ctrl-o))
   key=$(head -1 <<< "$out")
@@ -206,6 +222,7 @@ fo() {
 
 # Interactive search in files, open in vim on selected line
 # Ignores lines not matching "\w"
+# @ file ag
 fa() {
     local out tokens file line
     out=$(ag --nobreak --noheading --nocolor "\w" . | fzf --exit-0)
