@@ -8,20 +8,10 @@
 
 
 # =================================================================
-#                            Packages
-# =================================================================
-
-apt-list() {
-    comm -23 <( apt-mark showmanual | sort -u ) <( gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u )
-}
-
-
-# =================================================================
-#                          Dictionaries
+#                       Applications
 # =================================================================
 
 # Try to find word in dictionary, remove clutter from output
-
 aj() {
     dict -d fd-eng-ces "$1" | grep -v '^From ' | grep -v '^$' | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
 }
@@ -34,13 +24,8 @@ eng() {
     dict -d gcide "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
 }
 
-
-# =================================================================
-#                       Applications
-# =================================================================
-
 # Change current directory according to Ranger
-function rg {
+rg() {
     tempfile="$(mktemp)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
@@ -51,7 +36,7 @@ function rg {
 }
 
 # Browse images
-function images {
+images() {
     feh \
         --image-bg black \
         --geometry 1600x1000 \
@@ -61,6 +46,7 @@ function images {
         --hide-pointer \
         --action ";i3-msg 'workspace 6:  ' && gthumb %F >/dev/null 2>&1"
 }
+
 
 # =================================================================
 #                             Files
@@ -154,48 +140,6 @@ extract() {
 x() { extract "$1" }
 
 
-# =================================================================
-#                          Directories
-# =================================================================
-
-# Directories jumping
-# Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
-
-# Change to recent directory, select with fzf
-# @ jump recent
-jr() {
-    local dir
-    dir=$(fasd -Rdl |\
-        sed "s:$HOME:~:" |\
-        fzf --no-sort +m -q "$*" |\
-        sed "s:~:$HOME:")\
-    && pushd "$dir"
-}
-
-# Change to a subdirectory, select with fzf
-# @ jump directory
-jd() {
-    local dir
-    dir=$(find ${1:-*} -path '*/\.*'\
-        -prune -o -type d\
-        -print 2> /dev/null | fzf +m)
-    [ -d "$dir" ] && pushd "$dir"
-}
-
-# Change to a subdirectory which contains a given file, select with fzf
-# @ jump file
-jf() {
-    local file
-    local dir
-    file=$(fzf +m -q "$1")\
-        && dir=$(dirname "$file")
-    [ -d "$dir" ] && pushd "$dir"
-}
-
-# =================================================================
-#                             Files
-# =================================================================
-
 # Edit file recently opened in vim # file recent
 # @ file recent
 fr() {
@@ -236,6 +180,45 @@ fa() {
 
 
 # =================================================================
+#                          Directories
+# =================================================================
+
+# Directories jumping
+# Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
+
+# Change to recent directory, select with fzf
+# @ jump recent
+jr() {
+    local dir
+    dir=$(fasd -Rdl |\
+        sed "s:$HOME:~:" |\
+        fzf --no-sort +m -q "$*" |\
+        sed "s:~:$HOME:")\
+    && pushd "$dir"
+}
+
+# Change to a subdirectory, select with fzf
+# @ jump directory
+jd() {
+    local dir
+    dir=$(find ${1:-*} -path '*/\.*'\
+        -prune -o -type d\
+        -print 2> /dev/null | fzf +m)
+    [ -d "$dir" ] && pushd "$dir"
+}
+
+# Change to a subdirectory which contains a given file, select with fzf
+# @ jump file
+jf() {
+    local file
+    local dir
+    file=$(fzf +m -q "$1")\
+        && dir=$(dirname "$file")
+    [ -d "$dir" ] && pushd "$dir"
+}
+
+
+# =================================================================
 #                              Git
 # =================================================================
 
@@ -246,19 +229,7 @@ c() {
 }
 
 # =================================================================
-#                              Work
-# =================================================================
-
-# Interactively select a sql file with database connection
-# Last edited files will be closer
-# Using dbext in vim
-dbext() {
-    vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
-}
-
-
-# =================================================================
-#                          Improvements
+#                              Shell
 # =================================================================
 
 # Make directory, inform about the result and change current directory into it.
@@ -271,6 +242,36 @@ mkcd() {
     else
         mkdir -pv "$1" && cd "$1"
     fi
+}
+
+# Copy last command executed on command line into clipboard
+lastcommand() {
+    fc -l -1 | cut -d' ' -f4- | xsel --clipboard
+}
+
+# Print all executable files on path
+executables() {
+    echo -n "$PATH" \
+        | xargs -d: -I{} -r -- \
+        find -L {} -maxdepth 1 -mindepth 1 -type f -executable -printf '%P\n' \
+        | sort -u
+}
+
+# Choose a program to run
+run_program() {
+    executables | fzf
+}
+
+
+# =================================================================
+#                              Work
+# =================================================================
+
+# Interactively select a sql file with database connection
+# Last edited files will be closer
+# Using dbext in vim
+dbext() {
+    vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
 }
 
 
