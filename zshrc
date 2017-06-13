@@ -60,6 +60,14 @@ fpath=(~/.zsh/completion $fpath)
 
 
 # =================================================================
+#                    Aliases and functions
+# =================================================================
+
+source ~/dotfiles/aliases
+source ~/dotfiles/functions
+
+
+# =================================================================
 #                              Keys
 # =================================================================
 
@@ -70,13 +78,17 @@ bindkey -e
 stty start undef
 stty stop undef
 
+# Ctrl+f to find inside files
+zle -N fa
+bindkey '^f' fa
 
-# =================================================================
-#                    Aliases and functions
-# =================================================================
+# Ctrl+g to run program
+zle -N run_program
+bindkey '^g' run_program
 
-source ~/dotfiles/aliases
-source ~/dotfiles/functions
+# Alt+Shift+e to open recent files
+zle -N fr
+bindkey '^[E' fr
 
 
 # =================================================================
