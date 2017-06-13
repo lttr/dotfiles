@@ -789,8 +789,6 @@ augroup END
 
 augroup CSS
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  let g:colorizer_auto_filetype='css'
-  let g:colorizer_x11_names = 1
   autocmd BufRead,BufNewFile *.css :ColorSwapFgBg
 augroup END
 
@@ -1135,6 +1133,9 @@ augroup AUTOSAVE
   autocmd FileType javascript,typescript,html,css let g:auto_save = 1
 augroup END
 
+" ===== Colorizer =====
+let g:colorizer_auto_filetype='css,html,conf,javascript,typescript'
+let g:colorizer_x11_names = 1
 
 " ===== CtrlP =====
 " Set ctrl+p for normal fuzzy file opening
