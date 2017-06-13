@@ -168,17 +168,6 @@ bindsym $mod+Right focus right
 # Cycle through windows in current workspace (Windows style)
 bindsym Mod1+Tab focus right
 
-# Move windows inside one workspace
-bindsym $mod+Shift+h move left 200
-bindsym $mod+Shift+j move down 200
-bindsym $mod+Shift+k move up 200
-bindsym $mod+Shift+l move right 200
-# With arrows also
-bindsym $mod+Shift+Left move left 200
-bindsym $mod+Shift+Down move down 200
-bindsym $mod+Shift+Up move up 200
-bindsym $mod+Shift+Right move right 200
-
 # Change mode to vertical
 bindsym $mod+v split v
 bindsym $mod+Shift+v split h
@@ -321,7 +310,18 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 # =================================================================
 
 # Center a floating window
-bindsym $mod+slash move position center
+bindsym $mod+Shift+slash move position center
+#
+# Move windows inside one workspace
+bindsym $mod+Shift+h move left 100
+bindsym $mod+Shift+j move down 50
+bindsym $mod+Shift+k move up 50
+bindsym $mod+Shift+l move right 100
+# With arrows also
+bindsym $mod+Shift+Left move left 150
+bindsym $mod+Shift+Down move down 50
+bindsym $mod+Shift+Up move up 50
+bindsym $mod+Shift+Right move right 100
 
 # Toggle tiling / floating
 floating_modifier $mod
@@ -387,18 +387,23 @@ for_window [class="Gnome-calendar"] border pixel 1
 # =================================================================
 
 # Aligns with $mod+m for floating window and $mod+slash for centering a window
-bindsym $mod+comma exec "i3-msg resize set 1200 900 && i3-msg move position center"
-bindsym $mod+period exec "i3-msg resize set 1600 1000 && i3-msg move position center"
+bindsym $mod+Shift+comma exec "i3-msg resize set 1200 900 && i3-msg move position center"
+bindsym $mod+Shift+period exec "i3-msg resize set 1600 1000 && i3-msg move position center"
+# Resize
+bindsym $mod+Shift+u exec "i3-msg resize grow height 20 px or 5 ppt"
+bindsym $mod+Shift+i exec "i3-msg resize shrink height 20 px or 5 ppt"
+bindsym $mod+Shift+y exec "i3-msg resize shrink width 20 px or 5 ppt"
+bindsym $mod+Shift+o exec "i3-msg resize grow width 20 px or 5 ppt"
 
 # Resize mode
 bindsym $mod+r mode "  "
 
 mode "  " {
-    bindsym j exec "i3-msg resize grow height 30 px"
-    bindsym k exec "i3-msg resize shrink height 30 px"
+    bindsym j exec "i3-msg resize grow height 20 px or 5 ppt"
+    bindsym k exec "i3-msg resize shrink height 20 px or 5 ppt"
 
-    bindsym h exec "i3-msg resize shrink width 30 px"
-    bindsym l exec "i3-msg resize grow width 30 px"
+    bindsym h exec "i3-msg resize shrink width 20 px or 5 ppt"
+    bindsym l exec "i3-msg resize grow width 20 px or 5 ppt"
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
