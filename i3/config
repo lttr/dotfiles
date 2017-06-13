@@ -206,56 +206,56 @@ bindsym $mod+a [class="Google-chrome"] focus
 # =================================================================
 
 # Define names
-set $ws_browser "1: browser"
-set $ws_term    "2: terminal"
-set $ws_files   "3: files"
-set $ws_code    "4: code"
-set $ws_5       "5: db"
-set $ws_6       "6: 6"
-set $ws_7       "7: 7"
-set $ws_8       "8: 8"
-set $ws_mail    "9: "
-set $ws_skype   "10: "
-set $ws_secondary "11: "
+set $ws_1 "1:  "
+set $ws_2 "2:  "
+set $ws_3 "3:  "
+set $ws_4 "4:  "
+set $ws_5 "5:  "
+set $ws_6 "6:  "
+set $ws_7 "7:  "
+set $ws_8 "8:  "
+set $ws_9 "9:  "
+set $ws10 "10: "
+set $ws11 "11: "
 
 # Goto workspaces
-bindsym $mod+1 workspace $ws_browser
-bindsym $mod+2 workspace $ws_term
-bindsym $mod+3 workspace $ws_files
-bindsym $mod+4 workspace $ws_code
+bindsym $mod+1 workspace $ws_1
+bindsym $mod+2 workspace $ws_2
+bindsym $mod+3 workspace $ws_3
+bindsym $mod+4 workspace $ws_4
 bindsym $mod+5 workspace $ws_5
 bindsym $mod+6 workspace $ws_6
 bindsym $mod+7 workspace $ws_7
 bindsym $mod+8 workspace $ws_8
-bindsym $mod+9 workspace $ws_mail
-bindsym $mod+0 workspace $ws_skype
-bindsym $mod+minus workspace $ws_secondary
+bindsym $mod+9 workspace $ws_9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+minus workspace $ws11
 
 # Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws_browser
-bindsym $mod+Shift+2 move container to workspace $ws_term
-bindsym $mod+Shift+3 move container to workspace $ws_files
-bindsym $mod+Shift+4 move container to workspace $ws_code
+bindsym $mod+Shift+1 move container to workspace $ws_1
+bindsym $mod+Shift+2 move container to workspace $ws_2
+bindsym $mod+Shift+3 move container to workspace $ws_3
+bindsym $mod+Shift+4 move container to workspace $ws_4
 bindsym $mod+Shift+5 move container to workspace $ws_5
 bindsym $mod+Shift+6 move container to workspace $ws_6
 bindsym $mod+Shift+7 move container to workspace $ws_7
 bindsym $mod+Shift+8 move container to workspace $ws_8
-bindsym $mod+Shift+9 move container to workspace $ws_mail
-bindsym $mod+Shift+0 move container to workspace $ws_skype
-bindsym $mod+Shift+minus move container to workspace $ws_secondary
+bindsym $mod+Shift+9 move container to workspace $ws_9
+bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+minus move container to workspace $ws11
 
 # Move focused container and switch workspace
-bindsym $mod+Ctrl+1 move container to workspace $ws_browser ; workspace $ws_browser
-bindsym $mod+Ctrl+2 move container to workspace $ws_term ; workspace $ws_term
-bindsym $mod+Ctrl+3 move container to workspace $ws_files ; workspace $ws_files
-bindsym $mod+Ctrl+4 move container to workspace $ws_code ; workspace $ws_code
-bindsym $mod+Ctrl+5 move container to workspace $ws_5 ; workspace $ws_5
-bindsym $mod+Ctrl+6 move container to workspace $ws_6 ; workspace $ws_6
-bindsym $mod+Ctrl+7 move container to workspace $ws_7 ; workspace $ws_7
-bindsym $mod+Ctrl+8 move container to workspace $ws_8 ; workspace $ws_8
-bindsym $mod+Ctrl+9 move container to workspace $ws_mail ; workspace $ws_mail
-bindsym $mod+Ctrl+0 move container to workspace $ws_skype ; workspace $ws_skype
-bindsym $mod+Ctrl+minus move container to workspace $ws_secondary ; workspace $ws_secondary
+bindsym $mod+Ctrl+1 move container to workspace $ws_1; workspace $ws_1
+bindsym $mod+Ctrl+2 move container to workspace $ws_2; workspace $ws_2
+bindsym $mod+Ctrl+3 move container to workspace $ws_3; workspace $ws_3
+bindsym $mod+Ctrl+4 move container to workspace $ws_4; workspace $ws_4
+bindsym $mod+Ctrl+5 move container to workspace $ws_5; workspace $ws_5
+bindsym $mod+Ctrl+6 move container to workspace $ws_6; workspace $ws_6
+bindsym $mod+Ctrl+7 move container to workspace $ws_7; workspace $ws_7
+bindsym $mod+Ctrl+8 move container to workspace $ws_8; workspace $ws_8
+bindsym $mod+Ctrl+9 move container to workspace $ws_9; workspace $ws_9
+bindsym $mod+Ctrl+0 move container to workspace $ws10; workspace $ws10
+bindsym $mod+Ctrl+minus move container to workspace $ws11 ; workspace $ws11
 
 # Scratchpad - hidden workspace
 bindsym $mod+z move scratchpad
@@ -353,6 +353,7 @@ for_window [class="Qstardict"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="lxappearance"] floating enable
 for_window [class="cz.lttr*"] floating enable
+for_window [class="feh*"] floating enable
 
 for_window [class="Doublecmd" title="Double Commander"] floating disable
 
@@ -362,13 +363,13 @@ for_window [class="Doublecmd" title="Double Commander"] floating disable
 # =================================================================
 
 # Force specific workspace
-assign [class="vivaldi"] → $ws_browser
-assign [class="Krusader"] → $ws_files
-assign [class="Doublecmd"] → $ws_files
-assign [class="Evolution"] → $ws_mail
-assign [class="Skype"] → $ws_skype
+assign [class="vivaldi"] → $ws_1
+assign [class="Krusader"] → $ws_3
+assign [class="Doublecmd"] → $ws_3
+assign [class="Evolution"] → $ws_9
+assign [class="Skype"] → $ws10
 assign [class="Image*"] → $ws_6
-assign [class="jetbrains-idea"] → $ws_code
+assign [class="jetbrains-idea"] → $ws_4
 
 # Borders
 for_window [class="vivaldi*"] border none
