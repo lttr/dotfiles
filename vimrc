@@ -93,6 +93,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
+Plug 'Quramy/vim-js-pretty-template'
 Plug 'elzr/vim-json'
 Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
 
@@ -1118,6 +1119,12 @@ let g:ag_prg="ag --vimgrep --smart-case"
 let g:ag_highlight=1
 let g:ag_working_path_mode='r'
 
+" ===== Angular-cli =====
+autocmd VimEnter * if globpath('.,..','node_modules/@angular') != '' | call angular_cli#init() | endif
+let g:angular_cli_stylesheet_format = 'scss'
+let g:angular_cli_use_dispatch = 1
+
+
 " ===== Autoformat =====
 " sql - Indent String is 4 space and enable Trailing Commas
 let g:formatdef_my_sql = 'sqlformatter /is:"    " /tc /uk /sk-'
@@ -1236,6 +1243,7 @@ nmap <S-F7> <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
 nmap [c <Plug>GitGutterPrevHunk
 nmap <C-F7> :call ToggleHunkPreview()<CR>
+nmap <Leader>hp :call ToggleHunkPreview()<CR>
 fun! ToggleHunkPreview()
   let l:isTherePreviewWindow = 0
   for nr in range(1, winnr('$'))
