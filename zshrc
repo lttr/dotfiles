@@ -58,6 +58,8 @@ zstyle ':completion:*' matcher-list '' \
 
 fpath=(~/.zsh/completion $fpath)
 
+source <(ng completion --zsh)
+
 
 # =================================================================
 #                    Aliases and functions
