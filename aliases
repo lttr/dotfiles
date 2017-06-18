@@ -98,7 +98,7 @@ alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC"
 # =================================================================
 #                              Git
 # =================================================================
-alias git="hub"
+# alias git="hub"
 
 alias ga="git add"
 alias gaa="git add --all"
