@@ -15,8 +15,8 @@ convert \
     -quality $QUALITY \
     -auto-orient \
     -interlace Plane \
-    -sharpen 5
-    -strip
-    -auto-level
+    -sharpen 5 \
+    -strip \
+    -auto-level \
     "$@"
 
