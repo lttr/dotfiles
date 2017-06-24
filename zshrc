@@ -142,6 +142,9 @@ antibody bundle < ~/dotfiles/packages/zsh.txt
 # Fasd
 eval "$(fasd --init auto)"
 
+# git
+source $HOME/opt/git-hub/.rc
+
 
 # =================================================================
 #                          Directories
