@@ -80,17 +80,26 @@ bindkey -e
 stty start undef
 stty stop undef
 
-# Ctrl+f to find inside files
+# Alt+Shift+f to find inside files
 zle -N fa
-bindkey '^f' fa
+bindkey '^[F' fa
+
+# Alt+Shift+e to open recent files
+zle -N fr
+bindkey '^[E' fr
+
+# Alt+Shift+p to open file in subdirectories
+zle -N fd
+bindkey '^[P' fd
+#
+# Alt+Shift+g to open file using global locate
+zle -N fzf-locate
+bindkey '^[G' fzf-locate
 
 # Ctrl+g to run program
 zle -N run_program
 bindkey '^g' run_program
 
-# Alt+Shift+e to open recent files
-zle -N fr
-bindkey '^[E' fr
 
 
 # =================================================================
