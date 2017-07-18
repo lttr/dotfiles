@@ -68,7 +68,7 @@ Plug 'osyo-manga/vim-over'
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'airblade/vim-rooter'
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 Plug 'vim-scripts/Rename'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -121,6 +121,7 @@ Plug 'glts/vim-magnum'
 Plug 'glts/vim-radical'
 Plug 'kannokanno/previm'
 Plug 'qpkorr/vim-renamer'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
