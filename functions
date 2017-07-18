@@ -178,6 +178,16 @@ fa() {
     fi
 }
 
+# Open a globally found file (via locate command)
+fzf-locate() {
+    local files
+    file=$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)
+    if [[ -n $file ]]; then
+        open_smart "$file"
+    fi
+}
+
+
 
 # =================================================================
 #                          Directories
@@ -217,6 +227,19 @@ jf() {
     [ -d "$dir" ] && pushd "$dir"
 }
 
+# Change to any directory or directory with file in it found by locate command
+jg() {
+  local file
+  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+  if [[ -n $file ]]; then
+     if [[ -d $file ]]; then
+        cd -- $file
+     else
+        cd -- ${file:h}
+     fi
+  fi
+}
+
 
 # =================================================================
 #                              Git
@@ -226,6 +249,18 @@ jf() {
 c() {
     IFS=' '
     git commit -m "$*"
+}
+
+# Searchable git log
+fzf-log() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
 }
 
 # =================================================================
