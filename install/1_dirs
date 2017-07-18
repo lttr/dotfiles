@@ -29,7 +29,6 @@ mkdir -p ~/.vim/undos
 # Prepare directories for mounting partitions
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     sudo mkdir -p /media/data
-    sudo mkdir -p /media/hdd
     sudo mkdir -p /media/backup_hdd_320
     sudo mkdir -p /media/backup_hdd_500
     sudo mkdir -p /media/zalohy_tucanek
