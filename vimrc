@@ -34,6 +34,7 @@ Plug 'vim-scripts/SyntaxComplete'
 Plug 'Chiel92/vim-autoformat'
 Plug 'scrooloose/syntastic'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'maksimr/vim-jsbeautify'
 
 " Documentation
 Plug 'KabbAmine/zeavim.vim'
@@ -483,6 +484,7 @@ nnoremap <leader>o :w<CR>:OpenInChrome<CR>
 
 " ===== Open and reload $MYVIMRC =====
 nnoremap <leader>V :split $MYVIMRC<CR>
+nnoremap <A-s> :split $MYVIMRC<CR>
 nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
@@ -1289,7 +1291,7 @@ let g:markdown_enable_conceal = 1
 let g:multi_cursor_exit_from_visual_mode = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 let g:multi_cursor_next_key='<C-m>'
-nnoremap gm :MultipleCursorsFind <C-r><C-w><CR>
+nnoremap <Leader>m :MultipleCursorsFind <C-r><C-w><CR>
 
 " ===== NERDTree =====
 let NERDTreeChDirMode=2
