@@ -122,9 +122,10 @@ if ! apt-mark showmanual | grep -q fontconfig-infinality; then
 fi
 
 #Program skype
-if check_custom_app 'skype'; then
-    sudo add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
-fi
+# if check_custom_app 'skype'; then
+#     sudo add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+#     sudo apt-get install -y skype
+# fi
 
 #Program tmux plugin manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -153,7 +154,7 @@ if check_custom_app 'yarn'; then
 fi
 
 #Program xkblayout-state
-if ! [ -x $HOME/.i3/scripts/xkblayout-state ]; then
+if ! [ -L $HOME/.i3/scripts/xkblayout-state ]; then
     git clone https://github.com/nonpop/xkblayout-state.git
     cd xkblayout-state
     make

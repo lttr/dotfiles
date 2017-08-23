@@ -82,7 +82,7 @@ case "$ACTION" in
         [ -n "$FILE" ] && echo "Just one argument for action install is needed." && exit 1
         case "$TYPE" in
             all)
-                for SCRIPT in ${INSTALL_DIR}/*
+                for SCRIPT in ${INSTALL_DIR}/?_*
                 do
                     if [ -f $SCRIPT -a -x $SCRIPT ]; then
                         $SCRIPT
