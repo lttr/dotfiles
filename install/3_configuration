@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo
 echo "=================================================="
 echo "Configuring programs"
@@ -44,12 +46,13 @@ echo "Gsettings updated"
 #                           Mime types
 # =================================================================
 
-xdg-mime default vivaldi-stable.desktop text/html
-xdg-mime default vivaldi-stable.desktop x-scheme-handler/http
-xdg-mime default vivaldi-stable.desktop x-scheme-handler/https
-xdg-mime default vivaldi-stable.desktop x-scheme-handler/about
+mkdir -p ~/.local/share/applications
+touch ~/.local/share/applications/mimeapps.list
 
-xdg-mime default vim.desktop text/plain
+xdg-mime default google-chrome.desktop text/html
+xdg-mime default google-chrome.desktop x-scheme-handler/http
+xdg-mime default google-chrome.desktop x-scheme-handler/https
+xdg-mime default google-chrome.desktop x-scheme-handler/about
 
 xdg-mime default gthumb.desktop image/bpm
 xdg-mime default gthumb.desktop image/gif
@@ -58,6 +61,15 @@ xdg-mime default gthumb.desktop image/jpeg
 xdg-mime default gthumb.desktop image/jpg
 xdg-mime default gthumb.desktop image/png
 xdg-mime default gthumb.desktop image/tiff
+
+xdg-mime default inkscape.desktop image/svg+xml
+
+xdg-mime default gedit.desktop text/plain
+
+xdg-mime default gedit.desktop application/x-mswinurl
+xdg-mime default gedit.desktop text/markdown
+xdg-mime default gedit.desktop text/x-log
+xdg-mime default vlc.desktop video/x-msvideo
 
 echo "Mime types set"
 
