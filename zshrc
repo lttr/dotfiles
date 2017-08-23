@@ -42,29 +42,25 @@ bindkey -e
 stty start undef
 stty stop undef
 
-# Alt+Shift+f to search inside files
+# Alt+f to search inside files
 zle -N file-search
-bindkey '^[F' file-search
+bindkey '^[s' file-search
 
-# Alt+Shift+e to open recent files
+# Alt+e to open recent files
 zle -N file-recent
-bindkey '^[E' file-recent
+bindkey '^[e' file-recent
 
-# Alt+Shift+p to open file in subdirectories
+# Alt+p to open file in subdirectories
 zle -N file-edit
-bindkey '^[P' file-edit
+bindkey '^[p' file-edit
 
-# Alt+Shift+g to open file using global locate
-zle -N file-locate
-bindkey '^[G' file-locate
-
-# Alt+Shift+r to go to recent (almost any reasonable) directory
+# Alt+r to go to recent (almost any reasonable) directory
 zle -N dir-recent
-bindkey '^[R' dir-recent
+bindkey '^[d' dir-recent
 
-# Alt+Shift+j to go to any subdirectory 
+# Alt+j to go to any subdirectory 
 zle -N dir-open
-bindkey '^[J' dir-open
+bindkey '^[j' dir-open
 
 
 # Alt+Shift+c to copy last command into clipboard
@@ -74,7 +70,7 @@ bindkey '^[C' last-command
 # Edit command line
 autoload -z edit-command-line
 zle -N edit-command-line
-bindkey "^[V" edit-command-line
+bindkey '^[V' edit-command-line
 
 
 # =================================================================
