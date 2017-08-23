@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+lsblk -o NAME,TYPE,SIZE,MOUNTPOINT,FSTYPE,LABEL,MODEL

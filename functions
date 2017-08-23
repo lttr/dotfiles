@@ -141,33 +141,32 @@ x() { extract "$1" }
 
 
 # Edit file recently opened in vim # file recent
-# @ file recent
-fr() {
-    local file
+file-recent() {
+    local out file key
     local ctrlp_mru_cache=~/.cache/ctrlp/mru/cache.txt
     file=$(cat $ctrlp_mru_cache | fzf --query="$1" --exit-0)
     if [ -n "$file" ]; then
-        vim "$file"
+        ${EDITOR:-vim} "$file"
     fi
 }
+fr() { file-recent "$1" }
 
 # Edit file in current (sub)dir with default editor (press Enter)
 # or GUI application (press Ctrl+o)
-# @ file directory
-fd() {
-  local out file key
-  IFS=$'\n' out=($(ag -g "$1" | fzf --exit-0 --expect=ctrl-o))
-  key=$(head -1 <<< "$out")
-  file=$(head -2 <<< "$out" | tail -1)
-  if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
-  fi
+file-edit() {
+    local out file key
+    IFS=$'\n' out=($(ag -g "$1" | fzf --exit-0 --expect=ctrl-o))
+    key=$(head -1 <<< "$out")
+    file=$(head -2 <<< "$out" | tail -1)
+    if [ -n "$file" ]; then
+        [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+    fi
 }
+fe() { file-edit "$1" }
 
 # Interactive search in files, open in vim on selected line
 # Ignores lines not matching "\w"
-# @ file ag
-fa() {
+file-search() {
     local out tokens file line
     out=$(ag --nobreak --noheading --nocolor "\w" . | fzf --exit-0)
     IFS=':' tokens=( $out )
@@ -179,7 +178,7 @@ fa() {
 }
 
 # Open a globally found file (via locate command)
-fzf-locate() {
+file-locate() {
     local files
     file=$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)
     if [[ -n $file ]]; then
@@ -197,38 +196,38 @@ fzf-locate() {
 # Source http://seanbowman.me/blog/fzf-fasd-and-bash-aliases/
 
 # Change to recent directory, select with fzf
-# @ jump recent
-jr() {
+dir-recent() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
-        fzf --no-sort +m -q "$*" |\
-        sed "s:~:$HOME:")\
-    && pushd "$dir"
+        fzf --no-sort --reverse --height=20% -q "$*" |\
+        sed "s:~:$HOME:") \
+    && cd "$dir"
+    xdotool key KP_Enter
 }
+dr() { dir-recent "$1" }
 
 # Change to a subdirectory, select with fzf
-# @ jump directory
-jd() {
+dir-open() {
     local dir
     dir=$(find ${1:-*} -path '*/\.*'\
         -prune -o -type d\
         -print 2> /dev/null | fzf +m)
-    [ -d "$dir" ] && pushd "$dir"
+    [ -d "$dir" ] && cd "$dir"
 }
+de() { dir-open "$1" }
 
 # Change to a subdirectory which contains a given file, select with fzf
-# @ jump file
-jf() {
+dir-with-file() {
     local file
     local dir
     file=$(fzf +m -q "$1")\
         && dir=$(dirname "$file")
-    [ -d "$dir" ] && pushd "$dir"
+    [ -d "$dir" ] && cd "$dir"
 }
 
 # Change to any directory or directory with file in it found by locate command
-jg() {
+dir-locate() {
   local file
   file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
   if [[ -n $file ]]; then
@@ -263,6 +262,7 @@ fzf-log() {
 FZF-EOF"
 }
 
+
 # =================================================================
 #                              Shell
 # =================================================================
@@ -280,7 +280,7 @@ mkcd() {
 }
 
 # Copy last command executed on command line into clipboard
-lastcommand() {
+last-command() {
     fc -l -1 | cut -d' ' -f4- | xsel --clipboard
 }
 
@@ -292,9 +292,20 @@ executables() {
         | sort -u
 }
 
-# Choose a program to run
-run_program() {
-    executables | fzf
+# Lists all functions available in shell
+# Hack: using zsh array of functions, actually its keys (k),
+# sorted (o). Filtering out internal functions (starting with _)
+list-functions() {
+    print -l ${(ok)functions} | grep -v '^_'
+}
+
+
+# =================================================================
+#                              i3wm
+# =================================================================
+
+get-current-workspace-name() {
+   i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name'
 }
 
 

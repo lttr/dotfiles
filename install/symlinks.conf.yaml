@@ -44,6 +44,7 @@
     ~/bin/reduce-photos: scripts/graphics/reduce-photos.sh
     ~/bin/tia: scripts/user/tia.sh
     ~/bin/touchpad: scripts/hardware/touchpad.sh
+    ~/bin/show-disks: scripts/hardware/show-disks.sh
     ~/bin/git-rs: scripts/git/git-recursive-status.sh
     ~/bin/git-branch-status: scripts/git/git-branch-status.sh
     ~/bin/git-ls: scripts/git/git-ls.sh

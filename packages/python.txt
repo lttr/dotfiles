@@ -1,4 +1,5 @@
 csvkit
+ddg
 jira
 openpyxl
 pandas

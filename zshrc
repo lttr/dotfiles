@@ -12,19 +12,74 @@
 
 autoload -U history-search-end
 autoload -U zmv
-autoload -U compinit && compinit -i
+
+# Source: https://gist.github.com/ctechols/ca1035271ad134841284
+# On slow systems, checking the cached .zcompdump file to see if it must be 
+# regenerated adds a noticable delay to zsh startup.  This little hack restricts 
+# it to once a day.  It should be pasted into your own completion file.
+#
+# The globbing is a little complicated here:
+# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
+# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
+# - '.' matches "regular files"
+# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
+autoload -Uz compinit 
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 
 # =================================================================
 #                           Shortcuts
 # =================================================================
 
+bindkey -e
+
+# Do not catch Ctrl+q and Ctrl+s by the terminal
+# (I use it in vim)
+stty start undef
+stty stop undef
+
+# Alt+Shift+f to search inside files
+zle -N file-search
+bindkey '^[F' file-search
+
+# Alt+Shift+e to open recent files
+zle -N file-recent
+bindkey '^[E' file-recent
+
+# Alt+Shift+p to open file in subdirectories
+zle -N file-edit
+bindkey '^[P' file-edit
+
+# Alt+Shift+g to open file using global locate
+zle -N file-locate
+bindkey '^[G' file-locate
+
+# Alt+Shift+r to go to recent (almost any reasonable) directory
+zle -N dir-recent
+bindkey '^[R' dir-recent
+
+# Alt+Shift+j to go to any subdirectory 
+zle -N dir-open
+bindkey '^[J' dir-open
+
+
+# Alt+Shift+c to copy last command into clipboard
+zle -N last-command
+bindkey '^[C' last-command
+
+# Edit command line
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^[V" edit-command-line
 
 
 # =================================================================
 #                            Options
 # =================================================================
-
 
 # append history list to the history file (important for multiple parallel zsh sessions!)
 setopt inc_append_history
@@ -58,7 +113,7 @@ zstyle ':completion:*' matcher-list '' \
 
 fpath=(~/.zsh/completion $fpath)
 
-source <(ng completion --zsh)
+# source <(ng completion --zsh)
 
 
 # =================================================================
@@ -67,39 +122,6 @@ source <(ng completion --zsh)
 
 source ~/dotfiles/aliases
 source ~/dotfiles/functions
-
-
-# =================================================================
-#                              Keys
-# =================================================================
-
-bindkey -e
-
-# Do not catch Ctrl+q and Ctrl+s by the terminal
-# (I use it in vim)
-stty start undef
-stty stop undef
-
-# Alt+Shift+f to find inside files
-zle -N fa
-bindkey '^[F' fa
-
-# Alt+Shift+e to open recent files
-zle -N fr
-bindkey '^[E' fr
-
-# Alt+Shift+p to open file in subdirectories
-zle -N fd
-bindkey '^[P' fd
-#
-# Alt+Shift+g to open file using global locate
-zle -N fzf-locate
-bindkey '^[G' fzf-locate
-
-# Ctrl+g to run program
-zle -N run_program
-bindkey '^g' run_program
-
 
 
 # =================================================================
@@ -174,7 +196,3 @@ chpwd() {
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 [[ -f ~/.functions.local ]] && source ~/.functions.local
 
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/opt/sdkman"
-[[ -s "$HOME/opt/sdkman/bin/sdkman-init.sh" ]] && source "$HOME/opt/sdkman/bin/sdkman-init.sh"

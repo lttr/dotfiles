@@ -62,9 +62,6 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 # =================================================================
 #                          Directories
 # =================================================================
-alias lasttask="cd ~/tasks/$(ls -t ~/tasks | head -1)"
-alias dotf="cd ~/dotfiles"
-alias ia="cd ~/Dropbox/ia"
 alias home="cd ~"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
@@ -92,6 +89,8 @@ alias xmlstar="xmlstarlet"
 
 # Show czech calendar with Monday as the first day of a week
 alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC"
+
+alias dg="ddg"
 
 
 # =================================================================
