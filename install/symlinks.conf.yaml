@@ -37,16 +37,9 @@
     ~/.vim/snippets: vim/snippets
     ~/.vim/syntax: vim/syntax
 
-    # executable scripts
-    ~/bin/dot: scripts/user/dotfiles.sh
-    ~/bin/packs: packages/packs.sh
-    ~/bin/mobile-send: scripts/devices/mobile-send.sh
-    ~/bin/reduce-photos: scripts/graphics/reduce-photos.sh
-    ~/bin/tia: scripts/user/tia.sh
-    ~/bin/touchpad: scripts/hardware/touchpad.sh
-    ~/bin/show-disks: scripts/hardware/show-disks.sh
-    ~/bin/git-rs: scripts/git/git-recursive-status.sh
-    ~/bin/git-branch-status: scripts/git/git-branch-status.sh
-    ~/bin/git-ls: scripts/git/git-ls.sh
-    ~/bin/git-ll: scripts/git/git-ll.sh
-
+# executable scripts
+- shell:
+    - command: ./install/symlink-scripts.sh
+      description: Creating symlinks of scripts
+      stdout: true
+      stderr: true
