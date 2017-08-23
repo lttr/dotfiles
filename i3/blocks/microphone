@@ -4,7 +4,7 @@
 if [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
 	amixer -q sset Capture 5%+
 # Middle click
-elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
 	amixer -q sset Capture toggle
 # Scroll up
 elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
