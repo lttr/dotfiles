@@ -54,8 +54,6 @@ rofi
 rxvt-unicode-256color
 scrot
 silversearcher-ag
-simplenote
-skype
 sshpass
 tmux
 transmageddon

@@ -132,6 +132,14 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+#Program simplenote
+if check_custom_app 'simplenote'; then
+    SN_VERSION=1.0.8
+    wget https://github.com/Automattic/simplenote-electron/releases/download/v$SN_VERSION/simplenote-$SN_VERSION.deb
+    sudo dpkg -i simplenote-$SN_VERSION.deb
+    rm simplenote-$SN_VERSION.deb
+fi
+
 #Program vim plugin manager
 if which vim >/dev/null 2>&1; then
     curl -sSLo ~/.vim/autoload/plug.vim --create-dirs \
