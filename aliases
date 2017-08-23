@@ -92,6 +92,8 @@ alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC"
 
 alias dg="ddg"
 
+alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
+
 
 # =================================================================
 #                              Git

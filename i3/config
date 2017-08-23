@@ -336,6 +336,7 @@ bindsym --release button2 floating toggle
 bindsym --whole-window $mod+button2 floating toggle
 
 # Floating applications (run xprop for window class)
+# Enable
 for_window [class="Arandr"] floating enable
 for_window [class="Artha"] floating enable
 for_window [class="cz.lttr*"] floating enable
@@ -354,10 +355,11 @@ for_window [class="Krusader" title="Moving*"] floating enable
 for_window [class="Krusader" title="Progress*"] floating enable
 for_window [class="lxappearance"] floating enable
 for_window [class="MineTime"] floating enable
+for_window [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] floating enable
 for_window [class="Qstardict"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="URxvt" instance="floating"] floating enable
-
+# Disable
 for_window [class="Doublecmd" title="Double Commander"] floating disable
 
 
@@ -374,6 +376,7 @@ assign [class="Skype"] → $ws10
 assign [class="Image*"] → $ws_6
 assign [class="jetbrains-idea"] → $ws_4
 assign [class="MineTime"] → $ws_9
+assign [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] → $ws_9
 
 # Borders
 for_window [class="vivaldi*"] border none
@@ -384,6 +387,7 @@ for_window [class="brave"] border none
 for_window [class="Image*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
+for_window [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] border normal
 
 
 # =================================================================
@@ -464,10 +468,10 @@ bindsym Ctrl+Shift+Print exec scrot -s -e 'mv $f ~/tasks/$f'
 #                      Applications startup
 # =================================================================
 
+# Calendar
+exec --no-startup-id google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai
 # Browser
 exec --no-startup-id google-chrome
-# Calendar
-exec --no-startup-id "sh -c 'sleep 20; exec minetime'"
 
 # Daemons
 exec dropbox start
