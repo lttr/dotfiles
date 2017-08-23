@@ -19,7 +19,7 @@ log_installing "custom packages"
 "$PACKAGE_LISTS_DIR/packs.sh" custom install
 
 log_installing "ubuntu packages"
-"$PACKAGE_LISTS_DIR/packs.sh" ubuntu update
+"$PACKAGE_LISTS_DIR/packs.sh" ubuntu update -y
 "$PACKAGE_LISTS_DIR/packs.sh" ubuntu install
 
 log_installing "python packages"

@@ -9,6 +9,7 @@
 
 MY_APPS_DIR=${HOME}/opt
 
+set -e
 
 log_installing() {
     echo
@@ -41,8 +42,7 @@ cd $MY_APPS_DIR
 
 #Program zsh plugin manager
 if check_custom_app 'antibody'; then
-    curl -s https://raw.githubusercontent.com/getantibody/installer/master/install \
-        | bash -s
+    . $HOME/dotfiles/packages/install-antibody.sh
 fi
 
 #Program docker
@@ -53,16 +53,15 @@ fi
 
 #Program fasd
 if check_custom_app 'fasd'; then
-    tar zxv < <(wget -q -O - https://github.com/clvv/fasd/archive/1.0.1.tar.gz)
-    cd fasd-1.0.1
-    sudo make install
-    cd $MY_APPS_DIR
+    sudo add-apt-repository ppa:aacebedo/fasd
+    sudo apt-get update
+    sudo apt-get install -y fasd
 fi
 
 #Program fzf
 if check_custom_app 'fzf'; then
     git clone --depth 1 https://github.com/junegunn/fzf.git
-    fzf/install
+    fzf/install --key-bindings --completion --no-update-rc
 fi
 
 #Program git credential helper
@@ -151,7 +150,6 @@ if ! [ -x $HOME/.i3/scripts/xkblayout-state ]; then
     cd xkblayout-state
     make
     cd $MY_APPS_DIR
-    ln -sf $MY_APPS_DIR/xkblayout-state/xkblayout-state ~/.i3/scripts/xkblayout-state
 fi
 
 
