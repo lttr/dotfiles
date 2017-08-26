@@ -15,8 +15,8 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 YARN_GLOBAL=~/.yarn-global
-if [ -d "$YARN_GLOBAL" ] ; then
-    export PATH="$YARN_GLOBAL:$PATH"
+if [ -d "$YARN_GLOBAL/bin" ] ; then
+    export PATH="$YARN_GLOBAL/bin:$PATH"
 fi
 
 export PAGER=/usr/bin/less
