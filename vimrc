@@ -123,6 +123,7 @@ Plug 'glts/vim-radical'
 Plug 'kannokanno/previm'
 Plug 'qpkorr/vim-renamer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
