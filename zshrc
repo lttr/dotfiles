@@ -44,7 +44,7 @@ stty stop undef
 
 # Alt+f to search inside files
 zle -N file-search
-bindkey '^[s' file-search
+bindkey '^[i' file-search
 
 # Alt+e to open recent files
 zle -N file-recent
@@ -147,6 +147,10 @@ _gen_fzf_default_opts() {
 
   export FZF_DEFAULT_OPTS="
     --color fg+:$base01,bg+:$base2,hl:$yellow,hl+:$yellow
+    --exit-0
+    --select-1
+    --reverse
+    --height=30
   "
   export FZF_CTRL_T_COMMAND='ag -g ""'
 }

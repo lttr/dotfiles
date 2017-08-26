@@ -47,6 +47,22 @@ images() {
         --action ";i3-msg 'workspace 6:  ' && gthumb %F >/dev/null 2>&1"
 }
 
+# Browser history
+bhistory() {
+    local cols sep google_history open
+    cols=$(( COLUMNS / 3 ))
+    sep='{::}'
+
+    google_history="$HOME/.config/google-chrome/Default/History"
+    open=xdg-open
+    cp -f "$google_history" /tmp/h
+    sqlite3 -separator $sep /tmp/h \
+        "select substr(title, 1, $cols), url
+         from urls order by last_visit_time desc" | \
+    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | \
+    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open 2&>1 >/dev/null
+}
+
 
 # =================================================================
 #                             Files
@@ -144,9 +160,9 @@ x() { extract "$1" }
 file-recent() {
     local out file key
     local ctrlp_mru_cache=~/.cache/ctrlp/mru/cache.txt
-    file=$(cat $ctrlp_mru_cache | fzf --query="$1" --exit-0)
+    file=$(cat $ctrlp_mru_cache | fzf --query="$1")
     if [ -n "$file" ]; then
-        ${EDITOR:-vim} "$file"
+        ${EDITOR:-vim} "$file" < /dev/tty
     fi
 }
 fr() { file-recent "$1" }
@@ -155,11 +171,11 @@ fr() { file-recent "$1" }
 # or GUI application (press Ctrl+o)
 file-edit() {
     local out file key
-    IFS=$'\n' out=($(ag -g "$1" | fzf --exit-0 --expect=ctrl-o))
+    IFS=$'\n' out=($(ag --follow -g "$1" | fzf --expect=ctrl-o))
     key=$(head -1 <<< "$out")
     file=$(head -2 <<< "$out" | tail -1)
     if [ -n "$file" ]; then
-        [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+        [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file" < /dev/tty
     fi
 }
 fe() { file-edit "$1" }
@@ -168,19 +184,19 @@ fe() { file-edit "$1" }
 # Ignores lines not matching "\w"
 file-search() {
     local out tokens file line
-    out=$(ag --nobreak --noheading --nocolor "\w" . | fzf --exit-0)
+    out=$(ag --follow --nobreak --noheading --nocolor "\w" . | fzf)
     IFS=':' tokens=( $out )
     file=${tokens[1]}
     line=${tokens[2]}
     if [ -n "$out" ]; then
-        vim "$file" +${line} +"setlocal cursorline"
+        vim "$file" +${line} +"setlocal cursorline" < /dev/tty
     fi
 }
 
 # Open a globally found file (via locate command)
 file-locate() {
     local files
-    file=$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)
+    file=$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0)
     if [[ -n $file ]]; then
         open_smart "$file"
     fi
@@ -200,7 +216,7 @@ dir-recent() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
-        fzf --no-sort --reverse --height=20% -q "$*" |\
+        fzf --no-sort --query "$*" |\
         sed "s:~:$HOME:") \
     && cd "$dir"
     xdotool key KP_Enter
@@ -210,10 +226,11 @@ dr() { dir-recent "$1" }
 # Change to a subdirectory, select with fzf
 dir-open() {
     local dir
-    dir=$(find ${1:-*} -path '*/\.*'\
+    dir=$(find -L ${1:-*} -path '*/\.*'\
         -prune -o -type d\
-        -print 2> /dev/null | fzf +m)
+        -print 2> /dev/null | fzf)
     [ -d "$dir" ] && cd "$dir"
+    xdotool key KP_Enter
 }
 de() { dir-open "$1" }
 
@@ -221,7 +238,7 @@ de() { dir-open "$1" }
 dir-with-file() {
     local file
     local dir
-    file=$(fzf +m -q "$1")\
+    file=$(fzf --query "$1")\
         && dir=$(dirname "$file")
     [ -d "$dir" ] && cd "$dir"
 }
@@ -229,7 +246,7 @@ dir-with-file() {
 # Change to any directory or directory with file in it found by locate command
 dir-locate() {
   local file
-  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+  file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0)"
   if [[ -n $file ]]; then
      if [[ -d $file ]]; then
         cd -- $file
