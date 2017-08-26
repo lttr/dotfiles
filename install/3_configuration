@@ -14,6 +14,12 @@ if which yarn >/dev/null 2>&1; then
     yarn config set prefix $YARN_GLOBAL
 fi
 
+
+# Zsh
+if which zsh >/dev/null 2>&1; then
+    sudo chsh -s /usr/bin/zsh
+fi
+
 echo
 echo "=================================================="
 echo "Configuring Gnome"

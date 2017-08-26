@@ -39,19 +39,18 @@ echo "Useful directories created"
 
 # Symlink data directories
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
-    HOME_DIR=/media/data/Users/Lukas
-    ln -sfn ${HOME_DIR}/down ~/down
-    ln -sfn ${HOME_DIR}/dev ~/code
-    ln -sfn ${HOME_DIR}/Fotky ~/fotky
-    ln -sfn ${HOME_DIR}/Grafika ~/grafika
-    ln -sfn ${HOME_DIR}/Hry ~/hry
-    ln -sfn ${HOME_DIR}/Hudba ~/hudba
-    ln -sfn ${HOME_DIR}/Informace ~/informace
-    ln -sfn ${HOME_DIR}/Moje ~/moje
-    ln -sfn ${HOME_DIR}/PC ~/pc
-    ln -sfn ${HOME_DIR}/Skaut ~/skaut
+    HOME_DIR=/media/data
+    ln -sfn ${HOME_DIR}/code ~/code
+    ln -sfn ${HOME_DIR}/fotky ~/fotky
+    ln -sfn ${HOME_DIR}/grafika ~/grafika
+    ln -sfn ${HOME_DIR}/hry ~/hry
+    ln -sfn ${HOME_DIR}/hudba ~/hudba
+    ln -sfn ${HOME_DIR}/informace ~/informace
+    ln -sfn ${HOME_DIR}/moje ~/moje
+    ln -sfn ${HOME_DIR}/pc ~/pc
+    ln -sfn ${HOME_DIR}/skaut ~/skaut
     ln -sfn ${HOME_DIR}/tasks ~/tasks
-    ln -sfn ${HOME_DIR}/Web ~/web
+    ln -sfn ${HOME_DIR}/web ~/web
 elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     MOUNT_DIR=/media/data
     ln -sfn ${MOUNT_DIR}/work ~/work
