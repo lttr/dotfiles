@@ -13,6 +13,9 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias cd....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
 alias cd.="cd $(readlink -f .)"
@@ -63,6 +66,13 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 #                          Directories
 # =================================================================
 alias home="cd ~"
+alias code="cd ~/code"
+alias dotf="cd ~/dotfiles"
+alias down="cd ~/down"
+alias drop="cd ~/Dropbox"
+alias sand="cd ~/sandbox"
+alias task="cd ~/tasks"
+alias goia="cd ~/Dropbox/ia"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
 
