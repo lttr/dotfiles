@@ -52,16 +52,10 @@ if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     ln -sfn ${HOME_DIR}/tasks ~/tasks
     ln -sfn ${HOME_DIR}/web ~/web
 elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
-    MOUNT_DIR=/media/data
-    ln -sfn ${MOUNT_DIR}/work ~/work
-    HOME_DIR=${MOUNT_DIR}/Users/Lukas
-    ln -sfn ${HOME_DIR}/down ~/down
-    ln -sfn ${HOME_DIR}/tasks ~/tasks
-    ln -sfn ${HOME_DIR}/unicorn ~/unicorn
-    ln -sfn ${HOME_DIR}/installations ~/installations
-    ln -sfn ${HOME_DIR}/materials ~/materials
-    ln -sfn ${HOME_DIR}/workspaces ~/workspaces
-    ln -sfn ${HOME_DIR}/virtuals ~/virtuals
+    # MOUNT_DIR=/media/data
+    # HOME_DIR=${MOUNT_DIR}/Users/Lukas
+    # ln -sfn ${HOME_DIR}/down ~/down
+    # ln -sfn ${HOME_DIR}/tasks ~/tasks
 fi
 
 echo "Data directories symlinked"
