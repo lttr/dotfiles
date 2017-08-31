@@ -9,8 +9,6 @@
 
 MY_APPS_DIR=${HOME}/opt
 
-set -e
-
 log_installing() {
     echo
     echo "=================================================="
@@ -27,7 +25,7 @@ command_exists() {
 }
 
 check_custom_app() {
-    if command_exists "$1"; then
+    if command_exists "$1" || [ -d "$MY_APPS_DIR/$1" ]; then
         already_installed "$1"
         return 1
     else
@@ -155,6 +153,7 @@ fi
 
 #Program xkblayout-state
 if ! [ -L $HOME/.i3/scripts/xkblayout-state ]; then
+    sudo apt-get install build-essential libx11-dev
     git clone https://github.com/nonpop/xkblayout-state.git
     cd xkblayout-state
     make
