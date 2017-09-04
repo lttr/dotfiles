@@ -104,6 +104,8 @@ alias dg="ddg"
 
 alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 
+alias bsync="browser-sync start --server --files . --no-notify --open"
+
 
 # =================================================================
 #                              Git
