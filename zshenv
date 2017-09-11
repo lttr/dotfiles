@@ -18,6 +18,11 @@ YARN_GLOBAL=~/.yarn-global
 if [ -d "$YARN_GLOBAL/bin" ] ; then
     export PATH="$YARN_GLOBAL/bin:$PATH"
 fi
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export PATH="/usr/local/go/bin:$PATH"
+
+
 
 export PAGER=/usr/bin/less
 export EDITOR=/usr/bin/vim
