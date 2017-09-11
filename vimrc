@@ -335,7 +335,9 @@ set listchars=tab:»\ ,trail:•,extends:#,nbsp:.  " Highlight problematic white
 " ===== Fonts customization =====
 
 " Row numbers
-hi LineNr guifg=#c2c0ba ctermfg=250
+if (&background == 'light')
+  hi LineNr guifg=#c2c0ba ctermfg=250
+endif
 
 " }}}
 "  Completion {{{ ==============================================================
