@@ -152,7 +152,7 @@ if check_custom_app 'yarn'; then
 fi
 
 #Program xkblayout-state
-if ! [ -L $HOME/.i3/scripts/xkblayout-state ]; then
+if check_custom_app 'xkblayout-state'; then
     sudo apt-get install build-essential libx11-dev
     git clone https://github.com/nonpop/xkblayout-state.git
     cd xkblayout-state
