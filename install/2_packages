@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 MY_APPS_DIR=${HOME}/opt
 
 DOTFILES_DIR="$HOME/dotfiles"

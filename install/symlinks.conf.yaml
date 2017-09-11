@@ -28,14 +28,12 @@
     ~/.fonts: ../Dropbox/conf/fonts
     ~/.gtkrc-2.0-gnome-color-chooser: colors/gtkrc-2.0-gnome-color-chooser
     ~/.i3: i3
-    ~/.kde/share/apps/krusader/krbookmarks.xml: ../Dropbox/conf/krusader/krbookmarks.xml
-    ~/.kde/share/apps/krusader/krusaderui.rc: ../Dropbox/conf/krusader/krusaderui.rc
-    ~/.kde/share/apps/krusader/useractions.xml: ../Dropbox/conf/krusader/useractions.xml
-    ~/.kde/share/config/krusaderrc: ../Dropbox/conf/krusader/krusaderrc
     ~/.urxvt: urxvt
     ~/.vim/colors: vim/colors
     ~/.vim/snippets: vim/snippets
     ~/.vim/syntax: vim/syntax
+
+    ~/bin/packs: packages/packs.sh
 
 # executable scripts
 - shell:
