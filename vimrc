@@ -1320,6 +1320,7 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_autoimport_import_after_complete = 1
 let g:pymode_syntax_all =1
 let g:pymode_rope_project_root = "~/.ropeproject"
+let g:pymode_options_colorcolumn = 0
 
 " ===== Restart =====
 let g:restart_sessionoptions = "restartsession"
