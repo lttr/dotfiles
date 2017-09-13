@@ -42,7 +42,7 @@ bindkey -e
 stty start undef
 stty stop undef
 
-# Alt+f to search inside files
+# Alt+i to search inside files
 zle -N file-search
 bindkey '^[i' file-search
 
@@ -54,7 +54,7 @@ bindkey '^[e' file-recent
 zle -N file-edit
 bindkey '^[p' file-edit
 
-# Alt+r to go to recent (almost any reasonable) directory
+# Alt+d to go to recent (almost any reasonable) directory
 zle -N dir-recent
 bindkey '^[d' dir-recent
 
@@ -63,14 +63,31 @@ zle -N dir-open
 bindkey '^[j' dir-open
 
 
-# Alt+Shift+c to copy last command into clipboard
+# Alt+l to copy last command into clipboard
 zle -N last-command
-bindkey '^[C' last-command
+bindkey '^[l' last-command
 
-# Edit command line
+# Alt+n to edit command line
 autoload -z edit-command-line
 zle -N edit-command-line
-bindkey '^[V' edit-command-line
+bindkey '^[n' edit-command-line
+
+# Alt+a accept-and-hold = execute line and keep editing the line
+# Alt+b backward-word
+# Alt+c fzf-cd-widget = jump to directory via fzf
+# Alt+g get-line = insert line from buffer
+# Alt+h run-help = man page for command under cursor
+# Alt+m = urxvt: list all urls in terminal
+# Alt+q push-line
+# Alt+r = urxvt: activate search
+# Alt+s = urxvt: scrollback search
+# Alt+t transpose-words
+# Alt+u = urxvt: open last url in terminal
+# Alt+v = urxvt: activate vim movement
+# Alt+w copy-region-as-kill
+# Alt+x execute-named-cmd
+# Alt+y yank-pop
+# Alt+z execute-last-named-cm
 
 
 # =================================================================
