@@ -26,6 +26,9 @@ mkdir -p ~/.vim
 mkdir -p ~/.vim/backups
 mkdir -p ~/.vim/undos
 
+# Prepare dirs for zsh
+mkdir -p ~/.zsh/completion
+
 # Prepare directories for mounting partitions
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     sudo mkdir -p /media/data
