@@ -733,13 +733,15 @@ command! OpenInFirefox :call OpenCurrentDocumentInBrowser('firefox')
 command! OpenInChrome :call OpenCurrentDocumentInBrowser('chrome')
 command! OpenInVivaldi :call OpenCurrentDocumentInBrowser('vivaldi')
 
-let g:openbrowser_browser_commands = [
-      \   {'name': 'rundll32',
-      \    'args': 'rundll32 url.dll,FileProtocolHandler {use_vimproc ? uri : uri_noesc}'},
-      \   {'name': 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
-      \    'args': ['start', '{browser}', '{uri}']}
-      \]
-let g:openbrowser_use_vimproc=0
+if has('win32')
+  let g:openbrowser_browser_commands = [
+        \   {'name': 'rundll32',
+        \    'args': 'rundll32 url.dll,FileProtocolHandler {use_vimproc ? uri : uri_noesc}'},
+        \   {'name': 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+        \    'args': ['start', '{browser}', '{uri}']}
+        \]
+  let g:openbrowser_use_vimproc=0
+endif
 
 " ===== Repeated lines =====
 command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
