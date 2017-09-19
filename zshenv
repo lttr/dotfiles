@@ -6,6 +6,7 @@
 #  /___||___/|_| |_| \___||_| |_| \_/
 #
 
+export ZSH_DIR="$HOME/.zsh"
 
 if [ -d "$HOME/bin" ] ; then
     export PATH="$HOME/bin:$PATH"
@@ -21,7 +22,6 @@ fi
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export PATH="/usr/local/go/bin:$PATH"
-
 
 
 export PAGER=/usr/bin/less
@@ -55,8 +55,8 @@ if [[ $(hostname) == 'lttr-win10' ]]; then
     export PURE_GIT_DOWN_ARROW=v
 fi
 
-# Force zsh to jump over words as in bash (using M-f and M-b on command line)
-export WORDCHARS=''
+# Jump over whole words
+export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
 
 # Names of i3wm workspaces
