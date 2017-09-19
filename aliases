@@ -106,6 +106,11 @@ alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjol
 
 alias bsync="browser-sync start --server --files . --no-notify --open"
 
+alias d="docker"
+alias dc="docker-compose"
+
+alias ht="http --verify=no"
+
 
 # =================================================================
 #                              Git
@@ -144,6 +149,7 @@ alias gla="git log --graph --decorate --oneline"
 alias gle="git log --graph --decorate --oneline --all -n20"
 alias glea="git log --graph --decorate --oneline --all"
 alias glmy="git log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\""
+alias glf="git $logformat -n8 --name-status"
 alias gm="git $logformat -n20"
 alias gma="git $logformat"
 alias gme="git $logformat --all -n20"

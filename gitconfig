@@ -57,6 +57,7 @@
     ma = !"git logformat"
     me = !"git logformat --all -n20"
     mea = !"git logformat --all"
+    lf = !"gitlogformat -n8 --name-status"
     h = !"git logformat --all --follow" # history of a file
 
     logformat = log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)'
