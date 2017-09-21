@@ -44,9 +44,9 @@ bindkey -e
 stty start undef
 stty stop undef
 
-# Alt+i to search inside files
+# Alt+f to search inside files
 zle -N file-search
-bindkey '^[i' file-search
+bindkey '^[f' file-search
 
 # Alt+e to open recent files
 zle -N file-recent
@@ -73,6 +73,10 @@ bindkey '^[l' last-command
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey '^[n' edit-command-line
+
+# Alt+o to search inside files
+zle -N insert-last-output 
+bindkey '^[o' insert-last-output
 
 # Alt+a accept-and-hold = execute line and keep editing the line
 # Alt+b backward-word
@@ -129,14 +133,6 @@ zstyle ':completion:*' matcher-list '' \
 fpath=(~/.zsh/completion $fpath)
 
 # source <(ng completion --zsh)
-
-
-# =================================================================
-#                    Aliases and functions
-# =================================================================
-
-source ~/dotfiles/aliases
-source ~/dotfiles/functions
 
 
 # =================================================================
@@ -202,6 +198,15 @@ eval "$(fasd --init auto)"
 chpwd() {
   echo "$PWD" > ~/.cwd
 }
+
+
+# =================================================================
+#                    Aliases and functions
+# =================================================================
+
+source ~/dotfiles/aliases
+source ~/dotfiles/functions
+
 
 # =================================================================
 #                          Last command

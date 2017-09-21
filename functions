@@ -316,6 +316,14 @@ list-functions() {
     print -l ${(ok)functions} | grep -v '^_'
 }
 
+# Insert sequence `!!` which is expanded into output of last
+# command by double Tab
+insert-last-output() {
+    xdotool type --clearmodifiers '`!!`' \
+        && xdotool key --clearmodifiers Tab \
+        && xdotool key --clearmodifiers Tab
+}
+
 
 # =================================================================
 #                              i3wm
