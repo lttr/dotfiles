@@ -1,8 +1,3 @@
 csvkit
 ddg
-jira
-openpyxl
-pandas
-pycrypto
-pytz
 trash-cli

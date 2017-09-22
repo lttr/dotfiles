@@ -52,8 +52,6 @@ fi
 #Program fasd
 if check_custom_app 'fasd'; then
     sudo add-apt-repository ppa:aacebedo/fasd
-    sudo apt-get update
-    sudo apt-get install -y fasd
 fi
 
 #Program fzf
@@ -119,24 +117,10 @@ if ! apt-mark showmanual | grep -q fontconfig-infinality; then
     sudo add-apt-repository -y ppa:no1wantdthisname/ppa
 fi
 
-#Program skype
-# if check_custom_app 'skype'; then
-#     sudo add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
-#     sudo apt-get install -y skype
-# fi
-
 #Program tmux plugin manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
     log_installing 'tmux-plugin-manager'
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
-#Program simplenote
-if check_custom_app 'simplenote'; then
-    SN_VERSION=1.0.8
-    wget https://github.com/Automattic/simplenote-electron/releases/download/v$SN_VERSION/simplenote-$SN_VERSION.deb
-    sudo dpkg -i simplenote-$SN_VERSION.deb
-    rm simplenote-$SN_VERSION.deb
 fi
 
 #Program vim plugin manager
@@ -179,5 +163,19 @@ fi
 #     sudo sh install-vivaldi.sh --snapshot
 #     sudo mv /usr/local/bin/vivaldi-snapshot /usr/local/bin/vivaldi
 #     cd $MY_APPS_DIR
+# fi
+
+#Program simplenote
+# if check_custom_app 'simplenote'; then
+#     SN_VERSION=1.0.8
+#     wget https://github.com/Automattic/simplenote-electron/releases/download/v$SN_VERSION/simplenote-$SN_VERSION.deb
+#     sudo dpkg -i simplenote-$SN_VERSION.deb
+#     rm simplenote-$SN_VERSION.deb
+# fi
+
+#Program skype
+# if check_custom_app 'skype'; then
+#     sudo add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+#     sudo apt-get install -y skype
 # fi
 

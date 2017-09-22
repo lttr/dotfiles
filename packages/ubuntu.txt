@@ -10,6 +10,7 @@ dmz-cursor-theme
 dos2unix
 doublecmd-gtk
 expect
+fasd
 feh
 fontconfig-infinality
 gimp
@@ -37,7 +38,6 @@ nautilus-dropbox
 neovim
 network-manager-vpnc
 nmap
-nodejs
 numlockx
 openvpn
 pandoc
