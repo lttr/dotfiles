@@ -8,18 +8,11 @@
 
 export ZSH_DIR="$HOME/.zsh"
 
-if [ -d "$HOME/bin" ] ; then
-    export PATH="$HOME/bin:$PATH"
-fi
-if [ -d "$HOME/.local/bin" ] ; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
-YARN_GLOBAL=~/.yarn-global
-if [ -d "$YARN_GLOBAL/bin" ] ; then
-    export PATH="$YARN_GLOBAL/bin:$PATH"
-fi
-export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.yarn-global/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 export PATH="/usr/local/go/bin:$PATH"
 
