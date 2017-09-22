@@ -66,6 +66,13 @@ Or install only symlinks (shortcut version of the utility script)
 ./dotfiles/scripts/user/dotfiles.sh i sym
 ```
 
+## Other things to consider
+
+- sync Dropbox before installation
+- check if fonts are linked and installed
+- copy /etc/fstab from backup, check mounted disks
+- check backups are set up
+
 ## Thanks
 
 - [github](http://dotfiles.github.io/)
