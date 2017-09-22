@@ -44,6 +44,7 @@ echo "Useful directories created"
 if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     HOME_DIR=/media/data
     ln -sfn ${HOME_DIR}/code ~/code
+    ln -sfn ${HOME_DIR}/Dropbox ~/Dropbox
     ln -sfn ${HOME_DIR}/fotky ~/fotky
     ln -sfn ${HOME_DIR}/grafika ~/grafika
     ln -sfn ${HOME_DIR}/hry ~/hry
@@ -53,6 +54,8 @@ if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
     ln -sfn ${HOME_DIR}/pc ~/pc
     ln -sfn ${HOME_DIR}/skaut ~/skaut
     ln -sfn ${HOME_DIR}/tasks ~/tasks
+    ln -sfn ${HOME_DIR}/vagrants ~/vagrants
+    ln -sfn "${HOME_DIR}/VirtualBox VMs" "~/VirtualBox VMs"
     ln -sfn ${HOME_DIR}/web ~/web
 elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     MOUNT_DIR=/media/data

@@ -12,6 +12,14 @@ if which yarn >/dev/null 2>&1; then
     yarn config set prefix $YARN_GLOBAL
 fi
 
+# npm
+if which npm >/dev/null 2>&1; then
+    NPM_GLOBAL=~/.npm-global
+    mkdir -p $NPM_GLOBAL
+    npm config set prefix $NPM_GLOBAL
+fi
+
+
 
 # Zsh
 if which zsh >/dev/null 2>&1; then
