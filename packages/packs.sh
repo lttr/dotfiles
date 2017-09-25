@@ -139,9 +139,9 @@ case $TYPE in
             process)
                 sudo apt-get update
                 echo
-                ubuntu-install
+                sudo apt-get install -y $( ubuntu-missing )
                 echo
-                sudo apt-get dist-upgrade
+                sudo apt-get dist-upgrade -y
             ;;
             *)
                 echo "Unsupported command"
