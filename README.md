@@ -49,11 +49,11 @@ I do not recommend to install it this way. Just browse the repo for inspiration,
 
 Expects:
 - Fresh installation of Ubuntu Gnome 16
-- git `sudo apt-get install git`
 - home dir `cd ~`
 
 Clone repo and dependencies:
 ```
+sudo apt-get install -y git curl
 git clone --recursive https://github.com/lttr/dotfiles
 ```
 
@@ -66,12 +66,20 @@ Or install only symlinks (shortcut version of the utility script)
 ./dotfiles/scripts/user/dotfiles.sh i sym
 ```
 
-## Other things to consider
+## Other things to consider after installation
 
 - sync Dropbox before installation
+  + Dropbox needs running daemon (`dropbox status`, `dropbox start -i`, `dropbox autostart y`)
 - check if fonts are linked and installed
-- copy /etc/fstab from backup, check mounted disks
+- copy `/etc/fstab` from backup, careful with changing current filesystem root partion
 - check backups are set up
+- sign into Google Chrome to sync browser settings
+- check appearance settings in `lxappearance` utility
+- enable automatic login in `/etc/gdm3/custom.conf`
+- consider disabling slow systemd services 
+  + e.g. `sudo systemctl disable NetworkManager-wait-online.service`
+- change download folder in your browser (I like `~/down`)
+- import backuped settings into some applications (e.g. doublecommander)
 
 ## Thanks
 
