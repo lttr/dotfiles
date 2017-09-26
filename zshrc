@@ -44,9 +44,9 @@ bindkey -e
 stty start undef
 stty stop undef
 
-# Alt+f to search inside files
+# Alt+i to search inside files
 zle -N file-search
-bindkey '^[f' file-search
+bindkey '^[i' file-search
 
 # Alt+e to open recent files
 zle -N file-recent
@@ -81,6 +81,7 @@ bindkey '^[o' insert-last-output
 # Alt+a accept-and-hold = execute line and keep editing the line
 # Alt+b backward-word
 # Alt+c fzf-cd-widget = jump to directory via fzf
+# Alt+f forward-word
 # Alt+g get-line = insert line from buffer
 # Alt+h run-help = man page for command under cursor
 # Alt+m = urxvt: list all urls in terminal
