@@ -78,6 +78,9 @@ bindkey '^[n' edit-command-line
 zle -N insert-last-output 
 bindkey '^[o' insert-last-output
 
+# Alt+Backspace to remove last path segment (like in bash)
+bindkey "^[^?" vi-backward-kill-word
+
 # Alt+a accept-and-hold = execute line and keep editing the line
 # Alt+b backward-word
 # Alt+c fzf-cd-widget = jump to directory via fzf
