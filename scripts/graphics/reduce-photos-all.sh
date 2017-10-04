@@ -11,6 +11,7 @@ QUALITY=82
 # set as progressive jpg
 # optionally strip exif information
 mogrify \
+    -verbose \
     -resize "${RESOLUTION}x${RESOLUTION}>" \
     -quality $QUALITY \
     -auto-orient \
