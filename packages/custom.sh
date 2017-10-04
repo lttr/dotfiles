@@ -73,7 +73,7 @@ fi
 
 #Program gdrive
 if check_custom_app 'gdrive'; then
-    wget -O gdrive "https://drive.google.com/uc?id=0B3X9GlR6Embnb095MGxEYmJhY2c"
+    wget -O gdrive "https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA"
     chmod +x gdrive
     ln -fs ~/opt/gdrive ~/bin/gdrive
 fi
