@@ -1,19 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-BACKUP_NAME=ztphotos
+SOURCE="/media/lukas/Seagate Expansion Drive/Fotky"
 
-BACKUP_FREQUENCY=monthly
+TODAY=$(date "+%Y-%m-%d")
+BACKUP_NAME=${TODAY}-ztphotos
+BACKUP_DISK_MOUNTPOINT=/media/backup_hdd_320
 
-BACKUP_DISK_MOUNTPOINT=backup_hdd_320
+TARGET=${BACKUP_DISK_MOUNTPOINT}/backups/${BACKUP_NAME}/
 
-DIRS=(
-/media/spolecne_uloziste/Fotky
-)
-
-TARGET=/media/${BACKUP_DISK_MOUNTPOINT}/backups/${BACKUP_NAME}-${BACKUP_FREQUENCY}/
-
-LOG_FILE=/home/lukas/.cache/rsync-backup-${BACKUP_NAME}-${BACKUP_FREQUENCY}.log
-
+LOG_FILE=/home/lukas/.cache/rsync-backup-${BACKUP_NAME}.log
 
 mkdir -p $TARGET
 
@@ -24,4 +19,4 @@ mkdir -p $TARGET
 # modify-window = ignore small differences between file modification times
 # progress2 = statistics for the whole transfer
 
-rsync -aLh --info=progress2 --modify-window=5 --delete --log-file=$LOG_FILE ${DIRS[@]} $TARGET
+rsync -aLh --info=progress2 --modify-window=5 --delete --log-file=$LOG_FILE $SOURCE $TARGET
