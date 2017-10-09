@@ -371,12 +371,12 @@ for_window [class="Doublecmd" title="Double Commander"] floating disable
 assign [class="vivaldi"] → $ws_1
 assign [class="Krusader"] → $ws_3
 assign [class="Doublecmd"] → $ws_3
+assign [class="jetbrains-idea"] → $ws_4
+assign [class="Code"] → $ws_4
+assign [class="Image*"] → $ws_6
+assign [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] → $ws_9
 assign [class="Evolution"] → $ws_9
 assign [class="Skype"] → $ws10
-assign [class="Image*"] → $ws_6
-assign [class="jetbrains-idea"] → $ws_4
-assign [class="MineTime"] → $ws_9
-assign [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] → $ws_9
 
 # Borders
 for_window [class="vivaldi*"] border none
@@ -388,7 +388,7 @@ for_window [class="Image*"] border none
 for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
 for_window [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] border normal
-
+for_window [class="Code"] border none
 
 # =================================================================
 #                        Windows resizing
@@ -478,4 +478,6 @@ exec --no-startup-id google-chrome
 exec dropbox start
 
 exec --no-startup-id ~/.i3/scripts/setup-workspaces
+
+exec --no-startup-id ~/.startup.local
 
