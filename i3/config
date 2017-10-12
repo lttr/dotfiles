@@ -263,10 +263,10 @@ bindsym $mod+Ctrl+n move container to workspace next; workspace prev
 bindsym $mod+Ctrl+p move container to workspace prev; workspace next
 
 # Displays
-bindsym $mod+Ctrl+Shift+Left move workspace to output left
-bindsym $mod+Ctrl+Shift+Down move workspace to output down
-bindsym $mod+Ctrl+Shift+Up move workspace to output up
-bindsym $mod+Ctrl+Shift+Right move workspace to output right
+bindsym $mod+Shift+Left move workspace to output left
+bindsym $mod+Shift+Down move workspace to output down
+bindsym $mod+Shift+Up move workspace to output up
+bindsym $mod+Shift+Right move workspace to output right
 
 
 # =================================================================
@@ -318,11 +318,6 @@ bindsym $mod+Shift+h move left 100
 bindsym $mod+Shift+j move down 50
 bindsym $mod+Shift+k move up 50
 bindsym $mod+Shift+l move right 100
-# With arrows also
-bindsym $mod+Shift+Left move left 150
-bindsym $mod+Shift+Down move down 50
-bindsym $mod+Shift+Up move up 50
-bindsym $mod+Shift+Right move right 100
 
 # Toggle tiling / floating
 floating_modifier $mod
