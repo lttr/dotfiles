@@ -3,18 +3,17 @@
 IA_DIR=~/Dropbox/ia
 
 handle_selection() {
-    $EDITOR "$IA_DIR/$1"
+    if [ -n "$1" ]; then
+        $EDITOR "$IA_DIR/$1"
+    fi
 }
 
-if [[ -z "$@" ]]
-then
-    handle_selection "$( \
-        find $IA_DIR ! -path "*/\.*" -type f -printf '%A@ %P\n' \
-        | sort -r \
-        | awk '{OFS="";$1="";print}' \
-        | fzf \
-        )"
-else
-    ag --smart-case --color-match "30;47" "$@" $IA_DIR
-fi
-
+# Without parameter: Open file via fzf
+# Sort by file access time (newest first)
+# With given parameter: Start file search with given query
+handle_selection "$( \
+    find $IA_DIR ! -path "*/\.*" -type f -printf '%A@ %P\n' \
+    | sort -r \
+    | awk '{OFS="";$1="";print}' \
+    | fzf --query "$*" \
+    )"
