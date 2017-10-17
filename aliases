@@ -154,6 +154,7 @@ alias gup="git stash save -u && git pull && git stash pop"
 
 alias gst="git status"
 alias gs="git status -s"
+alias grs="git recursive-status"
 
 
 # =================================================================
