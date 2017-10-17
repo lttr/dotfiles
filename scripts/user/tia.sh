@@ -12,8 +12,8 @@ handle_selection() {
 # Sort by file access time (newest first)
 # With given parameter: Start file search with given query
 handle_selection "$( \
-    find $IA_DIR ! -path "*/\.*" -type f -printf '%A@ %P\n' \
+    find $IA_DIR ! -path "*/\.*" -type f -printf '%A@|%P\n' \
     | sort -r \
-    | awk '{OFS="";$1="";print}' \
+    | awk -F'|' '{OFS="";$1="";print}' \
     | fzf --query "$*" \
     )"
