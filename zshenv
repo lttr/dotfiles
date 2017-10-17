@@ -11,7 +11,7 @@ export ZSH_DIR="$HOME/.zsh"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
-export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn-global/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 export PATH="/usr/local/go/bin:$PATH"
