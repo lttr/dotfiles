@@ -197,8 +197,8 @@ bindsym $mod+a [class="Google-chrome"] focus
 # Define names
 set $ws_1 "1:  "
 set $ws_2 "2:  "
-set $ws_3 "4:  "
-set $ws_4 "3:  "
+set $ws_3 "3:  "
+set $ws_4 "4:  "
 set $ws_5 "5:  "
 set $ws_6 "6:  "
 set $ws_7 "7:  "
