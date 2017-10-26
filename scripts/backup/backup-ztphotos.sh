@@ -19,4 +19,4 @@ mkdir -p $TARGET
 # modify-window = ignore small differences between file modification times
 # progress2 = statistics for the whole transfer
 
-rsync -aLh --info=progress2 --modify-window=5 --delete --log-file=$LOG_FILE $SOURCE $TARGET
+rsync -aLh --info=progress2 --modify-window=5 --delete --log-file=$LOG_FILE "$SOURCE" "$TARGET"
