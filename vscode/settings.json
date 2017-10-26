@@ -1,0 +1,99 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "code-runner.runInTerminal": false,
+    "code-runner.saveFileBeforeRun": true,
+    "editor.cursorBlinking": "solid",
+    "editor.folding": false,
+    "editor.fontSize": 16,
+    "editor.occurrencesHighlight": false,
+    "editor.quickSuggestionsDelay": 500,
+    "editor.tabCompletion": true,
+    "editor.renderControlCharacters": true,
+    "editor.renderIndentGuides": false,
+    "editor.renderLineHighlight": "none",
+    "editor.renderWhitespace": "none",
+    "editor.selectionHighlight": false,
+    "editor.tabSize": 2,
+    "eslint.enable": false,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "gitlens.blame.line.enabled": false,
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.codeLens.enabled": false,
+    "gitlens.codeLens.recentChange.enabled": false,
+    "javascript.format.enable": false,
+    "prettier.eslintIntegration": true,
+    "local-history.path": "/tmp",
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "dist": true
+    },
+    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "vim.disableAnnoyingNeovimMessage": true,
+    "vim.hlsearch": true,
+    "vim.overrideCopy": false,
+    "vim.searchHighlightColor": "#f7c399",
+    "vim.useCtrlKeys": true,
+    "vim.useSystemClipboard": true,
+    "vim.enableNeovim": true,
+    "window.menuBarVisibility": "toggle",
+    "window.zoomLevel": 0,
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "LT Solarized light",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.showTabs": true,
+    "workbench.sideBar.location": "left",
+    "vim.handleKeys": {
+        "<C-f>": false,
+        "<C-k>": false,
+        "<a-j>": false,
+        "<a-k>": false,
+        "<a-h>": false,
+        "<a-l>": false,
+        "tab": false
+    },
+    "vim.leader": ",",
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": ["g", "r"],
+            "after": ["*", "#"]
+        },
+        {
+            "before": ["g", "m"],
+            "after": ["<Esc>"],
+            "commands": [{
+                "command": "editor.action.changeAll",
+                "args": []
+            }]
+        },
+        {
+            "before": ["leader", "h"],
+            "after": ["<Esc>"],
+            "commands": [{
+                "command": ":nohl",
+                "args": []
+            }]
+        },
+        {
+            "before": ["leader", "l"],
+            "after": ["<Esc>"],
+            "commands": [{
+                "command": "editor.action.toggleRenderWhitespace",
+                "args": []
+            }]
+        }
+    ],
+    "workbench.statusBar.visible": true,
+    "sync.gist": "7b70deeb7915d49d16dee17686d68115",
+    "sync.lastUpload": "2017-10-25T07:58:31.169Z",
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastDownload": "2017-10-11T10:42:11.417Z",
+    "sync.forceDownload": false,
+    "sync.anonymousGist": false,
+    "sync.host": "",
+    "sync.pathPrefix": "",
+    "sync.quietSync": true,
+    "sync.askGistName": false
+}
