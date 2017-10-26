@@ -375,7 +375,7 @@ assign [class="Skype"] → $ws10
 
 # Borders
 for_window [class="vivaldi*"] border none
-for_window [class="firefox"] border none
+for_window [class="Firefox"] border none
 for_window [class="Doublecmd"] border none
 for_window [class="Google-chrome"] border none
 for_window [class="brave"] border none
