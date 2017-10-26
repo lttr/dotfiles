@@ -197,8 +197,8 @@ bindsym $mod+a [class="Google-chrome"] focus
 # Define names
 set $ws_1 "1:  "
 set $ws_2 "2:  "
-set $ws_3 "3:  "
-set $ws_4 "4:  "
+set $ws_3 "4:  "
+set $ws_4 "3:  "
 set $ws_5 "5:  "
 set $ws_6 "6:  "
 set $ws_7 "7:  "
@@ -364,10 +364,10 @@ for_window [class="Doublecmd" title="Double Commander"] floating disable
 
 # Force specific workspace
 assign [class="vivaldi"] → $ws_1
-assign [class="Krusader"] → $ws_3
-assign [class="Doublecmd"] → $ws_3
-assign [class="jetbrains-idea"] → $ws_4
-assign [class="Code"] → $ws_4
+assign [class="jetbrains-idea"] → $ws_3
+assign [class="Code"] → $ws_3
+assign [class="Krusader"] → $ws_4
+assign [class="Doublecmd"] → $ws_4
 assign [class="Image*"] → $ws_6
 assign [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] → $ws_9
 assign [class="Evolution"] → $ws_9

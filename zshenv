@@ -55,8 +55,8 @@ export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 # Names of i3wm workspaces
 export WS_1="1:  "
 export WS_2="2:  "
-export WS_3="3:  "
-export WS_4="4:  "
+export WS_3="4:  "
+export WS_4="3:  "
 export WS_5="5:  "
 export WS_6="6:  "
 export WS_7="7:  "
