@@ -6,17 +6,28 @@
 #  /___||___/|_| |_| \___||_| |_| \_/
 #
 
+# zsh
 export ZSH_DIR="$HOME/.zsh"
+# jump over whole words
+export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+# user path
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
-export PATH="$HOME/.yarn-global/bin:$PATH"
-export PATH="$HOME/.npm-global/bin:$PATH"
+# nodejs path
+export PATH="$PATH:$HOME/.yarn-global/bin"
+export PATH="$PATH:$HOME/.npm-global/bin"
 
-export PATH="/usr/local/go/bin:$PATH"
+# go path
+export GOPATH="$HOME/.go"
+export GOROOT="/usr/local/go/bin"
+export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
+# vagrant
+export VAGRANT_HOME=~/vagrants/vagrant.d
 
+# user environment
 export PAGER=/usr/bin/less
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
@@ -24,6 +35,7 @@ export BROWSER=/usr/bin/google-chrome
 export TERMINAL=/usr/bin/urxvt
 export TERM=rxvt-unicode-256color
 
+# user locale
 export LANG=en_GB.UTF-8
 export LANGUAGE=en_GB.UTF-8
 export LC_CTYPE=en_GB.UTF-8
@@ -39,8 +51,7 @@ export LC_TELEPHONE=cs_CZ.UTF-8
 export LC_MEASUREMENT=en_GB.UTF-8
 export LC_IDENTIFICATION=cs_CZ.UTF-8
 
-export VAGRANT_HOME=~/vagrants/vagrant.d
-
+# user prompt
 export PURE_CMD_MAX_EXEC_TIME=10000
 if [[ $(hostname) == 'lttr-win10' ]]; then
     export PURE_PROMPT_SYMBOL=$
@@ -48,11 +59,7 @@ if [[ $(hostname) == 'lttr-win10' ]]; then
     export PURE_GIT_DOWN_ARROW=v
 fi
 
-# Jump over whole words
-export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
-
-
-# Names of i3wm workspaces
+# i3wm workspaces
 export WS_1="1:  "
 export WS_2="2:  "
 export WS_3="3:  "
