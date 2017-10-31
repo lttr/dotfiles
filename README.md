@@ -81,6 +81,12 @@ Or install only symlinks (shortcut version of the utility script)
 - change download folder in your browser (I like `~/down`)
 - import backuped settings into some applications (e.g. doublecommander)
 
+## Installation into VirtualBox
+
+- add Shared folder in settings
+- install guest additions (add guest additions from VirtualBox and run `VBoxLinuxAdditions.run` as root)
+- add user to vboxsf group `sudo usermod -a -G vboxsf lukas`
+
 ## Thanks
 
 - [github](http://dotfiles.github.io/)
