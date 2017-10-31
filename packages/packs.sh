@@ -61,10 +61,10 @@ yarn-extra() {
 # ===== Python =====
 PYTHON_PACKS_PATH="$PACKAGE_LISTS_DIR/python.txt"
 python-installed() {
-    pip list --format=columns
+    pip list
 }
 python-installed-no-versions() {
-    pip list --format=legacy | awk '{print $1}' | sort
+    pip list | awk '{print $1}' | sort
 }
 python-missing() {
     comm -13 <( python-installed-no-versions ) <( cat "$PYTHON_PACKS_PATH" | sort -u )
