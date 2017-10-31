@@ -137,7 +137,7 @@ fi
 
 #Program xkblayout-state
 if check_custom_app 'xkblayout-state'; then
-    sudo apt-get install build-essential libx11-dev
+    sudo apt-get install -y build-essential libx11-dev
     git clone https://github.com/nonpop/xkblayout-state.git
     cd xkblayout-state
     make
