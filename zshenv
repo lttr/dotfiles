@@ -21,7 +21,7 @@ export PATH="$PATH:$HOME/.npm-global/bin"
 
 # go path
 export GOPATH="$HOME/.go"
-export GOROOT="/usr/local/go/bin"
+export GOROOT="/usr/local/go"
 export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 # vagrant

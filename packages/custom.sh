@@ -144,6 +144,12 @@ if check_custom_app 'xkblayout-state'; then
     cd $MY_APPS_DIR
 fi
 
+if check_custom_app 'go'; then
+    GO_VERSION=1.9.2
+    wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
+fi
+
 
 
 # ===== Deprecated =====
