@@ -1,4 +1,3 @@
-// Place your settings in this file to overwrite the default settings
 {
     "code-runner.runInTerminal": false,
     "code-runner.saveFileBeforeRun": true,
@@ -85,16 +84,5 @@
             }]
         }
     ],
-    "workbench.statusBar.visible": true,
-    "sync.gist": "7b70deeb7915d49d16dee17686d68115",
-    "sync.lastUpload": "2017-10-30T14:55:01.633Z",
-    "sync.autoDownload": false,
-    "sync.autoUpload": false,
-    "sync.lastDownload": "2017-10-11T10:42:11.417Z",
-    "sync.forceDownload": false,
-    "sync.anonymousGist": false,
-    "sync.host": "",
-    "sync.pathPrefix": "",
-    "sync.quietSync": true,
-    "sync.askGistName": false
+    "workbench.statusBar.visible": true
 }

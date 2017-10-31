@@ -15,6 +15,7 @@
     ~/.config/ranger/rifle.conf: ranger/rifle.conf
     ~/.config/ranger/scope.sh: ranger/scope.sh
     ~/.config/Code/User/settings.json: vscode/settings.json
+    ~/.config/Code/User/keybindings.json: vscode/keybindings.json
     ~/.gitconfig: gitconfig
     ~/.ideavimrc: ideavimrc
     ~/.kdiff3rc: kdiff3rc
@@ -33,6 +34,7 @@
     ~/.vim/colors: vim/colors
     ~/.vim/snippets: vim/snippets
     ~/.vim/syntax: vim/syntax
+    ~/.config/Code/User/snippets: vscode/snippets
 
     ~/bin/packs: packages/packs.sh
 

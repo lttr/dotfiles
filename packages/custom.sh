@@ -150,6 +150,15 @@ if check_custom_app 'go'; then
     sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
 fi
 
+if check_custom_app 'code'; then
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    sudo apt-get update
+    sudo apt-get install code
+    for extension in $(cat ~/dotfiles/vscode/extensions.txt); do /usr/bin/code --install-extension "$extension"; done
+    git clone https://gist.github.com/lttr/6d025201c24e23b69d879e8ff2c72690 ~/.vscode/extensions/lt-solarized-color-scheme
+fi
 
 
 # ===== Deprecated =====
