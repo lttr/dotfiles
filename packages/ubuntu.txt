@@ -20,6 +20,7 @@ google-chrome-stable
 gpick
 gthumb
 htop
+httpie
 i3
 i3blocks
 inkscape

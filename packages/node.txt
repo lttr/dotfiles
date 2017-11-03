@@ -3,9 +3,11 @@ ansimd
 bower
 browser-sync
 dploy
+eslint
 grunt-cli
 gulp
 hexo
 mocha
+prettier
 typescript
 yo
