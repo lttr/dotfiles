@@ -29,6 +29,7 @@
         "**/bower_components": true,
         "dist": true
     },
+    "standard.enable": false,
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
     "vim.disableAnnoyingNeovimMessage": true,
     "vim.hlsearch": true,

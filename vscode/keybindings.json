@@ -210,7 +210,7 @@
         "command": "git.viewLineHistory"
     },
     {
-        "key": "ctrl+shift+alt+l",
+        "key": "ctrl+shift+l",
         "command": "git.viewHistory"
     },
     {
@@ -254,19 +254,9 @@
         "command": "-search.action.focusPreviousSearchResult"
     },
     {
-        "key": "ctrl+alt+l",
-        "command": "editor.action.formatDocument",
-        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-    },
-    {
         "key": "shift+alt+f",
         "command": "-editor.action.formatDocument",
         "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+alt+l",
-        "command": "editor.action.formatSelection",
-        "when": "editorHasDocumentSelectionFormattingProvider && editorHasSelection && editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+k ctrl+f",
@@ -825,10 +815,6 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+alt+f",
-        "command": "standard.executeAutofix"
-    },
-    {
         "key": "ctrl+tab",
         "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
         "when": "inEditorsPicker && inQuickOpen"
@@ -845,5 +831,27 @@
     {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "-md-shortcut.toggleImage",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "-editor.action.formatDocument",
+        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+alt+b",
+        "command": "-xmlTools.formatXml"
+    },
+    {
+        "key": "ctrl+alt+f",
+        "command": "standard.executeAutofix"
+    },
+    {
+        "key": "ctrl+alt+l",
+        "command": "standard.enable"
     }
 ]
