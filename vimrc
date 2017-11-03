@@ -31,10 +31,11 @@ Plug 'vim-scripts/loremipsum'
 Plug 'vim-scripts/SyntaxComplete'
 
 " Code style
-Plug 'Chiel92/vim-autoformat'
-Plug 'scrooloose/syntastic'
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'scrooloose/syntastic'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'maksimr/vim-jsbeautify'
+" Plug 'maksimr/vim-jsbeautify'
+Plug 'w0rp/ale'
 
 " Documentation
 Plug 'KabbAmine/zeavim.vim'
@@ -91,16 +92,15 @@ Plug 'chrisbra/Colorizer'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
+" Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'elzr/vim-json'
-Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
+" Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
 
 " Typescript
 Plug 'Quramy/tsuquyomi'
-Plug 'Quramy/vim-js-pretty-template'
 Plug 'leafgarland/typescript-vim'
 Plug 'magarcia/vim-angular2-snippets'
 Plug 'bdauria/angular-cli.vim'
@@ -301,6 +301,19 @@ set guitablabel=%f " File name in tab
 nnoremap <silent> coW :call ToggleFlag('guioptions', 'b')<CR>
 
 " ===== Status line  =====
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '!%d/%d',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
 set noruler                                 " No useful info in ruler for me
 set laststatus =2                           " Always show statusline
 " Left side
@@ -314,6 +327,7 @@ set statusline +=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
 set statusline +=\ %=                       " Left/right separator
 " Right side
 set statusline +=\ \|\ %{&ft}               " Filetype (neither %y nor %Y does fit)
+set statusline +=\ \|\ %{LinterStatus()}
 set statusline +=\ \|\ %{&fenc}             " File encoding
 set statusline +=\ \|\ %{strpart(&ff,0,1)}  " File format
 set statusline +=\ \|\ %l:%c                " Total lines and virtual column number
@@ -456,6 +470,12 @@ if ! has('gui_running')
   nmap <Esc>n <Plug>yankstack_substitute_newer_paste
 endif
 
+" ===== Lint =====
+nmap <C-l> :ALEToggle<CR>
+
+" ===== Fix (format) =====
+nmap <C-f> :ALEFix<CR>
+
 " ===== Execute (run) part of buffer =====
 nnoremap <Leader>E :call ExecuteCurrentLine('bash -c')<CR>
 
@@ -548,8 +568,8 @@ nnoremap g> /\<<C-r>/\><CR>
 nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
 
 " Project wide search
-nnoremap <C-f> :Ag<Space>
-vnoremap <C-f> :<C-u>Ag<Space><C-r>*
+" nnoremap ??? :Ag<Space>
+" vnoremap ??? :<C-u>Ag<Space><C-r>*
 
 " Interactive replace
 nnoremap <M-S-R> :OverCommandLine<CR>%s/
@@ -776,7 +796,7 @@ command! XMLSimplify :silent call XMLSimplify()
 " <C-CR>    = run current block or line
 " <c-b>     = go to declaration
 
-nnoremap <c-h> K
+" nnoremap <c-h> K
 nnoremap <F2> :cnext<CR>
 nnoremap <S-F2> :cprevious<CR>
 nnoremap <F3> :lnext<CR>
@@ -1122,6 +1142,16 @@ augroup END
 " }}}
 "  Plugin settings {{{ =========================================================
 
+" ===== ALE =====
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
+let g:ale_set_quickfix = 1
+let g:ale_enabled = 0
+let g:ale_fixers = {
+\   'javascript': [ 'standard' ]
+\}
+
 " ===== Ag =====
 let g:ag_prg="ag --vimgrep --smart-case"
 let g:ag_highlight=1
@@ -1146,6 +1176,7 @@ let g:auto_save_silent = 1
 augroup AUTOSAVE
   autocmd!
   autocmd FileType javascript,typescript,html,css let g:auto_save = 1
+  autocmd FileType vim let g:auto_save = 0
 augroup END
 
 " ===== Colorizer =====
@@ -1366,7 +1397,6 @@ let g:voom_tree_placement = "right"
 command! Outline :Voom
 
 " ===== Xml.vim =====
-" let xml_tag_completion_map = "<C-l>"
 let g:xml_warn_on_duplicate_mapping = 1
 let xml_no_html = 1
 
