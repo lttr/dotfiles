@@ -7,6 +7,7 @@ eslint
 grunt-cli
 gulp
 hexo
+html-to-text
 mocha
 prettier
 typescript

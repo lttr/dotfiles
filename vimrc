@@ -40,6 +40,7 @@ Plug 'w0rp/ale'
 " Documentation
 Plug 'KabbAmine/zeavim.vim'
 Plug 'chrisbra/unicode.vim'
+Plug 'rhysd/devdocs.vim'
 
 " Editing
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -796,6 +797,7 @@ command! XMLSimplify :silent call XMLSimplify()
 " <C-CR>    = run current block or line
 " <c-b>     = go to declaration
 
+nnoremap <F1> :DevDocsUnderCursor<CR>
 " nnoremap <c-h> K
 nnoremap <F2> :cnext<CR>
 nnoremap <S-F2> :cprevious<CR>
@@ -874,9 +876,9 @@ augroup JAVASCRIPT
   autocmd FileType javascript,json setlocal softtabstop=2
   autocmd FileType javascript,json setlocal shiftwidth=2
 
+  autocmd Filetype javascript nnoremap <C-h> :call JSDoc()<CR>
   autocmd Filetype javascript nnoremap <C-j> j/=\? \?fun<CR>:set nohls<CR>:let @/ = ""<CR>0
   autocmd Filetype javascript nnoremap <C-k> /=\? \?fun<CR>N:set nohls<CR>:let @/ = ""<CR>0
-  autocmd Filetype javascript nnoremap <leader>f :Autoformat<CR>
   autocmd Filetype javascript nnoremap <leader>e :call ExecuteCurrentLine('node -e')<CR>
   autocmd Filetype javascript nnoremap <leader>r :call MyRun('node')<CR>
   autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
@@ -1845,6 +1847,11 @@ function! Expander()
     return "\<CR>"
   endif
 endfunction
+
+fun! JSDoc()
+  silent let s = system( 'ddg js ' . expand('<cword>') . ' | html-to-text' )
+  echo s
+endfun
 
 " }}}
 "  Behaviour {{{ ===============================================================
