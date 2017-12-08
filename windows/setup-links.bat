@@ -22,6 +22,10 @@ del /A:H %USERPROFILE%\.kdiff3rc
 mklink %USERPROFILE%\.kdiff3rc %USERPROFILE%\dotfiles\kdiff3rc
 attrib /L +H %USERPROFILE%\.kdiff3rc
 
+mklink c:\Users\Lukas\AppData\Roaming\Code\User\settings.json  %USERPROFILE%\dotfiles\vscode\settings.json
+mklink c:\Users\Lukas\AppData\Roaming\Code\User\keybindings.json  %USERPROFILE%\dotfiles\vscode\keybindings.json
+mklink /d c:\Users\Lukas\AppData\Roaming\Code\User\snippets  %USERPROFILE%\dotfiles\vscode\snippets
+
 @REM Other links
 
 del %CMDER_ROOT%\config\aliases

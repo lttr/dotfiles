@@ -847,11 +847,31 @@
         "command": "-xmlTools.formatXml"
     },
     {
-        "key": "ctrl+alt+f",
-        "command": "standard.executeAutofix"
+        "key": "ctrl+alt+l",
+        "command": "standard.executeAutofix",
+        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && editorLangId == 'javascript'"
     },
     {
-        "key": "ctrl+alt+l",
-        "command": "standard.enable"
+        "key": "ctrl+alt+f",
+        "command": "editor.action.formatDocument",
+        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && editorLangId != 'javascript'"
+    },
+    {
+        "key": "ctrl+k ctrl+i",
+        "command": "workbench.action.selectIconTheme"
+    },
+    {
+        "key": "ctrl+k f",
+        "command": "-workbench.action.closeFolder"
+    },
+    {
+        "key": "ctrl+alt+f",
+        "command": "editor.action.formatSelection",
+        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+k ctrl+f",
+        "command": "-editor.action.formatSelection",
+        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
     }
 ]

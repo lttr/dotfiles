@@ -1,4 +1,8 @@
 {
+    "browserSync.config": {
+        "notify": false,
+        "files": ["*.html", "*.js", "*.css"]
+    },
     "code-runner.runInTerminal": false,
     "code-runner.saveFileBeforeRun": true,
     "editor.cursorBlinking": "solid",
@@ -6,24 +10,27 @@
     "editor.fontSize": 16,
     "editor.occurrencesHighlight": false,
     "editor.quickSuggestionsDelay": 500,
-    "editor.tabCompletion": true,
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": false,
     "editor.renderLineHighlight": "none",
     "editor.renderWhitespace": "none",
     "editor.selectionHighlight": false,
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.showAbbreviationSuggestions": true,
+    "editor.snippetSuggestions": "top",
+    "editor.tabCompletion": true,
     "editor.tabSize": 2,
     "eslint.enable": false,
     "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 1000,
+    "files.autoSaveDelay": 2000,
+    "gitProjectManager.baseProjectsFolders": ["~/code"],
     "gitlens.blame.line.enabled": false,
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.codeLens.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
-    "gitProjectManager.baseProjectsFolders": ["~/code"],
     "javascript.format.enable": false,
-    "prettier.eslintIntegration": true,
     "local-history.path": "/tmp",
+    "prettier.eslintIntegration": true,
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
@@ -31,19 +38,20 @@
     },
     "standard.enable": false,
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-    "vim.disableAnnoyingNeovimMessage": true,
+    "vim.cmdLineInitialColon": true,
+    "vim.enableNeovim": true,
     "vim.hlsearch": true,
     "vim.overrideCopy": false,
-    "vim.searchHighlightColor": "#f7c399",
+    "vim.searchHighlightColor": "#eae4d1",
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
-    "vim.enableNeovim": true,
     "window.menuBarVisibility": "toggle",
     "window.zoomLevel": 0,
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "LT Solarized light",
     "workbench.editor.enablePreview": false,
     "workbench.editor.showTabs": true,
+    "workbench.iconTheme": "vs-seti",
     "workbench.sideBar.location": "left",
     "vim.handleKeys": {
         "<C-f>": false,
@@ -85,5 +93,16 @@
             }]
         }
     ],
-    "workbench.statusBar.visible": true
+    "workbench.statusBar.visible": true,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": false
+    },
+    "team.showWelcomeMessage": false
 }
