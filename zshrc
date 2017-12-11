@@ -114,6 +114,8 @@ setopt extended_history
 setopt hist_ignore_all_dups
 # remove command lines from the history list when the first character on the line is a space
 setopt hist_ignore_space
+# allow more patterns to be expanded on command line
+setopt extended_glob
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
