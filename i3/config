@@ -345,6 +345,8 @@ for_window [class="Gnome-tweak-tool"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="Keditbookmarks"] floating enable
 for_window [class="KeePass2"] floating enable
+for_window [class="Open*"] floating enable
+for_window [class="Select*"] floating enable
 for_window [class="Krusader" title="Copying*"] floating enable
 for_window [class="Krusader" title="Moving*"] floating enable
 for_window [class="Krusader" title="Progress*"] floating enable
