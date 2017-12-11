@@ -8,7 +8,7 @@
     "editor.cursorBlinking": "solid",
     "editor.folding": false,
     "editor.fontSize": 16,
-    "editor.occurrencesHighlight": false,
+    "editor.occurrencesHighlight": true,
     "editor.quickSuggestionsDelay": 500,
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": false,
@@ -104,5 +104,6 @@
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": false
     },
+    "editor.minimap.enabled": false,
     "team.showWelcomeMessage": false
 }

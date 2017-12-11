@@ -323,7 +323,7 @@
         "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
     },
     {
-        "key": "f6",
+        "key": "f2",
         "command": "renameFile",
         "when": "explorerViewletVisible && filesExplorerFocus"
     },
@@ -796,11 +796,6 @@
     },
     {
         "key": "tab",
-        "command": "-editor.emmet.action.expandAbbreviation",
-        "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
-    },
-    {
-        "key": "tab",
         "command": "-extension.vim_tab",
         "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
     },
@@ -865,13 +860,50 @@
         "command": "-workbench.action.closeFolder"
     },
     {
-        "key": "ctrl+alt+f",
-        "command": "editor.action.formatSelection",
-        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
-    },
-    {
         "key": "ctrl+k ctrl+f",
         "command": "-editor.action.formatSelection",
         "when": "editorHasSelection && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+n",
+        "command": "-gitProjectManager.openProjectNewWindow"
+    },
+    {
+        "key": "ctrl+alt+\\",
+        "command": "workbench.action.toggleEditorGroupLayout"
+    },
+    {
+        "key": "shift+alt+1",
+        "command": "-workbench.action.toggleEditorGroupLayout"
+    },
+    {
+        "key": "f6",
+        "command": "editor.action.diffReview.next",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "f7",
+        "command": "-editor.action.diffReview.next",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "shift+f6",
+        "command": "editor.action.diffReview.prev",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "shift+f7",
+        "command": "-editor.action.diffReview.prev",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "-extension.vim_ctrl+y",
+        "when": "editorTextFocus && vim.active && vim.use<C-y> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "-redo",
+        "when": "editorTextFocus && !editorReadonly"
     }
 ]
