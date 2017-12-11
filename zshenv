@@ -24,6 +24,9 @@ export GOPATH="$HOME/.go"
 export GOROOT="/usr/local/go"
 export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
+# vsts
+export PATH=$PATH:$HOME/opt/vsts-cli/bin
+
 # vagrant
 export VAGRANT_HOME=~/vagrants/vagrant.d
 
