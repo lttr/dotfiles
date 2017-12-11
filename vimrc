@@ -67,6 +67,7 @@ Plug 'terryma/vim-multiple-cursors' , { 'on': 'MultipleCursorsFind' }
 Plug 'triglav/vim-visual-increment'
 Plug 'tpope/vim-unimpaired'
 Plug 'osyo-manga/vim-over'
+Plug 'kubahorak/diacritic'
 
 " Files
 Plug 'ctrlpvim/ctrlp.vim'
@@ -93,11 +94,12 @@ Plug 'chrisbra/Colorizer'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-" Plug 'ternjs/tern_for_vim' , has('unix') ? {} : { 'on' : [] }
+Plug 'ternjs/tern_for_vim' , {'do': 'npm install'}
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'arturbalabanov/vim-angular-template'
 Plug 'Quramy/vim-js-pretty-template'
 Plug 'elzr/vim-json'
+Plug 'mvolkmann/vim-js-arrow-function'
 " Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
 
 " Typescript
@@ -125,6 +127,7 @@ Plug 'kannokanno/previm'
 Plug 'qpkorr/vim-renamer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'skywind3000/asyncrun.vim'
 
 " Special file types
 Plug 'chrisbra/csv.vim', { 'for': 'csvx' }
@@ -249,7 +252,7 @@ set mouse=a                    " Enable the use of mouse in terminal
 " Leave the insert mode without waiting for another hotkey,
 " because <Esc> is used to simulate <Alt> in some terminals.
 if ! has('gui_running')
-  set ttimeoutlen=10
+  set ttimeout ttimeoutlen=10
   augroup FastEscape
     autocmd!
     au InsertEnter * set timeoutlen=0
@@ -308,11 +311,15 @@ function! LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
 
-    return l:counts.total == 0 ? 'OK' : printf(
+    let l:output = l:counts.total == 0 ? 'OK' : printf(
     \   '!%d/%d',
     \   all_non_errors,
     \   all_errors
     \)
+    if (exists(g:ale_enabled) && g:ale_enabled == 0)
+        let l:output = 'OFF'
+    endif
+    return l:output
 endfunction
 
 set noruler                                 " No useful info in ruler for me
@@ -380,7 +387,7 @@ set completeopt=menu,preview
 " Make <Tab> select the currently selected choice, same like <CR>
 " If not in completion mode, call snippets expanding function
 imap <expr> <Tab> pumvisible() ? "\<C-y>" : "<Plug>snipMateNextOrTrigger"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " Compatibility with IDEA
 inoremap <A-/> <c-n><Down>
@@ -416,16 +423,16 @@ nnoremap T" vip:s/"//g<CR>vip:TransposeWords<CR>
 nnoremap T' vip:s/"//g<CR>vip:TransposeWords<CR>
 
 " ===== Change indentation =====
-nnoremap <A-S-H> <<
-nnoremap <A-S-L> >>
-vnoremap <A-S-H> <gv
-vnoremap <A-S-L> >gv
-if ! has('gui_running')
-  nnoremap <Esc>H <<
-  nnoremap <Esc>L >>
-  vnoremap <Esc>H <gv
-  vnoremap <Esc>L >gv
-endif
+" nnoremap <A-S-H> <<
+" nnoremap <A-S-L> >>
+" vnoremap <A-S-H> <gv
+" vnoremap <A-S-L> >gv
+" if ! has('gui_running')
+"   nnoremap <Esc>H <<
+"   nnoremap <Esc>L >>
+"   vnoremap <Esc>H <gv
+"   vnoremap <Esc>L >gv
+" endif
 " Maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
@@ -459,17 +466,17 @@ inoremap <C-V> <Esc>"+p
 vnoremap <C-V> d"+gP
 " Replace current word with yanked or deleted text (stamping)
 nnoremap s "_diwPb
-vnoremap s "_dP
 " Don't yank the contents of an overwritten selection (reyank the original content)
+" Yankstack plugin i superior (you can paste previously yanked text)
 " xnoremap p "_dP
 
 " Yankstack
 nmap <A-p> <Plug>yankstack_substitute_older_paste
 nmap <A-n> <Plug>yankstack_substitute_newer_paste
-if ! has('gui_running')
-  nmap <Esc>p <Plug>yankstack_substitute_older_paste
-  nmap <Esc>n <Plug>yankstack_substitute_newer_paste
-endif
+" if ! has('gui_running')
+"   nmap <Esc>p <Plug>yankstack_substitute_older_paste
+"   nmap <Esc>n <Plug>yankstack_substitute_newer_paste
+" endif
 
 " ===== Lint =====
 nmap <C-l> :ALEToggle<CR>
@@ -486,7 +493,7 @@ nnoremap Q :Bdelete<CR>
 " Quit window
 nnoremap <leader>q :q<CR>
 " <C-z> minimizes gvim on Windows, which I dont like
-nmap <C-z> <Esc>
+" nmap <C-z> <Esc>
 " Close preview window more easily
 nnoremap <S-Esc> :silent! pclose <Bar> cclose <Bar> lclose <Bar> NERDTreeClose<CR>
 
@@ -512,10 +519,10 @@ nnoremap <A-s> :split $MYVIMRC<CR>
 nnoremap <leader>VV :source $MYVIMRC<CR>
 
 " ===== Plugin toggles =====
-nnoremap <M-1> :NERDTreeFind<CR>
-nnoremap <Esc>1 :NERDTreeFind<CR>
-nnoremap <M-+> :NERDTreeFind<CR>
-nnoremap <Esc>+ :NERDTreeFind<CR>
+nnoremap <A-1> :NERDTreeFind<CR>
+" nnoremap <Esc>1 :NERDTreeFind<CR>
+nnoremap <A-+> :NERDTreeFind<CR>
+" nnoremap <Esc>+ :NERDTreeFind<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>G :Goyo<CR>
 
@@ -552,10 +559,16 @@ vnoremap gy y/\C<C-r>"<CR><C-o>:set hls<CR>cgn
 nnoremap gY yiw/\c\<<C-r>"\><CR><C-o>:set hls<CR>cgn
 vnoremap gY y/\c<C-r>"<CR><C-o>:set hls<CR>cgn
 
+" Go substitute (case sensitive)
+vnoremap gs y:set hls<CR>/\C<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>
+" Go substitute word (case sensitive)
+nnoremap gs :set hls<CR>:%s/\C\<<C-r><C-w>\>//g<Left><Left>
+" " Go substitute (case insensitive)
+" vnoremap gS y:set hls<CR>/\c<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>
+" " Go substitute word (case insensitive)
+" nnoremap gS :set hls<CR>:%s/\c\<<C-r><C-w>\>//g<Left><Left>
 " Go substitute
 vnoremap gs y:set hls<CR>/<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>
-" Go substitute word
-nnoremap gs :set hls<CR>:%s/\<<C-r><C-w>\>//g<Left><Left>
 " Go count occurances
 noremap gC m`:%s///gn<CR>``
 " Go find from clipboard
@@ -565,12 +578,28 @@ noremap g/ /<C-r>"<CR>:set hls<CR>:echo "Search from yank for: ".@/<CR>
 " Go find last search pattern but as a whole word
 nnoremap g> /\<<C-r>/\><CR>
 
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+endif
+
 " Per digit increment
 nnoremap g<C-a> s<C-r>=<C-r>"+1<CR><Esc>
 
 " Project wide search
 " nnoremap ??? :Ag<Space>
 " vnoremap ??? :<C-u>Ag<Space><C-r>*
+
+" Enable alt+letter shortcuts
+" Source: https://stackoverflow.com/a/10216459
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+" set timeout ttimeoutlen=50
+
+nnoremap <A-i> :Lines<CR>
 
 " Interactive replace
 nnoremap <M-S-R> :OverCommandLine<CR>%s/
@@ -584,20 +613,20 @@ nnoremap <silent> gP "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\
 
 " ===== Bubble lines up and down =====
 " Source http://vimrcfu.com/snippet/110
-nnoremap <A-S-J> :m .+1<CR>==
-nnoremap <A-S-K> :m .-2<CR>==
-inoremap <A-S-J> <Esc>:m .+1<CR>==gi
-inoremap <A-S-K> <Esc>:m .-2<CR>==g
-vnoremap <A-S-J> :m '>+1<CR>gv=gv
-vnoremap <A-S-K> :m '<-2<CR>gv=gv
-if ! has('gui_running')
-  nnoremap <Esc>J :m .+1<CR>==
-  nnoremap <Esc>K :m .-2<CR>==
-  inoremap <Esc>J <Esc>:m .+1<CR>==gi
-  inoremap <Esc>K <Esc>:m .-2<CR>==g
-  vnoremap <Esc>J :m '>+1<CR>gv=gv
-  vnoremap <Esc>K :m '<-2<CR>gv=gv
-endif
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==g
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+" if ! has('gui_running')
+"   nnoremap <Esc>J :m .+1<CR>==
+"   nnoremap <Esc>K :m .-2<CR>==
+"   inoremap <Esc>J <Esc>:m .+1<CR>==gi
+"   inoremap <Esc>K <Esc>:m .-2<CR>==g
+"   vnoremap <Esc>J :m '>+1<CR>gv=gv
+"   vnoremap <Esc>K :m '<-2<CR>gv=gv
+" endif
 
 
 " Selects the text that was entered during the last insert mode usage
@@ -638,7 +667,7 @@ map <leader>n :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open previous buffer
 noremap <C-\> :vsplit<CR>:bp<CR>
-noremap <C-S-\> :split<CR>:bp<CR>
+noremap <A-\> :split<CR>:bp<CR>
 
 " Changing size of windows
 nnoremap <C-Right> :vertical resize +2<CR>
@@ -658,20 +687,22 @@ noremap gk k
 
 " ===== Moving in windows =====
 " Cycling windows
+nnoremap <Tab> <C-W>w
 nnoremap <S-Tab> <C-W>W
 " Alt+LeftArrow to go back (also with side mouse button)
 nnoremap <A-Left> ``
 " Jump to left or right window
-nmap <A-l> <C-w>l
-nmap <A-h> <C-w>h
-nmap <A-j> <C-w>j
-nmap <A-k> <C-w>k
-if ! has('gui_running')
-  nmap <Esc>l <C-w>l
-  nmap <Esc>h <C-w>h
-  nmap <Esc>j <C-w>j
-  nmap <Esc>k <C-w>k
-endif
+" nmap <A-l> <C-w>l
+" nmap <A-h> <C-w>h
+" nmap <A-j> <C-w>j
+" nmap <A-k> <C-w>k
+" if ! has('gui_running')
+"   nmap <Esc>l <C-w>l
+"   nmap <Esc>h <C-w>h
+"   nmap <Esc>j <C-w>j
+"   nmap <Esc>k <C-w>k
+" endif
+
 " Move screen 10 characters left or right in wrap mode
 nnoremap gh 40zh
 nnoremap gl 40zl
@@ -694,6 +725,16 @@ nmap <script> <silent> coq :call ToggleQuickfixList()<CR>
 " ===== Diff =====
 nmap <F7> ]c
 nmap <S-F7> [c
+
+function! RangerExplorer()
+    exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+    if filereadable('/tmp/vim_ranger_current_file')
+        exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+        call system('rm /tmp/vim_ranger_current_file')
+    endif
+    redraw!
+endfun
+map <Leader>x :call RangerExplorer()<CR>
 
 
 " }}}
@@ -815,7 +856,7 @@ augroup END
 augroup EDITING
   autocmd!
   " Make it so that a curly brace automatically inserts an indented line
-  autocmd FileType javascript,typescript,css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
+  autocmd FileType css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
 augroup CSS
@@ -877,6 +918,8 @@ augroup JAVASCRIPT
   autocmd FileType javascript,json setlocal shiftwidth=2
 
   autocmd Filetype javascript nnoremap <C-h> :call JSDoc()<CR>
+  autocmd Filetype javascript vnoremap <C-h> :call JSDoc()<CR>
+  autocmd Filetype javascript command! -nargs=* -complete=command JSDoc call JSDoc(<q-args>)
   autocmd Filetype javascript nnoremap <C-j> j/=\? \?fun<CR>:set nohls<CR>:let @/ = ""<CR>0
   autocmd Filetype javascript nnoremap <C-k> /=\? \?fun<CR>N:set nohls<CR>:let @/ = ""<CR>0
   autocmd Filetype javascript nnoremap <leader>e :call ExecuteCurrentLine('node -e')<CR>
@@ -884,8 +927,10 @@ augroup JAVASCRIPT
   autocmd Filetype javascript vnoremap <leader>r <Esc>:call ExecuteVisualSelection('node -e')<CR>
   autocmd FileType javascript nnoremap <leader>R :call MyRunClam('node')<CR>
   autocmd FileType javascript vnoremap <leader>R <Esc>:call ExecuteVisualSelectionWithOutput('node')<CR>
-  autocmd FileType javascript nnoremap <leader>t :!npm test --silent %<CR>
+  autocmd FileType javascript nnoremap <leader>t :!npm test --silent<CR>
   autocmd FileType javascript nnoremap <leader>T :!npm test --silent --recursive<CR>
+
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
 augroup TYPESCRIPT
@@ -1149,9 +1194,16 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%][%severity%] %s'
 let g:ale_set_quickfix = 1
+let g:ale_sign_column_always = 0
+let g:ale_set_signs = 0
 let g:ale_enabled = 0
+let g:ale_linters = {
+\   'javascript': [ 'standard' ],
+\   'json': [ 'prettier' ]
+\}
 let g:ale_fixers = {
-\   'javascript': [ 'standard' ]
+\   'javascript': [ 'standard' ],
+\   'json': [ 'prettier' ]
 \}
 
 " ===== Ag =====
@@ -1223,16 +1275,13 @@ endif
 " ===== DelimitMate =====
 let g:delimitMate_expand_cr    = 2  " Expand to new line after <CR>
 let g:delimitMate_expand_space = 1  " Expand the <space> on both sides
-" let g:delimitMate_autoclose  = 0  " Do not add closing delimeter automatically
-" let g:delimitMate_offByDefault = 1  " Turn off by default
 let delimitMate_excluded_ft = "markdown,txt,sh"
-" Run :DelimitMateSwitch to turn on
 
 " ===== EditorConfig =====
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " ===== Emmet =====
-let g:user_emmet_leader_key = '<C-y>'
+" let g:user_emmet_leader_key = '<C-y>'
 let g:user_emmet_mode='in'
 let g:emmet_html5           = 1
 
@@ -1278,7 +1327,7 @@ nmap <Leader>ht :GitGutterToggle<CR>
 nmap <Leader>hl :GitGutterLineHighlightsToggle<CR>
 nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hu <Plug>GitGutterUndoHunk
-nmap <C-z> <Plug>GitGutterUndoHunk
+nmap <A-z> <Plug>GitGutterUndoHunk
 nmap <F7> <Plug>GitGutterNextHunk
 nmap <S-F7> <Plug>GitGutterPrevHunk
 nmap ]c <Plug>GitGutterNextHunk
@@ -1385,6 +1434,9 @@ let g:syntastic_mode_map = {
 " ===== Table Mode =====
 let g:table_mode_corner     = "|"
 let g:table_mode_align_char = ":"
+
+" ===== Test =====
+let test#strategy = "dispatch"
 
 " ===== Tsuquyomi =====
 let g:tsuquyomi_disable_quickfix = 1
@@ -1848,10 +1900,31 @@ function! Expander()
   endif
 endfunction
 
-fun! JSDoc()
-  silent let s = system( 'ddg js ' . expand('<cword>') . ' | html-to-text' )
-  echo s
+fun! JSDoc(...)
+  let l:selection = GetVisualSelection()
+  if a:0 > 0
+      let l:word = join(a:000, ' ')
+  elseif l:selection
+      let l:word = l:selection
+  else
+      let l:word = expand('<cword>')
+  endif
+  silent let result = system( 'ddg js ' . l:word . ' | html-to-text' )
+  echo result
 endfun
+
+function! GetVisualSelection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+    return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
+endfunction
 
 " }}}
 "  Behaviour {{{ ===============================================================
