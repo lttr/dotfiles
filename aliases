@@ -48,6 +48,7 @@ alias le="less -FiMRX"
 alias lesf="less +F"
 
 alias df="df -h"
+alias tree="tree -I 'node_modules|.git'"
 
 
 # =================================================================
@@ -72,7 +73,7 @@ alias down="cd ~/down"
 alias drop="cd ~/Dropbox"
 alias sand="cd ~/sandbox"
 alias task="cd ~/tasks"
-alias goia="cd ~/Dropbox/ia"
+alias tiacd="cd ~/Dropbox/ia"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
 
@@ -91,10 +92,13 @@ alias dg="ddg"
 alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 alias ht="http --verify=no"
 alias ipy="ipython"
-alias nb="npm run build"
-alias nr="npm run"
-alias ns="npm start"
-alias nt="npm test"
+alias nb="npm run --silent build"
+alias nr="npm run --silent"
+alias ns="npm run --silent start"
+alias nw="npm run --silent watch"
+alias nt="npm run --silent test"
+alias ni="npm install"
+alias nig="npm install -g"
 alias py="python"
 alias tiad='dir=$(find ~/Dropbox/ia -type d | fzf) && cd "$dir"'
 alias tp="trash-put"
@@ -105,7 +109,6 @@ alias xmlstar="xmlstarlet"
 # =================================================================
 #                              Git
 # =================================================================
-# alias git="hub"
 
 alias ga="git add"
 alias gaa="git add --all"
