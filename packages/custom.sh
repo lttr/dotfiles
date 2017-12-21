@@ -157,7 +157,7 @@ if check_custom_app 'code'; then
     sudo apt-get update
     sudo apt-get install code
     for extension in $(cat ~/dotfiles/vscode/extensions.txt); do /usr/bin/code --install-extension "$extension"; done
-    git clone https://gist.github.com/lttr/6d025201c24e23b69d879e8ff2c72690 ~/.vscode/extensions/lt-solarized-color-scheme
+    git clone https://github.com/lttr/vscode-solarized-light-color-theme ~/.vscode/extensions/lt-solarized-color-scheme
 fi
 
 

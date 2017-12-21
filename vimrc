@@ -305,23 +305,6 @@ set guitablabel=%f " File name in tab
 nnoremap <silent> coW :call ToggleFlag('guioptions', 'b')<CR>
 
 " ===== Status line  =====
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    let l:output = l:counts.total == 0 ? 'OK' : printf(
-    \   '!%d/%d',
-    \   all_non_errors,
-    \   all_errors
-    \)
-    if (exists(g:ale_enabled) && g:ale_enabled == 0)
-        let l:output = 'OFF'
-    endif
-    return l:output
-endfunction
-
 set noruler                                 " No useful info in ruler for me
 set laststatus =2                           " Always show statusline
 " Left side
@@ -335,7 +318,6 @@ set statusline +=\ %{exists('g:loaded_fugitive')?fugitive#head(7):''}
 set statusline +=\ %=                       " Left/right separator
 " Right side
 set statusline +=\ \|\ %{&ft}               " Filetype (neither %y nor %Y does fit)
-set statusline +=\ \|\ %{LinterStatus()}
 set statusline +=\ \|\ %{&fenc}             " File encoding
 set statusline +=\ \|\ %{strpart(&ff,0,1)}  " File format
 set statusline +=\ \|\ %l:%c                " Total lines and virtual column number
