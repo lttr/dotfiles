@@ -194,7 +194,7 @@ file-search() {
     file=${tokens[1]}
     line=${tokens[2]}
     if [ -n "$out" ]; then
-        vim "$file" +${line} +"setlocal cursorline" < /dev/tty
+        ${EDITOR:-vim} "$file" +${line} +"setlocal cursorline" < /dev/tty
     fi
 }
 
@@ -347,7 +347,7 @@ get-current-workspace-name() {
 # Last edited files will be closer
 # Using dbext in vim
 dbext() {
-    vim "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
+    ${EDITOR:-vim} "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
 }
 
 
