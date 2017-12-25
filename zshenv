@@ -53,6 +53,7 @@ export LC_ADDRESS=cs_CZ.UTF-8
 export LC_TELEPHONE=cs_CZ.UTF-8
 export LC_MEASUREMENT=en_GB.UTF-8
 export LC_IDENTIFICATION=cs_CZ.UTF-8
+export LC_ALL=C
 
 # user prompt
 export PURE_CMD_MAX_EXEC_TIME=10000
