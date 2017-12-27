@@ -367,7 +367,6 @@ for_window [class="Doublecmd" title="Double Commander"] floating disable
 # Force specific workspace
 assign [class="vivaldi"] → $ws_1
 assign [class="jetbrains-idea"] → $ws_3
-assign [class="Code"] → $ws_3
 assign [class="Krusader"] → $ws_4
 assign [class="Doublecmd"] → $ws_4
 assign [class="Image*"] → $ws_6
