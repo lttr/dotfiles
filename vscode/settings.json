@@ -1,4 +1,4 @@
-{a
+{
     "browserSync.config": {
         "notify": false,
         "files": ["*.html", "*.js", "*.css"]
@@ -102,10 +102,12 @@
         "suppressFileNotUnderSourceControlWarning": false,
         "suppressGitVersionWarning": false,
         "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
+        "suppressNoRepositoryWarning": true,
         "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": false
+        "suppressWelcomeNotice": true
     },
     "editor.minimap.enabled": false,
-    "team.showWelcomeMessage": false
+    "team.showWelcomeMessage": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "explorer.confirmDragAndDrop": false
 }
