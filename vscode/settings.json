@@ -31,7 +31,7 @@
     "javascript.format.enable": false,
     "prettier.eslintIntegration": true,
     "keyboard.dispatch": "keyCode",
-    "local-history.path": "/tmp",
+    "local-history.path": "/tmp/vscode-local-history",
     "prettier.eslintIntegration": true,
     "search.exclude": {
         "**/node_modules": true,
@@ -65,8 +65,7 @@
         "tab": false
     },
     "vim.leader": ",",
-    "vim.otherModesKeyBindingsNonRecursive": [
-        {
+    "vim.otherModesKeyBindingsNonRecursive": [{
             "before": ["g", "r"],
             "after": ["*", "#"]
         },
@@ -110,4 +109,5 @@
     "team.showWelcomeMessage": false,
     "editor.multiCursorModifier": "ctrlCmd",
     "explorer.confirmDragAndDrop": false
+    "workbench.startupEditor": "newUntitledFile"
 }

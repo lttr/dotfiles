@@ -279,16 +279,6 @@
     },
     {
         "key": "ctrl+shift+p",
-        "command": "editor.action.triggerParameterHints",
-        "when": "editorHasSignatureHelpProvider && editorTextFocus"
-    },
-    {
-        "key": "ctrl+shift+space",
-        "command": "-editor.action.triggerParameterHints",
-        "when": "editorHasSignatureHelpProvider && editorTextFocus"
-    },
-    {
-        "key": "ctrl+shift+p",
         "command": "closeParameterHints",
         "when": "editorTextFocus && parameterHintsVisible"
     },
@@ -844,7 +834,7 @@
     {
         "key": "ctrl+alt+l",
         "command": "standard.executeAutofix",
-        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && editorLangId == 'javascript'"
+        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+alt+f",
@@ -914,5 +904,41 @@
     {
         "key": "ctrl+alt+insert",
         "command": "explorer.newFolder"
+    },
+    {
+        "key": "ctrl+shift+p",
+        "command": "editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+space",
+        "command": "-editor.action.triggerParameterHints",
+        "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    },
+    {
+        "key": "alt+enter",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "-editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+alt+`",
+        "command": "workbench.action.terminal.new"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "-workbench.action.terminal.new"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
     }
 ]

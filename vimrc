@@ -139,6 +139,7 @@ Plug 'vim-scripts/gnuplot.vim' , { 'for': 'gnuplot' }
 Plug 'gabrielelana/vim-markdown' , { 'for': 'markdown' }
 Plug 'blockloop/vim-swigjs', { 'for': 'html' }
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
+Plug 'timcharper/textile.vim', { 'for': 'textile' }
 
 " Version control
 Plug 'gregsexton/gitv' , { 'on': 'Gitv' }
