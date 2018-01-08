@@ -162,9 +162,6 @@ fi
 
 if check_custom_app 'git hub'; then
     git clone git@github.com:ingydotnet/git-hub
-    cd git-hub
-    sudo make install
-    cd $MY_APPS_DIR
 fi
 
 
