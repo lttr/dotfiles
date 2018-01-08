@@ -160,6 +160,13 @@ if check_custom_app 'code'; then
     git clone https://github.com/lttr/vscode-solarized-light-color-theme ~/.vscode/extensions/lt-solarized-color-scheme
 fi
 
+if check_custom_app 'git hub'; then
+    git clone git@github.com:ingydotnet/git-hub
+    cd git-hub
+    sudo make install
+    cd $MY_APPS_DIR
+fi
+
 
 # ===== Deprecated =====
 
