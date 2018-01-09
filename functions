@@ -13,11 +13,11 @@
 
 # Try to find word in dictionary, remove clutter from output
 aj() {
-    dict -d fd-eng-ces "$1" | grep -v '^From ' | grep -v '^$' | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
+    dict -d fd-eng-cze "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
 }
 
 cz() {
-    dict -d fd-ces-eng "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
+    dict -d fd-cze-eng "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | sed 's/()//'
 }
 
 eng() {
