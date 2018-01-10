@@ -839,7 +839,7 @@ augroup END
 augroup EDITING
   autocmd!
   " Make it so that a curly brace automatically inserts an indented line
-  autocmd FileType css,perl,php,java inoremap {<CR> {<CR>}<Esc>O
+  autocmd FileType css,perl,php,java,html inoremap {<CR> {<CR>}<Esc>O
 augroup END
 
 augroup CSS

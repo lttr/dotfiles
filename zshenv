@@ -17,6 +17,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # nodejs path
 export PATH="$PATH:$HOME/.yarn-global/bin"
+export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$HOME/.npm-global/bin"
 
 # go path
