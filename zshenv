@@ -40,21 +40,20 @@ export TERMINAL=/usr/bin/urxvt
 export TERM=rxvt-unicode-256color
 
 # user locale
-export LANG=en_GB.UTF-8
-export LANGUAGE=en_GB.UTF-8
-export LC_CTYPE=en_GB.UTF-8
-export LC_NUMERIC=cs_CZ.UTF-8
-export LC_TIME=en_GB.UTF-8
-export LC_COLLATE=en_GB.UTF-8
-export LC_MONETARY=cs_CZ.UTF-8
-export LC_MESSAGES=en_GB.UTF-8
-export LC_PAPER=en_GB.UTF-8
-export LC_NAME=cs_CZ.UTF-8
-export LC_ADDRESS=cs_CZ.UTF-8
-export LC_TELEPHONE=cs_CZ.UTF-8
-export LC_MEASUREMENT=en_GB.UTF-8
-export LC_IDENTIFICATION=cs_CZ.UTF-8
-# export LC_ALL=C
+export LANG=en_US.utf8
+export LANGUAGE=en_US.utf8
+export LC_CTYPE=en_US.utf8
+export LC_NUMERIC=en_US.utf8
+export LC_TIME=en_US.utf8
+export LC_COLLATE=en_US.utf8
+export LC_MONETARY=en_US.utf8
+export LC_MESSAGES=en_US.utf8
+export LC_PAPER=en_US.utf8
+export LC_NAME=en_US.utf8
+export LC_ADDRESS=en_US.utf8
+export LC_TELEPHONE=en_US.utf8
+export LC_MEASUREMENT=en_US.utf8
+export LC_IDENTIFICATION=en_US.utf8
 
 # user prompt
 export PURE_CMD_MAX_EXEC_TIME=10000
