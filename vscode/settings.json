@@ -29,7 +29,6 @@
     "gitlens.codeLens.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
     "javascript.format.enable": false,
-    "prettier.eslintIntegration": true,
     "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
     "prettier.eslintIntegration": true,
@@ -106,8 +105,7 @@
         "suppressWelcomeNotice": true
     },
     "editor.minimap.enabled": false,
-    "team.showWelcomeMessage": false,
     "editor.multiCursorModifier": "ctrlCmd",
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
     "workbench.startupEditor": "newUntitledFile"
 }
