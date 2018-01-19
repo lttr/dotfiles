@@ -725,18 +725,8 @@
         "command": "-workbench.action.files.openFile"
     },
     {
-        "key": "l",
-        "command": "list.expand",
-        "when": "listFocus"
-    },
-    {
         "key": "right",
         "command": "-list.expand",
-        "when": "listFocus"
-    },
-    {
-        "key": "h",
-        "command": "list.collapse",
         "when": "listFocus"
     },
     {
@@ -940,5 +930,30 @@
     {
         "key": "ctrl+`",
         "command": "-workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "j",
+        "command": "-list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "h",
+        "command": "-list.collapse",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "k",
+        "command": "-list.focusUp",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "l",
+        "command": "-list.select",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "o",
+        "command": "-list.toggleExpand",
+        "when": "listFocus && !inputFocus"
     }
 ]
