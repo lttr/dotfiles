@@ -309,7 +309,7 @@ URxvt.saveLines:          10000
 
 URxvt.perl-ext-common:    default,selection-to-clipboard,pasta,matcher,searchable-scrollback,keyboard-select,resize-font
 
-URxvt.url-launcher:       /usr/bin/google-chrome
+URxvt.url-launcher:       chrome
 URxvt.underlineURLs:      True
 URxvt.matcher.button:     1 
 URxvt.keysym.M-u:         perl:matcher:last
