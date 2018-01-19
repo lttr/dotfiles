@@ -140,6 +140,10 @@ fpath=(~/.zsh/completion $fpath)
 
 # source <(ng completion --zsh)
 
+autoload bashcompinit && bashcompinit
+source ~/opt/azure-cli/az.completion
+source ~/opt/vsts-cli/vsts.completion
+
 
 # =================================================================
 #                             Colors
