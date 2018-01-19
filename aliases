@@ -159,6 +159,8 @@ alias gst="git status"
 alias gs="git status -s"
 alias grs="git recursive-status"
 
+alias gsl="git stash list"
+
 
 # =================================================================
 #                             Search

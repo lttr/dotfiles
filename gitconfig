@@ -70,6 +70,8 @@
     # status
     st = status
     s = status -s
+    # stash
+    sl = stash list
 
 [color]
     diff = auto
