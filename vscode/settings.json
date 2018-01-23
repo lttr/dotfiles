@@ -12,6 +12,7 @@
     "editor.fontSize": 16,
     "editor.matchBrackets": false,
     "editor.occurrencesHighlight": true,
+    "editor.parameterHints": false,
     "editor.quickSuggestionsDelay": 500,
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": false,
@@ -38,7 +39,8 @@
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
-        "dist": true
+        "dist": true,
+        "build": true
     },
     "standard.enable": false,
     "subtleBrackets.styles": { 
