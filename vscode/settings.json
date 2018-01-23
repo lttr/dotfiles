@@ -5,9 +5,12 @@
     },
     "code-runner.runInTerminal": false,
     "code-runner.saveFileBeforeRun": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.codeLens": false,
     "editor.cursorBlinking": "solid",
     "editor.folding": false,
     "editor.fontSize": 16,
+    "editor.matchBrackets": false,
     "editor.occurrencesHighlight": true,
     "editor.quickSuggestionsDelay": 500,
     "editor.renderControlCharacters": true,
@@ -38,7 +41,14 @@
         "dist": true
     },
     "standard.enable": false,
+    "subtleBrackets.styles": { 
+      "global": { 
+        "backgroundColor": "#eee8d5",
+        "borderStyle": "none"
+      }
+    },
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "tslint.enable": false,
     "vim.cmdLineInitialColon": true,
     "vim.enableNeovim": true,
     "vim.hlsearch": true,
@@ -57,6 +67,7 @@
     "vim.handleKeys": {
         "<C-f>": false,
         "<C-k>": false,
+        "<C-e>": false,
         "<a-j>": false,
         "<a-k>": false,
         "<a-h>": false,

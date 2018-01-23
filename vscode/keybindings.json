@@ -4,10 +4,6 @@
         "command": "-workbench.action.openGlobalSettings"
     },
     {
-        "key": "alt+p",
-        "command": "workbench.action.openWorkspaceSettings"
-    },
-    {
         "key": "alt+e",
         "command": "workbench.action.openGlobalKeybindings"
     },
@@ -278,7 +274,7 @@
         "when": "editorTextFocus && vim.active && vim.overrideCtrlC && vim.use<C-c> && !inDebugRepl"
     },
     {
-        "key": "ctrl+shift+p",
+        "key": "alt+p",
         "command": "closeParameterHints",
         "when": "editorTextFocus && parameterHintsVisible"
     },
@@ -518,7 +514,7 @@
         "when": "editorLangId == 'markdown'"
     },
     {
-        "key": "ctrl+shift+alt+v",
+        "key": "ctrl+shift+`",
         "command": "extension.openVim"
     },
     {
@@ -767,14 +763,6 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+e",
-        "command": "workbench.action.openRecent"
-    },
-    {
-        "key": "ctrl+r",
-        "command": "-workbench.action.openRecent"
-    },
-    {
         "key": "tab",
         "command": "-extension.vim_tab",
         "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
@@ -924,7 +912,7 @@
         "command": "-workbench.action.terminal.new"
     },
     {
-        "key": "ctrl+shift+`",
+        "key": "ctrl+`",
         "command": "workbench.action.terminal.toggleTerminal"
     },
     {
@@ -955,5 +943,31 @@
         "key": "o",
         "command": "-list.toggleExpand",
         "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+f8",
+        "command": "editor.debug.action.toggleBreakpoint",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f9",
+        "command": "-editor.debug.action.toggleBreakpoint",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+f8",
+        "command": "workbench.debug.action.focusBreakpointsView"
+    },
+    {
+        "key": "ctrl+alt+e",
+        "command": "workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+alt+v",
+        "command": "toggleVim"
     }
 ]
