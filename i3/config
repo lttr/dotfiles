@@ -356,6 +356,7 @@ for_window [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai
 for_window [class="Qstardict"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="URxvt" instance="floating"] floating enable
+for_window [class="kdeconnectd"] floating enable
 # Disable
 for_window [class="Doublecmd" title="Double Commander"] floating disable
 

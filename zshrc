@@ -141,8 +141,8 @@ fpath=(~/.zsh/completion $fpath)
 # source <(ng completion --zsh)
 
 autoload bashcompinit && bashcompinit
-source ~/opt/azure-cli/az.completion
-source ~/opt/vsts-cli/vsts.completion
+[ -d ~/opt/azure-cli ] && source ~/opt/azure-cli/az.completion
+[ -d ~/opt/vsts-cli ] && source ~/opt/vsts-cli/vsts.completion
 
 
 # =================================================================
