@@ -1111,7 +1111,8 @@
     },
     {
         "key": "ctrl+enter",
-        "command": "extension.runCurrentStatement"
+        "command": "extension.runCurrentStatement",
+        "when": "editorTextFocus && editorLangId == 'sql'"
     },
     {
         "key": "shift+alt+f",
@@ -1213,5 +1214,9 @@
     {
         "key": "alt+t",
         "command": "-extension.goto-symbol-stack.goToSearchSymbolDeclaration"
+    },
+    {
+        "key": "alt+w",
+        "command": "workbench.action.openWorkspaceSettings"
     }
 ]

@@ -28,10 +28,10 @@
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 2000,
     "gitProjectManager.baseProjectsFolders": ["~/code"],
-    "gitlens.blame.line.enabled": false,
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.codeLens.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
+    "gitlens.currentLine.enabled": false,
     "javascript.format.enable": false,
     "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
@@ -177,17 +177,5 @@
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "alt",
     "explorer.confirmDragAndDrop": false,
-    "workbench.startupEditor": "newUntitledFile",
-    "mssql.connections": [
-        {
-            "server": "192.168.2.186\\SQLEXPRESS",
-            "database": "CSD_DB",
-            "authenticationType": "SqlLogin",
-            "user": "developer",
-            "password": "",
-            "emptyPasswordInput": false,
-            "savePassword": true,
-            "profileName": "ContPortTestDB"
-        }
-    ]
+    "workbench.startupEditor": "newUntitledFile"
 }
