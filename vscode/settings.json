@@ -42,6 +42,7 @@
         "dist": true,
         "build": true
     },
+    "search.smartCase": true,
     "standard.enable": false,
     "subtleBrackets.styles": { 
       "global": { 
@@ -50,7 +51,8 @@
       }
     },
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-    "tslint.enable": false,
+    "terminal.integrated.copyOnSelection": true,
+    "tslint.enable": true,
     "vim.cmdLineInitialColon": true,
     "vim.enableNeovim": true,
     "vim.hlsearch": true,
@@ -70,16 +72,78 @@
         "<C-f>": false,
         "<C-k>": false,
         "<C-e>": false,
+        "<C-]>": false,
         "<a-j>": false,
         "<a-k>": false,
         "<a-h>": false,
         "<a-l>": false,
         "tab": false
     },
-    "vim.leader": ",",
-    "vim.otherModesKeyBindingsNonRecursive": [{
-            "before": ["g", "r"],
-            "after": ["*", "#"]
+    "vim.leader": " ",
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": [" ", ";"],
+            "after": [
+                "m", "a",
+                "A", ";", "<Esc>",
+                "`", "a"
+            ]
+        },
+        {
+            "before": [" ", ","],
+            "after": [
+                "m", "a",
+                "A", ",", "<Esc>",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["g", "\""],
+            "after": [
+                "m", "a",
+                "F", "'", "r", "\"", "f", "'", "r", "\"",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["g", "'"],
+            "after": [
+                "m", "a",
+                "F", "\"", "r", "'", "f", "\"", "r", "'",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["g", "`"],
+            "after": [
+                "m", "a",
+                "F", "'", "r", "`", "f", "'", "r", "`",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["leader", "\""],
+            "after": [
+                "m", "a",
+                "b", "i", "\"", "<Esc>", "e", "a", "\"", "<Esc>",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["leader", "'"],
+            "after": [
+                "m", "a",
+                "b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>",
+                "`", "a"
+            ]
+        },
+        {
+            "before": ["leader", "`"],
+            "after": [
+                "m", "a",
+                "b", "i", "`", "<Esc>", "e", "a", "`", "<Esc>",
+                "`", "a"
+            ]
         },
         {
             "before": ["g", "m"],
@@ -96,14 +160,6 @@
                 "command": ":nohl",
                 "args": []
             }]
-        },
-        {
-            "before": ["leader", "l"],
-            "after": ["<Esc>"],
-            "commands": [{
-                "command": "editor.action.toggleRenderWhitespace",
-                "args": []
-            }]
         }
     ],
     "workbench.statusBar.visible": true,
@@ -112,13 +168,26 @@
         "suppressCommitNotFoundWarning": false,
         "suppressFileNotUnderSourceControlWarning": false,
         "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
+        "suppressLineUncommittedWarning": true,
         "suppressNoRepositoryWarning": true,
+        "suppressResultsExplorerNotice": true,
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": true
     },
     "editor.minimap.enabled": false,
-    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.multiCursorModifier": "alt",
     "explorer.confirmDragAndDrop": false,
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    "mssql.connections": [
+        {
+            "server": "192.168.2.186\\SQLEXPRESS",
+            "database": "CSD_DB",
+            "authenticationType": "SqlLogin",
+            "user": "developer",
+            "password": "",
+            "emptyPasswordInput": false,
+            "savePassword": true,
+            "profileName": "ContPortTestDB"
+        }
+    ]
 }

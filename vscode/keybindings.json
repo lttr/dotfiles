@@ -36,7 +36,7 @@
         "command": "-workbench.action.files.newUntitledFile"
     },
     {
-        "key": "f2",
+        "key": "f4",
         "command": "editor.action.marker.next",
         "when": "editorFocus && !editorReadonly"
     },
@@ -46,17 +46,7 @@
         "when": "editorFocus && !editorReadonly"
     },
     {
-        "key": "shift+f2",
-        "command": "editor.action.marker.prev",
-        "when": "editorFocus && !editorReadonly"
-    },
-    {
-        "key": "shift+f8",
-        "command": "-editor.action.marker.prev",
-        "when": "editorFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+j",
+        "key": "shift+alt+j",
         "command": "editor.action.moveLinesDownAction",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -66,7 +56,7 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "alt+k",
+        "key": "shift+alt+k",
         "command": "editor.action.moveLinesUpAction",
         "when": "editorTextFocus && !editorReadonly"
     },
@@ -253,11 +243,6 @@
         "key": "shift+alt+f",
         "command": "-editor.action.formatDocument",
         "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+k ctrl+f",
-        "command": "-editor.action.formatSelection",
-        "when": "editorHasDocumentSelectionFormattingProvider && editorHasSelection && editorTextFocus && !editorReadonly"
     },
     {
         "key": "ctrl+w",
@@ -518,7 +503,7 @@
         "command": "extension.openVim"
     },
     {
-        "key": "ctrl+alt+z",
+        "key": "shift+alt+z",
         "command": "git.revertSelectedRanges"
     },
     {
@@ -735,17 +720,13 @@
         "command": "workbench.action.focusActiveEditorGroup"
     },
     {
-        "key": "ctrl+alt+d",
+        "key": "shift+alt+d",
         "command": "local-history.compareToPrevious"
     },
     {
         "key": "alt+/",
         "command": "-gitlens.showCommitSearch",
         "when": "gitlens:enabled"
-    },
-    {
-        "key": "alt+z",
-        "command": "-editor.action.toggleWordWrap"
     },
     {
         "key": "alt+z",
@@ -828,11 +809,6 @@
         "command": "-workbench.action.closeFolder"
     },
     {
-        "key": "ctrl+k ctrl+f",
-        "command": "-editor.action.formatSelection",
-        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
-    },
-    {
         "key": "ctrl+alt+n",
         "command": "-gitProjectManager.openProjectNewWindow"
     },
@@ -845,18 +821,8 @@
         "command": "-workbench.action.toggleEditorGroupLayout"
     },
     {
-        "key": "f6",
-        "command": "editor.action.diffReview.next",
-        "when": "isInDiffEditor"
-    },
-    {
         "key": "f7",
         "command": "-editor.action.diffReview.next",
-        "when": "isInDiffEditor"
-    },
-    {
-        "key": "shift+f6",
-        "command": "editor.action.diffReview.prev",
         "when": "isInDiffEditor"
     },
     {
@@ -969,5 +935,283 @@
     {
         "key": "ctrl+alt+v",
         "command": "toggleVim"
+    },
+    {
+        "key": "shift+alt+s v",
+        "command": "-svgviewer.openexport"
+    },
+    {
+        "key": "shift+alt+s c",
+        "command": "-svgviewer.copydui"
+    },
+    {
+        "key": "shift+alt+s e",
+        "command": "-svgviewer.saveas"
+    },
+    {
+        "key": "shift+alt+s x",
+        "command": "-svgviewer.saveassize"
+    },
+    {
+        "key": "shift+alt+s o",
+        "command": "-svgviewer.open"
+    },
+    {
+        "key": "ctrl+alt+h",
+        "command": "git.stageSelectedRanges"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "git.unstageSelectedRanges"
+    },
+    {
+        "key": "ctrl+alt+s",
+        "command": "git.stage"
+    },
+    {
+        "key": "shift+alt+s",
+        "command": "git.unstage"
+    },
+    {
+        "key": "ctrl+t s",
+        "command": "editor.action.toggleRenderWhitespace"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-extension.vim_ctrl+t",
+        "when": "editorTextFocus && vim.active && vim.use<C-t> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+t z",
+        "command": "workbench.action.toggleZenMode"
+    },
+    {
+        "key": "ctrl+k z",
+        "command": "-workbench.action.toggleZenMode"
+    },
+    {
+        "key": "ctrl+t w",
+        "command": "editor.action.toggleWordWrap"
+    },
+    {
+        "key": "alt+z",
+        "command": "-editor.action.toggleWordWrap"
+    },
+    {
+        "key": "ctrl+t c",
+        "command": "editor.action.toggleRenderControlCharacter"
+    },
+    {
+        "key": "alt+d",
+        "command": "workbench.action.compareEditor.nextChange"
+    },
+    {
+        "key": "shift+alt+d",
+        "command": "workbench.action.compareEditor.previousChange"
+    },
+    {
+        "key": "ctrl+alt+c",
+        "command": "extension.refactorix.ExtractVariable",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+l",
+        "command": "-extension.refactorix.ExtractVariable",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+i",
+        "command": "extension.refactorix.String.Interpolate",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+x i",
+        "command": "-extension.refactorix.String.Interpolate",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+;",
+        "command": "-extension.refactorix.Semicolons.Add",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+g",
+        "command": "extension.refactorix.Property.ToGetterSetter",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+x g",
+        "command": "-extension.refactorix.Property.ToGetterSetter",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+;",
+        "command": "-extension.refactorix.Semicolons.Remove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+t",
+        "command": "extension.refactorix.SplitVariableDeclaration",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+x s",
+        "command": "-extension.refactorix.SplitVariableDeclaration",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+q",
+        "command": "-extension.refactorix.Access.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+]",
+        "command": "-extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+a",
+        "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+]",
+        "command": "-extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+z",
+        "command": "-redo",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "-editor.action.insertLineBefore",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-editor.action.insertLineAfter",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-editor.openSubdocument",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "extension.runQuery",
+        "when": "editorTextFocus && editorLangId == 'sql'"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-extension.runQuery",
+        "when": "editorTextFocus && editorLangId == 'sql'"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "extension.runCurrentStatement"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "editor.action.formatSelection",
+        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+k ctrl+f",
+        "command": "-editor.action.formatSelection",
+        "when": "editorHasSelection && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "editor.action.reindentlines"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "-editor.action.formatDocument",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+f4",
+        "command": "editor.action.marker.prev",
+        "when": "editorFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+f8",
+        "command": "-editor.action.marker.prev",
+        "when": "editorFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+h",
+        "command": "-gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'standard'"
+    },
+    {
+        "key": "ctrl+shift+alt+f",
+        "command": "gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g h",
+        "command": "-gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+alt+g",
+        "command": "gitlens.showQuickRepoHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g shift+h",
+        "command": "-gitlens.showQuickRepoHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-gitlens.showQuickRepoHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'standard'"
+    },
+    {
+        "key": "ctrl+shift+alt+h",
+        "command": "gitlens.showQuickBranchHistory"
+    },
+    {
+        "key": "ctrl+alt+d",
+        "command": "gitlens.diffWithPrevious",
+        "when": "editorTextFocus && gitlens:activeIsTracked && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g ,",
+        "command": "-gitlens.diffWithPrevious",
+        "when": "editorTextFocus && gitlens:activeIsTracked && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+alt+l",
+        "command": "tslint.fixAllProblems"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "extension.goto-symbol-stack.goPrevOnStack"
+    },
+    {
+        "key": "alt+[",
+        "command": "-extension.goto-symbol-stack.goPrevOnStack"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "extension.goto-symbol-stack.goToSymbolDeclaration"
+    },
+    {
+        "key": "alt+]",
+        "command": "-extension.goto-symbol-stack.goToSymbolDeclaration"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "extension.goto-symbol-stack.goToSearchSymbolDeclaration"
+    },
+    {
+        "key": "alt+t",
+        "command": "-extension.goto-symbol-stack.goToSearchSymbolDeclaration"
     }
 ]
