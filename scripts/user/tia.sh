@@ -4,7 +4,7 @@ IA_DIR=~/Dropbox/ia
 
 handle_selection() {
     if [ -n "$1" ]; then
-        $EDITOR "$IA_DIR/$1"
+        $EDITOR $(realpath "$IA_DIR/$1")
     fi
 }
 

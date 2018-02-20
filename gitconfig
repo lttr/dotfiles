@@ -31,6 +31,8 @@
     d = diff            # changes not staged yet
     ds = diff --staged  # what is already staged in the index
     dh = diff HEAD      # all changes from last commit
+    # merging
+    edit-conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}'; }; $EDITOR `f`"
     # files
     changed = update-index --no-assume-unchanged
     unchanged = update-index --assume-unchanged
@@ -60,7 +62,11 @@
     lf = !"gitlogformat -n8 --name-status"
     h = !"git logformat --all --follow" # history of a file
 
+    logbr = !"git branchesformat" refs/heads
+    logrbr = !"git branchesformat" refs/remotes/origin
+
     logformat = log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)'
+    branchesformat = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))'
 
     sf = show --name-status
     find = log --all --name-status --grep

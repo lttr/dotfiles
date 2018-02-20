@@ -507,10 +507,6 @@
         "command": "git.revertSelectedRanges"
     },
     {
-        "key": "ctrl+shift+h",
-        "command": "-workbench.action.replaceInFiles"
-    },
-    {
         "key": "alt+insert",
         "command": "explorer.newFile"
     },
@@ -1218,5 +1214,18 @@
     {
         "key": "alt+w",
         "command": "workbench.action.openWorkspaceSettings"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "-workbench.action.quickOpenNavigatePreviousInRecentFilesPicker",
+        "when": "inQuickOpen && inRecentFilesPicker"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "workbench.action.replaceInFiles"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "-workbench.action.replaceInFiles"
     }
 ]

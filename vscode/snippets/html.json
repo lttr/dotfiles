@@ -14,4 +14,10 @@
 		"description": "Log output to console"
 	}
 */
+	"Insert SVG icon": {
+		"prefix": "svgicon",
+		"body": [
+			"<svg class=\"o-icon\"><use xlink:href=\"#icon-$1\"></use></svg>"
+		]
+	}
 }

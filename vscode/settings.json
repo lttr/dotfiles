@@ -23,7 +23,8 @@
     "emmet.showAbbreviationSuggestions": true,
     "editor.snippetSuggestions": "top",
     "editor.tabCompletion": true,
-    "editor.tabSize": 2,
+    "editor.tabSize": 4,
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
     "eslint.enable": false,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 2000,
@@ -32,10 +33,10 @@
     "gitlens.codeLens.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
     "gitlens.currentLine.enabled": false,
-    "javascript.format.enable": false,
     "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
     "prettier.eslintIntegration": true,
+    "javascript.format.enable": true,
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
@@ -44,6 +45,9 @@
     },
     "search.smartCase": true,
     "standard.enable": false,
+    "stylelint.enable": false,
+    "css.validate": false,
+    "scss.validate": false,
     "subtleBrackets.styles": { 
       "global": { 
         "backgroundColor": "#eee8d5",
@@ -56,6 +60,7 @@
     "vim.cmdLineInitialColon": true,
     "vim.enableNeovim": true,
     "vim.hlsearch": true,
+    "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
     "vim.overrideCopy": false,
     "vim.searchHighlightColor": "#eae4d1",
     "vim.useCtrlKeys": true,
@@ -160,7 +165,16 @@
                 "command": ":nohl",
                 "args": []
             }]
-        }
+        },
+        {
+            "before": ["g", "S"],
+            "after": [
+                "\"", "d",
+                "c", "i", "t", "<CR>", "a", "<Esc>",
+                "\"", "d", "p",
+                "^", "x"
+            ]
+        },
     ],
     "workbench.statusBar.visible": true,
     "gitlens.advanced.messages": {
@@ -177,5 +191,6 @@
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "alt",
     "explorer.confirmDragAndDrop": false,
-    "workbench.startupEditor": "newUntitledFile"
+    "workbench.startupEditor": "newUntitledFile",
+    "vim.disableExtension": false
 }

@@ -229,9 +229,19 @@ compinit -i
 
 
 # =================================================================
+#                          WSL config
+# =================================================================
+
+source ~/dotfiles/zshenv.wsl
+source ~/dotfiles/zshrc.wsl
+source ~/dotfiles/aliases.wsl
+
+
+# =================================================================
 #                          Local config
 # =================================================================
 
+[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 [[ -f ~/.functions.local ]] && source ~/.functions.local
