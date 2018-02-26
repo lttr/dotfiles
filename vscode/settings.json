@@ -3,6 +3,7 @@
         "notify": false,
         "files": ["*.html", "*.js", "*.css"]
     },
+    "css.validate": false,
     "code-runner.runInTerminal": false,
     "code-runner.saveFileBeforeRun": true,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -11,6 +12,8 @@
     "editor.folding": false,
     "editor.fontSize": 16,
     "editor.matchBrackets": false,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "alt",
     "editor.occurrencesHighlight": true,
     "editor.parameterHints": false,
     "editor.quickSuggestionsDelay": 500,
@@ -19,20 +22,33 @@
     "editor.renderLineHighlight": "none",
     "editor.renderWhitespace": "none",
     "editor.selectionHighlight": false,
-    "emmet.showSuggestionsAsSnippets": true,
-    "emmet.showAbbreviationSuggestions": true,
     "editor.snippetSuggestions": "top",
     "editor.tabCompletion": true,
     "editor.tabSize": 4,
     "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.showAbbreviationSuggestions": true,
     "eslint.enable": false,
+    "explorer.confirmDragAndDrop": false,
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 2000,
     "gitProjectManager.baseProjectsFolders": ["~/code"],
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": true,
+        "suppressNoRepositoryWarning": true,
+        "suppressResultsExplorerNotice": true,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": true
+    },
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.codeLens.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
     "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.enabled": false,
     "html.format.indentHandlebars": true,
     "html.format.wrapLineLength": 100,
     "html.format.wrapAttributes": "auto",
@@ -49,7 +65,6 @@
     "search.smartCase": true,
     "standard.enable": false,
     "stylelint.enable": true,
-    "css.validate": false,
     "scss.validate": false,
     "subtleBrackets.styles": { 
       "global": { 
@@ -75,6 +90,7 @@
     "workbench.editor.showTabs": true,
     "workbench.iconTheme": "vs-seti",
     "workbench.sideBar.location": "left",
+    "vim.disableExtension": false,
     "vim.handleKeys": {
         "<C-f>": false,
         "<C-k>": false,
@@ -179,23 +195,6 @@
         }
     ],
     "workbench.statusBar.visible": true,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": true,
-        "suppressNoRepositoryWarning": true,
-        "suppressResultsExplorerNotice": true,
-        "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": true
-    },
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.enabled": false,
-    "editor.minimap.enabled": false,
-    "editor.multiCursorModifier": "alt",
-    "explorer.confirmDragAndDrop": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "LT Solarized light",
-    "vim.disableExtension": false
+    "workbench.colorTheme": "LT Solarized light"
 }
