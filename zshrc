@@ -152,32 +152,24 @@ autoload bashcompinit && bashcompinit
 eval $(dircolors ~/dotfiles/colors/dircolors)
 
 _gen_fzf_default_opts() {
-  # Solarized colors
-  local base03="234"
-  local base02="235"
-  local base01="240"
-  local base00="241"
-  local base0="244"
-  local base1="245"
-  local base2="254"
-  local base3="230"
-  local yellow="136"
-  local orange="166"
-  local red="160"
-  local magenta="125"
-  local violet="61"
-  local blue="33"
-  local cyan="37"
-  local green="64"
-
-  export FZF_DEFAULT_OPTS="
-    --color fg+:$base01,bg+:$base2,hl:$yellow,hl+:$yellow
-    --exit-0
-    --select-1
-    --reverse
-    --height=30
-  "
-  export FZF_CTRL_T_COMMAND='ag -g ""'
+    if [[ $WSL == true ]]; then
+        export FZF_DEFAULT_OPTS="
+        --color fg+:7,bg+:4,hl:3,hl+:3
+        --exit-0
+        --select-1
+        --reverse
+        --height=30
+        "
+    else
+        export FZF_DEFAULT_OPTS="
+        --color fg+:$sol_code_base01,bg+:$sol_code_base2,hl:$sol_code_yellow,hl+:$sol_code_yellow
+        --exit-0
+        --select-1
+        --reverse
+        --height=30
+        "
+    fi
+    export FZF_CTRL_T_COMMAND='ag -g ""'
 }
 _gen_fzf_default_opts
 

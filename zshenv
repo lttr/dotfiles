@@ -11,6 +11,13 @@ export ZSH_DIR="$HOME/.zsh"
 # jump over whole words
 export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
+# is this inside Windows subsystem for Linux
+if uname -a | grep Microsoft >/dev/null; then
+    WSL=true
+else
+    WSL=false
+fi
+
 # user path
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
@@ -75,4 +82,22 @@ export WS_8="8:  "
 export WS_9="9:  "
 export WS10="10: "
 export WS11="11: "
+
+# Solarized light colors
+sol_code_base03="234"
+sol_code_base02="235"
+sol_code_base01="240"
+sol_code_base00="241"
+sol_code_base0="244"
+sol_code_base1="245"
+sol_code_base2="254"
+sol_code_base3="230"
+sol_code_yellow="136"
+sol_code_orange="166"
+sol_code_red="160"
+sol_code_magenta="125"
+sol_code_violet="61"
+sol_code_blue="33"
+sol_code_cyan="37"
+sol_code_green="64"
 
