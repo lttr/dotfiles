@@ -192,5 +192,6 @@
     "editor.multiCursorModifier": "alt",
     "explorer.confirmDragAndDrop": false,
     "workbench.startupEditor": "newUntitledFile",
-    "vim.disableExtension": false
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.enabled": false
 }
