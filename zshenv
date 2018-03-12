@@ -13,9 +13,9 @@ export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
 # is this inside Windows subsystem for Linux
 if uname -a | grep Microsoft >/dev/null; then
-    WSL=true
+    export WSL=true
 else
-    WSL=false
+    export WSL=false
 fi
 
 # user path

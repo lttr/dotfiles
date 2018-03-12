@@ -1,10 +1,19 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 IA_DIR=~/Dropbox/ia
 
 handle_selection() {
     if [ -n "$1" ]; then
-        $EDITOR $(realpath "$IA_DIR/$1")
+        if [[ $WSL ]]; then
+            WINDOWS_PATH="$(wslpath -s -w "$IA_DIR/$1")"
+            if [[ ! $(file --brief --mime-type "$IA_DIR/$1") =~ "text.*"  ]]; then
+                cmd.exe /c "start "" "$WINDOWS_PATH""
+            else
+                gvim.exe "$WINDOWS_PATH" 2>/dev/null
+            fi
+        else
+            $EDITOR "$(realpath "$IA_DIR/$1")"
+        fi
     fi
 }
 

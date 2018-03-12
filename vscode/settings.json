@@ -30,8 +30,8 @@
     "emmet.showAbbreviationSuggestions": true,
     "eslint.enable": false,
     "explorer.confirmDragAndDrop": false,
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 2000,
+    "files.autoSave": "onFocusChange",
+    "files.autoSaveDelay": 3000,
     "gitProjectManager.baseProjectsFolders": ["~/code"],
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
@@ -52,6 +52,7 @@
     "html.format.indentHandlebars": true,
     "html.format.wrapLineLength": 100,
     "html.format.wrapAttributes": "auto",
+    "jest.pathToJest": "jest",
     "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
     "prettier.eslintIntegration": true,
@@ -72,7 +73,7 @@
         "borderStyle": "none"
       }
     },
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "terminal.integrated.copyOnSelection": true,
     "tslint.enable": true,
     "vim.cmdLineInitialColon": true,
@@ -196,5 +197,6 @@
     ],
     "workbench.statusBar.visible": true,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "LT Solarized light"
+    "workbench.colorTheme": "LT Solarized light",
+    "gitlens.keymap": "alternate"
 }

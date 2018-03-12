@@ -67,10 +67,6 @@
     },
     {
         "key": "ctrl+shift+b",
-        "command": "-workbench.action.tasks.build"
-    },
-    {
-        "key": "ctrl+shift+b",
         "command": "editor.action.goToTypeDefinition"
     },
     {
@@ -1227,5 +1223,43 @@
     {
         "key": "ctrl+shift+h",
         "command": "-workbench.action.replaceInFiles"
+    },
+    {
+        "key": "shift+alt+b",
+        "command": "-gitlens.toggleCodeLens",
+        "when": "editorTextFocus && gitlens:canToggleCodeLens && gitlens:enabled && gitlens:keymap == 'standard'"
+    },
+    {
+        "key": "shift+alt+b",
+        "command": "-java.workspace.compile"
+    },
+    {
+        "key": "shift+alt+t",
+        "command": "workbench.action.tasks.test"
+    },
+    {
+        "key": "shift+alt+b",
+        "command": "workbench.action.tasks.build"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "-workbench.action.tasks.build"
+    },
+    {
+        "key": "shift+alt+a",
+        "command": "workbench.action.tasks.runTask"
+    },
+    {
+        "key": "shift+alt+a",
+        "command": "-editor.action.blockComment",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+f5",
+        "command": "iisee.startServer"
+    },
+    {
+        "key": "shift+alt+f5",
+        "command": "iisee.stopServer"
     }
 ]
