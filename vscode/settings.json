@@ -30,6 +30,7 @@
     "emmet.showAbbreviationSuggestions": true,
     "eslint.enable": false,
     "explorer.confirmDragAndDrop": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
     "files.autoSave": "onFocusChange",
     "files.autoSaveDelay": 3000,
     "gitProjectManager.baseProjectsFolders": ["~/code"],

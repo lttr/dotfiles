@@ -36,7 +36,7 @@
         "command": "-workbench.action.files.newUntitledFile"
     },
     {
-        "key": "f4",
+        "key": "f6",
         "command": "editor.action.marker.next",
         "when": "editorFocus && !editorReadonly"
     },
@@ -184,15 +184,15 @@
         "command": "-editor.action.startFindReplaceAction"
     },
     {
-        "key": "ctrl+shift+alt+f",
+        "key": "ctrl+alt+h",
         "command": "git.viewFileHistory"
     },
     {
-        "key": "shift+alt+f",
+        "key": "shift+alt+h",
         "command": "git.viewLineHistory"
     },
     {
-        "key": "ctrl+shift+l",
+        "key": "ctrl+shift+h",
         "command": "git.viewHistory"
     },
     {
@@ -423,7 +423,7 @@
         "when": "editorFocus"
     },
     {
-        "key": "ctrl+shift+alt+u",
+        "key": "ctrl+shift+l",
         "command": "local-history.showViewer"
     },
     {
@@ -459,26 +459,13 @@
         "command": "-workbench.action.closeActiveEditor"
     },
     {
-        "key": "ctrl+shift+alt+p",
+        "key": "ctrl+alt+p",
         "command": "markdown.showPreviewToSide",
         "when": "editorLangId == 'markdown'"
     },
     {
         "key": "ctrl+k v",
-        "command": "-markdown.showPreviewToSide",
-        "when": "editorLangId == 'markdown'"
-    },
-    {
-        "key": "ctrl+shift+alt+p",
-        "command": "extension.previewToSide"
-    },
-    {
-        "key": "ctrl+k v",
         "command": "-extension.previewToSide"
-    },
-    {
-        "key": "ctrl+alt+p",
-        "command": "extension.preview"
     },
     {
         "key": "ctrl+shift+v",
@@ -712,10 +699,6 @@
         "command": "workbench.action.focusActiveEditorGroup"
     },
     {
-        "key": "shift+alt+d",
-        "command": "local-history.compareToPrevious"
-    },
-    {
         "key": "alt+/",
         "command": "-gitlens.showCommitSearch",
         "when": "gitlens:enabled"
@@ -811,16 +794,6 @@
     {
         "key": "shift+alt+1",
         "command": "-workbench.action.toggleEditorGroupLayout"
-    },
-    {
-        "key": "f7",
-        "command": "-editor.action.diffReview.next",
-        "when": "isInDiffEditor"
-    },
-    {
-        "key": "shift+f7",
-        "command": "-editor.action.diffReview.prev",
-        "when": "isInDiffEditor"
     },
     {
         "key": "ctrl+y",
@@ -949,14 +922,6 @@
         "command": "-svgviewer.open"
     },
     {
-        "key": "ctrl+alt+h",
-        "command": "git.stageSelectedRanges"
-    },
-    {
-        "key": "shift+alt+h",
-        "command": "git.unstageSelectedRanges"
-    },
-    {
         "key": "ctrl+alt+s",
         "command": "git.stage"
     },
@@ -994,12 +959,14 @@
         "command": "editor.action.toggleRenderControlCharacter"
     },
     {
-        "key": "alt+d",
-        "command": "workbench.action.compareEditor.nextChange"
+        "key": "f7",
+        "command": "workbench.action.compareEditor.nextChange",
+        "when": "isInDiffEditor"
     },
     {
-        "key": "shift+alt+d",
-        "command": "workbench.action.compareEditor.previousChange"
+        "key": "shift+f7",
+        "command": "workbench.action.compareEditor.previousChange",
+        "when": "isInDiffEditor"
     },
     {
         "key": "ctrl+alt+c",
@@ -1117,16 +1084,12 @@
         "when": "editorHasSelection && editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+alt+h",
-        "command": "editor.action.reindentlines"
-    },
-    {
         "key": "shift+alt+f",
         "command": "-editor.action.formatDocument",
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+f4",
+        "key": "shift+f6",
         "command": "editor.action.marker.prev",
         "when": "editorFocus && !editorReadonly"
     },
@@ -1141,18 +1104,8 @@
         "when": "gitlens:enabled && gitlens:keymap == 'standard'"
     },
     {
-        "key": "ctrl+shift+alt+f",
-        "command": "gitlens.showQuickFileHistory",
-        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
-    },
-    {
         "key": "ctrl+shift+g h",
         "command": "-gitlens.showQuickFileHistory",
-        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
-    },
-    {
-        "key": "ctrl+shift+alt+g",
-        "command": "gitlens.showQuickRepoHistory",
         "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
     },
     {
@@ -1164,10 +1117,6 @@
         "key": "shift+alt+h",
         "command": "-gitlens.showQuickRepoHistory",
         "when": "gitlens:enabled && gitlens:keymap == 'standard'"
-    },
-    {
-        "key": "ctrl+shift+alt+h",
-        "command": "gitlens.showQuickBranchHistory"
     },
     {
         "key": "ctrl+alt+d",
@@ -1261,5 +1210,111 @@
     {
         "key": "shift+alt+f5",
         "command": "iisee.stopServer"
+    },
+    {
+        "key": "f7",
+        "command": "workbench.action.editor.nextChange",
+        "when": "editorTextFocus && !isInDiffEditor"
+    },
+    {
+        "key": "alt+f5",
+        "command": "-workbench.action.editor.nextChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+f7",
+        "command": "workbench.action.editor.previousChange",
+        "when": "editorTextFocus && !isInDiffEditor"
+    },
+    {
+        "key": "shift+alt+f5",
+        "command": "-workbench.action.editor.previousChange",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f7",
+        "command": "-editor.action.diffReview.next",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "shift+f7",
+        "command": "-editor.action.diffReview.prev",
+        "when": "isInDiffEditor"
+    },
+    {
+        "key": "alt+f7",
+        "command": "editor.action.dirtydiff.next",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+f3",
+        "command": "-editor.action.dirtydiff.next",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+f7",
+        "command": "editor.action.dirtydiff.previous",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+f3",
+        "command": "-editor.action.dirtydiff.previous",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+f",
+        "command": "editor.action.nextSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+f3",
+        "command": "-editor.action.nextSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "editor.action.previousSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+f3",
+        "command": "-editor.action.previousSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+k v",
+        "command": "-markdown.showPreviewToSide",
+        "when": "editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.view.explorer"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "-workbench.action.quickOpenNavigatePreviousInFilePicker",
+        "when": "inFilesPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.files.action.focusFilesExplorer"
+    },
+    {
+        "key": "shift+alt+h",
+        "command": "-gitlens.showQuickRepoHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
+    },
+    {
+        "key": "alt+h",
+        "command": "-gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
+    },
+    {
+        "key": "ctrl+f7",
+        "command": "merge-conflict.next"
+    },
+    {
+        "key": "ctrl+shift+f7",
+        "command": "merge-conflict.previous"
     }
 ]
