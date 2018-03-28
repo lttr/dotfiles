@@ -31,7 +31,7 @@
     "eslint.enable": false,
     "explorer.confirmDragAndDrop": false,
     "extensions.showRecommendationsOnlyOnDemand": true,
-    "files.autoSave": "onFocusChange",
+    "files.autoSave": "off",
     "files.autoSaveDelay": 3000,
     "gitProjectManager.baseProjectsFolders": ["~/code"],
     "gitlens.advanced.messages": {
@@ -199,5 +199,6 @@
     "workbench.statusBar.visible": true,
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "LT Solarized light",
-    "gitlens.keymap": "alternate"
+    "gitlens.keymap": "alternate",
+    "workbench.statusBar.feedback.visible": false
 }

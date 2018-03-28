@@ -926,7 +926,7 @@
         "command": "git.stage"
     },
     {
-        "key": "shift+alt+s",
+        "key": "ctrl+alt+u",
         "command": "git.unstage"
     },
     {
@@ -1272,11 +1272,6 @@
         "when": "editorFocus"
     },
     {
-        "key": "shift+alt+f",
-        "command": "editor.action.previousSelectionMatchFindAction",
-        "when": "editorFocus"
-    },
-    {
         "key": "ctrl+shift+f3",
         "command": "-editor.action.previousSelectionMatchFindAction",
         "when": "editorFocus"
@@ -1316,5 +1311,38 @@
     {
         "key": "ctrl+shift+f7",
         "command": "merge-conflict.previous"
+    },
+    {
+        "key": "shift+alt+s",
+        "command": "git.stageSelectedRanges"
+    },
+    {
+        "key": "shift+alt+u",
+        "command": "-java.projectConfiguration.update",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+alt+u",
+        "command": "git.unstageSelectedRanges"
+    },
+    {
+        "key": "f12",
+        "command": "editor.action.wordHighlight.next",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "f7",
+        "command": "-editor.action.wordHighlight.next",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "shift+f12",
+        "command": "editor.action.wordHighlight.prev",
+        "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "shift+f7",
+        "command": "-editor.action.wordHighlight.prev",
+        "when": "editorTextFocus && hasWordHighlights"
     }
 ]
