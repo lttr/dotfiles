@@ -67,7 +67,8 @@
     logrbr = !"git branchesformat" refs/remotes/origin
 
     logformat = log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)'
-    branches = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))'
+    branches = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))' refs/heads refs/remotes
+    tags = for-each-ref --sort=-taggerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(taggerdate)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(taggername))' refs/tags
 
     rf = reflog
 
