@@ -1,7 +1,11 @@
 {
     "browserSync.config": {
         "notify": false,
-        "files": ["*.html", "*.js", "*.css"]
+        "files": [
+            "*.html",
+            "*.js",
+            "*.css"
+        ]
     },
     "css.validate": false,
     "code-runner.runInTerminal": false,
@@ -11,6 +15,8 @@
     "editor.cursorBlinking": "solid",
     "editor.folding": false,
     "editor.fontSize": 16,
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
     "editor.matchBrackets": false,
     "editor.minimap.enabled": false,
     "editor.multiCursorModifier": "alt",
@@ -22,7 +28,7 @@
     "editor.renderLineHighlight": "none",
     "editor.renderWhitespace": "none",
     "editor.selectionHighlight": false,
-    "editor.snippetSuggestions": "top",
+    "editor.snippetSuggestions": "bottom",
     "editor.tabCompletion": true,
     "editor.tabSize": 4,
     "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
@@ -33,7 +39,9 @@
     "extensions.showRecommendationsOnlyOnDemand": true,
     "files.autoSave": "off",
     "files.autoSaveDelay": 3000,
-    "gitProjectManager.baseProjectsFolders": ["~/code"],
+    "gitProjectManager.baseProjectsFolders": [
+        "~/code"
+    ],
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
         "suppressCommitNotFoundWarning": false,
@@ -42,6 +50,7 @@
         "suppressLineUncommittedWarning": true,
         "suppressNoRepositoryWarning": true,
         "suppressResultsExplorerNotice": true,
+        "suppressShowKeyBindingsNotice": true,
         "suppressUpdateNotice": true,
         "suppressWelcomeNotice": true
     },
@@ -68,15 +77,18 @@
     "standard.enable": false,
     "stylelint.enable": true,
     "scss.validate": false,
-    "subtleBrackets.styles": { 
-      "global": { 
-        "backgroundColor": "#eee8d5",
-        "borderStyle": "none"
-      }
+    "subtleBrackets.styles": {
+        "global": {
+            "backgroundColor": "#eee8d5",
+            "borderStyle": "none"
+        }
     },
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
     "terminal.integrated.copyOnSelection": true,
     "tslint.enable": true,
+    "typescriptHero.imports.multiLineWrapThreshold": 80,
+    "typescriptHero.imports.organizeOnSave": false,
+    "typescriptHero.imports.stringQuoteStyle": "\"",
     "vim.cmdLineInitialColon": true,
     "vim.enableNeovim": true,
     "vim.hlsearch": true,
@@ -107,92 +119,204 @@
     "vim.leader": " ",
     "vim.otherModesKeyBindingsNonRecursive": [
         {
-            "before": [" ", ";"],
+            "before": [
+                " ",
+                ";"
+            ],
             "after": [
-                "m", "a",
-                "A", ";", "<Esc>",
-                "`", "a"
+                "m",
+                "a",
+                "A",
+                ";",
+                "<Esc>",
+                "`",
+                "a"
             ]
         },
         {
-            "before": [" ", ","],
+            "before": [
+                " ",
+                ","
+            ],
             "after": [
-                "m", "a",
-                "A", ",", "<Esc>",
-                "`", "a"
+                "m",
+                "a",
+                "A",
+                ",",
+                "<Esc>",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["g", "\""],
+            "before": [
+                "g",
+                "\""
+            ],
             "after": [
-                "m", "a",
-                "F", "'", "r", "\"", "f", "'", "r", "\"",
-                "`", "a"
+                "m",
+                "a",
+                "F",
+                "'",
+                "r",
+                "\"",
+                "f",
+                "'",
+                "r",
+                "\"",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["g", "'"],
+            "before": [
+                "g",
+                "'"
+            ],
             "after": [
-                "m", "a",
-                "F", "\"", "r", "'", "f", "\"", "r", "'",
-                "`", "a"
+                "m",
+                "a",
+                "F",
+                "\"",
+                "r",
+                "'",
+                "f",
+                "\"",
+                "r",
+                "'",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["g", "`"],
+            "before": [
+                "g",
+                "`"
+            ],
             "after": [
-                "m", "a",
-                "F", "'", "r", "`", "f", "'", "r", "`",
-                "`", "a"
+                "m",
+                "a",
+                "F",
+                "'",
+                "r",
+                "`",
+                "f",
+                "'",
+                "r",
+                "`",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["leader", "\""],
+            "before": [
+                "leader",
+                "\""
+            ],
             "after": [
-                "m", "a",
-                "b", "i", "\"", "<Esc>", "e", "a", "\"", "<Esc>",
-                "`", "a"
+                "m",
+                "a",
+                "b",
+                "i",
+                "\"",
+                "<Esc>",
+                "e",
+                "a",
+                "\"",
+                "<Esc>",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["leader", "'"],
+            "before": [
+                "leader",
+                "'"
+            ],
             "after": [
-                "m", "a",
-                "b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>",
-                "`", "a"
+                "m",
+                "a",
+                "b",
+                "i",
+                "'",
+                "<Esc>",
+                "e",
+                "a",
+                "'",
+                "<Esc>",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["leader", "`"],
+            "before": [
+                "leader",
+                "`"
+            ],
             "after": [
-                "m", "a",
-                "b", "i", "`", "<Esc>", "e", "a", "`", "<Esc>",
-                "`", "a"
+                "m",
+                "a",
+                "b",
+                "i",
+                "`",
+                "<Esc>",
+                "e",
+                "a",
+                "`",
+                "<Esc>",
+                "`",
+                "a"
             ]
         },
         {
-            "before": ["g", "m"],
-            "after": ["<Esc>"],
-            "commands": [{
-                "command": "editor.action.changeAll",
-                "args": []
-            }]
-        },
-        {
-            "before": ["leader", "h"],
-            "after": ["<Esc>"],
-            "commands": [{
-                "command": ":nohl",
-                "args": []
-            }]
-        },
-        {
-            "before": ["g", "S"],
+            "before": [
+                "g",
+                "m"
+            ],
             "after": [
-                "\"", "d",
-                "c", "i", "t", "<CR>", "a", "<Esc>",
-                "\"", "d", "p",
-                "^", "x"
+                "<Esc>"
+            ],
+            "commands": [
+                {
+                    "command": "editor.action.changeAll",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "h"
+            ],
+            "after": [
+                "<Esc>"
+            ],
+            "commands": [
+                {
+                    "command": ":nohl",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "S"
+            ],
+            "after": [
+                "\"",
+                "d",
+                "c",
+                "i",
+                "t",
+                "<CR>",
+                "a",
+                "<Esc>",
+                "\"",
+                "d",
+                "p",
+                "^",
+                "x"
             ]
         }
     ],

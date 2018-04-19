@@ -184,10 +184,6 @@
         "command": "-editor.action.startFindReplaceAction"
     },
     {
-        "key": "ctrl+alt+h",
-        "command": "git.viewFileHistory"
-    },
-    {
         "key": "shift+alt+h",
         "command": "git.viewLineHistory"
     },
@@ -609,11 +605,6 @@
         "key": "alt+l",
         "command": "-toggleFindInSelection",
         "when": "editorFocus"
-    },
-    {
-        "key": "alt+h",
-        "command": "-gitlens.showQuickFileHistory",
-        "when": "gitlens:enabled"
     },
     {
         "key": "alt+l",
@@ -1099,16 +1090,6 @@
         "when": "editorFocus && !editorReadonly"
     },
     {
-        "key": "alt+h",
-        "command": "-gitlens.showQuickFileHistory",
-        "when": "gitlens:enabled && gitlens:keymap == 'standard'"
-    },
-    {
-        "key": "ctrl+shift+g h",
-        "command": "-gitlens.showQuickFileHistory",
-        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
-    },
-    {
         "key": "ctrl+shift+g shift+h",
         "command": "-gitlens.showQuickRepoHistory",
         "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
@@ -1141,16 +1122,8 @@
         "command": "-extension.goto-symbol-stack.goPrevOnStack"
     },
     {
-        "key": "ctrl+b",
-        "command": "extension.goto-symbol-stack.goToSymbolDeclaration"
-    },
-    {
         "key": "alt+]",
         "command": "-extension.goto-symbol-stack.goToSymbolDeclaration"
-    },
-    {
-        "key": "ctrl+g",
-        "command": "extension.goto-symbol-stack.goToSearchSymbolDeclaration"
     },
     {
         "key": "alt+t",
@@ -1262,16 +1235,6 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "alt+f",
-        "command": "editor.action.nextSelectionMatchFindAction",
-        "when": "editorFocus"
-    },
-    {
-        "key": "ctrl+f3",
-        "command": "-editor.action.nextSelectionMatchFindAction",
-        "when": "editorFocus"
-    },
-    {
         "key": "ctrl+shift+f3",
         "command": "-editor.action.previousSelectionMatchFindAction",
         "when": "editorFocus"
@@ -1344,5 +1307,35 @@
         "key": "shift+f7",
         "command": "-editor.action.wordHighlight.prev",
         "when": "editorTextFocus && hasWordHighlights"
+    },
+    {
+        "key": "alt+f",
+        "command": "editor.action.nextSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+f3",
+        "command": "-editor.action.nextSelectionMatchFindAction",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "-typescriptHero.index.addImport",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+alt+h",
+        "command": "gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g h",
+        "command": "-gitlens.showQuickFileHistory",
+        "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
+    },
+    {
+        "key": "alt+/",
+        "command": "-gitlens.showCommitSearch",
+        "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
     }
 ]
