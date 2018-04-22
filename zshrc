@@ -224,9 +224,11 @@ compinit -i
 #                          WSL config
 # =================================================================
 
-source ~/dotfiles/zshenv.wsl
-source ~/dotfiles/zshrc.wsl
-source ~/dotfiles/aliases.wsl
+if [[ $WSL == "true" ]]; then
+    source ~/dotfiles/zshenv.wsl
+    source ~/dotfiles/zshrc.wsl
+    source ~/dotfiles/aliases.wsl
+fi
 
 
 # =================================================================
