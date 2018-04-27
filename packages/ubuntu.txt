@@ -70,5 +70,4 @@ xbacklight
 xbindkeys
 xdotool
 xmlstarlet
-yarn
 zsh

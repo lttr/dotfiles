@@ -129,12 +129,6 @@ if which vim >/dev/null 2>&1; then
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-#Program yarn
-if check_custom_app 'yarn'; then
-    curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    sudo add-apt-repository -y "deb https://dl.yarnpkg.com/debian/ stable main"
-fi
-
 #Program xkblayout-state
 if check_custom_app 'xkblayout-state'; then
     sudo apt-get install -y build-essential libx11-dev

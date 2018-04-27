@@ -23,9 +23,8 @@ export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 # nodejs path
-export PATH="$PATH:$HOME/.yarn-global/bin"
-export PATH="$PATH:$HOME/.yarn/bin"
-export PATH="$PATH:$HOME/.npm-global/bin"
+NPM_GLOBAL="$HOME/.npm-global"
+export PATH="$PATH:$NPM_GLOBAL/bin"
 
 # go path
 export GOPATH="$HOME/.go"
@@ -37,6 +36,12 @@ export PATH=$PATH:$HOME/opt/vsts-cli/bin
 
 # vagrant
 export VAGRANT_HOME=~/vagrants/vagrant.d
+
+# man pages
+
+unset MANPATH # only once here
+export MANPATH="$NPM_GLOBAL/share/man:$(manpath)"
+
 
 # user environment
 export PAGER=/usr/bin/less

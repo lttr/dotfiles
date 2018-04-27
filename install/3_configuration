@@ -5,21 +5,12 @@ echo "=================================================="
 echo "Configuring programs"
 echo "=================================================="
 
-# Yarn
-if which yarn >/dev/null 2>&1; then
-    YARN_GLOBAL=~/.yarn-global
-    mkdir -p $YARN_GLOBAL
-    yarn config set prefix $YARN_GLOBAL
-fi
-
 # npm
 if which npm >/dev/null 2>&1; then
     NPM_GLOBAL=~/.npm-global
     mkdir -p $NPM_GLOBAL
     npm config set prefix $NPM_GLOBAL
 fi
-
-
 
 # Zsh
 if which zsh >/dev/null 2>&1; then

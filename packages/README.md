@@ -31,7 +31,7 @@ managers. Who can remember all those commands?
 | system          | type       | manager    |
 | --              | --         | --         |
 | ubuntu packages | **ubuntu**     | `apt-get`  |
-| node packages   | **node**       | `yarn`     |
+| node packages   | **node**       | `npm`     |
 | python packages | **python**     | `pip`      |
 | vim plugins     | **vim**        | `vim-plug` |
 | zsh plugins     | **zsh**        | `antibody` |
@@ -128,12 +128,14 @@ sudo apt full-upgrade
 
 ### Node
 
-Note: `yarn` is quicker but `npm` is fine
+Note: (`yarn` is no longer quicker but) `npm` is fine
 
 **installed**
 ```
-yarn global ls
-yarn global ls --json 2>/dev/null | jq -cr 'select(.type | test("info")) | .data | split("\"")| .[1]'
+npm ls -g --depth=0
+npm ls -g --depth=0 -parseable \
+    | grep 'node_modules' \
+    | sed -e 's@^.*node_modules/@@'
 ```
 
 **configured**
@@ -143,7 +145,7 @@ cat node.packs
 
 **missing**
 ```
-yarn global list
+npm ls -g --depth=0
 cat node.packs
 sort -u
 comm -23
@@ -151,18 +153,17 @@ comm -23
 
 **install**
 ```
-yarn global add …
+npm ls -g --depth=0
 ```
 
 **updatable**
 ```
-! not implemented in yarn yet (3/2017) !
-yarn global outdated
+npm outdated -g
 ```
 
 **update**
 ```
-yarn global upgrade
+npm update -g
 ```
 
 ### Python

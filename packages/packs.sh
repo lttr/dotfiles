@@ -44,6 +44,7 @@ ubuntu-extra() {
 
 # ===== Node =====
 NODE_PACKS_PATH="$PACKAGE_LISTS_DIR/node.txt"
+# yarn
 yarn-installed() {
     yarn global ls --json 2>/dev/null \
         | jq -cr 'select(.type | test("info")) | .data | split("\"")| .[1]'
@@ -56,6 +57,18 @@ yarn-missing() {
 }
 yarn-extra() {
     comm -23 <( yarn-installed-no-versions ) <( cat "$NODE_PACKS_PATH" | sort -u )
+}
+#npm
+npm-installed() {
+    npm ls -g --depth=0 -parseable \
+        | grep 'node_modules' \
+        | sed -e 's@^.*node_modules/@@'
+}
+npm-missing() {
+    comm -13 <( npm-installed | sort -u ) <( cat "$NODE_PACKS_PATH" | sort -u )
+}
+npm-extra() {
+    comm -23 <( npm-installed | sort -u ) <( cat "$NODE_PACKS_PATH" | sort -u )
 }
 
 # ===== Python =====
@@ -154,28 +167,28 @@ case $TYPE in
                 echo "Unsupported command"
             ;;
             installed)
-                yarn-installed
+                npm-installed
             ;;
             configured)
                 cat "$NODE_PACKS_PATH"
             ;;
             missing)
-                yarn-missing
+                npm-missing
             ;;
             extra)
-                yarn-extra
+                npm-extra
             ;;
             install)
-                yarn global add $( cat "$NODE_PACKS_PATH" )
+                npm install -g $( cat "$NODE_PACKS_PATH" )
             ;;
             updatable)
-                yarn global upgrade-interactive
+                npm outdated -g
             ;;
             update)
-                yarn global upgrade
+                npm update -g
             ;;
             process)
-                yarn global install $( cat "$NODE_PACKS_PATH" )
+                npm install -g $( cat "$NODE_PACKS_PATH" )
             ;;
             *)
                 echo "Unsupported command"
