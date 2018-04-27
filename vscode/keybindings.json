@@ -1114,10 +1114,6 @@
         "command": "tslint.fixAllProblems"
     },
     {
-        "key": "ctrl+shift+t",
-        "command": "extension.goto-symbol-stack.goPrevOnStack"
-    },
-    {
         "key": "alt+[",
         "command": "-extension.goto-symbol-stack.goPrevOnStack"
     },
@@ -1337,5 +1333,35 @@
         "key": "alt+/",
         "command": "-gitlens.showCommitSearch",
         "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
+    },
+    {
+        "key": "alt+j",
+        "command": "showNextParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "down",
+        "command": "-showNextParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "alt+k",
+        "command": "showPrevParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "up",
+        "command": "-showPrevParameterHint",
+        "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "extension.jestGoToTest",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+y",
+        "command": "-extension.jestGoToTest",
+        "when": "editorTextFocus"
     }
 ]
