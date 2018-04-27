@@ -116,6 +116,8 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # allow more patterns to be expanded on command line
 setopt extended_glob
+# disable beeping (e.g. after tab completion)
+unsetopt beep
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
