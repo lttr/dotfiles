@@ -19,20 +19,20 @@ else
 fi
 
 # user path
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # nodejs path
 NPM_GLOBAL="$HOME/.npm-global"
-export PATH="$PATH:$NPM_GLOBAL/bin"
+export PATH="$NPM_GLOBAL/bin:$PATH"
 
 # go path
 export GOPATH="$HOME/.go"
 export GOROOT="/usr/local/go"
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
 # vsts
-export PATH=$PATH:$HOME/opt/vsts-cli/bin
+export PATH=$HOME/opt/vsts-cli/bin:$PATH
 
 # vagrant
 export VAGRANT_HOME=~/vagrants/vagrant.d
