@@ -114,7 +114,7 @@ rofi.color-normal:                   S_base3,S_base03,S_base2,S_base01,S_base2
 ! Color scheme for urgent row
 rofi.color-urgent:                   S_base3,S_red,S_base2,S_red,S_base3
 ! Color scheme for active row
-rofi.color-active:                   S_base3,S_blue,S_base2,S_blueS_base3
+rofi.color-active:                   S_base3,S_blue,S_base2,S_blue,S_base3
 ! Color scheme window
 rofi.color-window:                   S_base3,S_base03
 ! Border width
@@ -302,7 +302,7 @@ rofi.key-ssh:
 URxvt.termName:           xterm
 
 URxvt.scrollBar:          off
-URxvt.font:               xft:DroidSansMonoForPowerLine Nerd Font:pixelsize=16:antialias=true:hinting=true,xft:DejaVuSansMonoForPowerline Nerd Font:pixelsize=20:antialias=true:hinting=true
+URxvt.font:               xft:DejaVuSansMonoForPowerline Nerd Font:pixelsize=16:antialias=true:hinting=true
 URxvt.letterSpace:        -1
 URxvt.internalBorder:     0
 URxvt.saveLines:          10000

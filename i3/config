@@ -386,6 +386,7 @@ for_window [class="jetbrains-idea"] border pixel 1
 for_window [class="Gnome-calendar"] border pixel 1
 for_window [class="Google-chrome" instance="crx_gkfinjhpehkbdhjolbeacocmigfdhhai"] border normal
 for_window [class="Code"] border none
+for_window [class="libreoffice"] border none
 
 # =================================================================
 #                        Windows resizing

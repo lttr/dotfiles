@@ -43,7 +43,7 @@ if check_custom_app 'antibody'; then
     . $HOME/dotfiles/packages/install-antibody.sh
 fi
 
-#Program docker
+#Program docker !TODO fix
 if check_custom_app 'docker'; then
     curl -sSL https://get.docker.com/ | sh
     sudo usermod -aG docker `whoami`
@@ -109,13 +109,13 @@ fi
 
 #Program nodejs
 if check_custom_app 'nodejs'; then
-    curl -sSL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    curl -sSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 fi
 
 #Program infinality
-if ! apt-mark showmanual | grep -q fontconfig-infinality; then
-    sudo add-apt-repository -y ppa:no1wantdthisname/ppa
-fi
+# if ! apt-mark showmanual | grep -q fontconfig-infinality; then
+#     sudo add-apt-repository -y ppa:no1wantdthisname/ppa
+# fi
 
 #Program tmux plugin manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -144,18 +144,18 @@ if check_custom_app 'go'; then
     sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
 fi
 
-if check_custom_app 'code'; then
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-    sudo apt-get update
-    sudo apt-get install code
-    for extension in $(cat ~/dotfiles/vscode/extensions.txt); do /usr/bin/code --install-extension "$extension"; done
-    git clone https://github.com/lttr/vscode-solarized-light-color-theme ~/.vscode/extensions/lt-solarized-color-scheme
-fi
+#if check_custom_app 'code'; then
+#    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+#    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+#    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+#    sudo apt-get update
+#    sudo apt-get install code
+#    for extension in $(cat ~/dotfiles/vscode/extensions.txt); do /usr/bin/code --install-extension "$extension"; done
+#    git clone https://github.com/lttr/vscode-solarized-light-color-theme ~/.vscode/extensions/lt-solarized-color-scheme
+#fi
 
 if check_custom_app 'git hub'; then
-    git clone git@github.com:ingydotnet/git-hub
+    git clone https://github.com/ingydotnet/git-hub
 fi
 
 

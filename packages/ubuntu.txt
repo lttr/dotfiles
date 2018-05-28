@@ -12,7 +12,6 @@ doublecmd-gtk
 expect
 fasd
 feh
-fontconfig-infinality
 gimp
 git
 gnome-color-chooser
@@ -62,7 +61,7 @@ tree
 umlet
 unrar
 vagrant
-vim-gtk3-py2
+vim-gtk3
 virtualbox
 vlc
 wmctrl

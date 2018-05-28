@@ -4,7 +4,7 @@ DOWNLOAD_URL="https://github.com/getantibody/antibody/releases/download"
 test -z "$TMPDIR" && TMPDIR="$(mktemp -d)"
 
 last_version() {
-    echo "v3.1.4"
+    echo "v3.4.5"
 }
 
 download() {

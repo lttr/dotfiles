@@ -84,7 +84,7 @@ open_smart() {
         name="$1"
         # make sure the access time of the file is updated
         touch -a -t $(date +%Y%m%d%H%M.%S) $name
-        if [[ $WSL ]]; then # on WSL
+        if [[ $WSL = true ]]; then # on WSL
             WINDOWS_PATH="$(wslpath -s -w "$name")"
             if [[ ! $(file --brief --mime-type "$name") =~ "text.*"  ]]; then
                 cmd.exe /c "start "" "$WINDOWS_PATH""
