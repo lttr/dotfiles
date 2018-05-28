@@ -1,4 +1,48 @@
 {
+    "bracketPairColorizer.forceIterationColorCycle": false,
+    "bracketPairColorizer.forceUniqueOpeningColor": false,
+    "bracketPairColorizer.showVerticalScopeLine": false,
+    "bracketPairColorizer.showHorizontalScopeLine": false,
+    "bracketPairColorizer.consecutivePairColors": [
+        "()",
+        "[]",
+        "{}",
+        [
+            "#6c71c4", // violet
+            "#d33682", // magenta
+            "#859900", // green
+        ],
+        "#dc322f"
+    ],
+    "bracketPairColorizer.independentPairColors": [
+        [
+            "()",
+            [
+                "#6c71c4",
+                "#d33682",
+                "#859900"
+            ],
+            "#dc322f"
+        ],
+        [
+            "[]",
+            [
+                "#6c71c4",
+                "#d33682",
+                "#859900"
+            ],
+            "#dc322f"
+        ],
+        [
+            "{}",
+            [
+                "#6c71c4",
+                "#d33682",
+                "#859900"
+            ],
+            "#dc322f"
+        ]
+    ],
     "browserSync.config": {
         "notify": false,
         "files": [
@@ -12,7 +56,7 @@
     "code-runner.saveFileBeforeRun": true,
     "debug.allowBreakpointsEverywhere": true,
     "diffEditor.ignoreTrimWhitespace": false,
-    "editor.codeLens": true,
+    "editor.codeLens": false,
     "editor.cursorBlinking": "solid",
     "editor.folding": false,
     "editor.fontSize": 16,
@@ -66,13 +110,24 @@
     "jest.pathToJest": "jest",
     // "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
+    "markdown.extension.italic.indicator": "_",
+    "openSpecFile.suffixMap": {
+        ".js": ".spec.js",
+        ".spec.js": ".js",
+        ".ts": ".spec.ts",
+        ".spec.ts": ".ts",
+        ".html": ".css",
+        ".css": ".html",
+    },
+    "openSpecFile.openInNewColumn": false,
     "prettier.eslintIntegration": true,
     "javascript.format.enable": true,
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
         "dist": true,
-        "build": true
+        "build": true,
+        ".build": true
     },
     "search.smartCase": true,
     "standard.enable": false,
@@ -100,7 +155,7 @@
     "vim.hlsearch": true,
     "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
     "vim.overrideCopy": false,
-    "vim.searchHighlightColor": "#eae4d1",
+    "vim.searchHighlightColor": "#EAE4F3",
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
     "window.menuBarVisibility": "toggle",
@@ -113,6 +168,7 @@
     "vim.disableExtension": false,
     "vim.handleKeys": {
         "<C-f>": false,
+        "<C-v>": false,
         "<C-k>": false,
         "<C-e>": false,
         "<C-]>": false,
@@ -330,5 +386,6 @@
     "workbench.startupEditor": "newUntitledFile",
     "workbench.colorTheme": "LT Solarized light",
     "gitlens.keymap": "alternate",
-    "workbench.statusBar.feedback.visible": false
+    "workbench.statusBar.feedback.visible": false,
+    "gitlens.historyExplorer.enabled": true
 }

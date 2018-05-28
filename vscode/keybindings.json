@@ -1355,13 +1355,157 @@
         "when": "editorTextFocus && parameterHintsMultipleSignatures && parameterHintsVisible"
     },
     {
-        "key": "ctrl+shift+t",
-        "command": "extension.jestGoToTest",
-        "when": "editorTextFocus"
-    },
-    {
         "key": "ctrl+shift+y",
         "command": "-extension.jestGoToTest",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+v",
+        "command": "toggleFindWholeWord",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+w",
+        "command": "-toggleFindWholeWord",
+        "when": "editorFocus"
+    },
+    {
+        "key": "alt+v",
+        "command": "toggleSearchWholeWord",
+        "when": "searchInputBoxFocus && searchViewletVisible"
+    },
+    {
+        "key": "alt+w",
+        "command": "-toggleSearchWholeWord",
+        "when": "searchInputBoxFocus && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "extension.openSpecFile"
+    },
+    {
+        "key": "ctrl+k ctrl+k",
+        "command": "-extension.openSpecFile"
+    },
+    {
+        "key": "alt+`",
+        "command": "notifications.showList"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenView"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+        "when": "inQuickOpen && inViewsPicker"
+    },
+    {
+        "key": "ctrl+shift+q",
+        "command": "-workbench.action.quickOpenNavigatePreviousInViewPicker",
+        "when": "inQuickOpen && inViewsPicker"
+    },
+    {
+        "key": "ctrl+m ctrl+u",
+        "command": "md-shortcut.toggleBullets",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+b",
+        "command": "-md-shortcut.toggleBullets",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+b",
+        "command": "md-shortcut.toggleBold",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-md-shortcut.toggleBold",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+l",
+        "command": "md-shortcut.toggleLink",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "-md-shortcut.toggleLink",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+i",
+        "command": "md-shortcut.toggleItalic",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "-md-shortcut.toggleItalic",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+b",
+        "command": "markdown.extension.editing.toggleBold",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-markdown.extension.editing.toggleBold",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+i",
+        "command": "markdown.extension.editing.toggleItalic",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "-markdown.extension.editing.toggleItalic",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+s",
+        "command": "markdown.extension.editing.toggleStrikethrough",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "alt+s",
+        "command": "-markdown.extension.editing.toggleStrikethrough",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+c",
+        "command": "markdown.extension.checkTaskList",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "alt+c",
+        "command": "-markdown.extension.checkTaskList",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+u",
+        "command": "markdown.extension.editing.toggleUnorderedList"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-markdown.extension.editing.toggleMath",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+m ctrl+`",
+        "command": "markdown.extension.editing.toggleCodeSpan"
+    },
+    {
+        "key": "ctrl+shift+v",
+        "command": "-markdown.extension.togglePreview",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+k v",
+        "command": "-markdown.extension.togglePreviewToSide",
+        "when": "!terminalFocus"
     }
 ]
