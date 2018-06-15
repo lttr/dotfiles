@@ -43,14 +43,6 @@
             "#dc322f"
         ]
     ],
-    "browserSync.config": {
-        "notify": false,
-        "files": [
-            "*.html",
-            "*.js",
-            "*.css"
-        ]
-    },
     "css.validate": false,
     "code-runner.runInTerminal": false,
     "code-runner.saveFileBeforeRun": true,
@@ -64,7 +56,7 @@
     "editor.formatOnType": false,
     "editor.matchBrackets": false,
     "editor.minimap.enabled": false,
-    "editor.multiCursorModifier": "alt",
+    "editor.multiCursorModifier": "ctrlCmd",
     "editor.occurrencesHighlight": true,
     "editor.parameterHints": false,
     "editor.quickSuggestionsDelay": 500,
@@ -79,7 +71,6 @@
     "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
     "emmet.showSuggestionsAsSnippets": true,
     "emmet.showAbbreviationSuggestions": true,
-    "eslint.enable": false,
     "explorer.confirmDragAndDrop": false,
     "extensions.showRecommendationsOnlyOnDemand": true,
     "files.autoSave": "off",
@@ -107,7 +98,6 @@
     "html.format.indentHandlebars": true,
     "html.format.wrapLineLength": 100,
     "html.format.wrapAttributes": "auto",
-    "jest.pathToJest": "jest",
     // "keyboard.dispatch": "keyCode",
     "local-history.path": "/tmp/vscode-local-history",
     "markdown.extension.italic.indicator": "_",
@@ -130,7 +120,6 @@
         ".build": true
     },
     "search.smartCase": true,
-    "standard.enable": false,
     "stylelint.enable": true,
     "scss.validate": false,
     "subtleBrackets.styles": {
