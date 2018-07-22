@@ -1,5 +1,5 @@
 {
-/*
+	/*
 	// Place your snippets for JS here. Each snippet is defined under a snippet name and has a prefix, body and 
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
 	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
@@ -14,15 +14,13 @@
 		"description": "Log output to console"
 	}
 */
-
-// 	"Print to console": {
-// 		"prefix": "cl",
-// 		"body": [
-// 			"console.log($1)"
-// 		],
-// 		"description": "Log output to console"
-// 	}
-
+	// 	"Print to console": {
+	// 		"prefix": "cl",
+	// 		"body": [
+	// 			"console.log($1)"
+	// 		],
+	// 		"description": "Log output to console"
+	// 	}
 	"HyperHTML Component": {
 		"prefix": "hypercomp",
 		"body": [
@@ -36,6 +34,31 @@
 			"        return this.html`$2`;",
 			"    }",
 			"}"
+		]
+	},
+	"String transformation function": {
+		"prefix": "stringtr",
+		"body": [
+			"/**",
+			"* $2",
+			"*/",
+			"export const $1 = (input) => {",
+			"  return input$3",
+			"}"
+		]
+	},
+	"String transformation spec": {
+		"prefix": "stringtrspec",
+		"body": [
+			"import { $1 } from '../esm/$1.js'",
+			"",
+			"describe('$1', () => {",
+			"  it('should', () => {",
+			"    const input = ''",
+			"    const expected = ''",
+			"    expect($1(input)).toBe(expected)",
+			"  })",
+			"})"
 		]
 	}
 }

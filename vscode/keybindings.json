@@ -1507,5 +1507,17 @@
         "key": "ctrl+k v",
         "command": "-markdown.extension.togglePreviewToSide",
         "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+alt+n",
+        "command": "npm-script.run"
+    },
+    {
+        "key": "ctrl+r shift+r",
+        "command": "-npm-script.run"
+    },
+    {
+        "key": "ctrl+alt+d",
+        "command": "git.openChange"
     }
 ]
