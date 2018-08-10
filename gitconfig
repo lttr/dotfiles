@@ -76,6 +76,7 @@
     find = log --all --name-status --grep
     # remote
     fe = fetch
+    fem = fetch origin master:master
     update = !git stash save -u && git pull && git stash pop
     # status
     st = status

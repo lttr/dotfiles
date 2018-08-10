@@ -1,384 +1,276 @@
 {
-    "bracketPairColorizer.forceIterationColorCycle": false,
-    "bracketPairColorizer.forceUniqueOpeningColor": false,
-    "bracketPairColorizer.showVerticalScopeLine": false,
-    "bracketPairColorizer.showHorizontalScopeLine": false,
-    "bracketPairColorizer.consecutivePairColors": [
-        "()",
-        "[]",
-        "{}",
-        [
-            "#6c71c4", // violet
-            "#d33682", // magenta
-            "#859900", // green
-        ],
-        "#dc322f"
+  "bracketPairColorizer.forceIterationColorCycle": false,
+  "bracketPairColorizer.forceUniqueOpeningColor": false,
+  "bracketPairColorizer.showVerticalScopeLine": false,
+  "bracketPairColorizer.showHorizontalScopeLine": false,
+  "bracketPairColorizer.consecutivePairColors": [
+    "()",
+    "[]",
+    "{}",
+    [
+      "#6c71c4", // violet
+      "#d33682", // magenta
+      "#859900" // green
     ],
-    "bracketPairColorizer.independentPairColors": [
-        [
-            "()",
-            [
-                "#6c71c4",
-                "#d33682",
-                "#859900"
-            ],
-            "#dc322f"
-        ],
-        [
-            "[]",
-            [
-                "#6c71c4",
-                "#d33682",
-                "#859900"
-            ],
-            "#dc322f"
-        ],
-        [
-            "{}",
-            [
-                "#6c71c4",
-                "#d33682",
-                "#859900"
-            ],
-            "#dc322f"
-        ]
-    ],
-    "css.validate": false,
-    "code-runner.runInTerminal": false,
-    "code-runner.saveFileBeforeRun": true,
-    "debug.allowBreakpointsEverywhere": true,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "editor.codeLens": true,
-    "editor.cursorBlinking": "solid",
-    "editor.folding": false,
-    "editor.fontSize": 16,
-    "editor.formatOnSave": false,
-    "editor.formatOnType": false,
-    "editor.matchBrackets": false,
-    "editor.minimap.enabled": false,
-    "editor.multiCursorModifier": "alt",
-    "editor.occurrencesHighlight": true,
-    "editor.parameterHints": false,
-    "editor.quickSuggestionsDelay": 500,
-    "editor.renderControlCharacters": true,
-    "editor.renderIndentGuides": false,
-    "editor.renderLineHighlight": "none",
-    "editor.renderWhitespace": "none",
-    "editor.selectionHighlight": false,
-    "editor.snippetSuggestions": "bottom",
-    "editor.tabCompletion": true,
-    "editor.tabSize": 4,
-    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
-    "emmet.showSuggestionsAsSnippets": true,
-    "emmet.showAbbreviationSuggestions": true,
-    "explorer.confirmDragAndDrop": false,
-    "extensions.showRecommendationsOnlyOnDemand": true,
-    "files.autoSave": "off",
-    "files.autoSaveDelay": 3000,
-    "gitProjectManager.baseProjectsFolders": [
-        "~/code"
-    ],
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": true,
-        "suppressNoRepositoryWarning": true,
-        "suppressResultsExplorerNotice": true,
-        "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": true
+    "#dc322f"
+  ],
+  "bracketPairColorizer.independentPairColors": [
+    ["()", ["#6c71c4", "#d33682", "#859900"], "#dc322f"],
+    ["[]", ["#6c71c4", "#d33682", "#859900"], "#dc322f"],
+    ["{}", ["#6c71c4", "#d33682", "#859900"], "#dc322f"]
+  ],
+  "css.validate": false,
+  "css_peek.activeLanguages": ["html", "ejs", "erb", "php", "js", "ts"],
+  "code-runner.runInTerminal": false,
+  "code-runner.saveFileBeforeRun": true,
+  "debug.allowBreakpointsEverywhere": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.codeLens": false,
+  "editor.cursorBlinking": "solid",
+  "editor.detectIndentation": true,
+  "editor.folding": false,
+  "editor.fontSize": 16,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.matchBrackets": false,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "alt",
+  "editor.occurrencesHighlight": true,
+  "editor.parameterHints": false,
+  "editor.quickSuggestionsDelay": 500,
+  "editor.renderControlCharacters": true,
+  "editor.renderIndentGuides": false,
+  "editor.renderLineHighlight": "none",
+  "editor.renderWhitespace": "none",
+  "editor.selectionHighlight": false,
+  "editor.snippetSuggestions": "bottom",
+  "editor.tabCompletion": true,
+  "editor.tabSize": 4,
+  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.syntaxProfiles": {
+    "javascript": "html",
+    "typescript": "html"
+  },
+  "explorer.confirmDragAndDrop": false,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  "files.autoSave": "off",
+  "files.autoSaveDelay": 3000,
+  "gitProjectManager.baseProjectsFolders": ["~/code"],
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": true,
+    "suppressNoRepositoryWarning": true,
+    "suppressResultsExplorerNotice": true,
+    "suppressShowKeyBindingsNotice": true,
+    "suppressUpdateNotice": true,
+    "suppressWelcomeNotice": true
+  },
+  "gitlens.codeLens.authors.enabled": true,
+  "gitlens.codeLens.enabled": true,
+  "gitlens.codeLens.recentChange.enabled": true,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.hovers.currentLine.enabled": true,
+  "html.format.indentHandlebars": true,
+  "html.format.wrapLineLength": 100,
+  "html.format.wrapAttributes": "auto",
+  // "keyboard.dispatch": "keyCode",
+  "local-history.path": "/tmp/vscode-local-history",
+  "markdown.extension.italic.indicator": "_",
+  "openSpecFile.suffixMap": {
+    ".js": ".spec.js",
+    ".spec.js": ".js",
+    ".ts": ".spec.ts",
+    ".spec.ts": ".ts",
+    ".html": ".css",
+    ".css": ".html"
+  },
+  "openSpecFile.openInNewColumn": false,
+  "openvim.executablePath": "C:\\Program Files (x86)\\vim\\vim80\\gvim.exe",
+  "javascript.format.enable": true,
+  "prettier.eslintIntegration": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "dist": true,
+    "build": true,
+    ".build": true
+  },
+  "search.smartCase": true,
+  "stylelint.enable": true,
+  "scss.validate": false,
+  "subtleBrackets.styles": {
+    "global": {
+      "backgroundColor": "#eee8d5",
+      "borderStyle": "none"
+    }
+  },
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.lineHeight": 1.15,
+  // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+  // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
+  "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
+  "tslint.enable": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescriptHero.imports.multiLineWrapThreshold": 100,
+  "typescriptHero.imports.organizeOnSave": false,
+  "typescriptHero.imports.stringQuoteStyle": "\"",
+  "vim.cmdLineInitialColon": true,
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
+  "vim.hlsearch": true,
+  "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
+  "vim.overrideCopy": false,
+  "vim.searchHighlightColor": "#FDF6E3",
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualstar": true,
+  "window.menuBarVisibility": "toggle",
+  "window.zoomLevel": 0,
+  "workbench.activityBar.visible": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.showTabs": true,
+  "workbench.iconTheme": "vs-seti",
+  "workbench.sideBar.location": "left",
+  "vim.disableExtension": false,
+  "vim.handleKeys": {
+    "<C-f>": false,
+    "<C-k>": false,
+    "<C-e>": false,
+    "<C-]>": false,
+    "<a-j>": false,
+    "<a-k>": false,
+    "<a-h>": false,
+    "<a-l>": false,
+    "tab": false
+  },
+  "vim.leader": " ",
+  "vim.otherModesKeyBindingsNonRecursive": [
+    {
+      "before": [" ", ";"],
+      "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
     },
-    "gitlens.codeLens.authors.enabled": true,
-    "gitlens.codeLens.enabled": true,
-    "gitlens.codeLens.recentChange.enabled": true,
-    "gitlens.currentLine.enabled": false,
-    "gitlens.hovers.currentLine.enabled": true,
-    "html.format.indentHandlebars": true,
-    "html.format.wrapLineLength": 100,
-    "html.format.wrapAttributes": "auto",
-    // "keyboard.dispatch": "keyCode",
-    "local-history.path": "/tmp/vscode-local-history",
-    "markdown.extension.italic.indicator": "_",
-    "openSpecFile.suffixMap": {
-        ".js": ".spec.js",
-        ".spec.js": ".js",
-        ".ts": ".spec.ts",
-        ".spec.ts": ".ts",
-        ".html": ".css",
-        ".css": ".html",
+    {
+      "before": [" ", ","],
+      "after": ["m", "a", "A", ",", "<Esc>", "`", "a"]
     },
-    "openSpecFile.openInNewColumn": false,
-    "openvim.executablePath": "C:\\Program Files (x86)\\vim\\vim80\\gvim.exe",
-    "prettier.eslintIntegration": true,
-    "javascript.format.enable": true,
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true,
-        "dist": true,
-        "build": true,
-        ".build": true
+    {
+      "before": ["g", "\""],
+      "after": ["m", "a", "F", "'", "r", "\"", "f", "'", "r", "\"", "`", "a"]
     },
-    "search.smartCase": true,
-    "stylelint.enable": true,
-    "scss.validate": false,
-    "subtleBrackets.styles": {
-        "global": {
-            "backgroundColor": "#eee8d5",
-            "borderStyle": "none"
+    {
+      "before": ["g", "'"],
+      "after": ["m", "a", "F", "\"", "r", "'", "f", "\"", "r", "'", "`", "a"]
+    },
+    {
+      "before": ["g", "`"],
+      "after": ["m", "a", "F", "'", "r", "`", "f", "'", "r", "`", "`", "a"]
+    },
+    {
+      "before": ["leader", "\""],
+      "after": [
+        "m",
+        "a",
+        "b",
+        "i",
+        "\"",
+        "<Esc>",
+        "e",
+        "a",
+        "\"",
+        "<Esc>",
+        "`",
+        "a"
+      ]
+    },
+    {
+      "before": ["leader", "'"],
+      "after": [
+        "m",
+        "a",
+        "b",
+        "i",
+        "'",
+        "<Esc>",
+        "e",
+        "a",
+        "'",
+        "<Esc>",
+        "`",
+        "a"
+      ]
+    },
+    {
+      "before": ["leader", "`"],
+      "after": [
+        "m",
+        "a",
+        "b",
+        "i",
+        "`",
+        "<Esc>",
+        "e",
+        "a",
+        "`",
+        "<Esc>",
+        "`",
+        "a"
+      ]
+    },
+    {
+      "before": ["g", "m"],
+      "after": ["<Esc>"],
+      "commands": [
+        {
+          "command": "editor.action.changeAll",
+          "args": []
         }
+      ]
     },
-    "terminal.integrated.copyOnSelection": true,
-    "terminal.integrated.fontSize": 15,
-    "terminal.integrated.lineHeight": 1.15,
-    // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
-    // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
-    "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
-    "tslint.enable": true,
-    "typescript.implementationsCodeLens.enabled": true,
-    "typescript.referencesCodeLens.enabled": true,
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "typescriptHero.imports.multiLineWrapThreshold": 80,
-    "typescriptHero.imports.organizeOnSave": false,
-    "typescriptHero.imports.stringQuoteStyle": "\"",
-    "vim.cmdLineInitialColon": true,
-    "vim.enableNeovim": true,
-    "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
-    "vim.hlsearch": true,
-    "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
-    "vim.overrideCopy": false,
-    "vim.searchHighlightColor": "#FDF6E3",
-    "vim.useCtrlKeys": true,
-    "vim.useSystemClipboard": true,
-    "window.menuBarVisibility": "toggle",
-    "window.zoomLevel": 0,
-    "workbench.activityBar.visible": false,
-    "workbench.editor.enablePreview": false,
-    "workbench.editor.showTabs": true,
-    "workbench.iconTheme": "vs-seti",
-    "workbench.sideBar.location": "left",
-    "vim.disableExtension": false,
-    "vim.handleKeys": {
-        "<C-f>": false,
-        "<C-v>": false,
-        "<C-k>": false,
-        "<C-e>": false,
-        "<C-]>": false,
-        "<a-j>": false,
-        "<a-k>": false,
-        "<a-h>": false,
-        "<a-l>": false,
-        "tab": false
-    },
-    "vim.leader": " ",
-    "vim.otherModesKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "h"],
+      "after": ["<Esc>"],
+      "commands": [
         {
-            "before": [
-                " ",
-                ";"
-            ],
-            "after": [
-                "m",
-                "a",
-                "A",
-                ";",
-                "<Esc>",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                " ",
-                ","
-            ],
-            "after": [
-                "m",
-                "a",
-                "A",
-                ",",
-                "<Esc>",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "\""
-            ],
-            "after": [
-                "m",
-                "a",
-                "F",
-                "'",
-                "r",
-                "\"",
-                "f",
-                "'",
-                "r",
-                "\"",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "'"
-            ],
-            "after": [
-                "m",
-                "a",
-                "F",
-                "\"",
-                "r",
-                "'",
-                "f",
-                "\"",
-                "r",
-                "'",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "`"
-            ],
-            "after": [
-                "m",
-                "a",
-                "F",
-                "'",
-                "r",
-                "`",
-                "f",
-                "'",
-                "r",
-                "`",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "\""
-            ],
-            "after": [
-                "m",
-                "a",
-                "b",
-                "i",
-                "\"",
-                "<Esc>",
-                "e",
-                "a",
-                "\"",
-                "<Esc>",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "'"
-            ],
-            "after": [
-                "m",
-                "a",
-                "b",
-                "i",
-                "'",
-                "<Esc>",
-                "e",
-                "a",
-                "'",
-                "<Esc>",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "`"
-            ],
-            "after": [
-                "m",
-                "a",
-                "b",
-                "i",
-                "`",
-                "<Esc>",
-                "e",
-                "a",
-                "`",
-                "<Esc>",
-                "`",
-                "a"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "m"
-            ],
-            "after": [
-                "<Esc>"
-            ],
-            "commands": [
-                {
-                    "command": "editor.action.changeAll",
-                    "args": []
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "h"
-            ],
-            "after": [
-                "<Esc>"
-            ],
-            "commands": [
-                {
-                    "command": ":nohl",
-                    "args": []
-                }
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "S"
-            ],
-            "after": [
-                "\"",
-                "d",
-                "c",
-                "i",
-                "t",
-                "<CR>",
-                "a",
-                "<Esc>",
-                "\"",
-                "d",
-                "p",
-                "^",
-                "x"
-            ]
+          "command": ":nohl",
+          "args": []
         }
-    ],
-    "workbench.statusBar.visible": true,
-    "workbench.startupEditor": "newUntitledFile",
-    "workbench.colorTheme": "LT Solarized light",
-    "gitlens.keymap": "alternate",
-    "workbench.statusBar.feedback.visible": false,
-    "gitlens.historyExplorer.enabled": true,
+      ]
+    },
+    {
+      "before": ["g", "S"],
+      "after": [
+        "\"",
+        "d",
+        "c",
+        "i",
+        "t",
+        "<CR>",
+        "a",
+        "<Esc>",
+        "\"",
+        "d",
+        "p",
+        "^",
+        "x"
+      ]
+    }
+  ],
+  "workbench.statusBar.visible": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.colorTheme": "LT Solarized light",
+  "gitlens.keymap": "alternate",
+  "workbench.statusBar.feedback.visible": false,
+  "gitlens.historyExplorer.enabled": true
 }
