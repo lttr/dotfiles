@@ -31,9 +31,11 @@
     d = diff            # changes not staged yet
     ds = diff --staged  # what is already staged in the index
     dh = diff HEAD      # all changes from last commit
-    # merging
+    # merging and rebasing
     edit-conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}'; }; $EDITOR `f`"
-    rc = rebase --continue
+    re = rebase
+    rec = rebase --continue
+
     # files
     changed = update-index --no-assume-unchanged
     unchanged = update-index --assume-unchanged

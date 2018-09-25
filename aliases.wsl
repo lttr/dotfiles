@@ -1,6 +1,6 @@
 alias winhome='cd /mnt/c/Users/Lukas/'
 alias lukas='cd /mnt/c/Users/Lukas/'
 alias wincode='cd /mnt/c/Users/Lukas/code/'
-alias contport='cd /mnt/c/Users/Lukas/code/ContPortV3/'
+alias contport='cd /mnt/c/Users/Lukas/code/ContPortV3/WebSiteSolution/Web/'
 alias gvim=gvim.exe
 alias live-code='(code . index.html &) ; live-server'
