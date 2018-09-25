@@ -132,7 +132,7 @@
     "command": "-workbench.action.closeEditorsInGroup"
   },
   {
-    "key": "ctrl+alt+w",
+    "key": "ctrl+shift+alt+w",
     "command": "workbench.action.closeOtherEditors"
   },
   {
@@ -232,17 +232,12 @@
     "command": "-search.action.focusPreviousSearchResult"
   },
   {
-    "key": "shift+alt+f",
-    "command": "-editor.action.formatDocument",
-    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-  },
-  {
     "key": "ctrl+w",
     "command": "-extension.vim_ctrl+w",
     "when": "editorTextFocus && vim.active && vim.use<C-w> && !inDebugRepl"
   },
   {
-    "key": "ctrl+alt+r",
+    "key": "ctrl+shift+alt+r",
     "command": "workbench.action.reloadWindow"
   },
   {
@@ -748,23 +743,8 @@
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+shift+i",
-    "command": "-editor.action.formatDocument",
-    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-  },
-  {
     "key": "ctrl+shift+alt+b",
     "command": "-xmlTools.formatXml"
-  },
-  {
-    "key": "ctrl+alt+l",
-    "command": "standard.executeAutofix",
-    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+alt+f",
-    "command": "editor.action.formatDocument",
-    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && editorLangId != 'javascript'"
   },
   {
     "key": "ctrl+k ctrl+i",
@@ -960,17 +940,12 @@
     "when": "isInDiffEditor"
   },
   {
-    "key": "ctrl+alt+c",
-    "command": "extension.refactorix.ExtractVariable",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "shift+alt+l",
     "command": "-extension.refactorix.ExtractVariable",
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+i",
+    "key": "ctrl+alt+l",
     "command": "extension.refactorix.String.Interpolate",
     "when": "editorTextFocus"
   },
@@ -1020,7 +995,7 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+a",
+    "key": "ctrl+alt+r",
     "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
     "when": "editorTextFocus"
   },
@@ -1075,11 +1050,6 @@
     "when": "editorHasSelection && editorTextFocus && !editorReadonly"
   },
   {
-    "key": "shift+alt+f",
-    "command": "-editor.action.formatDocument",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
     "key": "shift+f6",
     "command": "editor.action.marker.prev",
     "when": "editorFocus && !editorReadonly"
@@ -1100,18 +1070,9 @@
     "when": "gitlens:enabled && gitlens:keymap == 'standard'"
   },
   {
-    "key": "ctrl+alt+d",
-    "command": "gitlens.diffWithPrevious",
-    "when": "editorTextFocus && gitlens:activeIsTracked && gitlens:keymap == 'chorded'"
-  },
-  {
     "key": "ctrl+shift+g ,",
     "command": "-gitlens.diffWithPrevious",
     "when": "editorTextFocus && gitlens:activeIsTracked && gitlens:keymap == 'chorded'"
-  },
-  {
-    "key": "ctrl+alt+l",
-    "command": "tslint.fixAllProblems"
   },
   {
     "key": "alt+[",
@@ -1531,7 +1492,106 @@
     "when": "textInputFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+r s",
-    "command": "npm-script.start"
-  }
+    "key": "ctrl+alt+f",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+f",
+    "command": "-editor.action.formatDocument",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-typescriptHero.index.addImportUnderCursor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+j v",
+    "command": "-cmstead.jsRefactor.extractVariable",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+alt+m",
+    "command": "-code-runner.stop"
+  },
+  {
+    "key": "ctrl+alt+m",
+    "command": "editor.action.codeAction",
+    "args": {
+      "kind": "refactor.extract.function",
+      "apply": "ifSingle"
+    }
+  },
+  {
+    "key": "ctrl+alt+c",
+    "command": "editor.action.codeAction",
+    "args": {
+      "kind": "refactor.extract.constant",
+      "apply": "ifSingle"
+    }
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "cmstead.jsRefactor.inlineVariable"
+  },
+  {
+    "key": "ctrl+shift+j i",
+    "command": "-cmstead.jsRefactor.inlineVariable"
+  },
+  {
+    "key": "ctrl+alt+t",
+    "command": "cmstead.jsRefactor.convertToTemplateLiteral"
+  },
+  {
+    "key": "ctrl+shift+j l",
+    "command": "-cmstead.jsRefactor.convertToTemplateLiteral"
+  },
+  {
+    "key": "ctrl+shift+j x",
+    "command": "-cmstead.jsRefactor.addExport"
+  },
+  {
+    "key": "ctrl+shift+j m",
+    "command": "-cmstead.jsRefactor.extractMethod",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+alt+w",
+    "command": "cmstead.jsRefactor.wrapSelection",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+shift+j w",
+    "command": "-cmstead.jsRefactor.wrapSelection",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+alt+x",
+    "command": "cmstead.jsRefactor.convertToArrowFunction"
+  },
+  {
+    "key": "ctrl+shift+j a",
+    "command": "-cmstead.jsRefactor.convertToArrowFunction"
+  },
+  {
+    "key": "ctrl+r r",
+    "command": "-npm-script.rerun-last-script"
+  },
+  {
+    "key": "ctrl+r t",
+    "command": "-npm-script.test"
+  },
+  {
+    "key": "ctrl+r l",
+    "command": "-npm-script.showOutput"
+  },
+  {
+    "key": "ctrl+r shift+x",
+    "command": "-npm-script.terminate-script"
+  },
+  {
+    "key": "ctrl+t b",
+    "command": "breadcrumbs.toggle"
+  },
 ]

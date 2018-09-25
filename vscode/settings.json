@@ -25,18 +25,20 @@
   "code-runner.saveFileBeforeRun": true,
   "debug.allowBreakpointsEverywhere": true,
   "diffEditor.ignoreTrimWhitespace": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
   "editor.detectIndentation": true,
   "editor.folding": false,
   "editor.fontSize": 16,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.formatOnType": false,
   "editor.matchBrackets": false,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "alt",
   "editor.occurrencesHighlight": true,
-  "editor.parameterHints": false,
+  "editor.parameterHints.enabled": false,
+  "editor.parameterHints.cycle": true,
   "editor.quickSuggestionsDelay": 500,
   "editor.renderControlCharacters": true,
   "editor.renderIndentGuides": false,
@@ -59,14 +61,11 @@
   "files.autoSaveDelay": 3000,
   "gitProjectManager.baseProjectsFolders": ["~/code"],
   "gitlens.advanced.messages": {
-    "suppressCommitHasNoPreviousCommitWarning": false,
-    "suppressCommitNotFoundWarning": false,
-    "suppressFileNotUnderSourceControlWarning": false,
-    "suppressGitVersionWarning": false,
+    "suppressFileNotUnderSourceControlWarning": true,
     "suppressLineUncommittedWarning": true,
     "suppressNoRepositoryWarning": true,
-    "suppressResultsExplorerNotice": true,
     "suppressShowKeyBindingsNotice": true,
+    "suppressResultsExplorerNotice": true,
     "suppressUpdateNotice": true,
     "suppressWelcomeNotice": true
   },
@@ -77,7 +76,7 @@
   "gitlens.hovers.currentLine.enabled": true,
   "html.format.indentHandlebars": true,
   "html.format.wrapLineLength": 100,
-  "html.format.wrapAttributes": "auto",
+  "html.format.wrapAttributes": "aligned-multiple",
   // "keyboard.dispatch": "keyCode",
   "local-history.path": "/tmp/vscode-local-history",
   "markdown.extension.italic.indicator": "_",
@@ -107,11 +106,9 @@
   "search.smartCase": true,
   "stylelint.enable": true,
   "scss.validate": false,
-  "subtleBrackets.styles": {
-    "global": {
-      "backgroundColor": "#eee8d5",
-      "borderStyle": "none"
-    }
+  "subtleBrackets.style": {
+    "backgroundColor": "#eee8d5",
+    "borderStyle": "none"
   },
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.fontSize": 15,
@@ -120,13 +117,13 @@
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
   "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
   "tslint.enable": true,
-  "typescript.implementationsCodeLens.enabled": true,
+  "tslint.autoFixOnSave": true,
+  "typescript.implementationsCodeLens.enabled": false,
   "typescript.referencesCodeLens.enabled": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescriptHero.imports.multiLineWrapThreshold": 100,
   "typescriptHero.imports.organizeOnSave": false,
   "typescriptHero.imports.stringQuoteStyle": "\"",
-  "vim.cmdLineInitialColon": true,
   "vim.enableNeovim": true,
   "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
   "vim.hlsearch": true,
@@ -156,7 +153,7 @@
     "tab": false
   },
   "vim.leader": " ",
-  "vim.otherModesKeyBindingsNonRecursive": [
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": [" ", ";"],
       "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
@@ -272,5 +269,8 @@
   "workbench.colorTheme": "LT Solarized light",
   "gitlens.keymap": "alternate",
   "workbench.statusBar.feedback.visible": false,
-  "gitlens.historyExplorer.enabled": true
+  "gitlens.historyExplorer.enabled": true,
+  "breadcrumbs.enabled": false,
+  "team.showWelcomeMessage": false,
+  "window.titleBarStyle": "custom"
 }
