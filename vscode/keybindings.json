@@ -414,10 +414,6 @@
     "when": "editorFocus"
   },
   {
-    "key": "ctrl+shift+l",
-    "command": "local-history.showViewer"
-  },
-  {
     "key": "ctrl+shift+alt+b",
     "command": "gitlens.toggleFileBlame",
     "when": "editorTextFocus && gitlens:isTracked"
@@ -483,10 +479,6 @@
   {
     "key": "alt+insert",
     "command": "explorer.newFile"
-  },
-  {
-    "key": "alt+2",
-    "command": "workbench.action.output.toggleOutput"
   },
   {
     "key": "ctrl+k ctrl+h",
@@ -1594,4 +1586,29 @@
     "key": "ctrl+t b",
     "command": "breadcrumbs.toggle"
   },
+  {
+    "key": "ctrl+\\",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+k ctrl+\\",
+    "command": "-workbench.action.splitEditorOrthogonal"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "workbench.action.moveEditorToRightGroup"
+  },
+  {
+    "key": "ctrl+shift+\\",
+    "command": "workbench.action.moveEditorToLeftGroup"
+  },
+  {
+    "key": "shift+alt+o",
+    "command": "-editor.action.organizeImports",
+    "when": "editorTextFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)source\\.organizeImports\\b/"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "gitlens.showGitExplorer"
+  }
 ]
