@@ -246,5 +246,6 @@
   "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   "editor.formatOnSave": true,
   "editor.matchBrackets": false,
-  "editor.renderLineHighlight": "gutter"
+  "editor.renderLineHighlight": "gutter",
+  "powershell.codeFormatting.preset": "OTBS"
 }
