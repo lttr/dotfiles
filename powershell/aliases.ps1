@@ -31,6 +31,11 @@ New-Alias -Name nr -Value Invoke-NpmScript -Force -Option AllScope
 
 # git
 
+function New-Commit {
+  & git commit -m "$Args"
+}
+da c "New-Commit"
+
 da ga "git add"
 da gaa "git add --all"
 da gunstage "git reset --"
