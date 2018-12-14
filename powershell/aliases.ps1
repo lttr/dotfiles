@@ -7,7 +7,7 @@ function Set-DynamicAlias {
     [String]$Alias,
     [String]$Command
   )
-  New-Item -Path function:\ -Name "global:$Alias" -Value "$Command `$Args" -Force | Out-Null
+  New-Item -Path function:\ -Name "global:$Alias" -Value "$Command" -Force | Out-Null
 }
 New-Alias -Name da -Value Set-DynamicAlias -Force -Option AllScope
 
@@ -15,8 +15,8 @@ New-Alias -Name da -Value Set-DynamicAlias -Force -Option AllScope
 
 function Set-Directory {
   # Create new directory path and do not warn about already existing directories
-  New-Item -Path $args[0] -ItemType Directory -Force
-  Set-Location $args[0]
+  New-Item -Path "$args[0]" -ItemType Directory -Force
+  Set-Location "$args[0]"
 }
 New-Alias -Name mkcd -Value Set-Directory -Force -Option AllScope
 
@@ -26,17 +26,14 @@ da contport "cd $HOME/code/contport/web-portal/WebSiteSolution/Web"
 
 # NPM
 
-function Invoke-NpmScript { & npm run $args }
-New-Alias -Name nr -Value Invoke-NpmScript -Force -Option AllScope
+function nr { & npm run "$args" }
 
 # git
 
-function New-Commit {
-  & git commit -m "$Args"
-}
-da c "New-Commit"
+function c { & git commit -m "$args" }
 
-da ga "git add"
+function ga { & git add $args }
+
 da gaa "git add --all"
 da gunstage "git reset --"
 
@@ -89,3 +86,8 @@ da gsl "git stash list"
 
 da bsync "browser-sync start --server --files . --no-notify --open ."
 
+# Edit configuration
+
+da ealias "code $HOME/dotfiles/powershell/aliases.ps1"
+da eprofile "code $HOME/dotfiles/powershell/profile.ps1"
+da eenv "code $HOME/dotfiles/powershell/env.ps1"

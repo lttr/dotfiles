@@ -8,6 +8,9 @@ New-Item -Type SymbolicLink -Force `
   -Path "$HOME\Documents\PowerShell\aliases.ps1" `
   -Value "$HOME\dotfiles\powershell\aliases.ps1"
 New-Item -Type SymbolicLink -Force `
+  -Path "$HOME\Documents\PowerShell\env.ps1" `
+  -Value "$HOME\dotfiles\powershell\env.ps1"
+New-Item -Type SymbolicLink -Force `
   -Path "$HOME\Documents\PowerShell\Microsoft.PowerShell_profile.ps1" `
   -Value "$HOME\dotfiles\powershell\profile.ps1"
 

@@ -226,7 +226,7 @@
       "after": ["\"", "d", "c", "i", "t", "<CR>", "a", "<Esc>", "\"", "d", "p", "^", "x"]
     }
   ],
-  "workbench.statusBar.visible": false,
+  "workbench.statusBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.colorTheme": "LT Solarized light",
   "gitlens.keymap": "alternate",
@@ -238,14 +238,15 @@
     "node_modules": true
   },
   "javascript.implicitProjectConfig.checkJs": true,
-  "gitlens.gitExplorer.view": "history",
-  "team.remoteUrl": "https://domatcontrolsystem.visualstudio.com",
-  "team.teamProject": "ContPort",
   "editor.tabSize": 2,
   "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   "editor.formatOnSave": true,
   "editor.matchBrackets": false,
   "editor.renderLineHighlight": "gutter",
-  "powershell.codeFormatting.preset": "OTBS"
+  "powershell.codeFormatting.preset": "OTBS",
+  "git.confirmSync": false,
+  "omnisharp.disableMSBuildDiagnosticWarning": true,
+  "omnisharp.useEditorFormattingSettings": false,
+  "omnisharp.loggingLevel": "debug"
 }

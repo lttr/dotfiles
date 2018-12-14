@@ -2,12 +2,12 @@
 # Command line
 #
 
+
 # Command prompt and other pshazz
 try {
   Get-Command pshazz -ErrorAction Stop | Out-Null
   pshazz init 'default' | Out-Null
-}
-catch {
+} catch {
 }
 
 # No sounds
@@ -26,16 +26,17 @@ $host.PrivateData.DebugBackgroundColor = "Black"
 $host.PrivateData.VerboseForegroundColor = "Yellow"
 $host.PrivateData.VerboseBackgroundColor = "Black"
 $host.PrivateData.ProgressForegroundColor = "White"
-$host.PrivateData.ProgressBackgroundColor = "Gray"
+$host.PrivateData.ProgressBackgroundColor = "DarkGray"
 
 
 # Include aliases
-$OwnAliasesDir = "$env:USERPROFILE\Documents\PowerShell"
-. $OwnAliasesDir\aliases.ps1
+. $PSScriptRoot\aliases.ps1
 
 # Include functions
+Get-ChildItem "$PSScriptRoot\functions\*.ps1" | ForEach-Object { . $_ }
 
-$OwnFunctionsDir = "$env:USERPROFILE\Documents\PowerShell\Functions"
-Write-Verbose "Loading own PowerShell functions from:"
-Write-Verbose "$OwnFunctionsDir"
-Get-ChildItem "$OwnFunctionsDir\*.ps1" | ForEach-Object {.$_}
+# Fzf
+Import-Module PSFzf -ArgumentList 'Ctrl+T', 'Ctrl+R'
+
+
+. $PSScriptRoot\env.ps1

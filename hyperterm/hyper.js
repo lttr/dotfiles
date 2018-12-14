@@ -49,7 +49,7 @@ module.exports = {
     css: '',
 
     // custom CSS to embed in the terminal window
-    termCSS: '',
+    termCSS: 'x-row {line-height: 1}',
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
