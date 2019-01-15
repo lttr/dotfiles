@@ -15,8 +15,8 @@ New-Alias -Name da -Value Set-DynamicAlias -Force -Option AllScope
 
 function Set-Directory {
   # Create new directory path and do not warn about already existing directories
-  New-Item -Path "$args[0]" -ItemType Directory -Force
-  Set-Location "$args[0]"
+  New-Item -Path "$($args[0])" -ItemType Directory -Force
+  Set-Location "$($args[0])"
 }
 New-Alias -Name mkcd -Value Set-Directory -Force -Option AllScope
 

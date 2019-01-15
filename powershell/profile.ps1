@@ -38,5 +38,4 @@ Get-ChildItem "$PSScriptRoot\functions\*.ps1" | ForEach-Object { . $_ }
 # Fzf
 Import-Module PSFzf -ArgumentList 'Ctrl+T', 'Ctrl+R'
 
-
 . $PSScriptRoot\env.ps1

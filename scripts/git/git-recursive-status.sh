@@ -56,7 +56,7 @@ for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
     # they need a push or pull. We do this with various tests and put the name
     # of the branches in NEEDS_XXXX, seperated by newlines. After we're done,
     # we remove duplicates from NEEDS_XXX.
-    NEEDS_PUSH_BRANCHES="" 
+    NEEDS_PUSH_BRANCHES=""
     NEEDS_PULL_BRANCHES=""
 
     for REF_HEAD in $(ls $GIT_DIR/refs/heads); do
