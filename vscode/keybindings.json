@@ -1608,7 +1608,15 @@
     "when": "editorTextFocus && !editorReadonly && supportedCodeAction =~ /(\\s|^)source\\.organizeImports\\b/"
   },
   {
+    "key": "ctrl+alt+p",
+    "command": "-gitProjectManager.openProject"
+  },
+  {
     "key": "ctrl+shift+l",
-    "command": "gitlens.showGitExplorer"
+    "command": "workbench.view.extension.gitlens"
+  },
+  {
+    "key": "shift+`",
+    "command": "workbench.action.terminal.focusNext"
   }
 ]

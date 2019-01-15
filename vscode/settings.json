@@ -44,7 +44,7 @@
   "editor.selectionHighlight": false,
   "editor.snippetSuggestions": "bottom",
   "editor.tabCompletion": "onlySnippets",
-  "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
   "emmet.includeLanguages": {
     "javascript": "html"
   },
@@ -99,6 +99,9 @@
   "openSpecFile.openInNewColumn": false,
   "openvim.executablePath": "C:\\Program Files (x86)\\vim\\vim80\\gvim.exe",
   "javascript.format.enable": true,
+  "code-runner.executorMap": {
+    "powershell": "pwsh"
+  },
   "php.executablePath": "c:\\php\\php.exe",
   "prettier.arrowParens": "always",
   "prettier.disableLanguages": ["markdown"],
@@ -124,7 +127,7 @@
     "borderStyle": "none"
   },
   "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.fontSize": 16,
   "terminal.integrated.lineHeight": 1.15,
   // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
@@ -148,7 +151,7 @@
   "vim.useCtrlKeys": true,
   "vim.useSystemClipboard": true,
   "vim.visualstar": true,
-  "window.menuBarVisibility": "toggle",
+  "window.menuBarVisibility": "default",
   "window.zoomLevel": 0,
   "workbench.activityBar.visible": false,
   "workbench.editor.enablePreview": false,
@@ -231,7 +234,6 @@
   "workbench.colorTheme": "LT Solarized light",
   "gitlens.keymap": "alternate",
   "workbench.statusBar.feedback.visible": false,
-  "breadcrumbs.enabled": false,
   "team.showWelcomeMessage": false,
   "window.titleBarStyle": "custom",
   "files.exclude": {
@@ -248,5 +250,7 @@
   "git.confirmSync": false,
   "omnisharp.disableMSBuildDiagnosticWarning": true,
   "omnisharp.useEditorFormattingSettings": false,
-  "omnisharp.loggingLevel": "debug"
+  "omnisharp.loggingLevel": "debug",
+  "editor.cursorSmoothCaretAnimation": true,
+  "xmlTools.splitAttributesOnFormat": true
 }
