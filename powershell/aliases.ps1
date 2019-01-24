@@ -82,6 +82,10 @@ da grs "git recursive-status"
 
 da gsl "git stash list"
 
+# Azure
+
+function pr { & vsts code pr create --title "$args" }
+
 # Web
 
 da bsync "browser-sync start --server --files . --no-notify --open ."
