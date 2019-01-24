@@ -469,7 +469,7 @@
     "when": "editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+shift+`",
+    "key": "ctrl+shift+alt+v",
     "command": "extension.openVim"
   },
   {
@@ -1616,7 +1616,16 @@
     "command": "workbench.view.extension.gitlens"
   },
   {
-    "key": "shift+`",
+    "key": "ctrl+shift+`",
     "command": "workbench.action.terminal.focusNext"
+  },
+  {
+    "key": "alt+3",
+    "command": "workbench.action.togglePanelPosition"
+  },
+  {
+    "key": "ctrl+y",
+    "command": "-redo",
+    "when": "textInputFocus && !editorReadonly"
   }
 ]
