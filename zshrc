@@ -14,8 +14,8 @@ autoload -U history-search-end
 autoload -U zmv
 
 # Source: https://gist.github.com/ctechols/ca1035271ad134841284
-# On slow systems, checking the cached .zcompdump file to see if it must be 
-# regenerated adds a noticable delay to zsh startup.  This little hack restricts 
+# On slow systems, checking the cached .zcompdump file to see if it must be
+# regenerated adds a noticable delay to zsh startup.  This little hack restricts
 # it to once a day.  It should be pasted into your own completion file.
 #
 # The globbing is a little complicated here:
@@ -23,7 +23,7 @@ autoload -U zmv
 # - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
 # - '.' matches "regular files"
 # - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
-# autoload -Uz compinit 
+# autoload -Uz compinit
 # if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
 # 	compinit;
 # else
@@ -60,7 +60,7 @@ bindkey '^[p' file-edit
 zle -N dir-recent
 bindkey '^[d' dir-recent
 
-# Alt+j to go to any subdirectory 
+# Alt+j to go to any subdirectory
 zle -N dir-open
 bindkey '^[j' dir-open
 
@@ -75,7 +75,7 @@ zle -N edit-command-line
 bindkey '^[n' edit-command-line
 
 # Alt+o to search inside files
-zle -N insert-last-output 
+zle -N insert-last-output
 bindkey '^[o' insert-last-output
 
 # Alt+Backspace to remove last path segment (like in bash)
@@ -156,7 +156,7 @@ eval $(dircolors ~/dotfiles/colors/dircolors)
 _gen_fzf_default_opts() {
     if [[ $WSL == true ]]; then
         export FZF_DEFAULT_OPTS="
-        --color fg+:7,bg+:4,hl:3,hl+:3
+        --color fg+:7,bg+:-1,hl:3,hl+:3
         --exit-0
         --select-1
         --reverse

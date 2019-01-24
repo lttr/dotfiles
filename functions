@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
-#    __                      _    _                    
-#   / _| _   _  _ __    ___ | |_ (_)  ___   _ __   ___ 
+#    __                      _    _
+#   / _| _   _  _ __    ___ | |_ (_)  ___   _ __   ___
 #  | |_ | | | || '_ \  / __|| __|| | / _ \ | '_ \ / __|
 #  |  _|| |_| || | | || (__ | |_ | || (_) || | | |\__ \
 #  |_|   \__,_||_| |_| \___| \__||_| \___/ |_| |_||___/
-#                                                      
+#
 
 
 # =================================================================
@@ -136,7 +136,7 @@ open_file() {
 }
 
 # Extract any archive file
-# Source https://github.com/xvoland/Extract 
+# Source https://github.com/xvoland/Extract
 extract() {
 	if [ -z "$1" ]; then
 		# display usage if no parameters given
@@ -230,10 +230,13 @@ dir-recent() {
     local dir
     dir=$(fasd -Rdl |\
         sed "s:$HOME:~:" |\
+        sed "s:$WIN:~:" |\
         fzf --no-sort --query "$*" |\
         sed "s:~:$HOME:") \
     && cd "$dir"
-    xdotool key KP_Enter
+    if [[ $WSL != true ]]; then # on WSL
+      xdotool key KP_Enter
+    fi
 }
 dr() { dir-recent "$1" }
 
@@ -244,7 +247,9 @@ dir-open() {
         -prune -o -type d\
         -print 2> /dev/null | fzf)
     [ -d "$dir" ] && cd "$dir"
-    xdotool key KP_Enter
+    if [[ $WSL != true ]]; then # on WSL
+      xdotool key KP_Enter
+    fi
 }
 de() { dir-open "$1" }
 

@@ -16,6 +16,10 @@ Set-PSReadlineOption -BellStyle None
 # Readline editing mode
 Set-PSReadlineOption -EditMode Emacs
 
+# Shortcuts
+Set-PSReadLineKeyHandler -Key Alt+d -ScriptBlock { Invoke-FuzzyZLocation }
+
+
 # Colors
 $host.PrivateData.ErrorForegroundColor = "Magenta"
 $host.PrivateData.ErrorBackgroundColor = "Black"
@@ -34,6 +38,9 @@ $host.PrivateData.ProgressBackgroundColor = "DarkGray"
 
 # Include functions
 Get-ChildItem "$PSScriptRoot\functions\*.ps1" | ForEach-Object { . $_ }
+
+# Z
+Import-Module ZLocation
 
 # Fzf
 Import-Module PSFzf -ArgumentList 'Ctrl+T', 'Ctrl+R'

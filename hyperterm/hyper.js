@@ -49,7 +49,7 @@ module.exports = {
     css: '',
 
     // custom CSS to embed in the terminal window
-    termCSS: 'x-row {line-height: 1}',
+    termCSS: '',
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
@@ -95,28 +95,24 @@ module.exports = {
     // Bash on Windows
     // - Example: `C:\\Windows\\System32\\bash.exe`
     //
-    // PowerShell on Windows
-
-    // Bash
-    // shell: 'C:\\Windows\\System32\\bash.exe',
-
-    // Powershell
-    // shell: 'C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
-
-    // Pwsh
-    shell: 'C:\\Program Files\\PowerShell\\6\\pwsh.exe',
-
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
 
     // Bash
+    // shell: 'C:\\Windows\\System32\\bash.exe',
     // shellArgs: ['--login', '-c', 'zsh'],
 
-    // Powershell
+    // Windows PowerShell
+    // shell: 'C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe',
     // shellArgs: ['-NoLogo'],
 
     // Pwsh
-    shellArgs: [],
+    // shell: 'C:\\Program Files\\PowerShell\\6\\pwsh.exe',
+    // shellArgs: [],
+
+    // Hyperstart
+    shell: '',
+    shellArgs: ['/C', 'C:\\Users\\Lukas\\dotfiles\\hyperterm\\hyperstart.bat'],
 
     // for environment variables
     env: {},
