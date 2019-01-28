@@ -33,11 +33,13 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#657b83',
+    foregroundColor: '#657b83', // solarized light
+    // foregroundColor: '#fdf6e3', // solarized dark
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#fdf6e3',
+    backgroundColor: '#fdf6e3', //solarized light
+    // backgroundColor: '#657b83', // solarized dark
 
     // terminal selection color
     selectionColor: 'rgba(147,161,161,0.3)',
@@ -151,8 +153,8 @@ module.exports = {
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: ['hyper-solarized-light'],
-  // localPlugins: ['hyper-solarized-dark'],
+  // localPlugins: ['hyper-solarized-light'],
+  localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
     // Example

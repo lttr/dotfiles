@@ -1,0 +1,29 @@
+{
+  "name": "hyper-solarized-light",
+  "version": "0.1.2",
+  "description": "Hyper theme using the light Solarized colors",
+  "main": "index.js",
+  "keywords": [
+    "hyperterm",
+    "hyperterm-theme",
+    "hyper",
+    "hyper-theme",
+    "colors",
+    "theme",
+    "solarized",
+    "light"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ghosh/hyper-solarized-light.git"
+  },
+  "author": "Indrashish Ghosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ghosh/hyper-solarized-light/issues"
+  },
+  "homepage": "https://github.com/Ghosh/hyper-solarized-light#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

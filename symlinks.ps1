@@ -19,3 +19,11 @@ New-Item -Type SymbolicLink -Force `
 New-Item -Type SymbolicLink -Force `
   -Path "$HOME\.hyper.js" `
   -Value "$HOME\dotfiles\hyperterm\hyper.js"
+
+New-Item -ItemType Directory -Force -Path "$HOME\.hyper_plugins\local"
+New-Item -Type Junction -Force `
+  -Path "$HOME\.hyper_plugins\local\hyper-solarized-light" `
+  -Value "$HOME\dotfiles\hyperterm\hyper-solarized-light"
+New-Item -Type Junction -Force `
+  -Path "$HOME\.hyper_plugins\local\hyper-solarized-dark" `
+  -Value "$HOME\dotfiles\hyperterm\hyper-solarized-dark"
