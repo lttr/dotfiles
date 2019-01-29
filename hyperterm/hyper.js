@@ -33,13 +33,13 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: '#657b83', // solarized light
-    // foregroundColor: '#fdf6e3', // solarized dark
+    // foregroundColor: '#657b83', // solarized light
+    foregroundColor: '#fdf6e3', // solarized dark
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: '#fdf6e3', //solarized light
-    // backgroundColor: '#657b83', // solarized dark
+    // backgroundColor: '#fdf6e3', //solarized light
+    backgroundColor: '#657b83', // solarized dark
 
     // terminal selection color
     selectionColor: 'rgba(147,161,161,0.3)',
@@ -132,23 +132,10 @@ module.exports = {
     // selection is present (`true` by default on Windows and disables the context menu feature)
     // quickEdit: true,
 
-    // URL to custom bell
-    // bellSoundURL: 'http://example.com/bell.mp3',
-
     // for advanced config flags please refer to https://hyper.is/#cfg
   },
 
-  // a list of plugins to fetch and install from npm
-  // format: [@org/]project[#version]
-  // examples:
-  //   `hyperpower`
-  //   `@company/project`
-  //   `project#1.0.1`
-  plugins: [
-    'hyper-search',
-    // 'hyper-solarized-light',
-    // 'hyper-solarized-dark',
-  ],
+  plugins: ['hyper-search'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

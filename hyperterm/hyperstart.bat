@@ -2,9 +2,9 @@
 :top
 CLS
 ECHO Choose a shell:
-ECHO [1] cmd
-ECHO [2] zsh
-ECHO [3] bash
+ECHO [1] zsh
+ECHO [2] bash
+ECHO [3] cmd
 ECHO [4] Windows PowerShell
 ECHO [5] PowerShell
 ECHO [6] Python
@@ -20,11 +20,11 @@ IF ERRORLEVEL ==9 GOTO end
 IF ERRORLEVEL ==8 powershell -Command "Start-Process hyper -Verb RunAs"
 IF ERRORLEVEL ==7 node
 IF ERRORLEVEL ==6 python
-IF ERRORLEVEL ==5 pwsh
+IF ERRORLEVEL ==5 pwsh -nologo
 IF ERRORLEVEL ==4 powershell
-IF ERRORLEVEL ==3 bash
-IF ERRORLEVEL ==2 bash --login -c zsh
-IF ERRORLEVEL ==1 cmd
+IF ERRORLEVEL ==3 cmd
+IF ERRORLEVEL ==2 bash
+IF ERRORLEVEL ==1 bash --login -c zsh
 
 CLS
 ECHO Switch or exit?
