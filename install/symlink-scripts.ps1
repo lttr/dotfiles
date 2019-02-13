@@ -7,7 +7,7 @@ $BIN = "$HOME/bin"
 Get-ChildItem -Path $SCRIPTS -Recurse -Depth 2 -Force `
   | Where-Object { $_.Extension -match "ps1" } `
   | ForEach-Object {
-  $LINK_NAME = $_.BaseName
+  $LINK_NAME = $_.Name
   $SCRIPT_PATH = $_.FullName
   New-Item -Type SymbolicLink -Force `
     -Path "$BIN\$LINK_NAME" `

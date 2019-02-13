@@ -1,7 +1,7 @@
-Get-ChildItem -Recurse -Depth 2 -Force `
-  | Where-Object { $_.Mode -match "h" -and $_.FullName -like "*\.git" } `
+Get-ChildItem -Recurse -Depth 1 -Force `
+  | Where-Object { $PSItem.Mode -match "h" -and $PSItem.FullName -like "*\.git" } `
   | ForEach-Object {
-  Set-Location $_.FullName
+  Set-Location $PSItem.FullName
   Set-Location ../
   git pull
   Set-Location ../
