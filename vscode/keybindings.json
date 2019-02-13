@@ -188,10 +188,6 @@
     "command": "git.viewLineHistory"
   },
   {
-    "key": "ctrl+shift+h",
-    "command": "git.viewHistory"
-  },
-  {
     "key": "f1",
     "command": "-workbench.action.showCommands"
   },
@@ -1203,10 +1199,6 @@
     "when": "inFilesPicker && inQuickOpen"
   },
   {
-    "key": "ctrl+shift+e",
-    "command": "workbench.files.action.focusFilesExplorer"
-  },
-  {
     "key": "shift+alt+h",
     "command": "-gitlens.showQuickRepoHistory",
     "when": "gitlens:enabled && gitlens:keymap == 'alternate'"
@@ -1439,10 +1431,6 @@
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+m ctrl+u",
-    "command": "markdown.extension.editing.toggleUnorderedList"
-  },
-  {
     "key": "ctrl+m",
     "command": "-markdown.extension.editing.toggleMath",
     "when": "editorTextFocus && editorLangId == 'markdown'"
@@ -1474,7 +1462,7 @@
     "command": "git.openChange"
   },
   {
-    "key": "ctrl+alt+v",
+    "key": "ctrl+shift+v",
     "command": "editor.action.clipboardPasteAction",
     "when": "textInputFocus && !editorReadonly"
   },
@@ -1627,5 +1615,75 @@
     "key": "ctrl+y",
     "command": "-redo",
     "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+alt+v",
+    "command": "-jsonToTs.fromClipboard"
+  },
+  {
+    "key": "ctrl+m",
+    "command": "-markdown.extension.editing.toggleMath",
+    "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+i",
+    "command": "-markdown.extension.editing.toggleItalic",
+    "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
+  },
+  {
+    "key": "alt+s",
+    "command": "-markdown.extension.editing.toggleStrikethrough",
+    "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+b",
+    "command": "-markdown.extension.editing.toggleBold",
+    "when": "editorTextFocus && !editorReadonly && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+m ctrl+g",
+    "command": "md-shortcut.toggleImage",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "-md-shortcut.toggleImage",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "alt+t",
+    "command": "list.toggleFilterOnType"
+  },
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.files.action.showActiveFileInExplorer"
+  },
+  {
+    "key": "ctrl+shift+h",
+    "command": "git-graph.view"
+  },
+  {
+    "key": "f9",
+    "command": "PowerShell.RunSelection",
+    "when": "editorTextFocus && editorLangId == 'powershell'"
+  },
+  {
+    "key": "f8",
+    "command": "-PowerShell.RunSelection",
+    "when": "editorTextFocus && editorLangId == 'powershell'"
+  },
+  {
+    "key": "ctrl+shift+enter",
+    "command": "macros.saveAndRun",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "workbench.action.terminal.runSelectedText",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+t a",
+    "command": "workbench.action.toggleAutoSave"
   }
 ]

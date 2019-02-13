@@ -28,7 +28,6 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
-  "editor.detectIndentation": false,
   "editor.folding": false,
   "editor.fontSize": 16,
   "editor.formatOnType": false,
@@ -57,7 +56,6 @@
   "explorer.confirmDragAndDrop": false,
   "extensions.showRecommendationsOnlyOnDemand": true,
   "eslint.validate": ["javascript", "javascriptreact", "vue"],
-  "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 3000,
   "files.trimTrailingWhitespace": true,
   "gitProjectManager.baseProjectsFolders": ["~/code"],
@@ -174,6 +172,22 @@
   "vim.leader": " ",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+      "before": ["g", "k"],
+      "after": ["k"]
+    },
+    {
+      "before": ["g", "j"],
+      "after": ["j"]
+    },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
+    },
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
+    {
       "before": [" ", ";"],
       "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
     },
@@ -250,8 +264,18 @@
   "powershell.codeFormatting.preset": "OTBS",
   "git.confirmSync": false,
   "omnisharp.disableMSBuildDiagnosticWarning": true,
-  "omnisharp.useEditorFormattingSettings": false,
   "omnisharp.loggingLevel": "debug",
   "editor.cursorSmoothCaretAnimation": true,
-  "xmlTools.splitAttributesOnFormat": true
+  "xmlTools.splitAttributesOnFormat": true,
+  "[csharp]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  },
+  "editor.detectIndentation": false,
+  "editor.hover.delay": 600,
+  "breadcrumbs.enabled": false,
+  "powershell.integratedConsole.focusConsoleOnExecute": false,
+  "macros": {
+    "saveAndRun": ["workbench.action.files.save", "workbench.action.terminal.runActiveFile"]
+  }
 }
