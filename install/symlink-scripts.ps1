@@ -14,22 +14,3 @@ Get-ChildItem -Path $SCRIPTS -Recurse -Depth 2 -Force `
     -Value "$SCRIPT_PATH"
   Write-Host "Symlink created: $BIN/$LINK_NAME -> $SCRIPT_PATH"
 }
-
-# find $SCRIPTS -type f -name "*sh" -executable \
-# | while read EXE; do \
-#     NAME=${EXE##*/};
-#     NAME=${NAME%.*};
-#     LINK=$BIN/$NAME
-#     if [ -f $LINK ]; then
-#         if [ "$(readlink $LINK)" = "$EXE" ]; then
-#             echo "$LINK already exists"
-#         else
-#             echo "$LINK already exists but is a regular file!"
-#         fi
-#     else
-#         echo "Creating link $LINK -> $EXE"
-#         ln -s $EXE $BIN/$NAME;
-#     fi
-# done
-
-# exit 0

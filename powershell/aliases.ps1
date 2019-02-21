@@ -11,6 +11,10 @@ function Set-DynamicAlias {
 }
 New-Alias -Name da -Value Set-DynamicAlias -Force -Option AllScope
 
+# Powershell
+
+da admin "Start-Process pwsh -Verb runAs"
+
 # Directories
 
 function Set-Directory {
