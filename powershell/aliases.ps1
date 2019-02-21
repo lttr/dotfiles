@@ -20,6 +20,10 @@ function Set-Directory {
 }
 New-Alias -Name mkcd -Value Set-Directory -Force -Option AllScope
 
+da u "cd .."
+da uu "cd ../.."
+da uuu "cd ../../.."
+
 # Domat
 
 da contport "cd $HOME/code/contport/web-portal/WebSiteSolution/Web"

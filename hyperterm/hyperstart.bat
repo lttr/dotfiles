@@ -14,7 +14,7 @@ ECHO [8] restart elevated
 ECHO [9] exit
 ECHO.
 
-CHOICE /N /C:123456789 /D 5 /T 5 /M "> "
+CHOICE /N /C:123456789 /D 5 /T 2 /M "> "
 CLS
 IF ERRORLEVEL ==9 GOTO end
 IF ERRORLEVEL ==8 powershell -Command "Start-Process hyper -Verb RunAs"
@@ -31,7 +31,7 @@ ECHO Switch or exit?
 ECHO [1] Switch
 ECHO [2] Exit
 
-CHOICE /N /C:12 /D 2 /T 5 /M "> "
+CHOICE /N /C:12 /D 2 /T 3 /M "> "
 IF ERRORLEVEL ==2 GOTO end
 IF ERRORLEVEL ==1 GOTO top
 
