@@ -611,10 +611,6 @@
     "command": "-workbench.action.previousEditor"
   },
   {
-    "key": "alt+m",
-    "command": "editor.emmet.action.matchTag"
-  },
-  {
     "key": "ctrl+tab",
     "command": "-workbench.action.openNextRecentlyUsedEditorInGroup"
   },
@@ -1421,11 +1417,6 @@
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+m ctrl+c",
-    "command": "markdown.extension.checkTaskList",
-    "when": "editorTextFocus && editorLangId == 'markdown'"
-  },
-  {
     "key": "alt+c",
     "command": "-markdown.extension.checkTaskList",
     "when": "editorTextFocus && editorLangId == 'markdown'"
@@ -1685,5 +1676,27 @@
   {
     "key": "ctrl+t a",
     "command": "workbench.action.toggleAutoSave"
+  },
+  {
+    "key": "ctrl+shift+alt+e",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "alt+m",
+    "command": "editor.emmet.action.matchTag"
+  },
+  {
+    "key": "alt+;",
+    "command": "extension.mapSelectionWithJsFunc"
+  },
+  {
+    "key": "ctrl+m ctrl+d",
+    "command": "md-shortcut.toggleInlineCode",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "ctrl+m ctrl+i",
+    "command": "-md-shortcut.toggleInlineCode",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
   }
 ]
