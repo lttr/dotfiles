@@ -63,6 +63,7 @@ elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     # ln -sfn ${HOME_DIR}/down ~/down
     # ln -sfn ${HOME_DIR}/tasks ~/tasks
 elif [[ $WSL = true ]]; then
+    ln -sfn /mnt/c/Users/lukas/Dropbox ~/Dropbox
     ln -sfn /mnt/c/Users/lukas/sandbox ~/sandbox
     ln -sfn /mnt/c/Users/lukas/code ~/code
 fi
