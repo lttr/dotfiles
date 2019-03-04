@@ -10,6 +10,10 @@ del /A:H %USERPROFILE%\_vimrc
 mklink %USERPROFILE%\_vimrc %USERPROFILE%\dotfiles\vimrc
 attrib /L +H %USERPROFILE%\_vimrc
 
+del /A:H %USERPROFILE%\.hyper.js
+mklink %USERPROFILE%\.hyper.js %USERPROFILE%\dotfiles\hyperterm\hyper.js
+attrib /L +H %USERPROFILE%\.hyper.js
+
 del /A:H %USERPROFILE%\.vrapperrc
 mklink %USERPROFILE%\.vrapperrc %USERPROFILE%\dotfiles\vrapperrc
 attrib /L +H %USERPROFILE%\.vrapperrc
@@ -22,8 +26,11 @@ del /A:H %USERPROFILE%\.kdiff3rc
 mklink %USERPROFILE%\.kdiff3rc %USERPROFILE%\dotfiles\kdiff3rc
 attrib /L +H %USERPROFILE%\.kdiff3rc
 
+del c:\Users\Lukas\AppData\Roaming\Code\User\settings.json
 mklink c:\Users\Lukas\AppData\Roaming\Code\User\settings.json  %USERPROFILE%\dotfiles\vscode\settings.json
+del c:\Users\Lukas\AppData\Roaming\Code\User\keybindings.json
 mklink c:\Users\Lukas\AppData\Roaming\Code\User\keybindings.json  %USERPROFILE%\dotfiles\vscode\keybindings.json
+del c:\Users\Lukas\AppData\Roaming\Code\User\snippets
 mklink /d c:\Users\Lukas\AppData\Roaming\Code\User\snippets  %USERPROFILE%\dotfiles\vscode\snippets
 
 @REM Other links
@@ -49,3 +56,6 @@ mklink /d %USERPROFILE%\vimfiles\syntax %USERPROFILE%\dotfiles\vim\syntax
 rmdir %USERPROFILE%\vimfiles\snippets
 mklink /d %USERPROFILE%\vimfiles\snippets %USERPROFILE%\dotfiles\vim\snippets
 
+mkdir %USERPROFILE%\.hyper_plugins\local
+mklink /d %USERPROFILE%\.hyper_plugins\local\hyper-solarized-dark %USERPROFILE%\dotfiles\hyperterm\hyper-solarized-dark
+mklink /d %USERPROFILE%\.hyper_plugins\local\hyper-solarized-light %USERPROFILE%\dotfiles\hyperterm\hyper-solarized-light

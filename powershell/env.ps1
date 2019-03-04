@@ -10,3 +10,10 @@ $env:FZF_DEFAULT_OPTS = "`
     --select-1 `
     --reverse `
     "
+
+# $env:FZF_DEFAULT_OPTS = "`
+#     --color fg+:6,bg+:-1,hl:3,hl+:3 `
+#     --exit-0 `
+#     --select-1 `
+#     --reverse `
+#     "
