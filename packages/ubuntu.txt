@@ -18,6 +18,7 @@ libmysqlclient-dev
 maven
 mc
 neovim
+nodejs
 nmap
 numlockx
 openvpn
