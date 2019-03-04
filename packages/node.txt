@@ -2,6 +2,7 @@
 browser-sync
 dploy
 eslint
+frontail
 gistup
 git-standup
 gitlost

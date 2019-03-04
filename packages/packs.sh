@@ -24,6 +24,7 @@ PACKAGE_LISTS_DIR="$DOTFILES_DIR/packages"
 
 # ===== Ubuntu =====
 UBUNTU_PACKS_PATH="$PACKAGE_LISTS_DIR/ubuntu.txt"
+UBUNTU_PACKS_PATH_GRAPHICAL="$PACKAGE_LISTS_DIR/ubuntu-graphical.txt"
 ubuntu-history() {
     zgrep -hE '^(Start-Date:|Commandline:)' \
         $(ls -tr /var/log/apt/history.log*.gz ) \
@@ -36,10 +37,14 @@ ubuntu-installed() {
             | sed -n 's/^Package: //p' | sort -u )
 }
 ubuntu-missing() {
-    comm -13 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" | sort -u )
+    if [[ $WSL = true ]]; then
+        comm -13 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" | sort -u )
+    else
+        comm -13 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" "$UBUNTU_PACKS_PATH_GRAPHICAL" | sort -u )
+    fi
 }
 ubuntu-extra() {
-    comm -23 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" | sort -u )
+    comm -23 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" "$UBUNTU_PACKS_PATH_GRAPHICAL" | sort -u )
 }
 
 # ===== Node =====
@@ -109,7 +114,7 @@ zsh-extra() {
 # ===== Arguments =====
 if [ $# -lt 2 ]; then
     help
-    exit 
+    exit
 fi
 
 TYPE=$1
@@ -127,7 +132,7 @@ case $TYPE in
                 ubuntu-installed
             ;;
             configured)
-                cat "$UBUNTU_PACKS_PATH"
+                cat "$UBUNTU_PACKS_PATH" "$UBUNTU_PACKS_PATH_GRAPHICAL"
             ;;
             missing)
                 ubuntu-missing

@@ -281,5 +281,6 @@
   "powershell.integratedConsole.focusConsoleOnExecute": false,
   "macros": {
     "saveAndRun": ["workbench.action.files.save", "workbench.action.terminal.runActiveFile"]
-  }
+  },
+  "vim.enableNeovim": true
 }

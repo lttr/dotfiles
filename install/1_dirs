@@ -62,16 +62,10 @@ elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
     HOME_DIR=${MOUNT_DIR}/Users/Lukas
     # ln -sfn ${HOME_DIR}/down ~/down
     # ln -sfn ${HOME_DIR}/tasks ~/tasks
-fi
-
-if uname -a | grep Microsoft >/dev/null; then
-    export WSL=true
+elif [[ $WSL = true ]]; then
     ln -sfn /mnt/c/Users/lukas/sandbox ~/sandbox
     ln -sfn /mnt/c/Users/lukas/code ~/code
-else
-    export WSL=false
 fi
-
 
 
 echo "Data directories symlinked"

@@ -37,21 +37,33 @@ check_custom_app() {
 
 cd $MY_APPS_DIR
 
+if [[ $WSL != true ]]; then
+
+  #Program docker !TODO fix
+  if check_custom_app 'docker'; then
+      curl -sSL https://get.docker.com/ | sh
+      sudo usermod -aG docker `whoami`
+  fi
+
+  #Program google chrome
+  if check_custom_app 'google-chrome'; then
+      if grep -Fxq "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+          /etc/apt/sources.list.d/google-chrome.list
+      then
+          : # Already set
+      else
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
+              | sudo apt-key add -
+          sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+              >> /etc/apt/sources.list.d/google-chrome.list'
+      fi
+  fi
+
+fi
 
 #Program zsh plugin manager
 if check_custom_app 'antibody'; then
     . $HOME/dotfiles/packages/install-antibody.sh
-fi
-
-#Program docker !TODO fix
-if check_custom_app 'docker'; then
-    curl -sSL https://get.docker.com/ | sh
-    sudo usermod -aG docker `whoami`
-fi
-
-#Program fasd
-if check_custom_app 'fasd'; then
-    sudo add-apt-repository ppa:aacebedo/fasd
 fi
 
 #Program fzf
@@ -78,20 +90,6 @@ if check_custom_app 'gdrive'; then
     ln -fs ~/opt/gdrive ~/bin/gdrive
 fi
 
-#Program google chrome
-if check_custom_app 'google-chrome'; then
-    if grep -Fxq "deb http://dl.google.com/linux/chrome/deb/ stable main" \
-        /etc/apt/sources.list.d/google-chrome.list
-    then
-        : # Already set
-    else
-        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
-            | sudo apt-key add -
-        sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" \
-            >> /etc/apt/sources.list.d/google-chrome.list'
-    fi
-fi
-
 #Program hub
 if check_custom_app 'hub'; then
     HUB_VER=2.2.9
@@ -111,11 +109,6 @@ fi
 if check_custom_app 'nodejs'; then
     curl -sSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 fi
-
-#Program infinality
-# if ! apt-mark showmanual | grep -q fontconfig-infinality; then
-#     sudo add-apt-repository -y ppa:no1wantdthisname/ppa
-# fi
 
 #Program tmux plugin manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
@@ -144,6 +137,13 @@ if check_custom_app 'go'; then
     sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
 fi
 
+if check_custom_app 'git hub'; then
+    git clone https://github.com/ingydotnet/git-hub
+fi
+
+
+# ===== Deprecated =====
+
 #if check_custom_app 'code'; then
 #    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 #    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -153,13 +153,6 @@ fi
 #    for extension in $(cat ~/dotfiles/vscode/extensions.txt); do /usr/bin/code --install-extension "$extension"; done
 #    git clone https://github.com/lttr/vscode-solarized-light-color-theme ~/.vscode/extensions/lt-solarized-color-scheme
 #fi
-
-if check_custom_app 'git hub'; then
-    git clone https://github.com/ingydotnet/git-hub
-fi
-
-
-# ===== Deprecated =====
 
 # if check_custom_app 'gsettings-info'; then
 #     git clone https://github.com/jmatsuzawa/gsettings-info
@@ -190,5 +183,10 @@ fi
 # if check_custom_app 'skype'; then
 #     sudo add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 #     sudo apt-get install -y skype
+# fi
+
+#Program infinality
+# if ! apt-mark showmanual | grep -q fontconfig-infinality; then
+#     sudo add-apt-repository -y ppa:no1wantdthisname/ppa
 # fi
 
