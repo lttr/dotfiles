@@ -101,6 +101,7 @@ Plug 'Quramy/vim-js-pretty-template'
 Plug 'elzr/vim-json'
 Plug 'mvolkmann/vim-js-arrow-function'
 " Plug 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
+Plug 'posva/vim-vue'
 
 " Typescript
 Plug 'Quramy/tsuquyomi'
