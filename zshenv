@@ -18,6 +18,8 @@ else
     export WSL=false
 fi
 
+# PATH
+
 # user path
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -33,6 +35,12 @@ export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
 # vsts
 export PATH=$HOME/opt/vsts-cli/bin:$PATH
+
+# prefer /usr/bin than Windows PATH
+if [[ $WSL = true ]]; then
+  export PATH="$PATH:/usr/bin"
+fi
+
 
 # vagrant
 export VAGRANT_HOME=~/vagrants/vagrant.d

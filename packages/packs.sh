@@ -184,7 +184,7 @@ case $TYPE in
                 npm-extra
             ;;
             install)
-                npm install -g $( cat "$NODE_PACKS_PATH" )
+                npm install -g $( npm-missing )
             ;;
             updatable)
                 npm outdated -g
@@ -193,7 +193,7 @@ case $TYPE in
                 npm update -g
             ;;
             process)
-                npm install -g $( cat "$NODE_PACKS_PATH" )
+                npm install -g $( npm-missing )
             ;;
             *)
                 echo "Unsupported command"
