@@ -1698,5 +1698,15 @@
     "key": "ctrl+m ctrl+i",
     "command": "-md-shortcut.toggleInlineCode",
     "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "shift+alt+g",
+    "command": "references-view.find",
+    "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "shift+alt+f12",
+    "command": "-references-view.find",
+    "when": "editorHasReferenceProvider"
   }
 ]

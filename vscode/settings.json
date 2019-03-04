@@ -140,7 +140,6 @@
   "typescriptHero.imports.multiLineWrapThreshold": 100,
   "typescriptHero.imports.organizeOnSave": false,
   "typescriptHero.imports.stringQuoteStyle": "\"",
-  "vim.enableNeovim": true,
   "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
   "vim.hlsearch": true,
   "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
@@ -257,7 +256,8 @@
   "javascript.implicitProjectConfig.checkJs": true,
   "editor.tabSize": 2,
   "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
-  "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  // "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  "powershell.powerShellExePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
   "editor.formatOnSave": true,
   "editor.matchBrackets": false,
   "editor.renderLineHighlight": "gutter",
@@ -266,7 +266,11 @@
   "omnisharp.disableMSBuildDiagnosticWarning": true,
   "omnisharp.loggingLevel": "debug",
   "editor.cursorSmoothCaretAnimation": true,
+  "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
   "xmlTools.splitAttributesOnFormat": true,
+  "[xml]": {
+    "editor.formatOnSave": false
+  },
   "[csharp]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": false
