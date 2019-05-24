@@ -1,6 +1,8 @@
 @angular/cli
 browser-sync
+cypress
 dploy
+eleventy
 eslint
 firebase
 frontail
@@ -9,6 +11,7 @@ gitlost
 hads
 jest
 live-server
+pollinate
 postcss
 prettier
 repo-vision
