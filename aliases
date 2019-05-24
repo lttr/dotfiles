@@ -174,26 +174,31 @@ alias agl='ag --smart-case --color-match "30;47" --pager="less -FiMRX"'
 # =================================================================
 #                          Zsh aliases
 # =================================================================
-alias -g G="| grep -i"
-alias -g H="| head"
-alias -g T="| tail"
-alias -g L="| less -FiMRX"
-alias -g A="| ag --smart-case --color-match '30;47'"
-alias -g C="| wc -l"
-alias -g F="| fpp"
-alias -g IN="..@{u}"
-alias -g OUT="@{u}.."
-alias -g UP="@{u}"
 
-# Images
-alias -s gif=gthumb
-alias -s jpg=gthumb
-alias -s png=gthumb
+if [[ $(echo $0) =~ "zsh" ]]; then
 
-# Text
-alias -s css=$EDITOR
-alias -s java=$EDITOR
-alias -s js=$EDITOR
-alias -s md=$EDITOR
-alias -s php=$EDITOR
-alias -s txt=$EDITOR
+  alias -g G="| grep -i"
+  alias -g H="| head"
+  alias -g T="| tail"
+  alias -g L="| less -FiMRX"
+  alias -g A="| ag --smart-case --color-match '30;47'"
+  alias -g C="| wc -l"
+  alias -g F="| fpp"
+  alias -g IN="..@{u}"
+  alias -g OUT="@{u}.."
+  alias -g UP="@{u}"
+
+  # Images
+  alias -s gif=gthumb
+  alias -s jpg=gthumb
+  alias -s png=gthumb
+
+  # Text
+  alias -s css=$EDITOR
+  alias -s java=$EDITOR
+  alias -s js=$EDITOR
+  alias -s md=$EDITOR
+  alias -s php=$EDITOR
+  alias -s txt=$EDITOR
+
+fi
