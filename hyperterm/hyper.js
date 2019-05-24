@@ -34,12 +34,12 @@ module.exports = {
 
     // color of the text
     // foregroundColor: '#657b83', // solarized light
-    foregroundColor: '#fdf6e3', // solarized dark
+    // foregroundColor: '#fdf6e3', // solarized dark
 
     // terminal background color
     // opacity is only supported on macOS
     // backgroundColor: '#fdf6e3', //solarized light
-    backgroundColor: '#657b83', // solarized dark
+    // backgroundColor: '#657b83', // solarized dark
 
     // terminal selection color
     selectionColor: 'rgba(147,161,161,0.3)',
@@ -68,24 +68,24 @@ module.exports = {
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
-    colors: {
-      black: '#000000',
-      red: '#C51E14',
-      green: '#1DC121',
-      yellow: '#C7C329',
-      blue: '#0A2FC4',
-      magenta: '#C839C5',
-      cyan: '#20C5C6',
-      white: '#C7C7C7',
-      lightBlack: '#686868',
-      lightRed: '#FD6F6B',
-      lightGreen: '#67F86F',
-      lightYellow: '#FFFA72',
-      lightBlue: '#6A76FB',
-      lightMagenta: '#FD7CFC',
-      lightCyan: '#68FDFE',
-      lightWhite: '#FFFFFF',
-    },
+    // colors: {
+    //   black: '#000000',
+    //   red: '#C51E14',
+    //   green: '#1DC121',
+    //   yellow: '#C7C329',
+    //   blue: '#0A2FC4',
+    //   magenta: '#C839C5',
+    //   cyan: '#20C5C6',
+    //   white: '#C7C7C7',
+    //   lightBlack: '#686868',
+    //   lightRed: '#FD6F6B',
+    //   lightGreen: '#67F86F',
+    //   lightYellow: '#FFFA72',
+    //   lightBlue: '#6A76FB',
+    //   lightMagenta: '#FD7CFC',
+    //   lightCyan: '#68FDFE',
+    //   lightWhite: '#FFFFFF',
+    // },
 
     // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
     // if left empty, your system's login shell will be used by default
@@ -135,12 +135,12 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
   },
 
-  plugins: ['hyper-search'],
+  plugins: ['hyper-search', 'hyper-solarized-light'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: ['hyper-solarized-light'],
+  // localPlugins: ['hyper-solarized-light'],
   // localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
