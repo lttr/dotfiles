@@ -18,6 +18,9 @@ Set-PSReadlineOption -EditMode Emacs
 
 # Shortcuts
 Set-PSReadLineKeyHandler -Key Alt+d -ScriptBlock { Invoke-FuzzyZLocation }
+Set-PSReadLineKeyHandler -Key Alt+p -ScriptBlock { Invoke-FuzzyEdit }
+Set-PSReadLineKeyHandler -Key Ctrl+r -ScriptBlock { Invoke-FuzzyHistory }
+Set-PSReadLineKeyHandler -Key Alt+c -ScriptBlock { Invoke-FuzzySetLocation }
 
 
 # Colors

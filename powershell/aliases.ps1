@@ -1,5 +1,5 @@
 # Clean unwanted aliases
-Remove-Item -Force alias:gl
+Remove-Item -Force alias:gl -ErrorAction SilentlyContinue
 
 # Factory for creating simple aliases
 function Set-DynamicAlias {
@@ -34,7 +34,7 @@ da contport "cd $HOME/code/contport/web-portal/WebSiteSolution/Web"
 
 # NPM
 
-function nr { & npm run "$args" }
+function nr { & npm run $args }
 
 # git
 
