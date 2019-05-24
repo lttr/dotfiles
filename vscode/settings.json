@@ -1,4 +1,5 @@
 {
+  "auto-close-tag.SublimeText3Mode": true,
   "bracketPairColorizer.forceIterationColorCycle": false,
   "bracketPairColorizer.forceUniqueOpeningColor": false,
   "bracketPairColorizer.showVerticalScopeLine": false,
@@ -19,6 +20,7 @@
     ["[]", ["#6c71c4", "#d33682", "#859900"], "#dc322f"],
     ["{}", ["#6c71c4", "#d33682", "#859900"], "#dc322f"]
   ],
+  "csharp.format.enable": true,
   "css.validate": false,
   "css_peek.activeLanguages": ["html", "ejs", "erb", "php", "js", "ts"],
   "code-runner.runInTerminal": false,
@@ -28,7 +30,6 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
-  "editor.folding": false,
   "editor.fontSize": 16,
   "editor.formatOnType": false,
   "editor.minimap.enabled": false,
@@ -56,6 +57,7 @@
   "explorer.confirmDragAndDrop": false,
   "extensions.showRecommendationsOnlyOnDemand": true,
   "eslint.validate": ["javascript", "javascriptreact", "vue"],
+  "eslint.alwaysShowStatus": false,
   "files.autoSaveDelay": 3000,
   "files.trimTrailingWhitespace": true,
   "gitProjectManager.baseProjectsFolders": ["~/code"],
@@ -74,6 +76,9 @@
   "gitlens.codeLens.recentChange.enabled": true,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.enabled": true,
+  "highlight-matching-tag.styles": {
+    "opening": { "name": { "underline": "#ddd" } }
+  },
   "html.format.indentHandlebars": true,
   "html.format.wrapLineLength": 100,
   "html.format.wrapAttributes": "aligned-multiple",
@@ -86,7 +91,11 @@
   // "keyboard.dispatch": "keyCode",
   "local-history.path": "/tmp/vscode-local-history",
   "markdown.extension.italic.indicator": "_",
+  "markdown.extension.syntax.decorations": false,
+  "omnisharp.disableMSBuildDiagnosticWarning": true,
+  "omnisharp.loggingLevel": "debug",
   "omnisharp.projectLoadTimeout": 180,
+  "omnisharp.useEditorFormattingSettings": false,
   "openSpecFile.suffixMap": {
     ".js": ".spec.js",
     ".spec.js": ".js",
@@ -132,31 +141,29 @@
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
   // "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
   "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
-  "tslint.enable": true,
-  "tslint.autoFixOnSave": true,
+  "typescript.validate.enable": true,
   "typescript.implementationsCodeLens.enabled": false,
   "typescript.referencesCodeLens.enabled": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescriptHero.imports.multiLineWrapThreshold": 100,
+  "typescript.check.npmIsInstalled": true,
+  "typescript.format.enable": true,
+  "typescript.preferences.importModuleSpecifier": "auto",
+  "typescript.preferences.renameShorthandProperties": true,
+  "typescript.preferences.quoteStyle": "auto",
+  "typescript.suggest.autoImports": true,
+  "typescript.suggest.enabled": true,
+  "typescriptHero.imports.multiLineWrapThreshold": 80,
   "typescriptHero.imports.organizeOnSave": false,
-  "typescriptHero.imports.stringQuoteStyle": "\"",
-  "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
-  "vim.hlsearch": true,
-  "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
-  "vim.overrideCopy": false,
-  "vim.searchHighlightColor": "#FDF6E3", // light theme
-  // "vim.searchHighlightColor": "#443", // dark theme
-  "vim.useCtrlKeys": true,
+  // "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
+  // "vim.hlsearch": true,
+  // "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
+  // "vim.overrideCopy": false,
+  // "vim.searchHighlightColor": "#FDF6E3", // light theme
+  // // "vim.searchHighlightColor": "#443", // dark theme
+  // "vim.useCtrlKeys": true,
   "vim.useSystemClipboard": true,
-  "vim.visualstar": true,
-  "window.menuBarVisibility": "default",
-  "window.zoomLevel": 0,
-  "workbench.activityBar.visible": false,
-  "workbench.editor.enablePreview": false,
-  "workbench.editor.showTabs": true,
-  "workbench.iconTheme": "vs-seti",
-  "workbench.sideBar.location": "left",
-  "vim.disableExtension": false,
+  // "vim.visualstar": true,
+  // "vim.disableExtension": false,
   "vim.handleKeys": {
     "<C-f>": false,
     "<C-k>": false,
@@ -168,16 +175,15 @@
     "<a-l>": false,
     "tab": false
   },
-  "vim.leader": " ",
+  // "vim.leader": " ",
+
+  "vim.visualModeKeyBindingsNonRecursive": [
+    // {
+    //   "before": ["p"],
+    //   "after": ["\"", "_", "d", "P"]
+    // }
+  ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["g", "k"],
-      "after": ["k"]
-    },
-    {
-      "before": ["g", "j"],
-      "after": ["j"]
-    },
     {
       "before": ["k"],
       "after": ["g", "k"]
@@ -187,69 +193,115 @@
       "after": ["g", "j"]
     },
     {
-      "before": [" ", ";"],
-      "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
+      "before": ["s"],
+      "after": ["v", "i", "w", "\"", "_", "d", "P"]
     },
     {
-      "before": [" ", ","],
-      "after": ["m", "a", "A", ",", "<Esc>", "`", "a"]
+      "before": ["Y"],
+      "after": ["y", "$"]
     },
     {
-      "before": ["g", "\""],
-      "after": ["m", "a", "F", "'", "r", "\"", "f", "'", "r", "\"", "`", "a"]
-    },
-    {
-      "before": ["g", "'"],
-      "after": ["m", "a", "F", "\"", "r", "'", "f", "\"", "r", "'", "`", "a"]
-    },
-    {
-      "before": ["g", "`"],
-      "after": ["m", "a", "F", "'", "r", "`", "f", "'", "r", "`", "`", "a"]
-    },
-    {
-      "before": ["leader", "\""],
-      "after": ["m", "a", "b", "i", "\"", "<Esc>", "e", "a", "\"", "<Esc>", "`", "a"]
-    },
-    {
-      "before": ["leader", "'"],
-      "after": ["m", "a", "b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>", "`", "a"]
-    },
-    {
-      "before": ["leader", "`"],
-      "after": ["m", "a", "b", "i", "`", "<Esc>", "e", "a", "`", "<Esc>", "`", "a"]
-    },
-    {
-      "before": ["g", "m"],
+      "before": ["u"],
       "after": ["<Esc>"],
       "commands": [
         {
-          "command": "editor.action.changeAll",
+          "command": "undo",
           "args": []
         }
       ]
-    },
-    {
-      "before": ["leader", "h"],
-      "after": ["<Esc>"],
-      "commands": [
-        {
-          "command": ":nohl",
-          "args": []
-        }
-      ]
-    },
-    {
-      "before": ["g", "S"],
-      "after": ["\"", "d", "c", "i", "t", "<CR>", "a", "<Esc>", "\"", "d", "p", "^", "x"]
     }
   ],
+
+  // "vim.normalModeKeyBindingsNonRecursive": [
+  //   {
+  //     "before": ["g", "k"],
+  //     "after": ["k"]
+  //   },
+  //   {
+  //     "before": ["g", "j"],
+  //     "after": ["j"]
+  //   },
+  //   {
+  //     "before": ["k"],
+  //     "after": ["g", "k"]
+  //   },
+  //   {
+  //     "before": ["j"],
+  //     "after": ["g", "j"]
+  //   },
+  //   {
+  //     "before": [" ", ";"],
+  //     "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
+  //   },
+  //   {
+  //     "before": [" ", ","],
+  //     "after": ["m", "a", "A", ",", "<Esc>", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["g", "\""],
+  //     "after": ["m", "a", "F", "'", "r", "\"", "f", "'", "r", "\"", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["g", "'"],
+  //     "after": ["m", "a", "F", "\"", "r", "'", "f", "\"", "r", "'", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["g", "`"],
+  //     "after": ["m", "a", "F", "'", "r", "`", "f", "'", "r", "`", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["leader", "\""],
+  //     "after": ["m", "a", "b", "i", "\"", "<Esc>", "e", "a", "\"", "<Esc>", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["leader", "'"],
+  //     "after": ["m", "a", "b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["leader", "`"],
+  //     "after": ["m", "a", "b", "i", "`", "<Esc>", "e", "a", "`", "<Esc>", "`", "a"]
+  //   },
+  //   {
+  //     "before": ["g", "m"],
+  //     "after": ["<Esc>"],
+  //     "commands": [
+  //       {
+  //         "command": "editor.action.changeAll",
+  //         "args": []
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     "before": ["leader", "h"],
+  //     "after": ["<Esc>"],
+  //     "commands": [
+  //       {
+  //         "command": ":nohl",
+  //         "args": []
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     "before": ["g", "S"],
+  //     "after": ["\"", "d", "c", "i", "t", "<CR>", "a", "<Esc>", "\"", "d", "p", "^", "x"]
+  //   }
+  // ],
+  // "vim.enableNeovim": true,
+  "window.menuBarVisibility": "default",
+  "window.zoomLevel": 0,
+  "window.titleBarStyle": "custom",
+  "vim.cursorStylePerMode.normal": "block-outline",
+  "workbench.activityBar.visible": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.showTabs": true,
+  "workbench.iconTheme": "vs-seti",
+  "workbench.sideBar.location": "left",
   "workbench.statusBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.colorTheme": "LT Solarized light",
   "gitlens.keymap": "alternate",
   "workbench.statusBar.feedback.visible": false,
   "team.showWelcomeMessage": false,
-  "window.titleBarStyle": "custom",
   "files.exclude": {
     "node_modules": true
   },
@@ -263,24 +315,34 @@
   "editor.renderLineHighlight": "gutter",
   "powershell.codeFormatting.preset": "OTBS",
   "git.confirmSync": false,
-  "omnisharp.disableMSBuildDiagnosticWarning": true,
-  "omnisharp.loggingLevel": "debug",
   "editor.cursorSmoothCaretAnimation": true,
   "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
-  "xmlTools.splitAttributesOnFormat": true,
   "[xml]": {
     "editor.formatOnSave": false
   },
   "[csharp]": {
+    "editor.codeLens": true,
     "editor.tabSize": 4,
     "editor.insertSpaces": false
   },
-  "editor.detectIndentation": false,
   "editor.hover.delay": 600,
-  "breadcrumbs.enabled": false,
+  "breadcrumbs.enabled": true,
   "powershell.integratedConsole.focusConsoleOnExecute": false,
   "macros": {
     "saveAndRun": ["workbench.action.files.save", "workbench.action.terminal.runActiveFile"]
   },
-  "vim.enableNeovim": true
+  "terminal.integrated.commandsToSkipShell": [
+    "-workbench.action.quickOpen",
+    "workbench.action.openGlobalSettings"
+  ],
+  "gitHistory.hideCommitViewExplorer": true,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "update.mode": "manual",
+  "extensions.autoUpdate": false,
+  "eslint.enable": false,
+  "editor.mouseWheelZoom": true,
+  "references.preferredLocation": "view",
+  "workbench.editor.highlightModifiedTabs": true,
+  "editor.foldingStrategy": "indentation"
 }

@@ -70,11 +70,6 @@
     "command": "editor.action.goToTypeDefinition"
   },
   {
-    "key": "ctrl+alt+b",
-    "command": "editor.action.goToImplementation",
-    "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
-  },
-  {
     "key": "ctrl+f12",
     "command": "-editor.action.goToImplementation",
     "when": "editorHasImplementationProvider && editorTextFocus && !isInEmbeddedEditor"
@@ -95,9 +90,19 @@
     "when": "inQuickOpen"
   },
   {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen"
+  },
+  {
     "key": "ctrl+p",
     "command": "workbench.action.quickOpenNavigatePrevious",
     "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen",
+    "when": "!terminalFocus && !inQuickOpen"
   },
   {
     "key": "ctrl+shift+p",
@@ -463,10 +468,6 @@
     "key": "ctrl+shift+v",
     "command": "-markdown.showPreview",
     "when": "editorLangId == 'markdown'"
-  },
-  {
-    "key": "ctrl+shift+alt+v",
-    "command": "extension.openVim"
   },
   {
     "key": "shift+alt+z",
@@ -929,11 +930,6 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+l",
-    "command": "extension.refactorix.String.Interpolate",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "shift+alt+x i",
     "command": "-extension.refactorix.String.Interpolate",
     "when": "editorTextFocus"
@@ -956,11 +952,6 @@
   {
     "key": "ctrl+shift+;",
     "command": "-extension.refactorix.Semicolons.Remove",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+alt+t",
-    "command": "extension.refactorix.SplitVariableDeclaration",
     "when": "editorTextFocus"
   },
   {
@@ -1001,7 +992,7 @@
   {
     "key": "ctrl+enter",
     "command": "-editor.action.insertLineAfter",
-    "when": "editorTextFocus && !editorReadonly"
+    "when": "editorTextFocus && !editorReadonly && editorLangId != 'sql'"
   },
   {
     "key": "ctrl+enter",
@@ -1097,11 +1088,11 @@
     "command": "-java.workspace.compile"
   },
   {
-    "key": "shift+alt+t",
+    "key": "ctrl+alt+t",
     "command": "workbench.action.tasks.test"
   },
   {
-    "key": "shift+alt+b",
+    "key": "ctrl+alt+b",
     "command": "workbench.action.tasks.build"
   },
   {
@@ -1109,7 +1100,7 @@
     "command": "-workbench.action.tasks.build"
   },
   {
-    "key": "shift+alt+a",
+    "key": "ctrl+alt+a",
     "command": "workbench.action.tasks.runTask"
   },
   {
@@ -1321,7 +1312,7 @@
     "when": "searchInputBoxFocus && searchViewletVisible"
   },
   {
-    "key": "ctrl+shift+t",
+    "key": "alt+t",
     "command": "extension.openSpecFile"
   },
   {
@@ -1511,10 +1502,6 @@
     "command": "-cmstead.jsRefactor.inlineVariable"
   },
   {
-    "key": "ctrl+alt+t",
-    "command": "cmstead.jsRefactor.convertToTemplateLiteral"
-  },
-  {
     "key": "ctrl+shift+j l",
     "command": "-cmstead.jsRefactor.convertToTemplateLiteral"
   },
@@ -1666,12 +1653,12 @@
   {
     "key": "ctrl+shift+enter",
     "command": "macros.saveAndRun",
-    "when": "editorTextFocus"
+    "when": "editorTextFocus && !editorReadonly && editorLangId != 'sql'"
   },
   {
     "key": "ctrl+enter",
     "command": "workbench.action.terminal.runSelectedText",
-    "when": "editorTextFocus"
+    "when": "editorTextFocus && editorLangId != 'sql'"
   },
   {
     "key": "ctrl+t a",
@@ -1708,5 +1695,55 @@
     "key": "shift+alt+f12",
     "command": "-references-view.find",
     "when": "editorHasReferenceProvider"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "-extension.vim_ctrl+f",
+    "when": "editorTextFocus && vim.active && vim.use<C-f> && !inDebugRepl && vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+shift+alt+v",
+    "command": "extension.openVim"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.use<C-r> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "redo",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+z",
+    "command": "-redo",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.reloadWindow",
+    "when": "isDevelopment"
+  },
+  {
+    "key": "ctrl+r",
+    "command": "-workbench.action.quickOpenNavigateNextInRecentFilesPicker",
+    "when": "inQuickOpen && inRecentFilesPicker"
+  },
+  {
+    "key": "ctrl+shift+t",
+    "command": "dotnetTestExplorer.focus"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.tasks.reRunTask"
+  },
+  {
+    "key": "ctrl+k ctrl+s",
+    "command": "workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+k ctrl+shift+s",
+    "command": "-workbench.action.files.saveWithoutFormatting"
   }
 ]
