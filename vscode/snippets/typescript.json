@@ -1,30 +1,61 @@
 {
-	// Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and 
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-	"HyperHTML Component": {
-		"prefix": "hypercomp",
-		"body": [
-			"import { Component } from \"hyperhtml/esm\";",
-			"",
-			"export class $1Component extends Component<{}> {",
-			"    constructor() {",
-			"        super();",
-			"    }",
-			"    public render() {",
-			"        return this.html`$2`;",
-			"    }",
-			"}"
-		]
-	}
+  "HyperHTML Component": {
+    "prefix": "hypercomp",
+    "body": [
+      "import { Component } from \"hyperhtml/esm\";",
+      "",
+      "export class $1Component extends Component<{}> {",
+      "    constructor() {",
+      "        super();",
+      "    }",
+      "    public render() {",
+      "        return this.html`$2`;",
+      "    }",
+      "}"
+    ]
+  },
+  "const statement": {
+    "prefix": "co",
+    "body": "const ${0}"
+  },
+  "named function": {
+    "prefix": "fu",
+    "body": "function ${1}(${2}) {${0}}",
+    "description": "named function"
+  },
+  "arrow function": {
+    "prefix": "fa",
+    "body": "(${1}) => ${0}",
+    "description": "arrow function"
+  },
+  "post snippet forEach": {
+    "prefix": "each",
+    "body": "forEach((${1:item}) => {\n\t${2}\n})",
+    "description": "forEach"
+  },
+  "post snippet map": {
+    "prefix": "map",
+    "body": "map((${1:item}) => {\n\t${0}\n})",
+    "description": "map"
+  },
+  "post snippet filter": {
+    "prefix": "filter",
+    "body": "filter((${1:item}) => {\n\t${2}\n})",
+    "description": "filter"
+  },
+  "console.log": {
+    "prefix": "cl",
+    "body": "console.log(${1})${0}",
+    "description": "console.log"
+  },
+  "console.log function": {
+    "prefix": "clx",
+    "body": "(x) => console.log(x)${0}",
+    "description": "console.log function"
+  },
+  "return": {
+    "prefix": "re",
+    "body": "return ${0}",
+    "description": "return"
+  }
 }

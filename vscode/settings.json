@@ -37,12 +37,17 @@
   "editor.occurrencesHighlight": true,
   "editor.parameterHints.enabled": false,
   "editor.parameterHints.cycle": true,
-  "editor.quickSuggestionsDelay": 500,
   "editor.renderControlCharacters": true,
   "editor.renderIndentGuides": false,
   "editor.renderWhitespace": "none",
   "editor.selectionHighlight": false,
   "editor.snippetSuggestions": "bottom",
+  "editor.quickSuggestionsDelay": 500,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  },
   "editor.tabCompletion": "onlySnippets",
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
   "emmet.includeLanguages": {
@@ -134,13 +139,20 @@
     "backgroundColor": "#eee8d5", // light theme
     "borderStyle": "none"
   },
+  "terminal.integrated.commandsToSkipShell": [
+    "-workbench.action.quickOpen",
+    "workbench.action.openGlobalSettings"
+  ],
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.lineHeight": 1.15,
-  // "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
-  // "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
-  "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  // "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
+  // "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  // "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  "powershell.powerShellExePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
   "typescript.validate.enable": true,
   "typescript.implementationsCodeLens.enabled": false,
   "typescript.referencesCodeLens.enabled": true,
@@ -307,9 +319,6 @@
   },
   "javascript.implicitProjectConfig.checkJs": true,
   "editor.tabSize": 2,
-  "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
-  // "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
-  "powershell.powerShellExePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
   "editor.formatOnSave": true,
   "editor.matchBrackets": false,
   "editor.renderLineHighlight": "gutter",
@@ -331,10 +340,6 @@
   "macros": {
     "saveAndRun": ["workbench.action.files.save", "workbench.action.terminal.runActiveFile"]
   },
-  "terminal.integrated.commandsToSkipShell": [
-    "-workbench.action.quickOpen",
-    "workbench.action.openGlobalSettings"
-  ],
   "gitHistory.hideCommitViewExplorer": true,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
@@ -344,5 +349,9 @@
   "editor.mouseWheelZoom": true,
   "references.preferredLocation": "view",
   "workbench.editor.highlightModifiedTabs": true,
-  "editor.foldingStrategy": "indentation"
+  "editor.foldingStrategy": "indentation",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }

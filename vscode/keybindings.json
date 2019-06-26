@@ -1092,10 +1092,6 @@
     "command": "workbench.action.tasks.test"
   },
   {
-    "key": "ctrl+alt+b",
-    "command": "workbench.action.tasks.build"
-  },
-  {
     "key": "ctrl+shift+b",
     "command": "-workbench.action.tasks.build"
   },
@@ -1745,5 +1741,19 @@
   {
     "key": "ctrl+k ctrl+shift+s",
     "command": "-workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "ctrl+shift+space",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+alt+j",
+    "command": "-editor.action.insertSnippet",
+    "when": "editorTextFocus && editorLangId == 'powershell'"
+  },
+  {
+    "key": "ctrl+alt+b",
+    "command": "editor.action.goToImplementation"
   }
 ]
