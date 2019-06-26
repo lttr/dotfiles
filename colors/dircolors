@@ -163,9 +163,9 @@ EIGHTBIT 1
 # normal file
 # FILE 00
 # directory
-DIR 36
+DIR 32
 # symbolic link
-LINK 32
+LINK 36
 
 # pipe, socket, block device, character device (blue bg)
 FIFO 30;44
