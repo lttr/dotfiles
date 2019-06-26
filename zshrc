@@ -156,7 +156,9 @@ eval $(dircolors ~/dotfiles/colors/dircolors)
 _gen_fzf_default_opts() {
     if [[ $WSL == true ]]; then
         export FZF_DEFAULT_OPTS="
-        --color fg+:7,bg+:-1,hl:3,hl+:3
+        --color=bg+:#eee8d5,bg:#fdf6e3,spinner:#719e07,hl:#002b36
+        --color=fg:#657b83,header:#586e75,info:#586e75,pointer:#719e07
+        --color=marker:#719e07,fg+:#657b83,prompt:#b58900,hl+:#002b36
         --exit-0
         --select-1
         --reverse
