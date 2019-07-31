@@ -35,7 +35,7 @@ if [[ $WSL != true ]]; then
   gsettings set org.gnome.desktop.interface cursor-blink false
 
   # do not accelerate mouse cursor
-  gsettings set org.gnome.desktop.peripherals.mouse speed "-1"
+  # gsettings set org.gnome.desktop.peripherals.mouse speed "-1"
 
   echo "Gsettings updated"
 
@@ -44,39 +44,39 @@ if [[ $WSL != true ]]; then
   # =================================================================
 
   # Import terminal settings
-  #dconf load /org/gnome/terminal/ < ~/dotfiles/install/config/gnome-terminal.dconf
-  #echo "Gnome-terminal settings loaded"
+  dconf load /org/gnome/terminal/ < ~/dotfiles/install/gnome-terminal.dconf
+  echo "Gnome-terminal settings loaded"
 
   # =================================================================
   #                           Mime types
   # =================================================================
 
-  mkdir -p ~/.local/share/applications
-  touch ~/.local/share/applications/mimeapps.list
+#   mkdir -p ~/.local/share/applications
+#   touch ~/.local/share/applications/mimeapps.list
 
-  xdg-mime default google-chrome.desktop text/html
-  xdg-mime default google-chrome.desktop x-scheme-handler/http
-  xdg-mime default google-chrome.desktop x-scheme-handler/https
-  xdg-mime default google-chrome.desktop x-scheme-handler/about
+#   xdg-mime default google-chrome.desktop text/html
+#   xdg-mime default google-chrome.desktop x-scheme-handler/http
+#   xdg-mime default google-chrome.desktop x-scheme-handler/https
+#   xdg-mime default google-chrome.desktop x-scheme-handler/about
 
-  xdg-mime default gthumb.desktop image/bpm
-  xdg-mime default gthumb.desktop image/gif
-  xdg-mime default gthumb.desktop image/ico
-  xdg-mime default gthumb.desktop image/jpeg
-  xdg-mime default gthumb.desktop image/jpg
-  xdg-mime default gthumb.desktop image/png
-  xdg-mime default gthumb.desktop image/tiff
+#   xdg-mime default gthumb.desktop image/bpm
+#   xdg-mime default gthumb.desktop image/gif
+#   xdg-mime default gthumb.desktop image/ico
+#   xdg-mime default gthumb.desktop image/jpeg
+#   xdg-mime default gthumb.desktop image/jpg
+#   xdg-mime default gthumb.desktop image/png
+#   xdg-mime default gthumb.desktop image/tiff
 
-  xdg-mime default inkscape.desktop image/svg+xml
+#   xdg-mime default inkscape.desktop image/svg+xml
 
-  xdg-mime default gedit.desktop text/plain
+#   xdg-mime default gedit.desktop text/plain
 
-  xdg-mime default gedit.desktop application/x-mswinurl
-  xdg-mime default gedit.desktop text/markdown
-  xdg-mime default gedit.desktop text/x-log
-  xdg-mime default vlc.desktop video/x-msvideo
+#   xdg-mime default gedit.desktop application/x-mswinurl
+#   xdg-mime default gedit.desktop text/markdown
+#   xdg-mime default gedit.desktop text/x-log
+#   xdg-mime default vlc.desktop video/x-msvideo
 
-  echo "Mime types set"
+#   echo "Mime types set"
 
   # =================================================================
   #                             Theme
@@ -84,25 +84,25 @@ if [[ $WSL != true ]]; then
 
   # This may not work, additional manual setup in lxappearance will probably be needed
   # shell theme
-  gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
+#   gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
   # cursor theme
-  gsettings set org.gnome.desktop.interface cursor-theme "DMZ-White"
+   gsettings set org.gnome.desktop.interface cursor-theme "DMZ-White"
   # gtk theme
-  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
+#   gsettings set org.gnome.desktop.interface gtk-theme "Adwaita"
   # icon theme
-  gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
+#   gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 
 
   # Set GTK theme for Qt apps
-  if grep -Fxq "style=GTK+" ~/.config/Trolltech.conf >/dev/null 2>&1
-  then
-      : # "GTK theme for Qt apps already set"
-  else
-      echo "[Qt]" >> ~/.config/Trolltech.conf
-      echo "style=GTK+" >> ~/.config/Trolltech.conf
-      echo "GTK theme for Qt apps set"
-  fi
+#   if grep -Fxq "style=GTK+" ~/.config/Trolltech.conf >/dev/null 2>&1
+#   then
+#       : # "GTK theme for Qt apps already set"
+#   else
+#       echo "[Qt]" >> ~/.config/Trolltech.conf
+#       echo "style=GTK+" >> ~/.config/Trolltech.conf
+#       echo "GTK theme for Qt apps set"
+#   fi
 
-  echo "Gnome theme updated"
+#   echo "Gnome theme updated"
 
 fi # WSL != true

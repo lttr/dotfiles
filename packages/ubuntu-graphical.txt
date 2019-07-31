@@ -4,14 +4,12 @@ dmz-cursor-theme
 doublecmd-gtk
 feh
 gimp
-gnome-color-chooser
 google-chrome-stable
 gpick
 gthumb
 i3
 i3blocks
 inkscape
-kde-baseapps-bin
 kdeconnect
 keepass2
 krusader
@@ -22,7 +20,6 @@ remmina
 rofi
 rxvt-unicode-256color
 scrot
-transmageddon
 umlet
 vagrant
 vim-gtk3
