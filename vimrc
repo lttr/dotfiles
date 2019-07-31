@@ -332,7 +332,7 @@ set background =light
 if !has('gui_running')
   set t_Co=256
 endif
-colorscheme solarized
+"colorscheme solarized
 set synmaxcol  =500             " Max column in which to search for syntax items (better performance)
 
 " ===== Whitespace =====

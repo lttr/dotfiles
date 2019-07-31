@@ -137,15 +137,11 @@
     "command": "-workbench.action.closeEditorsInGroup"
   },
   {
-    "key": "ctrl+shift+alt+w",
-    "command": "workbench.action.closeOtherEditors"
-  },
-  {
     "key": "ctrl+shift+w",
     "command": "-workbench.action.closeWindow"
   },
   {
-    "key": "ctrl+shift+w",
+    "key": "ctrl+shift+t",
     "command": "workbench.action.reopenClosedEditor"
   },
   {
@@ -1248,11 +1244,6 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+h",
-    "command": "gitlens.showQuickFileHistory",
-    "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
-  },
-  {
     "key": "ctrl+shift+g h",
     "command": "-gitlens.showQuickFileHistory",
     "when": "gitlens:enabled && gitlens:keymap == 'chorded'"
@@ -1727,14 +1718,6 @@
     "when": "inQuickOpen && inRecentFilesPicker"
   },
   {
-    "key": "ctrl+shift+t",
-    "command": "dotnetTestExplorer.focus"
-  },
-  {
-    "key": "ctrl+alt+l",
-    "command": "workbench.action.tasks.reRunTask"
-  },
-  {
     "key": "ctrl+k ctrl+s",
     "command": "workbench.action.files.saveWithoutFormatting"
   },
@@ -1755,5 +1738,29 @@
   {
     "key": "ctrl+alt+b",
     "command": "editor.action.goToImplementation"
+  },
+  {
+    "key": "ctrl+alt+h",
+    "command": "workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "ctrl+shift+pageup",
+    "command": "-workbench.action.moveEditorLeftInGroup"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "workbench.action.moveEditorRightInGroup"
+  },
+  {
+    "key": "ctrl+shift+pagedown",
+    "command": "-workbench.action.moveEditorRightInGroup"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "-extension.wipeCommon"
+  },
+  {
+    "key": "ctrl+shift+w",
+    "command": "workbench.action.closeOtherEditors"
   }
 ]

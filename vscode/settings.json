@@ -1,26 +1,11 @@
 {
   "auto-close-tag.SublimeText3Mode": true,
-  "bracketPairColorizer.forceIterationColorCycle": false,
-  "bracketPairColorizer.forceUniqueOpeningColor": false,
-  "bracketPairColorizer.showVerticalScopeLine": false,
-  "bracketPairColorizer.showHorizontalScopeLine": false,
-  "bracketPairColorizer.consecutivePairColors": [
-    "()",
-    "[]",
-    "{}",
-    [
-      "#6c71c4", // violet
-      "#d33682", // magenta
-      "#859900" // green
-    ],
-    "#dc322f"
-  ],
-  "bracketPairColorizer.independentPairColors": [
-    ["()", ["#6c71c4", "#d33682", "#859900"], "#dc322f"],
-    ["[]", ["#6c71c4", "#d33682", "#859900"], "#dc322f"],
-    ["{}", ["#6c71c4", "#d33682", "#859900"], "#dc322f"]
-  ],
-  "csharp.format.enable": true,
+  "bracket-pair-colorizer-2.forceIterationColorCycle": false,
+  "bracket-pair-colorizer-2.forceUniqueOpeningColor": false,
+  "bracket-pair-colorizer-2.showVerticalScopeLine": false,
+  "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
+  "bracket-pair-colorizer-2.colors": ["#6c71c4", "#d33682", "#859900"],
+  "csharp.format.enable": false,
   "css.validate": false,
   "css_peek.activeLanguages": ["html", "ejs", "erb", "php", "js", "ts"],
   "code-runner.runInTerminal": false,
@@ -115,7 +100,6 @@
   "code-runner.executorMap": {
     "powershell": "pwsh"
   },
-  "php.executablePath": "c:\\php\\php.exe",
   "prettier.arrowParens": "always",
   "prettier.disableLanguages": ["markdown"],
   "prettier.eslintIntegration": true,
@@ -146,9 +130,9 @@
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.lineHeight": 1.15,
-  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\bash.exe",
+  // "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6-preview\\pwsh.exe",
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
-  // "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
   // "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   // "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
@@ -166,14 +150,6 @@
   "typescript.suggest.enabled": true,
   "typescriptHero.imports.multiLineWrapThreshold": 80,
   "typescriptHero.imports.organizeOnSave": false,
-  // "vim.neovimPath": "C:\\tools\\neovim\\Neovim\\bin\\nvim.exe",
-  // "vim.hlsearch": true,
-  // "vim.iskeyword": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
-  // "vim.overrideCopy": false,
-  // "vim.searchHighlightColor": "#FDF6E3", // light theme
-  // // "vim.searchHighlightColor": "#443", // dark theme
-  // "vim.useCtrlKeys": true,
-  "vim.useSystemClipboard": true,
   // "vim.visualstar": true,
   // "vim.disableExtension": false,
   "vim.handleKeys": {
@@ -353,5 +329,31 @@
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "typescript.format.insertSpaceAfterConstructor": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "files.maxMemoryForLargeFilesMB": 1024,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.tree.indent": 12,
+  "workbench.tree.renderIndentGuides": "none",
+  "typescript.experimental.useSeparateSyntaxServer": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vscode_custom_css.imports": [""],
+  "vscode_custom_css.policy": true,
+  "markdownShortcuts.icons.bold": false,
+  "markdownShortcuts.icons.bullets": false,
+  "markdownShortcuts.icons.italic": false,
+  "markdownShortcuts.icons.strikethrough": false,
+  "code-runner.showRunIconInEditorTitleMenu": false
 }

@@ -48,4 +48,15 @@ Import-Module ZLocation
 # Fzf
 Import-Module PSFzf -ArgumentList 'Ctrl+T', 'Ctrl+R'
 
+
+# History
+$HistoryFilePath = Join-Path ([Environment]::GetFolderPath('UserProfile')) .ps_history
+Register-EngineEvent PowerShell.Exiting -Action { Get-History | Export-Clixml $HistoryFilePath } | Out-Null
+if (Test-path $HistoryFilePath) {
+  Import-Clixml $HistoryFilePath | Add-History
+}
+Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# Imports
 . $PSScriptRoot\env.ps1
