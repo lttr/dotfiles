@@ -106,6 +106,8 @@ alias tiad='dir=$(find ~/Dropbox/ia -type d | fzf) && cd "$dir"'
 alias tp="trash-put"
 alias vag="vagrant"
 alias xmlstar="xmlstarlet"
+alias fd="fdfind"
+alias help="tldr"
 
 
 # =================================================================

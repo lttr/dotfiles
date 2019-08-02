@@ -53,7 +53,8 @@ export MANPATH="$NPM_GLOBAL/share/man:$(manpath)"
 
 # user environment
 export PAGER=/usr/bin/less
-export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/vim
+export EDITOR=code
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/google-chrome
 export TERMINAL=/usr/bin/urxvt

@@ -13,6 +13,7 @@
   "debug.allowBreakpointsEverywhere": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.acceptSuggestionOnCommitCharacter": false,
+  "keyboard.dispatch": "keyCode",
   "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
   "editor.fontSize": 16,
@@ -133,6 +134,7 @@
   // "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6-preview\\pwsh.exe",
   // "terminal.integrated.shellArgs.windows": ["-c", "zsh"],
   "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+  "terminal.integrated.shell.linux": "zsh",
   "terminal.external.windowsExec": "C:\\Windows\\System32\\bash.exe",
   // "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
   // "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
@@ -276,7 +278,6 @@
   // ],
   // "vim.enableNeovim": true,
   "window.menuBarVisibility": "default",
-  "window.zoomLevel": 0,
   "window.titleBarStyle": "custom",
   "vim.cursorStylePerMode.normal": "block-outline",
   "workbench.activityBar.visible": false,
@@ -355,5 +356,10 @@
   "markdownShortcuts.icons.bullets": false,
   "markdownShortcuts.icons.italic": false,
   "markdownShortcuts.icons.strikethrough": false,
-  "code-runner.showRunIconInEditorTitleMenu": false
+  "code-runner.showRunIconInEditorTitleMenu": false,
+  "editor.fontFamily": "'Fira Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "files.associations": {
+    "zshrc": "shellscript"
+  },
+  "explorer.confirmDelete": false
 }

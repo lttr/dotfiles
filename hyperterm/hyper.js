@@ -9,10 +9,16 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 17,
+    fontSize: 14,
+
+    windowSize: [1100, 800],
 
     // font family with optional fallbacks
-    fontFamily: 'Consolas, "DejaVu Sans Mono", "Lucida Console", monospace',
+    // Windows
+    // fontFamily: 'Consolas, "DejaVu Sans Mono", "Lucida Console", monospace',
+
+    // Linux Pop OS
+    fontFamily: '"Fira Mono Regular", "DejaVu Sans Mono", "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -27,7 +33,7 @@ module.exports = {
     cursorAccentColor: '#fdf6e3',
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
-    cursorShape: 'BLOCK',
+    cursorShape: 'UNDERLINE',
 
     // set to `true` (without backticks and without quotes) for blinking cursor
     cursorBlink: false,
@@ -100,6 +106,8 @@ module.exports = {
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
 
+    shell: 'zsh',
+
     // Bash
     // shell: 'C:\\Windows\\System32\\bash.exe',
     // shellArgs: ['--login', '-c', 'zsh'],
@@ -113,8 +121,8 @@ module.exports = {
     // shellArgs: [],
 
     // Hyperstart
-    shell: '',
-    shellArgs: ['/C', 'C:\\Users\\Lukas\\dotfiles\\hyperterm\\hyperstart.bat'],
+    // shell: '',
+    // shellArgs: ['/C', 'C:\\Users\\Lukas\\dotfiles\\hyperterm\\hyperstart.bat'],
 
     // for environment variables
     env: {},

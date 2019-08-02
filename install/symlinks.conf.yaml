@@ -1,7 +1,7 @@
 - defaults:
     link:
-        relink: true
-        create: true
+      relink: true
+      create: true
 
 - clean: ['~', '~/.config']
 
@@ -24,6 +24,7 @@
     ~/.vrapperrc: vrapperrc
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
+    ~/.hyper.js: hyperterm/hyper.js
 
     # dotfolders
     ~/.config/mc: ../Dropbox/conf/mc
@@ -35,6 +36,8 @@
     ~/.vim/snippets: vim/snippets
     ~/.vim/syntax: vim/syntax
     ~/.config/Code/User/snippets: vscode/snippets
+    ~/.hyper_plugins/local/hyper-solarized-light: hyperterm/hyper-solarized-light
+    ~/.hyper_plugins/local/hyper-solarized-dark: hyperterm/hyper-solarized-dark
 
     ~/bin/packs: packages/packs.sh
 

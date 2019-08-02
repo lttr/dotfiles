@@ -302,7 +302,7 @@
     "when": "editorFocus"
   },
   {
-    "key": "shift+alt+up",
+    "key": "ctrl+shift+k",
     "command": "editor.action.insertCursorAbove",
     "when": "editorTextFocus"
   },
@@ -312,7 +312,7 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "shift+alt+down",
+    "key": "ctrl+shift+j",
     "command": "editor.action.insertCursorBelow",
     "when": "editorTextFocus"
   },
@@ -1762,5 +1762,15 @@
   {
     "key": "ctrl+shift+w",
     "command": "workbench.action.closeOtherEditors"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "-editor.action.deleteLines",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "-workbench.action.search.toggleQueryDetails",
+    "when": "searchViewletVisible"
   }
 ]
