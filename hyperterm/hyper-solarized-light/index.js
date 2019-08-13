@@ -6,7 +6,7 @@ const borderColor = 'rgba(38, 139, 210, 0.3)'
 
 const colors = [
   backgroundColor,
-  '#dc322f', // red
+  '#cb4b16', // red
   '#859900', // green
   '#b58900', // yellow
   '#268bd2', // blue
@@ -14,7 +14,7 @@ const colors = [
   '#2aa198', // cyan
   '#657b83', // light gray
   '#586e75', // medium gray
-  '#dc322f', // red
+  '#cb4b16', // red
   '#859900', // green
   '#b58900', // yellow
   '#268bd2', // blue

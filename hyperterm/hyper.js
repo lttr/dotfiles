@@ -143,12 +143,12 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
   },
 
-  plugins: ['hyper-search', 'hyper-solarized-light'],
+  plugins: ['hyper-search'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  // localPlugins: ['hyper-solarized-light'],
+  localPlugins: ['hyper-solarized-light'],
   // localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
