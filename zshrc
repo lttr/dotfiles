@@ -179,6 +179,9 @@ _gen_fzf_default_opts
 
 export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
 
+export BAT_THEME="base16"
+export BAT_PAGER="less -RF"
+
 
 # =================================================================
 #                            Plugins
