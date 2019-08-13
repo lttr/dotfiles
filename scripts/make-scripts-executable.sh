@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-chmod -vR a+x ~/dotfiles/scripts
+chmod -vR 750 ~/dotfiles/scripts
