@@ -1,0 +1,19 @@
+[custom2]
+command='keepass2'
+name='Keepass'
+binding='<Super>m'
+
+[custom1]
+command='bring-or-start code'
+name='vscode'
+binding='<Super>s'
+
+[custom0]
+command='bring-or-start hyper'
+name='Hyper Term'
+binding='<Super>c'
+
+[custom3]
+command='bring-or-start firefox'
+name='Firefox'
+binding='<Super>a'

@@ -44,8 +44,10 @@ if [[ $WSL != true ]]; then
   # =================================================================
 
   # Import terminal settings
-  dconf load /org/gnome/terminal/ < ~/dotfiles/install/gnome-terminal.dconf
-  echo "Gnome-terminal settings loaded"
+  dconf load /org/gnome/terminal/ < ~/dotfiles/gnome/gnome-terminal.dconf
+  dconf load /org/gnome/desktop/wm/keybindings/ < ~/dotfiles/gnome/keybindings.dconf
+  dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ < ~/dotfiles/gnome/custom-keybindings.dconf
+  echo "Gnome settings loaded"
 
   # =================================================================
   #                           Mime types
