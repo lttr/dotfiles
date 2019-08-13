@@ -215,6 +215,7 @@ function preexec {
   printf "\033]0;%s\a" "$1"
 }
 
+xrdb -load ~/.Xresources
 
 # =================================================================
 #                          Directories

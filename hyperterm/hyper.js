@@ -141,9 +141,14 @@ module.exports = {
     // quickEdit: true,
 
     // for advanced config flags please refer to https://hyper.is/#cfg
+
+    hyperTabsMove: {
+      moveLeft: 'ctrl+pageup',
+      moveRight: 'ctrl+pagedown',
+    },
   },
 
-  plugins: ['hyper-search'],
+  plugins: ['hyper-search', 'hypercwd', 'hyperterm-tabs'],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
