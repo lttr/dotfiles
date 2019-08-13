@@ -1,7 +1,7 @@
-Name        Version                  Rev   Tracking  Publisher              Notes
-code        2213894e                 11    stable    vscode*                classic
-fx          11.1.0                   105   stable    antonmedv              -
-powershell  6.2.2                    36    stable    microsoft-powershell*  classic
-skype       8.34.0.78                66    stable    skype*                 classic
-spotify     1.1.10.546.ge08ef575-19  36    stable    spotify*               -
-tldr        master                   162   stable    agniva                 -
+code --classic
+dotnet-sdk --classic
+fx
+powershell --classic
+skype --classic
+spotify
+tldr
