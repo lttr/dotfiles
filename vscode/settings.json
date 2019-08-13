@@ -5,6 +5,7 @@
   "bracket-pair-colorizer-2.showVerticalScopeLine": false,
   "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
   "bracket-pair-colorizer-2.colors": ["#6c71c4", "#d33682", "#859900"],
+  "cSpell.spellCheckDelayMs": 4000,
   "csharp.format.enable": false,
   "css.validate": false,
   "css_peek.activeLanguages": ["html", "ejs", "erb", "php", "js", "ts"],
@@ -350,8 +351,6 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "vscode_custom_css.imports": [""],
-  "vscode_custom_css.policy": true,
   "markdownShortcuts.icons.bold": false,
   "markdownShortcuts.icons.bullets": false,
   "markdownShortcuts.icons.italic": false,
@@ -361,5 +360,11 @@
   "files.associations": {
     "zshrc": "shellscript"
   },
-  "explorer.confirmDelete": false
+  "explorer.confirmDelete": false,
+  "gotoNextPreviousMember.symbolKinds": ["constructor", "method", "class", "interface"],
+  "git.autofetch": true,
+  "cSpell.userWords": [
+    "Chrono",
+    "Contport"
+  ]
 }
