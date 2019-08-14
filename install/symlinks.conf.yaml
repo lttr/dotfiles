@@ -39,11 +39,15 @@
     ~/.hyper_plugins/local/hyper-solarized-light: hyperterm/hyper-solarized-light
     ~/.hyper_plugins/local/hyper-solarized-dark: hyperterm/hyper-solarized-dark
 
+    # other scripts
     ~/bin/packs: packages/packs.sh
+
+    # other executables
+    ~/bin/dotnet: /snap/bin/dotnet-sdk.dotnet
 
 # executable scripts
 - shell:
-    - command: ./install/symlink-scripts.sh
+    - command: ./scripts/symlink-scripts.sh
       description: Creating symlinks of scripts
       stdout: true
       stderr: true

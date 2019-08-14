@@ -3,6 +3,9 @@
 SCRIPTS=$HOME/dotfiles/scripts
 BIN=$HOME/bin
 
+# Fix executable bits
+chmod -R 750 $SCRIPTS
+
 # find all executable shell scripts in scripts folder
 # and symlink them according to their names
 # NAME is filename without path and extension
