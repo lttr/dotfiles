@@ -159,6 +159,7 @@
     "<C-f>": false,
     "<C-k>": false,
     "<C-e>": false,
+    "<C-y>": false,
     "<C-]>": false,
     "<a-j>": false,
     "<a-k>": false,
@@ -166,7 +167,7 @@
     "<a-l>": false,
     "tab": false
   },
-  // "vim.leader": " ",
+  "vim.leader": ",",
 
   "vim.visualModeKeyBindingsNonRecursive": [
     // {
@@ -175,14 +176,14 @@
     // }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["k"],
-      "after": ["g", "k"]
-    },
-    {
-      "before": ["j"],
-      "after": ["g", "j"]
-    },
+    // {
+    //   "before": ["k"],
+    //   "after": ["g", "k"]
+    // },
+    // {
+    //   "before": ["j"],
+    //   "after": ["g", "j"]
+    // },
     {
       "before": ["s"],
       "after": ["v", "i", "w", "\"", "_", "d", "P"]
@@ -278,7 +279,7 @@
   //   }
   // ],
   // "vim.enableNeovim": true,
-  "window.menuBarVisibility": "default",
+  "window.menuBarVisibility": "toggle",
   "window.titleBarStyle": "custom",
   "vim.cursorStylePerMode.normal": "block-outline",
   "workbench.activityBar.visible": false,
@@ -365,7 +366,14 @@
   "git.autofetch": true,
   "cSpell.userWords": [
     "Chrono",
-    "Contport"
+    "Contport",
+    "Uploader",
+    "devextreme",
+    "domat"
   ],
-  "window.zoomLevel": 0.3
+  "window.zoomLevel": 0.3,
+  "colorHelper.disableGpu": 1,
+  "colorHelper.disableShadow": true,
+  "colorHelper.disableTransparent": true,
+  "colorHelper.resident": true,
 }

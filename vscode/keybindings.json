@@ -292,7 +292,7 @@
     "command": "-editor.action.toggleTabFocusMode"
   },
   {
-    "key": "shift+alt+m",
+    "key": "alt+m",
     "command": "editor.action.addSelectionToNextFindMatch",
     "when": "editorFocus"
   },
@@ -322,7 +322,7 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "shift+alt+x",
+    "key": "alt+x",
     "command": "editor.action.moveSelectionToNextFindMatch",
     "when": "editorFocus"
   },
@@ -332,7 +332,7 @@
     "when": "editorFocus"
   },
   {
-    "key": "ctrl+shift+alt+m",
+    "key": "ctrl+shift+m",
     "command": "editor.action.changeAll",
     "when": "editorTextFocus && !editorReadonly"
   },
@@ -936,11 +936,6 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+alt+g",
-    "command": "extension.refactorix.Property.ToGetterSetter",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "shift+alt+x g",
     "command": "-extension.refactorix.Property.ToGetterSetter",
     "when": "editorTextFocus"
@@ -1065,14 +1060,6 @@
     "key": "ctrl+shift+r",
     "command": "-workbench.action.quickOpenNavigatePreviousInRecentFilesPicker",
     "when": "inQuickOpen && inRecentFilesPicker"
-  },
-  {
-    "key": "ctrl+shift+r",
-    "command": "workbench.action.replaceInFiles"
-  },
-  {
-    "key": "ctrl+shift+h",
-    "command": "-workbench.action.replaceInFiles"
   },
   {
     "key": "shift+alt+b",
@@ -1365,28 +1352,13 @@
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+m ctrl+b",
-    "command": "markdown.extension.editing.toggleBold",
-    "when": "editorTextFocus && editorLangId == 'markdown'"
-  },
-  {
     "key": "ctrl+b",
     "command": "-markdown.extension.editing.toggleBold",
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
-    "key": "ctrl+m ctrl+i",
-    "command": "markdown.extension.editing.toggleItalic",
-    "when": "editorTextFocus && editorLangId == 'markdown'"
-  },
-  {
     "key": "ctrl+i",
     "command": "-markdown.extension.editing.toggleItalic",
-    "when": "editorTextFocus && editorLangId == 'markdown'"
-  },
-  {
-    "key": "ctrl+m ctrl+s",
-    "command": "markdown.extension.editing.toggleStrikethrough",
     "when": "editorTextFocus && editorLangId == 'markdown'"
   },
   {
@@ -1431,7 +1403,7 @@
     "command": "git.openChange"
   },
   {
-    "key": "ctrl+shift+v",
+    "key": "ctrl+v",
     "command": "editor.action.clipboardPasteAction",
     "when": "textInputFocus && !editorReadonly"
   },
@@ -1456,68 +1428,8 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+shift+j v",
-    "command": "-cmstead.jsRefactor.extractVariable",
-    "when": "editorHasSelection"
-  },
-  {
     "key": "ctrl+alt+m",
     "command": "-code-runner.stop"
-  },
-  {
-    "key": "ctrl+alt+m",
-    "command": "editor.action.codeAction",
-    "args": {
-      "kind": "refactor.extract.function",
-      "apply": "ifSingle"
-    }
-  },
-  {
-    "key": "ctrl+alt+c",
-    "command": "editor.action.codeAction",
-    "args": {
-      "kind": "refactor.extract.constant",
-      "apply": "ifSingle"
-    }
-  },
-  {
-    "key": "ctrl+alt+i",
-    "command": "cmstead.jsRefactor.inlineVariable"
-  },
-  {
-    "key": "ctrl+shift+j i",
-    "command": "-cmstead.jsRefactor.inlineVariable"
-  },
-  {
-    "key": "ctrl+shift+j l",
-    "command": "-cmstead.jsRefactor.convertToTemplateLiteral"
-  },
-  {
-    "key": "ctrl+shift+j x",
-    "command": "-cmstead.jsRefactor.addExport"
-  },
-  {
-    "key": "ctrl+shift+j m",
-    "command": "-cmstead.jsRefactor.extractMethod",
-    "when": "editorHasSelection"
-  },
-  {
-    "key": "ctrl+alt+w",
-    "command": "cmstead.jsRefactor.wrapSelection",
-    "when": "editorHasSelection"
-  },
-  {
-    "key": "ctrl+shift+j w",
-    "command": "-cmstead.jsRefactor.wrapSelection",
-    "when": "editorHasSelection"
-  },
-  {
-    "key": "ctrl+alt+x",
-    "command": "cmstead.jsRefactor.convertToArrowFunction"
-  },
-  {
-    "key": "ctrl+shift+j a",
-    "command": "-cmstead.jsRefactor.convertToArrowFunction"
   },
   {
     "key": "ctrl+r r",
@@ -1620,7 +1532,7 @@
     "command": "list.toggleFilterOnType"
   },
   {
-    "key": "ctrl+shift+e",
+    "key": "ctrl+e",
     "command": "workbench.files.action.showActiveFileInExplorer"
   },
   {
@@ -1654,10 +1566,6 @@
   {
     "key": "ctrl+shift+alt+e",
     "command": "workbench.view.explorer"
-  },
-  {
-    "key": "alt+m",
-    "command": "editor.emmet.action.matchTag"
   },
   {
     "key": "alt+;",
@@ -1788,5 +1696,83 @@
   {
     "key": "ctrl+up",
     "command": "-gotoNextPreviousMember.previousMember"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "-editor.action.refactor",
+    "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.quickOpenNavigateNextInFilePicker",
+    "when": "inFilesPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+    "when": "inFilesPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+    "when": "inFilesPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "-extension.vim_ctrl+x",
+    "when": "editorTextFocus && vim.active && vim.use<C-x> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "-workbench.actions.view.problems"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "-editor.action.clipboardCutAction",
+    "when": "textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "extension.vim_ctrl+x"
+  },
+  {
+    "key": "alt+k",
+    "command": "jsonHelper.moveToPreviousKey",
+    "when": "textInputFocus && editorLangId == 'json'"
+  },
+  {
+    "key": "alt+j",
+    "command": "jsonHelper.moveToNextKey",
+    "when": "textInputFocus && editorLangId == 'json'"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-html.showPreview",
+    "when": "editorLangId == 'html'"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-markdown-preview-enhanced.openPreview",
+    "when": "editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+y d",
+    "command": "editor.emmet.action.removeTag"
+  },
+  {
+    "key": "ctrl+y w",
+    "command": "editor.emmet.action.wrapWithAbbreviation"
   }
 ]
