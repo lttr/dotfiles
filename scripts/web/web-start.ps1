@@ -1,12 +1,18 @@
+#!/usr/bin/env pwsh
+
 Param([string]$name)
 
 if ( !$name ) {
   Write-Host "Missing sandbox name"
-}
-else {
-  Set-Location ${env:USERPROFILE}\sandbox
+} else {
+  Set-Location (Join-Path  "${env:HOME}" "sandbox" )
 
-  pollinate ${env:USERPROFILE}\code\web-start --name $name
+  if ($null -eq (Get-Command "pollinate" -ErrorAction SilentlyContinue)) {
+    Write-Host "I require 'pollinate' but it's not installed. Aborting."
+    exit 1
+  }
+
+  pollinate (Join-Path "${env:HOME}" "code" "web-start") --name $name
 
   Set-Location $name
 

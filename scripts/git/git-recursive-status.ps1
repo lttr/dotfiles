@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 # Based on https://github.com/fboender/multi-git-status/
 
 $START_DIR = $PWD.Path

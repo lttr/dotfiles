@@ -1,3 +1,5 @@
+#!/usr/bin/env pwsh
+
 # update all dependencies to latest versions even major ones
 
 param(
