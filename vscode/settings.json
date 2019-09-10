@@ -371,9 +371,10 @@
     "devextreme",
     "domat"
   ],
-  "window.zoomLevel": 0.3,
+  "window.zoomLevel": 0,
   "colorHelper.disableGpu": 1,
   "colorHelper.disableShadow": true,
   "colorHelper.disableTransparent": true,
   "colorHelper.resident": true,
+  "editor.cursorSurroundingLines": 3,
 }
