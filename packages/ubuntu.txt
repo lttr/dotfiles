@@ -11,12 +11,8 @@ fasd
 git
 htop
 httpie
-ipython
 ipython3
 jq
-libmysqlclient-dev
-maven
-mc
 neovim
 nodejs
 nmap

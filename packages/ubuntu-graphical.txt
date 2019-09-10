@@ -2,7 +2,6 @@ arandr
 compton
 dmz-cursor-theme
 doublecmd-gtk
-feh
 gimp
 google-chrome-stable
 gnome-tweak-tool
@@ -11,16 +10,9 @@ gthumb
 inkscape
 kdeconnect
 keepass2
-lxappearance
 nautilus-dropbox
-network-manager-vpnc
 remmina
 rxvt-unicode-256color
-scrot
-umlet
-vagrant
 vim-gtk3
-virtualbox
-vlc
 wmctrl
 xbacklight
