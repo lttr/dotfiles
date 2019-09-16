@@ -102,13 +102,11 @@
   "code-runner.executorMap": {
     "powershell": "pwsh"
   },
-  "prettier.arrowParens": "always",
   "prettier.disableLanguages": ["markdown"],
   "prettier.eslintIntegration": true,
   "prettier.printWidth": 100,
   "prettier.semi": false,
   "prettier.singleQuote": true,
-  "prettier.tabWidth": 2,
   "prettier.trailingComma": "es5",
   "search.exclude": {
     "**/node_modules": true,
