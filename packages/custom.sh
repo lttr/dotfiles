@@ -105,11 +105,6 @@ if check_custom_app 'nvim'; then
     sudo add-apt-repository -y ppa:neovim-ppa/stable
 fi
 
-#Program nodejs
-if check_custom_app 'nodejs'; then
-    curl -sSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-fi
-
 #Program tmux plugin manager
 if [ ! -d ~/.tmux/plugins/tpm ]; then
     log_installing 'tmux-plugin-manager'
@@ -143,6 +138,11 @@ fi
 
 
 # ===== Deprecated =====
+
+# #Program nodejs
+# if check_custom_app 'nodejs'; then
+#     curl -sSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+# fi
 
 #if check_custom_app 'code'; then
 #    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
