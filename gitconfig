@@ -15,22 +15,29 @@
     a = add
     aa = add --all
     unstage = reset --
+
     # branch
     br = branch
     bra = branch -a
     co = checkout
+    tracking = branch -avv
+    branches = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))' refs/heads refs/remotes
+
     # commit
     can = commit --amend --no-edit  # add staged to last commit (into 'can')
     ci = commit
     cm = commit -m
     ca = commit -a -m   # commit all changes in tracked files
+
     # config
     aliases = config --global --includes --get-regexp alias
     cg = config --global --includes
+
     # diff
     d = diff            # changes not staged yet
     ds = diff --staged  # what is already staged in the index
     dh = diff HEAD      # all changes from last commit
+
     # merging and rebasing
     edit-conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}'; }; $EDITOR `f`"
     re = rebase
@@ -69,20 +76,23 @@
     logrbr = !"git branchesformat" refs/remotes/origin
 
     logformat = log --graph --abbrev-commit --decorate --format=format:'%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)'
-    branches = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))' refs/heads refs/remotes
     tags = for-each-ref --sort=-taggerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(taggerdate)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(taggername))' refs/tags
 
     rf = reflog
 
     sf = show --name-status
     find = log --all --name-status --grep
+
     # remote
     fe = fetch
     fem = fetch origin master:master
     update = !git stash save -u && git pull && git stash pop
+    pu = ![ -z $(git config branch.`git symbolic-ref --short HEAD`.merge) ] && git push -u origin $(git symbolic-ref --short HEAD) || git push
+
     # status
     st = status
     s = status -s
+
     # stash
     sl = stash list
 
