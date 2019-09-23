@@ -155,6 +155,7 @@
   // "vim.disableExtension": false,
   "vim.handleKeys": {
     "<C-f>": false,
+    "<C-b>": false,
     "<C-k>": false,
     "<C-e>": false,
     "<C-y>": false,
@@ -362,17 +363,11 @@
   "explorer.confirmDelete": false,
   "gotoNextPreviousMember.symbolKinds": ["constructor", "method", "class", "interface"],
   "git.autofetch": true,
-  "cSpell.userWords": [
-    "Chrono",
-    "Contport",
-    "Uploader",
-    "devextreme",
-    "domat"
-  ],
+  "cSpell.userWords": ["Chrono", "Contport", "Uploader", "devextreme", "domat"],
   "window.zoomLevel": 0,
   "colorHelper.disableGpu": 1,
   "colorHelper.disableShadow": true,
   "colorHelper.disableTransparent": true,
   "colorHelper.resident": true,
-  "editor.cursorSurroundingLines": 3,
+  "editor.cursorSurroundingLines": 3
 }
