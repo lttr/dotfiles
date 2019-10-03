@@ -185,10 +185,6 @@
     "command": "-editor.action.startFindReplaceAction"
   },
   {
-    "key": "shift+alt+h",
-    "command": "git.viewLineHistory"
-  },
-  {
     "key": "f1",
     "command": "-workbench.action.showCommands"
   },
@@ -1774,5 +1770,53 @@
   {
     "key": "ctrl+y w",
     "command": "editor.emmet.action.wrapWithAbbreviation"
+  },
+  {
+    "key": "shift+alt+enter",
+    "command": "clever.maximize.toggleWithSidebar"
+  },
+  {
+    "key": "ctrl+'",
+    "command": "clever.string.nextQuotes",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "clever.fastInsert.curly",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "-markdown.extension.onOutdentLines",
+    "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "-markdown.extension.onOutdentLines",
+    "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "-markdown.extension.onIndentLines",
+    "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "-markdown.extension.onIndentLines",
+    "when": "editorTextFocus && !suggestWidgetVisible && editorLangId == 'markdown'"
+  },
+  {
+    "key": "shift+alt+h",
+    "command": "-gitlens.showQuickRepoHistory",
+    "when": "gitlens:enabled && config.gitlens.keymap == 'alternate'"
+  },
+  {
+    "key": "shift+alt+h",
+    "command": "-editor.showCallHierarchy",
+    "when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
+  },
+  {
+    "key": "shift+alt+h",
+    "command": "editor.action.outdentLines"
   }
 ]

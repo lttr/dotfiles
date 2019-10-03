@@ -159,6 +159,7 @@
     "<C-k>": false,
     "<C-e>": false,
     "<C-y>": false,
+    "<C-[>": false,
     "<C-]>": false,
     "<a-j>": false,
     "<a-k>": false,
