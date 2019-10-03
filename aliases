@@ -79,6 +79,25 @@ alias j="fasd_cd -d"
 
 
 # =================================================================
+#                              npm
+# =================================================================
+
+alias nb="npm run build"
+alias nr="npm run"
+alias ns="npm start"
+alias nse="npm run serve"
+alias nw="npm run watch"
+alias nt="npm run --silent test"
+alias ni="npm install"
+alias nuni="npm uninstall"
+alias nid="npm install --save-dev"
+alias nig="npm install -g"
+alias deps="cat package.json | json dependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
+alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
+alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
+
+
+# =================================================================
 #                         Other programs
 # =================================================================
 
@@ -92,15 +111,6 @@ alias dg="ddg"
 alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 alias ht="http --verify=no"
 alias ipy="ipython"
-alias nb="npm run build"
-alias nr="npm run"
-alias ns="npm start"
-alias nw="npm run watch"
-alias nt="npm run --silent test"
-alias ni="npm install"
-alias nuni="npm uninstall"
-alias nid="npm install --save-dev"
-alias nig="npm install -g"
 alias py="python"
 alias tiad='dir=$(find ~/Dropbox/ia -type d | fzf) && cd "$dir"'
 alias tp="trash-put"
