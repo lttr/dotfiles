@@ -215,7 +215,9 @@ function preexec {
   printf "\033]0;%s\a" "$1"
 }
 
-xrdb -load ~/.Xresources
+if [[ $WSL != "true" ]]; then
+  xrdb -load ~/.Xresources
+fi
 
 # =================================================================
 #                          Directories

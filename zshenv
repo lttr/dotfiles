@@ -12,7 +12,7 @@ export ZSH_DIR="$HOME/.zsh"
 export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
 # is this inside Windows subsystem for Linux
-if uname -a | grep Microsoft >/dev/null; then
+if uname -a | grep -i Microsoft >/dev/null; then
     export WSL=true
 else
     export WSL=false
