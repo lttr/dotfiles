@@ -1,6 +1,7 @@
 @11ty/eleventy
 @angular/cli
 browser-sync
+cli-md
 cypress
 dploy
 eslint

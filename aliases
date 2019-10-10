@@ -118,6 +118,7 @@ alias vag="vagrant"
 alias xmlstar="xmlstarlet"
 alias fd="fdfind"
 alias help="tldr"
+alias md="cli-md"
 
 
 # =================================================================
