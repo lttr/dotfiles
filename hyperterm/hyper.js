@@ -10,6 +10,7 @@ module.exports = {
 
     // default font size in pixels for all tabs
     fontSize: 14,
+    lineHeight: 1.2,
 
     windowSize: [1100, 800],
 
