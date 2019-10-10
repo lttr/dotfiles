@@ -1,4 +1,4 @@
-﻿// Future versions of Hyper may add additional config options,
+// Future versions of Hyper may add additional config options,
 // which will not automatically be merged into this file.
 // See https://hyper.is#cfg for all currently supported options.
 
@@ -18,7 +18,7 @@ module.exports = {
     // fontFamily: 'Consolas, "DejaVu Sans Mono", "Lucida Console", monospace',
 
     // Linux Pop OS
-    fontFamily: '"Fira Mono Regular", "DejaVu Sans Mono", "Lucida Console", monospace',
+    fontFamily: '"Fira Mono Regular", "DejaVu Sans Mono", "Consolas", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -138,7 +138,11 @@ module.exports = {
 
     // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
     // selection is present (`true` by default on Windows and disables the context menu feature)
-    // quickEdit: true,
+    quickEdit: true,
+
+    // Whether to use the WebGL renderer. Set it to false to use canvas-based
+    // rendering (slower, but supports transparent backgrounds)
+    webGLRenderer: true,
 
     // for advanced config flags please refer to https://hyper.is/#cfg
 
