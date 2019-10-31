@@ -18,10 +18,20 @@
     "prefix": "co",
     "body": "const ${0}"
   },
+  "function keyword": {
+    "prefix": "fun",
+    "body": "function ${0}",
+    "description": "function keyword"
+  },
   "named function": {
     "prefix": "fu",
     "body": "function ${1}(${2}) {${0}}",
     "description": "named function"
+  },
+  "async named function": {
+    "prefix": "afu",
+    "body": "async function ${1}(${2}) {${0}}",
+    "description": "async named function"
   },
   "arrow function": {
     "prefix": "fa",

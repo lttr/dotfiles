@@ -60,6 +60,7 @@ alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias eenv="$EDITOR ~/dotfiles/zshenv"
 alias ealias="$EDITOR ~/dotfiles/aliases"
+alias aliases="cat ~/dotfiles/aliases"
 alias efunc="$EDITOR ~/dotfiles/functions"
 
 

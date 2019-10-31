@@ -144,7 +144,6 @@ fpath=(~/.zsh/completion $fpath)
 
 autoload bashcompinit && bashcompinit
 [ -d ~/opt/azure-cli ] && source ~/opt/azure-cli/az.completion
-[ -d ~/opt/vsts-cli ] && source ~/opt/vsts-cli/vsts.completion
 
 
 # =================================================================
