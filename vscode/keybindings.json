@@ -1818,5 +1818,25 @@
   {
     "key": "shift+alt+h",
     "command": "editor.action.outdentLines"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "cursorUndo",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+u",
+    "command": "-cursorUndo",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-extension.vim_ctrl+o",
+    "when": "editorTextFocus && vim.active && vim.use<C-o> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "-workbench.action.files.openLocalFile",
+    "when": "remoteFileDialogVisible"
   }
 ]

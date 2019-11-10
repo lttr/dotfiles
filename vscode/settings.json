@@ -66,7 +66,6 @@
   "gitlens.codeLens.authors.enabled": true,
   "gitlens.codeLens.enabled": true,
   "gitlens.codeLens.recentChange.enabled": true,
-  "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.enabled": true,
   "highlight-matching-tag.styles": {
     "opening": { "name": { "underline": "#ddd" } }
@@ -103,7 +102,7 @@
     "powershell": "pwsh"
   },
   "prettier.disableLanguages": ["markdown"],
-  "prettier.eslintIntegration": true,
+  "prettier.tabWidth": 2,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "es5",
@@ -158,6 +157,7 @@
     "<C-k>": false,
     "<C-e>": false,
     "<C-y>": false,
+    "<C-o>": false,
     "<C-[>": false,
     "<C-]>": false,
     "<a-j>": false,
@@ -298,7 +298,6 @@
   "javascript.implicitProjectConfig.checkJs": true,
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
-  "editor.matchBrackets": false,
   "editor.renderLineHighlight": "gutter",
   "powershell.codeFormatting.preset": "OTBS",
   "git.confirmSync": false,
@@ -323,7 +322,6 @@
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "update.mode": "manual",
   "extensions.autoUpdate": false,
-  "eslint.enable": false,
   "editor.mouseWheelZoom": true,
   "references.preferredLocation": "view",
   "workbench.editor.highlightModifiedTabs": true,
@@ -344,7 +342,6 @@
   },
   "workbench.tree.indent": 12,
   "workbench.tree.renderIndentGuides": "none",
-  "typescript.experimental.useSeparateSyntaxServer": true,
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -363,11 +360,20 @@
   "explorer.confirmDelete": false,
   "gotoNextPreviousMember.symbolKinds": ["constructor", "method", "class", "interface"],
   "git.autofetch": true,
-  "cSpell.userWords": ["Chrono", "Contport", "Uploader", "devextreme", "domat"],
   "window.zoomLevel": 0,
   "colorHelper.disableGpu": 1,
   "colorHelper.disableShadow": true,
   "colorHelper.disableTransparent": true,
   "colorHelper.resident": true,
-  "editor.cursorSurroundingLines": 3
+  "editor.cursorSurroundingLines": 3,
+  "eslint.autoFixOnSave": true,
+  "gitlens.currentLine.enabled": false,
+  "eslint.packageManager": "pnpm",
+  "cSpell.userWords": [
+    "Contport",
+    "contport",
+    "devextreme",
+    "domat"
+  ],
+  "editor.matchBrackets": false,
 }
