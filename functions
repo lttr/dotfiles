@@ -299,6 +299,24 @@ FZF-EOF"
 
 
 # =================================================================
+#                              Code
+# =================================================================
+
+note() {
+    IFS=" "
+    MY_SITE_DIR="${HOME}/code/lukastrumm"
+    NOTES_DIR="src/notes"
+    FILE_TITLE="${*}"
+    FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
+    FILE_PATH="${MY_SITE_DIR}/${NOTES_DIR}/${FILE_SLUG}.md"
+    echo "---" >> $FILE_PATH
+    echo "title: $FILE_TITLE" >> $FILE_PATH
+    echo "---" >> $FILE_PATH
+    echo "" >> $FILE_PATH
+    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:5"
+}
+
+# =================================================================
 #                              Shell
 # =================================================================
 
