@@ -1838,5 +1838,39 @@
     "key": "ctrl+o",
     "command": "-workbench.action.files.openLocalFile",
     "when": "remoteFileDialogVisible"
+  },
+  {
+    "key": "meta+a",
+    "command": "-extension.vim_cmd+a",
+    "when": "editorTextFocus && vim.active && vim.use<D-a> && !inDebugRepl && vim.mode != 'Insert'"
+  },
+  {
+    "key": "meta+c",
+    "command": "-extension.vim_cmd+c",
+    "when": "editorTextFocus && vim.active && vim.overrideCopy && vim.use<D-c> && !inDebugRepl"
+  },
+  {
+    "key": "meta+d",
+    "command": "-extension.vim_cmd+d",
+    "when": "editorTextFocus && vim.active && vim.use<D-d> && !inDebugRepl"
+  },
+  {
+    "key": "meta+left",
+    "command": "-extension.vim_cmd+left",
+    "when": "editorTextFocus && vim.active && vim.use<D-left> && !inDebugRepl && vim.mode != 'Insert'"
+  },
+  {
+    "key": "meta+right",
+    "command": "-extension.vim_cmd+right",
+    "when": "editorTextFocus && vim.active && vim.use<D-right> && !inDebugRepl && vim.mode != 'Insert'"
+  },
+  {
+    "key": "meta+v",
+    "command": "-extension.vim_cmd+v",
+    "when": "editorTextFocus && vim.active && vim.overrideCmdV && vim.use<D-v> && !inDebugRepl"
+  },
+  {
+    "key": "ctrl+meta+w",
+    "command": "-workbench.action.toggleTabsVisibility"
   }
 ]
