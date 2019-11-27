@@ -49,8 +49,11 @@
   "explorer.confirmDragAndDrop": false,
   "explorer.openEditors.visible": 0,
   "extensions.showRecommendationsOnlyOnDemand": true,
-  "eslint.validate": ["javascript", "javascriptreact", "vue"],
-  "eslint.alwaysShowStatus": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
   "files.autoSaveDelay": 3000,
   "files.trimTrailingWhitespace": true,
   "gitProjectManager.baseProjectsFolders": ["~/code"],
@@ -372,7 +375,6 @@
   "editor.cursorSurroundingLines": 3,
   "eslint.autoFixOnSave": true,
   "gitlens.currentLine.enabled": false,
-  "eslint.packageManager": "pnpm",
   "cSpell.userWords": [
     "Contport",
     "contport",
@@ -390,4 +392,6 @@
   "debug.node.autoAttach": "on",
   "zenMode.fullScreen": false,
   "zenMode.silentNotifications": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.lintTask.enable": true,
 }
