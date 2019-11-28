@@ -40,9 +40,9 @@ alias mirror="xrandr --output eDP1 --auto --same-as DP2 --output DP2 --auto"
 # =================================================================
 #                            Listing
 # =================================================================
-alias l="ls -F --show-control-chars --color"
-alias ll="ls -lhF --show-control-chars --color"
-alias la="ls -lhFA --show-control-chars --color"
+alias l="LC_COLLATE=c ls -F --show-control-chars --color --group-directories-first"
+alias ll="LC_COLLATE=c ls -lhF --show-control-chars --color --group-directories-first"
+alias la="LC_COLLATE=c ls -lhFA --show-control-chars --color --group-directories-first"
 
 alias le="less -FiMRX"
 alias lesf="less +F"
