@@ -612,27 +612,27 @@
     "command": "-workbench.action.openPreviousRecentlyUsedEditorInGroup"
   },
   {
-    "key": "ctrl+m 1",
+    "key": "ctrl+m ctrl+1",
     "command": "md-shortcut.toggleTitleH1"
   },
   {
-    "key": "ctrl+m 2",
+    "key": "ctrl+m ctrl+2",
     "command": "md-shortcut.toggleTitleH2"
   },
   {
-    "key": "ctrl+m 3",
+    "key": "ctrl+m ctrl+3",
     "command": "md-shortcut.toggleTitleH3"
   },
   {
-    "key": "ctrl+m 4",
+    "key": "ctrl+m ctrl+4",
     "command": "md-shortcut.toggleTitleH4"
   },
   {
-    "key": "ctrl+m 5",
+    "key": "ctrl+m ctrl+5",
     "command": "md-shortcut.toggleTitleH5"
   },
   {
-    "key": "ctrl+m 6",
+    "key": "ctrl+m ctrl+6",
     "command": "md-shortcut.toggleTitleH6"
   },
   {
@@ -1640,10 +1640,6 @@
     "when": "editorTextFocus && editorLangId == 'powershell'"
   },
   {
-    "key": "ctrl+alt+b",
-    "command": "editor.action.goToImplementation"
-  },
-  {
     "key": "ctrl+alt+h",
     "command": "workbench.action.moveEditorLeftInGroup"
   },
@@ -1872,5 +1868,33 @@
   {
     "key": "ctrl+meta+w",
     "command": "-workbench.action.toggleTabsVisibility"
+  },
+  {
+    "key": "ctrl+shift+q",
+    "command": "workbench.actions.view.problems"
+  },
+  {
+    "key": "ctrl+alt+b",
+    "command": "workbench.action.tasks.build"
+  },
+  {
+    "key": "ctrl+m ctrl+n",
+    "command": "md-shortcut.toggleNumbers",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "ctrl+m ctrl+1",
+    "command": "-md-shortcut.toggleNumbers",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "ctrl+m ctrl+b",
+    "command": "-md-shortcut.toggleBullets",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "ctrl+m ctrl+b",
+    "command": "-md-shortcut.toggleBullets",
+    "when": "editorTextFocus && markdownShortcuts:enabled"
   }
 ]

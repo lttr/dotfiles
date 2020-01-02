@@ -67,5 +67,17 @@
     "prefix": "re",
     "body": "return ${0}",
     "description": "return"
+  },
+
+  // NodeJS
+  "import fs": {
+    "prefix": "fs",
+    "body": "import { promises as fs } from 'fs'${0}",
+    "description": "import promisified fs"
+  },
+  "import path": {
+    "prefix": "path",
+    "body": "import path from 'path'${0}",
+    "description": "import path"
   }
 }

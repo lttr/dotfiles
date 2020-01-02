@@ -31,9 +31,9 @@
   "editor.snippetSuggestions": "bottom",
   "editor.quickSuggestionsDelay": 500,
   "editor.quickSuggestions": {
-    "other": false,
-    "comments": false,
-    "strings": false
+    "other": true,
+    "comments": true,
+    "strings": true
   },
   "editor.tabCompletion": "onlySnippets",
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?",
@@ -339,7 +339,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -394,4 +395,6 @@
   "zenMode.silentNotifications": false,
   "eslint.alwaysShowStatus": true,
   "eslint.lintTask.enable": true,
+  "problems.showCurrentInStatus": true,
+  "html.mirrorCursorOnMatchingTag": false,
 }
