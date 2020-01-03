@@ -1,8 +1,9 @@
+dconf-editor
 doublecmd-gtk
 gimp
+gnome-clocks
 gnome-shell-pomodoro
 gnome-tweak-tool
-gnome-clocks
 google-chrome-stable
 gpick
 gthumb
