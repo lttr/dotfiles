@@ -5,16 +5,15 @@ echo "Setup directories"
 echo "=================================================="
 
 # Remove unnecessary directories from home
-[ -d Desktop   ] && rmdir ~/Desktop
-[ -d Documents ] && rmdir ~/Documents
-[ -d Downloads ] && rmdir ~/Downloads
-[ -d Music     ] && rmdir ~/Music
-[ -d Pictures  ] && rmdir ~/Pictures
-[ -d Public    ] && rmdir ~/Public
-[ -d Templates ] && rmdir ~/Templates
-[ -d Videos    ] && rmdir ~/Videos
-
-echo "Unnecessary directories removed"
+# [ -d Desktop   ] && rmdir ~/Desktop
+# [ -d Documents ] && rmdir ~/Documents
+# [ -d Downloads ] && rmdir ~/Downloads
+# [ -d Music     ] && rmdir ~/Music
+# [ -d Pictures  ] && rmdir ~/Pictures
+# [ -d Public    ] && rmdir ~/Public
+# [ -d Templates ] && rmdir ~/Templates
+# [ -d Videos    ] && rmdir ~/Videos
+# etc.
 
 # Make useful directories inside home
 mkdir -p ~/bin
@@ -30,43 +29,18 @@ mkdir -p ~/.vim/undos
 mkdir -p ~/.zsh/completion
 
 # Prepare directories for mounting partitions
-if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
-    sudo mkdir -p /media/data
-    sudo mkdir -p /media/backup_hdd_320
-    sudo mkdir -p /media/backup_hdd_500
-    sudo mkdir -p /media/zalohy_tucanek
-    sudo mkdir -p /media/spolecne_uloziste
-fi
-
-echo "Useful directories created"
+# sudo mkdir -p /media/data
+# sudo mkdir -p /media/backup_hdd_500
+# etc.
 
 # Symlink data directories
-if [[ $(hostname) == 'lukas-pc-ubuntu' ]]; then
-    HOME_DIR=/media/data
-    ln -sfn ${HOME_DIR}/code ~/code
-    ln -sfn ${HOME_DIR}/Dropbox ~/Dropbox
-    ln -sfn ${HOME_DIR}/fotky ~/fotky
-    ln -sfn ${HOME_DIR}/grafika ~/grafika
-    ln -sfn ${HOME_DIR}/hry ~/hry
-    ln -sfn ${HOME_DIR}/hudba ~/hudba
-    ln -sfn ${HOME_DIR}/informace ~/informace
-    ln -sfn ${HOME_DIR}/moje ~/moje
-    ln -sfn ${HOME_DIR}/pc ~/pc
-    ln -sfn ${HOME_DIR}/skaut ~/skaut
-    ln -sfn ${HOME_DIR}/tasks ~/tasks
-    ln -sfn ${HOME_DIR}/vagrants ~/vagrants
-    ln -sfn "${HOME_DIR}/VirtualBox VMs" "~/VirtualBox VMs"
-    ln -sfn ${HOME_DIR}/web ~/web
-elif [[ $(hostname) == 'lt-nb-ubuntu' ]]; then
-    MOUNT_DIR=/media/data
-    HOME_DIR=${MOUNT_DIR}/Users/Lukas
-    # ln -sfn ${HOME_DIR}/down ~/down
-    # ln -sfn ${HOME_DIR}/tasks ~/tasks
-elif [[ $WSL = true ]]; then
+# HOME_DIR=/media/data
+# ln -sfn ${HOME_DIR}/code ~/code
+# ln -sfn ${HOME_DIR}/Dropbox ~/Dropbox
+
+# Symlink directories into Windows filesystem
+if [[ $WSL = true ]]; then
     ln -sfn /mnt/c/Users/lukas/Dropbox ~/Dropbox
     ln -sfn /mnt/c/Users/lukas/sandbox ~/sandbox
     ln -sfn /mnt/c/Users/lukas/code ~/code
 fi
-
-
-echo "Data directories symlinked"

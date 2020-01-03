@@ -14,7 +14,6 @@ httpie
 ipython3
 jq
 neovim
-nodejs
 nmap
 numlockx
 openvpn
