@@ -20,17 +20,19 @@ See more on the links under _Thanks_.
 #### Configuration files
 - `ag` (searching program)
 - `antibody` (plugins for zsh)
-- `dunst` (notifications in i3)
 - `vim` simulations (ideavim, vrapper)
 - `git` (aliases, config)
-- `i3` (window manager)
-- `kdiff3` (diff program)
 - `ranger` (directories browser)
-- `rofi` (program launcher)
-- `tmux` (terminal on the next level)
-- `urxvt` (capable terminal)
 - `vim` (the most ergonomic editor)
 - `zsh` (just a better program launcher :)
+
+##### No longer used //why
+- `dunst` (notifications in i3) // only for i3
+- `i3` (window manager) // Gnome on PopOS has good workspace and window layout support and looks good out of the box
+- `kdiff3` (diff program) // Vscode has that
+- `rofi` (program launcher) // Gnome is enough, maybe Ulauncher is a better fit for Gnome
+- `tmux` (terminal on the next level) // I only need tabs: Hyper terminal is multiplatform and configuration is easier
+- `urxvt` (capable terminal) // Hyper terminal is fast enough now and multiplatform
 
 #### Usefull scripts
 - for connections
@@ -48,12 +50,11 @@ See more on the links under _Thanks_.
 I do not recommend to install it this way. Just browse the repo for inspiration, rather then installing it completely. This is only for me to remember.
 
 Expects:
-- Fresh installation of Ubuntu Gnome 16
+- Fresh installation of PopOS 19.04
 - home dir `cd ~`
 
 Clone repo and dependencies:
 ```
-sudo apt-get install -y git curl
 git clone --recursive https://github.com/lttr/dotfiles
 ```
 
@@ -68,6 +69,7 @@ Or install only symlinks (shortcut version of the utility script)
 
 ## Other things to consider after installation
 
+- upgrade system (`sudo apt update`, `sudo apt full-upgrade`, `pop-upgrade release upgrade systemd`)
 - sync Dropbox before installation
   + Dropbox needs running daemon (`dropbox status`, `dropbox start -i`, `dropbox autostart y`)
 - check if fonts are linked and installed
@@ -75,7 +77,7 @@ Or install only symlinks (shortcut version of the utility script)
 - check backups are set up
 - sign into Google Chrome to sync browser settings
 - check appearance settings in `lxappearance` utility
-- enable automatic login in `/etc/gdm3/custom.conf`
+- enable automatic login in `/etc/gdm3/custom.conf` (in PopOS it can be configured in Settings -> Users)
 - consider disabling slow systemd services 
   + e.g. `sudo systemctl disable NetworkManager-wait-online.service`
 - change download folder in your browser (I like `~/down`)
