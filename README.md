@@ -78,10 +78,12 @@ Or install only symlinks (shortcut version of the utility script)
 - sign into Google Chrome to sync browser settings
 - check appearance settings in `lxappearance` utility
 - enable automatic login in `/etc/gdm3/custom.conf` (in PopOS it can be configured in Settings -> Users)
-- consider disabling slow systemd services 
+- consider disabling slow systemd services
   + e.g. `sudo systemctl disable NetworkManager-wait-online.service`
 - change download folder in your browser (I like `~/down`)
 - import backuped settings into some applications (e.g. doublecommander)
+- install, enable and configure Gnome extensions (`dash-to-panel`, `arc-menu`)
+- update ssh keys (e.g. generate new key for Github)
 
 ## Installation into VirtualBox
 
