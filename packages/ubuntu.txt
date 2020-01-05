@@ -27,6 +27,7 @@ python-mysqldb
 python-pip
 ranger
 silversearcher-ag
+snapd
 sshpass
 tmux
 tree

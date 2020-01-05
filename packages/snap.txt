@@ -6,3 +6,4 @@ skype --classic
 spotify
 tldr
 node --classic --channel=12/stable
+

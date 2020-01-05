@@ -136,6 +136,12 @@ if check_custom_app 'git hub'; then
     git clone https://github.com/ingydotnet/git-hub
 fi
 
+if [ ! -d ~/opt/dash-to-panel ]; then
+    git clone https://github.com/home-sweet-gnome/dash-to-panel.git
+    cd dash-to-panel
+    make install
+    cd $MY_APPS_DIR
+fi
 
 # ===== Deprecated =====
 

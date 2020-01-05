@@ -18,6 +18,7 @@ echo "=================================================="
 # Make useful directories inside home
 mkdir -p ~/bin
 mkdir -p ~/opt
+mkdir -p ~/code
 mkdir -p ~/sandbox
 
 # Prepare dirs for vim

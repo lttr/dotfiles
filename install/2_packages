@@ -21,8 +21,16 @@ log_installing "custom packages"
 log_installing "ubuntu packages"
 "$PACKAGE_LISTS_DIR/packs.sh" ubuntu process
 
+log_installing "snap packages"
+"$PACKAGE_LISTS_DIR/packs.sh" snap install
+
 log_installing "python packages"
 "$PACKAGE_LISTS_DIR/packs.sh" python install
+
+# npm setup
+NPM_GLOBAL=~/.npm-global
+mkdir -p $NPM_GLOBAL
+npm config set prefix $NPM_GLOBAL
 
 log_installing "nodejs packages"
 "$PACKAGE_LISTS_DIR/packs.sh" node install

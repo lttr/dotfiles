@@ -1,4 +1,5 @@
 dconf-editor
+dmz-cursor-theme
 doublecmd-gtk
 gimp
 gnome-clocks
@@ -13,7 +14,6 @@ keepassxc
 nautilus-dropbox
 remmina
 rxvt-unicode-256color
-ulauncher
 vim-gtk3
 wmctrl
 xbacklight

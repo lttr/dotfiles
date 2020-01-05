@@ -47,6 +47,10 @@ ubuntu-extra() {
     comm -23 <( ubuntu-installed ) <( cat "$UBUNTU_PACKS_PATH" "$UBUNTU_PACKS_PATH_GRAPHICAL" | sort -u )
 }
 
+# ===== Snap =====
+SNAP_PACKS_PATH="$PACKAGE_LISTS_DIR/snap.txt"
+
+
 # ===== Node =====
 NODE_PACKS_PATH="$PACKAGE_LISTS_DIR/node.txt"
 # yarn
@@ -160,6 +164,42 @@ case $TYPE in
                 sudo apt-get install -y $( ubuntu-missing )
                 echo
                 sudo apt-get dist-upgrade -y
+            ;;
+            *)
+                echo "Unsupported command"
+            ;;
+        esac
+    ;;
+    snap)
+        case $COMMAND in
+            history)
+                echo "Unsupported command"
+            ;;
+            installed)
+                snap list
+            ;;
+            configured)
+                cat "$SNAP_PACKS_PATH"
+            ;;
+            missing)
+                echo "Unsupported command"
+            ;;
+            extra)
+                echo "Unsupported command"
+            ;;
+            install)
+                while read item; do
+			snap install $item;
+		done < "$SNAP_PACKS_PATH"
+            ;;
+            updatable)
+                echo "Unsupported command"
+            ;;
+            update)
+                echo "Unsupported command"
+            ;;
+            process)
+                echo "Unsupported command"
             ;;
             *)
                 echo "Unsupported command"
