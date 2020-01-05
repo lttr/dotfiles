@@ -19,7 +19,8 @@ module.exports = {
     // fontFamily: 'Consolas, "DejaVu Sans Mono", "Lucida Console", monospace',
 
     // Linux Pop OS
-    fontFamily: '"Fira Mono Regular", "DejaVu Sans Mono", "Consolas", monospace',
+    fontFamily:
+      '"Fira Mono Regular", "DejaVu Sans Mono", "Consolas", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -148,8 +149,8 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
 
     hyperTabsMove: {
-      moveLeft: 'ctrl+pageup',
-      moveRight: 'ctrl+pagedown',
+      moveLeft: 'ctrl+shift+pageup',
+      moveRight: 'ctrl+shift+pagedown',
     },
   },
 
