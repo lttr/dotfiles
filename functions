@@ -311,9 +311,11 @@ note() {
     FILE_PATH="${MY_SITE_DIR}/${NOTES_DIR}/${FILE_SLUG}.md"
     echo "---" >> $FILE_PATH
     echo "title: $FILE_TITLE" >> $FILE_PATH
+    echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
+    echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
     echo "" >> $FILE_PATH
-    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:5"
+    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
 }
 
 # =================================================================
