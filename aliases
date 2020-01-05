@@ -120,6 +120,7 @@ alias xmlstar="xmlstarlet"
 alias fd="fdfind"
 alias help="tldr"
 alias md="cli-md"
+alias copy="xsel -b"
 
 
 # =================================================================
