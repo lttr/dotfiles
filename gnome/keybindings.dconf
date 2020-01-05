@@ -1,22 +1,80 @@
-[/]
-cycle-group=['<Alt>Escape']
-switch-to-workspace-2=['<Primary><Super>2']
-switch-to-workspace-up=['<Primary><Super>Up']
+[org/gnome/shell/keybindings]
+toggle-overview=['<Super>o']
+open-application-menu=@as []
+toggle-application-view=['<Super>i']
+focus-active-notification=@as []
+toggle-message-tray=['<Super>n']
+
+[org/gnome/desktop/wm/keybindings]
+cycle-group-backward=['<Shift><Super>Tab']
 unmaximize=['<Super>j', '<Super>Down']
-move-to-center=['<Super><Ctrl>c']
-cycle-windows=@as []
-switch-to-workspace-3=['<Primary><Super>3']
-minimize=['<Super>z']
-close=['<Super>x']
+minimize=['<Super>b']
+move-to-workspace-up=['<Shift><Super>Up', '<Shift><Super>k']
+switch-group=['<Alt>F3']
+switch-to-workspace-up=['<Primary><Super>Up', '<Primary><Super>k']
+begin-move=['<Super>F7']
+toggle-maximized=@as []
+switch-to-workspace-down=['<Primary><Super>Down', '<Primary><Super>j']
+toggle-fullscreen=['<Super>F11']
 maximize=['<Super>k', '<Super>Up']
-cycle-group-backward=['<Shift><Alt>Escape']
-switch-to-workspace-down=['<Primary><Super>Down']
-switch-applications=@as []
-switch-to-workspace-1=['<Primary><Super>1']
-switch-to-workspace-last=['<Primary><Super>End']
-switch-to-workspace-4=['<Primary><Super>4']
-switch-windows-backward=['<Shift><Alt>Tab']
+panel-main-menu=@as []
 cycle-windows-backward=@as []
 switch-applications-backward=@as []
-toggle-maximized=@as []
+move-to-center=['<Super><Ctrl>c']
+move-to-monitor-left=['<Primary><Shift><Super>Left', '<Primary><Shift><Super>h']
+switch-to-workspace-1=['<Primary><Super>1']
+begin-resize=['<Super>F8']
+switch-windows-backward=['<Shift><Alt>Tab']
+cycle-windows=@as []
+move-to-monitor-right=['<Primary><Shift><Super>Right', '<Primary><Shift><Super>l']
+switch-to-workspace-2=['<Primary><Super>2']
+lower=['<Super>z']
+move-to-workspace-down=['<Shift><Super>Down', '<Shift><Super>j']
+cycle-group=['<Super>Tab']
+show-desktop=['<Shift><Super>d']
+switch-to-workspace-last=['<Primary><Super>End']
+switch-group-backward=['<Shift><Alt>F3']
+switch-to-workspace-3=['<Primary><Super>3']
+close=['<Super>x']
+switch-applications=@as []
 switch-windows=['<Alt>Tab']
+switch-to-workspace-4=['<Primary><Super>4']
+
+[org/gnome/settings-daemon/plugins/media-keys]
+decrease-text-size='<Primary><Super>KP_Subtract'
+screencast=''
+increase-text-size='<Primary><Super>KP_Add'
+terminal=''
+screensaver=''
+home='<Super>e'
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+command='bring-or-start keepassxc'
+name='KeepassXC'
+binding='<Super>m'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+command='bring-or-start code'
+name='vscode'
+binding='<Super>s'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+command='bring-or-start hyper'
+name='Terminal'
+binding='<Super>c'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6]
+command='resolution-1200'
+name='Resolution'
+binding='<Shift><Super>r'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5]
+command='bring-or-start doublecmd'
+name='Commander'
+binding='<Super>t'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3]
+command='bring-or-start google-chrome'
+name='Browser'
+binding='<Super>a'
