@@ -397,4 +397,7 @@
   "eslint.lintTask.enable": true,
   "problems.showCurrentInStatus": true,
   "html.mirrorCursorOnMatchingTag": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }
