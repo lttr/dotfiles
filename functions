@@ -362,6 +362,35 @@ insert-last-output() {
         && xdotool key --clearmodifiers Tab
 }
 
+# kill processes blocking ports
+portkill() {
+  local pid
+  # get processes listening on local numbered ports and output process id, port number and process name
+  pid=$(netstat -tlp 2>/dev/null \
+    | awk 'BEGIN { OFS="\t" } $4 ~ "(localhost\|\[::\])[0-9]" && $7!="-" { gsub(/localhost|\[::]/, ""); split($7,a,"/"); print a[1],$4,a[2] }' 2>/dev/null \
+    | fzf -m \
+    | awk '{ print $1 }' \
+    )
+
+  if [ "x$pid" != "x" ]; then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+# fkill - kill processes - list only the ones you can kill.
+fkill() {
+    local pid
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
+
+    if [ "x$pid" != "x" ]; then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
 
 # =================================================================
 #                              i3wm
