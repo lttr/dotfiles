@@ -52,7 +52,14 @@ gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', '
 dconf load / < ~/dotfiles/gnome/keybindings.dconf
 
 # =================================================================
-#                           Pop OS
+#                            Sounds
+# =================================================================
+
+# disable system sounds
+gsettings set org.gnome.desktop.sound event-sounds false
+
+# =================================================================
+#                            Pop OS
 # =================================================================
 
 # window tiling
