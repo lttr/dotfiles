@@ -111,12 +111,6 @@ if [ ! -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-#Program vim plugin manager
-if which vim >/dev/null 2>&1; then
-    curl -sSLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
 #Program xkblayout-state
 if check_custom_app 'xkblayout-state'; then
     sudo apt-get install -y build-essential libx11-dev
