@@ -68,13 +68,12 @@ alias efunc="$EDITOR ~/dotfiles/functions"
 #                          Directories
 # =================================================================
 alias home="cd ~"
-alias cod="cd ~/code"
+alias repo="cd ~/code"
+alias lutr="cd ~/code/lukastrumm"
 alias dotf="cd ~/dotfiles"
-alias down="cd ~/down"
+alias down="cd ~/Downloads"
 alias drop="cd ~/Dropbox"
 alias sand="cd ~/sandbox"
-alias task="cd ~/tasks"
-alias tiacd="cd ~/Dropbox/ia"
 # jump to recent directory, like z
 alias j="fasd_cd -d"
 
