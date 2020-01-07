@@ -366,14 +366,19 @@ insert-last-output() {
 portkill() {
   local pid
   # get processes listening on local numbered ports and output process id, port number and process name
-  pid=$(netstat -tlp 2>/dev/null \
-    | awk 'BEGIN { OFS="\t" } $4 ~ "(localhost\|\[::\])[0-9]" && $7!="-" { gsub(/localhost|\[::]/, ""); split($7,a,"/"); print a[1],$4,a[2] }' 2>/dev/null \
-    | fzf -m \
+  pid=$( \
+    netstat -tnlp 2>/dev/null \
+    | awk 'BEGIN { OFS = "\t"; print "PID","PORT","NAME" } $4 ~ "(127.0.0.1\|\[::\]\|0.0.0.0):[0-9]" && $7!="-" { gsub(/:::/,":"); split($7,a,"/"); split($4,b,":"); print a[1],b[2],a[2] }' 2>/dev/null \
+    | sort -n -k2 \
+    | fzf \
     | awk '{ print $1 }' \
     )
 
   if [ "x$pid" != "x" ]; then
     echo $pid | xargs kill -${1:-9}
+    echo "Process $pid was killed"
+  else
+    echo "No process was killed"
   fi
 }
 
