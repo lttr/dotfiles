@@ -9,7 +9,6 @@ google-chrome-stable
 gpick
 gthumb
 inkscape
-kdeconnect
 keepassxc
 nautilus-dropbox
 remmina

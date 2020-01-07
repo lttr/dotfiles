@@ -82,7 +82,7 @@ Or install only symlinks (shortcut version of the utility script)
   + e.g. `sudo systemctl disable NetworkManager-wait-online.service`
 - change download folder in your browser (I like `~/down`)
 - import backuped settings into some applications (e.g. doublecommander)
-- install, enable and configure Gnome extensions (`dash-to-panel`, `arc-menu`)
+- install, enable and configure Gnome extensions (`dash-to-panel`, `arc-menu`, `gsconnect`)
 - update ssh keys (e.g. generate new key for Github)
 
 ## Installation into VirtualBox
