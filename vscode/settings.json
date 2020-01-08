@@ -49,11 +49,7 @@
   "explorer.confirmDragAndDrop": false,
   "explorer.openEditors.visible": 0,
   "extensions.showRecommendationsOnlyOnDemand": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "vue"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "vue"],
   "files.autoSaveDelay": 3000,
   "files.trimTrailingWhitespace": true,
   "gitProjectManager.baseProjectsFolders": ["~/code"],
@@ -319,7 +315,10 @@
   "breadcrumbs.enabled": true,
   "powershell.integratedConsole.focusConsoleOnExecute": false,
   "macros": {
-    "saveAndRun": ["workbench.action.files.save", "workbench.action.terminal.runActiveFile"]
+    "saveAndRun": [
+      "workbench.action.files.save",
+      "workbench.action.terminal.runActiveFile"
+    ]
   },
   "gitHistory.hideCommitViewExplorer": true,
   "editor.suggestSelection": "first",
@@ -366,7 +365,12 @@
     "zshrc": "shellscript"
   },
   "explorer.confirmDelete": false,
-  "gotoNextPreviousMember.symbolKinds": ["constructor", "method", "class", "interface"],
+  "gotoNextPreviousMember.symbolKinds": [
+    "constructor",
+    "method",
+    "class",
+    "interface"
+  ],
   "git.autofetch": true,
   "window.zoomLevel": 0,
   "colorHelper.disableGpu": 1,
@@ -376,20 +380,10 @@
   "editor.cursorSurroundingLines": 3,
   "eslint.autoFixOnSave": true,
   "gitlens.currentLine.enabled": false,
-  "cSpell.userWords": [
-    "Contport",
-    "contport",
-    "degit",
-    "devextreme",
-    "domat",
-    "lttr"
-  ],
   "editor.matchBrackets": false,
   "cSpell.allowCompoundWords": true,
   "cSpell.language": "en,cs",
-  "cSpell.enabledLanguageIds": [
-    "markdown"
-  ],
+  "cSpell.enabledLanguageIds": ["markdown"],
   "debug.node.autoAttach": "on",
   "zenMode.fullScreen": false,
   "zenMode.silentNotifications": false,
@@ -399,5 +393,5 @@
   "html.mirrorCursorOnMatchingTag": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  },
+  }
 }
