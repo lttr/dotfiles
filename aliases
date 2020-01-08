@@ -102,6 +102,7 @@ alias scripts="cat package.json | json scripts | json --items -a key value | sed
 # =================================================================
 
 alias apti="sudo apt-get install -y"
+alias aptu="sudo apt-get update"
 alias apts="apt search"
 alias bsync="browser-sync start --server --files . --no-notify --open ."
 alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC" # Show czech calendar with Monday as the first day of a week
