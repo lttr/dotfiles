@@ -13,6 +13,9 @@ gsettings set org.gnome.desktop.interface clock-format '24h'
 gsettings set org.gnome.desktop.interface clock-show-date false
 gsettings set org.gnome.desktop.interface clock-show-seconds false
 
+# window buttons (pop_os has only close button by default)
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+
 # =================================================================
 #                             Theme
 # =================================================================
