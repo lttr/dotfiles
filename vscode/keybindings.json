@@ -1896,5 +1896,9 @@
     "key": "ctrl+m ctrl+b",
     "command": "-md-shortcut.toggleBullets",
     "when": "editorTextFocus && markdownShortcuts:enabled"
+  },
+  {
+    "key": "alt+d",
+    "command": "workbench.action.openSettingsJson"
   }
 ]
