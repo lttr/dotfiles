@@ -16,6 +16,12 @@ gsettings set org.gnome.desktop.interface clock-show-seconds false
 # window buttons (pop_os has only close button by default)
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 
+# desktop background
+gsettings set org.gnome.desktop.background show-desktop-icons false
+gsettings set org.gnome.desktop.background primary-color '#425265'
+gsettings set org.gnome.desktop.background secondary-color '#425265'
+gsettings set org.gnome.desktop.background color-shading-type 'solid'
+
 # =================================================================
 #                             Theme
 # =================================================================
