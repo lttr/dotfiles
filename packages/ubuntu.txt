@@ -8,6 +8,7 @@ dict-gcide
 dos2unix
 expect
 fasd
+flatpak
 git
 htop
 httpie
