@@ -60,6 +60,7 @@ module.exports = {
       .tabs_nav {
         height: 28px;
         line-height: 28px;
+        font-size: 11px;
       }
       .tabs_list {
         max-height: 28px;
