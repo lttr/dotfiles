@@ -56,19 +56,35 @@ module.exports = {
     borderColor: '#fdf6e3',
 
     // custom CSS to embed in the main window
-    css: '',
+    css: `
+      .tabs_nav {
+        height: 28px;
+        line-height: 28px;
+      }
+      .tabs_list {
+        max-height: 28px;
+      }
+      .tab_icon {
+        color: #444;
+        opacity: 0.8;
+        top: 7px;
+      }
+      .tab_iconHovered {
+        background-color: #ccc;
+      }
+    `,
 
     // custom CSS to embed in the terminal window
     termCSS: '',
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
-    showHamburgerMenu: '',
+    showHamburgerMenu: true,
 
     // set to `false` (without backticks and without quotes) if you want to hide the minimize, maximize and close buttons
     // additionally, set to `'left'` if you want them on the left, like in Ubuntu
     // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
-    showWindowControls: '',
+    showWindowControls: true,
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
     padding: '12px 14px',
@@ -154,7 +170,12 @@ module.exports = {
     },
   },
 
-  plugins: ['hyper-search', 'hypercwd', 'hyperterm-tabs'],
+  plugins: [
+    'hyper-search',
+    'hypercwd',
+    'hyperterm-tabs',
+    'hyper-native-window-decoration',
+  ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

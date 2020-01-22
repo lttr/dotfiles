@@ -279,7 +279,6 @@
   // ],
   // "vim.enableNeovim": true,
   "window.menuBarVisibility": "toggle",
-  "window.titleBarStyle": "custom",
   "vim.cursorStylePerMode.normal": "block-outline",
   "workbench.activityBar.visible": false,
   "workbench.editor.enablePreview": false,
