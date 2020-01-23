@@ -396,6 +396,9 @@ fkill() {
     fi
 }
 
+close_applications() {
+    xdotool search --class ".*" | xargs -inum xdotool getwindowpid num 2> /dev/null | grep "^[0-9]" | uniq -u | xargs kill
+}
 
 # =================================================================
 #                              i3wm
