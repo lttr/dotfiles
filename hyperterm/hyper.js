@@ -176,6 +176,7 @@ module.exports = {
     'hypercwd',
     'hyperterm-tabs',
     'hyper-native-window-decoration',
+    "hyperlayout"
   ],
 
   // in development, you can create a directory under
