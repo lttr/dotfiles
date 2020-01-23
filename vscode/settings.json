@@ -382,18 +382,22 @@
   "editor.matchBrackets": false,
   "cSpell.allowCompoundWords": true,
   "cSpell.language": "en,cs",
-  "cSpell.enabledLanguageIds": ["markdown"],
-  "debug.node.autoAttach": "on",
+  "cSpell.enabledLanguageIds": [
+    "markdown"
+  ],
   "zenMode.fullScreen": false,
   "zenMode.silentNotifications": false,
   "zenMode.hideLineNumbers": false,
   "zenMode.hideActivityBar": true,
   "zenMode.hideTabs": false,
-  "eslint.alwaysShowStatus": true,
   "eslint.lintTask.enable": true,
-  "problems.showCurrentInStatus": true,
   "html.mirrorCursorOnMatchingTag": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "window.titleBarStyle": "custom",
+  "cSpell.showStatus": false,
+  "git-graph.showStatusBarItem": false,
+  "codepoint.statusbar": "none",
+  "diffEditor.renderSideBySide": false
 }

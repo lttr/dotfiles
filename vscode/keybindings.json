@@ -1917,5 +1917,9 @@
   {
     "key": "ctrl+enter",
     "command": "-extension.equality"
+  },
+  {
+    "key": "ctrl+t i",
+    "command": "toggle.diff.renderSideBySide"
   }
 ]
