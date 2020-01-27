@@ -399,5 +399,6 @@
   "cSpell.showStatus": false,
   "git-graph.showStatusBarItem": false,
   "codepoint.statusbar": "none",
-  "diffEditor.renderSideBySide": false
+  "diffEditor.renderSideBySide": true,
+  "svgPreview.autoOpen": false
 }
