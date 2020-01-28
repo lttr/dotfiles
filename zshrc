@@ -140,7 +140,7 @@ zstyle ':completion:*' matcher-list '' \
 
 fpath=(~/.zsh/completion $fpath)
 
-# source <(ng completion --zsh)
+source <(npm completion)
 
 autoload bashcompinit && bashcompinit
 [ -d ~/opt/azure-cli ] && source ~/opt/azure-cli/az.completion
