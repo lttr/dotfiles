@@ -25,6 +25,7 @@
     ~/.zshenv: zshenv
     ~/.zshrc: zshrc
     ~/.hyper.js: hyperterm/hyper.js
+    ~/.hyperlayout: hyperterm/hyperlayout
 
     # dotfolders
     # ~/.config/mc: ../Dropbox/conf/mc

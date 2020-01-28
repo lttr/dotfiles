@@ -1,0 +1,15 @@
+{
+  "lttr": {
+    "entry": "vertical",
+    "layout": [
+      "cd ~/code/lukastrumm; npm run serve"
+    ]
+  },
+  "dipo": {
+    "entry": "vertical",
+    "layout": [
+      "cd ~/code/contport/web-frontend; npm run serve:dipo",
+      "cd ~/code/contport/web-frontend; npm run json-server"
+    ]
+  }
+}
