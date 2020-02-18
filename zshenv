@@ -34,7 +34,7 @@ export GOROOT="/usr/local/go"
 export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
 # vsts
-export PATH=$HOME/opt/vsts-cli/bin:$PATH
+export PATH=$PATH:$HOME/opt/vsts-cli/bin
 
 # prefer /usr/bin than Windows PATH
 if [[ $WSL = true ]]; then
