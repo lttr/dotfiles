@@ -35,7 +35,8 @@ module.exports = {
     cursorAccentColor: '#fdf6e3',
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
-    cursorShape: 'UNDERLINE',
+    // cursorShape: 'UNDERLINE',
+    cursorShape: 'BLOCK',
 
     // set to `true` (without backticks and without quotes) for blinking cursor
     cursorBlink: false,
@@ -176,7 +177,7 @@ module.exports = {
     'hypercwd',
     'hyperterm-tabs',
     'hyper-native-window-decoration',
-    "hyperlayout"
+    'hyperlayout',
   ],
 
   // in development, you can create a directory under
@@ -186,7 +187,6 @@ module.exports = {
   // localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
-    // Example
-    // 'window:devtools': 'cmd+alt+o',
+    'pane:splitHorizontal': 'ctrl+shift+h',
   },
 }

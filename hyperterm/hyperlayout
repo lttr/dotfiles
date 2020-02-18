@@ -1,5 +1,11 @@
 {
-  "lttr": {
+  "dotfiles": {
+    "entry": "vertical",
+    "layout": [
+      "cd ~/dotfiles; git status"
+    ]
+  },
+  "lukastrumm": {
     "entry": "vertical",
     "layout": [
       "cd ~/code/lukastrumm; npm run serve"

@@ -305,7 +305,8 @@ FZF-EOF"
 blog() {
     IFS=" "
     MY_SITE_DIR="${HOME}/code/lukastrumm"
-    BLOG_DIR="src/blog"
+    YEAR="$(date +%Y)"
+    BLOG_DIR="src/blog/${YEAR}"
     FILE_TITLE="${*}"
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${BLOG_DIR}/${FILE_SLUG}.md"

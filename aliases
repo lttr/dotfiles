@@ -64,6 +64,10 @@ alias ealias="$EDITOR ~/dotfiles/aliases"
 alias aliases="cat ~/dotfiles/aliases"
 alias efunc="$EDITOR ~/dotfiles/functions"
 
+# =================================================================
+#                            Scripts
+# =================================================================
+alias p="project"
 
 # =================================================================
 #                          Directories
