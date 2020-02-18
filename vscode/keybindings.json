@@ -90,11 +90,6 @@
     "when": "inQuickOpen"
   },
   {
-    "key": "ctrl+n",
-    "command": "workbench.action.quickOpenNavigateNext",
-    "when": "inQuickOpen"
-  },
-  {
     "key": "ctrl+p",
     "command": "workbench.action.quickOpenNavigatePrevious",
     "when": "inQuickOpen"
@@ -687,11 +682,6 @@
     "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
   },
   {
-    "key": "f1",
-    "command": "devdocs.quickSearch",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "shift+alt+d",
     "command": "-devdocs.quickSearch",
     "when": "editorTextFocus"
@@ -812,6 +802,31 @@
     "key": "k",
     "command": "-list.focusUp",
     "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenSelectPrev",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
   },
   {
     "key": "l",
@@ -1660,7 +1675,7 @@
     "command": "-extension.wipeCommon"
   },
   {
-    "key": "ctrl+shift+w",
+    "key": "ctrl+alt+w",
     "command": "workbench.action.closeOtherEditors"
   },
   {
@@ -1921,5 +1936,53 @@
   {
     "key": "ctrl+t i",
     "command": "toggle.diff.renderSideBySide"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "-workbench.action.focusSideBar"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "-workbench.action.focusSideBar"
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "-workbench.action.zoomIn"
+  },
+  {
+    "key": "ctrl+shift+=",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "ctrl+shift+-",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "ctrl+shift+-",
+    "command": "-workbench.action.navigateForward"
+  },
+  {
+    "key": "ctrl+0",
+    "command": "workbench.action.zoomReset"
+  },
+  {
+    "key": "ctrl+numpad0",
+    "command": "-workbench.action.zoomReset"
+  },
+  {
+    "key": "ctrl+shift+0",
+    "command": "editor.action.fontZoomReset"
+  },
+  {
+    "key": "ctrl+i",
+    "command": "editor.action.goToImplementation"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-workbench.action.quickOpen"
+  },
+  {
+    "key": "f1",
+    "command": "editor.action.openLink"
   }
 ]

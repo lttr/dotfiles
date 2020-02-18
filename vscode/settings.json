@@ -155,7 +155,10 @@
     "<C-f>": false,
     "<C-b>": false,
     "<C-k>": false,
+    "<C-n>": false,
+    "<C-p>": false,
     "<C-e>": false,
+    "<C-i>": false,
     "<C-y>": false,
     "<C-o>": false,
     "<C-[>": false,
@@ -395,10 +398,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "window.titleBarStyle": "custom",
   "cSpell.showStatus": false,
   "git-graph.showStatusBarItem": false,
   "codepoint.statusbar": "none",
   "diffEditor.renderSideBySide": true,
-  "svgPreview.autoOpen": false
+  "svgPreview.autoOpen": false,
+  "auto-close-tag.enableAutoCloseTag": false,
+  "window.titleBarStyle": "custom",
+  "files.defaultLanguage": "${activeEditorLanguage}",
+  "vim.enableNeovim": true,
+  "open-in-vim.useNeovim": true,
+  "vim.neovimPath": "/usr/bin/nvim",
+  "jest.autoEnable": false,
+  "jest.enableCodeLens": false,
 }
