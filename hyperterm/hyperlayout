@@ -11,11 +11,13 @@
       "cd ~/code/lukastrumm; npm run serve"
     ]
   },
-  "dipo": {
-    "entry": "vertical",
-    "layout": [
-      "cd ~/code/contport/web-frontend; npm run serve:dipo",
-      "cd ~/code/contport/web-frontend; npm run json-server"
+  "dipo": [
+    [
+      [ "cd ~/code/contport/web-frontend; npm run test:watch" ],
+      [
+        "cd ~/code/contport/web-frontend; npm run serve:dipo",
+        "cd ~/code/contport/web-frontend; npm run json-server"
+      ]
     ]
-  }
+  ]
 }
