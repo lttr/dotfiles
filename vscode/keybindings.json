@@ -434,7 +434,7 @@
     "command": "-workbench.action.closeActiveEditor"
   },
   {
-    "key": "ctrl+alt+p",
+    "key": "shift+alt+p",
     "command": "markdown.showPreviewToSide",
     "when": "editorLangId == 'markdown'"
   },
@@ -1984,5 +1984,15 @@
   {
     "key": "f1",
     "command": "editor.action.openLink"
+  },
+  {
+    "key": "shift+alt+p",
+    "command": "svgPreview.showPreviewToSide",
+    "when": "resourceLangId == 'svg' || resourceLangId == 'xml'"
+  },
+  {
+    "key": "ctrl+alt+p",
+    "command": "-svgPreview.showPreviewToSide",
+    "when": "resourceLangId == 'svg' || resourceLangId == 'xml'"
   }
 ]
