@@ -282,7 +282,7 @@ dir-locate() {
 # Easy git commit
 c() {
     IFS=' '
-    git commit -m "$*"
+    git commit -m "${(C)*}"
 }
 
 # Searchable git log
@@ -311,7 +311,7 @@ blog() {
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${BLOG_DIR}/${FILE_SLUG}.md"
     echo "---" >> $FILE_PATH
-    echo "title: $FILE_TITLE" >> $FILE_PATH
+    echo "title: ${(C)FILE_TITLE}" >> $FILE_PATH
     echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
@@ -327,7 +327,7 @@ note() {
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${NOTES_DIR}/${FILE_SLUG}.md"
     echo "---" >> $FILE_PATH
-    echo "title: $FILE_TITLE" >> $FILE_PATH
+    echo "title: ${(C)FILE_TITLE}" >> $FILE_PATH
     echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
