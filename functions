@@ -116,7 +116,7 @@ locate_documents() {
     local RE="\/home\/$USER\/[^\.].*\.\(pdf\|doc\|xls\|ppt\|odt\|ods\|odp\).\?$"
     locate --ignore-case --regexp $RE
 }
-#
+
 # Locate text files and scripts
 locate_text_files() {
     # only from /home/user folder, exclude hidden files in home folder
@@ -217,7 +217,6 @@ file-locate() {
 }
 
 
-
 # =================================================================
 #                          Directories
 # =================================================================
@@ -282,7 +281,7 @@ dir-locate() {
 # Easy git commit
 c() {
     IFS=' '
-    git commit -m "${(C)*}"
+    git commit -m "${*}"
 }
 
 # Searchable git log
@@ -302,6 +301,22 @@ FZF-EOF"
 #                              Code
 # =================================================================
 
+draft() {
+    IFS=" "
+    MY_SITE_DIR="${HOME}/code/lukastrumm"
+    BLOG_DIR="src/_drafts"
+    FILE_TITLE="${*}"
+    FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
+    FILE_PATH="${MY_SITE_DIR}/${BLOG_DIR}/${FILE_SLUG}.md"
+    echo "---" >> $FILE_PATH
+    echo "title: ${FILE_TITLE}" >> $FILE_PATH
+    echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
+    echo "tags: " >> $FILE_PATH
+    echo "---" >> $FILE_PATH
+    echo "" >> $FILE_PATH
+    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
+}
+
 blog() {
     IFS=" "
     MY_SITE_DIR="${HOME}/code/lukastrumm"
@@ -311,7 +326,7 @@ blog() {
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${BLOG_DIR}/${FILE_SLUG}.md"
     echo "---" >> $FILE_PATH
-    echo "title: ${(C)FILE_TITLE}" >> $FILE_PATH
+    echo "title: ${FILE_TITLE}" >> $FILE_PATH
     echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
@@ -327,12 +342,25 @@ note() {
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${NOTES_DIR}/${FILE_SLUG}.md"
     echo "---" >> $FILE_PATH
-    echo "title: ${(C)FILE_TITLE}" >> $FILE_PATH
+    echo "title: ${FILE_TITLE}" >> $FILE_PATH
     echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
     echo "" >> $FILE_PATH
     code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
+}
+
+notes() {
+    local out file key
+    IFS=$'\n' out=($(ag --follow -w "$1" ~/code/lukastrumm/src | fzf --query "$1" --expect=ctrl-o))
+    key=$(head -1 <<< "$out")
+    file=$(head -2 <<< "$out" | tail -1)
+    file=$(echo "$file" | cut -f1 -d':')
+    filePath=$(echo $file | sed 's/\.md//' | sed 's#/home/lukas/code/lukastrumm/src/##')
+    url="https://lukastrumm.com/${filePath}"
+    if [ -n "$file" ]; then
+        [ "$key" = ctrl-o ] && xdg-open "$url" || ${EDITOR:-vim} "$file" < /dev/tty
+    fi
 }
 
 # =================================================================
@@ -435,6 +463,11 @@ get-current-workspace-name() {
 # Using dbext in vim
 dbext() {
     ${EDITOR:-vim} "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
+}
+
+# Simple calculator
+calc() {
+    awk "BEGIN { print "$*" }"
 }
 
 
