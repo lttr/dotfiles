@@ -7,6 +7,11 @@ case "$PROJECT_ALIAS" in
     hyperlayout dotfiles
     code ~/dotfiles
     ;;
+  "js" | "javascript")
+    cd ~/sandbox
+    touch index.js
+    code ~/sandbox --goto index.js:0
+    ;;
   "lt" | "lutr" | "lukastrumm")
     hyperlayout lukastrumm
     code ~/code/lukastrumm
