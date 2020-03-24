@@ -98,6 +98,17 @@
   "openSpecFile.openInNewColumn": false,
   "openvim.executablePath": "C:\\Program Files (x86)\\vim\\vim80\\gvim.exe",
   "javascript.format.enable": true,
+  "javascript-repl.coverageTimes": false,
+  "javascript-repl.logs": {
+    "log": "#0087ff",
+    "error": "#cb4b16"
+  },
+  "javascript-repl.gutters": {
+    "covered": "#aae7ff",
+    "uncovered": "#dddddd",
+    "error": "#cb4b16",
+    "partially": "#ffb90f"
+  },
   "code-runner.executorMap": {
     "powershell": "pwsh"
   },
@@ -411,4 +422,8 @@
   "vim.neovimPath": "/usr/bin/nvim",
   "jest.autoEnable": false,
   "jest.enableCodeLens": false,
+  "cSpell.userWords": [
+    "Eleventy"
+  ],
+  "odata.format.syntax": true,
 }
