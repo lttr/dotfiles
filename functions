@@ -25,7 +25,7 @@ eng() {
 }
 
 # Change current directory according to Ranger
-rg() {
+ra() {
     tempfile="$(mktemp)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
