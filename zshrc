@@ -262,7 +262,7 @@ fi
 #                        History database
 # =================================================================
 
-source ~/opt/bash_database_history/zsh_trap.sh
+# source ~/opt/bash_database_history/zsh_trap.sh
 
 # =================================================================
 #                          Last command
