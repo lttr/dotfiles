@@ -27,6 +27,7 @@ python-dev
 python-mysqldb
 python-pip
 ranger
+ripgrep
 silversearcher-ag
 snapd
 sshpass
