@@ -28,6 +28,10 @@ export PATH="$HOME/.local/bin:$PATH"
 NPM_GLOBAL="$HOME/.npm-global"
 export PATH="$NPM_GLOBAL/bin:$PATH"
 
+# nodejs switch tool install location
+export N_PREFIX=/home/lukas/.n
+export PATH="$N_PREFIX/bin:$PATH"
+
 # go path
 export GOPATH="$HOME/.go"
 export GOROOT="/usr/local/go"
