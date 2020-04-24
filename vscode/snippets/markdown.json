@@ -1,0 +1,6 @@
+{
+  "prettier ignore": {
+    "prefix": "pri",
+    "body": "<!-- prettier-ignore -->"
+  }
+}
