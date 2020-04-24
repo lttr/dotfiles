@@ -172,6 +172,7 @@
     "<C-[>": false,
     "<C-]>": false,
     "<a-j>": false,
+    "<a-i>": false,
     "<a-k>": false,
     "<a-h>": false,
     "<a-l>": false,
@@ -186,14 +187,14 @@
     // }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    // {
-    //   "before": ["k"],
-    //   "after": ["g", "k"]
-    // },
-    // {
-    //   "before": ["j"],
-    //   "after": ["g", "j"]
-    // },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
+    },
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
     {
       "before": ["s"],
       "after": ["v", "i", "w", "\"", "_", "d", "P"]
@@ -397,10 +398,7 @@
     "markdown"
   ],
   "zenMode.fullScreen": false,
-  "zenMode.silentNotifications": false,
-  "zenMode.hideLineNumbers": false,
   "zenMode.hideActivityBar": true,
-  "zenMode.hideTabs": false,
   "eslint.lintTask.enable": true,
   "html.mirrorCursorOnMatchingTag": false,
   "editor.codeActionsOnSave": {
@@ -420,7 +418,21 @@
   "jest.autoEnable": false,
   "jest.enableCodeLens": false,
   "cSpell.userWords": [
-    "Eleventy"
+    "Angularu",
+    "CSSOM",
+    "Defaultní",
+    "Eleventy",
+    "Lukas",
+    "Trello",
+    "Trumm",
+    "dipo",
+    "domat",
+    "prettierrc",
+    "todos"
   ],
   "odata.format.syntax": true,
+  "google-translate.firstLanguage": "cs",
+  "google-translate.serverDomain": "https://translate.google.com",
+  "google-translate.switchFunctionTranslation": true,
+  "zenMode.hideStatusBar": false,
 }

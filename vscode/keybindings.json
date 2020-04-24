@@ -1426,29 +1426,8 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+alt+i",
-    "command": "-typescriptHero.index.addImportUnderCursor",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "ctrl+alt+m",
     "command": "-code-runner.stop"
-  },
-  {
-    "key": "ctrl+r r",
-    "command": "-npm-script.rerun-last-script"
-  },
-  {
-    "key": "ctrl+r t",
-    "command": "-npm-script.test"
-  },
-  {
-    "key": "ctrl+r l",
-    "command": "-npm-script.showOutput"
-  },
-  {
-    "key": "ctrl+r shift+x",
-    "command": "-npm-script.terminate-script"
   },
   {
     "key": "ctrl+t b",
@@ -2030,5 +2009,20 @@
     "key": "ctrl+shift+f10",
     "command": "-editor.action.peekDefinition",
     "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+t",
+    "command": "-translates.clipboard",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "alt+t",
+    "command": "translates.candidate",
+    "when": "editorHasSelection"
+  },
+  {
+    "key": "shift+alt+t",
+    "command": "-translates.candidate",
+    "when": "editorHasSelection"
   }
 ]
