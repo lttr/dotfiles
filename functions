@@ -352,7 +352,11 @@ note() {
 
 notes() {
     local out file key
-    IFS=$'\n' out=($(ag --follow -w "$1" ~/code/lukastrumm/src | fzf --query "$1" --expect=ctrl-o))
+    if [ -n "$1" ]; then
+        IFS=$'\n' out=($(ag -w "$1" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --query "$1" --expect=ctrl-o))
+    else
+        IFS=$'\n' out=($(ag -l "" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --expect=ctrl-o))
+    fi
     key=$(head -1 <<< "$out")
     file=$(head -2 <<< "$out" | tail -1)
     file=$(echo "$file" | cut -f1 -d':')
