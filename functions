@@ -351,19 +351,19 @@ note() {
 }
 
 notes() {
-    local out file key
+    local out key relativePath webPath localPath url
     if [ -n "$1" ]; then
         IFS=$'\n' out=($(ag -w "$1" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --query "$1" --expect=ctrl-o))
     else
         IFS=$'\n' out=($(ag -l "" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --expect=ctrl-o))
     fi
     key=$(head -1 <<< "$out")
-    file=$(head -2 <<< "$out" | tail -1)
-    file=$(echo "$file" | cut -f1 -d':')
-    filePath=$(echo $file | sed 's/\.md//' | sed 's#/home/lukas/code/lukastrumm/src/##')
-    url="https://lukastrumm.com/${filePath}"
-    if [ -n "$file" ]; then
-        [ "$key" = ctrl-o ] && xdg-open "$url" || ${EDITOR:-vim} "$file" < /dev/tty
+    relativePath=$(head -2 <<< "$out" | tail -1 | cut -f1 -d':')
+    webPath=$(echo $relativePath | sed 's/\.md//')
+    localPath="/home/lukas/code/lukastrumm/src/${relativePath}"
+    url="https://lukastrumm.com/${webPath}"
+    if [ -n "$relativePath" ]; then
+        [ "$key" = ctrl-o ] && xdg-open "$url" || ${EDITOR:-vim} "$localPath" < /dev/tty
     fi
 }
 
@@ -448,6 +448,19 @@ fkill() {
 close_applications() {
     xdotool search --class ".*" | xargs -inum xdotool getwindowpid num 2> /dev/null | grep "^[0-9]" | uniq -u | xargs kill
 }
+
+# =================================================================
+#                            Graphics
+# =================================================================
+
+vectorize() {
+    local name
+    name="$1"
+    # https://linux.die.net/man/1/pdftoppm
+    # http://potrace.sourceforge.net/potrace.1.html
+    pdftoppm ${name}.pdf | potrace --output ${name}.svg --blacklevel 0.71 --color '#222020' --svg
+}
+
 
 # =================================================================
 #                              i3wm
