@@ -329,11 +329,6 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+shift+i",
-    "command": "editor.action.previewDeclaration",
-    "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
-  },
-  {
     "key": "alt+f12",
     "command": "-editor.action.previewDeclaration",
     "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
@@ -1967,18 +1962,8 @@
     "command": "workbench.action.positionPanelRight"
   },
   {
-    "key": "ctrl+shift+alt+i",
-    "command": "-insertDateString.insertOwnFormatDateTime",
-    "when": "editorTextFocus"
-  },
-  {
     "key": "ctrl+alt+i",
     "command": "-extension.incrementSelection",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "shift+alt+i",
-    "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
     "when": "editorTextFocus"
   },
   {
@@ -2024,5 +2009,29 @@
     "key": "shift+alt+t",
     "command": "-translates.candidate",
     "when": "editorHasSelection"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "-insertDateString.insertDateTime",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "-editor.action.formatDocument.none",
+    "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorHasDocumentFormattingProvider && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+i",
+    "command": "editor.action.insertCursorAtEndOfEachLineSelected",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+i",
+    "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+m ctrl+o",
+    "command": "markdown.extension.editing.toggleList"
   }
 ]

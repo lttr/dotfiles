@@ -26,7 +26,6 @@
   "editor.parameterHints.cycle": true,
   "editor.renderControlCharacters": true,
   "editor.renderIndentGuides": false,
-  "editor.renderWhitespace": "none",
   "editor.selectionHighlight": false,
   "editor.snippetSuggestions": "bottom",
   "editor.quickSuggestionsDelay": 500,
@@ -371,6 +370,9 @@
   "markdownShortcuts.icons.italic": false,
   "markdownShortcuts.icons.strikethrough": false,
   "code-runner.showRunIconInEditorTitleMenu": false,
+  "code-runner.executorMapByFileExtension": {
+    ".ts": "deno run --unstable -A"
+  },
   "editor.fontFamily": "'Fira Mono', 'Consolas', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "files.associations": {
     "zshrc": "shellscript"
@@ -425,6 +427,7 @@
     "Lukas",
     "Trello",
     "Trumm",
+    "devops",
     "dipo",
     "domat",
     "prettierrc",
@@ -435,4 +438,5 @@
   "google-translate.serverDomain": "https://translate.google.com",
   "google-translate.switchFunctionTranslation": true,
   "zenMode.hideStatusBar": false,
+  "editor.renderWhitespace": "none",
 }
