@@ -32,6 +32,10 @@ export PATH="$NPM_GLOBAL/bin:$PATH"
 export N_PREFIX=/home/lukas/.n
 export PATH="$N_PREFIX/bin:$PATH"
 
+# deno path
+export DENO_INSTALL="/home/lukas/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # go path
 export GOPATH="$HOME/.go"
 export GOROOT="/usr/local/go"
