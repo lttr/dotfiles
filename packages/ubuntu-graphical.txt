@@ -9,10 +9,8 @@ google-chrome-stable
 gpick
 gthumb
 inkscape
-keepassxc
 nautilus-dropbox
 remmina
-rxvt-unicode-256color
 vim-gtk3
 wmctrl
 xbacklight

@@ -105,12 +105,6 @@ if check_custom_app 'nvim'; then
     sudo add-apt-repository -y ppa:neovim-ppa/stable
 fi
 
-#Program tmux plugin manager
-if [ ! -d ~/.tmux/plugins/tpm ]; then
-    log_installing 'tmux-plugin-manager'
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
 #Program xkblayout-state
 if check_custom_app 'xkblayout-state'; then
     sudo apt-get install -y build-essential libx11-dev
@@ -118,12 +112,6 @@ if check_custom_app 'xkblayout-state'; then
     cd xkblayout-state
     make
     cd $MY_APPS_DIR
-fi
-
-if check_custom_app 'go'; then
-    GO_VERSION=1.9.2
-    wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz
-    sudo tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz
 fi
 
 if check_custom_app 'git hub'; then
@@ -137,7 +125,17 @@ if [ ! -d ~/opt/dash-to-panel ]; then
     cd $MY_APPS_DIR
 fi
 
+if check_custom_app 'deno'; then
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+fi
+
 # ===== Deprecated =====
+
+# #Program tmux plugin manager
+# if [ ! -d ~/.tmux/plugins/tpm ]; then
+#     log_installing 'tmux-plugin-manager'
+#     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# fi
 
 # #Program nodejs
 # if check_custom_app 'nodejs'; then
