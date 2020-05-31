@@ -44,7 +44,7 @@
     ~/bin/packs: packages/packs.sh
 
     # other executables
-    ~/bin/dotnet: /snap/bin/dotnet-sdk.dotnet
+    # ~/bin/dotnet: /snap/bin/dotnet-sdk.dotnet
 
 # executable scripts
 - shell:
