@@ -373,6 +373,7 @@
   "code-runner.executorMapByFileExtension": {
     ".ts": "deno run --unstable -A"
   },
+  "deno.enable": false,
   "editor.fontFamily": "'Fira Mono', 'Consolas', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "files.associations": {
     "zshrc": "shellscript"
