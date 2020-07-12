@@ -64,7 +64,7 @@ export PAGER=/usr/bin/less
 #export EDITOR=/usr/bin/vim
 export EDITOR=code
 export VISUAL=/usr/bin/vim
-export BROWSER=/usr/bin/firefox
+export BROWSER=/usr/bin/google-chrome
 export TERMINAL=/usr/bin/urxvt
 export TERM=rxvt-unicode-256color
 
