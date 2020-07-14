@@ -4,5 +4,5 @@ run:
 print:
 	deno run --unstable --allow-read --allow-write install/print.ts
 
-e:
-	deno run --unstable --allow-read --allow-write --allow-run install/e.ts
+depgraph:
+	deno run --unstable --allow-read --allow-write --allow-run install/dep-graph.ts

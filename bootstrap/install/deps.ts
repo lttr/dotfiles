@@ -24,4 +24,6 @@ export {
   SymlinkConfiguration,
   printConfigurationSet,
   runConfigurationSet,
-} from 'https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts'
+  showDepGraph,
+} from '../../../code/deno-dsc/mod.ts'
+// } from 'https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts'
