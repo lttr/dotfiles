@@ -1789,11 +1789,6 @@
     "command": "editor.action.outdentLines"
   },
   {
-    "key": "ctrl+o",
-    "command": "cursorUndo",
-    "when": "textInputFocus"
-  },
-  {
     "key": "ctrl+u",
     "command": "-cursorUndo",
     "when": "textInputFocus"
@@ -2033,5 +2028,13 @@
   {
     "key": "ctrl+m ctrl+o",
     "command": "markdown.extension.editing.toggleList"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+alt+-",
+    "command": "-workbench.action.navigateBack"
   }
 ]
