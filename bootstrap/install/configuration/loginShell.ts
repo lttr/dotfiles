@@ -1,9 +1,9 @@
-import { LoginShell } from '../deps.ts'
-import { LoginShellConfiguration } from '../deps.ts'
+import { Config } from '../deps.ts'
 
-export const loginShellConfig = [
+export const loginShellConfig: Config[] = [
   {
-    resource: LoginShell,
-    shell: 'zsh',
+    loginShell: {
+      shell: 'zsh',
+    },
   },
-] as LoginShellConfiguration[]
+]

@@ -1,21 +1,20 @@
 import { HOME } from '../constants.ts'
-import { path, DirectoryConfiguration, Directory } from '../deps.ts'
+import { path, Config } from '../deps.ts'
 
-export const binDirectory: DirectoryConfiguration = {
-  resource: Directory,
-  path: path.join(HOME, 'bin'),
-} as DirectoryConfiguration
+export const binDirectory = {
+  directory: { path: path.join(HOME, 'bin') },
+}
 
-export const directoriesConfig = [
+export const directoriesConfig: Config[] = [
   // Make useful directories inside home
   binDirectory,
-  { resource: Directory, path: path.join(HOME, 'opt') },
-  { resource: Directory, path: path.join(HOME, 'code') },
-  { resource: Directory, path: path.join(HOME, 'sandbox') },
+  { directory: { path: path.join(HOME, 'opt') } },
+  { directory: { path: path.join(HOME, 'code') } },
+  { directory: { path: path.join(HOME, 'sandbox') } },
   // Prepare dirs for vim
-  { resource: Directory, path: path.join(HOME, '.vim') },
-  { resource: Directory, path: path.join(HOME, '.vim/backups') },
-  { resource: Directory, path: path.join(HOME, '.vim/undos') },
+  { directory: { path: path.join(HOME, '.vim') } },
+  { directory: { path: path.join(HOME, '.vim/backups') } },
+  { directory: { path: path.join(HOME, '.vim/undos') } },
   // Prepare dirs for zsh
-  { resource: Directory, path: path.join(HOME, '.zsh/completion') },
-] as DirectoryConfiguration[]
+  { directory: { path: path.join(HOME, '.zsh/completion') } },
+]

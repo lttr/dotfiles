@@ -15,13 +15,7 @@ export { exists } from 'https://deno.land/std/fs/exists.ts'
 // user land
 
 export {
-  Configuration,
-  Directory,
-  DirectoryConfiguration,
-  LoginShell,
-  LoginShellConfiguration,
-  Symlink,
-  SymlinkConfiguration,
+  Config,
   printConfigurationSet,
   runConfigurationSet,
   showDepGraph,
