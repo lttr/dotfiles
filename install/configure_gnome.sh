@@ -45,7 +45,7 @@ gsettings set org.gnome.desktop.peripherals.mouse speed 0.6
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
 # on touchpad scroll down by sliding fingers up
-org.gnome.desktop.peripherals.touchpad natural-scroll true
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
 
 # =================================================================
 #                            Keyboard
