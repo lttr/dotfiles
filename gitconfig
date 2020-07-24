@@ -42,6 +42,7 @@
     edit-conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}'; }; $EDITOR `f`"
     re = rebase
     rec = rebase --continue
+    catchup = !"git fem; git rebase master"
 
     # files
     changed = update-index --no-assume-unchanged
@@ -121,6 +122,9 @@
 
 [push]
     default = simple
+
+[rebase]
+    autostash = true
 
 [include]
     path = .gitconfig.local
