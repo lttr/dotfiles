@@ -4,10 +4,12 @@ import { gnomeSettingsConfig } from './gnomeSettings.ts'
 import { loginShellConfig } from './loginShell.ts'
 import { symlinksConfig } from './symlinks.ts'
 import { customInstallsConfig } from './customInstalls.ts'
+import { gnomeShellExtensionsConfig } from './gnomeShellExtensions.ts'
 
 export const config: Array<Config> = [
   ...directoriesConfig,
   ...gnomeSettingsConfig,
+  ...gnomeShellExtensionsConfig,
   ...loginShellConfig,
   ...symlinksConfig,
   ...customInstallsConfig,

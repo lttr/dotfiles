@@ -1,19 +1,5 @@
 import { Config } from '../deps.ts'
-
-const enabledExtensions = {
-  gnomeSettings: {
-    schema: 'org.gnome.shell',
-    key: 'enabled-extensions',
-    value: [
-      'arc-menu@linxgem33.com',
-      'dash-to-panel@jderose9.github.com',
-      'gsconnect@andyholmes.github.io',
-      'pomodoro@arun.codito.in',
-      'user-theme@gnome-shell-extensions.gcampax.github.com',
-      'workspace-switcher@tomha.github.com',
-    ],
-  },
-}
+import { arcMenu, userTheme } from './gnomeShellExtensions.ts'
 
 export const gnomeSettingsConfig: Config[] = [
   // =================================================================
@@ -120,14 +106,6 @@ export const gnomeSettingsConfig: Config[] = [
       value: 'Pop',
     },
   },
-  // shell theme
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.user-theme',
-      key: 'name',
-      value: 'Pop-dark-slim',
-    },
-  },
   // cursor theme
   {
     gnomeSettings: {
@@ -195,9 +173,6 @@ export const gnomeSettingsConfig: Config[] = [
     },
   },
 
-  // all the shortcuts shortcuts
-  // dconf load / < ~/dotfiles/gnome/keybindings.dconf
-
   // =================================================================
   //                            Sounds
   // =================================================================
@@ -232,10 +207,57 @@ export const gnomeSettingsConfig: Config[] = [
   },
 
   // =================================================================
-  //                          Keybingings
+  //                          Keybindings
   // =================================================================
 
   // =================================================================
   //                          Extensions
   // =================================================================
+
+  // Arc Menu
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.arc-menu',
+      key: 'menu-layout',
+      value: 'Runner',
+      dependsOn: arcMenu,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.arc-menu',
+      key: 'position-in-panel',
+      value: 'Left',
+      dependsOn: arcMenu,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.arc-menu',
+      key: 'menu-hotkey',
+      value: 'Super_L',
+      dependsOn: arcMenu,
+    },
+  },
+
+  // User theme
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.user-theme',
+      key: 'name',
+      value: 'Pop-dark-slim',
+      dependsOn: userTheme,
+    },
+  },
+
+  // Dash To panel
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.dash-to-panel',
+      key: 'name',
+      value: 'Pop-dark-slim',
+      dependsOn: userTheme,
+    },
+  },
+
 ]

@@ -1,6 +1,7 @@
-import { BIN, DOTFILES, HOME, SCRIPTS } from '../constants.ts'
+import { BIN, DOTFILES, HOME, SCRIPTS, OPT } from '../constants.ts'
 import { fs, path, Config } from '../deps.ts'
 import { binDirectory } from './directories.ts'
+import { gnomeShellExtensionInstallerConfig } from './customInstalls.ts'
 
 async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   const config: Config[] = []
@@ -20,9 +21,21 @@ async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   return config
 }
 
-const executableScriptsConfig = await getExecutableScriptsConfig(SCRIPTS)
+const executableScriptsConfig: Config[] = await getExecutableScriptsConfig(
+  SCRIPTS
+)
 
-export const symlinksConfig = [
+export const gnomeShellExtensionInstallerSymlink = {
+  symlink: {
+    dest: path.join(BIN, 'gnome-shell-extension-installer'),
+    src: path.join(OPT, 'gnome-shell-extension-installer'),
+    dependsOn: gnomeShellExtensionInstallerConfig,
+  },
+}
+
+const programsConfig: Config[] = [gnomeShellExtensionInstallerSymlink]
+
+export const symlinksConfig: Config[] = [
   {
     symlink: {
       dest: path.join(HOME, '.Xresources'),
@@ -150,4 +163,5 @@ export const symlinksConfig = [
     },
   },
   ...executableScriptsConfig,
+  ...programsConfig,
 ]

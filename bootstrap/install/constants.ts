@@ -1,6 +1,7 @@
-import { path } from "./deps.ts";
+import { path } from './deps.ts'
 
-export const HOME = "/home/lukas";
-export const DOTFILES = path.join(HOME, "dotfiles");
-export const SCRIPTS = path.join(DOTFILES, "scripts");
-export const BIN = path.join(HOME, "bin");
+export const HOME = '/home/lukas'
+export const DOTFILES = path.join(HOME, 'dotfiles')
+export const SCRIPTS = path.join(DOTFILES, 'scripts')
+export const BIN = path.join(HOME, 'bin')
+export const OPT = path.join(HOME, 'opt')
