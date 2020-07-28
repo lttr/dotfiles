@@ -1,5 +1,4 @@
 import { Config } from '../deps.ts'
-import { arcMenu, userTheme } from './gnomeShellExtensions.ts'
 
 export const gnomeSettingsConfig: Config[] = [
   // =================================================================
@@ -209,55 +208,4 @@ export const gnomeSettingsConfig: Config[] = [
   // =================================================================
   //                          Keybindings
   // =================================================================
-
-  // =================================================================
-  //                          Extensions
-  // =================================================================
-
-  // Arc Menu
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'menu-layout',
-      value: 'Runner',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'position-in-panel',
-      value: 'Left',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'menu-hotkey',
-      value: 'Super_L',
-      dependsOn: arcMenu,
-    },
-  },
-
-  // User theme
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.user-theme',
-      key: 'name',
-      value: 'Pop-dark-slim',
-      dependsOn: userTheme,
-    },
-  },
-
-  // Dash To panel
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.dash-to-panel',
-      key: 'name',
-      value: 'Pop-dark-slim',
-      dependsOn: userTheme,
-    },
-  },
-
 ]
