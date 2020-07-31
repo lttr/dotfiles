@@ -85,6 +85,29 @@ export const gnomeSettingsConfig: Config[] = [
     },
   },
 
+  // workspaces
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.mutter',
+      key: 'workspaces-only-on-primary',
+      value: false,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.mutter',
+      key: 'dynamic-workspaces',
+      value: false,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.desktop.wm.preferences',
+      key: 'num-workspaces',
+      value: 2,
+    },
+  },
+
   // =================================================================
   //                             Theme
   // =================================================================
@@ -184,28 +207,4 @@ export const gnomeSettingsConfig: Config[] = [
       value: false,
     },
   },
-
-  // =================================================================
-  //                            Pop OS
-  // =================================================================
-
-  // window tiling
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.mutter.keybindings',
-      key: 'toggle-tiled-left',
-      value: "['<Super>Left', '<Super>h']",
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.mutter.keybindings',
-      key: 'toggle-tiled-right',
-      value: "['<Super>Right', '<Super>l']",
-    },
-  },
-
-  // =================================================================
-  //                          Keybindings
-  // =================================================================
 ]
