@@ -6,8 +6,10 @@ function customGnomeKeybinding(
   command: string,
   binding: string
 ) {
-  const schema = `org.gnome.settings-daemon.plugins.media-keys.custom-keybindings.custom${id}`
+  const prefix = `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`
+  let schema = `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`
   customGnomeKeybindingSchemas.add(schema)
+  schema = prefix + schema
   return [
     { gnomeSettings: { schema, key: 'command', value: command } },
     { gnomeSettings: { schema, key: 'name', value: name } },
@@ -42,12 +44,10 @@ const customGnomeKeybindings = [
 
 const customGnomeKeybindingsSetup = {
   gnomeSettings: {
-    schema: ' ',
+    schema: 'org.gnome.settings-daemon.plugins.media-keys',
     key: 'custom-keybindings',
     value: `[${Array.from(customGnomeKeybindingSchemas)
-      .map(schema => {
-        return `'/${schema.replace(/\./g, '/')}/'`
-      })
+      .map(schema => `'${schema}'`)
       .join(', ')}]`,
   },
 }
