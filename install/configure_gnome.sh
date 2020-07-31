@@ -93,20 +93,20 @@ xdg-mime default google-chrome.desktop x-scheme-handler/http
 xdg-mime default google-chrome.desktop x-scheme-handler/https
 xdg-mime default google-chrome.desktop x-scheme-handler/about
 
-xdg-mime default gthumb.desktop image/bpm
-xdg-mime default gthumb.desktop image/gif
-xdg-mime default gthumb.desktop image/ico
-xdg-mime default gthumb.desktop image/jpeg
-xdg-mime default gthumb.desktop image/jpg
-xdg-mime default gthumb.desktop image/png
-xdg-mime default gthumb.desktop image/tiff
+xdg-mime default org.gnome.gThumb.desktop image/bpm
+xdg-mime default org.gnome.gThumb.desktop image/gif
+xdg-mime default org.gnome.gThumb.desktop image/ico
+xdg-mime default org.gnome.gThumb.desktop image/jpeg
+xdg-mime default org.gnome.gThumb.desktop image/jpg
+xdg-mime default org.gnome.gThumb.desktop image/png
+xdg-mime default org.gnome.gThumb.desktop image/tiff
 
 xdg-mime default inkscape.desktop image/svg+xml
 
-xdg-mime default code_code.desktop text/plain
-xdg-mime default code_code.desktop application/x-mswinurl
-xdg-mime default code_code.desktop text/markdown
-xdg-mime default code_code.desktop text/x-log
+xdg-mime default code.desktop text/plain
+xdg-mime default code.desktop application/x-mswinurl
+xdg-mime default code.desktop text/markdown
+xdg-mime default code.desktop text/x-log
 
 xdg-mime default vlc.desktop video/x-msvideo
 

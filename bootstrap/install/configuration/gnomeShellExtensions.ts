@@ -34,6 +34,22 @@ const arcMenuSettings = [
       dependsOn: arcMenu,
     },
   },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.arc-menu',
+      key: 'menu-button-icon',
+      value: 'System_Icon',
+      dependsOn: arcMenu,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.arc-menu',
+      key: 'runner-position',
+      value: 'Centered',
+      dependsOn: arcMenu,
+    },
+  },
 ]
 
 const userTheme = {

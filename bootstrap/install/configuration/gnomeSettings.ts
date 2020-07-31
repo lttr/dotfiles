@@ -85,6 +85,68 @@ export const gnomeSettingsConfig: Config[] = [
     },
   },
 
+  // night light mode
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.color',
+      key: 'night-light-enabled',
+      value: true,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.color',
+      key: 'night-light-schedule-automatic',
+      value: false,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.color',
+      key: 'night-light-schedule-from',
+      value: 20,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.color',
+      key: 'night-light-schedule-to',
+      value: 6,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.color',
+      key: 'night-light-temperature',
+      value: 4400,
+    },
+  },
+
+  // display
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.xsettings',
+      key: 'antialiasing',
+      value: 'rgba',
+    },
+  },
+
+  // power saving
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.power',
+      key: 'sleep-inactive-battery-timeout',
+      value: 1500,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.power',
+      key: 'sleep-inactive-battery-type',
+      value: 'suspend',
+    },
+  },
+
   // workspaces
   {
     gnomeSettings: {
@@ -195,6 +257,15 @@ export const gnomeSettingsConfig: Config[] = [
     },
   },
 
+  // set numlock on
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.peripherals.keyboard',
+      key: 'numlock-state',
+      value: 'on',
+    },
+  },
+
   // =================================================================
   //                            Sounds
   // =================================================================
@@ -205,6 +276,17 @@ export const gnomeSettingsConfig: Config[] = [
       schema: 'org.gnome.desktop.sound',
       key: 'event-sounds',
       value: false,
+    },
+  },
+
+  // =================================================================
+  //                            Apps
+  // =================================================================
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell',
+      key: 'favorite-apps',
+      value: "['google-chrome.desktop', 'code.desktop', 'hyper.desktop']",
     },
   },
 ]
