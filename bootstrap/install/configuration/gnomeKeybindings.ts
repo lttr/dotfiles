@@ -35,7 +35,7 @@ const customGnomeKeybindings = [
   ...customGnomeKeybinding(4, 'File manager', '', '<Super>t'),
   ...customGnomeKeybinding(5, 'Firefox', 'bring-or-start firefox', '<Super>f'),
   ...customGnomeKeybinding(
-    5,
+    6,
     'Toggle microphone',
     'amixer set Capture toggle',
     '<Super>apostrophe'
