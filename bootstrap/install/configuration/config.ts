@@ -6,8 +6,10 @@ import { gnomeSettingsConfig } from './gnomeSettings.ts'
 import { gnomeShellExtensionsConfig } from './gnomeShellExtensions.ts'
 import { loginShellConfig } from './loginShell.ts'
 import { symlinksConfig } from './symlinks.ts'
+import { appForMimeTypes } from './appForMimeTypes.ts'
 
 export const config: Array<Config> = [
+  ...appForMimeTypes,
   ...directoriesConfig,
   ...gnomeKeybindingsConfig,
   ...gnomeSettingsConfig,
