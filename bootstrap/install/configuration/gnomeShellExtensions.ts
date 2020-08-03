@@ -1,6 +1,8 @@
 import { Config } from '../deps.ts'
 import { gnomeShellExtensionInstallerSymlink } from './symlinks.ts'
 
+const EMPTY_ARRAY = '@as []'
+
 const arcMenu = {
   gnomeShellExtension: {
     fullName: 'arc-menu@linxgem33.com',
@@ -48,6 +50,25 @@ const arcMenuSettings = [
       key: 'runner-position',
       value: 'Centered',
       dependsOn: arcMenu,
+    },
+  },
+]
+
+const clockOverride = {
+  gnomeShellExtension: {
+    fullName: 'clock-override@gnomeshell.kryogenix.org',
+    id: 1206,
+    dependsOn: gnomeShellExtensionInstallerSymlink,
+  },
+}
+
+const clockOverrideSettings = [
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.clock-override',
+      key: 'override-string',
+      value: '%H:%M',
+      dependsOn: clockOverride,
     },
   },
 ]
@@ -169,13 +190,86 @@ const pomodoro = {
   },
 }
 
+const workspaceSwitcherDestination =
+  '~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com'
+const workspaceSwitcherGit =
+  'https://github.com/tomha/gnome-shell-extension-workspace-switcher'
+const workspaceSwitcher = {
+  inlineScript: {
+    name: 'install gnome extension Workspace switcher',
+    testScript: `
+      gsettings list-keys org.gnome.shell.extensions.workspace-switcher &>/dev/null
+    `,
+    setScript: `
+      git clone --quiet ${workspaceSwitcherGit} ${workspaceSwitcherDestination}
+      && sudo cp ~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com/schema/org.gnome.shell.extensions.workspace-switcher.gschema.xml /usr/share/glib-2.0/schemas/
+      && sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+    `,
+  },
+}
+
+const workspaceSwitcherSettings = [
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'background-colour-active',
+      value: '#555753ff',
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'border-locations',
+      value: EMPTY_ARRAY,
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'font-active',
+      value: 'Ubuntu Medium 11',
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'index',
+      value: 1,
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'position',
+      value: 'LEFT',
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.shell.extensions.workspace-switcher',
+      key: 'show-names',
+      value: false,
+      depdendsOn: workspaceSwitcher,
+    },
+  },
+]
+
 export const gnomeShellExtensionsConfig: Config[] = [
   arcMenu,
   ...arcMenuSettings,
+  clockOverride,
+  ...clockOverrideSettings,
   dashToPanel,
   ...dashToPanelSettings,
   gsconnect,
   pomodoro,
   userTheme,
   ...userThemeSettings,
+  workspaceSwitcher,
+  ...workspaceSwitcherSettings,
 ]

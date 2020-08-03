@@ -114,13 +114,6 @@ export const gnomeSettingsConfig: Config[] = [
       value: 6,
     },
   },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.color',
-      key: 'night-light-temperature',
-      value: 4400,
-    },
-  },
 
   // display
   {
@@ -286,7 +279,8 @@ export const gnomeSettingsConfig: Config[] = [
     gnomeSettings: {
       schema: 'org.gnome.shell',
       key: 'favorite-apps',
-      value: "['google-chrome.desktop', 'code.desktop', 'hyper.desktop']",
+      value:
+        "['google-chrome.desktop', 'hyper.desktop', 'code.desktop', 'keeweb.desktop']",
     },
   },
 ]

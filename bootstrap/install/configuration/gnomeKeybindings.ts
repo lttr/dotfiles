@@ -1,3 +1,5 @@
+const EMPTY_ARRAY = '@as []'
+
 const customGnomeKeybindingSchemas = new Set<string>()
 
 function customGnomeKeybinding(
@@ -89,14 +91,14 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.shell.keybindings',
       key: 'focus-active-notification',
-      value: '[]',
+      value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
       schema: 'org.gnome.shell.keybindings',
       key: 'open-application-menu',
-      value: '[]',
+      value: EMPTY_ARRAY,
     },
   },
   {
@@ -257,7 +259,7 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.desktop.wm.keybindings',
       key: 'switch-applications',
-      value: '[]',
+      value: EMPTY_ARRAY,
     },
   },
   {
@@ -292,7 +294,7 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.desktop.wm.keybindings',
       key: 'toggle-maximized',
-      value: '[]',
+      value: EMPTY_ARRAY,
     },
   },
   {
