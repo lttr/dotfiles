@@ -258,6 +258,20 @@ const gnomeKeybindingsOverrrides = [
   {
     gnomeSettings: {
       schema: 'org.gnome.desktop.wm.keybindings',
+      key: 'switch-group-backward',
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.desktop.wm.keybindings',
+      key: 'switch-group',
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.desktop.wm.keybindings',
       key: 'switch-applications',
       value: EMPTY_ARRAY,
     },
