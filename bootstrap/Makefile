@@ -1,8 +1,8 @@
 run:
-	deno run --unstable --allow-read --allow-write --allow-run --allow-env --allow-net install/install.ts
+	deno run --unstable --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install/install.ts
 
 print:
-	deno run --unstable --allow-read --allow-write install/print.ts
+	deno run --unstable --quiet --allow-read --allow-write install/print.ts
 
 depgraph:
-	deno run --unstable --allow-read --allow-write --allow-run install/dep-graph.ts
+	deno run --unstable --quiet --allow-read --allow-write --allow-run install/dep-graph.ts
