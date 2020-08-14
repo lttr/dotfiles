@@ -139,6 +139,7 @@ zstyle ':completion:*' matcher-list '' \
 
 
 fpath=(~/.zsh/completion $fpath)
+fpath=(~/.local/opt/brew/share/zsh/site-functions $fpath)
 
 source <(npm completion)
 
