@@ -123,7 +123,3 @@ sol_code_blue="33"
 sol_code_cyan="37"
 sol_code_green="64"
 
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-
