@@ -1,5 +1,5 @@
 import { Config } from '../deps.ts'
-import { gnomeShellExtensionInstallerSymlink } from './symlinks.ts'
+import { gnomeShellExtensionInstaller } from './customInstalls.ts'
 
 const EMPTY_ARRAY = '@as []'
 
@@ -7,7 +7,7 @@ const arcMenu = {
   gnomeShellExtension: {
     fullName: 'arc-menu@linxgem33.com',
     id: 1228,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
@@ -58,7 +58,7 @@ const clockOverride = {
   gnomeShellExtension: {
     fullName: 'clock-override@gnomeshell.kryogenix.org',
     id: 1206,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
@@ -77,7 +77,7 @@ const userTheme = {
   gnomeShellExtension: {
     fullName: 'user-theme@gnome-shell-extensions.gcampax.github.com',
     id: 19,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
@@ -96,7 +96,7 @@ const dashToPanel = {
   gnomeShellExtension: {
     fullName: 'dash-to-panel@jderose9.github.com',
     id: 1160,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
@@ -178,7 +178,7 @@ const gsconnect = {
   gnomeShellExtension: {
     fullName: 'gsconnect@andyholmes.github.io',
     id: 1319,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
@@ -186,7 +186,7 @@ const pomodoro = {
   gnomeShellExtension: {
     fullName: 'pomodoro@arun.codito.in',
     id: 53,
-    dependsOn: gnomeShellExtensionInstallerSymlink,
+    dependsOn: gnomeShellExtensionInstaller,
   },
 }
 
