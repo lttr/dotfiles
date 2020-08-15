@@ -1,6 +1,6 @@
 import { Config } from '../deps.ts'
 
-export const loginShellConfig: Config[] = [
+export const loginShell: Config[] = [
   {
     loginShell: {
       shell: 'zsh',

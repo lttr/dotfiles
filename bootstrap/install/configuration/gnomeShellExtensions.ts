@@ -259,7 +259,7 @@ const workspaceSwitcherSettings = [
   },
 ]
 
-export const gnomeShellExtensionsConfig: Config[] = [
+export const gnomeShellExtensions: Config[] = [
   arcMenu,
   ...arcMenuSettings,
   clockOverride,

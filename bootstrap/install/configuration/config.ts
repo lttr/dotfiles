@@ -1,22 +1,20 @@
 import { Config } from '../deps.ts'
 import { appForMimeTypes } from './appForMimeTypes.ts'
-import { customInstallsConfig } from './customInstalls.ts'
-import { directoriesConfig } from './directories.ts'
-import { gnomeKeybindingsConfig } from './gnomeKeybindings.ts'
-import { gnomeSettingsConfig } from './gnomeSettings.ts'
-import { gnomeShellExtensionsConfig } from './gnomeShellExtensions.ts'
-import { loginShellConfig } from './loginShell.ts'
-import { symlinksConfig } from './symlinks.ts'
-import { webInstallConfig } from './webInstall.ts'
+import { customInstalls } from './customInstalls.ts'
+import { directories } from './directories.ts'
+import { gnomeKeybindings } from './gnomeKeybindings.ts'
+import { gnomeSettings } from './gnomeSettings.ts'
+import { gnomeShellExtensions } from './gnomeShellExtensions.ts'
+import { loginShell } from './loginShell.ts'
+import { symlinks } from './symlinks.ts'
 
 export const config: Array<Config> = [
   ...appForMimeTypes,
-  ...customInstallsConfig,
-  ...directoriesConfig,
-  ...gnomeKeybindingsConfig,
-  ...gnomeSettingsConfig,
-  ...gnomeShellExtensionsConfig,
-  ...loginShellConfig,
-  ...symlinksConfig,
-  ...webInstallConfig,
+  ...customInstalls,
+  ...directories,
+  ...gnomeKeybindings,
+  ...gnomeSettings,
+  ...gnomeShellExtensions,
+  ...loginShell,
+  ...symlinks,
 ]

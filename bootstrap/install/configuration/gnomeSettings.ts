@@ -1,6 +1,6 @@
 import { Config } from '../deps.ts'
 
-export const gnomeSettingsConfig: Config[] = [
+export const gnomeSettings: Config[] = [
   // =================================================================
   //                          Gnome desktop
   // =================================================================

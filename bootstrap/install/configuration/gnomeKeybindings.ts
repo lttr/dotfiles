@@ -320,7 +320,7 @@ const gnomeKeybindingsOverrrides = [
   },
 ]
 
-export const gnomeKeybindingsConfig = [
+export const gnomeKeybindings = [
   customGnomeKeybindingsSetup,
   ...customGnomeKeybindings,
   ...gnomeKeybindingsOverrrides,

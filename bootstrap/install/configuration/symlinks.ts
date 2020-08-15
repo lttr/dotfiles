@@ -20,11 +20,9 @@ async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   return config
 }
 
-const executableScriptsConfig: Config[] = await getExecutableScriptsConfig(
-  SCRIPTS
-)
+const executableScripts: Config[] = await getExecutableScriptsConfig(SCRIPTS)
 
-export const symlinksConfig: Config[] = [
+export const symlinks: Config[] = [
   {
     symlink: {
       dest: path.join(HOME, '.Xresources'),
@@ -151,5 +149,5 @@ export const symlinksConfig: Config[] = [
       src: path.join(DOTFILES, 'packages/packs.sh'),
     },
   },
-  ...executableScriptsConfig,
+  ...executableScripts,
 ]

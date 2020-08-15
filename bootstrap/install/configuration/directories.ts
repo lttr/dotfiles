@@ -5,7 +5,7 @@ export const binDirectory = {
   directory: { path: path.join(HOME, 'bin') },
 }
 
-export const directoriesConfig: Config[] = [
+export const directories: Config[] = [
   // Make useful directories inside home
   binDirectory,
   { directory: { path: path.join(HOME, 'opt') } },
