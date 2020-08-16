@@ -363,7 +363,7 @@ notes() {
     localPath="/home/lukas/code/lukastrumm/src/${relativePath}"
     url="https://lukastrumm.com/${webPath}"
     if [ -n "$relativePath" ]; then
-        [ "$key" = ctrl-o ] && xdg-open "$url" || ${EDITOR:-vim} "$localPath" < /dev/tty
+        [ "$key" = ctrl-o ] && xdg-open "$url" &>/dev/null || ${EDITOR:-vim} "$localPath" < /dev/tty
     fi
 }
 
