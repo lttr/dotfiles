@@ -1,8 +1,7 @@
 const backgroundColor = '#fdf6e3'
 const foregroundColor = '#839496'
-// const cursorColor = 'rgba(211, 54, 130, 0.6)'
-const cursorColor = 'rgba(101, 123, 131, 0.4)'
-const borderColor = 'rgba(38, 139, 210, 0.3)'
+const cursorColor = 'rgba(204, 196, 176, 0.7)'
+const borderColor = cursorColor
 
 const colors = [
   backgroundColor,
@@ -24,7 +23,7 @@ const colors = [
   foregroundColor,
 ]
 
-exports.decorateConfig = (config) => {
+exports.decorateConfig = config => {
   return Object.assign({}, config, {
     foregroundColor,
     backgroundColor,

@@ -440,4 +440,5 @@
   "google-translate.switchFunctionTranslation": true,
   "zenMode.hideStatusBar": false,
   "editor.renderWhitespace": "none",
+  "color-highlight.markRuler": false,
 }
