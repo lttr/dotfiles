@@ -125,11 +125,13 @@ export const gnomeSettings: Config[] = [
   },
 
   // power saving
+
+  // sleep after 20 minutes of inactivity when on battery
   {
     gnomeSettings: {
       schema: 'org.gnome.settings-daemon.plugins.power',
       key: 'sleep-inactive-battery-timeout',
-      value: 1500,
+      value: 1200,
     },
   },
   {
@@ -137,6 +139,40 @@ export const gnomeSettings: Config[] = [
       schema: 'org.gnome.settings-daemon.plugins.power',
       key: 'sleep-inactive-battery-type',
       value: 'suspend',
+    },
+  },
+
+  // sleep after 30 minutes of inactivity when on ac power
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.power',
+      key: 'sleep-inactive-ac-timeout',
+      value: 1800,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.settings-daemon.plugins.power',
+      key: 'sleep-inactive-ac-type',
+      value: 'suspend',
+    },
+  },
+
+  // consider system being idle after 5 minutes
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.desktop.session',
+      key: 'idle-delay',
+      value: 300,
+    },
+  },
+
+  // lock system 5 minutes after switching to idle mode
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.desktop.screensaver',
+      key: 'lock-delay',
+      value: 300,
     },
   },
 
