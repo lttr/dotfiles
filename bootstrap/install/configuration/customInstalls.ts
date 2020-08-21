@@ -20,9 +20,9 @@ const webi = {
 }
 
 const brew = {
-  webInstall: {
+  urlScript: {
     name: 'brew',
-    dependsOn: webi,
+    url: 'https://raw.githubusercontent.com/Homebrew/install/master/install.sh',
   },
 }
 
