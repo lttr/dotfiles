@@ -1,10 +1,7 @@
-import { OPT_DIR } from '../constants.ts'
 import { Config } from '../deps.ts'
 
 export const gnomeShellExtensionInstaller = {
-  gnomeShellExtensionInstaller: {
-    location: OPT_DIR,
-  },
+  gnomeShellExtensionInstaller: {},
 }
 
 const googleChromeAmd64 = 'google-chrome-stable_current_amd64.deb'

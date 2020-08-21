@@ -8,7 +8,6 @@ export const binDirectory = {
 export const directories: Config[] = [
   // Make useful directories inside home
   binDirectory,
-  { directory: { path: path.join(HOME, 'opt') } },
   { directory: { path: path.join(HOME, 'code') } },
   { directory: { path: path.join(HOME, 'sandbox') } },
   // Prepare dirs for vim

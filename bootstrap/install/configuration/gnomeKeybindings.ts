@@ -60,14 +60,14 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.settings-daemon.plugins.media-keys',
       key: 'volume-down',
-      value: '<Super>bracketleft',
+      value: "['<Super>bracketleft']",
     },
   },
   {
     gnomeSettings: {
       schema: 'org.gnome.settings-daemon.plugins.media-keys',
       key: 'volume-up',
-      value: '<Super>bracketright',
+      value: "['<Super>bracketright']",
     },
   },
   // disable screensaver key
@@ -75,7 +75,7 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.settings-daemon.plugins.media-keys',
       key: 'screensaver',
-      value: '',
+      value: EMPTY_ARRAY,
     },
   },
   // file explorer
@@ -83,7 +83,7 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: 'org.gnome.settings-daemon.plugins.media-keys',
       key: 'home',
-      value: '<Super>e',
+      value: "['<Super>e']",
     },
   },
   // gnome shell specific

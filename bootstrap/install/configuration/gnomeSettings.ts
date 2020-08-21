@@ -289,9 +289,9 @@ export const gnomeSettings: Config[] = [
   // set numlock on
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.peripherals.keyboard',
+      schema: 'org.gnome.desktop.peripherals.keyboard',
       key: 'numlock-state',
-      value: 'on',
+      value: true,
     },
   },
 
