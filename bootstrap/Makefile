@@ -2,7 +2,7 @@ run:
 	deno run --unstable --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install/install.ts
 
 withreload:
-	deno run --reload --unstable --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install/install.ts
+	deno run --reload --unstable --allow-read --allow-write --allow-run --allow-env --allow-net install/install.ts
 
 print:
 	deno run --unstable --quiet --allow-read --allow-write install/print.ts
