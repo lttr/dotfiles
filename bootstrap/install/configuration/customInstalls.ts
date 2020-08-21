@@ -30,19 +30,14 @@ const brew = {
 }
 
 export const customInstalls: Config[] = [
+  // installers
   gnomeShellExtensionInstaller,
-  googleChrome,
   webi,
-  {
-    webInstall: {
-      name: 'rg',
-      dependsOn: webi,
-    },
-  },
   brew,
-  {
-    brew: {
-      name: 'gh',
-    },
-  },
+  // custom applications
+  googleChrome,
+  { webInstall: { name: 'rg', dependsOn: webi } },
+  { brew: { name: 'gh', dependsOn: brew } },
+  { brew: { name: 'fzf', dependsOn: brew } },
+  { brew: { name: 'potrace', dependsOn: brew } },
 ]
