@@ -20,9 +20,15 @@ const webi = {
 }
 
 const brew = {
-  urlScript: {
+  inlineScript: {
     name: 'brew',
-    url: 'https://raw.githubusercontent.com/Homebrew/install/master/install.sh',
+    testScript: `which brew`,
+    setScript: `
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+      test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+      echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+    `,
   },
 }
 
@@ -33,16 +39,25 @@ export const antibody = {
   },
 }
 
+export const aptUpdate = {
+  aptUpdate: {},
+}
+
 export const customInstalls: Config[] = [
+  // preparation
+  aptUpdate,
   // installers
   gnomeShellExtensionInstaller,
   webi,
   brew,
+  antibody,
   // custom applications
   googleChrome,
+  { webInstall: { name: 'node', dependsOn: webi } },
   { webInstall: { name: 'rg', dependsOn: webi } },
   { brew: { name: 'gh', dependsOn: brew } },
   { brew: { name: 'fzf', dependsOn: brew } },
   { brew: { name: 'potrace', dependsOn: brew } },
-  antibody,
+  // { brew: { name: 'docker', dependsOn: brew } },
+  // { brew: { name: 'docker-compose', dependsOn: brew } },
 ]

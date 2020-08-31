@@ -1,5 +1,6 @@
 import { Config } from '../deps.ts'
 import { antibody } from './customInstalls.ts'
+import { zsh } from './apt.ts'
 
 function antibodyPackage(packageName: string) {
   return {
@@ -14,6 +15,7 @@ export const shell: Config[] = [
   {
     loginShell: {
       shell: 'zsh',
+      dependsOn: zsh,
     },
   },
   antibodyPackage('zsh-users/zsh-syntax-highlighting'),
