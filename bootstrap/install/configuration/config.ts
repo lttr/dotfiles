@@ -5,7 +5,7 @@ import { directories } from './directories.ts'
 import { gnomeKeybindings } from './gnomeKeybindings.ts'
 import { gnomeSettings } from './gnomeSettings.ts'
 import { gnomeShellExtensions } from './gnomeShellExtensions.ts'
-import { loginShell } from './loginShell.ts'
+import { shell } from './shell.ts'
 import { symlinks } from './symlinks.ts'
 
 export const config: Array<Config> = [
@@ -15,6 +15,6 @@ export const config: Array<Config> = [
   ...gnomeKeybindings,
   ...gnomeSettings,
   ...gnomeShellExtensions,
-  ...loginShell,
+  ...shell,
   ...symlinks,
 ]

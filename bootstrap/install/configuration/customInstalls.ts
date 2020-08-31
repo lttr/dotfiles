@@ -26,6 +26,13 @@ const brew = {
   },
 }
 
+export const antibody = {
+  brew: {
+    name: 'antibody',
+    dependsOn: brew,
+  },
+}
+
 export const customInstalls: Config[] = [
   // installers
   gnomeShellExtensionInstaller,
@@ -37,4 +44,5 @@ export const customInstalls: Config[] = [
   { brew: { name: 'gh', dependsOn: brew } },
   { brew: { name: 'fzf', dependsOn: brew } },
   { brew: { name: 'potrace', dependsOn: brew } },
+  antibody,
 ]
