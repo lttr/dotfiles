@@ -20,6 +20,9 @@ fi
 
 # PATH
 
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
 # user path
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -65,8 +68,8 @@ export PAGER=/usr/bin/less
 export EDITOR=code
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/google-chrome
-export TERMINAL=/usr/bin/urxvt
-export TERM=rxvt-unicode-256color
+# export TERMINAL=/usr/bin/urxvt
+# export TERM=rxvt-unicode-256color
 
 # user locale
 export LANG=en_US.utf8

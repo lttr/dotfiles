@@ -86,7 +86,7 @@ const userThemeSettings = [
     gnomeSettings: {
       schema: 'org.gnome.shell.extensions.user-theme',
       key: 'name',
-      value: 'Pop-dark-slim',
+      value: 'Pop-dark',
       dependsOn: userTheme,
     },
   },

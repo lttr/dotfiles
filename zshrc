@@ -198,7 +198,7 @@ antibody bundle < ~/dotfiles/packages/zsh.txt
 eval "$(fasd --init auto)"
 
 # git-hub
-source ~/opt/git-hub/.rc
+# source ~/opt/git-hub/.rc
 
 # =================================================================
 #                           Terminal
@@ -270,9 +270,4 @@ fi
 # =================================================================
 
 compinit -i
-
-
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
