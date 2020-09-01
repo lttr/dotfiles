@@ -49,7 +49,7 @@ export const apt: Config[] = [
   // graphical apps
 
   aptPackage('dconf-editor'),
-  // aptPackage('dmz-cursor-theme'),
+  aptPackage('dmz-cursor-theme'),
   // aptPackage('doublecmd-gtk'),
   // aptPackage('gimp'),
   // aptPackage('gnome-clocks'),

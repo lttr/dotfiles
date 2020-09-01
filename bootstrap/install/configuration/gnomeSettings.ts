@@ -208,7 +208,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: 'org.gnome.desktop.interface',
       key: 'gtk-theme',
-      value: 'Pop-slim',
+      value: 'Pop',
     },
   },
   // icon theme

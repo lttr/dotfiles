@@ -1,5 +1,6 @@
 import { Config } from '../deps.ts'
 import { appForMimeTypes } from './appForMimeTypes.ts'
+import { apt } from './apt.ts'
 import { customInstalls } from './customInstalls.ts'
 import { directories } from './directories.ts'
 import { gnomeKeybindings } from './gnomeKeybindings.ts'
@@ -9,6 +10,7 @@ import { shell } from './shell.ts'
 import { symlinks } from './symlinks.ts'
 
 export const config: Array<Config> = [
+  ...apt,
   ...appForMimeTypes,
   ...customInstalls,
   ...directories,
