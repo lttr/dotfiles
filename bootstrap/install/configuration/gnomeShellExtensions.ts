@@ -132,7 +132,6 @@ const dashToPanelRawSettings = [
   ['isolate-workspaces', true],
   ['leftbox-padding', -1],
   ['leftbox-size', 0],
-  ['location-clock', 'STATUSRIGHT'],
   ['middle-click-action', 'LAUNCH'],
   ['multi-monitors', false],
   ['overlay-timeout', 500],
@@ -146,8 +145,6 @@ const dashToPanelRawSettings = [
   ['show-appmenu', false],
   ['show-apps-icon-file', ''],
   ['show-favorites', true],
-  ['show-show-apps-button', false],
-  ['show-showdesktop-button', false],
   ['show-tooltip', false],
   ['show-window-previews', false],
   ['show-window-previews-timeout', 800],
@@ -202,7 +199,7 @@ const workspaceSwitcher = {
       gsettings list-keys org.gnome.shell.extensions.workspace-switcher &>/dev/null
     `,
     setScript: `
-      git clone --quiet ${workspaceSwitcherGit} ${workspaceSwitcherDestination}
+      git clone --quiet ${workspaceSwitcherGit } ${ workspaceSwitcherDestination }
       && sudo cp ~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com/schema/org.gnome.shell.extensions.workspace-switcher.gschema.xml /usr/share/glib-2.0/schemas/
       && sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
     `,
