@@ -58,6 +58,6 @@ export const customInstalls: Config[] = [
   { brew: { name: 'gh', dependsOn: brew } },
   { brew: { name: 'fzf', dependsOn: brew } },
   { brew: { name: 'potrace', dependsOn: brew } },
-  // { brew: { name: 'docker', dependsOn: brew } },
-  // { brew: { name: 'docker-compose', dependsOn: brew } },
+  { brew: { name: 'docker', dependsOn: brew } },
+  { brew: { name: 'docker-compose', dependsOn: brew } },
 ]
