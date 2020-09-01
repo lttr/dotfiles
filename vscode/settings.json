@@ -413,7 +413,6 @@
   "diffEditor.renderSideBySide": true,
   "svgPreview.autoOpen": false,
   "auto-close-tag.enableAutoCloseTag": false,
-  "window.titleBarStyle": "custom",
   "files.defaultLanguage": "${activeEditorLanguage}",
   "vim.enableNeovim": true,
   "open-in-vim.useNeovim": true,
