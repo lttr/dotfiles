@@ -353,9 +353,9 @@ note() {
 notes() {
     local out key relativePath webPath localPath url
     if [ -n "$1" ]; then
-        IFS=$'\n' out=($(ag -w "$1" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --query "$1" --expect=ctrl-o))
+        IFS=$'\n' out=($(cd ~/code/lukastrumm/src; rg -t md "$1" | fzf --query "$1" --expect=ctrl-o))
     else
-        IFS=$'\n' out=($(ag -l "" ~/code/lukastrumm/src | sed 's#/home/lukas/code/lukastrumm/src/##' | fzf --expect=ctrl-o))
+        IFS=$'\n' out=($(cd ~/code/lukastrumm/src; rg -t md -l "" | fzf --expect=ctrl-o))
     fi
     key=$(head -1 <<< "$out")
     relativePath=$(head -2 <<< "$out" | tail -1 | cut -f1 -d':')

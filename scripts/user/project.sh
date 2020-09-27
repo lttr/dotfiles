@@ -16,9 +16,9 @@ case "$PROJECT_ALIAS" in
     hyperlayout lukastrumm
     code ~/code/lukastrumm
     ;;
-  "dipo")
-    hyperlayout dipo
-    code ~/code/contport/web-frontend
+  "mezinami")
+    hyperlayout mezinami
+    code ~/hanaboso/mezi-nami
     ;;
   *)
     echo "Not found"

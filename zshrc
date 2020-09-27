@@ -74,7 +74,7 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey '^[n' edit-command-line
 
-# Alt+o to search inside files
+# Alt+o to insert last command output
 zle -N insert-last-output
 bindkey '^[o' insert-last-output
 

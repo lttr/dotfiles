@@ -221,7 +221,7 @@
     "when": "editorTextFocus && vim.active && vim.use<C-w> && !inDebugRepl"
   },
   {
-    "key": "ctrl+shift+alt+r",
+    "key": "ctrl+alt+r",
     "command": "workbench.action.reloadWindow"
   },
   {
@@ -956,11 +956,6 @@
   {
     "key": "ctrl+shift+]",
     "command": "-extension.refactorix.ArrowFunction.SingleStatementBlockToExpressionAll",
-    "when": "editorTextFocus"
-  },
-  {
-    "key": "ctrl+alt+r",
-    "command": "extension.refactorix.ArrowFunction.ToggleSingleStatementBlockExpression",
     "when": "editorTextFocus"
   },
   {
@@ -2036,5 +2031,10 @@
   {
     "key": "ctrl+alt+-",
     "command": "-workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+alt+r",
+    "command": "-revealFileInOS",
+    "when": "!editorFocus"
   }
 ]

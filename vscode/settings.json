@@ -17,7 +17,7 @@
   "keyboard.dispatch": "keyCode",
   "editor.codeLens": false,
   "editor.cursorBlinking": "solid",
-  "editor.fontSize": 17,
+  "editor.fontSize": 16,
   "editor.formatOnType": false,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "alt",
@@ -386,7 +386,6 @@
     "interface"
   ],
   "git.autofetch": true,
-  "window.zoomLevel": 0,
   "colorHelper.disableGpu": 1,
   "colorHelper.disableShadow": true,
   "colorHelper.disableTransparent": true,
@@ -397,9 +396,7 @@
   "editor.matchBrackets": false,
   "cSpell.allowCompoundWords": true,
   "cSpell.language": "en,cs",
-  "cSpell.enabledLanguageIds": [
-    "markdown"
-  ],
+  "cSpell.enabledLanguageIds": ["markdown"],
   "zenMode.fullScreen": false,
   "zenMode.hideActivityBar": true,
   "eslint.lintTask.enable": true,
@@ -440,4 +437,13 @@
   "zenMode.hideStatusBar": false,
   "editor.renderWhitespace": "none",
   "color-highlight.markRuler": false,
+  "window.titleBarStyle": "custom",
+  "editor.find.addExtraSpaceOnTop": false,
+  "window.zoomLevel": 0,
+  "editor.fontWeight": "400",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "vetur.experimental.templateInterpolationService": true
 }

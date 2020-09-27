@@ -61,14 +61,14 @@
     # me (More info log Every branch)
     # mea (More info log Every branch All commits)
 
-    l = log --graph --decorate --oneline -n20
+    l = log --graph --decorate --oneline -n15
     la = log --graph --decorate --oneline
-    le = log --graph --decorate --oneline --all -n20
+    le = log --graph --decorate --oneline --all -n15
     lea = log --graph --decorate --oneline --all
-    lmy = log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\"
-    m = !"git logformat -n20"
+    lmy = log --graph --decorate --oneline --all -n15 --author=\"Lukas Trumm\"
+    m = !"git logformat -n15"
     ma = !"git logformat"
-    me = !"git logformat --all -n20"
+    me = !"git logformat --all -n15"
     mea = !"git logformat --all"
     lf = !"gitlogformat -n8 --name-status"
     h = !"git logformat --all --follow" # history of a file
@@ -86,7 +86,7 @@
 
     # remote
     fe = fetch
-    fem = fetch origin master:master
+    fem = !"git fetch origin master:master; git log --oneline master@{1}..master"
     update = !git stash save -u && git pull && git stash pop
     pu = ![ -z $(git config branch.`git symbolic-ref --short HEAD`.merge) ] && git push -u origin $(git symbolic-ref --short HEAD) || git push
 

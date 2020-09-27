@@ -11,13 +11,12 @@
       "cd ~/code/lukastrumm; npm run serve"
     ]
   },
-  "dipo": [
+  "mezinami": [
     [
-      [ "cd ~/code/contport/web-frontend; npm run test:watch" ],
-      [
-        "cd ~/code/contport/web-frontend; npm run serve:dipo",
-        "cd ~/code/contport/web-frontend; npm run json-server"
-      ]
+      "cd ~/hanaboso/mezi-nami; npm run dev"
+    ],
+    [
+      "cd ~/hanaboso/mezi-nami/packages/client; npm run storybook:serve"
     ]
   ]
 }

@@ -3,56 +3,56 @@ import { gnomeShellExtensionInstaller } from './customInstalls.ts'
 
 const EMPTY_ARRAY = '@as []'
 
-const arcMenu = {
-  gnomeShellExtension: {
-    fullName: 'arc-menu@linxgem33.com',
-    id: 1228,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-}
+// const arcMenu = {
+//   gnomeShellExtension: {
+//     fullName: 'arc-menu@linxgem33.com',
+//     id: 1228,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// }
 
-const arcMenuSettings = [
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'menu-layout',
-      value: 'Runner',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'position-in-panel',
-      value: 'Left',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'menu-hotkey',
-      value: 'Super_L',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'menu-button-icon',
-      value: 'System_Icon',
-      dependsOn: arcMenu,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: 'org.gnome.shell.extensions.arc-menu',
-      key: 'runner-position',
-      value: 'Centered',
-      dependsOn: arcMenu,
-    },
-  },
-]
+// const arcMenuSettings = [
+//   {
+//     gnomeSettings: {
+//       schema: 'org.gnome.shell.extensions.arc-menu',
+//       key: 'menu-layout',
+//       value: 'Runner',
+//       dependsOn: arcMenu,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: 'org.gnome.shell.extensions.arc-menu',
+//       key: 'position-in-panel',
+//       value: 'Left',
+//       dependsOn: arcMenu,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: 'org.gnome.shell.extensions.arc-menu',
+//       key: 'menu-hotkey',
+//       value: 'Super_L',
+//       dependsOn: arcMenu,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: 'org.gnome.shell.extensions.arc-menu',
+//       key: 'menu-button-icon',
+//       value: 'System_Icon',
+//       dependsOn: arcMenu,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: 'org.gnome.shell.extensions.arc-menu',
+//       key: 'runner-position',
+//       value: 'Centered',
+//       dependsOn: arcMenu,
+//     },
+//   },
+// ]
 
 const clockOverride = {
   gnomeShellExtension: {
@@ -160,7 +160,7 @@ const dashToPanelRawSettings = [
   ['tray-size', 14],
 ]
 
-const dashToPanelSettings = dashToPanelRawSettings.map(item => {
+const dashToPanelSettings = dashToPanelRawSettings.map((item) => {
   const [key, value] = item
   return {
     gnomeSettings: {
@@ -199,7 +199,7 @@ const workspaceSwitcher = {
       gsettings list-keys org.gnome.shell.extensions.workspace-switcher &>/dev/null
     `,
     setScript: `
-      git clone --quiet ${workspaceSwitcherGit } ${ workspaceSwitcherDestination }
+      git clone --quiet ${workspaceSwitcherGit} ${workspaceSwitcherDestination}
       && sudo cp ~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com/schema/org.gnome.shell.extensions.workspace-switcher.gschema.xml /usr/share/glib-2.0/schemas/
       && sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
     `,
@@ -258,8 +258,8 @@ const workspaceSwitcherSettings = [
 ]
 
 export const gnomeShellExtensions: Config[] = [
-  arcMenu,
-  ...arcMenuSettings,
+  // arcMenu,
+  // ...arcMenuSettings,
   clockOverride,
   ...clockOverrideSettings,
   dashToPanel,

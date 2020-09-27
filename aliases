@@ -107,25 +107,26 @@ alias scripts="cat package.json | json scripts | json --items -a key value | sed
 # =================================================================
 
 alias apti="sudo apt-get install -y"
-alias aptu="sudo apt-get update"
 alias apts="apt search"
+alias aptu="sudo apt-get update"
 alias bsync="browser-sync start --server --files . --no-notify --open ."
 alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC" # Show czech calendar with Monday as the first day of a week
+alias copy="xsel -b"
 alias d="docker"
 alias dc="docker-compose"
 alias dg="ddg"
+alias fd="fdfind"
 alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
+alias help="tldr"
 alias ht="http --verify=no"
 alias ipy="ipython"
+alias md="cli-md"
 alias py="python"
+alias sb="npm run storybook:serve"
 alias tiad='dir=$(find ~/Dropbox/ia -type d | fzf) && cd "$dir"'
 alias tp="trash-put"
 alias vag="vagrant"
 alias xmlstar="xmlstarlet"
-alias fd="fdfind"
-alias help="tldr"
-alias md="cli-md"
-alias copy="xsel -b"
 
 
 # =================================================================
@@ -159,15 +160,15 @@ alias gignored="git ls-files --other --ignored --exclude-standard"
 
 logformat='log --graph --abbrev-commit --decorate --format=format:"%C(yellow)%h%C(reset) %C(cyan)%ci%x08%x08%x08%x08%x08%x08%x08%x08%x08%C(reset) %s %C(green)(%an)%C(reset)%C(bold green)%d%C(reset)"'
 
-alias gl="git log --graph --decorate --oneline -n20"
+alias gl="git log --graph --decorate --oneline -n15"
 alias gla="git log --graph --decorate --oneline"
-alias gle="git log --graph --decorate --oneline --all -n20"
+alias gle="git log --graph --decorate --oneline --all -n15"
 alias glea="git log --graph --decorate --oneline --all"
-alias glmy="git log --graph --decorate --oneline --all -n20 --author=\"Lukas Trumm\""
+alias glmy="git log --graph --decorate --oneline --all -n15 --author=\"Lukas Trumm\""
 alias glf="git $logformat -n8 --name-status"
-alias gm="git $logformat -n20"
+alias gm="git $logformat -n15"
 alias gma="git $logformat"
-alias gme="git $logformat --all -n20"
+alias gme="git $logformat --all -n15"
 alias gmea="git $logformat --all"
 alias gfh="git $logformat --all --follow"
 
