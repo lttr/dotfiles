@@ -13,9 +13,7 @@
   },
   "mezinami": [
     [
-      "cd ~/hanaboso/mezi-nami; npm run dev"
-    ],
-    [
+      "cd ~/hanaboso/mezi-nami; npm run dev",
       "cd ~/hanaboso/mezi-nami/packages/client; npm run storybook:serve"
     ]
   ]
