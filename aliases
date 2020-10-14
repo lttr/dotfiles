@@ -87,19 +87,30 @@ alias j="fasd_cd -d"
 #                              npm
 # =================================================================
 
-alias nb="npm run build"
 alias nr="npm run"
 alias ns="npm start"
+
+alias nb="npm run build"
+alias build="npm run build"
+
+alias nd="npm run dev"
+alias dev="npm run dev"
+
+alias nli="npm run lint"
+alias lint="npm run lint"
+
 alias nse="npm run serve"
+alias serve="npm run serve"
+alias server="npm run server"
+
 alias nw="npm run watch"
 alias nt="npm run --silent test"
 alias ni="npm install"
 alias nuni="npm uninstall"
 alias nid="npm install --save-dev"
 alias nig="npm install -g"
-alias dev="npm run dev"
-alias serve="npm run serve"
-alias server="npm run server"
+
+
 alias sb="npm run storybook:serve"
 alias deps="cat package.json | json dependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"

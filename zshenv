@@ -20,6 +20,9 @@ fi
 
 # PATH
 
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
 # user path
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -28,9 +31,9 @@ export PATH="$HOME/.local/bin:$PATH"
 NPM_GLOBAL="$HOME/.npm-global"
 export PATH="$NPM_GLOBAL/bin:$PATH"
 
-# nodejs switch tool install location
-export N_PREFIX=/home/lukas/.n
-export PATH="$N_PREFIX/bin:$PATH"
+# volta manager
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # deno path
 export DENO_INSTALL="/home/lukas/.deno"
