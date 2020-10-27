@@ -284,6 +284,12 @@ c() {
     git commit -m "${*}"
 }
 
+# Easy github issue
+i() {
+    IFS=' '
+    gh issue create --title "${*}"
+}
+
 # Searchable git log
 fzf-log() {
   git log --graph --color=always \
@@ -431,8 +437,8 @@ portkill() {
   fi
 }
 
-# fkill - kill processes - list only the ones you can kill.
-fkill() {
+# zkill - kill processes - list only the ones you can kill.
+zkill() {
     local pid
     if [ "$UID" != "0" ]; then
         pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')

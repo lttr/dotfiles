@@ -200,6 +200,8 @@ alias gsl="git stash list"
 
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 
+alias standup="git-standup"
+
 
 # =================================================================
 #                             Search
