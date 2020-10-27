@@ -37,49 +37,49 @@ window:
     x: 10
     y: 10
 
-# Spread additional padding evenly around the terminal content.
-#dynamic_padding: false
+  # Spread additional padding evenly around the terminal content.
+  #dynamic_padding: false
 
-# Window decorations
-#
-# Values for `decorations`:
-#     - full: Borders and title bar
-#     - none: Neither borders nor title bar
-#
-# Values for `decorations` (macOS only):
-#     - transparent: Title bar, transparent background and title bar buttons
-#     - buttonless: Title bar, transparent background, but no title bar buttons
-#decorations: full
+  # Window decorations
+  #
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
+  #
+  # Values for `decorations` (macOS only):
+  #     - transparent: Title bar, transparent background and title bar buttons
+  #     - buttonless: Title bar, transparent background, but no title bar buttons
+  decorations: none
 
-# Startup Mode (changes require restart)
-#
-# Values for `startup_mode`:
-#   - Windowed
-#   - Maximized
-#   - Fullscreen
-#
-# Values for `startup_mode` (macOS only):
-#   - SimpleFullscreen
-#startup_mode: Windowed
+  # Startup Mode (changes require restart)
+  #
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
+  #
+  # Values for `startup_mode` (macOS only):
+  #   - SimpleFullscreen
+  #startup_mode: Windowed
 
-# Window title
-#title: Alacritty
+  # Window title
+  title: ''
 
-# Allow terminal applications to change Alacritty's window title.
-#dynamic_title: true
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: false
 
-# Window class (Linux/BSD only):
-#class:
-# Application instance name
-#instance: Alacritty
-# General application class
-#general: Alacritty
+  # Window class (Linux/BSD only):
+  #class:
+  # Application instance name
+  #instance: Alacritty
+  # General application class
+  #general: Alacritty
 
-# GTK theme variant (Linux/BSD only)
-#
-# Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
-# Set this to `None` to use the default theme variant.
-#gtk_theme_variant: None
+  # GTK theme variant (Linux/BSD only)
+  #
+  # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
+  # Set this to `None` to use the default theme variant.
+  #gtk_theme_variant: None
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -599,6 +599,15 @@ mouse_bindings:
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
 key_bindings:
+  # Ctrl+Shift+T => Ctrl-a c => new window
+  - { key: T, mods: Control|Shift, chars: "\x01\x63" }
+  # Ctrl+Shift+W => Ctrl-a & => close pane/window
+  - { key: W, mods: Control|Shift, chars: "\x01\x78" }
+  # Ctrl+Shift+H => Ctrl-a " => horizontal pane
+  - { key: H, mods: Control|Shift, chars: "\x01\x22" }
+  # Ctrl+Shift+D => Ctrl-a % => vertical pane
+  - { key: D, mods: Control|Shift, chars: "\x01\x25" }
+
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
