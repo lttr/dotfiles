@@ -37,6 +37,12 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
+      dest: path.join(HOME, '.alacritty.yml'),
+      src: path.join(DOTFILES, 'alacritty.yml'),
+    },
+  },
+  {
+    symlink: {
       dest: path.join(HOME, '.config/ranger/commands.py'),
       src: path.join(DOTFILES, 'ranger/commands.py'),
     },

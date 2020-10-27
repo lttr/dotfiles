@@ -15,6 +15,7 @@ export const zsh = aptPackage('zsh')
 export const apt: Config[] = [
   // commandline apps
 
+  aptPackage('alacritty'),
   // aptPackage('ansible'),
   // aptPackage('composer'),
   aptPackage('dict'),
@@ -37,10 +38,10 @@ export const apt: Config[] = [
   aptPackage('silversearcher-ag'),
   // aptPackage('snapd'),
   // aptPackage('sshpass'),
-  // aptPackage('tmux'),
+  aptPackage('tmux'),
   aptPackage('trash-cli'),
-  // aptPackage('tree'),
-  // aptPackage('unrar'),
+  aptPackage('tree'),
+  aptPackage('unrar'),
   aptPackage('xbindkeys'),
   aptPackage('xdotool'),
   aptPackage('xsel'),
@@ -51,14 +52,14 @@ export const apt: Config[] = [
 
   aptPackage('dconf-editor'),
   aptPackage('dmz-cursor-theme'),
-  // aptPackage('doublecmd-gtk'),
+  aptPackage('doublecmd-gtk'),
   // aptPackage('gimp'),
   // aptPackage('gnome-clocks'),
   // aptPackage('gnome-shell-pomodoro'),
   aptPackage('gnome-tweak-tool'),
   aptPackage('gpick'),
   aptPackage('gthumb'),
-  // aptPackage('inkscape'),
+  aptPackage('inkscape'),
   aptPackage('nautilus-dropbox'),
   // aptPackage('remmina'),
   aptPackage('vim-gtk3'),
