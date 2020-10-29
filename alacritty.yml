@@ -233,6 +233,9 @@ schemes:
 
   # Colors (Tomorrow Night)
   original: &original # Normal colors
+    cursor:
+      text: '#ececec'
+      cursor: '#828482'
     primary:
       background: '#393939' # base3
       foreground: '#c5c8c6'

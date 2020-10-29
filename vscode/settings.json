@@ -298,7 +298,7 @@
   "workbench.sideBar.location": "left",
   "workbench.statusBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.colorTheme": "LT Solarized light",
+  "workbench.colorTheme": "Tomorrow Night Eighties",
   "gitlens.keymap": "alternate",
   "workbench.statusBar.feedback.visible": false,
   "team.showWelcomeMessage": false,
@@ -445,5 +445,11 @@
   "[vue]": {
     "editor.defaultFormatter": "octref.vetur"
   },
-  "vetur.experimental.templateInterpolationService": true
+  "vetur.experimental.templateInterpolationService": true,
+  "workbench.colorCustomizations": {
+    "statusBar.foreground": "#CCCCCC",
+    "statusBar.background": "#1d1f21",
+    "tab.activeBorderTop": "#99CC99",
+    "tab.activeModifiedBorder": "#E7C547"
+  }
 }
