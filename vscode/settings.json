@@ -448,7 +448,7 @@
   "vetur.experimental.templateInterpolationService": true,
   "workbench.colorCustomizations": {
     "statusBar.foreground": "#CCCCCC",
-    "statusBar.background": "#1d1f21",
+    "statusBar.background": "#252526",
     "tab.activeBorderTop": "#99CC99",
     "tab.activeModifiedBorder": "#E7C547"
   }

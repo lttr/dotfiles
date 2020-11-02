@@ -49,7 +49,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: none
+  decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -610,6 +610,11 @@ key_bindings:
   - { key: H, mods: Control|Shift, chars: "\x01\x22" }
   # Ctrl+Shift+D => Ctrl-a % => vertical pane
   - { key: D, mods: Control|Shift, chars: "\x01\x25" }
+
+  # Ctrl+Tab => Ctrl-a n => next window
+  - { key: Tab, mods: Control, chars: "\x01\x6e" }
+  # Ctrl+Shift+Tab => Ctrl-a p => previous window
+  - { key: Tab, mods: Control|Shift, chars: "\x01\x70" }
 
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }

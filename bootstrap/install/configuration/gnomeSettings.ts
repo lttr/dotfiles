@@ -5,6 +5,15 @@ export const gnomeSettings: Config[] = [
   //                          Gnome desktop
   // =================================================================
 
+  // Region/Language for formatting
+  {
+    gnomeSettings: {
+      schema: 'org.gnome.system.locale',
+      key: 'region',
+      value: 'cs_CZ.UTF-8',
+    },
+  },
+
   // disable fancy gnome animations
   {
     gnomeSettings: {

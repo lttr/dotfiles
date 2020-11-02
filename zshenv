@@ -72,20 +72,20 @@ export BROWSER=/usr/bin/google-chrome
 # export TERM=rxvt-unicode-256color
 
 # user locale
-export LANG=en_US.utf8
-export LANGUAGE=en_US.utf8
-export LC_CTYPE=en_US.utf8
-export LC_NUMERIC=en_US.utf8
-export LC_TIME=en_GB.utf8
-export LC_COLLATE=en_US.utf8
-export LC_MONETARY=en_US.utf8
-export LC_MESSAGES=en_US.utf8
-export LC_PAPER=en_US.utf8
-export LC_NAME=en_US.utf8
-export LC_ADDRESS=en_US.utf8
-export LC_TELEPHONE=en_US.utf8
-export LC_MEASUREMENT=en_US.utf8
-export LC_IDENTIFICATION=en_US.utf8
+export LANG=en_US.UTF8
+export LANGUAGE=en_US.UTF8
+export LC_CTYPE=en_US.UTF8
+export LC_NUMERIC=en_US.UTF8
+export LC_TIME=cs_CZ.UTF8
+export LC_COLLATE=en_US.UTF8
+export LC_MONETARY=en_US.UTF8
+export LC_MESSAGES=en_US.UTF8
+export LC_PAPER=en_US.UTF8
+export LC_NAME=en_US.UTF8
+export LC_ADDRESS=en_US.UTF8
+export LC_TELEPHONE=en_US.UTF8
+export LC_MEASUREMENT=en_US.UTF8
+export LC_IDENTIFICATION=en_US.UTF8
 
 # user prompt
 export PURE_CMD_MAX_EXEC_TIME=10000
