@@ -4,7 +4,8 @@ PROJECT_ALIAS="$1"
 
 case "$PROJECT_ALIAS" in
   "dotf" | "dotfiles")
-    hyperlayout dotfiles
+    cd ~/dotfiles
+    git status
     code ~/dotfiles
     ;;
   "js" | "javascript")
@@ -13,12 +14,9 @@ case "$PROJECT_ALIAS" in
     code ~/sandbox --goto index.js:0
     ;;
   "lt" | "lutr" | "lukastrumm")
-    hyperlayout lukastrumm
+    cd ~/code/lukastrumm
+    npm run serve
     code ~/code/lukastrumm
-    ;;
-  "mezinami")
-    hyperlayout mezinami
-    code ~/hanaboso/mezi-nami
     ;;
   *)
     echo "Not found"
