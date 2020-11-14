@@ -4,9 +4,9 @@ PROJECT_ALIAS="$1"
 
 case "$PROJECT_ALIAS" in
   "dotf" | "dotfiles")
+    code ~/dotfiles
     cd ~/dotfiles
     git status
-    code ~/dotfiles
     ;;
   "js" | "javascript")
     cd ~/sandbox
@@ -14,9 +14,9 @@ case "$PROJECT_ALIAS" in
     code ~/sandbox --goto index.js:0
     ;;
   "lt" | "lutr" | "lukastrumm")
+    code ~/code/lukastrumm
     cd ~/code/lukastrumm
     npm run serve
-    code ~/code/lukastrumm
     ;;
   *)
     echo "Not found"
