@@ -4,7 +4,8 @@
   "bracket-pair-colorizer-2.forceUniqueOpeningColor": false,
   "bracket-pair-colorizer-2.showVerticalScopeLine": false,
   "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
-  "bracket-pair-colorizer-2.colors": ["#6c71c4", "#d33682", "#859900"],
+  // "bracket-pair-colorizer-2.colors": ["#6c71c4", "#d33682", "#859900"],
+  "bracket-pair-colorizer-2.colors": ["#E9AE1F", "#d33682", "#859900"],
   "cSpell.spellCheckDelayMs": 4000,
   "csharp.format.enable": false,
   "css.validate": false,
@@ -127,8 +128,8 @@
   "stylelint.enable": true,
   "scss.validate": false,
   "subtleBrackets.style": {
-    // "backgroundColor": "#443", // dark theme
-    "backgroundColor": "#eee8d5", // light theme
+    "backgroundColor": "#554", // dark theme
+    // "backgroundColor": "#eee8d5", // light theme
     "borderStyle": "none"
   },
   "terminal.integrated.commandsToSkipShell": [
@@ -298,7 +299,7 @@
   "workbench.sideBar.location": "left",
   "workbench.statusBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.colorTheme": "Tomorrow Night Eighties",
+  "workbench.colorTheme": "LT Tomorrow Night Eighties",
   "gitlens.keymap": "alternate",
   "workbench.statusBar.feedback.visible": false,
   "team.showWelcomeMessage": false,
@@ -451,5 +452,21 @@
     "statusBar.background": "#252526",
     "tab.activeBorderTop": "#99CC99",
     "tab.activeModifiedBorder": "#E7C547"
-  }
+  },
+  "settings.cycle": [
+    {
+      "id": "relativeLineNumbers", // must be unique
+      "overrideWorkspaceSettings": true,
+      "values": [
+        {
+          "editor.lineNumbers": "on"
+        },
+        {
+          "editor.lineNumbers": "relative"
+        }
+      ]
+    }
+  ],
+  "editor.lineNumbers": "on",
+  "svg.preview.mode": "img"
 }

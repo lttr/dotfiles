@@ -2036,5 +2036,18 @@
     "key": "ctrl+alt+r",
     "command": "-revealFileInOS",
     "when": "!editorFocus"
+  },
+  {
+    "key": "ctrl+t r",
+    "command": "settings.cycle.relativeLineNumbers"
+  },
+  {
+    "key": "ctrl+y m",
+    "command": "editor.emmet.action.matchTag"
+  },
+  {
+    "key": "ctrl+shift+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
   }
 ]

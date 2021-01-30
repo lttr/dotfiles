@@ -2,5 +2,16 @@
   "prettier ignore": {
     "prefix": "pri",
     "body": "<!-- prettier-ignore -->"
+  },
+  "Insert Figure": {
+    "prefix": "figure",
+    "body": [
+      "<figure>",
+      "  <img src= alt=>",
+      "  <figcaption>",
+      "    $1",
+      "  </figcaption>",
+      "</figure>"
+    ]
   }
 }
