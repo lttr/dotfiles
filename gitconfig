@@ -89,6 +89,7 @@
     fem = !"git fetch origin master:master; git log --oneline master@{1}..master"
     update = !git stash save -u && git pull && git stash pop
     pu = ![ -z $(git config branch.`git symbolic-ref --short HEAD`.merge) ] && git push -u origin $(git symbolic-ref --short HEAD) || git push
+    gone = !"git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"
 
     # status
     st = status
@@ -152,3 +153,13 @@
 
 [diff]
 	tool = code
+
+# This next lines include Netlify's Git Credential Helper configuration in your Git configuration.
+[include]
+  path = /home/lukas/.netlify/helper/git-config
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
