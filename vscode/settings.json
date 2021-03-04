@@ -48,7 +48,6 @@
   },
   "explorer.confirmDragAndDrop": false,
   "explorer.openEditors.visible": 0,
-  "extensions.showRecommendationsOnlyOnDemand": true,
   "eslint.validate": ["javascript", "javascriptreact", "vue", "markdown"],
   "files.autoSaveDelay": 3000,
   "files.trimTrailingWhitespace": true,
@@ -57,11 +56,7 @@
   "gitlens.advanced.messages": {
     "suppressFileNotUnderSourceControlWarning": true,
     "suppressLineUncommittedWarning": true,
-    "suppressNoRepositoryWarning": true,
-    "suppressShowKeyBindingsNotice": true,
-    "suppressResultsExplorerNotice": true,
-    "suppressUpdateNotice": true,
-    "suppressWelcomeNotice": true
+    "suppressNoRepositoryWarning": true
   },
   "gitlens.codeLens.authors.enabled": true,
   "gitlens.codeLens.enabled": true,
@@ -79,24 +74,9 @@
       "url": "https://on.cypress.io/cypress.schema.json"
     }
   ],
-  // "keyboard.dispatch": "keyCode",
   "local-history.path": "/tmp/vscode-local-history",
   "markdown.extension.italic.indicator": "_",
   "markdown.extension.syntax.decorations": false,
-  "omnisharp.disableMSBuildDiagnosticWarning": true,
-  "omnisharp.loggingLevel": "debug",
-  "omnisharp.projectLoadTimeout": 180,
-  "omnisharp.useEditorFormattingSettings": false,
-  "openSpecFile.suffixMap": {
-    ".js": ".spec.js",
-    ".spec.js": ".js",
-    ".ts": ".spec.ts",
-    ".spec.ts": ".ts",
-    ".html": ".css",
-    ".css": ".html"
-  },
-  "openSpecFile.openInNewColumn": false,
-  "openvim.executablePath": "C:\\Program Files (x86)\\vim\\vim80\\gvim.exe",
   "javascript.format.enable": true,
   "javascript-repl.coverageTimes": false,
   "javascript-repl.logs": {
@@ -150,15 +130,11 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.check.npmIsInstalled": true,
   "typescript.format.enable": true,
-  "typescript.preferences.importModuleSpecifier": "auto",
-  "typescript.preferences.renameShorthandProperties": true,
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.useAliasesForRenames": true,
   "typescript.preferences.quoteStyle": "auto",
   "typescript.suggest.autoImports": true,
   "typescript.suggest.enabled": true,
-  "typescriptHero.imports.multiLineWrapThreshold": 80,
-  "typescriptHero.imports.organizeOnSave": false,
-  // "vim.visualstar": true,
-  // "vim.disableExtension": false,
   "vim.handleKeys": {
     "<C-f>": false,
     "<C-b>": false,
@@ -301,19 +277,13 @@
   "workbench.startupEditor": "newUntitledFile",
   "workbench.colorTheme": "LT Tomorrow Night Eighties",
   "gitlens.keymap": "alternate",
-  "workbench.statusBar.feedback.visible": false,
-  "team.showWelcomeMessage": false,
   "files.exclude": {
     "node_modules": true
   },
-  "javascript.implicitProjectConfig.checkJs": true,
   "editor.tabSize": 2,
-  "editor.formatOnSave": true,
   "editor.renderLineHighlight": "gutter",
-  "powershell.codeFormatting.preset": "OTBS",
   "git.confirmSync": false,
   "editor.cursorSmoothCaretAnimation": true,
-  "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
   "[xml]": {
     "editor.formatOnSave": false
   },
@@ -324,7 +294,6 @@
   },
   "editor.hover.delay": 600,
   "breadcrumbs.enabled": true,
-  "powershell.integratedConsole.focusConsoleOnExecute": false,
   "macros": {
     "saveAndRun": [
       "workbench.action.files.save",
@@ -392,7 +361,6 @@
   "colorHelper.disableTransparent": true,
   "colorHelper.resident": true,
   "editor.cursorSurroundingLines": 3,
-  "eslint.autoFixOnSave": true,
   "gitlens.currentLine.enabled": false,
   "editor.matchBrackets": false,
   "cSpell.allowCompoundWords": true,
@@ -401,9 +369,10 @@
   "zenMode.fullScreen": false,
   "zenMode.hideActivityBar": true,
   "eslint.lintTask.enable": true,
-  "html.mirrorCursorOnMatchingTag": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "cSpell.showStatus": false,
   "git-graph.showStatusBarItem": false,
@@ -440,7 +409,6 @@
   "color-highlight.markRuler": false,
   "window.titleBarStyle": "custom",
   "editor.find.addExtraSpaceOnTop": false,
-  "window.zoomLevel": 0,
   "editor.fontWeight": "400",
   "vetur.format.defaultFormatter.html": "prettier",
   "[vue]": {
@@ -468,5 +436,8 @@
     }
   ],
   "editor.lineNumbers": "on",
-  "svg.preview.mode": "img"
+  "svg.preview.mode": "img",
+  "editor.wordBasedSuggestionsMode": "allDocuments",
+  "vetur.validation.templateProps": true,
+  "vetur.validation.interpolation": false
 }

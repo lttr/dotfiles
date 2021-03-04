@@ -75,6 +75,7 @@ alias p="project"
 alias home="cd ~"
 alias repo="cd ~/code"
 alias lutr="cd ~/code/lukastrumm"
+alias learn="cd ~/code/learning-progress"
 alias dotf="cd ~/dotfiles"
 alias down="cd ~/Downloads"
 alias drop="cd ~/Dropbox"
@@ -111,7 +112,7 @@ alias nid="npm install --save-dev"
 alias nig="npm install -g"
 
 
-alias sb="npm run storybook:serve"
+alias sb="npm run storybook"
 alias deps="cat package.json | json dependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
@@ -202,6 +203,9 @@ alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]
 alias gul='git pull'
 
 alias standup="git-standup"
+
+alias i="issue"
+alias il="gh issue list"
 
 
 # =================================================================

@@ -284,8 +284,13 @@ c() {
     git commit -m "${*}"
 }
 
+ce() {
+    IFS=' '
+    git commit --allow-empty -m "${*}"
+}
+
 # Easy github issue
-i() {
+issue() {
     IFS=' '
     gh issue create --title "${*}"
 }

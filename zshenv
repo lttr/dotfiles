@@ -44,6 +44,9 @@ export GOPATH="$HOME/.go"
 export GOROOT="/usr/local/go"
 export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
+# rust cargo bin path
+source "$HOME/.cargo/env"
+
 # vsts
 export PATH=$PATH:$HOME/opt/vsts-cli/bin
 
