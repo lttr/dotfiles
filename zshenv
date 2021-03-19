@@ -50,6 +50,9 @@ source "$HOME/.cargo/env"
 # vsts
 export PATH=$PATH:$HOME/opt/vsts-cli/bin
 
+# vscode
+export PATH=$PATH:/usr/share/code
+
 # prefer /usr/bin than Windows PATH
 if [[ $WSL = true ]]; then
   export PATH="$PATH:/usr/bin"

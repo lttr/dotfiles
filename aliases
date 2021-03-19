@@ -206,6 +206,7 @@ alias standup="git-standup"
 
 alias i="issue"
 alias il="gh issue list"
+alias ila="gh issue list --state all"
 
 
 # =================================================================

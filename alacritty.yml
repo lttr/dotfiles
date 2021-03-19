@@ -616,6 +616,12 @@ key_bindings:
   # Ctrl+Shift+Tab => Ctrl-a p => previous window
   - { key: Tab, mods: Control|Shift, chars: "\x01\x70" }
 
+  # Does not work...
+  # Ctrl+Shift+PageUp => Ctrl-a Left => move window left
+  - { key: PageUp, mods: Control|Shift, chars: "\x01\x43" }
+  # Ctrl+Shift+PageDown => Ctrl-a Right => move window right
+  - { key: PageDown, mods: Control|Shift, chars: "\x01\x44" }
+
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
