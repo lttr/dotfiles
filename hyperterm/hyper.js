@@ -9,7 +9,7 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 14,
+    fontSize: 13.5,
     lineHeight: 1.2,
 
     windowSize: [1100, 800],
@@ -29,7 +29,7 @@ module.exports = {
     fontWeightBold: 'bold',
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
-    cursorColor: 'rgba(101,123,131,0.8)',
+    // cursorColor: 'rgba(101,123,131,0.8)',
 
     // terminal text color under BLOCK cursor
     cursorAccentColor: '#fdf6e3',
@@ -53,8 +53,13 @@ module.exports = {
     // terminal selection color
     selectionColor: 'rgba(147,161,161,0.3)',
 
-    // border color (window, tabs)
-    borderColor: '#fdf6e3',
+    themeOptions: {
+      foregroundColor: '#c5c8c6',
+      backgroundColor: '#393939', // tomorrow night # base3
+      // border color (window, tabs)
+      borderColor: '#393939',
+      cursorColor: '#828482',
+    },
 
     // custom CSS to embed in the main window
     css: `
@@ -178,12 +183,13 @@ module.exports = {
     'hyperterm-tabs',
     'hyper-native-window-decoration',
     'hyperlayout',
+    'hyperterm-base16-tomorrow-dark',
   ],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
-  localPlugins: ['hyper-solarized-light'],
+  // localPlugins: ['hyper-solarized-light'],
   // localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
