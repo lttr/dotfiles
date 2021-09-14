@@ -190,90 +190,11 @@
       ]
     }
   ],
-
-  // "vim.normalModeKeyBindingsNonRecursive": [
-  //   {
-  //     "before": ["g", "k"],
-  //     "after": ["k"]
-  //   },
-  //   {
-  //     "before": ["g", "j"],
-  //     "after": ["j"]
-  //   },
-  //   {
-  //     "before": ["k"],
-  //     "after": ["g", "k"]
-  //   },
-  //   {
-  //     "before": ["j"],
-  //     "after": ["g", "j"]
-  //   },
-  //   {
-  //     "before": [" ", ";"],
-  //     "after": ["m", "a", "A", ";", "<Esc>", "`", "a"]
-  //   },
-  //   {
-  //     "before": [" ", ","],
-  //     "after": ["m", "a", "A", ",", "<Esc>", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["g", "\""],
-  //     "after": ["m", "a", "F", "'", "r", "\"", "f", "'", "r", "\"", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["g", "'"],
-  //     "after": ["m", "a", "F", "\"", "r", "'", "f", "\"", "r", "'", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["g", "`"],
-  //     "after": ["m", "a", "F", "'", "r", "`", "f", "'", "r", "`", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["leader", "\""],
-  //     "after": ["m", "a", "b", "i", "\"", "<Esc>", "e", "a", "\"", "<Esc>", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["leader", "'"],
-  //     "after": ["m", "a", "b", "i", "'", "<Esc>", "e", "a", "'", "<Esc>", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["leader", "`"],
-  //     "after": ["m", "a", "b", "i", "`", "<Esc>", "e", "a", "`", "<Esc>", "`", "a"]
-  //   },
-  //   {
-  //     "before": ["g", "m"],
-  //     "after": ["<Esc>"],
-  //     "commands": [
-  //       {
-  //         "command": "editor.action.changeAll",
-  //         "args": []
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     "before": ["leader", "h"],
-  //     "after": ["<Esc>"],
-  //     "commands": [
-  //       {
-  //         "command": ":nohl",
-  //         "args": []
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     "before": ["g", "S"],
-  //     "after": ["\"", "d", "c", "i", "t", "<CR>", "a", "<Esc>", "\"", "d", "p", "^", "x"]
-  //   }
-  // ],
-  // "vim.enableNeovim": true,
-  "window.menuBarVisibility": "toggle",
   "vim.cursorStylePerMode.normal": "block-outline",
-  "workbench.activityBar.visible": false,
   "workbench.editor.enablePreview": false,
   "workbench.editor.showTabs": true,
   "workbench.iconTheme": "vs-seti",
   "workbench.sideBar.location": "left",
-  "workbench.statusBar.visible": true,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.colorTheme": "LT Tomorrow Night Eighties",
   "gitlens.keymap": "alternate",
@@ -343,7 +264,6 @@
   "code-runner.executorMapByFileExtension": {
     ".ts": "deno run --unstable -A"
   },
-  "deno.enable": false,
   "editor.fontFamily": "'Fira Mono', 'Consolas', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "files.associations": {
     "zshrc": "shellscript"
@@ -436,8 +356,14 @@
     }
   ],
   "editor.lineNumbers": "on",
-  "svg.preview.mode": "img",
+  "svg.preview.mode": "svg",
   "editor.wordBasedSuggestionsMode": "allDocuments",
   "vetur.validation.templateProps": true,
-  "vetur.validation.interpolation": false
+  "vetur.validation.interpolation": false,
+  "liveshare.authenticationProvider": "GitHub",
+  "angular.experimental-ivy": true,
+  "window.menuBarVisibility": "compact",
+  "workbench.activityBar.visible": false,
+  "mdnSearch.url": "https://duckduckgo.com/?q=!+mdn+${q}",
+  "security.workspace.trust.untrustedFiles": "open"
 }

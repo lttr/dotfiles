@@ -79,5 +79,21 @@
     "prefix": "path",
     "body": "import path from 'path'${0}",
     "description": "import path"
+  },
+
+  // testing
+  "Jest test": {
+    "prefix": "jesttest",
+    "body": [
+      "import { ${0} } from './$0';",
+      "",
+      "describe('$0', () => {",
+      "  it('should work', () => {",
+      "    const text = '';",
+      "    const result = '';",
+      "    expect($0(text)).toEqual(result);",
+      "  });",
+      "});"
+    ]
   }
 }

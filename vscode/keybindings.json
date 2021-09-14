@@ -2054,5 +2054,9 @@
     "key": "alt+/",
     "command": "-gitlens.gitCommands",
     "when": "!gitlens:disabled && config.gitlens.keymap == 'alternate'"
+  },
+  {
+    "key": "alt+g",
+    "command": "mdn-search.helloWorld"
   }
 ]

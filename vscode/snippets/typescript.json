@@ -57,5 +57,21 @@
     "prefix": "re",
     "body": "return ${0}",
     "description": "return"
+  },
+
+  // testing
+  "Jest test": {
+    "prefix": "jesttest",
+    "body": [
+      "import { ${0} } from './$0';",
+      "",
+      "describe('$0', () => {",
+      "  it('should work', () => {",
+      "    const text = '';",
+      "    const result = '';",
+      "    expect($0(text)).toEqual(result);",
+      "  });",
+      "});"
+    ]
   }
 }
