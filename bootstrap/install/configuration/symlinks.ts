@@ -91,6 +91,12 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
+      dest: path.join(HOME, '.config/nvim/init.lua'),
+      src: path.join(DOTFILES, 'neovim/init.lua'),
+    },
+  },
+  {
+    symlink: {
       dest: path.join(HOME, '.zshenv'),
       src: path.join(DOTFILES, 'zshenv'),
     },
