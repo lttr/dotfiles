@@ -1,4 +1,4 @@
-import { Config } from '../deps.ts'
+import { Config } from "../deps.ts";
 
 export const gnomeSettings: Config[] = [
   // =================================================================
@@ -8,26 +8,26 @@ export const gnomeSettings: Config[] = [
   // Region/Language for formatting
   {
     gnomeSettings: {
-      schema: 'org.gnome.system.locale',
-      key: 'region',
-      value: 'cs_CZ.UTF-8',
+      schema: "org.gnome.system.locale",
+      key: "region",
+      value: "cs_CZ.UTF-8",
     },
   },
 
   // disable fancy gnome animations
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'enable-animations',
-      value: 'false',
+      schema: "org.gnome.desktop.interface",
+      key: "enable-animations",
+      value: "false",
     },
   },
 
   // disable cursor blinking
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'cursor-blink',
+      schema: "org.gnome.desktop.interface",
+      key: "cursor-blink",
       value: false,
     },
   },
@@ -35,22 +35,22 @@ export const gnomeSettings: Config[] = [
   // clock in panel
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'clock-format',
-      value: '24h',
+      schema: "org.gnome.desktop.interface",
+      key: "clock-format",
+      value: "24h",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'clock-show-date',
+      schema: "org.gnome.desktop.interface",
+      key: "clock-show-date",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'clock-show-seconds',
+      schema: "org.gnome.desktop.interface",
+      key: "clock-show-seconds",
       value: false,
     },
   },
@@ -58,68 +58,68 @@ export const gnomeSettings: Config[] = [
   // window buttons (pop_os has only close button by default)
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.preferences',
-      key: 'button-layout',
-      value: 'appmenu:minimize,maximize,close',
+      schema: "org.gnome.desktop.wm.preferences",
+      key: "button-layout",
+      value: "appmenu:minimize,maximize,close",
     },
   },
 
   // desktop background
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.background',
-      key: 'show-desktop-icons',
+      schema: "org.gnome.desktop.background",
+      key: "show-desktop-icons",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.background',
-      key: 'primary-color',
-      value: '#425265',
+      schema: "org.gnome.desktop.background",
+      key: "primary-color",
+      value: "#425265",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.background',
-      key: 'secondary-color',
-      value: '#425265',
+      schema: "org.gnome.desktop.background",
+      key: "secondary-color",
+      value: "#425265",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.background',
-      key: 'color-shading-type',
-      value: 'solid',
+      schema: "org.gnome.desktop.background",
+      key: "color-shading-type",
+      value: "solid",
     },
   },
 
   // night light mode
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.color',
-      key: 'night-light-enabled',
+      schema: "org.gnome.settings-daemon.plugins.color",
+      key: "night-light-enabled",
       value: true,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.color',
-      key: 'night-light-schedule-automatic',
+      schema: "org.gnome.settings-daemon.plugins.color",
+      key: "night-light-schedule-automatic",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.color',
-      key: 'night-light-schedule-from',
+      schema: "org.gnome.settings-daemon.plugins.color",
+      key: "night-light-schedule-from",
       value: 20,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.color',
-      key: 'night-light-schedule-to',
+      schema: "org.gnome.settings-daemon.plugins.color",
+      key: "night-light-schedule-to",
       value: 6,
     },
   },
@@ -127,9 +127,9 @@ export const gnomeSettings: Config[] = [
   // display
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.xsettings',
-      key: 'antialiasing',
-      value: 'rgba',
+      schema: "org.gnome.settings-daemon.plugins.xsettings",
+      key: "antialiasing",
+      value: "rgba",
     },
   },
 
@@ -138,40 +138,40 @@ export const gnomeSettings: Config[] = [
   // sleep after 20 minutes of inactivity when on battery
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.power',
-      key: 'sleep-inactive-battery-timeout',
+      schema: "org.gnome.settings-daemon.plugins.power",
+      key: "sleep-inactive-battery-timeout",
       value: 1200,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.power',
-      key: 'sleep-inactive-battery-type',
-      value: 'suspend',
+      schema: "org.gnome.settings-daemon.plugins.power",
+      key: "sleep-inactive-battery-type",
+      value: "suspend",
     },
   },
 
   // sleep after 30 minutes of inactivity when on ac power
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.power',
-      key: 'sleep-inactive-ac-timeout',
+      schema: "org.gnome.settings-daemon.plugins.power",
+      key: "sleep-inactive-ac-timeout",
       value: 1800,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.power',
-      key: 'sleep-inactive-ac-type',
-      value: 'suspend',
+      schema: "org.gnome.settings-daemon.plugins.power",
+      key: "sleep-inactive-ac-type",
+      value: "suspend",
     },
   },
 
   // consider system being idle after 5 minutes
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.session',
-      key: 'idle-delay',
+      schema: "org.gnome.desktop.session",
+      key: "idle-delay",
       value: 300,
     },
   },
@@ -179,8 +179,8 @@ export const gnomeSettings: Config[] = [
   // lock system 5 minutes after switching to idle mode
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.screensaver',
-      key: 'lock-delay',
+      schema: "org.gnome.desktop.screensaver",
+      key: "lock-delay",
       value: 300,
     },
   },
@@ -188,22 +188,22 @@ export const gnomeSettings: Config[] = [
   // workspaces
   {
     gnomeSettings: {
-      schema: 'org.gnome.mutter',
-      key: 'workspaces-only-on-primary',
+      schema: "org.gnome.mutter",
+      key: "workspaces-only-on-primary",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.mutter',
-      key: 'dynamic-workspaces',
+      schema: "org.gnome.mutter",
+      key: "dynamic-workspaces",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.preferences',
-      key: 'num-workspaces',
+      schema: "org.gnome.desktop.wm.preferences",
+      key: "num-workspaces",
       value: 2,
     },
   },
@@ -215,25 +215,25 @@ export const gnomeSettings: Config[] = [
   // GTK theme
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'gtk-theme',
-      value: 'Pop',
+      schema: "org.gnome.desktop.interface",
+      key: "gtk-theme",
+      value: "Pop",
     },
   },
   // icon theme
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'icon-theme',
-      value: 'Pop',
+      schema: "org.gnome.desktop.interface",
+      key: "icon-theme",
+      value: "Pop",
     },
   },
   // cursor theme
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.interface',
-      key: 'cursor-theme',
-      value: 'DMZ-White',
+      schema: "org.gnome.desktop.interface",
+      key: "cursor-theme",
+      value: "DMZ-White",
     },
   },
 
@@ -244,31 +244,31 @@ export const gnomeSettings: Config[] = [
   // do not accelerate mouse cursor
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.peripherals.mouse',
-      key: 'natural-scroll',
+      schema: "org.gnome.desktop.peripherals.mouse",
+      key: "natural-scroll",
       value: false,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.peripherals.mouse',
-      key: 'speed',
+      schema: "org.gnome.desktop.peripherals.mouse",
+      key: "speed",
       value: 0.6,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.peripherals.mouse',
-      key: 'accel-profile',
-      value: 'flat',
+      schema: "org.gnome.desktop.peripherals.mouse",
+      key: "accel-profile",
+      value: "flat",
     },
   },
 
   // on touchpad scroll down by sliding fingers up
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.peripherals.touchpad',
-      key: 'natural-scroll',
+      schema: "org.gnome.desktop.peripherals.touchpad",
+      key: "natural-scroll",
       value: true,
     },
   },
@@ -280,8 +280,8 @@ export const gnomeSettings: Config[] = [
   // use Capslock as an additional Escape
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.input-sources',
-      key: 'xkb-options',
+      schema: "org.gnome.desktop.input-sources",
+      key: "xkb-options",
       value: "['caps:escape']",
     },
   },
@@ -289,8 +289,8 @@ export const gnomeSettings: Config[] = [
   // set prefered keyboard layouts
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.input-sources',
-      key: 'sources',
+      schema: "org.gnome.desktop.input-sources",
+      key: "sources",
       value: "[('xkb', 'us'), ('xkb', 'cz+qwerty')]",
     },
   },
@@ -298,8 +298,8 @@ export const gnomeSettings: Config[] = [
   // set numlock on
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.peripherals.keyboard',
-      key: 'numlock-state',
+      schema: "org.gnome.desktop.peripherals.keyboard",
+      key: "numlock-state",
       value: true,
     },
   },
@@ -311,8 +311,8 @@ export const gnomeSettings: Config[] = [
   // disable system sounds
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.sound',
-      key: 'event-sounds',
+      schema: "org.gnome.desktop.sound",
+      key: "event-sounds",
       value: false,
     },
   },
@@ -322,10 +322,10 @@ export const gnomeSettings: Config[] = [
   // =================================================================
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell',
-      key: 'favorite-apps',
+      schema: "org.gnome.shell",
+      key: "favorite-apps",
       value:
         "['google-chrome.desktop', 'hyper.desktop', 'code.desktop', 'keeweb.desktop']",
     },
   },
-]
+];

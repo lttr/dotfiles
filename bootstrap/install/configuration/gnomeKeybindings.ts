@@ -1,327 +1,331 @@
-const EMPTY_ARRAY = '@as []'
+const EMPTY_ARRAY = "@as []";
 
-const customGnomeKeybindingSchemas = new Set<string>()
+const customGnomeKeybindingSchemas = new Set<string>();
 
 function customGnomeKeybinding(
   id: number,
   name: string,
   command: string,
-  binding: string
+  binding: string,
 ) {
-  const prefix = `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`
-  let schema = `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`
-  customGnomeKeybindingSchemas.add(schema)
-  schema = prefix + schema
+  const prefix =
+    `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`;
+  let schema =
+    `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`;
+  customGnomeKeybindingSchemas.add(schema);
+  schema = prefix + schema;
   return [
-    { gnomeSettings: { schema, key: 'command', value: command } },
-    { gnomeSettings: { schema, key: 'name', value: name } },
-    { gnomeSettings: { schema, key: 'binding', value: binding } },
-  ]
+    { gnomeSettings: { schema, key: "command", value: command } },
+    { gnomeSettings: { schema, key: "name", value: name } },
+    { gnomeSettings: { schema, key: "binding", value: binding } },
+  ];
 }
 
 const customGnomeKeybindings = [
-  ...customGnomeKeybinding(0, 'Terminal', 'bring-or-start hyper', '<Super>c'),
-  ...customGnomeKeybinding(1, 'VSCode', 'bring-or-start code', '<Super>s'),
+  ...customGnomeKeybinding(0, "Terminal", "bring-or-start hyper", "<Super>c"),
+  ...customGnomeKeybinding(1, "VSCode", "bring-or-start code", "<Super>s"),
   ...customGnomeKeybinding(
     2,
-    'Browser',
-    'bring-or-start google-chrome',
-    '<Super>a'
+    "Browser",
+    "bring-or-start google-chrome",
+    "<Super>a",
   ),
   ...customGnomeKeybinding(
     3,
-    'Password manager',
-    'bring-or-start KeeWeb',
-    '<Super>m'
+    "Password manager",
+    "bring-or-start KeeWeb",
+    "<Super>m",
   ),
-  ...customGnomeKeybinding(4, 'File manager', '', '<Super>t'),
-  ...customGnomeKeybinding(5, 'Firefox', 'bring-or-start firefox', '<Super>f'),
+  ...customGnomeKeybinding(4, "File manager", "", "<Super>t"),
+  ...customGnomeKeybinding(5, "Firefox", "bring-or-start firefox", "<Super>f"),
   ...customGnomeKeybinding(
     6,
-    'Toggle microphone',
-    'amixer set Capture toggle',
-    '<Super>apostrophe'
+    "Toggle microphone",
+    "amixer set Capture toggle",
+    "<Super>apostrophe",
   ),
-]
+];
 
 const customGnomeKeybindingsSetup = {
   gnomeSettings: {
-    schema: 'org.gnome.settings-daemon.plugins.media-keys',
-    key: 'custom-keybindings',
-    value: `[${Array.from(customGnomeKeybindingSchemas)
-      .map(schema => `'${schema}'`)
-      .join(', ')}]`,
+    schema: "org.gnome.settings-daemon.plugins.media-keys",
+    key: "custom-keybindings",
+    value: `[${
+      Array.from(customGnomeKeybindingSchemas)
+        .map((schema) => `'${schema}'`)
+        .join(", ")
+    }]`,
   },
-}
+};
 
 const gnomeKeybindingsOverrrides = [
   // custom volume controls - no dependency on physical media keys
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.media-keys',
-      key: 'volume-down',
+      schema: "org.gnome.settings-daemon.plugins.media-keys",
+      key: "volume-down",
       value: "['<Super>bracketleft']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.media-keys',
-      key: 'volume-up',
+      schema: "org.gnome.settings-daemon.plugins.media-keys",
+      key: "volume-up",
       value: "['<Super>bracketright']",
     },
   },
   // disable screensaver key
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.media-keys',
-      key: 'screensaver',
+      schema: "org.gnome.settings-daemon.plugins.media-keys",
+      key: "screensaver",
       value: EMPTY_ARRAY,
     },
   },
   // file explorer
   {
     gnomeSettings: {
-      schema: 'org.gnome.settings-daemon.plugins.media-keys',
-      key: 'home',
+      schema: "org.gnome.settings-daemon.plugins.media-keys",
+      key: "home",
       value: "['<Super>e']",
     },
   },
   // gnome shell specific
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell.keybindings',
-      key: 'focus-active-notification',
+      schema: "org.gnome.shell.keybindings",
+      key: "focus-active-notification",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell.keybindings',
-      key: 'open-application-menu',
+      schema: "org.gnome.shell.keybindings",
+      key: "open-application-menu",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell.keybindings',
-      key: 'toggle-application-view',
+      schema: "org.gnome.shell.keybindings",
+      key: "toggle-application-view",
       value: "['<Super>i']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell.keybindings',
-      key: 'toggle-message-tray',
+      schema: "org.gnome.shell.keybindings",
+      key: "toggle-message-tray",
       value: "['<Super>n']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.shell.keybindings',
-      key: 'toggle-overview',
+      schema: "org.gnome.shell.keybindings",
+      key: "toggle-overview",
       value: "['<Super>o']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.mutter.keybindings',
-      key: 'toggle-tiled-left',
+      schema: "org.gnome.mutter.keybindings",
+      key: "toggle-tiled-left",
       value: "['<Super>Left', '<Super>h']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.mutter.keybindings',
-      key: 'toggle-tiled-right',
+      schema: "org.gnome.mutter.keybindings",
+      key: "toggle-tiled-right",
       value: "['<Super>Right', '<Super>l']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'begin-move',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "begin-move",
       value: "['<Super>F7']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'begin-resize',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "begin-resize",
       value: "['<Super>F8']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'close',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "close",
       value: "['<Super>x']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'cycle-group',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "cycle-group",
       value: "['<Super>Tab']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'cycle-group-backward',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "cycle-group-backward",
       value: "['<Shift><Super>Tab']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'lower',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "lower",
       value: "['<Super>z']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'maximize',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "maximize",
       value: "['<Super>k', '<Super>Up']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'minimize',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "minimize",
       value: "['<Super>b']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'move-to-center',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "move-to-center",
       value: "['<Super><Shift>c']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'move-to-monitor-left',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "move-to-monitor-left",
       value: "['<Primary><Shift><Super>Left', '<Primary><Shift><Super>h']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'move-to-monitor-right',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "move-to-monitor-right",
       value: "['<Primary><Shift><Super>Right', '<Primary><Shift><Super>l']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'move-to-workspace-down',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "move-to-workspace-down",
       value: "['<Shift><Super>Down', '<Shift><Super>j']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'move-to-workspace-up',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "move-to-workspace-up",
       value: "['<Shift><Super>Up', '<Shift><Super>k']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-to-workspace-down',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-to-workspace-down",
       value: "['<Primary><Super>Down', '<Primary><Super>j']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-to-workspace-last',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-to-workspace-last",
       value: "['<Primary><Super>End']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-to-workspace-up',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-to-workspace-up",
       value: "['<Primary><Super>Up', '<Primary><Super>k']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'show-desktop',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "show-desktop",
       value: "['<Shift><Super>d']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-group-backward',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-group-backward",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-group',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-group",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-applications',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-applications",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-applications-backward',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-applications-backward",
       value: "['<Shift><Super>Tab', '<Shift><Alt>Tab']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-windows',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-windows",
       value: "['<Alt>Tab']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'switch-windows-backward',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "switch-windows-backward",
       value: "['<Shift><Alt>Tab']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'toggle-fullscreen',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "toggle-fullscreen",
       value: "['<Super>F11']",
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'toggle-maximized',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "toggle-maximized",
       value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
-      schema: 'org.gnome.desktop.wm.keybindings',
-      key: 'unmaximize',
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "unmaximize",
       value: "['<Super>j', '<Super>Down']",
     },
   },
-]
+];
 
 export const gnomeKeybindings = [
   customGnomeKeybindingsSetup,
   ...customGnomeKeybindings,
   ...gnomeKeybindingsOverrrides,
-]
+];

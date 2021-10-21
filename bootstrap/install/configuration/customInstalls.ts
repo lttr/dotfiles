@@ -1,27 +1,27 @@
-import { Config } from '../deps.ts'
+import { Config } from "../deps.ts";
 
 export const gnomeShellExtensionInstaller = {
   gnomeShellExtensionInstaller: {},
-}
+};
 
-const googleChromeAmd64 = 'google-chrome-stable_current_amd64.deb'
+const googleChromeAmd64 = "google-chrome-stable_current_amd64.deb";
 export const googleChrome = {
   debianPackage: {
-    name: 'google-chrome',
+    name: "google-chrome",
     url: `https://dl.google.com/linux/direct/${googleChromeAmd64}`,
   },
-}
+};
 
 const webi = {
   urlScript: {
-    name: 'webi',
-    url: 'https://webinstall.dev/webi',
+    name: "webi",
+    url: "https://webinstall.dev/webi",
   },
-}
+};
 
 const brew = {
   inlineScript: {
-    name: 'brew',
+    name: "brew",
     testScript: `which brew`,
     setScript: `
       /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -30,18 +30,18 @@ const brew = {
       echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
     `,
   },
-}
+};
 
 export const antibody = {
   brew: {
-    name: 'antibody',
+    name: "antibody",
     dependsOn: brew,
   },
-}
+};
 
 export const aptUpdate = {
   aptUpdate: {},
-}
+};
 
 export const customInstalls: Config[] = [
   // preparation
@@ -53,11 +53,11 @@ export const customInstalls: Config[] = [
   antibody,
   // custom applications
   googleChrome,
-  { webInstall: { name: 'node', dependsOn: webi } },
-  { webInstall: { name: 'rg', dependsOn: webi } },
-  { brew: { name: 'gh', dependsOn: brew } },
-  { brew: { name: 'fzf', dependsOn: brew } },
-  { brew: { name: 'potrace', dependsOn: brew } },
-  { brew: { name: 'docker', dependsOn: brew } },
-  { brew: { name: 'docker-compose', dependsOn: brew } },
-]
+  { webInstall: { name: "node", dependsOn: webi } },
+  { webInstall: { name: "rg", dependsOn: webi } },
+  { brew: { name: "gh", dependsOn: brew } },
+  { brew: { name: "fzf", dependsOn: brew } },
+  { brew: { name: "potrace", dependsOn: brew } },
+  { brew: { name: "docker", dependsOn: brew } },
+  { brew: { name: "docker-compose", dependsOn: brew } },
+];
