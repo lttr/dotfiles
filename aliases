@@ -131,7 +131,6 @@ alias copy="xsel -b"
 alias d="docker"
 alias dc="docker-compose"
 alias dg="ddg"
-alias fd="fdfind"
 alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 alias help="tldr"
 alias ht="http --verify=no"
@@ -212,8 +211,7 @@ alias ila="gh issue list --state all"
 # =================================================================
 #                             Search
 # =================================================================
-alias ag='ag --smart-case --color-match "30;47"'
-alias agl='ag --smart-case --color-match "30;47" --pager="less -FiMRX"'
+# alias rg='rg ...'
 
 
 # =================================================================
@@ -226,7 +224,7 @@ if [[ $(echo $0) =~ "zsh" ]]; then
   alias -g H="| head"
   alias -g T="| tail"
   alias -g L="| less -FiMRX"
-  alias -g A="| ag --smart-case --color-match '30;47'"
+  alias -g R="| rg"
   alias -g C="| wc -l"
   alias -g F="| fpp"
   alias -g IN="..@{u}"

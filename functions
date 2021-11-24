@@ -498,6 +498,10 @@ calc() {
     awk "BEGIN { print "$*" }"
 }
 
+emod() {
+    git ls-files --modified | xargs ${EDITOR:-vim}
+}
+
 
 # =================================================================
 #                              Tmux

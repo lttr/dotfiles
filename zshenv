@@ -41,7 +41,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # go path
 export GOPATH="$HOME/.go"
-export GOROOT="/usr/local/go"
+export GOROOT="/usr/lib/go"
 export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
 # rust cargo bin path
@@ -71,7 +71,8 @@ export MANPATH="$NPM_GLOBAL/share/man:$(manpath)"
 # user environment
 export PAGER=/usr/bin/less
 #export EDITOR=/usr/bin/vim
-export EDITOR=code
+#export EDITOR=code
+export EDITOR=nvim
 export VISUAL=/usr/bin/vim
 export BROWSER=/usr/bin/google-chrome
 # export TERMINAL=/usr/bin/urxvt
