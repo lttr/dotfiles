@@ -1,0 +1,57 @@
+local prettier = function()
+  return {
+    exe = "prettier",
+    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+    stdin = true
+  }
+end
+
+local eslint = function()
+  return {
+    exe = "eslint_d",
+    args = {"--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--fix-to-stdout"},
+    stdin = true
+  }
+end
+
+local luafmt = function()
+  return {
+    exe = "luafmt",
+    args = {"--indent-count", 2, "--stdin"},
+    stdin = true
+  }
+end
+
+local xmllint = function()
+  return {
+    exe = "xmllint",
+    args = {"--format", "--recover", "-"},
+    stdin = true
+  }
+end
+
+require("formatter").setup(
+  {
+    filetype = {
+      javascript = prettier,
+      typescript = prettier,
+      html = prettier,
+      css = prettier,
+      scss = prettier,
+      json = prettier,
+      vue = {prettier, eslint},
+      lua = luafmt,
+      xml = xmllint
+    }
+  }
+)
+
+vim.api.nvim_exec(
+  [[
+  augroup fmt
+    autocmd!
+    autocmd BufWritePost *.mjs,*.css,*.less,*.scss,*.json,*.yaml,*.html,*.tsx,*.jsx,*.ts,*.js,*.vue,*.svelte FormatWrite
+  augroup END
+]],
+  true
+)
