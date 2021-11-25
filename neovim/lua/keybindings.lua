@@ -89,6 +89,9 @@ vmap("<A-K>", ":m '<-2<CR>gv=gv")
 -- Code navigation
 nmap("<C-b>", ":normal gd<CR>")
 
+-- Formatting
+nmap("<leader>F", "<cmd>FormatWrite<CR>")
+
 -- Executing and running
 nmap("<leader>e", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 
@@ -130,11 +133,15 @@ local function lspKeybindings(client)
   nmap("<leader>l", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
 
   -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  elseif client.resolved_capabilities.document_range_formatting then
-    nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
-  end
+
+  -- I rely on formatter.nvim for now instead of LSP based
+  -- formatting. CLI tools has more flexibility
+  --
+  -- if client.resolved_capabilities.document_formatting then
+  --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  -- elseif client.resolved_capabilities.document_range_formatting then
+  --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+  -- end
 end
 
 --
@@ -151,6 +158,7 @@ nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
 nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
 nmap("<f2>", ":Lspsaga rename<CR>")
 nmap("gD", ":Lspsaga preview_definition<CR>")
+nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
 
 --
 -- vim-togglelist

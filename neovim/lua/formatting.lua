@@ -14,6 +14,14 @@ local eslint = function()
   }
 end
 
+local stylelint = function()
+  return {
+    exe = "stylelint",
+    args = {"--fix", "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+    stdin = true
+  }
+end
+
 local luafmt = function()
   return {
     exe = "luafmt",
@@ -33,15 +41,15 @@ end
 require("formatter").setup(
   {
     filetype = {
-      javascript = prettier,
-      typescript = prettier,
-      html = prettier,
-      css = prettier,
-      scss = prettier,
-      json = prettier,
-      vue = {prettier, eslint},
-      lua = luafmt,
-      xml = xmllint
+      javascript = {prettier, eslint},
+      typescript = {prettier, eslint},
+      html = {prettier},
+      css = {prettier, stylelint},
+      scss = {prettier, stylelint},
+      json = {prettier},
+      vue = {prettier, eslint, stylelint},
+      lua = {luafmt},
+      xml = {xmllint}
     }
   }
 )
@@ -50,7 +58,7 @@ vim.api.nvim_exec(
   [[
   augroup fmt
     autocmd!
-    autocmd BufWritePost *.mjs,*.css,*.less,*.scss,*.json,*.yaml,*.html,*.tsx,*.jsx,*.ts,*.js,*.vue,*.svelte FormatWrite
+    autocmd BufWritePost *.mjs,*.css,*.less,*.scss,*.json,*.yaml,*.html,*.tsx,*.jsx,*.ts,*.js,*.vue,*.svelte,*.lua FormatWrite
   augroup END
 ]],
   true

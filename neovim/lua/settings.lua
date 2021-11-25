@@ -1,9 +1,10 @@
 local opt = vim.opt
 
-
 -- General
 
-opt.iskeyword:append('-') -- Count strings joined by dashes as words
+opt.iskeyword:append("-") -- Count strings joined by dashes as words
+
+vim.g.maplocalleader = "<space>"
 
 -- ===== Tabs and indentation =====
 opt.tabstop = 2 -- Number of spaces that <Tab> counts for
@@ -33,7 +34,7 @@ opt.smartcase = true -- ...except upper-case included
 opt.mouse = "a" -- Enable the use of mouse in terminal
 
 -- ===== Lines =====
-opt.formatoptions:remove('o') -- Don't insert comment leader after 'o'
+opt.formatoptions:remove("o") -- Don't insert comment leader after 'o'
 opt.scrolloff = 1 -- Let one line above and bellow
 opt.sidescroll = 1
 opt.sidescrolloff = 15
@@ -62,25 +63,24 @@ nightfox.setup(
 nightfox.load()
 
 -- search
-vim.cmd([[
+vim.cmd(
+  [[
   if executable("rg")
     set grepprg=rg\ --vimgrep\ --smart-case\ --engine\ auto\ --hidden
     set grepformat=%f:%l:%c:%m
   endif
-]])
+]]
+)
 
 -- autocommands
 
 -- Start terminal in insert mode
-vim.cmd(
-  [[
+vim.cmd([[
     augroup term
       autocmd!
       autocmd TermOpen * startinsert
     augroup END
-  ]],
-  true
-)
+  ]], true)
 
 -- Restore last cursor position and center the screen,
 -- do it only if the cursor is not on first line

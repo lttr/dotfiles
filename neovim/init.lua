@@ -12,7 +12,6 @@ require "formatting"
 
 ----- plugins
 
-
 --
 -- telescope.nvim
 --
@@ -44,7 +43,10 @@ require("telescope").load_extension("fzf")
 --
 local saga = require "lspsaga"
 saga.init_lsp_saga {
-  border_style = "round"
+  border_style = "round",
+  rename_action_keys = {
+    quit = "<Esc>"
+  }
 }
 
 --

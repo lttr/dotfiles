@@ -29,6 +29,11 @@ local common_on_attach = function(client)
   option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   require "keybindings".lspKeybindings(client)
+  require "lsp_signature".on_attach(
+    {
+      toggle_key = "<M-x>"
+    }
+  )
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -45,7 +50,7 @@ local common_on_attach = function(client)
   end
 end
 
-local tsserver_config = {
+local tsserver = {
   on_attach = function(client)
     if client.config.flags then
       client.config.flags.allow_incremental_sync = true
@@ -54,7 +59,7 @@ local tsserver_config = {
   end
 }
 
-local denols_config = {
+local denols = {
   init_options = {
     enable = true,
     lint = true,
@@ -63,7 +68,7 @@ local denols_config = {
   root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "tsconfig.json")
 }
 
-local vuels_config = {
+local vuels = {
   settings = {
     vetur = {
       completion = {
@@ -84,7 +89,7 @@ local vuels_config = {
   }
 }
 
-local stylelint_lsp_config = {
+local stylelint_lsp = {
   settings = {
     stylelintplus = {
       autoFixOnFormat = true,
@@ -93,7 +98,7 @@ local stylelint_lsp_config = {
   }
 }
 
-local eslint_config = {
+local eslint = {
   on_attach = function(client)
     -- neovim's LSP client does not currently support dynamic
     -- capabilities registration, so we need to setth
@@ -106,29 +111,22 @@ local eslint_config = {
   }
 }
 
+local custom_configs = {
+  tsserver,
+  denols,
+  vuels,
+  stylelint_lsp,
+  eslint
+}
+
 local function make_config(server_name)
   -- enable snippet support
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   local custom_config = {}
 
-  if server_name == "tsserver" then
-    custom_config = tsserver_config
-  end
-  if server_name == "stylelint_lsp" then
-    custom_config = stylelint_lsp_config
-  end
-  if server_name == "denols" then
-    custom_config = denols_config
-  end
-  if server_name == "vuels" then
-    custom_config = vuels_config
-  end
-  if server_name == "stylelint_lsp" then
-    custom_config = stylelint_lsp_config
-  end
-  if server_name == "eslint" then
-    custom_config = eslint_config
+  if custom_configs[server_name] ~= nil then
+    custom_config = custom_configs[server_name]
   end
 
   return vim.tbl_deep_extend(

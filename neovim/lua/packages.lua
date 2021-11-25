@@ -21,14 +21,16 @@ require "packer".startup(
     use "sindrets/diffview.nvim"
 
     -- LSP
-    use "glepnir/lspsaga.nvim"
-    use "neovim/nvim-lspconfig"
-    use 'williamboman/nvim-lsp-installer'
-    use "mhartington/formatter.nvim"
     use "folke/lua-dev.nvim"
-    use "rafamadriz/friendly-snippets"
+    use "folke/trouble.nvim"
+    use "glepnir/lspsaga.nvim"
     use "hrsh7th/vim-vsnip"
     use "lewis6991/gitsigns.nvim"
+    use "mhartington/formatter.nvim"
+    use "neovim/nvim-lspconfig"
+    use "rafamadriz/friendly-snippets"
+    use "ray-x/lsp_signature.nvim"
+    use "williamboman/nvim-lsp-installer"
 
     -- completion
     use "hrsh7th/cmp-buffer"
