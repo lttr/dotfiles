@@ -197,9 +197,6 @@ antibody bundle < ~/dotfiles/packages/zsh.txt
 # Zoxide
 eval "$(zoxide init zsh)"
 
-# git-hub
-# source ~/opt/git-hub/.rc
-
 # =================================================================
 #                           Terminal
 # =================================================================

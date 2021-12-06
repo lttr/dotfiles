@@ -170,16 +170,17 @@ extract() {
 x() { extract "$1" }
 
 
-# Edit file recently opened in vim # file recent
+# Edit file recently opened in neovim # file recent
 file-recent() {
-    local out file key
-    local ctrlp_mru_cache=~/.cache/ctrlp/mru/cache.txt
-    file=$(cat $ctrlp_mru_cache | fzf --query="$1")
+    local list file
+    list=$(nvim --headless -u NONE -c 'echo v:oldfiles | q' 2>&1 | tr -d \' | tr -d '[]' | tr ',' '\n' | tr -d ' ' | grep -v '://' | grep '/home')
+    file=$(echo $list | fzf --query="$1")
+    echo "@$file@"
     if [ -n "$file" ]; then
         ${EDITOR:-vim} "$file" < /dev/tty
     fi
 }
-fr() { file-recent "$1" }
+fe() { file-recent "$1" }
 
 # Edit file in current (sub)dir with default editor (press Enter)
 # or GUI application (press Ctrl+o)
@@ -192,7 +193,6 @@ file-edit() {
         [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file" < /dev/tty
     fi
 }
-fe() { file-edit "$1" }
 
 # Interactive search in files, open in vim on selected line
 # Ignores lines not matching "\w"

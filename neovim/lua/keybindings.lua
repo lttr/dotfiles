@@ -119,6 +119,7 @@ nmap("<leader>fr", "<cmd>lua require('telescope.builtin').file_browser({ hidden 
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
 nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
+nmap("<leader>fz", "<cmd>lua require('telescope').extensions.zoxide.list{}<CR>")
 
 --
 -- nvim-lspconfig

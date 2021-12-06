@@ -17,6 +17,7 @@ require "packer".startup(
     -- explorer
     use "nvim-telescope/telescope.nvim"
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+    use "jvgrootveld/telescope-zoxide"
     use "kevinhwang91/rnvimr"
     use "sindrets/diffview.nvim"
 
