@@ -100,7 +100,7 @@ nmap("<leader>e", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstabl
 ---- telescope
 --
 
-nmap("<C-p>", "<cmd> lua require('telescope.builtin').find_files({ hidden = true })<CR>")
+nmap("<C-p>", "<cmd>lua require('telescope-config').project_files()<CR>")
 nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
 nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
 nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
@@ -114,7 +114,7 @@ nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_st
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nmap("<leader>fn", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
-nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
+-- nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
 nmap("<leader>fr", "<cmd>lua require('telescope.builtin').file_browser({ hidden = true })<CR>")
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
 nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")

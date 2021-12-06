@@ -157,15 +157,15 @@ for _, name in pairs(servers) do
   end
 end
 
--- local luadev =
---   require("lua-dev").setup {
---   -- workaround to disable error message ("cmd is not configured for lua language server")
---   lspconfig = {
---     enabled = false
---   }
--- }
+local luadev =
+  require("lua-dev").setup {
+  -- workaround to disable error message ("cmd is not configured for lua language server")
+  lspconfig = {
+    enabled = false
+  }
+}
 
--- lspconfig.sumneko_lua.setup(luadev)
+lspconfig.sumneko_lua.setup(luadev)
 
 -- bash
 -- lspconfig.bashls.setup(
