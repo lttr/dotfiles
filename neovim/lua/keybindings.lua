@@ -33,7 +33,8 @@ vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
 -- Consistency
 -- Make the behaviour of Y consistent with D and C
 -- (do the action from here to the end of line)
-nmap("Y", "y$")
+-- A default since neovim 0.6!
+-- nmap("Y", "y$")
 
 nmap("q", "<Nop>")
 nmap("m", "q")
@@ -100,23 +101,24 @@ nmap("<leader>e", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstabl
 --
 
 nmap("<C-p>", "<cmd> lua require('telescope.builtin').find_files({ hidden = true })<CR>")
+nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
 nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
 nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
 nmap("<leader>fc", "<cmd>lua require('telescope.builtin').command_history()<CR>")
-nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 nmap("<leader>fd", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>")
-nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
-nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
-nmap("<leader>fn", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({ previewer = false })<CR>")
 nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
 nmap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+nmap("<leader>fgi", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
+nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_strategy='horizontal'})<CR>")
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
+nmap("<leader>fn", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
+nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
 nmap("<leader>fr", "<cmd>lua require('telescope.builtin').file_browser({ hidden = true })<CR>")
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
+nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
-nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_strategy='horizontal'})<CR>")
-nmap("<leader>fgi", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
 
 --
 -- nvim-lspconfig

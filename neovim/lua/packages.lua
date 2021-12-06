@@ -46,6 +46,7 @@ require "packer".startup(
     use "windwp/nvim-autopairs"
     use "mg979/vim-visual-multi"
     use "windwp/nvim-spectre"
+    use "numToStr/Comment.nvim"
 
     -- web dev
     use "KabbAmine/vCoolor.vim"
@@ -53,16 +54,19 @@ require "packer".startup(
     -- treesitter
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "nvim-treesitter/playground"
 
     -- classic
     use "junegunn/goyo.vim"
-    use "mhinz/vim-startify"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"
+    use "rmagatti/auto-session"
+    use "rmagatti/session-lens"
     use "skywind3000/asyncrun.vim"
+    use "tommcdo/vim-exchange"
     use "tpope/vim-abolish"
     use "tpope/vim-characterize"
-    use "tpope/vim-commentary"
     use "tpope/vim-eunuch"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
