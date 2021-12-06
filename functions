@@ -227,7 +227,7 @@ file-locate() {
 # Change to recent directory, select with fzf
 dir-recent() {
     local dir
-    dir=$(fasd -Rdl |\
+    dir=$(zoxide query --list |\
         sed "s:$HOME:~:" |\
         fzf --no-sort --query "$*" |\
         sed "s:~:$HOME:") \

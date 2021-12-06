@@ -24,7 +24,7 @@ export const apt: Config[] = [
   aptPackage("dict-gcide"),
   // aptPackage('dos2unix'),
   // aptPackage('expect'),
-  aptPackage("fasd"),
+  // aptPackage("fasd"),
   aptPackage("htop"),
   // aptPackage('httpie'),
   // aptPackage('jq'),

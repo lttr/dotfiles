@@ -194,8 +194,8 @@ antibody bundle < ~/dotfiles/packages/zsh.txt
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Fasd
-eval "$(fasd --init auto)"
+# Zoxide
+eval "$(zoxide init zsh)"
 
 # git-hub
 # source ~/opt/git-hub/.rc
@@ -270,7 +270,6 @@ fi
 # =================================================================
 
 compinit -i
-
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
