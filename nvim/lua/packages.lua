@@ -49,6 +49,7 @@ require "packer".startup(
     use "mg979/vim-visual-multi"
     use "windwp/nvim-spectre"
     use "numToStr/Comment.nvim"
+    use "folke/which-key.nvim"
 
     -- web dev
     use "KabbAmine/vCoolor.vim"

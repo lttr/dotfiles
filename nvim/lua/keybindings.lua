@@ -21,6 +21,10 @@ local function vmap(left, right)
   map("v", left, right, map_options)
 end
 
+local function tmap(left, right)
+  map("t", left, right, map_options)
+end
+
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
 map("n", "<C-s>", ":update<CR>", map_options)
@@ -52,10 +56,10 @@ nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
 -- ===== Exiting =====
 -- Quit buffer without closing the window (plugin Bbye)
 nmap("Q", ":Bdelete<CR>")
--- Quit window
-nmap("<leader>q", ":q<CR>")
+-- Quit window and try to remove the buffer that left from that window
+nmap("<leader>q", ":q<CR>:bd! #<CR>")
 -- Quit window with force
-nmap("<leader>Q", ":q!<CR>")
+nmap("<leader>Q", ":q!|bd #<CR>")
 -- Go to window left and right
 nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
@@ -95,17 +99,24 @@ nmap("<C-b>", ":normal gd<CR>")
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
 
 -- Executing and running
-nmap("<leader>e", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
--- nmap("<space>E", "<Plug>SnipRun", {silent = true})
--- nmap("<space>e", "<Plug>SnipRunOperator", {silent = true})
--- vmap("<space>e", "<Plug>SnipRun", {silent = true})
-nmap("<space>E", "<Plug>SnipRun")
-nmap("<space>e", "<Plug>SnipRunOperator")
-vmap("<space>e", "<Plug>SnipRun")
+nmap("<leader>E", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap("<leader>e", "<cmd>%SnipRun<CR>")
+nmap("<localleader>E", "<Plug>SnipRun")
+nmap("<localleader>e", "<Plug>SnipRunOperator")
+vmap("<localleader>e", "<Plug>SnipRun")
 
 -- paset console.log from code
 vim.g.vim_printer_print_below_keybinding = "<localleader>l"
 vim.g.vim_printer_print_above_keybinding = "<localleader>L"
+
+-- terminal
+nmap("<leader>t", "<cmd>vsplit term://zsh<CR>")
+tmap("<Esc>", [[<C-\><C-n>]])
+tmap("<Esc>", [[<C-\><C-n>]])
+tmap("<A-h>", [[<C-\><C-n><C-w>h]])
+tmap("<A-j>", [[<C-\><C-n><C-w>j]])
+tmap("<A-k>", [[<C-\><C-n><C-w>k]])
+tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 
 --
 ---- telescope
