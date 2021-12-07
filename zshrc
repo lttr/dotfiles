@@ -6,30 +6,15 @@
 #  /___||___/|_| |_||_|   \___|
 #
 
+# Profiling
+# zmodload zsh/zprof
+
 # =================================================================
 #                            Autoload
 # =================================================================
 
 autoload -U history-search-end
 autoload -U zmv
-
-# Source: https://gist.github.com/ctechols/ca1035271ad134841284
-# On slow systems, checking the cached .zcompdump file to see if it must be
-# regenerated adds a noticable delay to zsh startup.  This little hack restricts
-# it to once a day.  It should be pasted into your own completion file.
-#
-# The globbing is a little complicated here:
-# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
-# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
-# - '.' matches "regular files"
-# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
-# autoload -Uz compinit
-# if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
-# 	compinit;
-# else
-# 	compinit -C;
-# fi;
-
 autoload -Uz compinit
 
 
@@ -266,7 +251,22 @@ fi
 #                          Last command
 # =================================================================
 
-compinit -i
+# Source: https://gist.github.com/ctechols/ca1035271ad134841284
+# On slow systems, checking the cached .zcompdump file to see if it must be
+# regenerated adds a noticable delay to zsh startup.  This little hack restricts
+# it to once a day.  It should be pasted into your own completion file.
+#
+# The globbing is a little complicated here:
+# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
+# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
+# - '.' matches "regular files"
+# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit;
+else
+  compinit -C;
+fi;
+
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
@@ -274,3 +274,6 @@ compinit -i
 
 # The next line updates PATH for Netlify's Git Credential Helper.
 if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.netlify/helper/path.zsh.inc'; fi
+
+# Profiling
+# zprof
