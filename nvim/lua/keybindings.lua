@@ -4,9 +4,10 @@ local map_options = {noremap = true, silent = true}
 --
 ----- Keyboard
 --
-
-vim.g.mapleader = ","
-vim.g.maplocalleader = " "
+vim.cmd([[
+  let mapleader = ","
+  let maplocalleader = "\<space>"
+]])
 
 local function nmap(left, right)
   map("n", left, right, map_options)
@@ -95,6 +96,16 @@ nmap("<leader>F", "<cmd>FormatWrite<CR>")
 
 -- Executing and running
 nmap("<leader>e", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+-- nmap("<space>E", "<Plug>SnipRun", {silent = true})
+-- nmap("<space>e", "<Plug>SnipRunOperator", {silent = true})
+-- vmap("<space>e", "<Plug>SnipRun", {silent = true})
+nmap("<space>E", "<Plug>SnipRun")
+nmap("<space>e", "<Plug>SnipRunOperator")
+vmap("<space>e", "<Plug>SnipRun")
+
+-- paset console.log from code
+vim.g.vim_printer_print_below_keybinding = "<localleader>l"
+vim.g.vim_printer_print_above_keybinding = "<localleader>L"
 
 --
 ---- telescope

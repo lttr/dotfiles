@@ -1,5 +1,4 @@
 local fn = vim.fn
-local g = vim.g
 
 require "packages"
 require "telescope-config"
@@ -74,7 +73,7 @@ require "nvim-treesitter.configs".setup {}
 -- vim-togglelist
 --
 -- https://github.com/milkypostman/vim-togglelist
-g.toggle_list_no_mappings = 1
+vim.g.toggle_list_no_mappings = 1
 
 --
 -- nvim-autopairs
@@ -99,7 +98,7 @@ require("gitsigns").setup()
 --
 -- vim-visual-multi
 --
-g.VM_theme = "nord"
+vim.g.VM_theme = "nord"
 
 --
 -- lualine.vim

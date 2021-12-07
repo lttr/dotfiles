@@ -13,6 +13,7 @@ require "packer".startup(
     use "EdenEast/nightfox.nvim"
     use "kyazdani42/nvim-web-devicons"
     use "hoob3rt/lualine.nvim"
+    use "rcarriga/nvim-notify"
 
     -- explorer
     use "nvim-telescope/telescope.nvim"
@@ -65,6 +66,8 @@ require "packer".startup(
     -- use "rmagatti/auto-session"
     -- use "rmagatti/session-lens"
     use "skywind3000/asyncrun.vim"
+    use {"michaelb/sniprun", run = "bash ./install.sh"}
+    use "meain/vim-printer"
     use "tommcdo/vim-exchange"
     use "tpope/vim-abolish"
     use "tpope/vim-characterize"
