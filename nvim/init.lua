@@ -32,6 +32,10 @@ require("nvim-treesitter.configs").setup {
   context_commentstring = {enable = true},
   highlight = {enable = false},
   autotag = {enable = true},
+  matchup = {
+    enable = true,
+    disable = {} -- optional, list of language that will be disabled
+  },
   textobjects = {
     select = {
       enable = true,
@@ -66,8 +70,6 @@ require("nvim-treesitter.configs").setup {
     }
   }
 }
-
-require "nvim-treesitter.configs".setup {}
 
 --
 -- vim-togglelist

@@ -50,9 +50,11 @@ require "packer".startup(
     use "windwp/nvim-spectre"
     use "numToStr/Comment.nvim"
     use "folke/which-key.nvim"
+    use "andymass/vim-matchup"
 
     -- web dev
     use "KabbAmine/vCoolor.vim"
+    use "mattn/emmet-vim"
 
     -- treesitter
     use "JoosepAlviste/nvim-ts-context-commentstring"
