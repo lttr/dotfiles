@@ -13,7 +13,7 @@ local lsp_installer_servers = require("nvim-lsp-installer.servers")
 local servers = {
   "bashls",
   "cssls",
-  "denols",
+  -- "denols",
   "eslint",
   "html",
   "jsonls",
@@ -56,17 +56,18 @@ local tsserver = {
       client.config.flags.allow_incremental_sync = true
     end
     client.resolved_capabilities.document_formatting = false
-  end
+  end,
+  root_dir = lspconfig.util.root_pattern("package.json")
 }
 
-local denols = {
-  init_options = {
-    enable = true,
-    lint = true,
-    unstable = true
-  },
-  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc", "tsconfig.json")
-}
+-- local denols = {
+--   init_options = {
+--     enable = true,
+--     lint = true,
+--     unstable = true
+--   },
+--   root_dir = lspconfig.util.root_pattern("deno.json", "deps.ts")
+-- }
 
 local vuels = {
   settings = {
@@ -113,7 +114,7 @@ local eslint = {
 
 local custom_configs = {
   tsserver,
-  denols,
+  -- denols,
   vuels,
   stylelint_lsp,
   eslint
@@ -159,6 +160,7 @@ end
 
 local luadev =
   require("lua-dev").setup {
+  cmd = {"~/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/Linux/lua-language-server"},
   -- workaround to disable error message ("cmd is not configured for lua language server")
   lspconfig = {
     enabled = false

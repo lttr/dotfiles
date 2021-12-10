@@ -20,12 +20,13 @@ require "packer".startup(
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
     use "jvgrootveld/telescope-zoxide"
     use "kevinhwang91/rnvimr"
+    use "kyazdani42/nvim-tree.lua"
     use "sindrets/diffview.nvim"
 
     -- LSP
     use "folke/lua-dev.nvim"
     use "folke/trouble.nvim"
-    use "glepnir/lspsaga.nvim"
+    use "tami5/lspsaga.nvim"
     use "hrsh7th/vim-vsnip"
     use "lewis6991/gitsigns.nvim"
     use "mhartington/formatter.nvim"

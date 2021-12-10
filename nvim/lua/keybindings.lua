@@ -65,6 +65,8 @@ nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
 nmap("<A-j>", "<C-w>j")
 nmap("<A-k>", "<C-w>k")
+-- open current buffer in vertical split
+nmap("<leader>v", ":bp<CR>:vsp<CR>:bp<CR>")
 
 -- ===== Cut, Copy and Paste =====
 -- " Don't yank the contents of an overwritten selection (reyank the original content)
@@ -137,7 +139,7 @@ nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nmap("<leader>fn", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 -- nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
-nmap("<leader>fr", "<cmd>lua require('telescope.builtin').file_browser({ hidden = true })<CR>")
+nmap("<leader>fr", '<cmd>lua require("telescope.builtin").file_browser({cwd = vim.fn.expand("%:p:h")})<CR>')
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
 nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
@@ -209,6 +211,9 @@ nmap("<leader>gs", ":Git<CR>")
 --
 
 nmap("<leader>r", ":RnvimrToggle<CR>")
+
+-- nvim-tree
+nmap("<leader>m", ":NvimTreeToggle<CR>")
 
 --
 -- diffview.vim
