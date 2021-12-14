@@ -1,6 +1,4 @@
 -- Commit from ex command
---
-
 vim.cmd(
   [[
   function! GitAddAndCommit(args)

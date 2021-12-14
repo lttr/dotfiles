@@ -47,6 +47,8 @@ nmap("m", "q")
 -- ===== Moving in buffer =====
 nmap("j", "gj")
 nmap("k", "gk")
+nmap("n", "nzzzv")
+nmap("N", "Nzzzv")
 
 -- ===== Open and reload $MYVIMRC =====
 nmap("<leader>V", ":e $MYVIMRC<CR>")
@@ -82,15 +84,16 @@ vmap("<C-V>", 'd"+gP')
 -- Replace current word with yanked or deleted text (stamping)
 nmap("s", '"_diwPb')
 
--- Go substitute (case sensitive)
-vmap("gs", [[y:set hls<CR>/\C<C-r>"<CR>``:%s/<C-r>"//g<Left><Left>]])
--- Go substitute word (case sensitive)
-nmap("gs", [[:set hls<CR>:%s/\C\<<C-r><C-w>\>//g<Left><Left>]])
+-- replace word under cursor, prepare 'n' and '.' to be used subsequently
+nmap("cn", "*``cgn")
+nmap("cN", "*``cgN")
 
 -- ===== Bubble lines up and down =====
 -- Source http://vimrcfu.com/snippet/110
 nmap("<A-J>", ":m .+1<CR>==")
 nmap("<A-K>", ":m .-2<CR>==")
+imap("<A-J>", "<Esc>:m .+1<CR>==")
+imap("<A-K>", "<Esc>:m .-2<CR>==")
 vmap("<A-J>", ":m '>+1<CR>gv=gv")
 vmap("<A-K>", ":m '<-2<CR>gv=gv")
 
@@ -120,11 +123,19 @@ tmap("<A-j>", [[<C-\><C-n><C-w>j]])
 tmap("<A-k>", [[<C-\><C-n><C-w>k]])
 tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 
+-- open word under cursor via OS
+nmap("gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>")
+
+-- break undo sequence
+imap(".", ".<C-g>u")
+imap(",", ",<C-g>u")
+imap("?", "?<C-g>u")
+
 --
 ---- telescope
 --
 
-nmap("<C-p>", "<cmd>lua require('telescope-config').project_files()<CR>")
+nmap("<C-p>", "<cmd>lua require('user.telescope').project_files()<CR>")
 nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
 nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
 nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
@@ -136,7 +147,7 @@ nmap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
 nmap("<leader>fgi", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
 nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_strategy='horizontal'})<CR>")
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
-nmap("<leader>fn", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 -- nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
 nmap("<leader>fr", '<cmd>lua require("telescope.builtin").file_browser({cwd = vim.fn.expand("%:p:h")})<CR>')
@@ -156,7 +167,6 @@ local function lspKeybindings(client)
   nmap("<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
   nmap("<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  nmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
   nmap("<leader>l", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
 
   -- Set some keybinds conditional on server capabilities
@@ -213,7 +223,10 @@ nmap("<leader>gs", ":Git<CR>")
 nmap("<leader>r", ":RnvimrToggle<CR>")
 
 -- nvim-tree
-nmap("<leader>m", ":NvimTreeToggle<CR>")
+nmap("<C-e>", ":NvimTreeFindFileToggle<CR>")
+
+-- vim-dirvish
+nmap("<leader>D", "<Cmd>Dirvish %<CR>")
 
 --
 -- diffview.vim
@@ -240,10 +253,22 @@ vmap("<leader>s", ":lua require('spectre').open_visual()<CR>")
 nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 
 --
+-- rest.nvim
+--
+nmap("<localleader>h", ":lua require('rest-nvim').run()<CR>")
+
+--
+-- vim-translator
+--
+-- nahradit the text with translation
+nmap("<A-t>", ":TranslateR<CR>")
+vmap("<A-t>", ":TranslateR<CR>")
+
+--
 -- custom
 --
 
-nmap("<leader>c", ":C<space>")
+nmap("<leader>C", "<cmd>call feedkeys(':C<space>', 'n')<CR>")
 
 -- export functions that needs to be called from init.lua
 return {

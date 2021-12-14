@@ -112,12 +112,26 @@ local eslint = {
   }
 }
 
+local sumneko_lua = {
+  cmd = {
+    vim.fn.getenv "HOME" .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/Linux/lua-language-server"
+  },
+  settings = {
+    Lua = {
+      dignostics = {
+        globals = {"vim"}
+      }
+    }
+  }
+}
+
 local custom_configs = {
   tsserver,
   -- denols,
   vuels,
   stylelint_lsp,
-  eslint
+  eslint,
+  sumneko_lua
 }
 
 local function make_config(server_name)
@@ -157,17 +171,6 @@ for _, name in pairs(servers) do
     end
   end
 end
-
-local luadev =
-  require("lua-dev").setup {
-  cmd = {"~/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/Linux/lua-language-server"},
-  -- workaround to disable error message ("cmd is not configured for lua language server")
-  lspconfig = {
-    enabled = false
-  }
-}
-
-lspconfig.sumneko_lua.setup(luadev)
 
 -- bash
 -- lspconfig.bashls.setup(

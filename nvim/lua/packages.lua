@@ -1,5 +1,4 @@
-local cmd = vim.cmd
-local fn = vim.fn
+-- https://github.com/wbthomason/packer.nvim
 
 require "packer".startup(
   function(use)
@@ -21,10 +20,10 @@ require "packer".startup(
     use "jvgrootveld/telescope-zoxide"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
+    use "justinmk/vim-dirvish"
     use "sindrets/diffview.nvim"
 
     -- LSP
-    use "folke/lua-dev.nvim"
     use "folke/trouble.nvim"
     use "tami5/lspsaga.nvim"
     use "hrsh7th/vim-vsnip"
@@ -56,6 +55,8 @@ require "packer".startup(
     -- web dev
     use "KabbAmine/vCoolor.vim"
     use "mattn/emmet-vim"
+    use "NTBBloodbath/rest.nvim"
+    use "norcalli/nvim-colorizer.lua"
 
     -- treesitter
     use "JoosepAlviste/nvim-ts-context-commentstring"
@@ -83,13 +84,15 @@ require "packer".startup(
     use "tpope/vim-unimpaired"
     use "vim-scripts/BufOnly.vim"
     use "vim-scripts/loremipsum"
+    use "voldikss/vim-translator"
+    use "aklt/vim-substitute"
   end
 )
 
 -- Make sure packer is installed
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system(
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system(
     {
       "git",
       "clone",
@@ -99,5 +102,5 @@ if fn.empty(fn.glob(install_path)) > 0 then
       install_path
     }
   )
-  cmd("packadd packer.nvim")
+  vim.cmd("packadd packer.nvim")
 end

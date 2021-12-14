@@ -1,3 +1,5 @@
+-- https://github.com/nvim-telescope/telescope.nvim
+
 local telescopeActions = require "telescope.actions"
 require "telescope".setup {
   defaults = {
@@ -21,15 +23,3 @@ require "telescope".setup {
 
 require "telescope".load_extension("fzf")
 require "telescope".load_extension("zoxide")
-
-local M = {}
-
-M.project_files = function()
-  local opts = {previewer = false}
-  local ok = pcall(require "telescope.builtin".git_files, opts)
-  if not ok then
-    require "telescope.builtin".find_files(opts)
-  end
-end
-
-return M
