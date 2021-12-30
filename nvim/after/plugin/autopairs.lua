@@ -4,6 +4,7 @@ local autopairs = require("nvim-autopairs")
 autopairs.setup()
 autopairs.remove_rule('"')
 autopairs.remove_rule("'")
+autopairs.remove_rule("`")
 
 _G.MUtils = {}
 MUtils.completion_confirm = function()

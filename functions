@@ -307,6 +307,21 @@ fzf-log() {
 FZF-EOF"
 }
 
+# Checkout merge request from gitlab
+comr() {
+  local out id
+  out=$(glab mr list | grep '^!' | fzf --query "$1")
+  if [ -n "$out" ]; then
+    id=$(echo $out | awk '{ print $1 }' | tr -d '!')
+    glab mr checkout $id
+  fi
+}
+
+# List gitlab merge requests
+mrs() {
+    glab mr list
+}
+
 
 # =================================================================
 #                              Code

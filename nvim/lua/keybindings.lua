@@ -125,6 +125,7 @@ tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 
 -- open word under cursor via OS
 nmap("gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>")
+vmap("gx", 'y:silent execute \'!xdg-open \' . shellescape(\'<C-r>"\')<CR>')
 
 -- break undo sequence
 imap(".", ".<C-g>u")
@@ -149,7 +150,10 @@ nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_st
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
--- nmap("<leader>fp", "<cmd>lua require('session-lens').search_session()<CR>")
+nmap(
+  "<leader>fp",
+  "<cmd>lua require('telescope').extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/'}}<CR>"
+)
 nmap("<leader>fr", '<cmd>lua require("telescope.builtin").file_browser({cwd = vim.fn.expand("%:p:h")})<CR>')
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
 nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
@@ -223,7 +227,7 @@ nmap("<leader>gs", ":Git<CR>")
 nmap("<leader>r", ":RnvimrToggle<CR>")
 
 -- nvim-tree
-nmap("<C-e>", ":NvimTreeFindFileToggle<CR>")
+nmap("<C-e>", ":NvimTreeFindFile<CR>")
 
 -- vim-dirvish
 nmap("<leader>D", "<Cmd>Dirvish %<CR>")
@@ -233,6 +237,7 @@ nmap("<leader>D", "<Cmd>Dirvish %<CR>")
 --
 
 nmap("<leader>do", "<cmd>DiffviewOpen<CR>")
+nmap("<leader>dm", "<cmd>DiffviewOpen master..HEAD<CR>")
 nmap("<leader>dc", "<cmd>DiffviewClose<CR>")
 nmap("<leader>de", "<cmd>DiffviewToggleFiles<CR>")
 nmap("<leader>df", "<cmd>DiffviewFileHistory<CR>")
@@ -268,7 +273,18 @@ vmap("<A-t>", ":TranslateR<CR>")
 -- custom
 --
 
+-- start writing a commit message
 nmap("<leader>C", "<cmd>call feedkeys(':C<space>', 'n')<CR>")
+
+vim.cmd(
+  [[
+  function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+  endfunction
+]]
+)
+vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
 -- export functions that needs to be called from init.lua
 return {

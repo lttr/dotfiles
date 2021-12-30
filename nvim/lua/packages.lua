@@ -18,6 +18,7 @@ require "packer".startup(
     use "nvim-telescope/telescope.nvim"
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
     use "jvgrootveld/telescope-zoxide"
+    use "cljoly/telescope-repo.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -64,6 +65,9 @@ require "packer".startup(
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/playground"
 
+    -- special languages
+    use "hashivim/vim-terraform"
+
     -- classic
     use "junegunn/goyo.vim"
     use "milkypostman/vim-togglelist"
@@ -86,6 +90,7 @@ require "packer".startup(
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
     use "aklt/vim-substitute"
+    use "Olical/vim-enmasse"
   end
 )
 

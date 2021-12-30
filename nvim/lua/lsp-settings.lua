@@ -2,9 +2,7 @@ local option = vim.api.nvim_set_option
 
 local lspconfig = require "lspconfig"
 
---
--- nvim-lsp-installer
---
+-- https://github.com/williamboman/nvim-lsp-installer
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
@@ -20,6 +18,7 @@ local servers = {
   "sumneko_lua",
   "stylelint_lsp",
   "svelte",
+  "terraformls",
   "tsserver",
   "vuels",
   "yamlls"

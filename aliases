@@ -152,6 +152,7 @@ alias gunstage="git reset --"
 alias gbr="git branch"
 alias gbra="git branch -a"
 alias gco="git checkout"
+alias gcom="git checkout master"
 
 alias gcan="git commit --amend --no-edit"
 alias gci="git commit"
@@ -190,6 +191,9 @@ alias gfind="git log --all --name-status --grep"
 alias gfe="git fetch"
 alias gup="git stash save -u && git pull && git stash pop"
 
+alias gre="git rebase"
+alias grec="git rebase --continue"
+
 alias gst="git status"
 alias gs="git status -s"
 alias grs="git recursive-status"
@@ -204,6 +208,15 @@ alias standup="git-standup"
 alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
+
+alias a="git add"
+alias m="git checkout master"
+alias u="git pull"
+alias b="git checkout -b"
+alias co="git checkout"
+alias com="git checkout master"
+
+alias pu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'=
 
 
 # =================================================================
