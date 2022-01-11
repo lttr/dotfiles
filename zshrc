@@ -138,6 +138,8 @@ autoload bashcompinit && bashcompinit
 
 eval $(dircolors ~/dotfiles/colors/dircolors)
 
+        # --color=bg+:#eaeaea,bg:#c5c8c6,spinner:#719e07,hl:#002b36
+        #
 _gen_fzf_default_opts() {
     if [[ $WSL == true ]]; then
         export FZF_DEFAULT_OPTS="

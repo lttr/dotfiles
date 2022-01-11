@@ -216,6 +216,16 @@ file-locate() {
     fi
 }
 
+# Trash restore
+restore() {
+    echo '' | trash-restore 2>/dev/null \
+            | sed '$d' \
+            | sort -k2,3 -k1,1n \
+            | fzf \
+            | awk 'END {print $1}' \
+            | trash-restore >/dev/null 2>&1
+}
+
 
 # =================================================================
 #                          Directories
@@ -308,13 +318,26 @@ FZF-EOF"
 }
 
 # Checkout merge request from gitlab
-comr() {
+mrco() {
   local out id
   out=$(glab mr list | grep '^!' | fzf --query "$1")
   if [ -n "$out" ]; then
     id=$(echo $out | awk '{ print $1 }' | tr -d '!')
     glab mr checkout $id
   fi
+}
+
+mrme() {
+  local out id
+  out=$(glab mr list | grep '^!' | fzf --query "$1")
+  if [ -n "$out" ]; then
+    id=$(echo $out | awk '{ print $1 }' | tr -d '!')
+    glab mr merge --remove-source-branch --when-pipeline-succeeds=false --yes $id
+  fi
+}
+
+mrmerge() {
+    glab mr merge --remove-source-branch --when-pipeline-succeeds=false --yes
 }
 
 # List gitlab merge requests

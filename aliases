@@ -150,9 +150,10 @@ alias gaa="git add --all"
 alias gunstage="git reset --"
 
 alias gbr="git branch"
-alias gbra="git branch -a"
+alias gbra="git branch --all"
 alias gco="git checkout"
 alias gcom="git checkout master"
+alias gb="git checkout -b"
 
 alias gcan="git commit --amend --no-edit"
 alias gci="git commit"
@@ -192,7 +193,9 @@ alias gfe="git fetch"
 alias gup="git stash save -u && git pull && git stash pop"
 
 alias gre="git rebase"
+alias grem="git rebase master"
 alias grec="git rebase --continue"
+alias gfem="git fem"
 
 alias gst="git status"
 alias gs="git status -s"

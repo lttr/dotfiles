@@ -61,7 +61,7 @@ nmap("Q", ":Bdelete<CR>")
 -- Quit window and try to remove the buffer that left from that window
 nmap("<leader>q", ":q<CR>:bd! #<CR>")
 -- Quit window with force
-nmap("<leader>Q", ":q!|bd #<CR>")
+nmap("<leader>Q", ":qall<CR>")
 -- Go to window left and right
 nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
@@ -227,7 +227,7 @@ nmap("<leader>gs", ":Git<CR>")
 nmap("<leader>r", ":RnvimrToggle<CR>")
 
 -- nvim-tree
-nmap("<C-e>", ":NvimTreeFindFile<CR>")
+nmap("<C-e>", ":NvimTreeFindFileToggle<CR>")
 
 -- vim-dirvish
 nmap("<leader>D", "<Cmd>Dirvish %<CR>")

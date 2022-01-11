@@ -4,11 +4,9 @@ import { binDirectory } from "./directories.ts";
 
 async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   const config: Config[] = [];
-  for await (
-    const entry of fs.walk(dir, {
-      exts: ["sh"],
-    })
-  ) {
+  for await (const entry of fs.walk(dir, {
+    exts: ["sh"],
+  })) {
     const scriptNameWithoutExtension = path.parse(entry.path).name;
     const dest = path.join(BIN_DIR, scriptNameWithoutExtension);
     config.push({
@@ -41,6 +39,12 @@ export const symlinks: Config[] = [
     symlink: {
       dest: path.join(HOME, ".alacritty.yml"),
       src: path.join(DOTFILES, "alacritty.yml"),
+    },
+  },
+  {
+    symlink: {
+      dest: path.join(HOME, ".config/kitty/kitty.conf"),
+      src: path.join(DOTFILES, "kitty.conf"),
     },
   },
   {

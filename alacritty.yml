@@ -98,7 +98,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Fira Mono
+    family: Fira Mono NerdFont
     # The `style` can be specified to pick a specific face.
     style: Regular
 
@@ -108,9 +108,9 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Fira Mono
+    family: Fira Mono NerdFont
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    style: Regular
 
   # Italic font face
   italic:
@@ -118,9 +118,9 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: Fira Mono
+    family: Fira Mono NerdFont
     # The `style` can be specified to pick a specific face.
-    style: Italic
+    style: Regular
 
   # Bold italic font face
   bold_italic:
@@ -137,9 +137,9 @@ font:
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
-  # offset:
-  #  x: 0
-  #  y: 0
+  offset:
+    x: 0
+    y: 2
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
@@ -237,7 +237,7 @@ schemes:
       text: '#ececec'
       cursor: '#828482'
     primary:
-      background: '#393939' # base3
+      background: '#2d2d2d'
       foreground: '#c5c8c6'
       dim_foreground: '#828482'
       bright_foreground: '#eaeaea'
@@ -252,11 +252,11 @@ schemes:
       white: '#c5c8c6'
     # Bright colors
     bright:
-      black: '#666666'
+      black: '#5F5A60' # '#666666'
       red: '#d54e53'
       green: '#b9ca4a'
       yellow: '#e7c547'
-      blue: '#7aa6da'
+      blue: '#7587A6' # '#7aa6da'
       magenta: '#c397d8'
       cyan: '#70c0b1'
       white: '#eaeaea'
