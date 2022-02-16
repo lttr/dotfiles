@@ -1,3 +1,5 @@
+-- https://github.com/hrsh7th/nvim-cmp
+
 local lspkind = require "lspkind"
 lspkind.init()
 
@@ -80,7 +82,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
         path = "[path]",
-        luasnip = "[snip]",
+        luasnip = "[snip]"
       }
     }
   }

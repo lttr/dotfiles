@@ -23,7 +23,7 @@ require("lualine").setup {
   sections = {
     lualine_a = {},
     lualine_b = {
-      {"FugitiveHead", icon = false},
+      -- {"FugitiveHead", icon = false},
       diff_source
     },
     lualine_c = {
@@ -33,7 +33,7 @@ require("lualine").setup {
         path = 1
       }
     },
-    lualine_x = {"filetype", "fileformat", "encoding"}
+    lualine_x = {{"filetype", colored = false}}
   },
   extensions = {"quickfix", "fugitive"}
 }

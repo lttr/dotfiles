@@ -1,3 +1,5 @@
+-- https://github.com/mhartington/formatter.nvim
+
 local prettier = function()
   return {
     exe = "prettier",
@@ -14,13 +16,13 @@ local eslint = function()
   }
 end
 
-local stylelint = function()
-  return {
-    exe = "stylelint",
-    args = {"--fix", "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
-    stdin = true
-  }
-end
+-- local stylelint = function()
+--   return {
+--     exe = "stylelint",
+--     args = {"--fix", "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+--     stdin = true
+--   }
+-- end
 
 local luafmt = function()
   return {
@@ -42,12 +44,14 @@ require("formatter").setup(
   {
     filetype = {
       javascript = {prettier, eslint},
+      javascriptreact = {prettier, eslint},
       typescript = {prettier, eslint},
+      typescriptreact = {prettier, eslint},
       html = {prettier},
-      css = {prettier, stylelint},
-      scss = {prettier, stylelint},
+      css = {prettier},
+      scss = {prettier},
       json = {prettier},
-      vue = {prettier, eslint, stylelint},
+      vue = {prettier, eslint},
       lua = {luafmt},
       xml = {xmllint}
     }

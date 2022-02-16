@@ -61,7 +61,7 @@ nmap("Q", ":Bdelete<CR>")
 -- Quit window and try to remove the buffer that left from that window
 nmap("<leader>q", ":q<CR>:bd! #<CR>")
 -- Quit window with force
-nmap("<leader>Q", ":qall<CR>")
+nmap("<leader>Q", ":q!|bd #<CR>")
 -- Go to window left and right
 nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
@@ -87,6 +87,9 @@ nmap("s", '"_diwPb')
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
 nmap("cn", "*``cgn")
 nmap("cN", "*``cgN")
+
+-- search for selected text
+vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
 -- ===== Bubble lines up and down =====
 -- Source http://vimrcfu.com/snippet/110
@@ -144,7 +147,7 @@ nmap("<leader>fc", "<cmd>lua require('telescope.builtin').command_history()<CR>"
 nmap("<leader>fd", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>")
 nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({ previewer = false })<CR>")
 nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
-nmap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+nmap("<leader>fg", '<cmd>lua require("telescope.builtin").live_grep({layout_strategy="horizontal"})<CR>')
 nmap("<leader>fgi", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
 nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_strategy='horizontal'})<CR>")
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
@@ -154,7 +157,7 @@ nmap(
   "<leader>fp",
   "<cmd>lua require('telescope').extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/'}}<CR>"
 )
-nmap("<leader>fr", '<cmd>lua require("telescope.builtin").file_browser({cwd = vim.fn.expand("%:p:h")})<CR>')
+nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
 nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
@@ -192,7 +195,9 @@ end
 nmap("<leader>ca", ":Lspsaga code_action<CR>")
 vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
 nmap("K", ":Lspsaga hover_doc<CR>")
+nmap("<localleader>k", ":Lspsaga hover_doc<CR>")
 nmap("<C-h>", ":Lspsaga signature_help<CR>")
+nmap("<localleader>h", ":Lspsaga signature_help<CR>")
 nmap("gh", ":Lspsaga lsp_finder<CR>")
 
 nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
@@ -200,6 +205,13 @@ nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
 nmap("<f2>", ":Lspsaga rename<CR>")
 nmap("gD", ":Lspsaga preview_definition<CR>")
 nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
+
+--
+-- Trouble
+--
+nmap("<leader>d", "<Cmd>TroubleToggle<CR>")
+
+nmap("cod", ":lua vim.diagnostic.config({ virtual_text = {source = 'always'} })<CR>")
 
 --
 -- vim-togglelist
@@ -227,7 +239,8 @@ nmap("<leader>gs", ":Git<CR>")
 nmap("<leader>r", ":RnvimrToggle<CR>")
 
 -- nvim-tree
-nmap("<C-e>", ":NvimTreeFindFileToggle<CR>")
+nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
+nmap("<A-1>", "<cmd>NvimTreeToggle<CR>")
 
 -- vim-dirvish
 nmap("<leader>D", "<Cmd>Dirvish %<CR>")
@@ -260,7 +273,7 @@ nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 --
 -- rest.nvim
 --
-nmap("<localleader>h", ":lua require('rest-nvim').run()<CR>")
+nmap("<localleader>t", ":lua require('rest-nvim').run()<CR>")
 
 --
 -- vim-translator

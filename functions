@@ -68,6 +68,13 @@ djs() {
     ddg js "$*" | html-to-text
 }
 
+s() {
+    local search
+    search="$1"
+    [ -z "$1" ] && read "search?Search: "
+    ( node -pe "encodeURIComponent(\"$search\")" | xargs -I{} xdg-open "https://duckduckgo.com/?q={}" &>/dev/null & )
+}
+
 
 # =================================================================
 #                             Files

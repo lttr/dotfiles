@@ -8,6 +8,7 @@ require "completion"
 require "comments"
 require "keybindings"
 require "formatting"
+require "diagnostic"
 require "theme"
 
 require "user.telescope"

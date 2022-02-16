@@ -166,6 +166,7 @@ alias gcg="git config --global --includes"
 alias gd="git diff"
 alias gds="git diff --staged"
 alias gdh="git diff HEAD"
+alias gdw="git diff --color-words"
 
 alias gchanged="git update-index --no-assume-unchanged"
 alias gunchanged="git update-index --assume-unchanged"

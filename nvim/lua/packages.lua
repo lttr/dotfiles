@@ -19,6 +19,7 @@ require "packer".startup(
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
     use "jvgrootveld/telescope-zoxide"
     use "cljoly/telescope-repo.nvim"
+    use "nvim-telescope/telescope-file-browser.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -67,6 +68,8 @@ require "packer".startup(
 
     -- special languages
     use "hashivim/vim-terraform"
+    use "jparise/vim-graphql"
+    use "maxmellon/vim-jsx-pretty"
 
     -- classic
     use "junegunn/goyo.vim"

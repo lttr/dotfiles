@@ -18,6 +18,12 @@ case "$PROJECT_ALIAS" in
     cd ~/code/lukastrumm
     npm run serve
     ;;
+  "jira")
+    ( firefox http://localhost:8080 &>/dev/null & )
+    echo 'launch make dev 
+    launch make reload' | kitty --detach --start-as=maximized --directory '~/hanaboso/jira-to-timesheeter' --session=-
+    cd ~/hanaboso/jira-to-timesheeter && nvim -c "lua require('user.telescope').project_files()"
+    ;;
   *)
     echo "Not found"
     ;;
