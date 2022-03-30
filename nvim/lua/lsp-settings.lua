@@ -75,7 +75,8 @@ local vuels = {
     vetur = {
       completion = {
         autoImport = true,
-        useScaffoldSnippets = true
+        useScaffoldSnippets = true,
+        tagCasing = "kebab"
       },
       validation = {
         template = true,
@@ -83,6 +84,11 @@ local vuels = {
         style = true,
         templateProps = true,
         interpolation = true
+      },
+      languageFeatures = {
+        codeActions = true,
+        updateImportOnFileMove = true,
+        semanticTokens = true
       },
       experimental = {
         templateInterpolationService = true
@@ -97,8 +103,7 @@ local stylelint_lsp = {
       autoFixOnFormat = true,
       autoFixOnSave = true
     }
-  },
-  root_dir = lspconfig.util.root_pattern("package.json")
+  }
 }
 
 local eslint = {

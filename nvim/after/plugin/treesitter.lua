@@ -6,7 +6,7 @@ require("nvim-treesitter.configs").setup {
   highlight = {enable = false},
   autotag = {enable = true},
   matchup = {
-    enable = true,
+    enable = false, -- disabled, since the indication at the end of a function is distracting
     disable = {} -- optional, list of language that will be disabled
   },
   textobjects = {
@@ -28,10 +28,10 @@ require("nvim-treesitter.configs").setup {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        ["]]"] = "@function.outer"
+        ["<C-j>"] = "@function.outer"
       },
       goto_previous_start = {
-        ["[["] = "@function.outer"
+        ["<C-k>"] = "@function.outer"
       }
     },
     swap = {

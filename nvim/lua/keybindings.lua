@@ -47,8 +47,23 @@ nmap("m", "q")
 -- ===== Moving in buffer =====
 nmap("j", "gj")
 nmap("k", "gk")
+vmap("j", "gj")
+vmap("k", "gk")
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
+
+nmap("]q", "<cmd>cnext<CR>zzzv")
+nmap("[q", "<cmd>cprevious<CR>zzzv")
+
+nmap("]c", "<cmd>Gitsigns next_hunk<CR>zzzv")
+nmap("[c", "<cmd>Gitsigns prev_hunk<CR>zzzv")
+
+-- Hunks (changes)
+nmap("<leader>hs", "<cmd>Gitsigns stage_hunk<CR>")
+nmap("<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>")
+nmap("<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
+nmap("<leader>hx", "<cmd>Gitsigns reset_hunk<CR>")
+nmap("<leader>hp", "<cmd>Gitsigns preview_hunk<CR>")
 
 -- ===== Open and reload $MYVIMRC =====
 nmap("<leader>V", ":e $MYVIMRC<CR>")
@@ -86,7 +101,7 @@ nmap("s", '"_diwPb')
 
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
 nmap("cn", "*``cgn")
-nmap("cN", "*``cgN")
+vmap("cn", 'y/<C-r>"<CR>Ncgn')
 
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
@@ -102,6 +117,18 @@ vmap("<A-K>", ":m '<-2<CR>gv=gv")
 
 -- Code navigation
 nmap("<C-b>", ":normal gd<CR>")
+
+-- Harpoon
+nmap("<localleader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
+nmap("+", "<cmd>lua require('harpoon.mark').add_file()<CR>")
+nmap("-", "<cmd>lua require('harpoon.mark').rm_file()<CR>")
+nmap("1", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
+nmap("2", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
+nmap("3", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
+nmap("4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
+
+-- Find references using search
+-- nmap("gR", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
@@ -130,28 +157,46 @@ tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 nmap("gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>")
 vmap("gx", 'y:silent execute \'!xdg-open \' . shellescape(\'<C-r>"\')<CR>')
 
+nmap("gz", "<cmd>silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=') . shellescape('<cWORD>')<CR>")
+vmap(
+  "gz",
+  'y:silent execute \'!xdg-open \' . shellescape(\'https://duckduckgo.com/?q=\') . shellescape(\'<C-r>"\')<CR>'
+)
+
+nmap(
+  "gZ",
+  "<cmd>silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=') . shellescape('!') . shellescape('<cWORD>')<CR>"
+)
+vmap(
+  "gZ",
+  'y:silent execute \'!xdg-open \' . shellescape(\'https://duckduckgo.com/?q=!%20\') . shellescape(\'<C-r>"\')<CR>'
+)
+
 -- break undo sequence
 imap(".", ".<C-g>u")
 imap(",", ",<C-g>u")
 imap("?", "?<C-g>u")
 
+-- external apps
+nmap("<F3>", "<cmd>silent !xdg-open %:p &<CR>")
+
 --
 ---- telescope
 --
 
-nmap("<C-p>", "<cmd>lua require('user.telescope').project_files()<CR>")
-nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
+nmap("<C-p>", "<cmd>lua require('telescope.builtin').find_files()<CR>")
 nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
 nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
 nmap("<leader>fc", "<cmd>lua require('telescope.builtin').command_history()<CR>")
 nmap("<leader>fd", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>")
-nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({ previewer = false })<CR>")
+nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
+nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({previewer=false})<CR>")
 nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
-nmap("<leader>fg", '<cmd>lua require("telescope.builtin").live_grep({layout_strategy="horizontal"})<CR>')
-nmap("<leader>fgi", "<cmd>lua require('telescope.builtin').git_commits()<CR>")
-nmap("<leader>fgs", "<cmd>lua require('telescope.builtin').git_status({layout_strategy='horizontal'})<CR>")
+nmap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+nmap("<leader>fG", "<cmd>lua require('telescope.builtin').live_grep({default_text = vim.fn.expand('<cword>')})<CR>")
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
-nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+nmap("<leader>fi", "<cmd>lua require('telescope.builtin').find_files({cwd='$HOME/dotfiles', previewer=false})<CR>")
+nmap("<leader>fj", "<cmd>lua require('telescope').extensions.harpoon.marks()<CR>")
 nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
 nmap(
   "<leader>fp",
@@ -159,9 +204,13 @@ nmap(
 )
 nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
-nmap("<leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>")
+nmap(
+  "<leader>fw",
+  "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>"
+)
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
 nmap("<leader>fz", "<cmd>lua require('telescope').extensions.zoxide.list{}<CR>")
+nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 
 --
 -- nvim-lspconfig
@@ -212,6 +261,7 @@ nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
 nmap("<leader>d", "<Cmd>TroubleToggle<CR>")
 
 nmap("cod", ":lua vim.diagnostic.config({ virtual_text = {source = 'always'} })<CR>")
+nmap("coD", ":lua vim.diagnostic.config({ virtual_text = false })<CR>")
 
 --
 -- vim-togglelist

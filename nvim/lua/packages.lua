@@ -24,6 +24,7 @@ require "packer".startup(
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
     use "sindrets/diffview.nvim"
+    use "ThePrimeagen/harpoon"
 
     -- LSP
     use "folke/trouble.nvim"
@@ -70,13 +71,12 @@ require "packer".startup(
     use "hashivim/vim-terraform"
     use "jparise/vim-graphql"
     use "maxmellon/vim-jsx-pretty"
+    use "preservim/vim-markdown"
 
     -- classic
     use "junegunn/goyo.vim"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"
-    -- use "rmagatti/auto-session"
-    -- use "rmagatti/session-lens"
     use "skywind3000/asyncrun.vim"
     use {"michaelb/sniprun", run = "bash ./install.sh"}
     use "meain/vim-printer"
