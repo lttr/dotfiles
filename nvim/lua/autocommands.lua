@@ -3,7 +3,7 @@ vim.cmd([[
     augroup term
       autocmd!
       autocmd TermOpen * startinsert
-    augroup END
+    augroup end
   ]], true)
 
 -- Restore last cursor position and center the screen,
@@ -13,15 +13,23 @@ vim.cmd(
     augroup last_position
       autocmd!
       autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"zvzz' | endif
-    augroup END
+    augroup end
   ]],
   true
 )
 
 -- Highlight on yank
 vim.cmd [[
-  augroup YankHighlight
+  augroup yank_highlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+]]
+
+-- Force removal of anoying format option (see :help fo-table)
+vim.cmd [[
+  augroup force_format_options
+      autocmd!
+      autocmd BufEnter * setlocal formatoptions-=o
   augroup end
 ]]

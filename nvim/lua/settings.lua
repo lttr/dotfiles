@@ -50,6 +50,9 @@ opt.completeopt = "menu,menuone"
 -- Undo
 opt.undofile = true -- Automatically saves undo history to an undo file
 
+-- No swap files
+opt.swapfile = false
+
 -- Terminal
 opt.shell = "/usr/bin/zsh"
 

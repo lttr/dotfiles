@@ -1,9 +1,12 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
-require("nvim-treesitter.configs").setup {
+require "nvim-treesitter.configs".setup {
   ensure_installed = "maintained",
   context_commentstring = {enable = true},
-  highlight = {enable = false},
+  highlight = {
+    enable = true,
+    disable = {}
+  },
   autotag = {enable = true},
   matchup = {
     enable = false, -- disabled, since the indication at the end of a function is distracting
@@ -45,3 +48,5 @@ require("nvim-treesitter.configs").setup {
     }
   }
 }
+
+require "nvim-treesitter.highlight".set_custom_captures {}

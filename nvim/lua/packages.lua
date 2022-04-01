@@ -34,7 +34,6 @@ require "packer".startup(
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
     use "rafamadriz/friendly-snippets"
-    use "ray-x/lsp_signature.nvim"
     use "williamboman/nvim-lsp-installer"
 
     -- completion
@@ -72,6 +71,7 @@ require "packer".startup(
     use "jparise/vim-graphql"
     use "maxmellon/vim-jsx-pretty"
     use "preservim/vim-markdown"
+    use "jose-elias-alvarez/nvim-lsp-ts-utils"
 
     -- classic
     use "junegunn/goyo.vim"

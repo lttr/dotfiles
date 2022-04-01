@@ -25,6 +25,13 @@ local function tmap(left, right)
   map("t", left, right, map_options)
 end
 
+-- Identify the syntax highlighting group used at the cursor
+-- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
+nmap(
+  "<F10>",
+  [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
+)
+
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
 map("n", "<C-s>", ":update<CR>", map_options)
@@ -74,7 +81,8 @@ nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
 -- Quit buffer without closing the window (plugin Bbye)
 nmap("Q", ":Bdelete<CR>")
 -- Quit window and try to remove the buffer that left from that window
-nmap("<leader>q", ":q<CR>:bd! #<CR>")
+-- nmap("<leader>q", ":q<CR>:bd #<CR>")
+nmap("<leader>q", ":q<CR>")
 -- Quit window with force
 nmap("<leader>Q", ":q!|bd #<CR>")
 -- Go to window left and right
@@ -101,7 +109,7 @@ nmap("s", '"_diwPb')
 
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
 nmap("cn", "*``cgn")
-vmap("cn", 'y/<C-r>"<CR>Ncgn')
+vmap("s", 'y/<C-r>"<CR>Ncgn')
 
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
@@ -197,7 +205,10 @@ nmap("<leader>fG", "<cmd>lua require('telescope.builtin').live_grep({default_tex
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nmap("<leader>fi", "<cmd>lua require('telescope.builtin').find_files({cwd='$HOME/dotfiles', previewer=false})<CR>")
 nmap("<leader>fj", "<cmd>lua require('telescope').extensions.harpoon.marks()<CR>")
-nmap("<leader>fo", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>")
+nmap(
+  "<leader>fo",
+  "<cmd>lua require('telescope.builtin').lsp_document_symbols({previewer=false,layout_config={width=90}})<CR>"
+)
 nmap(
   "<leader>fp",
   "<cmd>lua require('telescope').extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/'}}<CR>"
@@ -217,14 +228,27 @@ nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 --
 
 local function lspKeybindings(client)
+  -- build init neovim lsp
   nmap("gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
   nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  nmap("<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-  nmap("<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
-  nmap("<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
   nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  nmap("<leader>l", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
+  -- nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+  nmap("<localleader>k", "<cmd>lua vim.lsp.buf.hover()<CR>")
+  nmap("<localleader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+  nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
+  -- lspsaga
+  nmap("<leader>ca", ":Lspsaga code_action<CR>")
+  vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
+  nmap("K", ":Lspsaga hover_doc<CR>")
+  nmap("gh", ":Lspsaga lsp_finder<CR>")
+  nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
+  nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
+  nmap("gD", ":Lspsaga preview_definition<CR>")
+  nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
+
+  --
   -- Set some keybinds conditional on server capabilities
 
   -- I rely on formatter.nvim for now instead of LSP based
@@ -238,22 +262,13 @@ local function lspKeybindings(client)
 end
 
 --
--- lspsaga
+-- nvim-lsp-ts-utils
 --
-
-nmap("<leader>ca", ":Lspsaga code_action<CR>")
-vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
-nmap("K", ":Lspsaga hover_doc<CR>")
-nmap("<localleader>k", ":Lspsaga hover_doc<CR>")
-nmap("<C-h>", ":Lspsaga signature_help<CR>")
-nmap("<localleader>h", ":Lspsaga signature_help<CR>")
-nmap("gh", ":Lspsaga lsp_finder<CR>")
-
-nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
-nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
-nmap("<f2>", ":Lspsaga rename<CR>")
-nmap("gD", ":Lspsaga preview_definition<CR>")
-nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
+local function lspTsUtilsKeybindings()
+  nmap("<localleader>io", ":TSLspOrganize<CR>")
+  nmap("<localleader>ir", ":TSLspRenameFile<CR>")
+  nmap("<localleader>ia", ":TSLspImportAll<CR>")
+end
 
 --
 -- Trouble
@@ -262,6 +277,9 @@ nmap("<leader>d", "<Cmd>TroubleToggle<CR>")
 
 nmap("cod", ":lua vim.diagnostic.config({ virtual_text = {source = 'always'} })<CR>")
 nmap("coD", ":lua vim.diagnostic.config({ virtual_text = false })<CR>")
+
+-- inlay hints
+nmap("coi", ":TSLspToggleInlayHints<CR>")
 
 --
 -- vim-togglelist
@@ -351,5 +369,6 @@ vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
 -- export functions that needs to be called from init.lua
 return {
-  lspKeybindings = lspKeybindings
+  lspKeybindings = lspKeybindings,
+  lspTsUtilsKeybindings = lspTsUtilsKeybindings
 }

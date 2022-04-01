@@ -1,8 +1,6 @@
-local option = vim.api.nvim_set_option
-
-local lspconfig = require "lspconfig"
-
 -- https://github.com/williamboman/nvim-lsp-installer
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
@@ -29,14 +27,9 @@ local servers = {
 }
 
 local common_on_attach = function(client)
-  option("omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   require "keybindings".lspKeybindings(client)
-  require "lsp_signature".on_attach(
-    {
-      toggle_key = "<M-x>"
-    }
-  )
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -54,7 +47,20 @@ local common_on_attach = function(client)
 end
 
 local tsserver = {
+  -- Needed for inlayHints. Merge this table with your settings or copy
+  -- it from the source if you want to add your own init_options.
+  init_options = require("nvim-lsp-ts-utils").init_options,
   on_attach = function(client)
+    local ts_utils = require("nvim-lsp-ts-utils")
+    ts_utils.setup(
+      {
+        auto_inlay_hints = false
+      }
+    )
+    -- required to fix code action ranges and filter diagnostics
+    ts_utils.setup_client(client)
+    require "keybindings".lspTsUtilsKeybindings()
+
     if client.config.flags then
       client.config.flags.allow_incremental_sync = true
     end
@@ -67,33 +73,6 @@ local denols = {
     enable = true,
     lint = true,
     unstable = true
-  }
-}
-
-local vuels = {
-  settings = {
-    vetur = {
-      completion = {
-        autoImport = true,
-        useScaffoldSnippets = true,
-        tagCasing = "kebab"
-      },
-      validation = {
-        template = true,
-        script = true,
-        style = true,
-        templateProps = true,
-        interpolation = true
-      },
-      languageFeatures = {
-        codeActions = true,
-        updateImportOnFileMove = true,
-        semanticTokens = true
-      },
-      experimental = {
-        templateInterpolationService = true
-      }
-    }
   }
 }
 
@@ -133,12 +112,11 @@ local sumneko_lua = {
 }
 
 local custom_configs = {
-  tsserver,
-  denols,
-  vuels,
-  stylelint_lsp,
-  eslint,
-  sumneko_lua
+  tsserver = tsserver,
+  denols = denols,
+  stylelint_lsp = stylelint_lsp,
+  eslint = eslint,
+  sumneko_lua = sumneko_lua
 }
 
 local function make_config(server_name)
@@ -151,7 +129,8 @@ local function make_config(server_name)
     custom_config = custom_configs[server_name]
   end
 
-  return vim.tbl_deep_extend(
+  local merged_config =
+    vim.tbl_deep_extend(
     "force",
     {
       capabilities = capabilities,
@@ -160,9 +139,10 @@ local function make_config(server_name)
     },
     custom_config
   )
+  return merged_config
 end
 
-function file_exists(name)
+local function file_exists(name)
   local f = io.open(name, "r")
   if f ~= nil then
     io.close(f)
