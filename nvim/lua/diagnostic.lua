@@ -7,3 +7,16 @@ vim.diagnostic.config(
     severity_sort = true
   }
 )
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    signs = {
+      severity_limit = "Hint"
+    },
+    virtual_text = {
+      severity_limit = "Warning"
+    }
+  }
+)

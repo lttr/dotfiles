@@ -2,6 +2,8 @@
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils
 
+local nvim_lsp = require("lspconfig")
+
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
 local lsp_installer_servers = require("nvim-lsp-installer.servers")
@@ -47,6 +49,7 @@ local common_on_attach = function(client)
 end
 
 local tsserver = {
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
   -- Needed for inlayHints. Merge this table with your settings or copy
   -- it from the source if you want to add your own init_options.
   init_options = require("nvim-lsp-ts-utils").init_options,
@@ -69,6 +72,7 @@ local tsserver = {
 }
 
 local denols = {
+  root_dir = nvim_lsp.util.root_pattern("deno.json"),
   init_options = {
     enable = true,
     lint = true,
@@ -77,6 +81,7 @@ local denols = {
 }
 
 local stylelint_lsp = {
+  filetypes = {"css", "less", "scss", "vue", "javascriptreact", "typescriptreact"},
   settings = {
     stylelintplus = {
       autoFixOnFormat = true,
@@ -111,12 +116,24 @@ local sumneko_lua = {
   }
 }
 
+local vuels = {
+  init_options = {
+    vetur = {
+      completion = {
+        tagCasing = "initial",
+        autoImport = true
+      }
+    }
+  }
+}
+
 local custom_configs = {
   tsserver = tsserver,
   denols = denols,
   stylelint_lsp = stylelint_lsp,
   eslint = eslint,
-  sumneko_lua = sumneko_lua
+  sumneko_lua = sumneko_lua,
+  vuels = vuels
 }
 
 local function make_config(server_name)
@@ -165,18 +182,18 @@ for _, name in pairs(servers) do
         if server == "stylelint_lsp" and not file_exists(os.getenv("PWD") .. "/package.json") then
           return
         end
-        if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
-          return
-        end
-        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.ts") then
-          return
-        end
-        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.js") then
-          return
-        end
-        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deno.json") then
-          return
-        end
+        -- if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
+        --   return
+        -- end
+        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.ts") then
+        --   return
+        -- end
+        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.js") then
+        --   return
+        -- end
+        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deno.json") then
+        --   return
+        -- end
         requested_server:setup(config)
       end
     )

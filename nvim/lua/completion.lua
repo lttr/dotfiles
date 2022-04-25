@@ -72,6 +72,7 @@ cmp.setup {
     )
   },
   sources = {
+    {name = "nvim_lsp_signature_help"},
     {name = "nvim_lua"},
     {name = "nvim_lsp", max_item_count = 10},
     {name = "path"},
@@ -91,3 +92,5 @@ cmp.setup {
     }
   }
 }
+
+require("goto-preview").setup {}

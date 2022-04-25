@@ -20,6 +20,7 @@ require "packer".startup(
     use "jvgrootveld/telescope-zoxide"
     use "cljoly/telescope-repo.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
+    use "nvim-telescope/telescope-live-grep-raw.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -43,7 +44,9 @@ require "packer".startup(
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/cmp-vsnip"
     use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "onsails/lspkind-nvim"
+    use "rmagatti/goto-preview"
 
     -- editing
     use "windwp/nvim-ts-autotag"
@@ -65,6 +68,7 @@ require "packer".startup(
     use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/playground"
+    use "ThePrimeagen/refactoring.nvim"
 
     -- special languages
     use "hashivim/vim-terraform"
@@ -72,6 +76,7 @@ require "packer".startup(
     use "maxmellon/vim-jsx-pretty"
     use "preservim/vim-markdown"
     use "jose-elias-alvarez/nvim-lsp-ts-utils"
+    use "nikvdp/ejs-syntax"
 
     -- classic
     use "junegunn/goyo.vim"
@@ -79,12 +84,12 @@ require "packer".startup(
     use "moll/vim-bbye"
     use "skywind3000/asyncrun.vim"
     use {"michaelb/sniprun", run = "bash ./install.sh"}
-    use "meain/vim-printer"
     use "tommcdo/vim-exchange"
     use "tpope/vim-abolish"
     use "tpope/vim-characterize"
     use "tpope/vim-eunuch"
     use "tpope/vim-fugitive"
+    use "junegunn/gv.vim"
     use "tpope/vim-repeat"
     use "tpope/vim-sleuth"
     use "tpope/vim-surround"

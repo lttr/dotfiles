@@ -64,6 +64,9 @@ local bg = "#2d2d2d" -- from Tomorrow Night Eighties
 local fg = "#bdc0be" -- slightly darker then fg1
 local fg3 = "#5a524c"
 
+local bg_visual = "#45403d"
+local border = "#5a524c"
+
 local green = "#8aa872"
 local yellow = "#d8a657"
 local red = "#a54e56"
@@ -108,8 +111,8 @@ local palettes = {
     white = white,
     orange = orange,
     pink = pink,
-    sel0 = Color.from_hex("#45403d"):lighten(-4):to_css(),
-    sel1 = Color.from_hex("#5a524c"):lighten(-4):to_css()
+    sel0 = Color.from_hex(bg_visual):lighten(-4):to_css(),
+    sel1 = Color.from_hex(border):lighten(-4):to_css()
   }
 }
 
@@ -120,7 +123,10 @@ local groups = {
   GitSignsChange = {fg = yellow_transparent:to_css()},
   GitSignsRemove = {fg = red_transparent:to_css()},
   TSType = {fg = yellow, link = ""},
-  TSParameter = {fg = fg, link = ""}
+  TSParameter = {fg = fg, link = ""},
+  Folded = {fg = "palette.fg2", link = ""},
+  Visual = {bg = bg_visual, link = ""},
+  Search = {bg = Color.from_hex(blue):lighten(-25):to_css(), link = ""}
 }
 
 -- Treesitter groups mapping

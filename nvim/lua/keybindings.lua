@@ -1,4 +1,4 @@
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local map_options = {noremap = true, silent = true}
 
 --
@@ -72,14 +72,12 @@ nmap("<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
 nmap("<leader>hx", "<cmd>Gitsigns reset_hunk<CR>")
 nmap("<leader>hp", "<cmd>Gitsigns preview_hunk<CR>")
 
--- ===== Open and reload $MYVIMRC =====
-nmap("<leader>V", ":e $MYVIMRC<CR>")
-nmap("<A-s>", ":e $MYVIMRC<CR>")
+-- Config files
 nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
 
 -- ===== Exiting =====
--- Quit buffer without closing the window (plugin Bbye)
-nmap("Q", ":Bdelete<CR>")
+-- Quit buffer without closing the window, no back jumps will be possible (plugin Bbye)
+nmap("Q", ":Bwipeout<CR>")
 -- Quit window and try to remove the buffer that left from that window
 -- nmap("<leader>q", ":q<CR>:bd #<CR>")
 nmap("<leader>q", ":q<CR>")
@@ -91,7 +89,11 @@ nmap("<A-l>", "<C-w>l")
 nmap("<A-j>", "<C-w>j")
 nmap("<A-k>", "<C-w>k")
 -- open current buffer in vertical split
-nmap("<leader>v", ":bp<CR>:vsp<CR>:bp<CR>")
+nmap("<leader>v", ":vsplit<CR>")
+-- new files - does not work TODO
+nmap("<localleader>fv", ":vsplit <C-r>=expand('%:h')")
+nmap("<localleader>fs", ":split %:h")
+nmap("<localleader>fe", ":edit %:h")
 
 -- ===== Cut, Copy and Paste =====
 -- " Don't yank the contents of an overwritten selection (reyank the original content)
@@ -126,14 +128,17 @@ vmap("<A-K>", ":m '<-2<CR>gv=gv")
 -- Code navigation
 nmap("<C-b>", ":normal gd<CR>")
 
+nmap("<C-J", "")
+
 -- Harpoon
 nmap("<localleader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
 nmap("+", "<cmd>lua require('harpoon.mark').add_file()<CR>")
 nmap("-", "<cmd>lua require('harpoon.mark').rm_file()<CR>")
-nmap("1", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
-nmap("2", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
-nmap("3", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
-nmap("4", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
+
+nmap("<C-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
+nmap("<C-2>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
+nmap("<C-3>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
+nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 
 -- Find references using search
 -- nmap("gR", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
@@ -148,9 +153,10 @@ nmap("<localleader>E", "<Plug>SnipRun")
 nmap("<localleader>e", "<Plug>SnipRunOperator")
 vmap("<localleader>e", "<Plug>SnipRun")
 
--- paset console.log from code
-vim.g.vim_printer_print_below_keybinding = "<localleader>l"
-vim.g.vim_printer_print_above_keybinding = "<localleader>L"
+-- paset console.log with current variable
+-- inspired by https://github.com/meain/vim-printer
+nmap("<localleader>l", [[ <cmd>exe "normal yiwoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
+vmap("<localleader>l", [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
 
 -- terminal
 nmap("<leader>t", "<cmd>vsplit term://zsh<CR>")
@@ -188,11 +194,22 @@ imap("?", "?<C-g>u")
 -- external apps
 nmap("<F3>", "<cmd>silent !xdg-open %:p &<CR>")
 
+-- paste file name without extension and without path
+imap("<C-f>", "<C-r>=expand('%:t')<CR><Esc>dF.xa")
+
 --
 ---- telescope
 --
 
-nmap("<C-p>", "<cmd>lua require('telescope.builtin').find_files()<CR>")
+local find_files = function()
+  return require("telescope.builtin").find_files(
+    {
+      find_command = {"rg", "--hidden", "--files", "--glob", "!.git"}
+    }
+  )
+end
+
+nmap("<C-p>", find_files)
 nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
 nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
 nmap("<leader>fc", "<cmd>lua require('telescope.builtin').command_history()<CR>")
@@ -200,21 +217,36 @@ nmap("<leader>fd", "<cmd>lua require('telescope.builtin').lsp_document_diagnosti
 nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
 nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({previewer=false})<CR>")
 nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
-nmap("<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<CR>")
+
+local live_grep = function()
+  return require("telescope").extensions.live_grep_raw.live_grep_raw()
+end
+nmap("<leader>fg", live_grep)
+
 nmap("<leader>fG", "<cmd>lua require('telescope.builtin').live_grep({default_text = vim.fn.expand('<cword>')})<CR>")
 nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
 nmap("<leader>fi", "<cmd>lua require('telescope.builtin').find_files({cwd='$HOME/dotfiles', previewer=false})<CR>")
+nmap("<leader>fI", "<cmd>lua require('telescope.builtin').live_grep({cwd='$HOME/dotfiles'})<CR>")
 nmap("<leader>fj", "<cmd>lua require('telescope').extensions.harpoon.marks()<CR>")
-nmap(
-  "<leader>fo",
-  "<cmd>lua require('telescope.builtin').lsp_document_symbols({previewer=false,layout_config={width=90}})<CR>"
-)
+
+local document_symbols = function()
+  return require("telescope.builtin").lsp_document_symbols(
+    {
+      previewer = false,
+      layout_config = {width = 90},
+      symbols = {"function", "method"}
+    }
+  )
+end
+
+nmap("<leader>fo", document_symbols)
 nmap(
   "<leader>fp",
   "<cmd>lua require('telescope').extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/'}}<CR>"
 )
 nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
 nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
+nmap("<leader>ft", "<cmd>lua require('telescope.builtin').git_status()<CR>")
 nmap(
   "<leader>fw",
   "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>"
@@ -229,7 +261,7 @@ nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 
 local function lspKeybindings(client)
   -- build init neovim lsp
-  nmap("gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
+  nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
   nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
   nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
   -- nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
@@ -245,7 +277,7 @@ local function lspKeybindings(client)
   nmap("gh", ":Lspsaga lsp_finder<CR>")
   nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
   nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
-  nmap("gD", ":Lspsaga preview_definition<CR>")
+  -- nmap("gD", ":Lspsaga preview_definition<CR>")
   nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
 
   --
@@ -285,7 +317,7 @@ nmap("coi", ":TSLspToggleInlayHints<CR>")
 -- vim-togglelist
 --
 
-nmap("coa", ":call ToggleLocationList()<CR>")
+nmap("col", ":call ToggleLocationList()<CR>")
 nmap("coq", ":call ToggleQuickfixList()<CR>")
 
 --

@@ -32,6 +32,7 @@ require "telescope".load_extension("zoxide")
 require "telescope".load_extension("repo")
 require "telescope".load_extension("file_browser")
 require "telescope".load_extension("harpoon")
+require "telescope".load_extension("live_grep_raw")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup(
