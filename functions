@@ -370,7 +370,7 @@ draft() {
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
     echo "" >> $FILE_PATH
-    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
+    nvim "${FILE_PATH}" +"cd ${MY_SITE_DIR}"
 }
 
 blog() {
@@ -387,7 +387,7 @@ blog() {
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
     echo "" >> $FILE_PATH
-    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
+    nvim "${FILE_PATH}" +"cd ${MY_SITE_DIR}"
 }
 
 note() {
@@ -403,7 +403,7 @@ note() {
     echo "tags: " >> $FILE_PATH
     echo "---" >> $FILE_PATH
     echo "" >> $FILE_PATH
-    code --new-window "$MY_SITE_DIR" --goto "${FILE_PATH}:7"
+    nvim "${FILE_PATH}" +"cd ${MY_SITE_DIR}"
 }
 
 notes() {

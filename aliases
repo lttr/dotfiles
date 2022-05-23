@@ -151,17 +151,14 @@ alias gunstage="git reset --"
 
 alias gbr="git branch"
 alias gbra="git branch --all"
-alias gco="git checkout"
-alias gcom="git checkout master"
-alias gb="git checkout -b"
+alias gca="git catchup"
+alias gco="git switch"
+alias gcob="git switchit"
+alias gcom="git switch master"
 
 alias gcan="git commit --amend --no-edit"
-alias gci="git commit"
-alias gcm="git commit -m"
-alias gca="git commit -a -m"
 
 alias galiases="git config --global --includes --get-regexp alias"
-alias gcg="git config --global --includes"
 
 alias gd="git diff"
 alias gds="git diff --staged"
@@ -185,6 +182,7 @@ alias gm="git $logformat -n15"
 alias gma="git $logformat"
 alias gme="git $logformat --all -n15"
 alias gmea="git $logformat --all"
+alias gmmy="git $logformat --all -n15 --author=\"Lukas Trumm\""
 alias gfh="git $logformat --all --follow"
 
 alias gsf="git show --name-status"
@@ -207,20 +205,25 @@ alias gsl="git stash list"
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 alias gul='git pull'
 
+alias gundo='git reset --mixed HEAD~'
+
 alias standup="git-standup"
+
+alias gogo="git checkout master && git pull && git gone"
 
 alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
 
-alias a="git add"
-alias m="git checkout master"
-alias u="git pull"
-alias b="git checkout -b"
-alias co="git checkout"
-alias com="git checkout master"
+# alias a="git add"
+# alias m="git checkout master"
+# alias u="git pull"
+# alias b="git checkout -b"
+# alias co="git checkout"
+# alias com="git checkout master"
 
-alias pu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'=
+# alias pu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
+
 
 
 # =================================================================

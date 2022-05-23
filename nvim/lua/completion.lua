@@ -76,8 +76,8 @@ cmp.setup {
     {name = "nvim_lua"},
     {name = "nvim_lsp", max_item_count = 10},
     {name = "path"},
-    {name = "vsnip"},
-    {name = "buffer", keyword_length = 5}
+    {name = "vsnip"}
+    -- {name = "buffer", keyword_length = 5} -- too much noise
   },
   formatting = {
     format = lspkind.cmp_format {

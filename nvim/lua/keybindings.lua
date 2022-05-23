@@ -77,7 +77,7 @@ nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
 
 -- ===== Exiting =====
 -- Quit buffer without closing the window, no back jumps will be possible (plugin Bbye)
-nmap("Q", ":Bwipeout<CR>")
+nmap("Q", ":Bdelete<CR>")
 -- Quit window and try to remove the buffer that left from that window
 -- nmap("<leader>q", ":q<CR>:bd #<CR>")
 nmap("<leader>q", ":q<CR>")
@@ -196,6 +196,11 @@ nmap("<F3>", "<cmd>silent !xdg-open %:p &<CR>")
 
 -- paste file name without extension and without path
 imap("<C-f>", "<C-r>=expand('%:t')<CR><Esc>dF.xa")
+
+-- surround
+nmap("y`", "<cmd>normal ysiw`<CR>")
+nmap("y'", "<cmd>normal ysiw'<CR>")
+nmap('y"', '<cmd>normal ysiw"<CR>')
 
 --
 ---- telescope

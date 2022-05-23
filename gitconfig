@@ -22,7 +22,8 @@
     # branch
     br = branch
     bra = branch -a
-    co = checkout
+    co = switch
+    switchit = "!f() { git switch $1 2>/dev/null || git switch -c $1; }; f"
     tracking = branch -avv
     branches = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset)) %(color:red)%(objectname:short)%(color:reset) %(contents:subject) (%(authorname))' refs/heads refs/remotes
 
@@ -100,6 +101,9 @@
 
     # stash
     sl = stash list
+
+    # undo commit
+    undo = reset --mixed HEAD~
 
 [color]
     diff = auto

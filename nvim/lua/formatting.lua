@@ -43,15 +43,15 @@ end
 require("formatter").setup(
   {
     filetype = {
-      javascript = {prettier, eslint},
+      javascript = {prettier},
       javascriptreact = {prettier, eslint},
-      typescript = {prettier, eslint},
+      typescript = {prettier},
       typescriptreact = {prettier, eslint},
       html = {prettier},
       css = {prettier},
       scss = {prettier},
       json = {prettier},
-      vue = {prettier, eslint},
+      vue = {prettier},
       lua = {luafmt},
       xml = {xmllint}
     }
