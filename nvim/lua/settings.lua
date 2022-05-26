@@ -18,6 +18,7 @@ opt.number = true
 opt.numberwidth = 3
 opt.signcolumn = "yes:1"
 opt.updatetime = 700
+opt.termguicolors = true
 
 -- Buffers
 opt.hidden = true -- Allow buffer switching without saving

@@ -1,0 +1,15 @@
+{
+  "name": "my-snippets",
+  "private": true,
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./typescript.json"
+      }
+    ]
+  }
+}

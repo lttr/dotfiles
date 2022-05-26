@@ -2,6 +2,9 @@
 
 require "packer".startup(
   function(use)
+    -- local
+    use "~/code/arrays.nvim"
+
     -- packer
     use "wbthomason/packer.nvim"
 
@@ -30,19 +33,21 @@ require "packer".startup(
     -- LSP
     use "folke/trouble.nvim"
     use "tami5/lspsaga.nvim"
-    use "hrsh7th/vim-vsnip"
     use "lewis6991/gitsigns.nvim"
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
-    use "rafamadriz/friendly-snippets"
     use "williamboman/nvim-lsp-installer"
+
+    -- snippets
+    use "L3MON4D3/LuaSnip"
+    use "saadparwaiz1/cmp_luasnip"
+    use "rafamadriz/friendly-snippets"
 
     -- completion
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-nvim-lua"
     use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-vsnip"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "onsails/lspkind-nvim"

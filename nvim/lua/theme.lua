@@ -164,7 +164,9 @@ local specs = {
 nightfox.setup(
   {
     palettes = palettes,
-    groups = groups,
+    groups = {
+      nordfox = groups
+    },
     specs = specs,
     options = {
       styles = {

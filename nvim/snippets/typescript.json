@@ -275,8 +275,12 @@
     "prefix": "ly",
     "body": "let ${1:name} = yield ${2:value}"
   },
-  "const object": {
+  "const": {
     "prefix": "co",
+    "body": "const "
+  },
+  "const object": {
+    "prefix": "con",
     "body": "const ${1:name} = {\n\t${0}\n}"
   },
   "const array": {
@@ -375,13 +379,21 @@
     "prefix": "tcf",
     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
   },
+  "function": {
+    "prefix": "fu",
+    "body": "function "
+  },
   "anonymous function": {
     "prefix": "fan",
     "body": "function (${1:arguments}) {${0}}"
   },
   "named function": {
     "prefix": "fn",
-    "body": "function ${1:name} (${2:arguments}) {\n\t${0}\n}"
+    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}"
+  },
+  "named function 2": {
+    "prefix": "fun",
+    "body": "function ${1:name}(${2:arguments}) {\n\t${0}\n}"
   },
   "async function": {
     "prefix": "asf",
