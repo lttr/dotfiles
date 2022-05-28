@@ -1,18 +1,20 @@
+-- Commit while adding all from ex command
+vim.api.nvim_create_user_command(
+  "CA",
+  function(opts)
+    os.execute('git add --all; git commit -m "' .. opts.args .. '"')
+  end,
+  {nargs = 1}
+)
+
 -- Commit from ex command
-vim.cmd(
-  [[
-  function! GitAddAndCommit(args)
-    echo system("! git add --all; git commit -m \"" . a:args . "\"")
-  endfunction
-  function! GitCommit(args)
-    echo system("! git commit -m \"" . a:args . "\"")
-  endfunction
-  execute "command! -nargs=1 CA call GitAddAndCommit(<q-args>)"
-  execute "command! -nargs=1 C call GitCommit(<q-args>)"
-]]
+vim.api.nvim_create_user_command(
+  "C",
+  function(opts)
+    os.execute('git commit -m "' .. opts.args .. '"')
+  end,
+  {nargs = 1}
 )
 
 -- Close all other buffers
-vim.cmd([[
-  command! Bonly :update | %bdelete | edit # | normal `”
-]])
+vim.api.nvim_create_user_command("Bonly", ':update | %bdelete | edit # | normal `"', {})
