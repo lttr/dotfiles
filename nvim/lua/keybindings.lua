@@ -1,5 +1,5 @@
 local map = vim.keymap.set
-local map_options = {noremap = true, silent = true}
+local default_map_options = {noremap = true, silent = true}
 
 --
 ----- Keyboard
@@ -9,20 +9,28 @@ vim.cmd([[
   let maplocalleader = "\<space>"
 ]])
 
+local function mymap(mode, lhs, rhs, opts, bufnr)
+  opts = opts or default_map_options
+  if bufnr then
+    opts.buffer = bufnr
+  end
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+
 local function nmap(left, right)
-  map("n", left, right, map_options)
+  mymap("n", left, right)
 end
 
 local function imap(left, right)
-  map("i", left, right, map_options)
+  mymap("i", left, right)
 end
 
 local function vmap(left, right)
-  map("v", left, right, map_options)
+  mymap("v", left, right)
 end
 
 local function tmap(left, right)
-  map("t", left, right, map_options)
+  mymap("t", left, right)
 end
 
 -- Identify the syntax highlighting group used at the cursor
@@ -34,9 +42,9 @@ nmap(
 
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
-map("n", "<C-s>", ":update<CR>", map_options)
-map("v", "<C-s>", "<C-C>:update<CR>", map_options)
-map("i", "<C-s>", "<Esc>:update<CR>", map_options)
+nmap("<C-s>", ":update<CR>")
+vmap("<C-s>", "<C-C>:update<CR>")
+imap("<C-s>", "<Esc>:update<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
@@ -62,16 +70,6 @@ nmap("N", "Nzzzv")
 nmap("]q", "<cmd>cnext<CR>zzzv")
 nmap("[q", "<cmd>cprevious<CR>zzzv")
 
-nmap("]c", "<cmd>Gitsigns next_hunk<CR>zzzv")
-nmap("[c", "<cmd>Gitsigns prev_hunk<CR>zzzv")
-
--- Hunks (changes)
-nmap("<leader>hs", "<cmd>Gitsigns stage_hunk<CR>")
-nmap("<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>")
-nmap("<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
-nmap("<leader>hx", "<cmd>Gitsigns reset_hunk<CR>")
-nmap("<leader>hp", "<cmd>Gitsigns preview_hunk<CR>")
-
 -- Config files
 nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
 
@@ -82,18 +80,19 @@ nmap("Q", ":Bdelete<CR>")
 -- nmap("<leader>q", ":q<CR>:bd #<CR>")
 nmap("<leader>q", ":q<CR>")
 -- Quit window with force
-nmap("<leader>Q", ":q!|bd #<CR>")
+nmap("<leader>Q", ":qall<CR>")
 -- Go to window left and right
 nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
 nmap("<A-j>", "<C-w>j")
 nmap("<A-k>", "<C-w>k")
+
 -- open current buffer in vertical split
-nmap("<leader>v", ":vsplit<CR>")
--- new files - does not work TODO
-nmap("<localleader>fv", ":vsplit <C-r>=expand('%:h')")
-nmap("<localleader>fs", ":split %:h")
-nmap("<localleader>fe", ":edit %:h")
+nmap("<leader>vv", ":vsplit<CR>")
+nmap("<leader>vs", ":split<CR>")
+
+-- expand the current buffer's path on ex command line
+mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", {expr = 1})
 
 -- ===== Cut, Copy and Paste =====
 -- " Don't yank the contents of an overwritten selection (reyank the original content)
@@ -113,6 +112,10 @@ nmap("s", '"_diwPb')
 nmap("cn", "*``cgn")
 vmap("s", 'y/<C-r>"<CR>Ncgn')
 
+-- visual multi - cursor addition
+nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<cr>")
+nmap("<C-k>", ":call vm#commands#add_cursor_up(0, v:count1)<cr>")
+
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
@@ -128,11 +131,9 @@ vmap("<A-K>", ":m '<-2<CR>gv=gv")
 -- Code navigation
 nmap("<C-b>", ":normal gd<CR>")
 
-nmap("<C-J", "")
-
 -- Harpoon
-nmap("<localleader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
-nmap("+", "<cmd>lua require('harpoon.mark').add_file()<CR>")
+nmap("<leader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
+nmap("+", "<cmd>lua require('harpoon.mark').add_file()<CR><cmd>lua require('notify').notify('harpooned')<CR>")
 nmap("-", "<cmd>lua require('harpoon.mark').rm_file()<CR>")
 
 nmap("<C-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
@@ -147,16 +148,23 @@ nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
 
 -- Executing and running
-nmap("<leader>E", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap("<leader>r", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
-nmap("<localleader>E", "<Plug>SnipRun")
-nmap("<localleader>e", "<Plug>SnipRunOperator")
 vmap("<localleader>e", "<Plug>SnipRun")
+vmap("<localleader>j", EvaluateJs)
+
+-- help
+nmap("<localleader>H", ":help <C-r><C-w><CR>")
 
 -- paset console.log with current variable
 -- inspired by https://github.com/meain/vim-printer
 nmap("<localleader>l", [[ <cmd>exe "normal yiwoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
 vmap("<localleader>l", [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
+
+-- ensure , at the end of a line
+nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
+-- ensure ; at the end of a line
+nmap("<localleader>;", "<cmd>s/;*$/;/<CR><cmd>:nohls<CR>``")
 
 -- terminal
 nmap("<leader>t", "<cmd>vsplit term://zsh<CR>")
@@ -209,7 +217,22 @@ nmap('y"', '<cmd>normal ysiw"<CR>')
 local find_files = function()
   return require("telescope.builtin").find_files(
     {
-      find_command = {"rg", "--hidden", "--files", "--glob", "!.git"}
+      find_command = {
+        "rg",
+        "--hidden",
+        "--files",
+        "--no-ignore",
+        "--glob",
+        "!.git",
+        "--glob",
+        "!node_modules",
+        "--glob",
+        "!build/",
+        "--glob",
+        "!dist/",
+        "--glob",
+        "!.lock"
+      }
     }
   )
 end
@@ -329,19 +352,94 @@ nmap("coq", ":call ToggleQuickfixList()<CR>")
 -- nvim-autopairs
 --
 
-map("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
+mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
+
+--
+-- gitsigns
+--
+
+local function gitsignsKeybindings(bufnr)
+  local gs = package.loaded.gitsigns
+
+  -- Navigation
+  mymap(
+    "n",
+    "]c",
+    function()
+      if vim.wo.diff then
+        return "]c"
+      end
+      vim.schedule(
+        function()
+          gs.next_hunk()
+        end
+      )
+      return "<Ignore>"
+    end,
+    {expr = true}
+  )
+
+  mymap(
+    "n",
+    "[c",
+    function()
+      if vim.wo.diff then
+        return "[c"
+      end
+      vim.schedule(
+        function()
+          gs.prev_hunk()
+        end
+      )
+      return "<Ignore>"
+    end,
+    {expr = true}
+  )
+
+  -- Actions
+  mymap({"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
+  mymap({"n", "v"}, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
+  mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options, bufnr)
+  mymap("n", "<leader>hp", gs.preview_hunk, default_map_options, bufnr)
+  mymap(
+    "n",
+    "<leader>hb",
+    function()
+      gs.blame_line {full = true}
+    end
+  )
+
+  mymap("n", "<leader>hS", gs.stage_buffer, default_map_options, bufnr)
+  mymap("n", "<leader>hX", gs.reset_buffer, default_map_options, bufnr)
+  mymap("n", "<leader>hd", gs.diffthis, default_map_options, bufnr)
+  mymap(
+    "n",
+    "<leader>hD",
+    function()
+      gs.diffthis("~")
+    end,
+    default_map_options,
+    bufnr
+  )
+  mymap("n", "<leader>he", gs.toggle_deleted, default_map_options, bufnr)
+
+  -- Text object
+  mymap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>", default_map_options, bufnr)
+end
 
 --
 -- vim-fugitive
 --
 
-nmap("<leader>gs", ":Git<CR>")
+nmap("<leader>gs", "<cmd>Git<CR>")
+nmap("<leader>gl", "<cmd>GV<CR>")
+nmap("<leader>gh", "<cmd>GV!<CR>")
 
 --
 -- rnvimr
 --
 
-nmap("<leader>r", ":RnvimrToggle<CR>")
+-- nmap("<leader>r", ":RnvimrToggle<CR>")
 
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
@@ -406,6 +504,7 @@ vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
 -- export functions that needs to be called from init.lua
 return {
+  gitsignsKeybindings = gitsignsKeybindings,
   lspKeybindings = lspKeybindings,
   lspTsUtilsKeybindings = lspTsUtilsKeybindings
 }

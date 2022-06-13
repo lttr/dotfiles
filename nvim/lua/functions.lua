@@ -14,9 +14,14 @@ endfunction
 ]]
 )
 
-P = function(v)
-  print(vim.inspect(v))
-  return v
+P = function(...)
+  print(type(...))
+  if type(...) == "table" then
+    print(vim.inspect(...))
+  else
+    print(vim.inspect({...}))
+  end
+  return ...
 end
 
 RELOAD = function(...)

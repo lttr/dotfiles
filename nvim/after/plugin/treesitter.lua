@@ -29,13 +29,13 @@ require "nvim-treesitter.configs".setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["<C-j>"] = "@function.outer"
-      },
-      goto_previous_start = {
-        ["<C-k>"] = "@function.outer"
-      }
+      set_jumps = true -- whether to set jumps in the jumplist
+      -- goto_next_start = {
+      --   ["<C-j>"] = "@function.outer"
+      -- },
+      -- goto_previous_start = {
+      --   ["<C-k>"] = "@function.outer"
+      -- }
     },
     swap = {
       enable = true,

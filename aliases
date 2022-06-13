@@ -109,11 +109,12 @@ alias nuni="npm uninstall"
 alias nid="npm install --save-dev"
 alias nig="npm install -g"
 
-
 alias sb="npm run storybook"
+
 alias deps="cat package.json | json dependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
+alias zshkeys="cat ~/.zshrc | rg '# Alt' | sed 's/^# //'"
 
 
 # =================================================================

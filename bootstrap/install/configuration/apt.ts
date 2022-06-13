@@ -28,6 +28,7 @@ export const apt: Config[] = [
   aptPackage("htop"),
   aptPackage("httpie"),
   aptPackage("jq"),
+  aptPackage("moreutils"),
   aptPackage("neovim"),
   // aptPackage('nmap'),
   // aptPackage('numlockx'),

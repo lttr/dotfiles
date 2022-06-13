@@ -74,6 +74,9 @@ require "packer".startup(
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/playground"
 
+    -- debbugging
+    use "mfussenegger/nvim-dap"
+
     -- special languages
     use "hashivim/vim-terraform"
     use "jparise/vim-graphql"
@@ -83,17 +86,18 @@ require "packer".startup(
     use "nikvdp/ejs-syntax"
 
     -- classic
+    use "Olical/vim-enmasse"
+    use "aklt/vim-substitute"
     use "junegunn/goyo.vim"
+    use "junegunn/gv.vim"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"
     use "skywind3000/asyncrun.vim"
-    use {"michaelb/sniprun", run = "bash ./install.sh"}
     use "tommcdo/vim-exchange"
     use "tpope/vim-abolish"
     use "tpope/vim-characterize"
     use "tpope/vim-eunuch"
     use "tpope/vim-fugitive"
-    use "junegunn/gv.vim"
     use "tpope/vim-repeat"
     use "tpope/vim-sleuth"
     use "tpope/vim-surround"
@@ -101,8 +105,8 @@ require "packer".startup(
     use "vim-scripts/BufOnly.vim"
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
-    use "aklt/vim-substitute"
-    use "Olical/vim-enmasse"
+    use {"dhruvasagar/vim-prosession", requires = {"tpope/vim-obsession"}}
+    use {"michaelb/sniprun", run = "bash ./install.sh"}
   end
 )
 

@@ -72,7 +72,7 @@ local tsserver = {
 }
 
 local denols = {
-  root_dir = nvim_lsp.util.root_pattern("deno.json"),
+  root_dir = nvim_lsp.util.root_pattern({"deno.json", "deps.ts"}),
   init_options = {
     enable = true,
     lint = true,

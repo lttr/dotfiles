@@ -16,5 +16,8 @@ vim.api.nvim_create_user_command(
   {nargs = 1}
 )
 
+-- Create new file next to current one
+vim.api.nvim_create_user_command("N", ":sp %:h/<args>", {nargs = 1})
+
 -- Close all other buffers
 vim.api.nvim_create_user_command("Bonly", ':update | %bdelete | edit # | normal `"', {})

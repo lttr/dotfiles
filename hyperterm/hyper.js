@@ -6,7 +6,7 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: 'stable',
+    updateChannel: "stable",
 
     // default font size in pixels for all tabs
     fontSize: 13.5,
@@ -23,20 +23,20 @@ module.exports = {
       '"Fira Mono Regular", "DejaVu Sans Mono", "Consolas", monospace',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: 'normal',
+    fontWeight: "normal",
 
     // font weight for bold characters: 'normal' or 'bold'
-    fontWeightBold: 'bold',
+    fontWeightBold: "bold",
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     // cursorColor: 'rgba(101,123,131,0.8)',
 
     // terminal text color under BLOCK cursor
-    cursorAccentColor: '#fdf6e3',
+    cursorAccentColor: "#fdf6e3",
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
     // cursorShape: 'UNDERLINE',
-    cursorShape: 'BLOCK',
+    cursorShape: "BLOCK",
 
     // set to `true` (without backticks and without quotes) for blinking cursor
     cursorBlink: false,
@@ -51,14 +51,14 @@ module.exports = {
     // backgroundColor: '#657b83', // solarized dark
 
     // terminal selection color
-    selectionColor: 'rgba(147,161,161,0.3)',
+    selectionColor: "rgba(147,161,161,0.3)",
 
     themeOptions: {
-      foregroundColor: '#c5c8c6',
-      backgroundColor: '#393939', // tomorrow night # base3
+      foregroundColor: "#c5c8c6",
+      backgroundColor: "#393939", // tomorrow night # base3
       // border color (window, tabs)
-      borderColor: '#393939',
-      cursorColor: '#828482',
+      borderColor: "#393939",
+      cursorColor: "#828482",
     },
 
     // custom CSS to embed in the main window
@@ -82,7 +82,7 @@ module.exports = {
     `,
 
     // custom CSS to embed in the terminal window
-    termCSS: '',
+    termCSS: "",
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
@@ -94,7 +94,7 @@ module.exports = {
     showWindowControls: true,
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '7px 9px',
+    padding: "7px 9px",
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -131,7 +131,7 @@ module.exports = {
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
 
-    shell: 'zsh',
+    shell: "zsh",
 
     // Bash
     // shell: 'C:\\Windows\\System32\\bash.exe',
@@ -153,7 +153,7 @@ module.exports = {
     env: {},
 
     // set to `false` for no bell
-    bell: 'false',
+    bell: "false",
 
     // if `true` (without backticks and without quotes), selected text will automatically be copied to the clipboard
     copyOnSelect: true,
@@ -172,18 +172,18 @@ module.exports = {
     // for advanced config flags please refer to https://hyper.is/#cfg
 
     hyperTabsMove: {
-      moveLeft: 'ctrl+shift+pageup',
-      moveRight: 'ctrl+shift+pagedown',
+      moveLeft: "ctrl+shift+pageup",
+      moveRight: "ctrl+shift+pagedown",
     },
   },
 
   plugins: [
-    'hyper-search',
-    'hypercwd',
-    'hyperterm-tabs',
-    'hyper-native-window-decoration',
-    'hyperlayout',
-    'hyperterm-base16-tomorrow-dark',
+    "hyper-search",
+    "hypercwd",
+    "hyperterm-tabs",
+    "hyper-native-window-decoration",
+    "hyperlayout",
+    "hyperterm-base16-tomorrow-dark",
   ],
 
   // in development, you can create a directory under
@@ -193,6 +193,6 @@ module.exports = {
   // localPlugins: ['hyper-solarized-dark'],
 
   keymaps: {
-    'pane:splitHorizontal': 'ctrl+shift+h',
+    "pane:splitHorizontal": "ctrl+shift+h",
   },
-}
+};

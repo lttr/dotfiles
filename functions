@@ -258,9 +258,10 @@ dr() { dir-recent "$1" }
 # Change to a subdirectory, select with fzf
 dir-open() {
     local dir
-    dir=$(find -L ${1:-*} -path '*/\.*'\
-        -prune -o -type d\
-        -print 2> /dev/null | fzf)
+    # dir=$(find -L ${1:-*} -path '*/\.*'\
+    #     -prune -o -type d\
+    #     -print 2> /dev/null | fzf)
+    dir=$(fd | fzf)
     [ -d "$dir" ] && cd "$dir"
     if [[ $WSL != true ]]; then # on WSL
       xdotool key KP_Enter

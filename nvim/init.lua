@@ -1,3 +1,4 @@
+require "utils"
 require "packages"
 require "settings"
 require "autocommands"
