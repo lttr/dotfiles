@@ -57,6 +57,7 @@ export const customInstalls: Config[] = [
   { webInstall: { name: "rg", dependsOn: webi } },
   { brew: { name: "neovim", dependsOn: brew } },
   { brew: { name: "gh", dependsOn: brew } },
+  { brew: { name: "sd", dependsOn: brew } },
   { brew: { name: "zoxide", dependsOn: brew } },
   { brew: { name: "fzf", dependsOn: brew } },
   { brew: { name: "potrace", dependsOn: brew } },

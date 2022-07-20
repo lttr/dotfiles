@@ -22,6 +22,7 @@ export const shell: Config[] = [
   antibodyPackage("zsh-users/zsh-completions"),
   antibodyPackage("zsh-users/zsh-history-substring-search"),
   antibodyPackage("MichaelAquilina/zsh-you-should-use"),
+  antibodyPackage("wfxr/forgit"),
   antibodyPackage("supercrabtree/k"),
   antibodyPackage("Tarrasch/zsh-bd"),
   antibodyPackage("mafredri/zsh-async"),

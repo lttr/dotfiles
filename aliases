@@ -48,7 +48,7 @@ alias la="LC_COLLATE=c ls -lhFA --show-control-chars --color --group-directories
 alias le="less -FiMRX"
 alias lesf="less +F"
 
-alias df="df -h"
+alias df="df -h /"
 alias tree="tree -I 'node_modules|.git'"
 
 
@@ -209,6 +209,7 @@ alias gul='git pull'
 alias gundo='git reset --mixed HEAD~'
 
 alias standup="git-standup"
+alias myweek="git standup -d 8 -D 'short'"
 
 alias gogo="git checkout master && git pull && git gone"
 

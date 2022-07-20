@@ -22,6 +22,7 @@ export const apt: Config[] = [
   aptPackage("dict-freedict-ces-eng"),
   aptPackage("dict-freedict-eng-ces"),
   aptPackage("dict-gcide"),
+  aptPackage("duf"),
   // aptPackage('dos2unix'),
   // aptPackage('expect'),
   // aptPackage("fasd"),

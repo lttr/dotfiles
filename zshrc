@@ -105,8 +105,9 @@ setopt extended_glob
 unsetopt beep
 
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+HISTFILESIZE=100000
+SAVEHIST=100000
 KEYTIMEOUT=1
 
 # =================================================================
@@ -191,12 +192,17 @@ eval "$(zoxide init zsh)"
 # Write some info to terminal title.
 # This is seen when the shell prompts for input.
 function precmd {
-  print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
+  # echo -ne "\033]0;$(basename $(dirname ${PWD}))/$(basename ${PWD})\a"
+  print -Pn "\e]2;%n@%M | %~\a"
+  # print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
 }
+
 # Write command and args to terminal title.
 # This is seen while the shell waits for a command to complete.
 function preexec {
-  printf "\033]0;%s\a" "$1"
+  # echo -ne "\033]0;$(basename $(dirname ${PWD}))/$(basename ${PWD})\a"
+  print -Pn "\e]2;%n@%M | %~\a"
+  # printf "\033]0;%s\a" "$1"
 }
 
 if [[ $WSL != "true" ]]; then
