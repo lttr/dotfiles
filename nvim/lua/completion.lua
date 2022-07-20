@@ -72,6 +72,9 @@ cmp.setup {
     )
   },
   sources = {
+    {name = "cmp_jira"},
+    {name = "cmp_vue_components"},
+    {name = "git"},
     {name = "nvim_lsp_signature_help"},
     {name = "nvim_lua"},
     {name = "nvim_lsp", max_item_count = 10},
@@ -94,3 +97,18 @@ cmp.setup {
 }
 
 require("goto-preview").setup {}
+require("cmp_jira").setup {
+  file_types = {"gitcommit"},
+  jira = {
+    -- email: optional, alternatively specify via $JIRA_USER_EMAIL
+    -- url: optional, alternatively specify via $JIRA_WORKSPACE_URL
+    -- jql: optional, lua format string, escaped username/email will be passed to string.format()
+    jql = "assignee=%s+and+resolution=unresolved"
+  }
+}
+require("cmp_vue_components").setup {
+  file_types = {"vue"}
+}
+require("cmp_git").setup {
+  filetypes = {"gitcommit"}
+}

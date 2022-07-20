@@ -23,7 +23,7 @@ require "packer".startup(
     use "jvgrootveld/telescope-zoxide"
     use "cljoly/telescope-repo.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
-    use "nvim-telescope/telescope-live-grep-raw.nvim"
+    use "nvim-telescope/telescope-live-grep-args.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -52,6 +52,9 @@ require "packer".startup(
     use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "onsails/lspkind-nvim"
     use "rmagatti/goto-preview"
+    use "petertriho/cmp-git"
+    use "~/code/cmp-jira"
+    use "~/code/cmp-vue-components"
 
     -- editing
     use "windwp/nvim-ts-autotag"

@@ -14,6 +14,7 @@ local servers = {
   "cssls",
   "denols",
   "eslint",
+  "gopls",
   "graphql",
   "html",
   "jsonls",
@@ -28,24 +29,36 @@ local servers = {
   "yamlls"
 }
 
+local common_handlers = {
+  ["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      underline = true,
+      signs = false,
+      virtual_text = false,
+      update_in_insert = false
+    }
+  )
+}
+
 local common_on_attach = function(client)
   vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   require "keybindings".lspKeybindings(client)
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    vim.cmd(
-      [[
-        augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]],
-      false
-    )
-  end
+  -- if client.resolved_capabilities.document_highlight then
+  -- vim.cmd(
+  --   [[
+  --     augroup lsp_document_highlight
+  --     autocmd! * <buffer>
+  --     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]],
+  --   false
+  -- )
+  -- end
 end
 
 local tsserver = {
@@ -152,7 +165,8 @@ local function make_config(server_name)
     {
       capabilities = capabilities,
       -- map buffer local keybindings when the language server attaches
-      on_attach = common_on_attach
+      on_attach = common_on_attach,
+      handlers = common_handlers
     },
     custom_config
   )

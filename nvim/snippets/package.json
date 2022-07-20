@@ -9,6 +9,12 @@
           "typescriptreact"
         ],
         "path": "./typescript.json"
+      },
+      {
+        "language": [
+          "vue"
+        ],
+        "path": "./vue.json"
       }
     ]
   }

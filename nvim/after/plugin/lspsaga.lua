@@ -1,7 +1,7 @@
 -- https://github.com/tami5/lspsaga.nvim
 
-require "lspsaga".setup {
-  border_style = "none",
+require "lspsaga".init_lsp_saga {
+  border_style = false,
   rename_action_keys = {
     quit = "<Esc>"
   },

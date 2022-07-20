@@ -26,7 +26,6 @@
   "editor.parameterHints.enabled": false,
   "editor.parameterHints.cycle": true,
   "editor.renderControlCharacters": true,
-  "editor.renderIndentGuides": false,
   "editor.selectionHighlight": false,
   "editor.snippetSuggestions": "bottom",
   "editor.quickSuggestionsDelay": 500,
@@ -204,7 +203,6 @@
   "editor.tabSize": 2,
   "editor.renderLineHighlight": "gutter",
   "git.confirmSync": false,
-  "editor.cursorSmoothCaretAnimation": true,
   "[xml]": {
     "editor.formatOnSave": false
   },
@@ -303,7 +301,7 @@
   "files.defaultLanguage": "${activeEditorLanguage}",
   "vim.enableNeovim": true,
   "open-in-vim.useNeovim": true,
-  "vim.neovimPath": "/usr/bin/nvim",
+  "vim.neovimPath": "/home/lukas/.local/opt/brew/bin/nvim",
   "jest.autoEnable": false,
   "jest.enableCodeLens": false,
   "cSpell.userWords": [
@@ -365,5 +363,7 @@
   "window.menuBarVisibility": "compact",
   "workbench.activityBar.visible": false,
   "mdnSearch.url": "https://duckduckgo.com/?q=!+mdn+${q}",
-  "security.workspace.trust.untrustedFiles": "open"
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.guides.indentation": false,
+  "open-in-vim.restoreCursorAfterVim": true
 }

@@ -106,11 +106,13 @@ imap("<C-V>", '<Esc>"+p')
 -- Paste over in visual mode
 vmap("<C-V>", 'd"+gP')
 -- Replace current word with yanked or deleted text (stamping)
-nmap("s", '"_diwPb')
+-- while preparing silently for repeated actions ('n' or '.')
+nmap("s", "*``cgn<C-r>0<Esc><C-l>")
 
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
-nmap("cn", "*``cgn")
-vmap("s", 'y/<C-r>"<CR>Ncgn')
+nmap("gr", "*``cgn")
+vmap("gr", 'y/<C-r>"<CR>Ncgn')
+-- "gs" -- Go Substitute word under cursor (vim-substitute plugin)
 
 -- visual multi - cursor addition
 nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<cr>")
@@ -247,7 +249,7 @@ nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({previewer=fa
 nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
 
 local live_grep = function()
-  return require("telescope").extensions.live_grep_raw.live_grep_raw()
+  return require("telescope").extensions.live_grep_args.live_grep_args()
 end
 nmap("<leader>fg", live_grep)
 
@@ -281,7 +283,7 @@ nmap(
 )
 nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
 nmap("<leader>fz", "<cmd>lua require('telescope').extensions.zoxide.list{}<CR>")
-nmap("gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+nmap("<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
 
 --
 -- nvim-lspconfig
@@ -333,10 +335,7 @@ end
 --
 -- Trouble
 --
-nmap("<leader>d", "<Cmd>TroubleToggle<CR>")
-
-nmap("cod", ":lua vim.diagnostic.config({ virtual_text = {source = 'always'} })<CR>")
-nmap("coD", ":lua vim.diagnostic.config({ virtual_text = false })<CR>")
+nmap("cod", "<Cmd>TroubleToggle<CR>")
 
 -- inlay hints
 nmap("coi", ":TSLspToggleInlayHints<CR>")
@@ -434,12 +433,13 @@ end
 nmap("<leader>gs", "<cmd>Git<CR>")
 nmap("<leader>gl", "<cmd>GV<CR>")
 nmap("<leader>gh", "<cmd>GV!<CR>")
+nmap("<leader>gp", "<cmd>Git push<CR>")
 
 --
 -- rnvimr
 --
 
--- nmap("<leader>r", ":RnvimrToggle<CR>")
+nmap("<leader>R", ":RnvimrToggle<CR>")
 
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")

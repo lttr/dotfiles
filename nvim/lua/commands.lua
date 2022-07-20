@@ -7,6 +7,9 @@ vim.api.nvim_create_user_command(
   {nargs = 1}
 )
 
+-- Stage all files
+vim.api.nvim_create_user_command("GA", "Git add --all", {})
+
 -- Commit from ex command
 vim.api.nvim_create_user_command(
   "C",
