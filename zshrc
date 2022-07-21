@@ -124,8 +124,8 @@ zstyle ':completion:*' matcher-list '' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
 
-fpath=(~/.zsh/completion $fpath)
-fpath=(~/.local/opt/brew/share/zsh/site-functions $fpath)
+fpath+=(~/.zsh/completion)
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 source <(npm completion)
 
@@ -189,20 +189,14 @@ eval "$(zoxide init zsh)"
 #                           Terminal
 # =================================================================
 
-# Write some info to terminal title.
-# This is seen when the shell prompts for input.
-function precmd {
-  # echo -ne "\033]0;$(basename $(dirname ${PWD}))/$(basename ${PWD})\a"
-  print -Pn "\e]2;%n@%M | %~\a"
-  # print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
+# My terminal (kitty now) for some reason does not display tab title according to pure prompt logic
+
+precmd () {
+  kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD})"
 }
 
-# Write command and args to terminal title.
-# This is seen while the shell waits for a command to complete.
-function preexec {
-  # echo -ne "\033]0;$(basename $(dirname ${PWD}))/$(basename ${PWD})\a"
-  print -Pn "\e]2;%n@%M | %~\a"
-  # printf "\033]0;%s\a" "$1"
+preexec() {
+  kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD}): $1"
 }
 
 if [[ $WSL != "true" ]]; then
@@ -276,12 +270,9 @@ else
 fi;
 
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-
-
 # The next line updates PATH for Netlify's Git Credential Helper.
 if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.netlify/helper/path.zsh.inc'; fi
 
 # Profiling
 # zprof
+
