@@ -126,7 +126,9 @@ local groups = {
   TSParameter = {fg = fg, link = ""},
   Folded = {fg = "palette.fg2", link = ""},
   Visual = {bg = bg_visual, link = ""},
-  Search = {bg = Color.from_hex(blue):lighten(-25):to_css(), link = ""}
+  Search = {bg = Color.from_hex(blue):lighten(-25):to_css(), link = ""},
+  LspSignatureActiveParameter = {fg = "palette.orange"},
+  Hint = {bg = "palette.bg1", fg = "palette.comment"}
 }
 
 -- Treesitter groups mapping

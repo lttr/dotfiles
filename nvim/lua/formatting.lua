@@ -43,26 +43,36 @@ end
 require("formatter").setup(
   {
     filetype = {
-      javascript = {prettier},
-      javascriptreact = {prettier, eslint},
-      typescript = {prettier},
-      typescriptreact = {prettier, eslint},
-      html = {prettier},
-      css = {prettier},
-      scss = {prettier},
-      json = {prettier},
-      vue = {prettier},
+      -- javascript = {prettier},
+      -- javascriptreact = {prettier, eslint},
+      -- typescript = {prettier},
+      -- typescriptreact = {prettier, eslint},
+      -- html = {prettier},
+      -- css = {prettier},
+      -- scss = {prettier},
+      -- json = {prettier},
+      -- vue = {prettier},
       lua = {luafmt},
-      xml = {xmllint}
+      -- xml = {xmllint}
     }
   }
 )
+
+-- vim.api.nvim_exec(
+--   [[
+--   augroup fmt
+--     autocmd!
+--     autocmd BufWritePost *.mjs,*.css,*.less,*.scss,*.json,*.yaml,*.html,*.tsx,*.jsx,*.ts,*.js,*.vue,*.svelte,*.lua FormatWrite
+--   augroup END
+-- ]],
+--   true
+-- )
 
 vim.api.nvim_exec(
   [[
   augroup fmt
     autocmd!
-    autocmd BufWritePost *.mjs,*.css,*.less,*.scss,*.json,*.yaml,*.html,*.tsx,*.jsx,*.ts,*.js,*.vue,*.svelte,*.lua FormatWrite
+    autocmd BufWritePost *.lua FormatWrite
   augroup END
 ]],
   true

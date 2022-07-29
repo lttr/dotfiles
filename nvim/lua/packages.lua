@@ -24,6 +24,7 @@ require "packer".startup(
     use "cljoly/telescope-repo.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
     use "nvim-telescope/telescope-live-grep-args.nvim"
+    use "jeetsukumaran/telescope-buffer-lines.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -37,6 +38,9 @@ require "packer".startup(
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
     use "williamboman/nvim-lsp-installer"
+    use "jose-elias-alvarez/null-ls.nvim"
+    use "b0o/schemastore.nvim"
+    use "Maan2003/lsp_lines.nvim"
 
     -- snippets
     use "L3MON4D3/LuaSnip"
@@ -50,6 +54,7 @@ require "packer".startup(
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-nvim-lsp-signature-help"
+    use "ray-x/lsp_signature.nvim"
     use "onsails/lspkind-nvim"
     use "rmagatti/goto-preview"
     use "petertriho/cmp-git"
@@ -87,6 +92,9 @@ require "packer".startup(
     use "preservim/vim-markdown"
     use "jose-elias-alvarez/nvim-lsp-ts-utils"
     use "nikvdp/ejs-syntax"
+
+    -- help
+    use "dbeniamine/cheat.sh-vim"
 
     -- classic
     use "Olical/vim-enmasse"

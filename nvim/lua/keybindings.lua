@@ -49,6 +49,8 @@ imap("<C-s>", "<Esc>:update<CR>")
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
 vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
+nmap("<C-/>", "<cmd>normal gcc<CR>")
+vmap("<C-/>", "<cmd>normal gc<CR>")
 
 -- Consistency
 -- Make the behaviour of Y consistent with D and C
@@ -71,7 +73,7 @@ nmap("]q", "<cmd>cnext<CR>zzzv")
 nmap("[q", "<cmd>cprevious<CR>zzzv")
 
 -- Config files
-nmap("<leader><leader>x", ":call SaveAndExec()<CR>")
+nmap("<leader>x", ":call SaveAndExec()<CR>")
 
 -- ===== Exiting =====
 -- Quit buffer without closing the window, no back jumps will be possible (plugin Bbye)
@@ -144,7 +146,7 @@ nmap("<C-3>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
 nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 
 -- Find references using search
--- nmap("gR", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+-- nmap("gR", function() tb.lsp_references() end)
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
@@ -216,8 +218,11 @@ nmap('y"', '<cmd>normal ysiw"<CR>')
 ---- telescope
 --
 
+local tb = require "telescope.builtin"
+local tel = require "telescope"
+
 local find_files = function()
-  return require("telescope.builtin").find_files(
+  return tb.find_files(
     {
       find_command = {
         "rg",
@@ -239,28 +244,8 @@ local find_files = function()
   )
 end
 
-nmap("<C-p>", find_files)
-nmap("<leader>fa", "<cmd>lua require('telescope.builtin').commands()<CR>")
-nmap("<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>")
-nmap("<leader>fc", "<cmd>lua require('telescope.builtin').command_history()<CR>")
-nmap("<leader>fd", "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>")
-nmap("<leader>fD", "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>")
-nmap("<leader>fe", "<cmd>lua require('telescope.builtin').oldfiles({previewer=false})<CR>")
-nmap("<leader>ff", "<cmd>lua require('telescope.builtin').grep_string()<CR>")
-
-local live_grep = function()
-  return require("telescope").extensions.live_grep_args.live_grep_args()
-end
-nmap("<leader>fg", live_grep)
-
-nmap("<leader>fG", "<cmd>lua require('telescope.builtin').live_grep({default_text = vim.fn.expand('<cword>')})<CR>")
-nmap("<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<CR>")
-nmap("<leader>fi", "<cmd>lua require('telescope.builtin').find_files({cwd='$HOME/dotfiles', previewer=false})<CR>")
-nmap("<leader>fI", "<cmd>lua require('telescope.builtin').live_grep({cwd='$HOME/dotfiles'})<CR>")
-nmap("<leader>fj", "<cmd>lua require('telescope').extensions.harpoon.marks()<CR>")
-
 local document_symbols = function()
-  return require("telescope.builtin").lsp_document_symbols(
+  return tb.lsp_document_symbols(
     {
       previewer = false,
       layout_config = {width = 90},
@@ -269,59 +254,193 @@ local document_symbols = function()
   )
 end
 
+local live_grep = function()
+  return tel.extensions.live_grep_args.live_grep_args()
+end
+
+nmap("<C-p>", find_files)
+
+nmap(
+  "<leader>fa",
+  function()
+    tb.commands()
+  end
+)
+nmap(
+  "<leader>fb",
+  function()
+    tb.buffers()
+  end
+)
+nmap(
+  "<leader>fc",
+  function()
+    tb.command_history()
+  end
+)
+nmap(
+  "<leader>fd",
+  function()
+    tb.lsp_document_diagnostics()
+  end
+)
+nmap(
+  "<leader>fD",
+  function()
+    tb.lsp_workspace_diagnostics()
+  end
+)
+nmap(
+  "<leader>fe",
+  function()
+    tb.oldfiles({previewer = false})
+  end
+)
+nmap(
+  "<leader>ff",
+  function()
+    tb.grep_string()
+  end
+)
+nmap("<leader>fg", live_grep)
+vmap(
+  "<leader>fg",
+  function()
+    tb.live_grep({default_text = GetVisualSelection()})
+  end
+)
+nmap(
+  "<leader>fG",
+  function()
+    tb.live_grep({default_text = vim.fn.expand("<cword>")})
+  end
+)
+nmap(
+  "<leader>fh",
+  function()
+    tb.help_tags()
+  end
+)
+vmap(
+  "<leader>fh",
+  function()
+    tb.help_tags({default_text = GetVisualSelection()})
+  end
+)
+nmap(
+  "<leader>fi",
+  function()
+    tb.find_files({cwd = "$HOME/dotfiles", previewer = false})
+  end
+)
+nmap(
+  "<leader>fI",
+  function()
+    tb.live_grep({cwd = "$HOME/dotfiles"})
+  end
+)
+nmap(
+  "<leader>fj",
+  function()
+    tb.extensions.harpoon.marks()
+  end
+)
+nmap(
+  "<leader>fk",
+  function()
+    tb.keymaps()
+  end
+)
+nmap(
+  "<leader>fl",
+  function()
+    tel.extensions.buffer_lines.buffer_lines()
+  end
+)
+
 nmap("<leader>fo", document_symbols)
 nmap(
   "<leader>fp",
-  "<cmd>lua require('telescope').extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/'}}<CR>"
+  function()
+    tb.extensions.repo.cached_list {file_ignore_patterns = {"/%.cache/", "/%.cargo/", "/%.local/"}}
+  end
 )
 nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
-nmap("<leader>fs", "<cmd>lua require('telescope.builtin').search_history()<CR>")
-nmap("<leader>ft", "<cmd>lua require('telescope.builtin').git_status()<CR>")
+nmap(
+  "<leader>fs",
+  function()
+    tb.search_history()
+  end
+)
+nmap(
+  "<leader>ft",
+  function()
+    tb.git_status()
+  end
+)
 nmap(
   "<leader>fw",
-  "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols({default_text = vim.fn.expand('<cword>')})<CR>"
+  function()
+    tb.lsp_dynamic_workspace_symbols({default_text = vim.fn.expand("<cword>")})
+  end
 )
-nmap("<leader>fx", "<cmd>lua require('telescope.builtin').builtin()<CR>")
-nmap("<leader>fz", "<cmd>lua require('telescope').extensions.zoxide.list{}<CR>")
-nmap("<localleader>r", "<cmd>lua require('telescope.builtin').lsp_references()<CR>")
+nmap(
+  "<leader>fx",
+  function()
+    tb.builtin()
+  end
+)
+nmap(
+  "<leader>fz",
+  function()
+    tb.extensions.zoxide.list {}
+  end
+)
+nmap(
+  "<localleader>r",
+  function()
+    tb.lsp_references()
+  end
+)
 
 --
 -- nvim-lspconfig
 --
 
 local function lspKeybindings(client)
-  -- build init neovim lsp
-  nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  -- nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  nmap("<localleader>k", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  nmap("<localleader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-  nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-  nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
-
-  -- lspsaga
-  nmap("<leader>ca", ":Lspsaga code_action<CR>")
-  vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
-  nmap("K", ":Lspsaga hover_doc<CR>")
-  nmap("gh", ":Lspsaga lsp_finder<CR>")
-  nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
-  nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
-  -- nmap("gD", ":Lspsaga preview_definition<CR>")
-  nmap("<localleader>d", ":Lspsaga show_line_diagnostics<CR>")
-
-  --
-  -- Set some keybinds conditional on server capabilities
-
-  -- I rely on formatter.nvim for now instead of LSP based
-  -- formatting. CLI tools has more flexibility
-  --
-  -- if client.resolved_capabilities.document_formatting then
-  --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-  -- elseif client.resolved_capabilities.document_range_formatting then
-  --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
-  -- end
 end
+
+-- build init neovim lsp
+nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+-- nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+nmap("<localleader>k", "<cmd>lua vim.lsp.buf.hover()<CR>")
+nmap("<localleader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
+
+-- lspsaga
+nmap("<leader>ca", ":Lspsaga code_action<CR>")
+vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
+nmap("K", ":Lspsaga hover_doc<CR>")
+nmap("gh", ":Lspsaga lsp_finder<CR>")
+nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
+nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
+-- nmap("gD", ":Lspsaga preview_definition<CR>")
+nmap("<localleader>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
+
+--
+-- Set some keybinds conditional on server capabilities
+
+-- I rely on formatter.nvim for now instead of LSP based
+-- formatting. CLI tools has more flexibility
+--
+-- if client.resolved_capabilities.document_formatting then
+--   nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+-- elseif client.resolved_capabilities.document_range_formatting then
+--   nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
+-- end
 
 --
 -- nvim-lsp-ts-utils
@@ -339,6 +458,9 @@ nmap("cod", "<Cmd>TroubleToggle<CR>")
 
 -- inlay hints
 nmap("coi", ":TSLspToggleInlayHints<CR>")
+
+-- diagnostic hints
+nmap("cov", require("lsp_lines").toggle)
 
 --
 -- vim-togglelist
@@ -443,7 +565,7 @@ nmap("<leader>R", ":RnvimrToggle<CR>")
 
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
-nmap("<A-1>", "<cmd>NvimTreeToggle<CR>")
+nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 
 -- vim-dirvish
 nmap("<leader>D", "<Cmd>Dirvish %<CR>")

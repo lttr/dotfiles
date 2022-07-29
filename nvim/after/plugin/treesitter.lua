@@ -9,7 +9,7 @@ require "nvim-treesitter.configs".setup {
   },
   autotag = {enable = true},
   matchup = {
-    enable = false, -- disabled, since the indication at the end of a function is distracting
+    enable = true, -- disabled, since the indication at the end of a function is distracting
     disable = {} -- optional, list of language that will be disabled
   },
   textobjects = {

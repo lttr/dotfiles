@@ -13,7 +13,7 @@ local servers = {
   "bashls",
   "cssls",
   "denols",
-  "eslint",
+  -- "eslint",
   "gopls",
   "graphql",
   "html",
@@ -30,6 +30,7 @@ local servers = {
 }
 
 local common_handlers = {
+  -- let plugin lsp_lines handle virtual diagnostic text
   ["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
     {
@@ -45,6 +46,7 @@ local common_on_attach = function(client)
   vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   require "keybindings".lspKeybindings(client)
+  client.resolved_capabilities.document_formatting = false
 
   -- Set autocommands conditional on server_capabilities
   -- if client.resolved_capabilities.document_highlight then
@@ -90,7 +92,11 @@ local denols = {
     enable = true,
     lint = true,
     unstable = true
-  }
+  },
+  on_attach = function(client)
+    -- let null ls do the formatting
+    client.resolved_capabilities.document_formatting = false
+  end
 }
 
 local stylelint_lsp = {
@@ -103,18 +109,18 @@ local stylelint_lsp = {
   }
 }
 
-local eslint = {
-  on_attach = function(client)
-    -- neovim's LSP client does not currently support dynamic
-    -- capabilities registration, so we need to set
-    -- the resolved capabilities of the eslint server ourselves!
-    client.resolved_capabilities.document_formatting = true
-    common_on_attach(client)
-  end,
-  settings = {
-    format = {enable = true} -- this will enable formatting
-  }
-}
+-- local eslint = {
+--   on_attach = function(client)
+--     -- neovim's LSP client does not currently support dynamic
+--     -- capabilities registration, so we need to set
+--     -- the resolved capabilities of the eslint server ourselves!
+--     client.resolved_capabilities.document_formatting = true
+--     common_on_attach(client)
+--   end,
+--   settings = {
+--     format = {enable = true} -- this will enable formatting
+--   }
+-- }
 
 local sumneko_lua = {
   cmd = {
@@ -140,13 +146,23 @@ local vuels = {
   }
 }
 
+local jsonls = {
+  settings = {
+    json = {
+      schemas = require "schemastore".json.schemas(),
+      validate = {enable = true}
+    }
+  }
+}
+
 local custom_configs = {
   tsserver = tsserver,
   denols = denols,
   stylelint_lsp = stylelint_lsp,
-  eslint = eslint,
+  -- eslint = eslint,
   sumneko_lua = sumneko_lua,
-  vuels = vuels
+  vuels = vuels,
+  jsonls = jsonls
 }
 
 local function make_config(server_name)
@@ -190,24 +206,24 @@ for _, name in pairs(servers) do
       function()
         local server = requested_server.name
         local config = make_config(server)
-        if server == "eslint" and not file_exists(os.getenv("PWD") .. "/package.json") then
-          return
-        end
+        -- if server == "eslint" and not file_exists(os.getenv("PWD") .. "/package.json") then
+        -- return
+        -- end
         if server == "stylelint_lsp" and not file_exists(os.getenv("PWD") .. "/package.json") then
           return
         end
-        -- if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
-        --   return
-        -- end
-        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.ts") then
-        --   return
-        -- end
-        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.js") then
-        --   return
-        -- end
-        -- if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deno.json") then
-        --   return
-        -- end
+        if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
+          return
+        end
+        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.ts") then
+          return
+        end
+        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.js") then
+          return
+        end
+        if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deno.json") then
+          return
+        end
         requested_server:setup(config)
       end
     )
@@ -218,3 +234,11 @@ for _, name in pairs(servers) do
     end
   end
 end
+
+-- https://github.com/ray-x/lsp_signature.nvim
+require "lsp_signature".setup {
+  hint_enable = true,
+  hint_scheme = "Hint",
+  hint_prefix = "» ",
+  floating_window = false
+}
