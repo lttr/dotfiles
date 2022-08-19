@@ -218,8 +218,8 @@ chpwd() {
 #                    Aliases and functions
 # =================================================================
 
-source ~/dotfiles/aliases
 source ~/dotfiles/functions
+source ~/dotfiles/aliases
 
 
 # =================================================================
@@ -237,10 +237,10 @@ fi
 #                          Local config
 # =================================================================
 
+[[ -f ~/.functions.local ]] && source ~/.functions.local
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
-[[ -f ~/.functions.local ]] && source ~/.functions.local
 
 
 # =================================================================

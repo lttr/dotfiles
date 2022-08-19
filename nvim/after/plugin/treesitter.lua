@@ -24,18 +24,22 @@ require "nvim-treesitter.configs".setup {
         ["ar"] = "@parameter.outer",
         ["ir"] = "@parameter.inner",
         ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner"
+        ["ic"] = "@class.inner",
+        ["aa"] = "@attribute.outer",
+        ["ia"] = "@attribute.inner",
+        ["ai"] = "@conditional.outer",
+        ["ii"] = "@conditional.inner"
       }
     },
     move = {
       enable = true,
-      set_jumps = true -- whether to set jumps in the jumplist
-      -- goto_next_start = {
-      --   ["<C-j>"] = "@function.outer"
-      -- },
-      -- goto_previous_start = {
-      --   ["<C-k>"] = "@function.outer"
-      -- }
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["<C-]>"] = "@function.outer"
+      },
+      goto_previous_start = {
+        ["<C-[>"] = "@function.outer"
+      }
     },
     swap = {
       enable = true,

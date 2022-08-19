@@ -46,7 +46,6 @@
     edit-conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}'; }; $EDITOR `f`"
     re = rebase
     rec = rebase --continue
-    catchup = !"git fem; git rebase master"
 
     # files
     changed = update-index --no-assume-unchanged
@@ -90,7 +89,6 @@
 
     # remote
     fe = fetch
-    fem = !"git fetch origin master:master; git log --oneline master@{1}..master"
     update = !git stash save -u && git pull && git stash pop
     pu = ![ -z $(git config branch.`git symbolic-ref --short HEAD`.merge) ] && git push -u origin $(git symbolic-ref --short HEAD) || git push
     gone = !"git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D"

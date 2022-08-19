@@ -115,6 +115,7 @@ nmap("s", "*``cgn<C-r>0<Esc><C-l>")
 nmap("gr", "*``cgn")
 vmap("gr", 'y/<C-r>"<CR>Ncgn')
 -- "gs" -- Go Substitute word under cursor (vim-substitute plugin)
+vmap("*", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
 -- visual multi - cursor addition
 nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<cr>")
@@ -259,6 +260,20 @@ local live_grep = function()
 end
 
 nmap("<C-p>", find_files)
+imap(
+  "<C-t>",
+  function()
+    tb.find_files(
+      {
+        mappings = {
+          i = {
+            ["<CR>"] = require "telescope.actions".my_select_action
+          }
+        }
+      }
+    )
+  end
+)
 
 nmap(
   "<leader>fa",
@@ -583,9 +598,14 @@ nmap("<leader>di", "<cmd>DiffviewFocusFiles<CR>")
 nmap("<leader>dr", "<cmd>DiffviewRefresh<CR>")
 
 --
--- goyo
+-- Zen mode
 --
-nmap("<leader>G", ":Goyo<CR>")
+nmap(
+  "<leader>z",
+  function()
+    require("zen-mode").toggle()
+  end
+)
 
 --
 -- nvim-spectre
@@ -598,7 +618,19 @@ nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 --
 -- rest.nvim
 --
-nmap("<localleader>t", ":lua require('rest-nvim').run()<CR>")
+nmap(
+  "<localleader>T",
+  function()
+    require("rest-nvim").last()
+  end
+)
+
+nmap(
+  "<localleader>t",
+  function()
+    require("rest-nvim").run()
+  end
+)
 
 --
 -- vim-translator

@@ -5,6 +5,9 @@
     "snippets": [
       {
         "language": [
+          "vue",
+          "javascript",
+          "javascriptreact",
           "typescript",
           "typescriptreact"
         ],

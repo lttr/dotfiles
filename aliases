@@ -114,8 +114,6 @@ alias sb="npm run storybook"
 alias deps="cat package.json | json dependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
-alias zshkeys="cat ~/.zshrc | rg '# Alt' | sed 's/^# //'"
-
 
 # =================================================================
 #                         Other programs
@@ -141,7 +139,6 @@ alias tp="trash-put"
 alias vag="vagrant"
 alias xmlstar="xmlstarlet"
 
-
 # =================================================================
 #                              Git
 # =================================================================
@@ -155,7 +152,7 @@ alias gbra="git branch --all"
 alias gca="git catchup"
 alias gco="git switch"
 alias gcob="git switchit"
-alias gcom="git switch master"
+alias gcom="git switch `git_default_branch`"
 
 alias gcan="git commit --amend --no-edit"
 
@@ -193,9 +190,11 @@ alias gfe="git fetch"
 alias gup="git stash save -u && git pull && git stash pop"
 
 alias gre="git rebase"
-alias grem="git rebase master"
+alias grem="git rebase `git_default_branch`"
 alias grec="git rebase --continue"
 alias gfem="git fem"
+
+alias fem="git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch`@{1}..`git_default_branch`"
 
 alias gst="git status"
 alias gs="git status -s"
@@ -211,21 +210,33 @@ alias gundo='git reset --mixed HEAD~'
 alias standup="git-standup"
 alias myweek="git standup -d 8 -D 'short'"
 
-alias gogo="git checkout master && git pull && git gone"
+alias gogo="git checkout `git_default_branch` && git pull && git gone"
 
 alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
 
 # alias a="git add"
-# alias m="git checkout master"
+# alias m="git checkout `git_default_branch`"
 # alias u="git pull"
 # alias b="git checkout -b"
 # alias co="git checkout"
-# alias com="git checkout master"
+# alias com="git checkout `git_default_branch`"
 
 # alias pu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 
+
+# =================================================================
+#                              Lists
+# =================================================================
+
+alias zshkeys="cat ~/.zshrc | rg '# Alt' | sed 's/^# //'"
+
+targets() {
+  make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | sort -u | grep -v "Makefile\|Linux\|Darwin"
+}
+
+alias mak="targets"
 
 
 # =================================================================

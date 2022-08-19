@@ -280,7 +280,7 @@
   "colorHelper.resident": true,
   "editor.cursorSurroundingLines": 3,
   "gitlens.currentLine.enabled": false,
-  "editor.matchBrackets": false,
+  "editor.matchBrackets": "never",
   "cSpell.allowCompoundWords": true,
   "cSpell.language": "en,cs",
   "cSpell.enabledLanguageIds": ["markdown"],

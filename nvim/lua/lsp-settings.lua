@@ -18,6 +18,7 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
+  "prismals",
   "sumneko_lua",
   "stylelint_lsp",
   "svelte",

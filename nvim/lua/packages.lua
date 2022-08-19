@@ -41,6 +41,7 @@ require "packer".startup(
     use "jose-elias-alvarez/null-ls.nvim"
     use "b0o/schemastore.nvim"
     use "Maan2003/lsp_lines.nvim"
+    use "folke/zen-mode.nvim"
 
     -- snippets
     use "L3MON4D3/LuaSnip"
@@ -65,7 +66,7 @@ require "packer".startup(
     use "windwp/nvim-ts-autotag"
     use "windwp/nvim-autopairs"
     use "mg979/vim-visual-multi"
-    use "windwp/nvim-spectre"
+    use "nvim-pack/nvim-spectre"
     use "numToStr/Comment.nvim"
     use "folke/which-key.nvim"
     use "andymass/vim-matchup"
@@ -73,7 +74,7 @@ require "packer".startup(
     -- web dev
     use "KabbAmine/vCoolor.vim"
     use "mattn/emmet-vim"
-    use "NTBBloodbath/rest.nvim"
+    use "rest-nvim/rest.nvim"
     use "norcalli/nvim-colorizer.lua"
 
     -- treesitter
@@ -89,7 +90,7 @@ require "packer".startup(
     use "hashivim/vim-terraform"
     use "jparise/vim-graphql"
     use "maxmellon/vim-jsx-pretty"
-    use "preservim/vim-markdown"
+    -- use "preservim/vim-markdown"
     use "jose-elias-alvarez/nvim-lsp-ts-utils"
     use "nikvdp/ejs-syntax"
 
@@ -99,7 +100,6 @@ require "packer".startup(
     -- classic
     use "Olical/vim-enmasse"
     use "aklt/vim-substitute"
-    use "junegunn/goyo.vim"
     use "junegunn/gv.vim"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"

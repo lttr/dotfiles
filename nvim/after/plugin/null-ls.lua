@@ -17,8 +17,16 @@ null_ls.setup {
     ),
     -- null_ls.builtins.formatting.eslint_d,
     -- null_ls.builtins.formatting.stylelint,
-    null_ls.builtins.formatting.lua_format
-    -- null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.formatting.lua_format,
+    null_ls.builtins.diagnostics.eslint_d.with(
+      {
+        extra_args = {
+          "--config",
+          vim.fn.expand("~/.config/eslint/config.json")
+        },
+        timeout = 20000
+      }
+    )
     -- null_ls.builtins.diagnostics.stylelint
   },
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save

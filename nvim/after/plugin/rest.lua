@@ -1,3 +1,3 @@
--- https://github.com/NTBBloodbath/rest.nvim
+-- https://github.com/rest-nvim/rest.nvim
 
 require "rest-nvim".setup {}

@@ -353,6 +353,15 @@ mrs() {
     glab mr list
 }
 
+git_default_branch() {
+    local branch
+    branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
+    if [ -z "$branch" ]; then
+        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2)
+    fi
+    echo $branch
+}
+
 
 # =================================================================
 #                              Code
