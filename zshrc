@@ -276,3 +276,6 @@ if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.
 # Profiling
 # zprof
 
+
+#find-alias
+[[ -s "$HOME/.find-alias.sh" ]] && source "$HOME/.find-alias.sh"

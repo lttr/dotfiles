@@ -73,7 +73,7 @@ cmp.setup {
   },
   sources = {
     {name = "cmp_jira"},
-    {name = "cmp_vue_components"},
+    -- {name = "cmp_vue_components"},
     {name = "git"},
     {name = "nvim_lsp_signature_help"},
     {name = "nvim_lua"},
@@ -86,11 +86,11 @@ cmp.setup {
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
-        buffer = "[buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
         path = "[path]",
-        luasnip = "[snip]"
+        luasnip = "[snip]",
+        buffer = "[buf]"
       }
     }
   }
@@ -106,6 +106,7 @@ require("cmp_jira").setup {
     jql = "assignee=%s+and+resolution=unresolved"
   }
 }
+-- TODO finish plugin
 require("cmp_vue_components").setup {
   file_types = {"vue"}
 }

@@ -115,6 +115,8 @@ alias deps="cat package.json | json dependencies | json --items -a key value | s
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 
+alias mit="npx mit-license --name 'Lukas Trumm'"
+
 # =================================================================
 #                         Other programs
 # =================================================================
@@ -128,7 +130,7 @@ alias copy="xsel -b"
 alias d="docker"
 alias dc="docker-compose"
 alias dg="ddg"
-alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
+# alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 alias help="tldr"
 alias ht="http --verify=no"
 alias ipy="ipython"
@@ -152,8 +154,6 @@ alias gbra="git branch --all"
 alias gca="git catchup"
 alias gco="git switch"
 alias gcob="git switchit"
-alias gcom="git switch `git_default_branch`"
-
 alias gcan="git commit --amend --no-edit"
 
 alias galiases="git config --global --includes --get-regexp alias"
@@ -192,9 +192,7 @@ alias gup="git stash save -u && git pull && git stash pop"
 alias gre="git rebase"
 alias grem="git rebase `git_default_branch`"
 alias grec="git rebase --continue"
-alias gfem="git fem"
-
-alias fem="git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch`@{1}..`git_default_branch`"
+alias gfem="git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch`@{1}..`git_default_branch`"
 
 alias gst="git status"
 alias gs="git status -s"

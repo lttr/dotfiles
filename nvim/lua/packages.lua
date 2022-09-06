@@ -3,7 +3,6 @@
 require "packer".startup(
   function(use)
     -- local
-    use "~/code/arrays.nvim"
 
     -- packer
     use "wbthomason/packer.nvim"

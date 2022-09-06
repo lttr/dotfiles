@@ -362,6 +362,10 @@ git_default_branch() {
     echo $branch
 }
 
+gcom() {
+    git switch $(git_default_branch)
+}
+
 
 # =================================================================
 #                              Code

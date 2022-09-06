@@ -134,7 +134,7 @@ vmap("<A-J>", ":m '>+1<CR>gv=gv")
 vmap("<A-K>", ":m '<-2<CR>gv=gv")
 
 -- Code navigation
-nmap("<C-b>", ":normal gd<CR>")
+-- nmap("<C-b>", ":normal gd<CR>")
 
 -- Harpoon
 nmap("<leader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
@@ -153,7 +153,9 @@ nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
 
 -- Executing and running
-nmap("<leader>r", ":AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
+nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>e", "<Plug>SnipRun")
 vmap("<localleader>j", EvaluateJs)
@@ -172,7 +174,7 @@ nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
 nmap("<localleader>;", "<cmd>s/;*$/;/<CR><cmd>:nohls<CR>``")
 
 -- terminal
-nmap("<leader>t", "<cmd>vsplit term://zsh<CR>")
+nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<A-h>", [[<C-\><C-n><C-w>h]])

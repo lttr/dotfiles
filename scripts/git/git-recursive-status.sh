@@ -25,6 +25,8 @@ DEBUG=0
 
 DEFAULT_DIR_DEPTH=4
 
+DIRTY_COUNTER=0
+
 if [ "$1" = "--help" ]; then
     echo "Usage: $0 [DIR] [DEPTH=2]" >&2
     echo
@@ -44,11 +46,17 @@ else
     DEPTH=$2
 fi
 
+if [ -z "$3" ]; then
+    SUPPRESS_OK=1
+fi
+
 # Find all .git dirs, up to DEPTH levels deep
 for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
     PROJ_DIR=$(dirname $GIT_DIR)
 
-    printf "${PROJ_DIR}: "
+    if [ -z "$SUPPRESS_OK" ]; then
+        printf "${PROJ_DIR}: "
+    fi
 
     [ $DEBUG -eq 1 ] && echo
 
@@ -138,6 +146,16 @@ for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
         STATUS_NEEDS="${STATUS_NEEDS}(${LAST_COMMIT_DATE})"
     fi
 
+    if [[ ! "$STATUS_NEEDS" =~ "ok" ]]; then
+        DIRTY_COUNTER=$(( DIRTY_COUNTER + 1 ))
+    fi
+
     # Print the output
-    printf "$STATUS_NEEDS\n"
+    if [ -z "$SUPPRESS_OK" ]; then
+        printf "$STATUS_NEEDS\n"
+    fi
 done
+
+if [ "$DIRTY_COUNTER" -lt 1 ]; then
+    echo "Everything clean in \"$ROOT_DIR\""
+fi
