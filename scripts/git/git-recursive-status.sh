@@ -47,16 +47,14 @@ else
 fi
 
 if [ -z "$3" ]; then
-    SUPPRESS_OK=1
+    SUPPRESS_OK=""
+else
+    SUPPRESS_OK=$3
 fi
 
 # Find all .git dirs, up to DEPTH levels deep
 for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
     PROJ_DIR=$(dirname $GIT_DIR)
-
-    if [ -z "$SUPPRESS_OK" ]; then
-        printf "${PROJ_DIR}: "
-    fi
 
     [ $DEBUG -eq 1 ] && echo
 
@@ -151,8 +149,12 @@ for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
     fi
 
     # Print the output
-    if [ -z "$SUPPRESS_OK" ]; then
-        printf "$STATUS_NEEDS\n"
+    if [ -n "$SUPPRESS_OK" ]; then
+        if [[ ! "$STATUS_NEEDS" =~ "ok" ]]; then
+            printf "${PROJ_DIR}: ${STATUS_NEEDS}\n"
+        fi
+    else
+        printf "${PROJ_DIR}: ${STATUS_NEEDS}\n"
     fi
 done
 
