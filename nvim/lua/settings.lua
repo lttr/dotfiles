@@ -46,6 +46,8 @@ opt.joinspaces = false -- Prevents inserting two spaces after punctuation on a j
 opt.lazyredraw = true -- Postpone rendering after macro ans similar is done
 
 -- Completion options
+-- Always show menu for completion and DO insert first item so that I can continue typing right awayt
+-- For autocompletion plugin, it might be configured differently in `completion.lua`
 opt.completeopt = "menu,menuone"
 
 -- Undo

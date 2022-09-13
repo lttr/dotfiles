@@ -440,7 +440,6 @@ nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
 -- lspsaga
 nmap("<leader>ca", ":Lspsaga code_action<CR>")
 vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
-nmap("K", ":Lspsaga hover_doc<CR>")
 nmap("gh", ":Lspsaga lsp_finder<CR>")
 nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
 nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")

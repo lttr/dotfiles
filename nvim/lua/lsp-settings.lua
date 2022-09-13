@@ -30,6 +30,12 @@ local servers = {
   "yamlls"
 }
 
+local border_options = {
+  border = "rounded",
+  winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
+  side_padding = 1
+}
+
 local common_handlers = {
   -- let plugin lsp_lines handle virtual diagnostic text
   ["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -40,7 +46,9 @@ local common_handlers = {
       virtual_text = false,
       update_in_insert = false
     }
-  )
+  ),
+  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, border_options),
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, border_options)
 }
 
 local common_on_attach = function(client)

@@ -20,6 +20,12 @@ end
 local cmp = require "cmp"
 local luasnip = require "luasnip"
 
+local border_options = {
+  border = "rounded",
+  winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
+  side_padding = 1
+}
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -27,7 +33,14 @@ cmp.setup {
     end
   },
   completion = {
-    autocomplete = true
+    -- Only show the autocompletion menu when manually triggered
+    autocomplete = false,
+    -- DO select the first item, but DON'T insert it yet (wait for enter)
+    completeopt = "menu,menuone,noinsert"
+  },
+  window = {
+    completion = cmp.config.window.bordered(border_options),
+    documentation = cmp.config.window.bordered(border_options)
   },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
