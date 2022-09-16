@@ -128,7 +128,13 @@ local groups = {
   Visual = {bg = bg_visual, link = ""},
   Search = {bg = Color.from_hex(blue):lighten(-25):to_css(), link = ""},
   LspSignatureActiveParameter = {fg = "palette.orange"},
-  Hint = {bg = "palette.bg1", fg = "palette.comment"}
+  Hint = {bg = "palette.bg1", fg = "palette.comment"},
+  NormalFloat = {bg = "palette.bg1"},
+  LspSagaCodeActionContent = {fg = "palette.green", bg = "palette.bg1"},
+  LspSagaCodeActionTitle = {fg = "palette.blue", bg = "palette.bg1"},
+  LspSagaCodeActionBorder = {bg = "palette.bg1"},
+  LspSagaCodeActionTrunCateLine = {bg = "palette.bg1"},
+  LspSagaDiagnosticBorder = {fg = "palette.fg3"}
 }
 
 -- Treesitter groups mapping

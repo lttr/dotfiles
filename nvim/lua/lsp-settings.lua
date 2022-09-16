@@ -48,7 +48,8 @@ local common_handlers = {
     }
   ),
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, border_options),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, border_options)
+  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, border_options),
+  ["textDocument/codeAction"] = vim.lsp.with(vim.lsp.handlers.code_action, border_options)
 }
 
 local common_on_attach = function(client)

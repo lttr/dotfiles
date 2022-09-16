@@ -442,9 +442,12 @@ nmap("<leader>ca", ":Lspsaga code_action<CR>")
 vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
 nmap("gh", ":Lspsaga lsp_finder<CR>")
 nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
+-- nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
+-- nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
 -- nmap("gD", ":Lspsaga preview_definition<CR>")
 nmap("<localleader>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
+-- nmap("<localleader>d", "<cmd>lua vim.diagnostic.open_float()<CR>")
 
 --
 -- Set some keybinds conditional on server capabilities

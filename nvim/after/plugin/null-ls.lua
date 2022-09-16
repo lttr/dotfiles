@@ -37,13 +37,13 @@ null_ls.setup {
     null_ls.builtins.diagnostics.eslint_d.with(
       {
         condition = function(utils)
-          return utils.root_has_file({"package.json"})
-        end,
-        extra_args = {
-          "--config",
-          vim.fn.expand("~/.config/eslint/config.json")
-        },
-        timeout = 20000
+          return utils.root_has_file({".eslintrc.*"})
+        end
+        -- extra_args = {
+        --   "--config",
+        --   vim.fn.expand("~/.config/eslint/config.json")
+        -- },
+        -- timeout = 20000
       }
     )
     -- null_ls.builtins.diagnostics.stylelint
