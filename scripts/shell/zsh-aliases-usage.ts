@@ -1,5 +1,10 @@
 #!/usr/bin/env -S deno run --allow-env --allow-read --allow-run
 
+// zsh-aliases-usage
+// Prints all zsh aliases sorted by last date of use.
+// Every line that starts with 'never' indicates, that such alias has never been
+// recorded in available zsh history.
+
 import {
   HistoryRecord,
   zshHistory,
