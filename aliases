@@ -13,12 +13,8 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias cd..="cd .."
-alias cd...="cd ../.."
-alias cd....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
-alias cd.="cd $(readlink -f .)"
 
 
 # =================================================================
@@ -57,11 +53,9 @@ alias tree="tree -I 'node_modules|.git'"
 # =================================================================
 alias e="$EDITOR"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
-alias ei3="$EDITOR ~/dotfiles/i3/config"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias eenv="$EDITOR ~/dotfiles/zshenv"
 alias ealias="$EDITOR ~/dotfiles/aliases"
-alias aliases="cat ~/dotfiles/aliases"
 alias efunc="$EDITOR ~/dotfiles/functions"
 alias ,fe="nvim -c \"lua require('telescope.builtin').oldfiles({ previewer = false })\""
 
@@ -131,7 +125,6 @@ alias d="docker"
 alias dc="docker-compose"
 alias dg="ddg"
 # alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
-alias help="tldr"
 alias ht="http --verify=no"
 alias ipy="ipython"
 alias md="cli-md"
@@ -145,22 +138,13 @@ alias xmlstar="xmlstarlet"
 #                              Git
 # =================================================================
 
-alias ga="git add"
 alias gaa="git add --all"
-alias gunstage="git reset --"
-
-alias gbr="git branch"
-alias gbra="git branch --all"
-alias gca="git catchup"
 alias gco="git switch"
 alias gcob="git switchit"
 alias gcan="git commit --amend --no-edit"
-
 alias galiases="git config --global --includes --get-regexp alias"
-
-alias gd="git diff"
+alias gdi="git diff"
 alias gds="git diff --staged"
-alias gdh="git diff HEAD"
 alias gdw="git diff --color-words"
 
 alias gchanged="git update-index --no-assume-unchanged"
@@ -181,48 +165,29 @@ alias gma="git $logformat"
 alias gme="git $logformat --all -n15"
 alias gmea="git $logformat --all"
 alias gmmy="git $logformat --all -n15 --author=\"Lukas Trumm\""
-alias gfh="git $logformat --all --follow"
-
+alias gfh="git $logformat --all --follow" # file history
 alias gsf="git show --name-status"
-alias gfind="git log --all --name-status --grep"
-
 alias gfe="git fetch"
 alias gup="git stash save -u && git pull && git stash pop"
-
-alias gre="git rebase"
+alias gre="git restore"
+alias gres='git restore --staged'
+alias greb="git rebase"
 alias grem="git rebase `git_default_branch`"
 alias grec="git rebase --continue"
 alias gfem="git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch`@{1}..`git_default_branch`"
-
 alias gst="git status"
 alias gs="git status -s"
 alias grs="git recursive-status"
-
-alias gsl="git stash list"
-
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 alias gul='git pull'
-
 alias gundo='git reset --mixed HEAD~'
-
 alias standup="git-standup"
 alias myweek="git standup -d 8 -D 'short'"
-
 alias gogo="git checkout `git_default_branch` && git pull && git gone"
 
 alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
-
-# alias a="git add"
-# alias m="git checkout `git_default_branch`"
-# alias u="git pull"
-# alias b="git checkout -b"
-# alias co="git checkout"
-# alias com="git checkout `git_default_branch`"
-
-# alias pu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
-
 
 # =================================================================
 #                              Lists
