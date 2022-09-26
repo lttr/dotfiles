@@ -6,7 +6,6 @@ browser-sync
 cli-md
 cypress
 degit
-diff-so-fancy
 dploy
 eslint
 firebase-tools

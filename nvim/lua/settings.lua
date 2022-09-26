@@ -11,6 +11,8 @@ opt.tabstop = 2 -- Number of spaces that <Tab> counts for
 opt.softtabstop = 2 -- Tabs and Backspaces feels like <Tab>
 opt.shiftwidth = 2 -- Number of spaces to use for each step of indent
 opt.shiftround = true -- Round the size of indentation (using < and >) to shiftwidth
+opt.autoindent = true
+opt.smartindent = true
 opt.virtualedit = "" -- Do not move the cursor behind last char
 
 -- Appearance
@@ -36,11 +38,12 @@ opt.smartcase = true -- ...except upper-case included
 opt.mouse = "a" -- Enable the use of mouse in terminal
 
 -- Lines
-opt.formatoptions:remove("o") -- Don't insert comment leader after 'o'
+opt.formatoptions:remove("o") -- Don't insert comment leader after 'o' --> 'crqlj'
 opt.scrolloff = 1 -- Let one line above and bellow
 opt.sidescroll = 1
 opt.sidescrolloff = 15
 opt.joinspaces = false -- Prevents inserting two spaces after punctuation on a join (J)
+opt.textwidth = 80
 
 -- Visual
 opt.lazyredraw = true -- Postpone rendering after macro ans similar is done

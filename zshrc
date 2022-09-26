@@ -139,34 +139,7 @@ autoload bashcompinit && bashcompinit
 
 eval $(dircolors ~/dotfiles/colors/dircolors)
 
-
 LIST_FILES_COMMAND='fd --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock'
-
-        # --color=bg+:#eaeaea,bg:#c5c8c6,spinner:#719e07,hl:#002b36
-        #
-# _gen_fzf_default_opts() {
-#     if [[ $WSL == true ]]; then
-#         export FZF_DEFAULT_OPTS="
-#         --color=bg+:#eee8d5,bg:#fdf6e3,spinner:#719e07,hl:#002b36
-#         --color=fg:#657b83,header:#586e75,info:#586e75,pointer:#719e07
-#         --color=marker:#719e07,fg+:#657b83,prompt:#b58900,hl+:#002b36
-#         --exit-0
-#         --select-1
-#         --reverse
-#         --height=30
-#         "
-#     else
-#         export FZF_DEFAULT_OPTS="
-#         --color fg+:$sol_code_base01,bg+:$sol_code_base2,hl:$sol_code_yellow,hl+:$sol_code_yellow
-#         --exit-0
-#         --select-1
-#         --reverse
-#         --height=30
-#         "
-#     fi
-#     export FZF_CTRL_T_COMMAND='ag -g ""'
-# }
-# _gen_fzf_default_opts
 
 # Numbers represent terminal colors, see kitty.conf
 # bg+ is background color for active item (same color as selection in my vim)
@@ -180,11 +153,29 @@ export FZF_DEFAULT_OPTS="
   "
 export FZF_CTRL_T_COMMAND=$LIST_FILES_COMMAND
 
-export FORGIT_FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS
+export forgit_log=fglo
+export forgit_diff=fgd
+export forgit_add=fga
+export forgit_reset_head=fgres # git restore --staged
+export forgit_ignore=fgi
+export forgit_checkout_file=fgre # git restore
+export forgit_checkout_branch=fgcb
+export forgit_branch_delete=fgbd
+export forgit_checkout_tag=fgct
+export forgit_checkout_commit=fgco
+export forgit_revert_commit=fgrc
+export forgit_clean=fgclean
+export forgit_stash_show=fgss
+export forgit_cherry_pick=fgcp
+export forgit_rebase=fgrb
+export forgit_blame=fgbl
+export forgit_fixup=fgfu
+  
+export FORGIT_FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height=100%"
 
 export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
 
-export BAT_THEME="ansi-dark"
+export BAT_THEME="TwoDark"
 export BAT_PAGER="less -RF"
 
 

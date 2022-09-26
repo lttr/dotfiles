@@ -2,12 +2,19 @@
 
 require "nvim-treesitter.configs".setup {
   ensure_installed = "all",
-  context_commentstring = {enable = true},
+  context_commentstring = {
+    enable = true
+  },
   highlight = {
     enable = true,
     disable = {}
   },
-  autotag = {enable = true},
+  indent = {
+    enable = true
+  },
+  autotag = {
+    enable = true
+  },
   matchup = {
     enable = true, -- disabled, since the indication at the end of a function is distracting
     disable = {} -- optional, list of language that will be disabled
@@ -48,6 +55,14 @@ require "nvim-treesitter.configs".setup {
       },
       swap_previous = {
         ["<localleader>R"] = "@parameter.inner"
+      }
+    },
+    lsp_interop = {
+      enable = true,
+      border = "rounded",
+      peek_definition_code = {
+        ["gF"] = "@function.outer",
+        ["gC"] = "@class.outer"
       }
     }
   }

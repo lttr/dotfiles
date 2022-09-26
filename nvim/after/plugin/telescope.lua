@@ -54,11 +54,19 @@ require "telescope".load_extension("file_browser")
 require "telescope".load_extension("harpoon")
 require "telescope".load_extension("live_grep_args")
 require "telescope".load_extension("buffer_lines")
+require "telescope".load_extension("ui-select")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup(
   {
     -- show me only the path with '~' for the home directory
-    list_command = "zoxide query -ls | awk '{ print $2 }' | sed 's:/home/lukas:~:'"
+    list_command = "zoxide query -ls | awk '{ print $2 }' | sed 's:/home/lukas:~:'",
+    mappings = {
+      ["<C-l>"] = {
+        action = function(selection)
+          vim.cmd("lcd " .. selection.path)
+        end
+      }
+    }
   }
 )

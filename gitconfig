@@ -111,7 +111,7 @@
 [core]
     autocrlf = input
     eol = lf
-    pager = less -FRX
+    pager = delta
     editor = nvim
 
 [credential]
@@ -125,6 +125,9 @@
 [merge]
   tool = nvim
   conflictstyle = diff3
+
+[interactive]
+    diffFilter = delta --color-only --theme TwoDark
 
 # automatically launch merge tool without displaying a prompt
 [mergetool]
@@ -141,10 +144,6 @@
 
 [include]
     path = .gitconfig.local
-
-[pager]
-    diff = diff-so-fancy | less --tabs=1,5 -RFX
-    show = diff-so-fancy | less --tabs=1,5 -RFX
 
 [color]
     ui = true
@@ -165,6 +164,22 @@
 
 [diff]
     tool = nvim -d
+    colorMoved = default
+
+[delta]
+    navigate = true
+    features = decorations
+
+[delta "decorations"]
+    commit-decoration-style = yellow box ul
+    file-decoration-style = none
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = yellow box
+    hunk-header-file-style = yellow
+    hunk-header-line-number-style = yellow
+    hunk-header-style = file line-number syntax
+    hunk-label = ""
 
 # This next lines include Netlify's Git Credential Helper configuration in your Git configuration.
 [include]

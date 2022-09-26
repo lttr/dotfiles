@@ -359,6 +359,9 @@ git_default_branch() {
     if [ -z "$branch" ]; then
         branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2)
     fi
+    if [ -z "$branch" ]; then
+        branch="master"
+    fi
     echo $branch
 }
 

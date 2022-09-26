@@ -24,6 +24,7 @@ require "packer".startup(
     use "nvim-telescope/telescope-file-browser.nvim"
     use "nvim-telescope/telescope-live-grep-args.nvim"
     use "jeetsukumaran/telescope-buffer-lines.nvim"
+    use "nvim-telescope/telescope-ui-select.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
@@ -75,6 +76,17 @@ require "packer".startup(
     use "mattn/emmet-vim"
     use "rest-nvim/rest.nvim"
     use "norcalli/nvim-colorizer.lua"
+
+    -- heavy development
+    use {
+      "nvim-neotest/neotest",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "antoinemadec/FixCursorHold.nvim", -- probably can be removed in 0.8
+        "haydenmeade/neotest-jest"
+      }
+    }
 
     -- treesitter
     use "JoosepAlviste/nvim-ts-context-commentstring"

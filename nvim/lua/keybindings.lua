@@ -118,8 +118,13 @@ vmap("gr", 'y/<C-r>"<CR>Ncgn')
 vmap("*", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
 -- visual multi - cursor addition
-nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<cr>")
-nmap("<C-k>", ":call vm#commands#add_cursor_up(0, v:count1)<cr>")
+-- add cursor on current line and move down/up
+nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<CR>")
+nmap("<C-k>", ":call vm#commands#add_cursor_up(0, v:count1)<CR>")
+-- create cursor for every line in current paragraph
+nmap("<localleader>m", "vip:call vm#commands#visual_cursors()<CR>")
+-- create cursor for every occurance of current word
+nmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
 
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
@@ -132,6 +137,12 @@ imap("<A-J>", "<Esc>:m .+1<CR>==")
 imap("<A-K>", "<Esc>:m .-2<CR>==")
 vmap("<A-J>", ":m '>+1<CR>gv=gv")
 vmap("<A-K>", ":m '<-2<CR>gv=gv")
+
+-- tags
+-- remap emmet (https://github.com/mattn/emmet-vim/issues/86)
+-- 'yat' creates a visual flash of the paragraph to help identify the scope of
+-- change, 'dd' removes the ending tag and 'ds>' the starting tag
+nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 
 -- Code navigation
 -- nmap("<C-b>", ":normal gd<CR>")
@@ -155,6 +166,12 @@ nmap("<leader>F", "<cmd>FormatWrite<CR>")
 -- Executing and running
 nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
+nmap(
+  "<leader>T",
+  function()
+    require("neotest").run.run(vim.fn.expand("%"))
+  end
+)
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>e", "<Plug>SnipRun")
@@ -174,7 +191,7 @@ nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
 nmap("<localleader>;", "<cmd>s/;*$/;/<CR><cmd>:nohls<CR>``")
 
 -- terminal
-nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
+-- nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<A-h>", [[<C-\><C-n><C-w>h]])
@@ -359,7 +376,7 @@ nmap(
 nmap(
   "<leader>fj",
   function()
-    tb.extensions.harpoon.marks()
+    tel.extensions.harpoon.marks()
   end
 )
 nmap(
@@ -379,7 +396,7 @@ nmap("<leader>fo", document_symbols)
 nmap(
   "<leader>fp",
   function()
-    tb.extensions.repo.cached_list {file_ignore_patterns = {"/%.cache/", "/%.cargo/", "/%.local/"}}
+    tel.extensions.repo.cached_list {file_ignore_patterns = {"/%.cache/", "/%.cargo/", "/%.local/"}}
   end
 )
 nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
@@ -410,7 +427,7 @@ nmap(
 nmap(
   "<leader>fz",
   function()
-    tb.extensions.zoxide.list {}
+    tel.extensions.zoxide.list {}
   end
 )
 nmap(
@@ -438,8 +455,11 @@ nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
 -- lspsaga
-nmap("<leader>ca", ":Lspsaga code_action<CR>")
-vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
+-- nmap("<leader>ca", ":Lspsaga code_action<CR>")
+-- vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
+nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
+vmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
+
 nmap("gh", ":Lspsaga lsp_finder<CR>")
 nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
 -- nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")

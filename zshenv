@@ -58,6 +58,8 @@ if [[ $WSL = true ]]; then
   export PATH="$PATH:/usr/bin"
 fi
 
+export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
+
 
 # vagrant
 export VAGRANT_HOME=~/vagrants/vagrant.d

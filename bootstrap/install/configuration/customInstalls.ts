@@ -61,6 +61,7 @@ export const customInstalls: Config[] = [
   { brew: { name: "zoxide", dependsOn: brew } },
   { brew: { name: "fzf", dependsOn: brew } },
   { brew: { name: "potrace", dependsOn: brew } },
+  { brew: { name: "delta", dependsOn: brew } },
   { brew: { name: "docker", dependsOn: brew } },
   { brew: { name: "docker-compose", dependsOn: brew } },
 ];
