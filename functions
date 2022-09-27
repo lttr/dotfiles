@@ -302,6 +302,11 @@ c() {
     git commit -m "${*}"
 }
 
+ca() {
+    IFS=' '
+    git commit --amend -m "${*}"
+}
+
 ce() {
     IFS=' '
     git commit --allow-empty -m "${*}"
