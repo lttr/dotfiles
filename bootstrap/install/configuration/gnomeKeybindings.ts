@@ -6,12 +6,10 @@ function customGnomeKeybinding(
   id: number,
   name: string,
   command: string,
-  binding: string,
+  binding: string
 ) {
-  const prefix =
-    `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`;
-  let schema =
-    `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`;
+  const prefix = `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`;
+  let schema = `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`;
   customGnomeKeybindingSchemas.add(schema);
   schema = prefix + schema;
   return [
@@ -21,42 +19,42 @@ function customGnomeKeybinding(
   ];
 }
 
-const customGnomeKeybindings = [
-  ...customGnomeKeybinding(0, "Terminal", "bring-or-start hyper", "<Super>c"),
-  ...customGnomeKeybinding(1, "VSCode", "bring-or-start code", "<Super>s"),
-  ...customGnomeKeybinding(
-    2,
-    "Browser",
-    "bring-or-start google-chrome",
-    "<Super>a",
-  ),
-  ...customGnomeKeybinding(
-    3,
-    "Password manager",
-    "bring-or-start KeeWeb",
-    "<Super>m",
-  ),
-  ...customGnomeKeybinding(4, "File manager", "", "<Super>t"),
-  ...customGnomeKeybinding(5, "Firefox", "bring-or-start firefox", "<Super>f"),
-  ...customGnomeKeybinding(
-    6,
-    "Toggle microphone",
-    "amixer set Capture toggle",
-    "<Super>apostrophe",
-  ),
-];
+// const customGnomeKeybindings = [
+//   ...customGnomeKeybinding(0, "Terminal", "bring-or-start hyper", "<Super>c"),
+//   ...customGnomeKeybinding(1, "VSCode", "bring-or-start code", "<Super>s"),
+//   ...customGnomeKeybinding(
+//     2,
+//     "Browser",
+//     "bring-or-start google-chrome",
+//     "<Super>a",
+//   ),
+//   ...customGnomeKeybinding(
+//     3,
+//     "Password manager",
+//     "bring-or-start KeeWeb",
+//     "<Super>m",
+//   ),
+//   ...customGnomeKeybinding(4, "File manager", "", "<Super>t"),
+//   ...customGnomeKeybinding(5, "Firefox", "bring-or-start firefox", "<Super>f"),
+//   ...customGnomeKeybinding(
+//     6,
+//     "Toggle microphone",
+//     "amixer set Capture toggle",
+//     "<Super>apostrophe",
+//   ),
+// ];
 
-const customGnomeKeybindingsSetup = {
-  gnomeSettings: {
-    schema: "org.gnome.settings-daemon.plugins.media-keys",
-    key: "custom-keybindings",
-    value: `[${
-      Array.from(customGnomeKeybindingSchemas)
-        .map((schema) => `'${schema}'`)
-        .join(", ")
-    }]`,
-  },
-};
+// const customGnomeKeybindingsSetup = {
+//   gnomeSettings: {
+//     schema: "org.gnome.settings-daemon.plugins.media-keys",
+//     key: "custom-keybindings",
+//     value: `[${
+//       Array.from(customGnomeKeybindingSchemas)
+//         .map((schema) => `'${schema}'`)
+//         .join(", ")
+//     }]`,
+//   },
+// };
 
 const gnomeKeybindingsOverrrides = [
   // custom volume controls - no dependency on physical media keys
@@ -200,7 +198,7 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: "org.gnome.desktop.wm.keybindings",
       key: "move-to-center",
-      value: "['<Super><Shift>c']",
+      value: "['<Super>c']",
     },
   },
   {
@@ -291,13 +289,27 @@ const gnomeKeybindingsOverrrides = [
     gnomeSettings: {
       schema: "org.gnome.desktop.wm.keybindings",
       key: "switch-windows",
-      value: "['<Alt>Tab']",
+      value: EMPTY_ARRAY,
     },
   },
   {
     gnomeSettings: {
       schema: "org.gnome.desktop.wm.keybindings",
       key: "switch-windows-backward",
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "cycle-windows",
+      value: "['<Alt>Tab']",
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.desktop.wm.keybindings",
+      key: "cycle-windows-backward",
       value: "['<Shift><Alt>Tab']",
     },
   },
@@ -325,7 +337,7 @@ const gnomeKeybindingsOverrrides = [
 ];
 
 export const gnomeKeybindings = [
-  customGnomeKeybindingsSetup,
-  ...customGnomeKeybindings,
+  // customGnomeKeybindingsSetup,
+  // ...customGnomeKeybindings,
   ...gnomeKeybindingsOverrrides,
 ];

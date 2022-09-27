@@ -15,7 +15,7 @@ export const zsh = aptPackage("zsh");
 export const apt: Config[] = [
   // commandline apps
 
-  aptPackage("alacritty"),
+  // aptPackage("alacritty"),
   // aptPackage('ansible'),
   // aptPackage('composer'),
   aptPackage("dict"),
@@ -37,10 +37,10 @@ export const apt: Config[] = [
   aptPackage("pandoc"),
   // aptPackage('php'),
   aptPackage("ranger"),
-  aptPackage("silversearcher-ag"),
+  // aptPackage("silversearcher-ag"),
   // aptPackage('snapd'),
   // aptPackage('sshpass'),
-  aptPackage("tmux"),
+  // aptPackage("tmux"),
   aptPackage("trash-cli"),
   aptPackage("tree"),
   aptPackage("unrar"),
@@ -53,18 +53,18 @@ export const apt: Config[] = [
   // graphical apps
 
   aptPackage("dconf-editor"),
-  aptPackage("dmz-cursor-theme"),
-  aptPackage("doublecmd-gtk"),
-  // aptPackage('gimp'),
+  // aptPackage("dmz-cursor-theme"),
+  // aptPackage("doublecmd-gtk"),
+  // aptPackage("gimp"),
   // aptPackage('gnome-clocks'),
   // aptPackage('gnome-shell-pomodoro'),
   aptPackage("gnome-tweak-tool"),
   aptPackage("gpick"),
   aptPackage("gthumb"),
-  aptPackage("inkscape"),
+  // aptPackage("inkscape"),
   aptPackage("nautilus-dropbox"),
   // aptPackage('remmina'),
-  aptPackage("vim-gtk3"),
+  // aptPackage("vim-gtk3"),
   aptPackage("wmctrl"),
   // aptPackage('xbacklight'),
 ];

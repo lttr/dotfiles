@@ -76,14 +76,14 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.background",
       key: "primary-color",
-      value: "#425265",
+      value: "#4B4B4B",
     },
   },
   {
     gnomeSettings: {
       schema: "org.gnome.desktop.background",
       key: "secondary-color",
-      value: "#425265",
+      value: "#1d1d1d",
     },
   },
   {
@@ -113,7 +113,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.settings-daemon.plugins.color",
       key: "night-light-schedule-from",
-      value: 20,
+      value: 19,
     },
   },
   {
@@ -127,8 +127,8 @@ export const gnomeSettings: Config[] = [
   // display
   {
     gnomeSettings: {
-      schema: "org.gnome.settings-daemon.plugins.xsettings",
-      key: "antialiasing",
+      schema: "org.gnome.desktop.interface",
+      key: "font-antialiasing",
       value: "rgba",
     },
   },
@@ -217,7 +217,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.interface",
       key: "gtk-theme",
-      value: "Pop",
+      value: "Pop-dark",
     },
   },
   // icon theme
@@ -233,7 +233,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.interface",
       key: "cursor-theme",
-      value: "DMZ-White",
+      value: "breeze-cursors",
     },
   },
 
@@ -325,7 +325,7 @@ export const gnomeSettings: Config[] = [
       schema: "org.gnome.shell",
       key: "favorite-apps",
       value:
-        "['google-chrome.desktop', 'hyper.desktop', 'code.desktop', 'keeweb.desktop']",
+        "['google-chrome.desktop', 'kitty.desktop', 'org.mozilla.firefox.desktop', 'rambox.desktop', '1password.desktop']",
     },
   },
 ];

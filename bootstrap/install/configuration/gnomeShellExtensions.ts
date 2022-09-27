@@ -1,7 +1,7 @@
 import { Config } from "../deps.ts";
 import { gnomeShellExtensionInstaller } from "./customInstalls.ts";
 
-const EMPTY_ARRAY = "@as []";
+// const EMPTY_ARRAY = "@as []";
 
 // const arcMenu = {
 //   gnomeShellExtension: {
@@ -54,43 +54,43 @@ const EMPTY_ARRAY = "@as []";
 //   },
 // ]
 
-const clockOverride = {
-  gnomeShellExtension: {
-    fullName: "clock-override@gnomeshell.kryogenix.org",
-    id: 1206,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-};
+// const clockOverride = {
+//   gnomeShellExtension: {
+//     fullName: "clock-override@gnomeshell.kryogenix.org",
+//     id: 1206,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// };
 
-const clockOverrideSettings = [
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.clock-override",
-      key: "override-string",
-      value: "%H:%M",
-      dependsOn: clockOverride,
-    },
-  },
-];
+// const clockOverrideSettings = [
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.clock-override",
+//       key: "override-string",
+//       value: "%H:%M",
+//       dependsOn: clockOverride,
+//     },
+//   },
+// ];
 
-const userTheme = {
-  gnomeShellExtension: {
-    fullName: "user-theme@gnome-shell-extensions.gcampax.github.com",
-    id: 19,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-};
+// const userTheme = {
+//   gnomeShellExtension: {
+//     fullName: "user-theme@gnome-shell-extensions.gcampax.github.com",
+//     id: 19,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// };
 
-const userThemeSettings = [
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.user-theme",
-      key: "name",
-      value: "Pop-dark",
-      dependsOn: userTheme,
-    },
-  },
-];
+// const userThemeSettings = [
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.user-theme",
+//       key: "name",
+//       value: "Pop-dark",
+//       dependsOn: userTheme,
+//     },
+//   },
+// ];
 
 const dashToPanel = {
   gnomeShellExtension: {
@@ -120,10 +120,11 @@ const dashToPanelRawSettings = [
   ["focus-highlight-color", "#eeeeec"],
   ["force-check-update", false],
   ["group-apps", false],
-  ["group-apps-label-font-color", "#dddddd"],
-  ["group-apps-label-font-size", 13],
+  ["group-apps-label-font-color", "#d3d7cf"],
+  ["group-apps-label-font-color-minimized", "#888a85"],
+  ["group-apps-label-font-size", 12],
   ["group-apps-label-font-weight", "lighter"],
-  ["group-apps-label-max-width", 50],
+  ["group-apps-label-max-width", 40],
   ["group-apps-underline-unfocused", true],
   ["group-apps-use-fixed-width", true],
   ["group-apps-use-launchers", false],
@@ -180,94 +181,94 @@ const gsconnect = {
   },
 };
 
-const pomodoro = {
-  gnomeShellExtension: {
-    fullName: "pomodoro@arun.codito.in",
-    id: 53,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-};
+// const pomodoro = {
+//   gnomeShellExtension: {
+//     fullName: "pomodoro@arun.codito.in",
+//     id: 53,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// };
 
-const workspaceSwitcherDestination =
-  "~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com";
-const workspaceSwitcherGit =
-  "https://github.com/tomha/gnome-shell-extension-workspace-switcher";
-const workspaceSwitcher = {
-  inlineScript: {
-    name: "install gnome extension Workspace switcher",
-    testScript: `
-      gsettings list-keys org.gnome.shell.extensions.workspace-switcher &>/dev/null
-    `,
-    setScript: `
-      git clone --quiet ${workspaceSwitcherGit} ${workspaceSwitcherDestination}
-      && sudo cp ~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com/schema/org.gnome.shell.extensions.workspace-switcher.gschema.xml /usr/share/glib-2.0/schemas/
-      && sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
-    `,
-  },
-};
+// const workspaceSwitcherDestination =
+//   "~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com";
+// const workspaceSwitcherGit =
+//   "https://github.com/tomha/gnome-shell-extension-workspace-switcher";
+// const workspaceSwitcher = {
+//   inlineScript: {
+//     name: "install gnome extension Workspace switcher",
+//     testScript: `
+//       gsettings list-keys org.gnome.shell.extensions.workspace-switcher &>/dev/null
+//     `,
+//     setScript: `
+//       git clone --quiet ${workspaceSwitcherGit} ${workspaceSwitcherDestination}
+//       && sudo cp ~/.local/share/gnome-shell/extensions/workspace-switcher@tomha.github.com/schema/org.gnome.shell.extensions.workspace-switcher.gschema.xml /usr/share/glib-2.0/schemas/
+//       && sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+//     `,
+//   },
+// };
 
-const workspaceSwitcherSettings = [
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "background-colour-active",
-      value: "#555753ff",
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "border-locations",
-      value: EMPTY_ARRAY,
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "font-active",
-      value: "Ubuntu Medium 11",
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "index",
-      value: 1,
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "position",
-      value: "LEFT",
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-  {
-    gnomeSettings: {
-      schema: "org.gnome.shell.extensions.workspace-switcher",
-      key: "show-names",
-      value: false,
-      depdendsOn: workspaceSwitcher,
-    },
-  },
-];
+// const workspaceSwitcherSettings = [
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "background-colour-active",
+//       value: "#555753ff",
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "border-locations",
+//       value: EMPTY_ARRAY,
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "font-active",
+//       value: "Ubuntu Medium 11",
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "index",
+//       value: 1,
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "position",
+//       value: "LEFT",
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+//   {
+//     gnomeSettings: {
+//       schema: "org.gnome.shell.extensions.workspace-switcher",
+//       key: "show-names",
+//       value: false,
+//       depdendsOn: workspaceSwitcher,
+//     },
+//   },
+// ];
 
 export const gnomeShellExtensions: Config[] = [
   // arcMenu,
   // ...arcMenuSettings,
-  clockOverride,
-  ...clockOverrideSettings,
+  // clockOverride,
+  // ...clockOverrideSettings,
   dashToPanel,
   ...dashToPanelSettings,
   gsconnect,
-  pomodoro,
-  userTheme,
-  ...userThemeSettings,
-  workspaceSwitcher,
-  ...workspaceSwitcherSettings,
+  // pomodoro,
+  // userTheme,
+  // ...userThemeSettings,
+  // workspaceSwitcher,
+  // ...workspaceSwitcherSettings,
 ];

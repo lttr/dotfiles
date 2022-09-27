@@ -27,11 +27,12 @@ See more on the links under _Thanks_.
 - `zsh` (just a better program launcher :)
 
 ##### No longer used //why
+- `vscode` (editor) // customizable but not enough, fast but not enough, integrated but not enough
 - `dunst` (notifications in i3) // only for i3
 - `i3` (window manager) // Gnome on PopOS has good workspace and window layout support and looks good out of the box
-- `kdiff3` (diff program) // Vscode has that
+- `kdiff3` (diff program) // Vscode has that, vim has that
 - `rofi` (program launcher) // Gnome is enough, maybe Ulauncher is a better fit for Gnome
-- `tmux` (terminal on the next level) // I only need tabs: Hyper terminal is multiplatform and configuration is easier
+- `tmux` (terminal on the next level) // Terminals can do a lot of what tmux can
 - `urxvt` (capable terminal) // Hyper terminal is fast enough now and multiplatform
 
 #### Usefull scripts

@@ -1,4 +1,4 @@
-import { Config } from "../deps.ts";
+import type { Config } from "../deps.ts";
 import { appForMimeTypes } from "./appForMimeTypes.ts";
 import { apt } from "./apt.ts";
 import { customInstalls } from "./customInstalls.ts";

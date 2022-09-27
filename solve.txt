@@ -1,0 +1,5 @@
+INFO Do run 'BREW neovim'
+INFO Do run 'GNOME SETTINGS org.gnome.shell.extensions.dash-to-panel group-apps-label-font-color #dddddd'
+INFO Do run 'GNOME SETTINGS org.gnome.shell.extensions.dash-to-panel group-apps-label-font-size 13'
+INFO Do run 'GNOME SETTINGS org.gnome.shell.extensions.dash-to-panel group-apps-label-max-width 50'
+INFO Do run 'GNOME SETTINGS org.gnome.shell.extensions.dash-to-panel show-window-previews false'
