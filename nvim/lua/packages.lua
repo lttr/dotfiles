@@ -104,6 +104,7 @@ require "packer".startup(
     -- use "preservim/vim-markdown"
     use "jose-elias-alvarez/nvim-lsp-ts-utils"
     use "nikvdp/ejs-syntax"
+    use "napmn/react-extract.nvim"
 
     -- help
     use "dbeniamine/cheat.sh-vim"

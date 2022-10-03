@@ -57,10 +57,10 @@ local common_on_attach = function(client)
   vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   require "keybindings".lspKeybindings(client)
-  client.resolved_capabilities.document_formatting = false
+  client.server_capabilities.document_formatting = false
 
   -- Set autocommands conditional on server_capabilities
-  -- if client.resolved_capabilities.document_highlight then
+  -- if client.server_capabilities.document_highlight then
   -- vim.cmd(
   --   [[
   --     augroup lsp_document_highlight
@@ -93,7 +93,7 @@ local tsserver = {
     if client.config.flags then
       client.config.flags.allow_incremental_sync = true
     end
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.document_formatting = false
   end
 }
 
@@ -106,7 +106,7 @@ local denols = {
   },
   on_attach = function(client)
     -- let null ls do the formatting
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.document_formatting = false
   end
 }
 
@@ -125,7 +125,7 @@ local stylelint_lsp = {
 --     -- neovim's LSP client does not currently support dynamic
 --     -- capabilities registration, so we need to set
 --     -- the resolved capabilities of the eslint server ourselves!
---     client.resolved_capabilities.document_formatting = true
+--     client.server_capabilities.document_formatting = true
 --     common_on_attach(client)
 --   end,
 --   settings = {

@@ -72,15 +72,14 @@ null_ls.setup {
             "*.svelte"
           },
           callback = function()
-            -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-            -- or even better:
-            -- vim.lsp.buf.format({
-            --         bufnr = bufnr,
-            --         filter = function(client)
-            --             return client.name == "null-ls"
-            --         end
-            --     })
-            vim.lsp.buf.formatting_sync()
+            vim.lsp.buf.format(
+              {
+                bufnr = bufnr,
+                filter = function(clientNullLs)
+                  return clientNullLs.name == "null-ls"
+                end
+              }
+            )
           end
         }
       )

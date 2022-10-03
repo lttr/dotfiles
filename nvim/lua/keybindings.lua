@@ -83,6 +83,9 @@ nmap("Q", ":Bdelete<CR>")
 nmap("<leader>q", ":q<CR>")
 -- Quit window with force
 nmap("<leader>Q", ":qall<CR>")
+-- Quit all other buffers
+nmap("<C-w><C-b>", "<cmd>Bonly<CR>")
+-- nmap("<C-w><C-o>", ) -- this is default shortcut to close all other windows
 -- Go to window left and right
 nmap("<A-h>", "<C-w>h")
 nmap("<A-l>", "<C-w>l")
@@ -455,10 +458,14 @@ nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
 -- lspsaga
+
+-- code actions and refactoring
 -- nmap("<leader>ca", ":Lspsaga code_action<CR>")
 -- vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
 nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
 vmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
+vmap("<localleader>er", require("react-extract").extract_to_current_file)
+vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
 nmap("gh", ":Lspsaga lsp_finder<CR>")
 nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
@@ -475,9 +482,9 @@ nmap("<localleader>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
 -- I rely on formatter.nvim for now instead of LSP based
 -- formatting. CLI tools has more flexibility
 --
--- if client.resolved_capabilities.document_formatting then
+-- if client.server_capabilities.document_formatting then
 --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
--- elseif client.resolved_capabilities.document_range_formatting then
+-- elseif client.server_capabilities.document_range_formatting then
 --   nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
 -- end
 
@@ -493,13 +500,20 @@ end
 --
 -- Trouble
 --
-nmap("cod", "<Cmd>TroubleToggle<CR>")
+nmap("cot", "<Cmd>TroubleToggle<CR>")
 
 -- inlay hints
 nmap("coi", ":TSLspToggleInlayHints<CR>")
 
 -- diagnostic hints
 nmap("cov", require("lsp_lines").toggle)
+
+nmap(
+  "cod",
+  function()
+    ToggleDiagnostics()
+  end
+)
 
 --
 -- vim-togglelist
