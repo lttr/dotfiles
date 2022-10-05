@@ -130,14 +130,13 @@ fpath+=("$(brew --prefix)/share/zsh/site-functions")
 source <(npm completion)
 
 autoload bashcompinit && bashcompinit
-[ -d ~/opt/azure-cli ] && source ~/opt/azure-cli/az.completion
 
 
 # =================================================================
 #                             Colors
 # =================================================================
 
-eval $(dircolors ~/dotfiles/colors/dircolors)
+# eval $(dircolors ~/dotfiles/colors/dircolors)
 
 LIST_FILES_COMMAND='fd --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock'
 
@@ -183,9 +182,9 @@ export BAT_PAGER="less -RF"
 #                            Plugins
 # =================================================================
 
-# Antibody
-source <(antibody init)
-antibody bundle < ~/dotfiles/packages/zsh.txt
+# Antidote
+source ~/.local/opt/brew/opt/antidote/share/antidote/antidote.zsh
+antidote load
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -199,16 +198,16 @@ eval "$(zoxide init zsh)"
 
 # My terminal (kitty now) for some reason does not display tab title according to pure prompt logic
 
-precmd () {
-  kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD})"
-}
+if [[ $TERM =~ "kitty" ]]; then
+  precmd () {
+    kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD})"
+  }
+fi
 
-preexec() {
-  kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD}): $1"
-}
-
-if [[ $WSL != "true" ]]; then
-  xrdb -load ~/.Xresources
+if [[ $TERM =~ "kitty" ]]; then
+  preexec() {
+    kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD}): $1"
+  }
 fi
 
 # =================================================================
@@ -281,9 +280,10 @@ fi;
 # The next line updates PATH for Netlify's Git Credential Helper.
 if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.netlify/helper/path.zsh.inc'; fi
 
-# Profiling
-# zprof
 
 
 #find-alias
 [[ -s "$HOME/.find-alias.sh" ]] && source "$HOME/.find-alias.sh"
+
+# Profiling
+# zprof

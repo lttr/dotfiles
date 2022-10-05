@@ -140,6 +140,7 @@ alias xmlstar="xmlstarlet"
 #                              Git
 # =================================================================
 
+alias ga="git add"
 alias gaa="git add --all"
 alias gco="git switch"
 alias gcob="git switchit"

@@ -6,7 +6,6 @@
 #  |_|   \__,_||_| |_| \___| \__||_| \___/ |_| |_||___/
 #
 
-
 # =================================================================
 #                       Applications
 # =================================================================
@@ -360,11 +359,20 @@ mrs() {
 
 git_default_branch() {
     local branch
-    branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
+    # First look for my custom file named 'deafult_branch' in the git repo,
+    # where the name of the default branch should be specified
+    for dir in "." ".." "../.." "../../.."; do
+        key_file=$dir/.git/default_branch
+        if [ -f "$key_file" ]; then 
+            branch=`cat "$key_file"`
+            break
+        fi
+    done
     if [ -z "$branch" ]; then
+        branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
+    elif [ -z "$branch" ]; then
         branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2)
-    fi
-    if [ -z "$branch" ]; then
+    elif [ -z "$branch" ]; then
         branch="master"
     fi
     echo $branch
