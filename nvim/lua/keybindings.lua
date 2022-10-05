@@ -177,7 +177,7 @@ nmap(
 )
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
-vmap("<localleader>e", "<Plug>SnipRun")
+vmap("<localleader>ee", "<Plug>SnipRun")
 vmap("<localleader>j", EvaluateJs)
 
 -- help
@@ -455,15 +455,15 @@ nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
 nmap("<localleader>k", "<cmd>lua vim.lsp.buf.hover()<CR>")
 nmap("<localleader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
 nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-nmap("<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>")
+nmap("<F2>", vim.lsp.buf.rename)
 
 -- lspsaga
 
 -- code actions and refactoring
 -- nmap("<leader>ca", ":Lspsaga code_action<CR>")
 -- vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
-nmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
-vmap("<leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
+nmap("<leader>ca", vim.lsp.buf.code_action)
+vmap("<leader>ca", vim.lsp.buf.code_action)
 vmap("<localleader>er", require("react-extract").extract_to_current_file)
 vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 

@@ -54,7 +54,6 @@ require "telescope".load_extension("file_browser")
 require "telescope".load_extension("harpoon")
 require "telescope".load_extension("live_grep_args")
 require "telescope".load_extension("buffer_lines")
-require "telescope".load_extension("ui-select")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup(

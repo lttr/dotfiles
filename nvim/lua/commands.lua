@@ -25,11 +25,11 @@ vim.api.nvim_create_user_command("N", ":sp %:h/<args>", {nargs = 1})
 -- Close all other buffers
 vim.api.nvim_create_user_command("Bonly", ':update | %bdelete | edit # | normal `"', {})
 
--- Install new plugins
-vim.api.nvim_create_user_command("I", "PackerInstall", {})
-
--- Update new plugins
-vim.api.nvim_create_user_command("U", "PackerSync", {})
+-- Plugin manager
+vim.api.nvim_create_user_command("PI", "PackerInstall", {})
+vim.api.nvim_create_user_command("PS", "PackerSync", {})
 
 -- Restart LSP service sometimes necessary to pick up external changes
 vim.api.nvim_create_user_command("LR", "LspRestart", {})
+-- Show LSP info
+vim.api.nvim_create_user_command("LI", "LspInfo", {})

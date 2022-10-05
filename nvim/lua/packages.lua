@@ -24,12 +24,12 @@ require "packer".startup(
     use "nvim-telescope/telescope-file-browser.nvim"
     use "nvim-telescope/telescope-live-grep-args.nvim"
     use "jeetsukumaran/telescope-buffer-lines.nvim"
-    use "nvim-telescope/telescope-ui-select.nvim"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
     use "justinmk/vim-dirvish"
     use "sindrets/diffview.nvim"
     use "ThePrimeagen/harpoon"
+    use "stevearc/dressing.nvim"
 
     -- LSP
     use "folke/trouble.nvim"
