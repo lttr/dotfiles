@@ -4,9 +4,7 @@ import { binDirectory } from "./directories.ts";
 
 async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   const config: Config[] = [];
-  for await (const entry of fs.walk(dir, {
-    exts: ["sh"],
-  })) {
+  for await (const entry of fs.walk(dir, { exts: ["sh", "ts", "js"] })) {
     const scriptNameWithoutExtension = path.parse(entry.path).name;
     const dest = path.join(BIN_DIR, scriptNameWithoutExtension);
     config.push({
@@ -23,24 +21,6 @@ async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
 const executableScripts: Config[] = await getExecutableScriptsConfig(SCRIPTS);
 
 export const symlinks: Config[] = [
-  {
-    symlink: {
-      dest: path.join(HOME, ".Xresources"),
-      src: path.join(DOTFILES, "Xresources"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".agignore"),
-      src: path.join(DOTFILES, "agignore"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".alacritty.yml"),
-      src: path.join(DOTFILES, "alacritty.yml"),
-    },
-  },
   {
     symlink: {
       dest: path.join(HOME, ".config/kitty/kitty.conf"),
@@ -73,26 +53,8 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
-      dest: path.join(HOME, ".config/Code/User/settings.json"),
-      src: path.join(DOTFILES, "vscode/settings.json"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".config/Code/User/keybindings.json"),
-      src: path.join(DOTFILES, "vscode/keybindings.json"),
-    },
-  },
-  {
-    symlink: {
       dest: path.join(HOME, ".gitconfig"),
       src: path.join(DOTFILES, "gitconfig"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".vimrc"),
-      src: path.join(DOTFILES, "vimrc"),
     },
   },
   {
@@ -123,60 +85,6 @@ export const symlinks: Config[] = [
     symlink: {
       dest: path.join(HOME, ".zshrc"),
       src: path.join(DOTFILES, "zshrc"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".hyper.js"),
-      src: path.join(DOTFILES, "hyperterm/hyper.js"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".hyperlayout"),
-      src: path.join(DOTFILES, "hyperterm/hyperlayout"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".vim/colors"),
-      src: path.join(DOTFILES, "vim/colors"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".vim/snippets"),
-      src: path.join(DOTFILES, "vim/snippets"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".vim/syntax"),
-      src: path.join(DOTFILES, "vim/syntax"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".config/Code/User/snippets"),
-      src: path.join(DOTFILES, "vscode/snippets"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".hyper_plugins/local/hyper-solarized-light"),
-      src: path.join(DOTFILES, "hyperterm/hyper-solarized-light"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".hyper_plugins/local/hyper-solarized-dark"),
-      src: path.join(DOTFILES, "hyperterm/hyper-solarized-dark"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, "bin/packs"),
-      src: path.join(DOTFILES, "packages/packs.sh"),
     },
   },
   {

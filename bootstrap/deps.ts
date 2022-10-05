@@ -18,6 +18,7 @@ export {
   printConfigurationSet,
   runConfigurationSet,
   showDepGraph,
-} from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
-export type { Config } from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
-//from "../../../code/deno-dsc/mod.ts";
+} from "../../code/deno-dsc/mod.ts";
+// from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
+export type { Config } from "../../code/deno-dsc/mod.ts";
+// from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
