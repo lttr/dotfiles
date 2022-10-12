@@ -57,6 +57,7 @@ alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias eenv="$EDITOR ~/dotfiles/zshenv"
 alias ealias="$EDITOR ~/dotfiles/aliases"
 alias efunc="$EDITOR ~/dotfiles/functions"
+alias eterm="$EDITOR ~/dotfiles/kitty.conf"
 alias ,fe="nvim -c \"lua require('telescope.builtin').oldfiles({ previewer = false })\""
 
 # =================================================================

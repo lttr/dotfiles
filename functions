@@ -179,9 +179,9 @@ x() { extract "$1" }
 # Edit file recently opened in neovim # file recent
 file-recent() {
     local list file
-    list=$(nvim --headless -u NONE -c 'echo v:oldfiles | q' 2>&1 | tr -d \' | tr -d '[]' | tr ',' '\n' | tr -d ' ' | grep -v '://' | grep '/home')
+    list=$(nvim --headless -u NONE -c 'echo v:oldfiles | q' 2>&1 | tr -d \' | tr -d '[]' | tr ',' '\n' | tr -d ' ' | grep -v '://' | grep -v '/\.local/' | grep -v '/tmp/' | sed "s:$HOME:~:" )
     file=$(echo $list | fzf --query="$1")
-    echo "@$file@"
+    file=$(echo $file | sed "s:~:$HOME:")
     if [ -n "$file" ]; then
         ${EDITOR:-vim} "$file" < /dev/tty
     fi
