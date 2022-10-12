@@ -15,12 +15,16 @@ require "telescope".setup {
   defaults = {
     initial_mode = "insert",
     sorting_strategy = "descending",
-    layout_strategy = "horizontal",
+    layout_strategy = "flex",
     layout_config = {
-      horizontal = {mirror = false},
-      vertical = {mirror = false}
+      flex = {
+        flip_columns = 140
+      }
     },
     file_ignore_patterns = {"^node_modules/", "%.lock"}, -- lua regexes
+    path_display = function(_, path)
+      return path:gsub(vim.env.HOME .. "/", "")
+    end,
     mappings = {
       i = {
         ["<Esc>"] = actions.close,
@@ -43,23 +47,27 @@ require "telescope".setup {
           ["<C-k>"] = actions.move_selection_previous
         }
       }
+    },
+    recent_files = {
+      ignore_patterns = {"/%.local/", "/tmp/"}
     }
   }
 }
 
-require "telescope".load_extension("fzf")
-require "telescope".load_extension("zoxide")
-require "telescope".load_extension("repo")
+require "telescope".load_extension("buffer_lines")
 require "telescope".load_extension("file_browser")
+require "telescope".load_extension("fzf")
 require "telescope".load_extension("harpoon")
 require "telescope".load_extension("live_grep_args")
-require "telescope".load_extension("buffer_lines")
+require "telescope".load_extension("recent_files")
+require "telescope".load_extension("repo")
+require "telescope".load_extension("zoxide")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup(
   {
     -- show me only the path with '~' for the home directory
-    list_command = "zoxide query -ls | awk '{ print $2 }' | sed 's:/home/lukas:~:'",
+    list_command = "zoxide query -ls | grep -v '\\.local' | awk '{ print $2 }' | sed 's:" .. vim.env.HOME .. "/::'",
     mappings = {
       ["<C-l>"] = {
         action = function(selection)

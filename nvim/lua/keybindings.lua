@@ -1,5 +1,5 @@
 local map = vim.keymap.set
-local default_map_options = {noremap = true, silent = true}
+local default_map_options = { noremap = true, silent = true }
 
 --
 ----- Keyboard
@@ -97,7 +97,7 @@ nmap("<leader>vv", ":vsplit<CR>")
 nmap("<leader>vs", ":split<CR>")
 
 -- expand the current buffer's path on ex command line
-mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", {expr = 1})
+mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", { expr = 1 })
 
 -- ===== Cut, Copy and Paste =====
 -- " Don't yank the contents of an overwritten selection (reyank the original content)
@@ -159,9 +159,6 @@ nmap("<C-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
 nmap("<C-2>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
 nmap("<C-3>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
 nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
-
--- Find references using search
--- nmap("gR", function() tb.lsp_references() end)
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
@@ -241,11 +238,11 @@ nmap('y"', '<cmd>normal ysiw"<CR>')
 ---- telescope
 --
 
-local tb = require "telescope.builtin"
-local tel = require "telescope"
+local telescopeBuildin = require "telescope.builtin"
+local telescope = require "telescope"
 
 local find_files = function()
-  return tb.find_files(
+  return telescopeBuildin.find_files(
     {
       find_command = {
         "rg",
@@ -268,24 +265,28 @@ local find_files = function()
 end
 
 local document_symbols = function()
-  return tb.lsp_document_symbols(
+  return telescopeBuildin.lsp_document_symbols(
     {
       previewer = false,
-      layout_config = {width = 90},
-      symbols = {"function", "method"}
+      layout_config = { width = 90 },
+      symbols = { "function", "method" }
     }
   )
 end
 
 local live_grep = function()
-  return tel.extensions.live_grep_args.live_grep_args()
+  return telescope.extensions.live_grep_args.live_grep_args()
+end
+
+local recent_files = function()
+  return telescope.extensions.recent_files.pick()
 end
 
 nmap("<C-p>", find_files)
 imap(
   "<C-t>",
   function()
-    tb.find_files(
+    telescopeBuildin.find_files(
       {
         mappings = {
           i = {
@@ -297,205 +298,112 @@ imap(
   end
 )
 
-nmap(
-  "<leader>fa",
-  function()
-    tb.commands()
-  end
-)
-nmap(
-  "<leader>fb",
-  function()
-    tb.buffers()
-  end
-)
-nmap(
-  "<leader>fc",
-  function()
-    tb.command_history()
-  end
-)
+nmap("<leader>fa", telescopeBuildin.commands)
+nmap("<leader>fb", telescopeBuildin.buffers)
+nmap("<leader>fc", telescopeBuildin.command_history)
 nmap(
   "<leader>fd",
   function()
-    tb.lsp_document_diagnostics()
+    telescopeBuildin.lsp_document_diagnostics()
   end
 )
 nmap(
   "<leader>fD",
   function()
-    tb.lsp_workspace_diagnostics()
+    telescopeBuildin.lsp_workspace_diagnostics()
   end
 )
-nmap(
-  "<leader>fe",
-  function()
-    tb.oldfiles({previewer = false})
-  end
-)
-nmap(
-  "<leader>ff",
-  function()
-    tb.grep_string()
-  end
-)
+nmap("<leader>fe", recent_files)
+nmap("<leader>ff", telescopeBuildin.grep_string)
 nmap("<leader>fg", live_grep)
 vmap(
   "<leader>fg",
   function()
-    tb.live_grep({default_text = GetVisualSelection()})
+    telescopeBuildin.live_grep({ default_text = GetVisualSelection() })
   end
 )
 nmap(
   "<leader>fG",
   function()
-    tb.live_grep({default_text = vim.fn.expand("<cword>")})
+    telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
   end
 )
-nmap(
-  "<leader>fh",
-  function()
-    tb.help_tags()
-  end
-)
+nmap("<leader>fh", telescopeBuildin.help_tags)
 vmap(
   "<leader>fh",
   function()
-    tb.help_tags({default_text = GetVisualSelection()})
+    telescopeBuildin.help_tags({ default_text = GetVisualSelection() })
   end
 )
 nmap(
   "<leader>fi",
   function()
-    tb.find_files({cwd = "$HOME/dotfiles", previewer = false})
+    telescopeBuildin.find_files({ cwd = "$HOME/dotfiles", previewer = false })
   end
 )
 nmap(
   "<leader>fI",
   function()
-    tb.live_grep({cwd = "$HOME/dotfiles"})
+    telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" })
   end
 )
-nmap(
-  "<leader>fj",
-  function()
-    tel.extensions.harpoon.marks()
-  end
-)
-nmap(
-  "<leader>fk",
-  function()
-    tb.keymaps()
-  end
-)
-nmap(
-  "<leader>fl",
-  function()
-    tel.extensions.buffer_lines.buffer_lines()
-  end
-)
+nmap("<leader>fj", telescope.extensions.harpoon.marks)
+nmap("<leader>fk", telescopeBuildin.keymaps)
+nmap("<leader>fl", telescope.extensions.buffer_lines.buffer_lines)
 
 nmap("<leader>fo", document_symbols)
 nmap(
   "<leader>fp",
   function()
-    tel.extensions.repo.cached_list {file_ignore_patterns = {"/%.cache/", "/%.cargo/", "/%.local/"}}
+    telescope.extensions.repo.cached_list { file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" } }
   end
 )
-nmap("<leader>fr", "<cmd>Telescope file_browser<CR>")
+nmap("<leader>fw", "<cmd>Telescope file_browser<CR>")
 nmap(
   "<leader>fs",
   function()
-    tb.search_history()
+    telescopeBuildin.search_history()
   end
 )
-nmap(
-  "<leader>ft",
-  function()
-    tb.git_status()
-  end
-)
-nmap(
-  "<leader>fw",
-  function()
-    tb.lsp_dynamic_workspace_symbols({default_text = vim.fn.expand("<cword>")})
-  end
-)
-nmap(
-  "<leader>fx",
-  function()
-    tb.builtin()
-  end
-)
-nmap(
-  "<leader>fz",
-  function()
-    tel.extensions.zoxide.list {}
-  end
-)
-nmap(
-  "<localleader>r",
-  function()
-    tb.lsp_references()
-  end
-)
+nmap("<leader>ft", telescopeBuildin.git_status)
+nmap("<leader>fx", telescopeBuildin.builtin)
+nmap("<leader>fz", telescope.extensions.zoxide.list)
+nmap("<leader>fr", telescopeBuildin.lsp_references)
 
 --
 -- nvim-lspconfig
 --
 
-local function lspKeybindings(client)
+local function lsp_keybindings(client)
 end
 
 -- build init neovim lsp
-nmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-nmap("gI", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-nmap("gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
--- nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-nmap("<localleader>k", "<cmd>lua vim.lsp.buf.hover()<CR>")
-nmap("<localleader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-nmap("<localleader>s", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+nmap("gd", vim.lsp.buf.definition)
+nmap("gI", vim.lsp.buf.implementation)
+nmap("gD", vim.lsp.buf.type_definition)
+nmap("gR", vim.lsp.buf.references)
+nmap("<localleader>k", vim.lsp.buf.hover)
+nmap("<localleader>h", vim.lsp.buf.signature_help)
+nmap("<localleader>s", vim.lsp.buf.signature_help)
 nmap("<F2>", vim.lsp.buf.rename)
 
--- lspsaga
-
 -- code actions and refactoring
--- nmap("<leader>ca", ":Lspsaga code_action<CR>")
--- vmap("<leader>ca", ":<C-U>Lspsaga range_code_action<CR>")
 nmap("<leader>ca", vim.lsp.buf.code_action)
 vmap("<leader>ca", vim.lsp.buf.code_action)
 vmap("<localleader>er", require("react-extract").extract_to_current_file)
 vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
-nmap("gh", ":Lspsaga lsp_finder<CR>")
-nmap("]d", ":Lspsaga diagnostic_jump_next<CR>")
--- nmap("]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-nmap("[d", ":Lspsaga diagnostic_jump_prev<CR>")
--- nmap("[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
--- nmap("gD", ":Lspsaga preview_definition<CR>")
-nmap("<localleader>d", "<cmd>Lspsaga show_line_diagnostics<CR>")
--- nmap("<localleader>d", "<cmd>lua vim.diagnostic.open_float()<CR>")
+nmap("]d", vim.diagnostic.goto_next)
+nmap("[d", vim.diagnostic.goto_prev)
+nmap("<localleader>d", vim.diagnostic.open_float)
 
 --
--- Set some keybinds conditional on server capabilities
-
--- I rely on formatter.nvim for now instead of LSP based
--- formatting. CLI tools has more flexibility
+-- typescript.nvim
 --
--- if client.server_capabilities.document_formatting then
---   nmap("<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>")
--- elseif client.server_capabilities.document_range_formatting then
---   nmap("<leader>F", "<cmd>lua vim.lsp.buf.range_formatting()<CR>")
--- end
-
---
--- nvim-lsp-ts-utils
---
-local function lspTsUtilsKeybindings()
-  nmap("<localleader>io", ":TSLspOrganize<CR>")
-  nmap("<localleader>ir", ":TSLspRenameFile<CR>")
-  nmap("<localleader>ia", ":TSLspImportAll<CR>")
-end
+nmap("<localleader>yo", require "typescript".actions.organizeImports)
+nmap("<localleader>ya", require "typescript".actions.addMissingImports)
+nmap("<localleader>yu", require "typescript".actions.removeUnused)
+nmap("<localleader>yr", "<cmd>TypescriptRenameFile<CR>")
 
 --
 -- Trouble
@@ -526,13 +434,13 @@ nmap("coq", ":call ToggleQuickfixList()<CR>")
 -- nvim-autopairs
 --
 
-mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
+mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
 
 --
 -- gitsigns
 --
 
-local function gitsignsKeybindings(bufnr)
+local function gitsigns_keybindings(bufnr)
   local gs = package.loaded.gitsigns
 
   -- Navigation
@@ -550,7 +458,7 @@ local function gitsignsKeybindings(bufnr)
       )
       return "<Ignore>"
     end,
-    {expr = true}
+    { expr = true }
   )
 
   mymap(
@@ -567,19 +475,19 @@ local function gitsignsKeybindings(bufnr)
       )
       return "<Ignore>"
     end,
-    {expr = true}
+    { expr = true }
   )
 
   -- Actions
-  mymap({"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
-  mymap({"n", "v"}, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
+  mymap({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
+  mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
   mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options, bufnr)
   mymap("n", "<leader>hp", gs.preview_hunk, default_map_options, bufnr)
   mymap(
     "n",
     "<leader>hb",
     function()
-      gs.blame_line {full = true}
+      gs.blame_line { full = true }
     end
   )
 
@@ -598,7 +506,7 @@ local function gitsignsKeybindings(bufnr)
   mymap("n", "<leader>he", gs.toggle_deleted, default_map_options, bufnr)
 
   -- Text object
-  mymap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>", default_map_options, bufnr)
+  mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options, bufnr)
 end
 
 --
@@ -620,9 +528,6 @@ nmap("<leader>R", ":RnvimrToggle<CR>")
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
 nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 
--- vim-dirvish
-nmap("<leader>D", "<Cmd>Dirvish %<CR>")
-
 --
 -- diffview.vim
 --
@@ -638,12 +543,7 @@ nmap("<leader>dr", "<cmd>DiffviewRefresh<CR>")
 --
 -- Zen mode
 --
-nmap(
-  "<leader>z",
-  function()
-    require("zen-mode").toggle()
-  end
-)
+nmap("<leader>z", require "zen-mode".toggle)
 
 --
 -- nvim-spectre
@@ -656,19 +556,8 @@ nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 --
 -- rest.nvim
 --
-nmap(
-  "<localleader>T",
-  function()
-    require("rest-nvim").last()
-  end
-)
-
-nmap(
-  "<localleader>t",
-  function()
-    require("rest-nvim").run()
-  end
-)
+nmap("<localleader>T", require "rest-nvim".last)
+nmap("<localleader>t", require "rest-nvim".run)
 
 --
 -- vim-translator
@@ -696,7 +585,6 @@ vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
 -- export functions that needs to be called from init.lua
 return {
-  gitsignsKeybindings = gitsignsKeybindings,
-  lspKeybindings = lspKeybindings,
-  lspTsUtilsKeybindings = lspTsUtilsKeybindings
+  gitsigns_keybindings = gitsigns_keybindings,
+  lsp_keybindings = lsp_keybindings
 }

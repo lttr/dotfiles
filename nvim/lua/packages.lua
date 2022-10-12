@@ -18,15 +18,15 @@ require "packer".startup(
 
     -- explorer
     use "nvim-telescope/telescope.nvim"
-    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "jvgrootveld/telescope-zoxide"
     use "cljoly/telescope-repo.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
     use "nvim-telescope/telescope-live-grep-args.nvim"
     use "jeetsukumaran/telescope-buffer-lines.nvim"
+    use "smartpde/telescope-recent-files"
     use "kevinhwang91/rnvimr"
     use "kyazdani42/nvim-tree.lua"
-    use "justinmk/vim-dirvish"
     use "sindrets/diffview.nvim"
     use "ThePrimeagen/harpoon"
     use "stevearc/dressing.nvim"
@@ -37,7 +37,8 @@ require "packer".startup(
     use "lewis6991/gitsigns.nvim"
     use "mhartington/formatter.nvim"
     use "neovim/nvim-lspconfig"
-    use "williamboman/nvim-lsp-installer"
+    use "williamboman/mason.nvim"
+    use "williamboman/mason-lspconfig.nvim"
     use "jose-elias-alvarez/null-ls.nvim"
     use "b0o/schemastore.nvim"
     use "Maan2003/lsp_lines.nvim"
@@ -90,7 +91,7 @@ require "packer".startup(
 
     -- treesitter
     use "JoosepAlviste/nvim-ts-context-commentstring"
-    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/playground"
 
@@ -101,8 +102,7 @@ require "packer".startup(
     use "hashivim/vim-terraform"
     use "jparise/vim-graphql"
     use "maxmellon/vim-jsx-pretty"
-    -- use "preservim/vim-markdown"
-    use "jose-elias-alvarez/nvim-lsp-ts-utils"
+    use "jose-elias-alvarez/typescript.nvim"
     use "nikvdp/ejs-syntax"
     use "napmn/react-extract.nvim"
 
@@ -128,8 +128,8 @@ require "packer".startup(
     use "vim-scripts/BufOnly.vim"
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
-    use {"dhruvasagar/vim-prosession", requires = {"tpope/vim-obsession"}}
-    use {"michaelb/sniprun", run = "bash ./install.sh"}
+    use { "dhruvasagar/vim-prosession", requires = { "tpope/vim-obsession" } }
+    use { "michaelb/sniprun", run = "bash ./install.sh" }
   end
 )
 
