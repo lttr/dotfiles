@@ -1,12 +1,12 @@
 import { Config } from "../deps.ts";
-import { antibody } from "./customInstalls.ts";
+import { antidote } from "./customInstalls.ts";
 import { zsh } from "./apt.ts";
 
-function antibodyPackage(packageName: string) {
+function antidotePackage(packageName: string) {
   return {
-    antibody: {
+    antidote: {
       packageName,
-      dependsOn: antibody,
+      dependsOn: antidote,
     },
   };
 }
@@ -18,13 +18,13 @@ export const shell: Config[] = [
       dependsOn: zsh,
     },
   },
-  antibodyPackage("zsh-users/zsh-syntax-highlighting"),
-  antibodyPackage("zsh-users/zsh-completions"),
-  antibodyPackage("zsh-users/zsh-history-substring-search"),
-  antibodyPackage("MichaelAquilina/zsh-you-should-use"),
-  antibodyPackage("wfxr/forgit"),
-  antibodyPackage("supercrabtree/k"),
-  antibodyPackage("Tarrasch/zsh-bd"),
-  antibodyPackage("mafredri/zsh-async"),
-  antibodyPackage("sindresorhus/pure"),
+  antidotePackage("zsh-users/zsh-syntax-highlighting"),
+  antidotePackage("zsh-users/zsh-completions"),
+  antidotePackage("zsh-users/zsh-history-substring-search"),
+  antidotePackage("MichaelAquilina/zsh-you-should-use"),
+  antidotePackage("wfxr/forgit"),
+  antidotePackage("supercrabtree/k"),
+  antidotePackage("Tarrasch/zsh-bd"),
+  antidotePackage("mafredri/zsh-async"),
+  antidotePackage("sindresorhus/pure"),
 ];
