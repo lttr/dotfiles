@@ -119,22 +119,25 @@ local palettes = {
 -- Group of current token set by Treesitter can be find by
 -- :TSHighlightCapturesUnderCursor from treesitter-playground
 local groups = {
-  GitSignsAdd = {fg = green_transparent:to_css()},
-  GitSignsChange = {fg = yellow_transparent:to_css()},
-  GitSignsRemove = {fg = red_transparent:to_css()},
-  TSType = {fg = yellow, link = ""},
-  TSParameter = {fg = fg, link = ""},
-  Folded = {fg = "palette.fg2", link = ""},
-  Visual = {bg = bg_visual, link = ""},
-  Search = {bg = Color.from_hex(blue):lighten(-25):to_css(), link = ""},
-  LspSignatureActiveParameter = {fg = "palette.orange"},
-  Hint = {bg = "palette.bg1", fg = "palette.comment"},
-  NormalFloat = {bg = "palette.bg1"},
-  LspSagaCodeActionContent = {fg = "palette.green", bg = "palette.bg1"},
-  LspSagaCodeActionTitle = {fg = "palette.blue", bg = "palette.bg1"},
-  LspSagaCodeActionBorder = {bg = "palette.bg1"},
-  LspSagaCodeActionTrunCateLine = {bg = "palette.bg1"},
-  LspSagaDiagnosticBorder = {fg = "palette.fg3"}
+  GitSignsAdd = { fg = green_transparent:to_css() },
+  GitSignsChange = { fg = yellow_transparent:to_css() },
+  GitSignsRemove = { fg = red_transparent:to_css() },
+  TSType = { fg = yellow, link = "" },
+  TSParameter = { fg = fg, link = "" },
+  Folded = { fg = "palette.fg2", link = "" },
+  Visual = { bg = bg_visual, link = "" },
+  Search = { bg = Color.from_hex(blue):lighten(-25):to_css(), link = "" },
+  LspSignatureActiveParameter = { fg = "palette.orange" },
+  Hint = { bg = "palette.bg1", fg = "palette.comment" },
+  NormalFloat = { bg = "palette.bg1" },
+  LspSagaCodeActionContent = { fg = "palette.green", bg = "palette.bg1" },
+  LspSagaCodeActionTitle = { fg = "palette.blue", bg = "palette.bg1" },
+  LspSagaCodeActionBorder = { bg = "palette.bg1" },
+  LspSagaCodeActionTrunCateLine = { bg = "palette.bg1" },
+  LspSagaDiagnosticBorder = { fg = "palette.fg3" },
+  ["@tag"] = { fg = "palette.magenta" },
+  ["@tag.attribute"] = { fg = "palette.fg1" },
+  ["@parameter"] = { fg = "palette.fg1" }
 }
 
 -- Treesitter groups mapping

@@ -357,31 +357,6 @@ mrs() {
     glab mr list
 }
 
-git_default_branch() {
-    local branch
-    # First look for my custom file named 'deafult_branch' in the git repo,
-    # where the name of the default branch should be specified
-    for dir in "." ".." "../.." "../../.."; do
-        key_file=$dir/.git/default_branch
-        if [ -f "$key_file" ]; then 
-            branch=`cat "$key_file"`
-            break
-        fi
-    done
-    if [ -z "$branch" ]; then
-        branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
-    elif [ -z "$branch" ]; then
-        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2)
-    elif [ -z "$branch" ]; then
-        branch="master"
-    fi
-    echo $branch
-}
-
-gcom() {
-    git switch $(git_default_branch)
-}
-
 
 # =================================================================
 #                              Code

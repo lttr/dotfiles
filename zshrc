@@ -129,6 +129,10 @@ fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 source <(npm completion)
 
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
 autoload bashcompinit && bashcompinit
 
 
@@ -287,3 +291,4 @@ if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.
 
 # Profiling
 # zprof
+

@@ -21,7 +21,7 @@ require "telescope".setup {
         flip_columns = 140
       }
     },
-    file_ignore_patterns = {"^node_modules/", "%.lock"}, -- lua regexes
+    file_ignore_patterns = { "^node_modules/", "%.lock" }, -- lua regexes
     path_display = function(_, path)
       return path:gsub(vim.env.HOME .. "/", "")
     end,
@@ -46,10 +46,39 @@ require "telescope".setup {
           ["<C-e>"] = live_grep_args_actions.quote_prompt(),
           ["<C-k>"] = actions.move_selection_previous
         }
+      },
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--hidden",
+        "--no-ignore",
+        "--glob",
+        "!.git",
+        "--glob",
+        "!node_modules",
+        "--glob",
+        "!build/",
+        "--glob",
+        "!dist/",
+        "--glob",
+        "!.lock"
       }
     },
     recent_files = {
-      ignore_patterns = {"/%.local/", "/tmp/"}
+      ignore_patterns = { "/%.local/", "/tmp/" }
+    },
+    file_browser = {
+      initial_mode = "normal",
+      mappings = {
+        i = {
+          ["<Esc>"] = false
+        }
+      }
     }
   }
 }

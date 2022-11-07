@@ -35,6 +35,7 @@ end
 
 -- Identify the syntax highlighting group used at the cursor
 -- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
+nmap("<F9>", "<cmd>TSHighlightCapturesUnderCursor<CR>")
 nmap(
   "<F10>",
   [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
@@ -358,7 +359,13 @@ nmap(
     telescope.extensions.repo.cached_list { file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" } }
   end
 )
-nmap("<leader>fw", "<cmd>Telescope file_browser<CR>")
+nmap(
+  "<leader>fw",
+  function()
+    -- open file browser in folder of current file
+    telescope.extensions.file_browser.file_browser({ path = "%:p:h", cwd_to_path = true })
+  end
+)
 nmap(
   "<leader>fs",
   function()
@@ -427,7 +434,6 @@ nmap(
 -- vim-togglelist
 --
 
-nmap("col", ":call ToggleLocationList()<CR>")
 nmap("coq", ":call ToggleQuickfixList()<CR>")
 
 --
@@ -536,7 +542,8 @@ nmap("<leader>do", "<cmd>DiffviewOpen<CR>")
 nmap("<leader>dm", "<cmd>DiffviewOpen master..HEAD<CR>")
 nmap("<leader>dc", "<cmd>DiffviewClose<CR>")
 nmap("<leader>de", "<cmd>DiffviewToggleFiles<CR>")
-nmap("<leader>df", "<cmd>DiffviewFileHistory<CR>")
+nmap("<leader>df", "<cmd>DiffviewFileHistory %<CR>")
+nmap("<leader>dh", "<cmd>DiffviewFileHistory<CR>")
 nmap("<leader>di", "<cmd>DiffviewFocusFiles<CR>")
 nmap("<leader>dr", "<cmd>DiffviewRefresh<CR>")
 

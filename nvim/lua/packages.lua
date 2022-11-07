@@ -105,11 +105,15 @@ require "packer".startup(
     use "jose-elias-alvarez/typescript.nvim"
     use "nikvdp/ejs-syntax"
     use "napmn/react-extract.nvim"
+    use "Janiczek/vim-latte"
 
     -- help
     use "dbeniamine/cheat.sh-vim"
+    use "ThePrimeagen/vim-be-good"
 
     -- classic
+    use "airblade/vim-rooter"
+    use "kevinhwang91/nvim-bqf"
     use "Olical/vim-enmasse"
     use "aklt/vim-substitute"
     use "junegunn/gv.vim"

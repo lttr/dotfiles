@@ -69,7 +69,7 @@ cmp.setup {
           fallback()
         end
       end,
-      {"i", "s"}
+      { "i", "s" }
     ),
     ["<S-Tab>"] = cmp.mapping(
       function(fallback)
@@ -81,18 +81,18 @@ cmp.setup {
           fallback()
         end
       end,
-      {"i", "s"}
+      { "i", "s" }
     )
   },
   sources = {
-    {name = "cmp_jira"},
+    { name = "cmp_jira" },
     -- {name = "cmp_vue_components"},
-    {name = "git"},
-    {name = "nvim_lsp_signature_help"},
-    {name = "nvim_lua"},
-    {name = "nvim_lsp", max_item_count = 10},
-    {name = "path"},
-    {name = "luasnip"}
+    { name = "git" },
+    { name = "nvim_lsp_signature_help" },
+    { name = "nvim_lua" },
+    { name = "nvim_lsp", max_item_count = 10 },
+    { name = "path" },
+    { name = "luasnip" }
     -- {name = "buffer", keyword_length = 5} -- too much noise
   },
   formatting = {
@@ -111,7 +111,7 @@ cmp.setup {
 
 require("goto-preview").setup {}
 require("cmp_jira").setup {
-  file_types = {"gitcommit"},
+  file_types = { "gitcommit" },
   jira = {
     -- email: optional, alternatively specify via $JIRA_USER_EMAIL
     -- url: optional, alternatively specify via $JIRA_WORKSPACE_URL
@@ -121,8 +121,8 @@ require("cmp_jira").setup {
 }
 -- TODO finish plugin
 require("cmp_vue_components").setup {
-  file_types = {"vue"}
+  file_types = { "vue" }
 }
 require("cmp_git").setup {
-  filetypes = {"gitcommit"}
+  filetypes = { "gitcommit" }
 }
