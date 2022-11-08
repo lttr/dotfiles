@@ -98,9 +98,17 @@ require("telescope._extensions.zoxide.config").setup(
     -- show me only the path with '~' for the home directory
     list_command = "zoxide query -ls | grep -v '\\.local' | awk '{ print $2 }' | sed 's:" .. vim.env.HOME .. "/::'",
     mappings = {
+      default = {
+        action = function(selection)
+          vim.cmd("cd " .. vim.env.HOME .. "/" .. selection.path)
+        end,
+        after_action = function(selection)
+          print("Directory changed to " .. selection.path)
+        end
+      },
       ["<C-l>"] = {
         action = function(selection)
-          vim.cmd("lcd " .. selection.path)
+          vim.cmd("lcd " .. vim.env.HOME .. "/" .. selection.path)
         end
       }
     }

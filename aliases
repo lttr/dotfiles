@@ -81,30 +81,18 @@ alias sand="cd ~/sandbox"
 #                              npm
 # =================================================================
 
+alias nb="npm run build"
+alias nd="npm run dev"
+alias ni="npm install"
+alias nid="npm install --save-dev"
+alias nl="npm run lint"
 alias nr="npm run"
 alias ns="npm start"
-
-alias nb="npm run build"
-alias build="npm run build"
-
-alias nd="npm run dev"
-alias dev="npm run dev"
-
-alias nli="npm run lint"
-alias lint="npm run lint"
-
 alias nse="npm run serve"
-alias serve="npm run serve"
-alias server="npm run server"
-
-alias nw="npm run watch"
 alias nt="npm run --silent test"
-alias ni="npm install"
 alias nuni="npm uninstall"
-alias nid="npm install --save-dev"
-alias nig="npm install -g"
-
-alias sb="npm run storybook"
+alias nv="npm run validate"
+alias nw="npm run watch"
 
 alias pn="pnpm"
 

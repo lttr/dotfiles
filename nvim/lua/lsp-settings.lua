@@ -8,7 +8,7 @@ local servers = {
   "bashls",
   "cssls",
   "denols",
-  "eslint",
+  -- "eslint",
   "gopls",
   "graphql",
   "html",
@@ -16,7 +16,6 @@ local servers = {
   "phpactor",
   "prismals",
   "sumneko_lua",
-  "stylelint_lsp",
   "svelte",
   "tailwindcss",
   "terraformls",
@@ -83,46 +82,36 @@ local denols = {
   }
 }
 
-local stylelint_lsp = {
-  filetypes = { "css", "less", "scss", "vue", "javascriptreact", "typescriptreact" },
-  settings = {
-    stylelintplus = {
-      autoFixOnFormat = true,
-      autoFixOnSave = true
-    }
-  }
-}
-
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
-local eslint = {
-  {
-    codeAction = {
-      disableRuleComment = {
-        enable = true,
-        location = "separateLine"
-      },
-      showDocumentation = {
-        enable = true
-      }
-    },
-    codeActionOnSave = {
-      enable = false,
-      mode = "all"
-    },
-    format = true,
-    nodePath = "",
-    onIgnoredFiles = "off",
-    packageManager = "npm",
-    quiet = false,
-    rulesCustomizations = {},
-    run = "onType",
-    useESLintClass = false,
-    validate = "on",
-    workingDirectory = {
-      mode = "location"
-    }
-  }
-}
+-- local eslint = {
+--   {
+--     codeAction = {
+--       disableRuleComment = {
+--         enable = true,
+--         location = "separateLine"
+--       },
+--       showDocumentation = {
+--         enable = true
+--       }
+--     },
+--     codeActionOnSave = {
+--       enable = false,
+--       mode = "all"
+--     },
+--     format = true,
+--     nodePath = "",
+--     onIgnoredFiles = "off",
+--     packageManager = "npm",
+--     quiet = false,
+--     rulesCustomizations = {},
+--     run = "onType",
+--     useESLintClass = false,
+--     validate = "on",
+--     workingDirectory = {
+--       mode = "location"
+--     }
+--   }
+-- }
 
 local sumneko_lua = {
   cmd = {
@@ -159,8 +148,7 @@ local jsonls = {
 
 local custom_configs = {
   denols = denols,
-  stylelint_lsp = stylelint_lsp,
-  eslint = eslint,
+  -- eslint = eslint,
   sumneko_lua = sumneko_lua,
   vuels = vuels,
   jsonls = jsonls
@@ -201,9 +189,6 @@ local function file_exists(name)
 end
 
 local function setup_server(server)
-  if server == "stylelint_lsp" and not file_exists(os.getenv("PWD") .. "/package.json") then
-    return
-  end
   if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
     return
   end

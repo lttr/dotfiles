@@ -31,9 +31,13 @@ export PATH="$HOME/.local/bin:$PATH"
 NPM_GLOBAL="$HOME/.npm-global"
 export PATH="$NPM_GLOBAL/bin:$PATH"
 
-# volta manager
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# FNM
+export PATH=/home/lukas/.fnm:$PATH
+eval "$(fnm env --use-on-cd)"
 
 # deno path
 export DENO_INSTALL="/home/lukas/.deno"

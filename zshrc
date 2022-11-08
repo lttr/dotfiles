@@ -24,6 +24,9 @@ autoload -Uz compinit
 
 bindkey -e
 
+# fix delete key
+bindkey "^[[3~" delete-char
+
 # Do not catch Ctrl+q and Ctrl+s by the terminal
 # (I use it in vim)
 stty start undef
