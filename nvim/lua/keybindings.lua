@@ -101,7 +101,7 @@ nmap("<leader>vs", ":split<CR>")
 mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", { expr = 1 })
 
 -- ===== Cut, Copy and Paste =====
--- " Don't yank the contents of an overwritten selection (reyank the original content)
+-- Yank the contents of an overwritting selection into register "d (reyank the original content)
 vmap("p", '"_dP')
 -- Copy selection
 vmap("<C-c>", '"+y')

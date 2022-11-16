@@ -1,0 +1,9 @@
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search
+MichaelAquilina/zsh-you-should-use
+wfxr/forgit
+supercrabtree/k
+Tarrasch/zsh-bd
+mafredri/zsh-async
+sindresorhus/pure

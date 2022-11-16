@@ -24,8 +24,10 @@ autoload -Uz compinit
 
 bindkey -e
 
-# fix delete key
+# fix keys
 bindkey "^[[3~" delete-char
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
 
 # Do not catch Ctrl+q and Ctrl+s by the terminal
 # (I use it in vim)
@@ -126,15 +128,14 @@ zstyle ':completion:*' matcher-list '' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
-
-fpath+=(~/.zsh/completion)
-fpath+=("$(brew --prefix)/share/zsh/site-functions")
-
 source <(npm completion)
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+fpath+=("$(brew --prefix)/share/zsh/site-functions")
+fpath+=(~/.zsh/completion)
 
 autoload bashcompinit && bashcompinit
 
@@ -190,8 +191,23 @@ export BAT_PAGER="less -RF"
 # =================================================================
 
 # Antidote
-source ~/.local/opt/brew/opt/antidote/share/antidote/antidote.zsh
-antidote load
+antidote_dir=${HOME}/opt/antidote
+plugins_txt=${HOME}/.zsh_plugins.txt
+static_file=${HOME}/.zsh_plugins.zsh
+# Clone antidote if necessary and generate a static plugin file
+if [[ ! $static_file -nt $plugins_txt ]]; then # static_file is newer then plugins_txt
+  [[ -e $antidote_dir ]] ||
+    # antidote_dir does not exists
+    git clone --depth=1 https://github.com/mattmc3/antidote.git $antidote_dir
+  (
+    source $antidote_dir/antidote.zsh
+    [[ -e $plugins_txt ]] || touch $plugins_txt # create plugins_txt if it not exists
+    antidote bundle <$plugins_txt >$static_file
+  )
+fi
+source $static_file # source the static plugins file
+unset antidote_dir plugins_txt static_file # cleanup
+# end Antidote
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -189,16 +189,16 @@ local function file_exists(name)
 end
 
 local function setup_server(server)
-  if server == "denols" and file_exists(os.getenv("PWD") .. "/package.json") then
+  if server == "denols" and file_exists(vim.fn.getcwd() .. "/package.json") then
     return
   end
-  if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.ts") then
+  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deps.ts") then
     return
   end
-  if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deps.js") then
+  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deps.js") then
     return
   end
-  if server == "tsserver" and file_exists(os.getenv("PWD") .. "/deno.json") then
+  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deno.json") then
     return
   end
 
@@ -211,19 +211,21 @@ for _, name in pairs(servers) do
 end
 
 -- https://github.com/jose-elias-alvarez/typescript.nvim
-require("typescript").setup(
-  {
-    disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
-    go_to_source_definition = {
-      fallback = true -- fall back to standard LSP definition on failure
-    },
-    server = {
-      handlers = common_handlers,
-      on_attach = common_on_attach
+if not file_exists(vim.fn.getcwd() .. "/deno.json") then -- if not a deno project
+  require("typescript").setup(
+    {
+      disable_commands = false, -- prevent the plugin from creating Vim commands
+      debug = false, -- enable debug logging for commands
+      go_to_source_definition = {
+        fallback = true -- fall back to standard LSP definition on failure
+      },
+      server = {
+        handlers = common_handlers,
+        on_attach = common_on_attach
+      }
     }
-  }
-)
+  )
+end
 
 -- https://github.com/ray-x/lsp_signature.nvim
 require "lsp_signature".setup {
