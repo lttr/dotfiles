@@ -4,7 +4,12 @@ import { binDirectory } from "./directories.ts";
 
 async function getExecutableScriptsConfig(dir: string): Promise<Config[]> {
   const config: Config[] = [];
-  for await (const entry of fs.walk(dir, { exts: ["sh", "ts", "js"] })) {
+  for await (
+    const entry of fs.walk(dir, {
+      exts: ["sh", "ts", "js"],
+      includeDirs: false,
+    })
+  ) {
     const scriptNameWithoutExtension = path.parse(entry.path).name;
     const dest = path.join(BIN_DIR, scriptNameWithoutExtension);
     config.push({
@@ -85,6 +90,12 @@ export const symlinks: Config[] = [
     symlink: {
       dest: path.join(HOME, ".zshrc"),
       src: path.join(DOTFILES, "zshrc"),
+    },
+  },
+  {
+    symlink: {
+      dest: path.join(HOME, ".zsh_plugins.txt"),
+      src: path.join(DOTFILES, "zsh_plugins.txt"),
     },
   },
   {

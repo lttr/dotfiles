@@ -1,3 +1,4 @@
+import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 
 export const gnomeShellExtensionInstaller = {
@@ -15,21 +16,7 @@ export const googleChrome = {
 export const antidote = {
   gitClone: {
     url: "https://github.com/mattmc3/antidote.git",
-    target: "~/opt/antidote/",
-  },
-};
-
-const webi = {
-  urlScript: {
-    name: "webi",
-    url: "https://webinstall.dev/webi",
-  },
-};
-
-const volta = {
-  urlScript: {
-    name: "volta",
-    url: "https://get.volta.sh",
+    target: `${HOME}/opt/antidote/`,
   },
 };
 
@@ -56,14 +43,28 @@ const brewPackages = [
   "docker-compose",
   "fzf",
   "gh",
-  "neovim",
   "potrace",
   "rg",
   "sd",
   "zoxide",
 ];
 
-const voltaPackages = [
+const neovim = {
+  brew: {
+    name: "nvim",
+    head: true,
+    dependsOn: brew,
+  },
+};
+
+const pnpm = {
+  brew: {
+    name: "pnpm",
+    dependsOn: brew,
+  },
+};
+
+const pnpmPackages = [
   "browser-sync",
   "ddg",
   "degit",
@@ -91,12 +92,16 @@ export const customInstalls: Config[] = [
   aptUpdate,
   // installers
   gnomeShellExtensionInstaller,
-  webi,
   brew,
-  volta,
   antidote,
+  pnpm,
+  neovim,
   // custom applications
   googleChrome,
-  ...brewPackages.map((name) => ({ brew: { name, dependsOn: brew } })),
-  ...voltaPackages.map((name) => ({ volta: { name, dependsOn: volta } })),
+  ...brewPackages.map((name) => ({
+    brew: { name, dependsOn: brew },
+  })),
+  ...pnpmPackages.map((name) => ({
+    pnpmGlobalInstall: { name, dependsOn: pnpm },
+  })),
 ];
