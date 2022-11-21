@@ -1,5 +1,5 @@
 -- Start terminal in insert mode
-vim.api.nvim_create_autocmd("TermOpen", {command = "startinsert"})
+vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
 
 -- Restore last cursor position and center the screen,
 -- do it only if the cursor is not on first line
@@ -36,3 +36,31 @@ vim.cmd [[
       autocmd BufNewFile,BufRead *.ejs.t :set filetype=ejs
   augroup end
 ]]
+
+-- from https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/utils.lua
+local root_has_file_matches = function(pattern)
+  local handle = vim.loop.fs_scandir(vim.loop.cwd())
+  local entry = vim.loop.fs_scandir_next(handle)
+  while entry do
+    if entry:match(pattern) then
+      return true
+    end
+    entry = vim.loop.fs_scandir_next(handle)
+  end
+  return false
+end
+
+-- Deno make group
+local denoMakeGroup = vim.api.nvim_create_augroup("DenoMake", { clear = true })
+vim.api.nvim_create_autocmd(
+  "BufRead",
+  {
+    callback = function()
+      if (root_has_file_matches("deno.json")) then
+        vim.bo.makeprg = [[deno lint --quiet --compact]]
+        vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
+      end
+    end,
+    group = denoMakeGroup
+  }
+)
