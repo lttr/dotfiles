@@ -1,9 +1,7 @@
-local map = vim.keymap.set
+local utils = require "my.utils"
+
 local default_map_options = { noremap = true, silent = true }
 
---
------ Keyboard
---
 vim.cmd([[
   let mapleader = ","
   let maplocalleader = "\<space>"
@@ -176,7 +174,7 @@ nmap(
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
-vmap("<localleader>j", EvaluateJs)
+vmap("<localleader>j", utils.evaluate_js)
 
 -- help
 nmap("<localleader>H", ":help <C-r><C-w><CR>")
@@ -339,7 +337,7 @@ vmap(
 nmap(
   "<leader>fi",
   function()
-    telescopeBuildin.find_files({ cwd = "$HOME/dotfiles", previewer = false })
+    telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" })
   end
 )
 nmap(

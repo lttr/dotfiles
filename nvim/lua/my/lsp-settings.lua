@@ -3,6 +3,8 @@
 
 -- https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils
 
+local utils = require "my.utils"
+
 local servers = {
   "angularls",
   "bashls",
@@ -22,13 +24,14 @@ local servers = {
   "vuels",
   -- "volar",
   "yamlls"
+  -- tsserver is managed by nvim-lsp-ts-utils
 }
 
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup(
   {
-    ensure_installed = { "tsserver", unpack(servers) }
+    ensure_installed = {"tsserver", unpack(servers)}
   }
 )
 local lsp_config = require("lspconfig")
@@ -55,7 +58,7 @@ local common_handlers = {
 local common_on_attach = function(client)
   vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  require "keybindings".lsp_keybindings(client)
+  require "my.keybindings".lsp_keybindings(client)
   -- client.server_capabilities.document_formatting = false
 
   -- Set autocommands conditional on server_capabilities
@@ -67,14 +70,14 @@ local common_on_attach = function(client)
       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]] ,
+    ]],
       false
     )
   end
 end
 
 local denols = {
-  root_dir = lsp_config.util.root_pattern({ "deno.json", "deps.ts" }),
+  root_dir = lsp_config.util.root_pattern({"deno.json", "deps.ts"}),
   init_options = {
     enable = true,
     lint = true,
@@ -120,7 +123,7 @@ local sumneko_lua = {
   settings = {
     Lua = {
       dignostics = {
-        globals = { "vim" }
+        globals = {"vim"}
       }
     }
   }
@@ -141,7 +144,7 @@ local jsonls = {
   settings = {
     json = {
       schemas = require "schemastore".json.schemas(),
-      validate = { enable = true }
+      validate = {enable = true}
     }
   }
 }
@@ -165,7 +168,7 @@ local function make_config(server_name)
   end
 
   local merged_config =
-  vim.tbl_deep_extend(
+    vim.tbl_deep_extend(
     "force",
     {
       capabilities = capabilities,
@@ -178,27 +181,15 @@ local function make_config(server_name)
   return merged_config
 end
 
-local function file_exists(name)
-  local f = io.open(name, "r")
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
+local function is_a_deno_project()
+  return utils.has_root_file({"deno.json"})
 end
 
 local function setup_server(server)
-  if server == "denols" and file_exists(vim.fn.getcwd() .. "/package.json") then
+  if (server == "tsserver" and is_a_deno_project()) then
     return
   end
-  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deps.ts") then
-    return
-  end
-  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deps.js") then
-    return
-  end
-  if server == "tsserver" and file_exists(vim.fn.getcwd() .. "/deno.json") then
+  if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
     return
   end
 
@@ -211,7 +202,7 @@ for _, name in pairs(servers) do
 end
 
 -- https://github.com/jose-elias-alvarez/typescript.nvim
-if not file_exists(vim.fn.getcwd() .. "/deno.json") then -- if not a deno project
+if not is_a_deno_project() then
   require("typescript").setup(
     {
       disable_commands = false, -- prevent the plugin from creating Vim commands

@@ -1,15 +1,20 @@
 -- https://github.com/jose-elias-alvarez/null-ls.nvim
 
+local utils = require "my.utils"
 local null_ls = require "null-ls"
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-local function isADenoProject(utils)
-  return utils.root_has_file({ "deno.json" })
+local function is_a_deno_project()
+  return utils.has_root_file({ "deno.json" })
 end
 
-local function notADenoProject(utils)
-  return not isADenoProject(utils)
+local function not_a_deno_project()
+  return not is_a_deno_project()
+end
+
+local function not_a_deno_project_and_has_eslint()
+  return not is_a_deno_project() and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
 end
 
 null_ls.setup {
@@ -21,9 +26,9 @@ null_ls.setup {
     --
     -- Formatting
     --
-    null_ls.builtins.formatting.prettierd.with({ condition = notADenoProject }),
-    null_ls.builtins.formatting.deno_fmt.with({ condition = isADenoProject }),
-    null_ls.builtins.formatting.eslint_d.with({ condition = notADenoProject }),
+    null_ls.builtins.formatting.prettierd.with({ condition = not_a_deno_project }),
+    null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
+    null_ls.builtins.formatting.eslint_d.with({ runtime_condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with(
       {
         filetypes = { "scss", "less", "css", "sass", "vue" }
@@ -36,7 +41,7 @@ null_ls.setup {
     -- Others are run as language servers
     null_ls.builtins.diagnostics.eslint_d.with(
       {
-        condition = notADenoProject,
+        runtime_condition = not_a_deno_project_and_has_eslint,
         -- ignore prettier warnings from eslint-plugin-prettier
         filter = function(diagnostic)
           return diagnostic.code ~= "prettier/prettier"

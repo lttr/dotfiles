@@ -6,21 +6,28 @@ export const gnomeShellExtensionInstaller = {
 };
 
 const googleChromeAmd64 = "google-chrome-stable_current_amd64.deb";
-export const googleChrome = {
+export const googleChrome: Config = {
   debianPackage: {
     name: "google-chrome",
     url: `https://dl.google.com/linux/direct/${googleChromeAmd64}`,
   },
 };
 
-export const antidote = {
+export const antidote: Config = {
   gitClone: {
     url: "https://github.com/mattmc3/antidote.git",
     target: `${HOME}/opt/antidote/`,
   },
 };
 
-const brew = {
+const deno: Config = {
+  urlScript: {
+    name: "deno",
+    url: "https://deno.land/x/install/install.sh",
+  },
+};
+
+const brew: Config = {
   inlineScript: {
     name: "brew",
     testScript: `which brew`,
@@ -33,7 +40,7 @@ const brew = {
   },
 };
 
-export const aptUpdate = {
+export const aptUpdate: Config = {
   aptUpdate: {},
 };
 
@@ -49,7 +56,7 @@ const brewPackages = [
   "zoxide",
 ];
 
-const neovim = {
+const neovim: Config = {
   brew: {
     name: "nvim",
     head: true,
@@ -57,7 +64,7 @@ const neovim = {
   },
 };
 
-const pnpm = {
+const pnpm: Config = {
   brew: {
     name: "pnpm",
     dependsOn: brew,
@@ -96,6 +103,7 @@ export const customInstalls: Config[] = [
   antidote,
   pnpm,
   neovim,
+  deno,
   // custom applications
   googleChrome,
   ...brewPackages.map((name) => ({
