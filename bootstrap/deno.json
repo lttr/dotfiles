@@ -4,6 +4,7 @@
 		"withreload": "deno run --reload --unstable --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",
 		"dryrun": "deno run --unstable --quiet --allow-read --allow-write --allow-run --allow-env --allow-net dry-run.ts",
 		"print": "deno run --unstable --quiet --allow-read --allow-write print.ts",
+		"stats": "deno run --unstable --quiet --allow-read --allow-write --allow-env stats.ts",
 		"depgraph": "deno run --unstable --quiet --allow-read --allow-write --allow-run dep-graph.ts"
 	}
 }

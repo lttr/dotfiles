@@ -16,6 +16,7 @@ export { exists } from "https://deno.land/std@0.65.0/fs/exists.ts";
 
 export {
   printConfigurationSet,
+  printStatsConfigurationSet,
   runConfigurationSet,
   showDepGraph,
 } from "../../code/deno-dsc/mod.ts";

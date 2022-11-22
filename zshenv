@@ -20,16 +20,12 @@ fi
 
 # PATH
 
-# Generated for envman. Do not edit.
+# Generated for envman. DEPRECATED? Used by webinstall?
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 # user path
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-
-# nodejs path
-NPM_GLOBAL="$HOME/.npm-global"
-export PATH="$NPM_GLOBAL/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
@@ -43,17 +39,6 @@ eval "$(fnm env --use-on-cd)"
 export DENO_INSTALL="/home/lukas/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# go path
-export GOPATH="$HOME/.go"
-export GOROOT="/usr/lib/go"
-export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
-
-# rust cargo bin path
-source "$HOME/.cargo/env"
-
-# vsts
-export PATH=$PATH:$HOME/opt/vsts-cli/bin
-
 # vscode
 export PATH=$PATH:/usr/share/code
 
@@ -62,27 +47,14 @@ if [[ $WSL = true ]]; then
   export PATH="$PATH:/usr/bin"
 fi
 
+# forgit
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
-
-
-# vagrant
-export VAGRANT_HOME=~/vagrants/vagrant.d
-
-# man pages
-
-unset MANPATH # only once here
-export MANPATH="$NPM_GLOBAL/share/man:$(manpath)"
-
 
 # user environment
 export PAGER=/usr/bin/less
-#export EDITOR=/usr/bin/vim
-#export EDITOR=code
 export EDITOR=nvim
 export VISUAL=nvim
 export BROWSER=/usr/bin/google-chrome
-# export TERMINAL=/usr/bin/urxvt
-# export TERM=rxvt-unicode-256color
 
 # user locale
 export LANG=en_US.UTF8
@@ -102,11 +74,6 @@ export LC_IDENTIFICATION=en_US.UTF8
 
 # user prompt
 export PURE_CMD_MAX_EXEC_TIME=10000
-if [[ $(hostname) == 'lttr-win10' ]]; then
-    export PURE_PROMPT_SYMBOL=$
-    export PURE_GIT_UP_ARROW=^
-    export PURE_GIT_DOWN_ARROW=v
-fi
 
 # i3wm workspaces
 export WS_1="1:  "
@@ -120,22 +87,4 @@ export WS_8="8:  "
 export WS_9="9:  "
 export WS10="10: "
 export WS11="11: "
-
-# Solarized light colors
-sol_code_base03="234"
-sol_code_base02="235"
-sol_code_base01="240"
-sol_code_base00="241"
-sol_code_base0="244"
-sol_code_base1="245"
-sol_code_base2="254"
-sol_code_base3="230"
-sol_code_yellow="136"
-sol_code_orange="166"
-sol_code_red="160"
-sol_code_magenta="125"
-sol_code_violet="61"
-sol_code_blue="33"
-sol_code_cyan="37"
-sol_code_green="64"
 

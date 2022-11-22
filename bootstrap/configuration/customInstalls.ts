@@ -20,6 +20,14 @@ export const antidote: Config = {
   },
 };
 
+export const fnm: Config = {
+  urlScript: {
+    name: "fnm",
+    url: "https://fnm.vercel.app/install",
+    params: ["--skip-shell"],
+  },
+};
+
 const deno: Config = {
   urlScript: {
     name: "deno",
@@ -28,15 +36,9 @@ const deno: Config = {
 };
 
 const brew: Config = {
-  inlineScript: {
-    name: "brew",
-    testScript: `which brew`,
-    setScript: `
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-      test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-      test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-      echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
-    `,
+  urlScript: {
+    name: "deno",
+    url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
   },
 };
 
@@ -101,6 +103,7 @@ export const customInstalls: Config[] = [
   gnomeShellExtensionInstaller,
   brew,
   antidote,
+  fnm,
   pnpm,
   neovim,
   deno,
