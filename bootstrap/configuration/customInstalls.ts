@@ -8,13 +8,6 @@ export const antidote: Config = {
   },
 };
 
-const deno: Config = {
-  urlScript: {
-    name: "deno",
-    url: "https://deno.land/x/install/install.sh",
-  },
-};
-
 export const gnomeShellExtensionInstaller = {
   gnomeShellExtensionInstaller: {},
 };
@@ -116,7 +109,6 @@ export const customInstalls: Config[] = [
   antidote,
   aptUpdate,
   brew,
-  deno,
   fnm,
   gnomeShellExtensionInstaller,
   googleChrome,

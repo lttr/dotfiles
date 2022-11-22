@@ -1,78 +1,93 @@
-dotfiles
-========
+# dotfiles
 
-This is a collection of files for configuration and installation of my development machines. This is a great way how to manage the settings of your applications, install new machine easily or share the way you work with others.
+This is a collection of files for configuration and installation of my
+development machines. This is a great way how to manage the settings of your
+applications, install new machine easily or share the way you work with others.
 See more on the links under _Thanks_.
-
 
 ## What is inside
 
 #### Scripts for installing
-- directory structure
+
 - applications
-    * via apt-get
-    * node packages
-    * python packages
-    * build from source
+  - via apt-get
+  - node packages
+  - brew packages
+- directory structure
 - gnome settings
 - symbolic links
 
 #### Configuration files
-- `ag` (searching program)
-- `antibody` (plugins for zsh)
-- `vim` simulations (ideavim, vrapper)
+
+- `antidote` (plugins for zsh)
 - `git` (aliases, config)
+- `kitty` (terminal with enough tmux like features)
+- `neovim` (editor)
 - `ranger` (directories browser)
-- `vim` (the most ergonomic editor)
+- `rg` (searching program)
 - `zsh` (just a better program launcher :)
 
 ##### No longer used //why
-- `vscode` (editor) // customizable but not enough, fast but not enough, integrated but not enough
+
+- `ag` (searching program) // I use ripgrep, it is the fastest
+- `antibody` (plugins for zsh) // Superceeded by antidote
 - `dunst` (notifications in i3) // only for i3
 - `i3` (window manager) // Gnome on PopOS has good workspace and window layout support and looks good out of the box
 - `kdiff3` (diff program) // Vscode has that, vim has that
 - `rofi` (program launcher) // Gnome is enough, maybe Ulauncher is a better fit for Gnome
 - `tmux` (terminal on the next level) // Terminals can do a lot of what tmux can
 - `urxvt` (capable terminal) // Hyper terminal is fast enough now and multiplatform
+- `hyperterminal` (nice terminal) // Nice but slow
+- `vim` (the most ergonomic editor) // I use neovim
+- `vim` simulations (ideavim, vrapper) // I use neovim for all work
+- `vscode` (editor) // customizable but not enough, fast but not enough, integrated but not enough
+- `windows` (operating system) // Linux became good for everything work oriented tasks
 
 #### Usefull scripts
+
 - for connections
 - for environment and hardware setup
 - shortcuts for applications
 
 #### Others
+
 - aliases and functions (for command line)
 - color schemes
 - some stuff for Windows
-
 
 ## How to install
 
 I do not recommend to install it this way. Just browse the repo for inspiration, rather then installing it completely. This is only for me to remember.
 
 Expects:
-- Fresh installation of PopOS 19.04
+
+- Fresh installation PopOS LTS
 - home dir `cd ~`
 
-Clone repo and dependencies:
+Install deno
+
 ```
-git clone --recursive https://github.com/lttr/dotfiles
+curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
-Install everything using _dotfiles_ utility script:
+Clone this repo
+
 ```
-./dotfiles/scripts/user/dotfiles.sh install all
+git clone https://github.com/lttr/dotfiles
 ```
-Or install only symlinks (shortcut version of the utility script)
+
+Install everything
+
 ```
-./dotfiles/scripts/user/dotfiles.sh i sym
+cd ~/dotfiles/bootstrap/
+deno task run
 ```
 
 ## Other things to consider after installation
 
 - upgrade system (`sudo apt update`, `sudo apt full-upgrade`, `pop-upgrade release upgrade systemd`)
 - sync Dropbox before installation
-  + Dropbox needs running daemon (`dropbox status`, `dropbox start -i`, `dropbox autostart y`)
+  - Dropbox needs running daemon (`dropbox status`, `dropbox start -i`, `dropbox autostart y`)
 - check if fonts are linked and installed
 - copy `/etc/fstab` from backup, careful with changing current filesystem root partion
 - check backups are set up
@@ -80,7 +95,7 @@ Or install only symlinks (shortcut version of the utility script)
 - check appearance settings in `lxappearance` utility
 - enable automatic login in `/etc/gdm3/custom.conf` (in PopOS it can be configured in Settings -> Users)
 - consider disabling slow systemd services
-  + e.g. `sudo systemctl disable NetworkManager-wait-online.service`
+  - e.g. `sudo systemctl disable NetworkManager-wait-online.service`
 - change download folder in your browser (I like `~/down`)
 - import backuped settings into some applications (e.g. doublecommander)
 - install, enable and configure Gnome extensions (`dash-to-panel`, `arc-menu`, `gsconnect`)
