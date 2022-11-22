@@ -9,11 +9,10 @@ export const directories: Config[] = [
   // Make useful directories inside home
   binDirectory,
   { directory: { path: path.join(HOME, "code") } },
+  { directory: { path: path.join(HOME, "work") } },
   { directory: { path: path.join(HOME, "sandbox") } },
-  // Prepare dirs for vim
-  { directory: { path: path.join(HOME, ".vim") } },
-  { directory: { path: path.join(HOME, ".vim/backups") } },
-  { directory: { path: path.join(HOME, ".vim/undos") } },
+  { directory: { path: path.join(HOME, "opt") } },
+  { directory: { path: path.join(HOME, "Photos") } },
   // Prepare dirs for zsh
   { directory: { path: path.join(HOME, ".zsh/completion") } },
 ];

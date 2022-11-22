@@ -1,6 +1,20 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 
+export const antidote: Config = {
+  gitClone: {
+    url: "https://github.com/mattmc3/antidote.git",
+    target: `${HOME}/opt/antidote/`,
+  },
+};
+
+const deno: Config = {
+  urlScript: {
+    name: "deno",
+    url: "https://deno.land/x/install/install.sh",
+  },
+};
+
 export const gnomeShellExtensionInstaller = {
   gnomeShellExtensionInstaller: {},
 };
@@ -13,13 +27,6 @@ export const googleChrome: Config = {
   },
 };
 
-export const antidote: Config = {
-  gitClone: {
-    url: "https://github.com/mattmc3/antidote.git",
-    target: `${HOME}/opt/antidote/`,
-  },
-};
-
 export const fnm: Config = {
   urlScript: {
     name: "fnm",
@@ -28,17 +35,26 @@ export const fnm: Config = {
   },
 };
 
-const deno: Config = {
-  urlScript: {
-    name: "deno",
-    url: "https://deno.land/x/install/install.sh",
+export const node: Config = {
+  inlineScript: {
+    name: "node",
+    testScript: "fnm current | grep 18",
+    setScript: "fnm install 18",
   },
+  dependsOn: fnm,
 };
 
 const brew: Config = {
   urlScript: {
-    name: "deno",
+    name: "brew",
     url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
+  },
+};
+
+const kitty: Config = {
+  urlScript: {
+    name: "kitty",
+    url: "https://sw.kovidgoyal.net/kitty/installer.sh",
   },
 };
 
@@ -97,18 +113,17 @@ const pnpmPackages = [
 ];
 
 export const customInstalls: Config[] = [
-  // preparation
-  aptUpdate,
-  // installers
-  gnomeShellExtensionInstaller,
-  brew,
   antidote,
-  fnm,
-  pnpm,
-  neovim,
+  aptUpdate,
+  brew,
   deno,
-  // custom applications
+  fnm,
+  gnomeShellExtensionInstaller,
   googleChrome,
+  kitty,
+  neovim,
+  pnpm,
+  node,
   ...brewPackages.map((name) => ({
     brew: { name, dependsOn: brew },
   })),
