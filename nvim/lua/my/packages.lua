@@ -61,7 +61,6 @@ require "packer".startup(
     use "rmagatti/goto-preview"
     use "petertriho/cmp-git"
     use "~/code/cmp-jira"
-    use "~/code/cmp-vue-components"
 
     -- editing
     use "windwp/nvim-ts-autotag"

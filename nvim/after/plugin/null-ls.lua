@@ -17,6 +17,10 @@ local function not_a_deno_project_and_has_eslint()
   return not is_a_deno_project() and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
 end
 
+local function has_stylelint()
+  return utils.has_root_file({ ".stylelintrc.js" })
+end
+
 null_ls.setup {
   sources = {
     --
@@ -31,6 +35,7 @@ null_ls.setup {
     null_ls.builtins.formatting.eslint_d.with({ runtime_condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with(
       {
+        runtime_condition = has_stylelint,
         filetypes = { "scss", "less", "css", "sass", "vue" }
       }
     ),
@@ -50,6 +55,7 @@ null_ls.setup {
     ),
     null_ls.builtins.diagnostics.stylelint.with(
       {
+        runtime_condition = has_stylelint,
         filetypes = { "scss", "less", "css", "sass", "vue" }
       }
     )
