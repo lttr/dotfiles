@@ -24,7 +24,8 @@ export const fnm: Config = {
   urlScript: {
     name: "fnm",
     url: "https://fnm.vercel.app/install",
-    params: ["--skip-shell"],
+    params: ["--install-dir", "'~/.fnm'", "--skip-shell"],
+    postInstall: 'eval "$(~/.fnm/fnm env)"',
   },
 };
 
@@ -41,6 +42,7 @@ const brew: Config = {
   urlScript: {
     name: "brew",
     url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
+    postInstall: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"',
   },
 };
 
