@@ -23,7 +23,7 @@ fi
 # Generated for envman. DEPRECATED? Used by webinstall?
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# user path
+# my bin folders
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -31,21 +31,20 @@ export PATH="$HOME/.local/bin:$PATH"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
-# FNM
+# fnm
 export PATH=/home/lukas/.fnm:$PATH
-eval "$(fnm env --use-on-cd)"
+which fnm >/dev/null && eval "$(fnm env --use-on-cd)"
 
-# deno path
+# deno
 export DENO_INSTALL="/home/lukas/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+# brew
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
+[ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # vscode
 export PATH=$PATH:/usr/share/code
-
-# prefer /usr/bin than Windows PATH
-if [[ $WSL = true ]]; then
-  export PATH="$PATH:/usr/bin"
-fi
 
 # forgit
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"

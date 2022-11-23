@@ -301,11 +301,11 @@ fi;
 
 
 # The next line updates PATH for Netlify's Git Credential Helper.
-if [ -f '/home/lukas/.netlify/helper/path.zsh.inc' ]; then source '/home/lukas/.netlify/helper/path.zsh.inc'; fi
+[ -f '/home/lukas/.netlify/helper/path.zsh.inc' ] && source '/home/lukas/.netlify/helper/path.zsh.inc'
 
 
 
-#find-alias
+# find-alias
 [[ -s "$HOME/.find-alias.sh" ]] && source "$HOME/.find-alias.sh"
 
 # Profiling

@@ -38,6 +38,7 @@ alias path='echo $PATH | tr -s ":" "\n"'
 #                            Listing
 # =================================================================
 alias l="LC_COLLATE=c ls -F -1 --show-control-chars --color --group-directories-first"
+alias ls="LC_COLLATE=c ls -F -1 --show-control-chars --color --group-directories-first"
 alias ll="LC_COLLATE=c ls -lhF --show-control-chars --color --group-directories-first --time-style='+%d.%m.%Y %H:%M'"
 alias la="LC_COLLATE=c ls -lhFA --show-control-chars --color --group-directories-first --time-style='+%d.%m.%Y %H:%M'"
 
