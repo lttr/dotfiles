@@ -96,25 +96,24 @@ const neovim: Config = {
 };
 
 const pnpmPackages = [
-  "browser-sync",
-  "ddg",
-  "degit",
-  "eslint",
-  "eslint_d",
-  "firebase",
-  "git-standup",
-  "hygen",
-  "json",
-  "lua-fmt",
-  "netlify",
-  "npm-why",
-  "nx",
-  "open-cli",
-  "pollinate",
-  "prettier",
-  "@fsouza/prettierd",
-  "stylelint",
-  "typescript-language-server",
+  { name: "browser-sync" },
+  { name: "degit" },
+  { name: "eslint" },
+  { name: "eslint_d" },
+  { name: "firebase-tools", executable: "firebase" },
+  { name: "git-standup" },
+  { name: "hygen" },
+  { name: "json" },
+  { name: "lua-fmt", executable: "luafmt" },
+  { name: "netlify-cli", executable: "netlify" },
+  { name: "npm-why" },
+  { name: "nx" },
+  { name: "open-cli" },
+  { name: "pollinate" },
+  { name: "prettier" },
+  { name: "@fsouza/prettierd", executable: "prettierd" },
+  { name: "stylelint" },
+  { name: "typescript-language-server" },
 ];
 
 export const customInstalls: Config[] = [
@@ -131,7 +130,9 @@ export const customInstalls: Config[] = [
   ...brewPackages.map((name) => ({
     brew: { name, dependsOn: brew },
   })),
-  ...pnpmPackages.map((name) => ({
-    pnpmGlobalInstall: { name, dependsOn: pnpm },
-  })),
+  ...pnpmPackages.map((pnpmConfig) => {
+    return {
+      pnpmGlobalInstall: { ...pnpmConfig, dependsOn: pnpm },
+    };
+  }),
 ];

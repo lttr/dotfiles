@@ -117,7 +117,6 @@ alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC" # Show czech calendar with Monday as th
 alias copy="xsel -b"
 alias d="docker"
 alias dc="docker-compose"
-alias dg="ddg"
 # alias gcal="google-chrome --profile-directory=Default --app-id=gkfinjhpehkbdhjolbeacocmigfdhhai 2&>1 >/dev/null"
 alias ht="http --verify=no"
 alias ipy="ipython"

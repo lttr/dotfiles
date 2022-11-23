@@ -62,11 +62,6 @@ bhistory() {
     fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open 2&>1 >/dev/null
 }
 
-# Search request to duckduckgo instant answer about javascript
-djs() {
-    ddg js "$*" | html-to-text
-}
-
 s() {
     local search
     search="$1"
