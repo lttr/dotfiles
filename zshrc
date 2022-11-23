@@ -213,7 +213,7 @@ unset antidote_dir plugins_txt static_file # cleanup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Zoxide
-which fnm >/dev/null && eval "$(zoxide init zsh)"
+which zoxide >/dev/null && eval "$(zoxide init zsh)"
 
 # =================================================================
 #                           Terminal
