@@ -31,8 +31,8 @@ export const fnm: Config = {
 export const node: Config = {
   inlineScript: {
     name: "node",
-    testScript: "fnm current | grep 18",
-    setScript: 'eval "$(~/.fnm/fnm env)" && fnm install 18',
+    testScript: "~/.fnm/fnm current | grep 18",
+    setScript: 'eval "$(~/.fnm/fnm env)" && ~/.fnm/fnm install 18',
   },
   dependsOn: fnm,
 };
@@ -99,7 +99,6 @@ const pnpmPackages = [
   "browser-sync",
   "ddg",
   "degit",
-  "dploy",
   "eslint",
   "eslint_d",
   "firebase",

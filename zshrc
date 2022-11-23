@@ -128,13 +128,13 @@ zstyle ':completion:*' matcher-list '' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
-source <(npm completion)
+which npm >/dev/null && source <(npm completion)
 
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
-fpath+=("$(brew --prefix)/share/zsh/site-functions")
+[ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
 fpath+=(~/.zsh/completion)
 
 autoload bashcompinit && bashcompinit
@@ -213,7 +213,7 @@ unset antidote_dir plugins_txt static_file # cleanup
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Zoxide
-eval "$(zoxide init zsh)"
+which fnm >/dev/null && eval "$(zoxide init zsh)"
 
 # =================================================================
 #                           Terminal
