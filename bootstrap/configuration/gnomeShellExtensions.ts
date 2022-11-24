@@ -166,7 +166,7 @@ const dashToPanelSettings = dashToPanelRawSettings.map((item) => {
   return {
     gnomeSettings: {
       schemadir:
-        "~/.local/share/gnome-shell/extensions/dash-to-dock@micxgx.gmail.com/schemas",
+        "~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/schemas",
       schema: "org.gnome.shell.extensions.dash-to-panel",
       key: key as string,
       value,
