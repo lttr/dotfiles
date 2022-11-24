@@ -175,13 +175,13 @@ const dashToPanelSettings = dashToPanelRawSettings.map((item) => {
   };
 });
 
-const gsconnect = {
-  gnomeShellExtension: {
-    fullName: "gsconnect@andyholmes.github.io",
-    id: 1319,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-};
+// const gsconnect = {
+//   gnomeShellExtension: {
+//     fullName: "gsconnect@andyholmes.github.io",
+//     id: 1319,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// };
 
 // const pomodoro = {
 //   gnomeShellExtension: {
@@ -267,7 +267,7 @@ export const gnomeShellExtensions: Config[] = [
   // ...clockOverrideSettings,
   dashToPanel,
   ...dashToPanelSettings,
-  gsconnect,
+  // gsconnect,
   // pomodoro,
   // userTheme,
   // ...userThemeSettings,
