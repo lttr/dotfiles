@@ -69,32 +69,26 @@ export const appForMimeTypes: Config[] = [
   },
   {
     appForMimeType: {
-      app: "code.desktop",
+      app: "neovim.desktop",
       mimeType: "text/plain",
     },
   },
   {
     appForMimeType: {
-      app: "code.desktop",
+      app: "neovim.desktop",
       mimeType: "application/x-mswinurl",
     },
   },
   {
     appForMimeType: {
-      app: "code.desktop",
+      app: "neovim.desktop",
       mimeType: "text/markdown",
     },
   },
   {
     appForMimeType: {
-      app: "code.desktop",
+      app: "neovim.desktop",
       mimeType: "text/x-log",
-    },
-  },
-  {
-    appForMimeType: {
-      app: "org.videolan.VLC.desktop",
-      mimeType: "video/x-msvideo",
     },
   },
 ];
