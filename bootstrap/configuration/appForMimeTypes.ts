@@ -69,12 +69,6 @@ export const appForMimeTypes: Config[] = [
   },
   {
     appForMimeType: {
-      app: "inkscape.desktop",
-      mimeType: "image/svg+xml",
-    },
-  },
-  {
-    appForMimeType: {
       app: "code.desktop",
       mimeType: "text/plain",
     },
@@ -99,7 +93,7 @@ export const appForMimeTypes: Config[] = [
   },
   {
     appForMimeType: {
-      app: "vlc.desktop",
+      app: "org.videolan.VLC.desktop",
       mimeType: "video/x-msvideo",
     },
   },
