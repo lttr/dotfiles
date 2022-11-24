@@ -30,6 +30,7 @@ export const apt: Config[] = [
   aptPackage("trash-cli"),
   aptPackage("tree"),
   aptPackage("unrar"),
+  aptPackage("vlc"),
   aptPackage("xbindkeys"),
   aptPackage("xdotool"),
   aptPackage("xsel"),

@@ -4,11 +4,13 @@ vim.api.nvim_create_user_command(
   function(opts)
     os.execute('git add --all; git commit -m "' .. opts.args .. '"')
   end,
-  {nargs = 1}
+  { nargs = 1 }
 )
 
 -- Stage all files
 vim.api.nvim_create_user_command("GA", "Git add --all", {})
+-- Push
+vim.api.nvim_create_user_command("GP", "Git push", {})
 
 -- Commit from ex command
 vim.api.nvim_create_user_command(
@@ -16,11 +18,11 @@ vim.api.nvim_create_user_command(
   function(opts)
     os.execute('git commit -m "' .. opts.args .. '"')
   end,
-  {nargs = 1}
+  { nargs = 1 }
 )
 
 -- Create new file next to current one
-vim.api.nvim_create_user_command("N", ":sp %:h/<args>", {nargs = 1})
+vim.api.nvim_create_user_command("N", ":sp %:h/<args>", { nargs = 1 })
 
 -- Close all other buffers
 vim.api.nvim_create_user_command("Bonly", ':update | %bdelete | edit # | normal `"', {})

@@ -92,13 +92,13 @@ import { gnomeShellExtensionInstaller } from "./customInstalls.ts";
 //   },
 // ];
 
-const dashToPanel = {
-  gnomeShellExtension: {
-    fullName: "dash-to-panel@jderose9.github.com",
-    id: 1160,
-    dependsOn: gnomeShellExtensionInstaller,
-  },
-};
+// const dashToPanel = {
+//   gnomeShellExtension: {
+//     fullName: "dash-to-panel@jderose9.github.com",
+//     id: 1160,
+//     dependsOn: gnomeShellExtensionInstaller,
+//   },
+// };
 
 const dashToPanelRawSettings = [
   ["appicon-margin", 4],
@@ -265,7 +265,7 @@ export const gnomeShellExtensions: Config[] = [
   // ...arcMenuSettings,
   // clockOverride,
   // ...clockOverrideSettings,
-  dashToPanel,
+  // dashToPanel,
   ...dashToPanelSettings,
   // gsconnect,
   // pomodoro,

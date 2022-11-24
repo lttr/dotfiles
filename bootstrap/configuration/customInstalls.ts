@@ -8,9 +8,9 @@ export const antidote: Config = {
   },
 };
 
-export const gnomeShellExtensionInstaller = {
-  gnomeShellExtensionInstaller: {},
-};
+// export const gnomeShellExtensionInstaller = {
+//   gnomeShellExtensionInstaller: {},
+// };
 
 const googleChromeAmd64 = "google-chrome-stable_current_amd64.deb";
 export const googleChrome: Config = {
@@ -104,7 +104,6 @@ const pnpmPackages = [
   { name: "git-standup" },
   { name: "hygen" },
   { name: "json" },
-  { name: "lua-fmt", executable: "luafmt" },
   { name: "netlify-cli", executable: "netlify" },
   { name: "npm-why" },
   { name: "nx" },
@@ -121,7 +120,7 @@ export const customInstalls: Config[] = [
   aptUpdate,
   brew,
   fnm,
-  gnomeShellExtensionInstaller,
+  // gnomeShellExtensionInstaller,
   googleChrome,
   kitty,
   neovim,
