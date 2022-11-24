@@ -86,7 +86,6 @@ cmp.setup {
   },
   sources = {
     { name = "cmp_jira" },
-    -- {name = "cmp_vue_components"},
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
@@ -118,10 +117,6 @@ require("cmp_jira").setup {
     -- jql: optional, lua format string, escaped username/email will be passed to string.format()
     jql = "assignee=%s+and+resolution=unresolved"
   }
-}
--- TODO finish plugin
-require("cmp_vue_components").setup {
-  file_types = { "vue" }
 }
 require("cmp_git").setup {
   filetypes = { "gitcommit" }

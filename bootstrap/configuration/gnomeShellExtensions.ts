@@ -119,7 +119,6 @@ const dashToPanelRawSettings = [
   ["dot-style-focused", "SEGMENTED"],
   ["dot-style-unfocused", "SEGMENTED"],
   ["focus-highlight-color", "#eeeeec"],
-  ["force-check-update", false],
   ["group-apps", false],
   ["group-apps-label-font-color", "#d3d7cf"],
   ["group-apps-label-font-color-minimized", "#888a85"],
@@ -138,6 +137,11 @@ const dashToPanelRawSettings = [
   ["multi-monitors", false],
   ["overlay-timeout", 500],
   ["panel-size", 30],
+  [
+    "panel-elements-positions",
+    `{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":false,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}],"1":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"stackedTL"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":false,"position":"stackedBR"}]}
+  `,
+  ],
   ["scroll-icon-action", "NOTHING"],
   ["scroll-panel-action", "NOTHING"],
   ["shift-click-action", "LAUNCH"],
