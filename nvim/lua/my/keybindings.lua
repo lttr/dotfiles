@@ -1,6 +1,6 @@
 local utils = require "my.utils"
 
-local default_map_options = { noremap = true, silent = true }
+local default_map_options = {noremap = true, silent = true}
 
 vim.cmd([[
   let mapleader = ","
@@ -96,7 +96,7 @@ nmap("<leader>vv", ":vsplit<CR>")
 nmap("<leader>vs", ":split<CR>")
 
 -- expand the current buffer's path on ex command line
-mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", { expr = 1 })
+mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", {expr = 1})
 
 -- ===== Cut, Copy and Paste =====
 -- Yank the contents of an overwritting selection into register "d (reyank the original content)
@@ -267,8 +267,8 @@ local document_symbols = function()
   return telescopeBuildin.lsp_document_symbols(
     {
       previewer = false,
-      layout_config = { width = 90 },
-      symbols = { "function", "method" }
+      layout_config = {width = 90},
+      symbols = {"function", "method"}
     }
   )
 end
@@ -318,32 +318,32 @@ nmap("<leader>fg", live_grep)
 vmap(
   "<leader>fg",
   function()
-    telescopeBuildin.live_grep({ default_text = GetVisualSelection() })
+    telescopeBuildin.live_grep({default_text = GetVisualSelection()})
   end
 )
 nmap(
   "<leader>fG",
   function()
-    telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
+    telescopeBuildin.live_grep({default_text = vim.fn.expand("<cword>")})
   end
 )
 nmap("<leader>fh", telescopeBuildin.help_tags)
 vmap(
   "<leader>fh",
   function()
-    telescopeBuildin.help_tags({ default_text = GetVisualSelection() })
+    telescopeBuildin.help_tags({default_text = GetVisualSelection()})
   end
 )
 nmap(
   "<leader>fi",
   function()
-    telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" })
+    telescopeBuildin.find_files({cwd = "$HOME/dotfiles"})
   end
 )
 nmap(
   "<leader>fI",
   function()
-    telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" })
+    telescopeBuildin.live_grep({cwd = "$HOME/dotfiles"})
   end
 )
 nmap("<leader>fj", telescope.extensions.harpoon.marks)
@@ -354,14 +354,14 @@ nmap("<leader>fo", document_symbols)
 nmap(
   "<leader>fp",
   function()
-    telescope.extensions.repo.cached_list { file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" } }
+    telescope.extensions.repo.cached_list {file_ignore_patterns = {"/%.cache/", "/%.cargo/", "/%.local/"}}
   end
 )
 nmap(
   "<leader>fw",
   function()
     -- open file browser in folder of current file
-    telescope.extensions.file_browser.file_browser({ path = "%:p:h", cwd_to_path = true })
+    telescope.extensions.file_browser.file_browser({path = "%:p:h", cwd_to_path = true})
   end
 )
 nmap(
@@ -438,7 +438,7 @@ nmap("coq", ":call ToggleQuickfixList()<CR>")
 -- nvim-autopairs
 --
 
-mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
+mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", {expr = true, noremap = true})
 
 --
 -- gitsigns
@@ -462,7 +462,7 @@ local function gitsigns_keybindings(bufnr)
       )
       return "<Ignore>"
     end,
-    { expr = true }
+    {expr = true}
   )
 
   mymap(
@@ -479,19 +479,19 @@ local function gitsigns_keybindings(bufnr)
       )
       return "<Ignore>"
     end,
-    { expr = true }
+    {expr = true}
   )
 
   -- Actions
-  mymap({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
-  mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
+  mymap({"n", "v"}, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
+  mymap({"n", "v"}, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
   mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options, bufnr)
   mymap("n", "<leader>hp", gs.preview_hunk, default_map_options, bufnr)
   mymap(
     "n",
     "<leader>hb",
     function()
-      gs.blame_line { full = true }
+      gs.blame_line {full = true}
     end
   )
 
@@ -510,7 +510,7 @@ local function gitsigns_keybindings(bufnr)
   mymap("n", "<leader>he", gs.toggle_deleted, default_map_options, bufnr)
 
   -- Text object
-  mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options, bufnr)
+  mymap({"o", "x"}, "ih", gs.select_hunk, default_map_options, bufnr)
 end
 
 --
@@ -526,7 +526,8 @@ nmap("<leader>gp", "<cmd>Git push<CR>")
 -- rnvimr
 --
 
-nmap("<leader>R", ":RnvimrToggle<CR>")
+-- also Alt-o
+-- nmap("<leader>R", ":RnvimrToggle<CR>")
 
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")

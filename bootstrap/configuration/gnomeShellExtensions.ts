@@ -1,5 +1,6 @@
+import { HOME } from "../constants.ts";
 import { Config } from "../deps.ts";
-import { gnomeShellExtensionInstaller } from "./customInstalls.ts";
+// import { gnomeShellExtensionInstaller } from "./customInstalls.ts";
 
 // const EMPTY_ARRAY = "@as []";
 
@@ -165,8 +166,7 @@ const dashToPanelSettings = dashToPanelRawSettings.map((item) => {
   const [key, value] = item;
   return {
     gnomeSettings: {
-      schemadir:
-        "~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/schemas",
+      schemadir: `${HOME}/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com/schemas`,
       schema: "org.gnome.shell.extensions.dash-to-panel",
       key: key as string,
       value,
