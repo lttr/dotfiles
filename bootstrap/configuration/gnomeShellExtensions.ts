@@ -170,7 +170,7 @@ const dashToPanelSettings = dashToPanelRawSettings.map((item) => {
       schema: "org.gnome.shell.extensions.dash-to-panel",
       key: key as string,
       value,
-      dependsOn: dashToPanel,
+      // dependsOn: dashToPanel,
     },
   };
 });
