@@ -296,6 +296,12 @@ c() {
     git commit -m "${*}"
 }
 
+gac() { # git add and commit
+    IFS=' '
+    git add --all
+    git commit -m "${*}"
+}
+
 ca() {
     IFS=' '
     git commit --amend -m "${*}"
