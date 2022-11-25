@@ -193,6 +193,7 @@ export BAT_PAGER="less -RF"
 # Antidote
 antidote_dir=${HOME}/opt/antidote
 plugins_txt=${HOME}/.zsh_plugins.txt
+plugins_txt_dotfiles=${HOME}/dotfiles/zsh_plugins.txt
 static_file=${HOME}/.zsh_plugins.zsh
 # Clone antidote if necessary and generate a static plugin file
 if [[ ! $static_file -nt $plugins_txt ]]; then # static_file is newer then plugins_txt
@@ -201,7 +202,7 @@ if [[ ! $static_file -nt $plugins_txt ]]; then # static_file is newer then plugi
     git clone --depth=1 https://github.com/mattmc3/antidote.git $antidote_dir
   (
     source $antidote_dir/antidote.zsh
-    [[ -e $plugins_txt ]] || touch $plugins_txt # create plugins_txt if it not exists
+    [[ -e $plugins_txt ]] || ln -s $plugins_txt_dotfiles $plugins_txt # create plugins_txt if it not exists
     antidote bundle <$plugins_txt >$static_file
   )
 fi
