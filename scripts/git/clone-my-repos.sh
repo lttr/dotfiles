@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 USER='lttr'
-CODE_DIR='~/code'
+CODE_DIR="$HOME/code"
 
 REPOS=$(gh api users/lttr/repos --paginate --jq '.[] | select(.archived != true) | select(.fork != true) | .ssh_url')
 
