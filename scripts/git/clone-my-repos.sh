@@ -9,5 +9,5 @@ cd $CODE_DIR
 
 for URL in $REPOS; do
   git clone $URL
-end
+done
 
