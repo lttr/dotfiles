@@ -73,7 +73,7 @@ require "packer".startup(
     use "onsails/lspkind-nvim"
     use "rmagatti/goto-preview"
     use "petertriho/cmp-git"
-    use "~/code/cmp-jira"
+    use "lttr/cmp-jira"
 
     -- editing
     use "windwp/nvim-ts-autotag"
