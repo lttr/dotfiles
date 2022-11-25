@@ -3,7 +3,7 @@
 USER='lttr'
 CODE_DIR="$HOME/code"
 
-REPOS=$(gh api users/lttr/repos --paginate --jq '.[] | select(.archived != true) | select(.fork != true) | .ssh_url')
+REPOS=$(gh api users/${USER}/repos --paginate --jq '.[] | select(.archived != true) | select(.fork != true) | .ssh_url')
 
 cd $CODE_DIR
 
