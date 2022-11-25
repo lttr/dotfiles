@@ -30,7 +30,8 @@ export const fnm: Config = {
 export const node: Config = {
   inlineScript: {
     name: "node",
-    testScript: "~/.local/share/fnm/fnm current | grep 18",
+    testScript:
+      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm current | grep 18',
     setScript:
       'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm install 18',
   },
