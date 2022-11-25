@@ -1,4 +1,5 @@
 import { config } from "./config.ts";
-import { showDepGraph } from "./deps.ts";
+import { parse, showDepGraph } from "./deps.ts";
 
-showDepGraph(config);
+const filter = parse(Deno.args).filter;
+showDepGraph(config, { filter });

@@ -1,4 +1,5 @@
 import { config } from "./config.ts";
-import { runConfigurationSet } from "./deps.ts";
+import { parse, runConfigurationSet } from "./deps.ts";
 
-await runConfigurationSet(config);
+const filter = parse(Deno.args).filter;
+await runConfigurationSet(config, { filter });

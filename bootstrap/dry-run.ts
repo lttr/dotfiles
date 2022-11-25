@@ -1,4 +1,5 @@
 import { config } from "./config.ts";
-import { runConfigurationSet } from "./deps.ts";
+import { parse, runConfigurationSet } from "./deps.ts";
 
-await runConfigurationSet(config, { verbose: true, dryRun: true });
+const filter = parse(Deno.args).filter;
+await runConfigurationSet(config, { verbose: false, dryRun: true, filter });
