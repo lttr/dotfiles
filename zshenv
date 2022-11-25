@@ -32,7 +32,7 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # fnm
-export PATH="$HOME/.local/share/.fnm:$PATH"
+export PATH="$HOME/.local/share/fnm:$PATH"
 which fnm >/dev/null && eval "$(fnm env --use-on-cd)"
 
 # deno
