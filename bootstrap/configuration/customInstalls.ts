@@ -24,15 +24,15 @@ export const fnm: Config = {
   urlScript: {
     name: "fnm",
     url: "https://fnm.vercel.app/install",
-    params: ["--install-dir", "'~/.fnm'", "--skip-shell"],
   },
 };
 
 export const node: Config = {
   inlineScript: {
     name: "node",
-    testScript: "~/.fnm/fnm current | grep 18",
-    setScript: 'eval "$(~/.fnm/fnm env)" && ~/.fnm/fnm install 18',
+    testScript: "~/.local/share/fnm/fnm current | grep 18",
+    setScript:
+      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm install 18',
   },
   dependsOn: fnm,
 };
@@ -41,7 +41,8 @@ const brew: Config = {
   urlScript: {
     name: "brew",
     url: "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh",
-    postInstall: "ln -s /home/linuxbrew/.linuxbrew/bin/brew ~/.local/bin/",
+    postInstall:
+      "mkdir -p ~/.local/bin && ln -s /home/linuxbrew/.linuxbrew/bin/brew ~/.local/bin/",
   },
 };
 
@@ -50,6 +51,7 @@ const kitty: Config = {
     name: "kitty",
     url: "https://sw.kovidgoyal.net/kitty/installer.sh",
     postInstall: `
+      mkdir -p ~/.local/bin
       # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in your system-wide PATH)
       ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
       # Place the kitty.desktop file somewhere it can be found by the OS
@@ -67,7 +69,8 @@ const pnpm: Config = {
   urlScript: {
     name: "pnpm",
     url: "https://get.pnpm.io/install.sh",
-    postInstall: "ln -s ~/.local/share/pnpm/pnpm ~/.local/bin/",
+    postInstall:
+      "mkdir -p ~/.local/bin %% ln -s ~/.local/share/pnpm/pnpm ~/.local/bin/",
   },
 };
 
