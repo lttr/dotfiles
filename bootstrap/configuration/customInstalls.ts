@@ -99,6 +99,33 @@ const neovim: Config = {
   },
 };
 
+const neovimDeps: Config = {
+  inlineScript: {
+    name: "NeovimDependencies",
+    testScript: `ls ~/.local/share/nvim/site`,
+    setScript:
+      `neovim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'`,
+    dependsOn: neovim,
+  },
+};
+
+const nerdFont: Config = {
+  inlineScript: {
+    name: "FiraMonoFont",
+    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf"`,
+    setScript: `
+      FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
+      FONT_TARGET_DIR="~/.fonts/"
+      cd ~/Downloads
+      curl -fsLo $FONT_FILE_NAME https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
+      mkdir -p $FONT_TARGET_DIR
+      cp $FONT_FILE_NAME $FONT_TARGET_DIR
+      fc-cache -f
+      rm $FONT_FILE_NAME
+      `,
+  },
+};
+
 const pnpmPackages = [
   { name: "browser-sync" },
   { name: "degit" },
@@ -128,8 +155,10 @@ export const customInstalls: Config[] = [
   googleChrome,
   kitty,
   neovim,
+  neovimDeps,
   pnpm,
   node,
+  nerdFont,
   ...brewPackages.map((name) => ({
     brew: { name, dependsOn: brew },
   })),
