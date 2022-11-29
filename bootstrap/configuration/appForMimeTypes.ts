@@ -78,28 +78,28 @@ export const appForMimeTypes: Config[] = [
   },
   {
     appForMimeType: {
-      app: "neovim.desktop",
+      app: "nvim.desktop",
       mimeType: "text/plain",
       dependsOn: neovim,
     },
   },
   {
     appForMimeType: {
-      app: "neovim.desktop",
+      app: "nvim.desktop",
       mimeType: "application/x-mswinurl",
       dependsOn: neovim,
     },
   },
   {
     appForMimeType: {
-      app: "neovim.desktop",
+      app: "nvim.desktop",
       mimeType: "text/markdown",
       dependsOn: neovim,
     },
   },
   {
     appForMimeType: {
-      app: "neovim.desktop",
+      app: "nvim.desktop",
       mimeType: "text/x-log",
       dependsOn: neovim,
     },

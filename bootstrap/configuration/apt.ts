@@ -25,6 +25,7 @@ export const apt: Config[] = [
   aptPackage("htop"),
   aptPackage("httpie"),
   aptPackage("jq"),
+  aptPackage("locate"),
   aptPackage("moreutils"),
   aptPackage("pandoc"),
   aptPackage("ranger"),
