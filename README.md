@@ -70,37 +70,11 @@ Expects:
 - Fresh installation PopOS LTS
 - home dir `cd ~`
 
-Install deno
-
-```
-curl -fsSL https://deno.land/x/install/install.sh | sh
-```
-
-Clone this repo
+Run install script
 
 ```
 git clone https://github.com/lttr/dotfiles
-```
-
-Install everything (from `zsh`, expects zsh config to be already in place)
-
-```
-sudo apt update
-sudo apt full-upgrade
-cd ~/dotfiles/bootstrap/
-sudo apt install zsh
-export PATH="$HOME/.deno/bin:$PATH"
-deno task run --filter symlink
-zsh
-deno task run
-```
-
-Install a subset
-
-```
-zsh
-cd ~/dotfiles/bootstrap/
-deno task run --filter symlink
+dotfiles/install.sh
 ```
 
 ## Other things to consider after/during installation
