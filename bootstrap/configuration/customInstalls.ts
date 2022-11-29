@@ -91,7 +91,7 @@ const brewPackages = [
   "zoxide",
 ];
 
-const neovim: Config = {
+export const neovim: Config = {
   brew: {
     name: "nvim",
     head: true,
@@ -117,11 +117,11 @@ const nerdFont: Config = {
       FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
       FONT_TARGET_DIR="~/.fonts/"
       cd ~/Downloads
-      curl -fsLo $FONT_FILE_NAME https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
+      curl -fsLo "$FONT_FILE_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
       mkdir -p $FONT_TARGET_DIR
-      cp $FONT_FILE_NAME $FONT_TARGET_DIR
+      cp "$FONT_FILE_NAME" "$FONT_TARGET_DIR"
       fc-cache -f
-      rm $FONT_FILE_NAME
+      rm "$FONT_FILE_NAME"
       `,
   },
 };

@@ -11,6 +11,7 @@ function aptPackage(packageName: string) {
 }
 
 export const zsh = aptPackage("zsh");
+export const gthumb = aptPackage("gthumb");
 
 export const apt: Config[] = [
   // commandline apps
@@ -24,7 +25,6 @@ export const apt: Config[] = [
   aptPackage("httpie"),
   aptPackage("jq"),
   aptPackage("moreutils"),
-  aptPackage("neovim"),
   aptPackage("pandoc"),
   aptPackage("ranger"),
   aptPackage("trash-cli"),
@@ -41,7 +41,7 @@ export const apt: Config[] = [
   aptPackage("dconf-editor"),
   aptPackage("gnome-tweak-tool"),
   aptPackage("gpick"),
-  aptPackage("gthumb"),
+  gthumb,
   aptPackage("nautilus-dropbox"),
   aptPackage("wmctrl"),
 ];
