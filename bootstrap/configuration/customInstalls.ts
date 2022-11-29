@@ -80,7 +80,7 @@ export const aptUpdate: Config = {
 };
 
 const brewPackages = [
-  "delta",
+  "git-delta",
   "docker",
   "docker-compose",
   "fzf",
@@ -94,7 +94,6 @@ const brewPackages = [
 export const neovim: Config = {
   brew: {
     name: "nvim",
-    head: true,
     dependsOn: brew,
   },
 };
@@ -104,7 +103,7 @@ const neovimDeps: Config = {
     name: "NeovimDependencies",
     testScript: `ls ~/.local/share/nvim/site 2>&1 >/dev/null`,
     setScript:
-      `neovim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'`,
+      `nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'`,
     dependsOn: neovim,
   },
 };
@@ -115,10 +114,10 @@ const nerdFont: Config = {
     testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
     setScript: `
       FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
-      FONT_TARGET_DIR="~/.fonts/"
+      FONT_TARGET_DIR="${HOME}/.fonts/"
       cd ~/Downloads
       curl -fsLo "$FONT_FILE_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
-      mkdir -p $FONT_TARGET_DIR
+      mkdir -p "$FONT_TARGET_DIR"
       cp "$FONT_FILE_NAME" "$FONT_TARGET_DIR"
       fc-cache -f
       rm "$FONT_FILE_NAME"
