@@ -1,6 +1,6 @@
 import { Config } from "../deps.ts";
 import { gthumb } from "./apt.ts";
-import { neovim } from "./customInstalls.ts";
+// import { neovim } from "./customInstalls.ts";
 
 export const appForMimeTypes: Config[] = [
   {
@@ -76,32 +76,32 @@ export const appForMimeTypes: Config[] = [
       dependsOn: gthumb,
     },
   },
-  {
-    appForMimeType: {
-      app: "nvim.desktop",
-      mimeType: "text/plain",
-      dependsOn: neovim,
-    },
-  },
-  {
-    appForMimeType: {
-      app: "nvim.desktop",
-      mimeType: "application/x-mswinurl",
-      dependsOn: neovim,
-    },
-  },
-  {
-    appForMimeType: {
-      app: "nvim.desktop",
-      mimeType: "text/markdown",
-      dependsOn: neovim,
-    },
-  },
-  {
-    appForMimeType: {
-      app: "nvim.desktop",
-      mimeType: "text/x-log",
-      dependsOn: neovim,
-    },
-  },
+  // {
+  //   appForMimeType: {
+  //     app: "nvim.desktop",
+  //     mimeType: "text/plain",
+  //     dependsOn: neovim,
+  //   },
+  // },
+  // {
+  //   appForMimeType: {
+  //     app: "nvim.desktop",
+  //     mimeType: "application/x-mswinurl",
+  //     dependsOn: neovim,
+  //   },
+  // },
+  // {
+  //   appForMimeType: {
+  //     app: "nvim.desktop",
+  //     mimeType: "text/markdown",
+  //     dependsOn: neovim,
+  //   },
+  // },
+  // {
+  //   appForMimeType: {
+  //     app: "nvim.desktop",
+  //     mimeType: "text/x-log",
+  //     dependsOn: neovim,
+  //   },
+  // },
 ];

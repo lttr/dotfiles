@@ -1,4 +1,4 @@
-!#/usr/bin/env bash
+#!/usr/bin/env bash
 
 # Upgrade system
 sudo apt update && sudo apt full-upgrade
