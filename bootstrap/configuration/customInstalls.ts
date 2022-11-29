@@ -128,7 +128,8 @@ const fzfSetup: Config = {
 const nerdFont: Config = {
   inlineScript: {
     name: "FiraMonoFont",
-    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
+    testScript:
+      `ls "${HOME}/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
     setScript: `
       FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
       FONT_TARGET_DIR="${HOME}/.fonts/"
@@ -144,7 +145,7 @@ const nerdFont: Config = {
 export const cursors: Config = {
   inlineScript: {
     name: "cursors",
-    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
+    testScript: `ls "/usr/share/icons/BreezeX-Dark/" 2>&1 >/dev/null`,
     setScript: `
       CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
       CURSORS_TARGET_DIR="/usr/share/icons/"
