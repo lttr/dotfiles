@@ -321,6 +321,35 @@ const gnomeKeybindingsOverrrides = [
       value: "['<Super>j', '<Super>Down']",
     },
   },
+  // pop-shell
+  {
+    gnomeSettings: {
+      schema: "org.gnome.shell.extensions.pop-shell",
+      key: "focus-right",
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.shell.extensions.pop-shell",
+      key: "focus-left",
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.shell.extensions.pop-shell",
+      key: "focus-down",
+      value: EMPTY_ARRAY,
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.shell.extensions.pop-shell",
+      key: "focus-up",
+      value: EMPTY_ARRAY,
+    },
+  },
 ];
 
 export const gnomeKeybindings = [
