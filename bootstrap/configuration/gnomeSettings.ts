@@ -93,6 +93,20 @@ export const gnomeSettings: Config[] = [
       value: "solid",
     },
   },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.desktop.background",
+      key: "picture-uri",
+      value: "",
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.desktop.background",
+      key: "picture-uri-dark",
+      value: "",
+    },
+  },
 
   // night light mode
   {

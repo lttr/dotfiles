@@ -39,7 +39,7 @@ export const apt: Config[] = [
   // graphical apps
 
   aptPackage("dconf-editor"),
-  aptPackage("gnome-tweak-tool"),
+  aptPackage("gnome-tweaks"),
   aptPackage("gpick"),
   gthumb,
   aptPackage("nautilus-dropbox"),

@@ -118,10 +118,24 @@ const nerdFont: Config = {
       cd ~/Downloads
       curl -fsLo "$FONT_FILE_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
       mkdir -p "$FONT_TARGET_DIR"
-      cp "$FONT_FILE_NAME" "$FONT_TARGET_DIR"
+      mv "$FONT_FILE_NAME" "$FONT_TARGET_DIR"
       fc-cache -f
-      rm "$FONT_FILE_NAME"
       `,
+  },
+};
+
+const cursors: Config = {
+  inlineScript: {
+    name: "cursors",
+    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
+    setScript: `
+      CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
+      CURSORS_TARGET_DIR="${HOME}/.fonts/"
+      cd ~/Downloads
+      curl -fsLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.0/BreezeX-Dark.tar.gz
+      tar -xvf "$CURSORS_FILE_NAME"
+      mv BreezeX-Dark/ "$CURSORS_TARGET_DIR"
+    `,
   },
 };
 
@@ -158,6 +172,7 @@ export const customInstalls: Config[] = [
   pnpm,
   node,
   nerdFont,
+  cursors,
   ...brewPackages.map((name) => ({
     brew: { name, dependsOn: brew },
   })),

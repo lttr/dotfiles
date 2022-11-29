@@ -6,10 +6,12 @@ function customGnomeKeybinding(
   id: number,
   name: string,
   command: string,
-  binding: string
+  binding: string,
 ) {
-  const prefix = `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`;
-  let schema = `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`;
+  const prefix =
+    `org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:`;
+  let schema =
+    `/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${id}/`;
   customGnomeKeybindingSchemas.add(schema);
   schema = prefix + schema;
   return [
@@ -19,42 +21,20 @@ function customGnomeKeybinding(
   ];
 }
 
-// const customGnomeKeybindings = [
-//   ...customGnomeKeybinding(0, "Terminal", "bring-or-start hyper", "<Super>c"),
-//   ...customGnomeKeybinding(1, "VSCode", "bring-or-start code", "<Super>s"),
-//   ...customGnomeKeybinding(
-//     2,
-//     "Browser",
-//     "bring-or-start google-chrome",
-//     "<Super>a",
-//   ),
-//   ...customGnomeKeybinding(
-//     3,
-//     "Password manager",
-//     "bring-or-start KeeWeb",
-//     "<Super>m",
-//   ),
-//   ...customGnomeKeybinding(4, "File manager", "", "<Super>t"),
-//   ...customGnomeKeybinding(5, "Firefox", "bring-or-start firefox", "<Super>f"),
-//   ...customGnomeKeybinding(
-//     6,
-//     "Toggle microphone",
-//     "amixer set Capture toggle",
-//     "<Super>apostrophe",
-//   ),
-// ];
+const customGnomeKeybindings = [
+  ...customGnomeKeybinding(0, "Sleep", "systemctl suspend", "<Super>u"),
+];
 
-// const customGnomeKeybindingsSetup = {
-//   gnomeSettings: {
-//     schema: "org.gnome.settings-daemon.plugins.media-keys",
-//     key: "custom-keybindings",
-//     value: `[${
-//       Array.from(customGnomeKeybindingSchemas)
-//         .map((schema) => `'${schema}'`)
-//         .join(", ")
-//     }]`,
-//   },
-// };
+const customGnomeKeybindingsSetup = {
+  gnomeSettings: {
+    schema: "org.gnome.settings-daemon.plugins.media-keys",
+    key: "custom-keybindings",
+    value: `[${Array.from(customGnomeKeybindingSchemas)
+        .map((schema) => `'${schema}'`)
+        .join(", ")
+      }]`,
+  },
+};
 
 const gnomeKeybindingsOverrrides = [
   // custom volume controls - no dependency on physical media keys
@@ -86,6 +66,13 @@ const gnomeKeybindingsOverrrides = [
       schema: "org.gnome.settings-daemon.plugins.media-keys",
       key: "home",
       value: "['<Super>e']",
+    },
+  },
+  {
+    gnomeSettings: {
+      schema: "org.gnome.settings-daemon.plugins.media-keys",
+      key: "email",
+      value: EMPTY_ARRAY,
     },
   },
   // gnome shell specific
@@ -337,7 +324,7 @@ const gnomeKeybindingsOverrrides = [
 ];
 
 export const gnomeKeybindings = [
-  // customGnomeKeybindingsSetup,
-  // ...customGnomeKeybindings,
+  customGnomeKeybindingsSetup,
+  ...customGnomeKeybindings,
   ...gnomeKeybindingsOverrrides,
 ];
