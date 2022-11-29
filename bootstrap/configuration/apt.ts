@@ -16,6 +16,7 @@ export const gthumb = aptPackage("gthumb");
 export const apt: Config[] = [
   // commandline apps
 
+  aptPackage("bat"),
   aptPackage("dict"),
   aptPackage("dict-freedict-ces-eng"),
   aptPackage("dict-freedict-eng-ces"),

@@ -1,4 +1,5 @@
 import { Config } from "../deps.ts";
+import { cursors } from "./customInstalls.ts";
 
 export const gnomeSettings: Config[] = [
   // =================================================================
@@ -247,7 +248,8 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.interface",
       key: "cursor-theme",
-      value: "breeze-cursors",
+      value: "BreezeX-Dark",
+      dependsOn: cursors,
     },
   },
 

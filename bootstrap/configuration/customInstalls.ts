@@ -83,7 +83,6 @@ const brewPackages = [
   "git-delta",
   "docker",
   "docker-compose",
-  "fzf",
   "gh",
   "potrace",
   "rg",
@@ -108,6 +107,24 @@ const neovimDeps: Config = {
   },
 };
 
+const fzf: Config = {
+  brew: {
+    name: "fzf",
+    dependsOn: brew,
+  },
+};
+
+const fzfSetup: Config = {
+  inlineScript: {
+    name: "fzfSetup",
+    testScript: `ls "${HOME}/.fzf.zsh 2>&1 >/dev/null`,
+    setScript: `
+      $(brew --prefix)/opt/fzf/install --no-update-rc
+    `,
+    dependsOn: fzf,
+  },
+};
+
 const nerdFont: Config = {
   inlineScript: {
     name: "FiraMonoFont",
@@ -124,17 +141,17 @@ const nerdFont: Config = {
   },
 };
 
-const cursors: Config = {
+export const cursors: Config = {
   inlineScript: {
     name: "cursors",
     testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
     setScript: `
       CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
-      CURSORS_TARGET_DIR="${HOME}/.fonts/"
+      CURSORS_TARGET_DIR="/usr/share/icons/"
       cd ~/Downloads
       curl -fsLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.0/BreezeX-Dark.tar.gz
       tar -xvf "$CURSORS_FILE_NAME"
-      mv BreezeX-Dark/ "$CURSORS_TARGET_DIR"
+      sudo mv BreezeX-Dark/ "$CURSORS_TARGET_DIR"
     `,
   },
 };
@@ -173,6 +190,8 @@ export const customInstalls: Config[] = [
   node,
   nerdFont,
   cursors,
+  fzf,
+  fzfSetup,
   ...brewPackages.map((name) => ({
     brew: { name, dependsOn: brew },
   })),

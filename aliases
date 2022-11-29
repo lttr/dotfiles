@@ -44,6 +44,8 @@ alias la="LC_COLLATE=c ls -lhFA --show-control-chars --color --group-directories
 
 alias le="less -FiMRX"
 alias lesf="less +F"
+alias catcat="cat"
+alias cat="batcat"
 
 alias df="df -h /"
 alias tree="tree -I 'node_modules|.git'"
