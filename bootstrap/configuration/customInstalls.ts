@@ -80,14 +80,14 @@ export const aptUpdate: Config = {
 };
 
 const brewPackages = [
-  "git-delta",
-  "docker",
-  "docker-compose",
-  "gh",
-  "potrace",
-  "rg",
-  "sd",
-  "zoxide",
+  { name: "git-delta", executable: "delta" },
+  { name: "docker" },
+  { name: "docker-compose" },
+  { name: "gh" },
+  { name: "potrace" },
+  { name: "rg" },
+  { name: "sd" },
+  { name: "zoxide" },
 ];
 
 export const neovim: Config = {
@@ -117,7 +117,7 @@ const fzf: Config = {
 const fzfSetup: Config = {
   inlineScript: {
     name: "fzfSetup",
-    testScript: `ls "${HOME}/.fzf.zsh 2>&1 >/dev/null`,
+    testScript: `ls "${HOME}/.fzf.zsh" 2>&1 >/dev/null`,
     setScript: `
       $(brew --prefix)/opt/fzf/install --no-update-rc
     `,
@@ -193,8 +193,8 @@ export const customInstalls: Config[] = [
   cursors,
   fzf,
   fzfSetup,
-  ...brewPackages.map((name) => ({
-    brew: { name, dependsOn: brew },
+  ...brewPackages.map((brewConfig) => ({
+    brew: { ...brewConfig, dependsOn: brew },
   })),
   ...pnpmPackages.map((pnpmConfig) => {
     return {
