@@ -85,7 +85,11 @@ git clone https://github.com/lttr/dotfiles
 Install everything (from `zsh`, expects zsh config to be already in place)
 
 ```
+sudo apt update
+sudo apt full-upgrade
 cd ~/dotfiles/bootstrap/
+sudo apt install zsh
+export PATH="$HOME/.deno/bin:$PATH"
 deno task run --filter symlink
 zsh
 deno task run
@@ -99,10 +103,12 @@ cd ~/dotfiles/bootstrap/
 deno task run --filter symlink
 ```
 
-## Other things to consider after installation
+## Other things to consider after/during installation
 
-- upgrade system (`sudo apt update`, `sudo apt full-upgrade`,
-  `pop-upgrade release upgrade systemd`)
+- install, enable and configure Gnome extensions - works best using Firefox
+  (`dash-to-panel`, `gsconnect`)
+- upgrade system (`sudo apt update`, `sudo apt full-upgrade`)
+- optionally upgrade PopOS(`pop-upgrade release upgrade`)
 - sync Dropbox before installation
   - Dropbox needs running daemon (`dropbox status`, `dropbox start -i`,
     `dropbox autostart y`)
@@ -111,8 +117,6 @@ deno task run --filter symlink
 - sign into Google Chrome to sync browser settings
 - consider disabling slow systemd services
   - e.g. `sudo systemctl disable NetworkManager-wait-online.service`
-- install, enable and configure Gnome extensions - works best using Firefox
-  (`dash-to-panel`, `gsconnect`)
 - update ssh keys (e.g. generate new key for Github, etc.)
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and

@@ -71,7 +71,7 @@ const pnpm: Config = {
     name: "pnpm",
     url: "https://get.pnpm.io/install.sh",
     postInstall:
-      "mkdir -p ~/.local/bin %% ln -s ~/.local/share/pnpm/pnpm ~/.local/bin/",
+      "mkdir -p ~/.local/bin && ln -s ~/.local/share/pnpm/pnpm ~/.local/bin/",
   },
 };
 
@@ -102,7 +102,7 @@ const neovim: Config = {
 const neovimDeps: Config = {
   inlineScript: {
     name: "NeovimDependencies",
-    testScript: `ls ~/.local/share/nvim/site`,
+    testScript: `ls ~/.local/share/nvim/site 2>&1 >/dev/null`,
     setScript:
       `neovim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'`,
     dependsOn: neovim,
@@ -112,7 +112,7 @@ const neovimDeps: Config = {
 const nerdFont: Config = {
   inlineScript: {
     name: "FiraMonoFont",
-    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf"`,
+    testScript: `ls "~/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
     setScript: `
       FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
       FONT_TARGET_DIR="~/.fonts/"
