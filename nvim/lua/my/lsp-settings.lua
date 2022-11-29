@@ -22,7 +22,7 @@ local servers = {
   "tailwindcss",
   "terraformls",
   "vuels",
-  -- "volar",
+  "volar",
   "yamlls"
   -- tsserver is managed by nvim-lsp-ts-utils
 }
@@ -31,7 +31,7 @@ require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup(
   {
-    ensure_installed = {"tsserver", unpack(servers)}
+    ensure_installed = { "tsserver", unpack(servers) }
   }
 )
 local lsp_config = require("lspconfig")
@@ -70,14 +70,14 @@ local common_on_attach = function(client)
       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]],
+    ]] ,
       false
     )
   end
 end
 
 local denols = {
-  root_dir = lsp_config.util.root_pattern({"deno.json", "deps.ts"}),
+  root_dir = lsp_config.util.root_pattern({ "deno.json", "deps.ts" }),
   init_options = {
     enable = true,
     lint = true,
@@ -117,13 +117,10 @@ local denols = {
 -- }
 
 local sumneko_lua = {
-  cmd = {
-    vim.fn.getenv "HOME" .. "/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"
-  },
   settings = {
     Lua = {
       dignostics = {
-        globals = {"vim"}
+        globals = { "vim" }
       }
     }
   }
@@ -144,7 +141,7 @@ local jsonls = {
   settings = {
     json = {
       schemas = require "schemastore".json.schemas(),
-      validate = {enable = true}
+      validate = { enable = true }
     }
   }
 }
@@ -168,7 +165,7 @@ local function make_config(server_name)
   end
 
   local merged_config =
-    vim.tbl_deep_extend(
+  vim.tbl_deep_extend(
     "force",
     {
       capabilities = capabilities,
@@ -182,7 +179,11 @@ local function make_config(server_name)
 end
 
 local function is_a_deno_project()
-  return utils.has_root_file({"deno.json"})
+  return utils.has_root_file({ "deno.json" })
+end
+
+local function is_a_vite_project()
+  return utils.has_root_file({ "deno.json" })
 end
 
 local function setup_server(server)
@@ -190,6 +191,12 @@ local function setup_server(server)
     return
   end
   if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
+    return
+  end
+  if server == "volar" and not is_a_vite_project() then
+    return
+  end
+  if server == "vetur" and is_a_vite_project() then
     return
   end
 
