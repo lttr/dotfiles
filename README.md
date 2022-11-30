@@ -79,13 +79,25 @@ dotfiles/install.sh
 
 ## Other things to consider after/during installation
 
-- install, enable and configure Gnome extensions - works best using Firefox
-  (`dash-to-panel`, `gsconnect`)
-- upgrade system (`sudo apt update`, `sudo apt full-upgrade`)
-- optionally upgrade PopOS(`pop-upgrade release upgrade`)
-- sync Dropbox before installation
-  - Dropbox needs running daemon (`dropbox status`, `dropbox start -i`,
-    `dropbox autostart y`)
+### Before install
+
+- Gnome Displays - check resolution of monitor
+- install, enable and configure Gnome extensions
+  - works best using Firefox (https://extensions.gnome.org)
+  - install browser extension - link on top of the page
+  - `dash-to-panel`, `gsconnect`
+- upgrade PopOS if needed (`pop-upgrade release upgrade`)
+
+### After install
+
+- install 1Password
+  - download .deb (https://1password.com/downloads/linux)
+- install Rambox
+- install Darktable
+- install VSCode
+- Log into Google Chrome
+- set DuckDuckGo as the default search engine, load its configuration via
+  bookmarklet
 - copy `/etc/fstab` from backup, careful with changing current filesystem root
   partion
 - sign into Google Chrome to sync browser settings
@@ -95,9 +107,17 @@ dotfiles/install.sh
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
+- change hostname (`sudo hostname pop-os-something`)
+
+### Automated
+
+- upgrade system (`sudo apt update`, `sudo apt full-upgrade`)
 
 ### No longer used configurations
 
+- sync Dropbox before installation
+  - Dropbox needs running daemon (`dropbox status`, `dropbox start -i`,
+    `dropbox autostart y`)
 - change download folder in your browser (I like `~/down`)
 - import backuped settings into some applications (e.g. doublecommander)
 - enable automatic login in `/etc/gdm3/custom.conf` (in PopOS it can be

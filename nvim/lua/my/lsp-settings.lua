@@ -183,7 +183,7 @@ local function is_a_deno_project()
 end
 
 local function is_a_vite_project()
-  return utils.has_root_file({ "deno.json" })
+  return utils.has_root_file({ "vite.config.js", "vite.config.ts" })
 end
 
 local function setup_server(server)
@@ -196,7 +196,7 @@ local function setup_server(server)
   if server == "volar" and not is_a_vite_project() then
     return
   end
-  if server == "vetur" and is_a_vite_project() then
+  if server == "vuels" and is_a_vite_project() then
     return
   end
 
