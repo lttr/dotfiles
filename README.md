@@ -95,7 +95,8 @@ dotfiles/install.sh
 - install Rambox
 - install Darktable
 - install VSCode
-- Log into Google Chrome
+- log into Google Chrome
+- log into gh cli
 - set DuckDuckGo as the default search engine, load its configuration via
   bookmarklet
 - copy `/etc/fstab` from backup, careful with changing current filesystem root
@@ -103,7 +104,7 @@ dotfiles/install.sh
 - sign into Google Chrome to sync browser settings
 - consider disabling slow systemd services
   - e.g. `sudo systemctl disable NetworkManager-wait-online.service`
-- update ssh keys (e.g. generate new key for Github, etc.)
+- update ssh keys (e.g. generate new key for Github, etc.) (https://lukastrumm.com/notes/ssh-keys/, https://github.com/settings/keys)
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
