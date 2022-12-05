@@ -70,7 +70,8 @@ Expects:
 - Fresh installation PopOS LTS
 - home dir `cd ~`
 
-Run install script
+Run install script (prepares environment, installs requirements and runs the
+main install task)
 
 ```
 git clone https://github.com/lttr/dotfiles
@@ -95,13 +96,15 @@ dotfiles/install.sh
 
 - install 1Password
   - download .deb (https://1password.com/downloads/linux)
+  - multi-factor log in
 - install Rambox
 - install Darktable
 - install VSCode
 - log into Google Chrome
 - log into gh cli
+- log into Dropbox, select folders to sync
 - set DuckDuckGo as the default search engine, load its configuration via
-  bookmarklet
+  bookmarklet (in password manager)
 - copy `/etc/fstab` from backup, careful with changing current filesystem root
   partion
 - sign into Google Chrome to sync browser settings
