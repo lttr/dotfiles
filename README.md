@@ -85,7 +85,10 @@ dotfiles/install.sh
 - install, enable and configure Gnome extensions
   - works best using Firefox (https://extensions.gnome.org)
   - install browser extension - link on top of the page
-  - `dash-to-panel`, `gsconnect`
+    - `Dash to panel`
+    - `GSconnect`
+    - `Bluetooth Quick Connect`
+    - `Sound Switcher Indicator` (from https://yktoo.com/en/software/sound-switcher-indicator/)
 - upgrade PopOS if needed (`pop-upgrade release upgrade`)
 
 ### After install
