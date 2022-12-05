@@ -68,6 +68,9 @@ vmap("k", "gk")
 nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
 
+nmap("<C-u>", "<C-u>zzzv")
+nmap("<C-d>", "<C-d>zzzv")
+
 nmap("]q", "<cmd>cnext<CR>zzzv")
 nmap("[q", "<cmd>cprevious<CR>zzzv")
 
