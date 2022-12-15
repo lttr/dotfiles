@@ -88,7 +88,7 @@ require "packer".startup(
     use "KabbAmine/vCoolor.vim"
     use "mattn/emmet-vim"
     use "rest-nvim/rest.nvim"
-    use "norcalli/nvim-colorizer.lua"
+    use "brenoprata10/nvim-highlight-colors"
 
     -- heavy development
     use {
@@ -122,6 +122,7 @@ require "packer".startup(
     -- help
     use "dbeniamine/cheat.sh-vim"
     use "ThePrimeagen/vim-be-good"
+    use "aduros/ai.vim"
 
     -- classic
     use "airblade/vim-rooter"
