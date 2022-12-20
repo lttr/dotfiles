@@ -56,6 +56,7 @@ require "packer".startup(
     use "b0o/schemastore.nvim"
     use "Maan2003/lsp_lines.nvim"
     use "folke/zen-mode.nvim"
+    use "j-hui/fidget.nvim"
 
     -- snippets
     use "L3MON4D3/LuaSnip"

@@ -115,12 +115,12 @@ vmap("<C-V>", 'd"+gP')
 -- Replace current word with yanked or deleted text (stamping)
 -- while preparing silently for repeated actions ('n' or '.')
 nmap("s", "*``cgn<C-r>0<Esc><C-l>")
+vmap("s", "*``c<C-r>0<Esc><C-l>")
 
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
 nmap("gr", "*``cgn")
 vmap("gr", 'y/<C-r>"<CR>Ncgn')
 -- "gs" -- Go Substitute word under cursor (vim-substitute plugin)
-vmap("*", [[y/\V<c-r>=escape(@",'/\')<cr><cr>]])
 
 -- visual multi - cursor addition
 -- add cursor on current line and move down/up
@@ -167,6 +167,7 @@ nmap("<leader>F", "<cmd>FormatWrite<CR>")
 
 -- Executing and running
 nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
 nmap(
   "<leader>T",

@@ -17,7 +17,7 @@ opt.virtualedit = "" -- Do not move the cursor behind last char
 
 -- Appearance
 opt.number = true
-opt.numberwidth = 3
+opt.numberwidth = 4
 opt.signcolumn = "yes:1"
 opt.updatetime = 700
 opt.termguicolors = true
@@ -39,7 +39,7 @@ opt.mouse = "a" -- Enable the use of mouse in terminal
 
 -- Lines
 opt.formatoptions:remove("o") -- Don't insert comment leader after 'o' --> 'crqlj'
-opt.scrolloff = 1 -- Let one line above and bellow
+opt.scrolloff = 5 -- Let one line above and bellow
 opt.sidescroll = 1
 opt.sidescrolloff = 15
 opt.joinspaces = false -- Prevents inserting two spaces after punctuation on a join (J)

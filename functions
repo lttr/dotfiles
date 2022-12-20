@@ -550,7 +550,7 @@ calc() {
 }
 
 emod() {
-    git ls-files --modified | xargs ${EDITOR:-vim}
+    git status --porcelain | grep '^\(??\)\|\(M\)' | awk '{print $2}' | xargs ${EDITOR:-vim}
 }
 
 
