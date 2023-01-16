@@ -9,16 +9,16 @@ local function is_a_deno_project()
   return utils.has_root_file({ "deno.json" })
 end
 
-local function not_a_deno_project()
-  return not is_a_deno_project()
-end
-
 local function not_a_deno_project_and_has_eslint()
   return not is_a_deno_project() and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
 end
 
 local function has_stylelint()
   return utils.has_root_file({ ".stylelintrc.js" })
+end
+
+local function should_run_prettier()
+  return not is_a_deno_project() and not utils.has_root_file({ ".stop-prettier" })
 end
 
 null_ls.setup {
@@ -30,7 +30,7 @@ null_ls.setup {
     --
     -- Formatting
     --
-    null_ls.builtins.formatting.prettierd.with({ condition = not_a_deno_project }),
+    null_ls.builtins.formatting.prettierd.with({ condition = should_run_prettier }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
     null_ls.builtins.formatting.eslint_d.with({ runtime_condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with(

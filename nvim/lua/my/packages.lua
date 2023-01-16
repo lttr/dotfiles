@@ -119,11 +119,14 @@ require "packer".startup(
     use "nikvdp/ejs-syntax"
     use "napmn/react-extract.nvim"
     use "Janiczek/vim-latte"
+    use "Glench/Vim-Jinja2-Syntax"
 
     -- help
     use "dbeniamine/cheat.sh-vim"
     use "ThePrimeagen/vim-be-good"
     use "aduros/ai.vim"
+    use "PatrBal/vim-textidote"
+    use "lalitmee/browse.nvim"
 
     -- classic
     use "airblade/vim-rooter"
@@ -131,6 +134,7 @@ require "packer".startup(
     use "Olical/vim-enmasse"
     use "aklt/vim-substitute"
     use "junegunn/gv.vim"
+    use "cohama/agit.vim"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"
     use "skywind3000/asyncrun.vim"

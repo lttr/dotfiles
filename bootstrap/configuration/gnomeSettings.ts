@@ -341,7 +341,7 @@ export const gnomeSettings: Config[] = [
       schema: "org.gnome.shell",
       key: "favorite-apps",
       value:
-        "['google-chrome.desktop', 'kitty.desktop', 'org.mozilla.firefox.desktop', 'rambox.desktop', '1password.desktop']",
+        "['firefox.desktop', 'kitty.desktop', 'rambox.desktop', '1password.desktop']",
     },
   },
 ];

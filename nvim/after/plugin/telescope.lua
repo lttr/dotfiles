@@ -62,6 +62,8 @@ require "telescope".setup {
         "--glob",
         "!node_modules",
         "--glob",
+        "!.pnpm-store",
+        "--glob",
         "!build/",
         "--glob",
         "!dist/",

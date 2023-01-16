@@ -53,7 +53,7 @@ export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 export PAGER=/usr/bin/less
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=/usr/bin/google-chrome
+export BROWSER=/usr/bin/firefox
 
 # user locale
 export LANG=en_US.UTF8

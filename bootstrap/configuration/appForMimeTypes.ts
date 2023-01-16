@@ -2,28 +2,30 @@ import { Config } from "../deps.ts";
 import { gthumb } from "./apt.ts";
 // import { neovim } from "./customInstalls.ts";
 
+const defaultBrowser = "firefox";
+
 export const appForMimeTypes: Config[] = [
   {
     appForMimeType: {
-      app: "google-chrome.desktop",
+      app: `${defaultBrowser}.desktop`,
       mimeType: "text/html",
     },
   },
   {
     appForMimeType: {
-      app: "google-chrome.desktop",
+      app: `${defaultBrowser}.desktop`,
       mimeType: "x-scheme-handler/http",
     },
   },
   {
     appForMimeType: {
-      app: "google-chrome.desktop",
+      app: `${defaultBrowser}.desktop`,
       mimeType: "x-scheme-handler/https",
     },
   },
   {
     appForMimeType: {
-      app: "google-chrome.desktop",
+      app: `${defaultBrowser}.desktop`,
       mimeType: "x-scheme-handler/about",
     },
   },

@@ -3,7 +3,7 @@
 local prettier = function()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+    args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
     stdin = true
   }
 end
@@ -11,23 +11,23 @@ end
 local eslint = function()
   return {
     exe = "eslint_d",
-    args = {"--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--fix-to-stdout"},
+    args = { "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--fix-to-stdout" },
     stdin = true
   }
 end
 
--- local stylelint = function()
---   return {
---     exe = "stylelint",
---     args = {"--fix", "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
---     stdin = true
---   }
--- end
+local stylelint = function()
+  return {
+    exe = "stylelint",
+    args = { "--fix", "--stdin", "--stdin-filename", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
+    stdin = true
+  }
+end
 
 local luafmt = function()
   return {
     exe = "luafmt",
-    args = {"--indent-count", 2, "--stdin"},
+    args = { "--indent-count", 2, "--stdin" },
     stdin = true
   }
 end
@@ -35,7 +35,7 @@ end
 local xmllint = function()
   return {
     exe = "xmllint",
-    args = {"--format", "--recover", "-"},
+    args = { "--format", "--recover", "-" },
     stdin = true
   }
 end
@@ -43,17 +43,17 @@ end
 require("formatter").setup(
   {
     filetype = {
-      -- javascript = {prettier},
-      -- javascriptreact = {prettier, eslint},
-      -- typescript = {prettier},
-      -- typescriptreact = {prettier, eslint},
-      -- html = {prettier},
-      -- css = {prettier},
-      -- scss = {prettier},
-      -- json = {prettier},
-      -- vue = {prettier},
-      lua = {luafmt},
-      -- xml = {xmllint}
+      javascript = { prettier },
+      javascriptreact = { prettier },
+      typescript = { prettier },
+      typescriptreact = { prettier },
+      html = { prettier },
+      css = { prettier },
+      scss = { prettier },
+      json = { prettier },
+      vue = { prettier },
+      lua = { luafmt },
+      xml = { xmllint }
     }
   }
 )
@@ -67,13 +67,3 @@ require("formatter").setup(
 -- ]],
 --   true
 -- )
-
-vim.api.nvim_exec(
-  [[
-  augroup fmt
-    autocmd!
-    autocmd BufWritePost *.lua FormatWrite
-  augroup END
-]],
-  true
-)

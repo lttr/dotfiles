@@ -24,6 +24,9 @@ autoload -Uz compinit
 
 bindkey -e
 
+# Enter vim mode
+bindkey '^[v' vi-cmd-mode
+
 # fix keys
 bindkey "^[[3~" delete-char
 bindkey '^[[H' beginning-of-line
@@ -232,6 +235,13 @@ if [[ $TERM =~ "kitty" ]]; then
   preexec() {
     kitty @ set-tab-title "$(basename $(dirname ${PWD}))/$(basename ${PWD}): $1"
   }
+fi
+
+if [[ -n $KITTY_INSTALLATION_DIR ]]; then
+  export KITTY_SHELL_INTEGRATION="enabled"
+  autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+  kitty-integration
+  unfunction kitty-integration
 fi
 
 # =================================================================

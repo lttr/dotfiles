@@ -8,27 +8,28 @@ vim.cmd([[
 ]])
 
 local function mymap(mode, lhs, rhs, opts, bufnr)
-  opts = opts or default_map_options
+  opts = opts or {}
+  local merged_opts = vim.tbl_extend("force", default_map_options, opts)
   if bufnr then
     opts.buffer = bufnr
   end
-  vim.keymap.set(mode, lhs, rhs, opts)
+  vim.keymap.set(mode, lhs, rhs, merged_opts)
 end
 
-local function nmap(left, right)
-  mymap("n", left, right)
+local function nmap(left, right, desc)
+  mymap("n", left, right, { desc = desc })
 end
 
-local function imap(left, right)
-  mymap("i", left, right)
+local function imap(left, right, desc)
+  mymap("i", left, right, { desc = desc })
 end
 
-local function vmap(left, right)
-  mymap("v", left, right)
+local function vmap(left, right, desc)
+  mymap("v", left, right, { desc = desc })
 end
 
-local function tmap(left, right)
-  mymap("t", left, right)
+local function tmap(left, right, desc)
+  mymap("t", left, right, { desc = desc })
 end
 
 -- Identify the syntax highlighting group used at the cursor
@@ -42,6 +43,7 @@ nmap(
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
 nmap("<C-s>", ":update<CR>")
+nmap("<leader>W", "<cmd>noautocmd update<CR>", "Save without actions after safe")
 vmap("<C-s>", "<C-C>:update<CR>")
 imap("<C-s>", "<Esc>:update<CR>")
 
@@ -164,13 +166,14 @@ nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
+nmap("<localleader>w", "gwip")
 
 -- Executing and running
 nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
-nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
+-- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
 nmap(
-  "<leader>T",
+  "<localleader>t",
   function()
     require("neotest").run.run(vim.fn.expand("%"))
   end
@@ -256,6 +259,8 @@ local find_files = function()
         "!.git",
         "--glob",
         "!node_modules",
+        "--glob",
+        "!.pnpm-store",
         "--glob",
         "!build/",
         "--glob",
@@ -409,18 +414,18 @@ nmap("<localleader>d", vim.diagnostic.open_float)
 --
 -- typescript.nvim
 --
-nmap("<localleader>yo", require "typescript".actions.organizeImports)
-nmap("<localleader>ya", require "typescript".actions.addMissingImports)
-nmap("<localleader>yu", require "typescript".actions.removeUnused)
-nmap("<localleader>yr", "<cmd>TypescriptRenameFile<CR>")
+nmap("<localleader>yo", require "typescript".actions.organizeImports, "Organize imports")
+nmap("<localleader>ya", require "typescript".actions.addMissingImports, "Add missing imports")
+nmap("<localleader>yu", require "typescript".actions.removeUnused, "Remove unused")
+nmap("<localleader>yr", "<cmd>TypescriptRenameFile<CR>", "Typescript rename file")
 
 --
 -- Trouble
 --
-nmap("cot", "<Cmd>TroubleToggle<CR>")
+nmap("cot", "<Cmd>TroubleToggle<CR>", "Trouble toggle")
 
 -- inlay hints
-nmap("coi", ":TSLspToggleInlayHints<CR>")
+nmap("coi", ":TSLspToggleInlayHints<CR>", "Toggle treesitter inlay hints")
 
 -- diagnostic hints
 nmap("cov", require("lsp_lines").toggle)
@@ -487,10 +492,10 @@ local function gitsigns_keybindings(bufnr)
   )
 
   -- Actions
-  mymap({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options, bufnr)
-  mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options, bufnr)
-  mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options, bufnr)
-  mymap("n", "<leader>hp", gs.preview_hunk, default_map_options, bufnr)
+  mymap({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options)
+  mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options)
+  mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options)
+  mymap("n", "<leader>hp", gs.preview_hunk, default_map_options)
   mymap(
     "n",
     "<leader>hb",
@@ -499,22 +504,22 @@ local function gitsigns_keybindings(bufnr)
     end
   )
 
-  mymap("n", "<leader>hS", gs.stage_buffer, default_map_options, bufnr)
-  mymap("n", "<leader>hX", gs.reset_buffer, default_map_options, bufnr)
-  mymap("n", "<leader>hd", gs.diffthis, default_map_options, bufnr)
+  mymap("n", "<leader>hS", gs.stage_buffer, default_map_options)
+  mymap("n", "<leader>hX", gs.reset_buffer, default_map_options)
+  mymap("n", "<leader>hd", gs.diffthis, default_map_options)
   mymap(
     "n",
     "<leader>hD",
     function()
       gs.diffthis("~")
     end,
-    default_map_options,
-    bufnr
+    default_map_options
   )
-  mymap("n", "<leader>he", gs.toggle_deleted, default_map_options, bufnr)
+  mymap("n", "<leader>he", gs.toggle_deleted, default_map_options)
+
 
   -- Text object
-  mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options, bufnr)
+  mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options)
 end
 
 --
@@ -568,8 +573,8 @@ nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 --
 -- rest.nvim
 --
-nmap("<localleader>T", require "rest-nvim".last)
-nmap("<localleader>t", require "rest-nvim".run)
+-- nmap("<localleader>T", require "rest-nvim".last)
+-- nmap("<localleader>t", require "rest-nvim".run)
 
 --
 -- vim-translator
@@ -577,6 +582,8 @@ nmap("<localleader>t", require "rest-nvim".run)
 -- nahradit the text with translation
 nmap("<A-t>", ":TranslateR<CR>")
 vmap("<A-t>", ":TranslateR<CR>")
+nmap("<A-T>", ":TranslateR --target_lang=EN<CR>")
+vmap("<A-T>", ":TranslateR --target_lang=EN<CR>")
 
 --
 -- custom
@@ -595,8 +602,26 @@ vim.cmd(
 )
 vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
+-- Markdown filetype
+
+local function markdown_keybindings()
+  nmap("<LocalLeader>1", [[yypVr=<Esc>]])
+  nmap("<LocalLeader>2", [[m`:s/^\(#*\)\ \?/##\ /<CR>``]])
+  nmap("<LocalLeader>3", [[m`:s/^\(#*\)\ \?/###\ /<CR>``]])
+  nmap("<LocalLeader>4", [[m`:s/^\(#*\)\ \?/####\ /<CR>``]])
+  nmap("<LocalLeader>b", [[viw<Esc>`>a**<Esc>`<i**<Esc>f*;]])
+  vmap("<LocalLeader>b", [[<Esc>`>a**<Esc>`<i**<Esc>f*;]])
+  nmap("<LocalLeader>i", [[viw<Esc>`>a_<Esc>`<i_<Esc>f_]])
+  vmap("<LocalLeader>i", [[<Esc>`>a_<Esc>`<i_<Esc>f_]])
+  nmap("<LocalLeader>`", [[viw<Esc>`>a`<Esc>`<i`<Esc>f`]])
+  vmap("<LocalLeader>`", [[<Esc>`>a`<Esc>`<i`<Esc>f`]])
+  nmap("<LocalLeader>9", [[vip<Esc>`<O```<Esc>`>o```<Esc>j]])
+  vmap("<LocalLeader>9", [[<Esc>`<O```<Esc>`>o```<Esc>j]])
+end
+
 -- export functions that needs to be called from init.lua
 return {
   gitsigns_keybindings = gitsigns_keybindings,
-  lsp_keybindings = lsp_keybindings
+  lsp_keybindings = lsp_keybindings,
+  markdown_keybindings = markdown_keybindings
 }
