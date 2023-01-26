@@ -6,7 +6,7 @@ local null_ls = require "null-ls"
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local function is_a_deno_project()
-  return utils.has_root_file({ "deno.json" })
+  return utils.has_root_file({ "deno.json", "deno.jsonc" })
 end
 
 local function not_a_deno_project_and_has_eslint()

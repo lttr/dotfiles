@@ -130,6 +130,7 @@ nmap("<C-j>", ":call vm#commands#add_cursor_down(0, v:count1)<CR>")
 nmap("<C-k>", ":call vm#commands#add_cursor_up(0, v:count1)<CR>")
 -- create cursor for every line in current paragraph
 nmap("<localleader>m", "vip:call vm#commands#visual_cursors()<CR>")
+vmap("<localleader>m", ":call vm#commands#visual_cursors()<CR>")
 -- create cursor for every occurance of current word
 nmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
 
@@ -174,9 +175,7 @@ nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
 nmap(
   "<localleader>t",
-  function()
-    require("neotest").run.run(vim.fn.expand("%"))
-  end
+  function() require("neotest").run.run(vim.fn.expand("%")) end
 )
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
@@ -197,7 +196,7 @@ nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
 nmap("<localleader>;", "<cmd>s/;*$/;/<CR><cmd>:nohls<CR>``")
 
 -- terminal
--- nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
+nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<A-h>", [[<C-\><C-n><C-w>h]])
@@ -309,52 +308,17 @@ imap(
 nmap("<leader>fa", telescopeBuildin.commands)
 nmap("<leader>fb", telescopeBuildin.buffers)
 nmap("<leader>fc", telescopeBuildin.command_history)
-nmap(
-  "<leader>fd",
-  function()
-    telescopeBuildin.lsp_document_diagnostics()
-  end
-)
-nmap(
-  "<leader>fD",
-  function()
-    telescopeBuildin.lsp_workspace_diagnostics()
-  end
-)
+nmap("<leader>fd", function() telescopeBuildin.lsp_document_diagnostics() end)
+nmap("<leader>fD", function() telescopeBuildin.lsp_workspace_diagnostics() end)
 nmap("<leader>fe", recent_files)
 nmap("<leader>ff", telescopeBuildin.grep_string)
 nmap("<leader>fg", live_grep)
-vmap(
-  "<leader>fg",
-  function()
-    telescopeBuildin.live_grep({ default_text = GetVisualSelection() })
-  end
-)
-nmap(
-  "<leader>fG",
-  function()
-    telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
-  end
-)
+vmap("<leader>fg", function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end)
+nmap("<leader>fG", function() telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") }) end)
 nmap("<leader>fh", telescopeBuildin.help_tags)
-vmap(
-  "<leader>fh",
-  function()
-    telescopeBuildin.help_tags({ default_text = GetVisualSelection() })
-  end
-)
-nmap(
-  "<leader>fi",
-  function()
-    telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" })
-  end
-)
-nmap(
-  "<leader>fI",
-  function()
-    telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" })
-  end
-)
+vmap("<leader>fh", function() telescopeBuildin.help_tags({ default_text = GetVisualSelection() }) end)
+nmap("<leader>fi", function() telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" }) end)
+nmap("<leader>fI", function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end)
 nmap("<leader>fj", telescope.extensions.harpoon.marks)
 nmap("<leader>fk", telescopeBuildin.keymaps)
 nmap("<leader>fl", telescope.extensions.buffer_lines.buffer_lines)
@@ -373,12 +337,7 @@ nmap(
     telescope.extensions.file_browser.file_browser({ path = "%:p:h", cwd_to_path = true })
   end
 )
-nmap(
-  "<leader>fs",
-  function()
-    telescopeBuildin.search_history()
-  end
-)
+nmap("<leader>fs", function() telescopeBuildin.search_history() end)
 nmap("<leader>ft", telescopeBuildin.git_status)
 nmap("<leader>fx", telescopeBuildin.builtin)
 nmap("<leader>fz", telescope.extensions.zoxide.list)
@@ -430,12 +389,7 @@ nmap("coi", ":TSLspToggleInlayHints<CR>", "Toggle treesitter inlay hints")
 -- diagnostic hints
 nmap("cov", require("lsp_lines").toggle)
 
-nmap(
-  "cod",
-  function()
-    ToggleDiagnostics()
-  end
-)
+nmap("cod", function() ToggleDiagnostics() end)
 
 --
 -- vim-togglelist
@@ -464,11 +418,7 @@ local function gitsigns_keybindings(bufnr)
       if vim.wo.diff then
         return "]c"
       end
-      vim.schedule(
-        function()
-          gs.next_hunk()
-        end
-      )
+      vim.schedule(function() gs.next_hunk() end)
       return "<Ignore>"
     end,
     { expr = true }
@@ -481,11 +431,7 @@ local function gitsigns_keybindings(bufnr)
       if vim.wo.diff then
         return "[c"
       end
-      vim.schedule(
-        function()
-          gs.prev_hunk()
-        end
-      )
+      vim.schedule(function() gs.prev_hunk() end)
       return "<Ignore>"
     end,
     { expr = true }
@@ -496,13 +442,7 @@ local function gitsigns_keybindings(bufnr)
   mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options)
   mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options)
   mymap("n", "<leader>hp", gs.preview_hunk, default_map_options)
-  mymap(
-    "n",
-    "<leader>hb",
-    function()
-      gs.blame_line { full = true }
-    end
-  )
+  mymap("n", "<leader>hb", function() gs.blame_line { full = true } end)
 
   mymap("n", "<leader>hS", gs.stage_buffer, default_map_options)
   mymap("n", "<leader>hX", gs.reset_buffer, default_map_options)
@@ -510,9 +450,7 @@ local function gitsigns_keybindings(bufnr)
   mymap(
     "n",
     "<leader>hD",
-    function()
-      gs.diffthis("~")
-    end,
+    function() gs.diffthis("~") end,
     default_map_options
   )
   mymap("n", "<leader>he", gs.toggle_deleted, default_map_options)
@@ -618,6 +556,18 @@ local function markdown_keybindings()
   nmap("<LocalLeader>9", [[vip<Esc>`<O```<Esc>`>o```<Esc>j]])
   vmap("<LocalLeader>9", [[<Esc>`<O```<Esc>`>o```<Esc>j]])
 end
+
+-- Debugger nvim-dap
+
+--  Inspecting the state via the built-in REPL: :lua require'dap'.repl.open() or using the widget UI (:help dap-widgets)
+nmap("<F4>", function() require 'dap'.repl.open() end)
+--  Stepping through code via :lua require'dap'.step_over() and :lua require'dap'.step_into().
+nmap("<F5>", function() require 'dap'.step_over() end)
+nmap("<F6>", function() require 'dap'.step_into() end)
+--  Launching debug sessions and resuming execution via :lua require'dap'.continue().
+nmap("<F7>", function() require 'dap'.continue() end)
+--  Setting breakpoints via :lua require'dap'.toggle_breakpoint().
+nmap("<F8>", function() require 'dap'.toggle_breakpoint() end)
 
 -- export functions that needs to be called from init.lua
 return {

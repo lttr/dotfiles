@@ -77,7 +77,7 @@ local common_on_attach = function(client)
 end
 
 local denols = {
-  root_dir = lsp_config.util.root_pattern({ "deno.json", "deps.ts" }),
+  root_dir = lsp_config.util.root_pattern({ "deno.json", "deno.jsonc", "deps.ts" }),
   init_options = {
     enable = true,
     lint = true,
@@ -179,7 +179,7 @@ local function make_config(server_name)
 end
 
 local function is_a_deno_project()
-  return utils.has_root_file({ "deno.json" })
+  return utils.has_root_file({ "deno.json", "deno.jsonc" })
 end
 
 local function is_a_vite_project()

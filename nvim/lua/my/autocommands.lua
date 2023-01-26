@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd(
   "BufRead",
   {
     callback = function()
-      if (root_has_file_matches("deno.json")) then
+      if (root_has_file_matches("deno.json") or root_has_file_matches("deno.jsonc")) then
         vim.bo.makeprg = [[deno lint --quiet --compact]]
         vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
       end

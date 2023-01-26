@@ -97,7 +97,6 @@ require "packer".startup(
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "antoinemadec/FixCursorHold.nvim", -- probably can be removed in 0.8
         "haydenmeade/neotest-jest"
       }
     }
@@ -110,6 +109,14 @@ require "packer".startup(
 
     -- debbugging
     use "mfussenegger/nvim-dap"
+    use "mxsdev/nvim-dap-vscode-js"
+    use "rcarriga/nvim-dap-ui"
+    use {
+      "microsoft/vscode-js-debug",
+      opt = true,
+      run = "npm install --legacy-peer-deps && npm run compile",
+      tag = "v1.74.1" -- https://github.com/mxsdev/nvim-dap-vscode-js/issues/23
+    }
 
     -- special languages
     use "hashivim/vim-terraform"
