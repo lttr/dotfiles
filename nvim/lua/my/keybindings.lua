@@ -172,7 +172,7 @@ nmap("<localleader>w", "gwip")
 -- Executing and running
 nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
--- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")
+-- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")key
 nmap(
   "<localleader>t",
   function() require("neotest").run.run(vim.fn.expand("%")) end

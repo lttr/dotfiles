@@ -91,7 +91,7 @@ require "packer".startup(
     use "rest-nvim/rest.nvim"
     use "brenoprata10/nvim-highlight-colors"
 
-    -- heavy development
+    -- testing
     use {
       "nvim-neotest/neotest",
       requires = {
@@ -135,6 +135,11 @@ require "packer".startup(
     use "PatrBal/vim-textidote"
     use "lalitmee/browse.nvim"
 
+    -- executing and terminal
+    use 'kassio/neoterm'
+    use "skywind3000/asyncrun.vim"
+    use { "michaelb/sniprun", run = "bash ./install.sh" }
+
     -- classic
     use "airblade/vim-rooter"
     use "kevinhwang91/nvim-bqf"
@@ -144,7 +149,6 @@ require "packer".startup(
     use "cohama/agit.vim"
     use "milkypostman/vim-togglelist"
     use "moll/vim-bbye"
-    use "skywind3000/asyncrun.vim"
     use "tommcdo/vim-exchange"
     use "tpope/vim-abolish"
     use "tpope/vim-characterize"
@@ -158,7 +162,6 @@ require "packer".startup(
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
     use { "dhruvasagar/vim-prosession", requires = { "tpope/vim-obsession" } }
-    use { "michaelb/sniprun", run = "bash ./install.sh" }
 
     if packer_bootstrap then
       require("packer").sync()

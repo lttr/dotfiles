@@ -1,0 +1,6 @@
+{
+  "await": {
+    "prefix": "denotest",
+    "body": "import { assertEquals } from \"https://deno.land/std@0.173.0/testing/asserts.ts\";\nimport { $0 } from \"./.ts\";\n\nDeno.test(function test1() {\n\tassertEquals( , );\n});"
+  }
+}
