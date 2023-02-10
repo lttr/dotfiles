@@ -49,6 +49,9 @@ export PATH=$PATH:/usr/share/code
 # forgit
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
+# ripgrep
+export RIPGREP_CONFIG_PATH=$HOME/dotfiles/ripgrep_config
+
 # user environment
 export PAGER=/usr/bin/less
 export EDITOR=nvim

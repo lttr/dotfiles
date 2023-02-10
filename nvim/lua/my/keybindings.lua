@@ -173,10 +173,8 @@ nmap("<localleader>w", "gwip")
 nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")key
-nmap(
-  "<localleader>t",
-  function() require("neotest").run.run(vim.fn.expand("%")) end
-)
+nmap("<localleader>t", function() require("neotest").run.run(vim.fn.expand("%")) end)
+nmap("<localleader>T", function() require("neotest").summary.toggle() end)
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
@@ -251,21 +249,7 @@ local find_files = function()
     {
       find_command = {
         "rg",
-        "--hidden",
         "--files",
-        "--no-ignore",
-        "--glob",
-        "!.git",
-        "--glob",
-        "!node_modules",
-        "--glob",
-        "!.pnpm-store",
-        "--glob",
-        "!build/",
-        "--glob",
-        "!dist/",
-        "--glob",
-        "!.lock"
       }
     }
   )
@@ -543,10 +527,10 @@ vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 -- Markdown filetype
 
 local function markdown_keybindings()
-  nmap("<LocalLeader>1", [[yypVr=<Esc>]])
-  nmap("<LocalLeader>2", [[m`:s/^\(#*\)\ \?/##\ /<CR>``]])
-  nmap("<LocalLeader>3", [[m`:s/^\(#*\)\ \?/###\ /<CR>``]])
-  nmap("<LocalLeader>4", [[m`:s/^\(#*\)\ \?/####\ /<CR>``]])
+  nmap("<LocalLeader>1", [[yypVr=<Esc><cmd>set nohls<CR>]])
+  nmap("<LocalLeader>2", [[m`:s/^\(#*\)\ \?/##\ /<CR>``<cmd>set nohls<CR>]])
+  nmap("<LocalLeader>3", [[m`:s/^\(#*\)\ \?/###\ /<CR>``<cmd>set nohls<CR>]])
+  nmap("<LocalLeader>4", [[m`:s/^\(#*\)\ \?/####\ /<CR>``<cmd>set nohls<CR>]])
   nmap("<LocalLeader>b", [[viw<Esc>`>a**<Esc>`<i**<Esc>f*;]])
   vmap("<LocalLeader>b", [[<Esc>`>a**<Esc>`<i**<Esc>f*;]])
   nmap("<LocalLeader>i", [[viw<Esc>`>a_<Esc>`<i_<Esc>f_]])
@@ -555,6 +539,8 @@ local function markdown_keybindings()
   vmap("<LocalLeader>`", [[<Esc>`>a`<Esc>`<i`<Esc>f`]])
   nmap("<LocalLeader>9", [[vip<Esc>`<O```<Esc>`>o```<Esc>j]])
   vmap("<LocalLeader>9", [[<Esc>`<O```<Esc>`>o```<Esc>j]])
+  nmap("<LocalLeader>u", [[vip:s/^\(\s*\)/\1- /<CR><cmd>set nohls<CR>]])
+  vmap("<LocalLeader>u", [[:s/^\(\s*\)/\1- /<CR><cmd>set nohls<CR>]])
 end
 
 -- Debugger nvim-dap

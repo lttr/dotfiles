@@ -30,9 +30,9 @@ null_ls.setup {
     --
     -- Formatting
     --
-    null_ls.builtins.formatting.prettierd.with({ condition = should_run_prettier }),
+    null_ls.builtins.formatting.prettierd.with({ runtime_condition = should_run_prettier }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
-    null_ls.builtins.formatting.eslint_d.with({ runtime_condition = not_a_deno_project_and_has_eslint }),
+    null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with(
       {
         runtime_condition = has_stylelint,

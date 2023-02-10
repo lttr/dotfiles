@@ -64,15 +64,15 @@ require "packer".startup(
     use "rafamadriz/friendly-snippets"
 
     -- completion
+    use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "hrsh7th/cmp-nvim-lua"
     use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "ray-x/lsp_signature.nvim"
     use "onsails/lspkind-nvim"
-    use "rmagatti/goto-preview"
+    -- use "rmagatti/goto-preview"
     use "petertriho/cmp-git"
     use "lttr/cmp-jira"
 
@@ -127,6 +127,10 @@ require "packer".startup(
     use "napmn/react-extract.nvim"
     use "Janiczek/vim-latte"
     use "Glench/Vim-Jinja2-Syntax"
+    use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
     -- help
     use "dbeniamine/cheat.sh-vim"

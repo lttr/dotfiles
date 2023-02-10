@@ -1,0 +1,9 @@
+--hidden
+
+--smart-case
+
+--glob
+!pnpm-lock.yaml
+
+--glob
+!package-lock.json

@@ -18,22 +18,6 @@ require "spectre".setup {
         "--with-filename",
         "--line-number",
         "--column",
-        -- added
-        "--smart-case",
-        "--hidden",
-        "--no-ignore",
-        "--glob",
-        "!.git",
-        "--glob",
-        "!node_modules",
-        "--glob",
-        "!.pnpm-store",
-        "--glob",
-        "!build/",
-        "--glob",
-        "!dist/",
-        "--glob",
-        "!.lock"
       },
       options = {
         ["ignore-case"] = {

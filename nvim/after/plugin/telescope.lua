@@ -54,21 +54,6 @@ require "telescope".setup {
         "--with-filename",
         "--line-number",
         "--column",
-        "--smart-case",
-        "--hidden",
-        "--no-ignore",
-        "--glob",
-        "!.git",
-        "--glob",
-        "!node_modules",
-        "--glob",
-        "!.pnpm-store",
-        "--glob",
-        "!build/",
-        "--glob",
-        "!dist/",
-        "--glob",
-        "!.lock"
       }
     },
     recent_files = {
