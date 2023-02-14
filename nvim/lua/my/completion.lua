@@ -110,7 +110,6 @@ cmp.setup {
   }
 }
 
-require("goto-preview").setup {}
 require("cmp_jira").setup {
   file_types = { "gitcommit" },
   jira = {

@@ -7,3 +7,6 @@
 
 --glob
 !package-lock.json
+
+--glob
+!.git/

@@ -137,7 +137,10 @@ local groups = {
   LspSagaDiagnosticBorder = { fg = "palette.fg3" },
   ["@tag"] = { fg = "palette.magenta" },
   ["@tag.attribute"] = { fg = "palette.fg1" },
-  ["@parameter"] = { fg = "palette.fg1" }
+  ["@parameter"] = { fg = "palette.fg1" },
+  TabLine = { fg = "#666666", bg = "#181818" },
+  TabLineSel = { fg = "#999999", bg = "#444444" },
+  TabLineFill = { fg = "palette.fg2", bg = "#262626" }
 }
 
 -- Treesitter groups mapping

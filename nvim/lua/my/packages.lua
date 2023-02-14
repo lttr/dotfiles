@@ -28,6 +28,7 @@ require "packer".startup(
     use "kyazdani42/nvim-web-devicons"
     use "hoob3rt/lualine.nvim"
     use "rcarriga/nvim-notify"
+    use "nanozuki/tabby.nvim"
 
     -- explorer
     use "nvim-telescope/telescope.nvim"
@@ -166,6 +167,7 @@ require "packer".startup(
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
     use { "dhruvasagar/vim-prosession", requires = { "tpope/vim-obsession" } }
+    use "qpkorr/vim-renamer"
 
     if packer_bootstrap then
       require("packer").sync()
