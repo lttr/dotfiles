@@ -168,6 +168,7 @@ require "packer".startup(
     use "voldikss/vim-translator"
     use { "dhruvasagar/vim-prosession", requires = { "tpope/vim-obsession" } }
     use "qpkorr/vim-renamer"
+    use "stevearc/oil.nvim"
 
     if packer_bootstrap then
       require("packer").sync()
