@@ -10,14 +10,14 @@ local servers = {
   "bashls",
   "cssls",
   "denols",
-  -- "eslint",
+  "eslint",
   "gopls",
   "graphql",
   "html",
   "jsonls",
   "phpactor",
   "prismals",
-  "sumneko_lua",
+  "lua_ls",
   "svelte",
   "tailwindcss",
   "terraformls",
@@ -56,24 +56,21 @@ local common_handlers = {
 }
 
 local common_on_attach = function(client)
-  vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  require "my.keybindings".lsp_keybindings(client)
-  -- client.server_capabilities.document_formatting = false
+  -- vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   -- Set autocommands conditional on server_capabilities
-  if client.server_capabilities.document_highlight then
-    vim.cmd(
-      [[
-      augroup lsp_document_highlight
-      autocmd! * <buffer>
-      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]] ,
-      false
-    )
-  end
+  -- if client.server_capabilities.document_highlight then
+  --   vim.cmd(
+  --     [[
+  --     augroup lsp_document_highlight
+  --     autocmd! * <buffer>
+  --     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]],
+  --     false
+  --   )
+  -- end
 end
 
 local denols = {
@@ -86,44 +83,23 @@ local denols = {
 }
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
--- local eslint = {
---   {
---     codeAction = {
---       disableRuleComment = {
---         enable = true,
---         location = "separateLine"
---       },
---       showDocumentation = {
---         enable = true
---       }
---     },
---     codeActionOnSave = {
---       enable = false,
---       mode = "all"
---     },
---     format = true,
---     nodePath = "",
---     onIgnoredFiles = "off",
---     packageManager = "npm",
---     quiet = false,
---     rulesCustomizations = {},
---     run = "onType",
---     useESLintClass = false,
---     validate = "on",
---     workingDirectory = {
---       mode = "location"
---     }
---   }
--- }
 
-local sumneko_lua = {
-  settings = {
-    Lua = {
-      dignostics = {
-        globals = { "vim" }
-      }
+local eslint = {
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+  codeAction = {
+    disableRuleComment = {
+      enable = true,
+      location = "separateLine"
+    },
+    showDocumentation = {
+      enable = true
     }
-  }
+  },
 }
 
 local vuels = {
@@ -148,8 +124,7 @@ local jsonls = {
 
 local custom_configs = {
   denols = denols,
-  -- eslint = eslint,
-  sumneko_lua = sumneko_lua,
+  eslint = eslint,
   vuels = vuels,
   jsonls = jsonls
 }
@@ -165,16 +140,16 @@ local function make_config(server_name)
   end
 
   local merged_config =
-  vim.tbl_deep_extend(
-    "force",
-    {
-      capabilities = capabilities,
-      -- map buffer local keybindings when the language server attaches
-      on_attach = common_on_attach,
-      handlers = common_handlers
-    },
-    custom_config
-  )
+      vim.tbl_deep_extend(
+        "force",
+        {
+          capabilities = capabilities,
+          -- map buffer local keybindings when the language server attaches
+          on_attach = common_on_attach,
+          handlers = common_handlers
+        },
+        custom_config
+      )
   return merged_config
 end
 

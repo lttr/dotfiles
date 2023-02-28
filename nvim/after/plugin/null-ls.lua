@@ -32,7 +32,7 @@ null_ls.setup {
     --
     null_ls.builtins.formatting.prettierd.with({ runtime_condition = should_run_prettier }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
-    null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
+    -- null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with(
       {
         runtime_condition = has_stylelint,
@@ -44,15 +44,15 @@ null_ls.setup {
     -- Linting / diagnostics
     --
     -- Others are run as language servers
-    null_ls.builtins.diagnostics.eslint_d.with(
-      {
-        runtime_condition = not_a_deno_project_and_has_eslint,
-        -- ignore prettier warnings from eslint-plugin-prettier
-        filter = function(diagnostic)
-          return diagnostic.code ~= "prettier/prettier"
-        end
-      }
-    ),
+    -- null_ls.builtins.diagnostics.eslint_d.with(
+    --   {
+    --     runtime_condition = not_a_deno_project_and_has_eslint,
+    --     -- ignore prettier warnings from eslint-plugin-prettier
+    --     filter = function(diagnostic)
+    --       return diagnostic.code ~= "prettier/prettier"
+    --     end
+    --   }
+    -- ),
     null_ls.builtins.diagnostics.stylelint.with(
       {
         runtime_condition = has_stylelint,
