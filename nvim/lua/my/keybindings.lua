@@ -289,50 +289,59 @@ imap(
   end
 )
 
-nmap("<leader>fa", telescopeBuildin.commands)
-nmap("<leader>fb", telescopeBuildin.buffers)
-nmap("<leader>fc", telescopeBuildin.command_history)
-nmap("<leader>fd", function() telescopeBuildin.lsp_document_diagnostics() end)
-nmap("<leader>fD", function() telescopeBuildin.lsp_workspace_diagnostics() end)
-nmap("<leader>fe", recent_files)
-nmap("<leader>ff", telescopeBuildin.grep_string)
-nmap("<leader>fg", live_grep)
-vmap("<leader>fg", function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end)
-nmap("<leader>fG", function() telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") }) end)
-nmap("<leader>fh", telescopeBuildin.help_tags)
-vmap("<leader>fh", function() telescopeBuildin.help_tags({ default_text = GetVisualSelection() }) end)
-nmap("<leader>fi", function() telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" }) end)
-nmap("<leader>fI", function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end)
-nmap("<leader>fj", telescope.extensions.harpoon.marks)
-nmap("<leader>fk", telescopeBuildin.keymaps)
-nmap("<leader>fl", telescope.extensions.buffer_lines.buffer_lines)
-
-nmap("<leader>fo", document_symbols)
+nmap("<leader>fa", telescopeBuildin.commands, "Commands")
+nmap("<leader>fb", telescopeBuildin.buffers, "Buffers")
+nmap("<leader>fc", telescopeBuildin.command_history, "Command history")
+nmap("<leader>fd", function() telescopeBuildin.lsp_document_diagnostics() end, "Diagnostics buffer")
+nmap("<leader>fD", function() telescopeBuildin.lsp_workspace_diagnostics() end, "Diagnostics project")
+nmap("<leader>fe", recent_files, "Recent files")
+nmap("<leader>ff", telescopeBuildin.grep_string, "Find string under cursor")
+nmap("<leader>fg", live_grep, "Live search ripgrep")
+vmap("<leader>fg", function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end,
+  "Search form selection")
+nmap("<leader>fG", function() telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") }) end,
+  "Search under cursor")
+nmap("<leader>fh", telescopeBuildin.help_tags, "Help")
+nmap("<leader>fH", function() telescopeBuildin.help_tags({ default_text = vim.fn.expand("<cword>") }) end,
+  "Help current word")
+vmap("<leader>fh", function() telescopeBuildin.help_tags({ default_text = GetVisualSelection() }) end,
+  "Help from selection")
+nmap("<leader>fi", function() telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" }) end, "Open dotfile")
+nmap("<leader>fI", function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end, "Search in dotfiles")
+nmap("<leader>fj", telescope.extensions.harpoon.marks, "Harpoon")
+nmap("<leader>fk", telescopeBuildin.keymaps, "Keymaps")
+nmap("<leader>fl", telescope.extensions.buffer_lines.buffer_lines, "Buffer lines")
+nmap("<leader>fm",
+  function()
+    telescopeBuildin.lsp_dynamic_workspace_symbols({
+      path_display = { "smart" },
+      ignore_symbols = { "variable", "constant" }
+    })
+  end,
+  "Symbols project")
+nmap("<leader>fo", document_symbols, "Functions in document")
 nmap(
   "<leader>fp",
   function()
     telescope.extensions.repo.cached_list { file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" } }
   end
-)
+  , "Repositories")
+nmap("<leader>fr", telescopeBuildin.lsp_references, "References")
+nmap("<leader>fs", function() telescopeBuildin.search_history() end, "Search history")
+nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
 nmap(
   "<leader>fw",
   function()
     -- open file browser in folder of current file
     telescope.extensions.file_browser.file_browser({ path = "%:p:h", cwd_to_path = true })
   end
-)
-nmap("<leader>fs", function() telescopeBuildin.search_history() end)
-nmap("<leader>ft", telescopeBuildin.git_status)
-nmap("<leader>fx", telescopeBuildin.builtin)
-nmap("<leader>fz", telescope.extensions.zoxide.list)
-nmap("<leader>fr", telescopeBuildin.lsp_references)
+  , "File browser")
+nmap("<leader>fx", telescopeBuildin.builtin, "Telescope builtins")
+nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 
 --
 -- nvim-lspconfig
 --
-
-local function lsp_keybindings(client)
-end
 
 -- build init neovim lsp
 nmap("gd", function() vim.lsp.buf.definition({ reuse_win = true }) end)
@@ -566,6 +575,5 @@ nmap("<F8>", function() require 'dap'.toggle_breakpoint() end)
 -- export functions that needs to be called from init.lua
 return {
   gitsigns_keybindings = gitsigns_keybindings,
-  lsp_keybindings = lsp_keybindings,
   markdown_keybindings = markdown_keybindings
 }

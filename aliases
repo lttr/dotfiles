@@ -211,6 +211,7 @@ alias gogo="git-gogo"
 alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
+alias gmt="git mergetool"
 
 # =================================================================
 #                              Lists

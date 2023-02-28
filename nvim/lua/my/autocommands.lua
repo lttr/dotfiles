@@ -64,3 +64,10 @@ vim.api.nvim_create_autocmd(
     group = denoMakeGroup
   }
 )
+
+-- Autosave
+vim.cmd [[
+  augroup autosave
+    autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
+  augroup end
+]]

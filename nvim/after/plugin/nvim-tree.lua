@@ -1,18 +1,20 @@
 -- https://github.com/kyazdani42/nvim-tree.lua
 
 require "nvim-tree".setup {
+  update_focused_file = {
+    enable = true
+  },
   sync_root_with_cwd = true,
   select_prompts = true,
-  git = {
-    ignore = false
-  },
   notify = {
     threshold = vim.log.levels.WARN
   },
-  view = {
-    adaptive_size = true,
-    -- float = {
-    --   enable = true,
-    -- }
+  renderer = {
+    highlight_modified = 'name'
   },
 }
+
+local api = require("nvim-tree.api")
+api.events.subscribe(api.events.Event.FileCreated, function(file)
+  vim.cmd("edit " .. file.fname)
+end)

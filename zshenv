@@ -33,7 +33,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
-which fnm >/dev/null && eval "$(fnm env --use-on-cd)"
+which fnm >/dev/null && eval "$(fnm --log-level=error env --use-on-cd)"
 
 # deno
 export DENO_INSTALL="$HOME/.deno"

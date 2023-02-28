@@ -2,22 +2,22 @@
 -- https://github.com/mxsdev/nvim-dap-vscode-js
 
 local dap = require("dap")
-local dapui = require("dapui")
+-- local dapui = require("dapui")
 
-dapui.setup({
-  layouts = {
-    {
-      elements = {
-        { id = "scopes", size = 0.35 },
-        "breakpoints",
-        "stacks",
-        "watches",
-      },
-      size = 50,
-      position = "right",
-    },
-  }
-})
+-- dapui.setup({
+--   layouts = {
+--     {
+--       elements = {
+--         { id = "scopes", size = 0.35 },
+--         "breakpoints",
+--         "stacks",
+--         "watches",
+--       },
+--       size = 50,
+--       position = "right",
+--     },
+--   }
+-- })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
