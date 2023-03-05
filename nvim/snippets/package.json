@@ -20,10 +20,24 @@
         "path": "./deno.json"
       },
       {
-        "language": [
-          "vue"
-        ],
+        "language": "vue",
         "path": "./vue.json"
+      },
+      {
+        "language": "vue",
+        "path": "./vue-template.json"
+      },
+      {
+        "language": "vue",
+        "path": "./vue-script.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./vue-router.json"
+      },
+      {
+        "language": "lua",
+        "path": "./lua.json"
       }
     ]
   }

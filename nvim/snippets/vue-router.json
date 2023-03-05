@@ -1,0 +1,143 @@
+{
+  "Vue Router": {
+    "prefix": "vrouter",
+    "body": [
+      "import { createRouter, createWebHistory } from 'vue-router'",
+      "// use it typescript-> routes: RouteRecordRaw[]",
+      "import type { RouteRecordRaw } from 'vue-router'",
+      "const routes = [",
+      "\t{",
+      "\t\tpath: '/',",
+      "\t\tname: 'Home',",
+      "\t\tcomponent: () => import('../views/Home.vue')",
+      "\t},",
+      "\t{",
+      "\t\tpath: '/about',",
+      "\t\tname: 'About',",
+      "\t\tcomponent: () => import('../views/About.vue')",
+      "\t}",
+      "\t{",
+      "\t\tpath: '/:pathMatch(.*)*',",
+      "\t\tname: 'NotFound',",
+      "\t\t// please change this to your 404 page",
+      "\t\tcomponent: () => /import('../views/NotFound.vue')",
+      "]",
+      "const router = createRouter({",
+      "\thistory: createWebHistory(),",
+      "\troutes",
+      "})",
+      "export default router"
+    ],
+    "description": "Vue Router"
+  },
+  "Vue router scroll behavior": {
+    "prefix": "vrouter-scrollbehavior",
+    "body": [
+      "const scrollBehavior = (to, from, savedPosition) => {",
+      "\tif (savedPosition) {",
+      "\t\treturn savedPosition",
+      "\t} else {",
+      "\t\treturn { left: 0, top: 0 }",
+      "\t}",
+      "}"
+    ],
+    "description": "Vue router scroll behavior"
+  },
+  "Vue router import": {
+    "prefix": "vrouter-import",
+    "body": ["import { useRouter, useRoute } from 'vue-router'"],
+    "description": "Vue router import"
+  },
+  "Vue router useRouter": {
+    "prefix": "vrouter-useRouter",
+    "body": ["const router = useRouter()", "const route = useRoute()"],
+    "description": "Vue router useRouter"
+  },
+  "Vue router push": {
+    "prefix": "vrouter-push",
+    "body": ["router.push({ path: ${1:path}, query: ${2:query} })"],
+    "description": "Vue router push"
+  },
+  "Vue router redirect": {
+    "prefix": "vrouter-redirect",
+    "body": ["redirect: { name: ${1:name} }"],
+    "description": "Vue router redirect"
+  },
+  "Vue router beforeEach": {
+    "prefix": "vrouter-beforeEach",
+    "body": [
+      "router.beforeEach((to, from, next) => {",
+      "\t// to and from are both route objects. must call `next`.",
+      "})"
+    ],
+    "description": "Vue router beforeEach"
+  },
+  "Vue router beforeResolve": {
+    "prefix": "vrouter-beforeResolve",
+    "body": [
+      "router.beforeResolve:((to, from, next) => {",
+      "\t// ...",
+      "\tnext()",
+      "})"
+    ],
+    "description": "Vue router beforeResolve"
+  },
+  "Vue router afterEach": {
+    "prefix": "vrouter-afterEach",
+    "body": ["router.afterEach((to, from) => {", "\t// ...", "})"],
+    "description": "Vue router afterEach"
+  },
+  "Vue router beforeEnter": {
+    "prefix": "vrouter-beforeEnter",
+    "body": ["beforeEnter: (to, from, next) => {", "\t// ...", "\tnext()", "}"],
+    "description": "Vue router beforeEnter"
+  },
+  "Vue beforeRouteEnter": {
+    "prefix": "vrouter-beforeRouteEnter",
+    "body": [
+      "beforeRouteEnter(to, from, next) {",
+      "\t// called before the route that renders this component is confirmed.",
+      "\t// does NOT have access to `this` component instance, because it has not been created yet when this guard is called!",
+      "\t// can call `next`...",
+      "}"
+    ],
+    "description": "Vue beforeRouteEnter"
+  },
+  "Vue beforeRouteUpdate": {
+    "prefix": "vrouter-beforeRouteUpdate",
+    "body": [
+      "beforeRouteUpdate(to, from, next) {",
+      "\t// called when the route that renders this component has changed,",
+      "\t// but this component is reused in the new route.",
+      "\t// For example, for a route with dynamic params /foo/:id, when we",
+      "\t// navigate between /foo/1 and /foo/2, the same Foo component instance",
+      "\t// will be reused, and this hook will be called when that happens.",
+      "\t// has access to `this` component instance.",
+      "\t// can call `next`...",
+      "}"
+    ],
+    "description": "Vue beforeRouteUpdate"
+  },
+  "Vue beforeRouteLeave": {
+    "prefix": "vrouter-beforeRouteLeave",
+    "body": [
+      "beforeRouteLeave(to, from, next) {",
+      "\t// called when the route that renders this component is about to",
+      "\t// be navigated away from.",
+      "\t// has access to `this` component instance.",
+      "\t// can call `next`...",
+      "}"
+    ],
+    "description": "Vue beforeRouteLeave"
+  },
+  "Vue router params, query": {
+    "prefix": "vrouter-params",
+    "body": ["const { params, query } = useRoute()"],
+    "description": "Vue router params"
+  },
+  "Vue router uselink": {
+    "prefix": "vrouter-uselink",
+    "body": ["const { href, isActive, navigate } = useLink(${1:props})"],
+    "description": "Vue router uselink"
+  }
+}

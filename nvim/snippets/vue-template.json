@@ -1,0 +1,160 @@
+{
+  "Vue v-for array": {
+    "prefix": "vfor-arr",
+    "body": [
+      "<${1:div} v-for=\"${2:item} in ${2:item}s\" :key=\"${2:item}.id\">",
+      "\t{{ ${2:item} }}",
+      "</${1:div}>"
+    ],
+    "description": "v-for array statement"
+  },
+  "Vue v-for object": {
+    "prefix": "vfor-obj",
+    "body": [
+      "<${1:div} v-for=\"{${2:value}, ${4:key}, ${5:index}} in ${3:myObject}\" :key=\"${2:value}.id\">",
+      "\t{{ ${4:key} }}: {{ ${2:value} }}",
+      "</${1:div}>"
+    ],
+    "description": "v-for object statement"
+  },
+  "Vue v-if": {
+    "prefix": "vif",
+    "body": ["<${1:div} v-if=\"${2:show}\"></${1:div}>"],
+    "description": "v-if statement"
+  },
+  "Vue v-show": {
+    "prefix": "vshow",
+    "body": ["<${1:div} v-show=\"${2:show}\"></${1:div}>"],
+    "description": "v-show statement"
+  },
+  "Vue v-html": {
+    "prefix": "vhtml",
+    "body": ["<${1:div} v-html=\"${2:content}\"/>"],
+    "description": "v-html statement"
+  },
+  "Vue v-model": {
+    "prefix": "vmodel",
+    "body": ["<${1:div} v-model:${2:value}=\"${3:value}\"></${1:div}>"],
+    "description": "v-model statement"
+  },
+  "Vue v-update": {
+    "prefix": "vupdate",
+    "body": [
+      "<${1:div} :${2:value}=\"${3:newValue}\" @update:${2:value}=\"${4:handleUpdateValue}\"></${1:div}>"
+    ],
+    "description": "v-update statement"
+  },
+  "Vue v-class array": {
+    "prefix": "vclass-arr",
+    "body": ["<${1:div} :class=\"[${2:activeClass}]\"></${1:div}>"],
+    "description": "v-class array statement"
+  },
+  "Vue v-class object": {
+    "prefix": "vclass-obj",
+    "body": [
+      "<${1:div} :class=\"{ active: ${2:isActive}, 'text-danger': true }\"></${1:div}>"
+    ],
+    "description": "v-class object statement"
+  },
+  "Vue v-style array": {
+    "prefix": "vstyle-arr",
+    "body": ["<${1:div} :style=\"[${2:baseStyles}]\"></${1:div}>"],
+    "description": "v-style array statement"
+  },
+  "Vue v-style object": {
+    "prefix": "vstyle-obj",
+    "body": ["<${2:div} :style=\"{ fontSize: '${1: data}px' }\"></${2:div}>"],
+    "description": "v-style object statement"
+  },
+  "Vue v-ref template": {
+    "prefix": "vref-tmpl",
+    "body": ["<${1:div} ref=\"${2:divContainer}\"></${1:div}>"],
+    "description": "ref template statement"
+  },
+  "Vue v-is template": {
+    "prefix": "vis-tmpl",
+    "body": ["<component :is=\"${1:my-component}\"></component>"],
+    "description": "component is template statement"
+  },
+  "Vue v-on Shortcut Directive": {
+    "prefix": "von",
+    "body": ["@${1:click}=\"${2:handler}(${3})\""],
+    "description": "v-on event handler"
+  },
+  "Vue Component with Props Binding": {
+    "prefix": "vel-props",
+    "body": ["<${1:component} :${1:propName}=\"${0}\"></${1:component}>"],
+    "description": "component element with props"
+  },
+  "Vue Slot": {
+    "prefix": "vslot",
+    "body": ["<slot name=${0:name}>${1:defaultcontent}</slot>"],
+    "description": "slot template"
+  },
+  "Vue Named Slot": {
+    "prefix": "vslot-name",
+    "body": ["<template #${0:name}>${1:defaultcontent}</template>"],
+    "description": "name slot"
+  },
+  "Vue Image Source Binding": {
+    "prefix": "vimg",
+    "body": ["<img :src=\"${1:imageSrc}\" :alt=\"${2:altText}\"/>"],
+    "description": "image source binding"
+  },
+  "Vue Transition": {
+    "prefix": "vtrans",
+    "body": [
+      "<Transition name=\"${1:transitionName}\">",
+      "\t${0}",
+      "</Transition>"
+    ],
+    "description": "vue transition component"
+  },
+  "Vue Transition Group": {
+    "prefix": "vtrans-group",
+    "body": [
+      "<TransitionGroup name=\"${1:transitionName}\">",
+      "\t${0}",
+      "</TransitionGroup>"
+    ],
+    "description": "vue transition group component"
+  },
+  "Vue KeepAlive": {
+    "prefix": "vkeep-alive",
+    "body": ["<KeepAlive>", "\t<${1:div}></${1:div}>", "</KeepAlive>"],
+    "description": "vue keep-alive component"
+  },
+  "Vue Teleport": {
+    "prefix": "vteleport",
+    "body": [
+      "<Teleport to=\"${0:body}\">",
+      "\t<${1:div}></${1:div}>",
+      "</Teleport>"
+    ],
+    "description": "vue teleport component"
+  },
+  "Vue Susepense": {
+    "prefix": "vsuspense",
+    "body": [
+      "<Susepense>",
+      "\t<${1:Component}></${1:Component}>",
+      "\t<template #fallback>",
+      "\t\t${0}",
+      "\t</template>",
+      "</Susepense>"
+    ],
+    "description": "vue suspense component"
+  },
+  "Vue Routing Link": {
+    "prefix": "vrlink",
+    "body": ["<router-link to=\"/${1:path}\">${2:linkTitle}</router-link>"],
+    "description": "vue router link"
+  },
+  "Vue Routing Link with param": {
+    "prefix": "vrlink-param",
+    "body": [
+      "<router-link :to=\"`/${1:path}/${${2:param}}`\">${3:linkTitle}</router-link>"
+    ],
+    "description": "vue router link with param"
+  }
+}

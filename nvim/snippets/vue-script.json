@@ -1,0 +1,169 @@
+{
+  "Vue import": {
+    "prefix": "vimport",
+    "body": ["import { ${1:ref} } from 'vue';"],
+    "description": "Vue import"
+  },
+  "Vue Ref": {
+    "prefix": "vref",
+    "body": ["const ${1:name} = ref(${2:initialValue})"],
+    "description": "Vue Ref"
+  },
+  "Vue Reactive": {
+    "prefix": "vreactive",
+    "body": ["const ${1:obj} = reactive({${2:count}: ${3: 0}})"],
+    "description": "Vue Ref"
+  },
+  "Vue Computed": {
+    "prefix": "vcomputed",
+    "body": ["const ${1:name} = computed(() => ${2:expression})"],
+    "description": "Vue Computed"
+  },
+  "Vue Watch": {
+    "prefix": "vwatch",
+    "body": [
+      "watch(",
+      "\t() => ${1: source}, (${2: newValue}, ${3: oldValue}) => {",
+      "\t\t${4: // do something}",
+      "})"
+    ],
+    "description": "Vue Watch"
+  },
+  "Vue Watch Effect": {
+    "prefix": "vwatcheffect",
+    "body": ["watchEffect(", "\t() => {", "\t\t${1: // do something}", "})"],
+    "description": "Vue Watch Effect"
+  },
+  "Vue Shallow Ref": {
+    "prefix": "vshallowref",
+    "body": ["const ${1:name} = shallowRef(${2:initialValue})"],
+    "description": "Vue Shallow Ref"
+  },
+  "Vue Shallow Reactive": {
+    "prefix": "vshallowreactive",
+    "body": ["const ${1:obj} = shallowReactive({${2:count}: ${3: 0}})"],
+    "description": "Vue Shallow Reactive"
+  },
+  "Vue mark Raw": {
+    "prefix": "vmarkraw",
+    "body": ["const ${1: obj} = markRaw(${2:object})"],
+    "description": "Vue mark Raw"
+  },
+  "Vue onMounted": {
+    "prefix": "vonmounted",
+    "body": ["onMounted(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onMounted"
+  },
+  "Vue onUnmounted": {
+    "prefix": "vonunmounted",
+    "body": ["onUnmounted(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onUnmounted"
+  },
+  "Vue onUpdated": {
+    "prefix": "vonupdated",
+    "body": ["onUpdated(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onUpdated"
+  },
+  "Vue onActivated": {
+    "prefix": "vonactivated",
+    "body": ["onActivated(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onActivated"
+  },
+  "Vue onDeactivated": {
+    "prefix": "vondeactivated",
+    "body": ["onDeactivated(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onDeactivated"
+  },
+  "Vue onBeforeMount": {
+    "prefix": "vonbeforemount",
+    "body": ["onBeforeMount(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onBeforeMount"
+  },
+  "Vue onBeforeUnmount": {
+    "prefix": "vonbeforeunmount",
+    "body": ["onBeforeUnmount(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue onBeforeUnmount"
+  },
+  "Vue provide": {
+    "prefix": "vprovide",
+    "body": ["provide(${1: key}, ${2: value})"],
+    "description": "Vue provide"
+  },
+  "Vue inject": {
+    "prefix": "vinject",
+    "body": ["const ${1: name} = inject(${2: key}, ${3: defaultValue})"],
+    "description": "Vue inject"
+  },
+  "Vue props": {
+    "prefix": "vprops",
+    "body": [
+      "const props = defineProps({",
+      "\t${1: foo}: {",
+      "\t\ttype: ${2: String},",
+      "\t\tdefault: ${3: 'bar'}",
+      "\t}",
+      "})"
+    ],
+    "description": "Vue props"
+  },
+  "Vue props with default": {
+    "prefix": "vprops-default",
+    "body": [
+      "const props = withDefaults(defineProps<{",
+      "\t${1: foo}: ${2: string}",
+      "}>(), {",
+      "\t${1: foo}: ${3: 'bar'}",
+      "})"
+    ],
+    "description": "Vue props"
+  },
+  "Vue define Emits": {
+    "prefix": "vemits",
+    "body": [
+      "const emits = defineEmits<{",
+      "\t(e: '${1:update}', ${2:value}: ${3: String}): void",
+      "}>()"
+    ],
+    "description": "Vue define Emits"
+  },
+  "Vue additional options": {
+    "prefix": "voptions",
+    "body": [
+      "<script>",
+      "\texport default {",
+      "\t\t${1:inheritAttrs}: ${2: false},",
+      "\t}",
+      "</script>"
+    ]
+  },
+  "Vue nextTick": {
+    "prefix": "vnexttick",
+    "body": ["nextTick(() => {", "\t${1: // do something}", "})"],
+    "description": "Vue nextTick"
+  },
+  "Vue unref": {
+    "prefix": "vunref",
+    "body": ["const ${1:name} = unref(${2:x})"],
+    "description": "Vue unref"
+  },
+  "Vue toRefs": {
+    "prefix": "vtoRefs",
+    "body": ["const ${1:refs} = toRefs(${2:reactiveObj})"],
+    "description": "Vue toRefs"
+  },
+  "Vue toRef": {
+    "prefix": "vtoRef",
+    "body": ["const ${1:ref} = toRef(${2:reactiveObj}, ${3:prop})"],
+    "description": "Vue toRef"
+  },
+  "Vue is Ref": {
+    "prefix": "visRef",
+    "body": ["isRef(${1:ref})"],
+    "description": "Vue is Ref"
+  },
+  "Vue is reactive": {
+    "prefix": "visReactive",
+    "body": ["isReactive(${1:reactive})"],
+    "description": "Vue is reactive"
+  }
+}
