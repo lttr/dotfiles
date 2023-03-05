@@ -87,12 +87,13 @@ cmp.setup {
     )
   },
   sources = {
+    { name = "nuxt_component" },
+    { name = "path" },
     { name = "cmp_jira" },
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "nvim_lsp", max_item_count = 10 },
-    { name = "path" },
     { name = "luasnip" }
     -- {name = "buffer", keyword_length = 5} -- too much noise
   },
@@ -100,6 +101,7 @@ cmp.setup {
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
+        nuxt_component = "[nuxt]",
         path = "[path]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
