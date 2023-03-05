@@ -16,6 +16,7 @@ local packer_bootstrap = ensure_packer()
 require "packer".startup(
   function(use)
     -- local
+    use "~/dotfiles/nvim/plugin/nuxt-goto-component/"
 
     -- packer
     use "wbthomason/packer.nvim"
@@ -76,6 +77,7 @@ require "packer".startup(
     -- use "rmagatti/goto-preview"
     use "petertriho/cmp-git"
     use "lttr/cmp-jira"
+    use "folke/neodev.nvim"
 
     -- editing
     use "windwp/nvim-ts-autotag"
@@ -167,7 +169,6 @@ require "packer".startup(
     use "vim-scripts/loremipsum"
     use "voldikss/vim-translator"
     use { "dhruvasagar/vim-prosession", requires = { "tpope/vim-obsession" } }
-    use "qpkorr/vim-renamer"
     use "stevearc/oil.nvim"
 
     if packer_bootstrap then

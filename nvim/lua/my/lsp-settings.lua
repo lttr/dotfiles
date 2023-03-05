@@ -3,6 +3,10 @@
 
 -- https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils
 
+-- https://github.com/folke/neodev.nvim
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup()
+
 local utils = require "my.utils"
 
 local servers = {
@@ -86,7 +90,7 @@ local denols = {
 
 local eslint = {
   on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
+    vim.api.nvim_create_autocmd("BufWritePost", {
       buffer = bufnr,
       command = "EslintFixAll",
     })
@@ -161,6 +165,10 @@ local function is_a_vite_project()
   return utils.has_root_file({ "vite.config.js", "vite.config.ts" })
 end
 
+local function is_a_nuxt_project()
+  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts" })
+end
+
 local function setup_server(server)
   if (server == "tsserver" and is_a_deno_project()) then
     return
@@ -168,10 +176,10 @@ local function setup_server(server)
   if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
     return
   end
-  if server == "volar" and not is_a_vite_project() then
+  if server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project()) then
     return
   end
-  if server == "vuels" and is_a_vite_project() then
+  if server == "vuels" and (is_a_vite_project() or is_a_nuxt_project()) then
     return
   end
 

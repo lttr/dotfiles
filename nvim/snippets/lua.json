@@ -1,0 +1,10 @@
+{
+  "local": {
+    "prefix": "lo",
+    "body": "local"
+  },
+  "require": {
+    "prefix": "re",
+    "body": "require \"$0\""
+  }
+}

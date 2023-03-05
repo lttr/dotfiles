@@ -344,7 +344,14 @@ nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 --
 
 -- build init neovim lsp
-nmap("gd", function() vim.lsp.buf.definition({ reuse_win = true }) end)
+
+
+nmap("gd", function()
+  local success = require "nuxt-goto-component".go()
+  if not success then
+    vim.lsp.buf.definition({ reuse_win = true })
+  end
+end)
 nmap("gD", function()
   vim.lsp.buf.definition()
   vim.cmd('vsplit')
