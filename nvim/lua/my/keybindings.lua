@@ -1,4 +1,4 @@
-local utils = require "my.utils"
+local utils = require("my.utils")
 
 local default_map_options = { noremap = true, silent = true }
 
@@ -157,7 +157,10 @@ nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 
 -- Harpoon
 nmap("<leader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
-nmap("+", "<cmd>lua require('harpoon.mark').add_file()<CR><cmd>lua require('notify').notify('harpooned')<CR>")
+nmap(
+  "+",
+  "<cmd>lua require('harpoon.mark').add_file()<CR><cmd>lua require('notify').notify('harpooned')<CR>"
+)
 nmap("-", "<cmd>lua require('harpoon.mark').rm_file()<CR>")
 
 nmap("<C-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
@@ -170,11 +173,18 @@ nmap("<leader>F", "<cmd>FormatWrite<CR>")
 nmap("<localleader>w", "gwip")
 
 -- Executing and running
-nmap("<leader>r", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>")
+nmap(
+  "<leader>r",
+  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>"
+)
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")key
-nmap("<localleader>t", function() require("neotest").run.run(vim.fn.expand("%")) end)
-nmap("<localleader>T", function() require("neotest").summary.toggle() end)
+nmap("<localleader>t", function()
+  require("neotest").run.run(vim.fn.expand("%"))
+end)
+nmap("<localleader>T", function()
+  require("neotest").summary.toggle()
+end)
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
@@ -185,8 +195,14 @@ nmap("<localleader>H", ":help <C-r><C-w><CR>")
 
 -- paset console.log with current variable
 -- inspired by https://github.com/meain/vim-printer
-nmap("<localleader>l", [[ <cmd>exe "normal yiwoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
-vmap("<localleader>l", [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]])
+nmap(
+  "<localleader>l",
+  [[ <cmd>exe "normal yiwoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]]
+)
+vmap(
+  "<localleader>l",
+  [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]]
+)
 
 -- ensure , at the end of a line
 nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
@@ -204,12 +220,15 @@ tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 
 -- open word under cursor via OS
 nmap("gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>")
-vmap("gx", 'y:silent execute \'!xdg-open \' . shellescape(\'<C-r>"\')<CR>')
+vmap("gx", "y:silent execute '!xdg-open ' . shellescape('<C-r>\"')<CR>")
 
-nmap("gz", "<cmd>silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=') . shellescape('<cWORD>')<CR>")
+nmap(
+  "gz",
+  "<cmd>silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=') . shellescape('<cWORD>')<CR>"
+)
 vmap(
   "gz",
-  'y:silent execute \'!xdg-open \' . shellescape(\'https://duckduckgo.com/?q=\') . shellescape(\'<C-r>"\')<CR>'
+  "y:silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=') . shellescape('<C-r>\"')<CR>"
 )
 
 nmap(
@@ -218,7 +237,7 @@ nmap(
 )
 vmap(
   "gZ",
-  'y:silent execute \'!xdg-open \' . shellescape(\'https://duckduckgo.com/?q=!%20\') . shellescape(\'<C-r>"\')<CR>'
+  "y:silent execute '!xdg-open ' . shellescape('https://duckduckgo.com/?q=!%20') . shellescape('<C-r>\"')<CR>"
 )
 
 -- break undo sequence
@@ -241,28 +260,24 @@ nmap('y"', '<cmd>normal ysiw"<CR>')
 ---- telescope
 --
 
-local telescopeBuildin = require "telescope.builtin"
-local telescope = require "telescope"
+local telescopeBuildin = require("telescope.builtin")
+local telescope = require("telescope")
 
 local find_files = function()
-  return telescopeBuildin.find_files(
-    {
-      find_command = {
-        "rg",
-        "--files",
-      }
-    }
-  )
+  return telescopeBuildin.find_files({
+    find_command = {
+      "rg",
+      "--files",
+    },
+  })
 end
 
 local document_symbols = function()
-  return telescopeBuildin.lsp_document_symbols(
-    {
-      previewer = false,
-      layout_config = { width = 90 },
-      symbols = { "function", "method" }
-    }
-  )
+  return telescopeBuildin.lsp_document_symbols({
+    previewer = false,
+    layout_config = { width = 90 },
+    symbols = { "function", "method" },
+  })
 end
 
 local live_grep = function()
@@ -274,68 +289,78 @@ local recent_files = function()
 end
 
 nmap("<C-p>", find_files)
-imap(
-  "<C-t>",
-  function()
-    telescopeBuildin.find_files(
-      {
-        mappings = {
-          i = {
-            ["<CR>"] = require "telescope.actions".my_select_action
-          }
-        }
-      }
-    )
-  end
-)
+imap("<C-t>", function()
+  telescopeBuildin.find_files({
+    mappings = {
+      i = {
+        ["<CR>"] = require("telescope.actions").my_select_action,
+      },
+    },
+  })
+end)
 
 nmap("<leader>fa", telescopeBuildin.commands, "Commands")
 nmap("<leader>fb", telescopeBuildin.buffers, "Buffers")
 nmap("<leader>fc", telescopeBuildin.command_history, "Command history")
-nmap("<leader>fd", function() telescopeBuildin.lsp_document_diagnostics() end, "Diagnostics buffer")
-nmap("<leader>fD", function() telescopeBuildin.lsp_workspace_diagnostics() end, "Diagnostics project")
+nmap("<leader>fd", function()
+  telescopeBuildin.lsp_document_diagnostics()
+end, "Diagnostics buffer")
+nmap("<leader>fD", function()
+  telescopeBuildin.lsp_workspace_diagnostics()
+end, "Diagnostics project")
 nmap("<leader>fe", recent_files, "Recent files")
 nmap("<leader>ff", telescopeBuildin.grep_string, "Find string under cursor")
 nmap("<leader>fg", live_grep, "Live search ripgrep")
-vmap("<leader>fg", function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end,
-  "Search form selection")
-nmap("<leader>fG", function() telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") }) end,
-  "Search under cursor")
+vmap("<leader>fg", function()
+  telescopeBuildin.live_grep({ default_text = GetVisualSelection() })
+end, "Search form selection")
+nmap("<leader>fG", function()
+  telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
+end, "Search under cursor")
 nmap("<leader>fh", telescopeBuildin.help_tags, "Help")
-nmap("<leader>fH", function() telescopeBuildin.help_tags({ default_text = vim.fn.expand("<cword>") }) end,
-  "Help current word")
-vmap("<leader>fh", function() telescopeBuildin.help_tags({ default_text = GetVisualSelection() }) end,
-  "Help from selection")
-nmap("<leader>fi", function() telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" }) end, "Open dotfile")
-nmap("<leader>fI", function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end, "Search in dotfiles")
+nmap("<leader>fH", function()
+  telescopeBuildin.help_tags({ default_text = vim.fn.expand("<cword>") })
+end, "Help current word")
+vmap("<leader>fh", function()
+  telescopeBuildin.help_tags({ default_text = GetVisualSelection() })
+end, "Help from selection")
+nmap("<leader>fi", function()
+  telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" })
+end, "Open dotfile")
+nmap("<leader>fI", function()
+  telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" })
+end, "Search in dotfiles")
 nmap("<leader>fj", telescope.extensions.harpoon.marks, "Harpoon")
 nmap("<leader>fk", telescopeBuildin.keymaps, "Keymaps")
-nmap("<leader>fl", telescope.extensions.buffer_lines.buffer_lines, "Buffer lines")
-nmap("<leader>fm",
-  function()
-    telescopeBuildin.lsp_dynamic_workspace_symbols({
-      path_display = { "smart" },
-      ignore_symbols = { "variable", "constant" }
-    })
-  end,
-  "Symbols project")
+nmap(
+  "<leader>fl",
+  telescope.extensions.buffer_lines.buffer_lines,
+  "Buffer lines"
+)
+nmap("<leader>fm", function()
+  telescopeBuildin.lsp_dynamic_workspace_symbols({
+    path_display = { "smart" },
+    ignore_symbols = { "variable", "constant" },
+  })
+end, "Symbols project")
 nmap("<leader>fo", document_symbols, "Functions in document")
-nmap(
-  "<leader>fp",
-  function()
-    telescope.extensions.repo.cached_list { file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" } }
-  end
-  , "Repositories")
+nmap("<leader>fp", function()
+  telescope.extensions.repo.cached_list({
+    file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" },
+  })
+end, "Repositories")
 nmap("<leader>fr", telescopeBuildin.lsp_references, "References")
-nmap("<leader>fs", function() telescopeBuildin.search_history() end, "Search history")
+nmap("<leader>fs", function()
+  telescopeBuildin.search_history()
+end, "Search history")
 nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
-nmap(
-  "<leader>fw",
-  function()
-    -- open file browser in folder of current file
-    telescope.extensions.file_browser.file_browser({ path = "%:p:h", cwd_to_path = true })
-  end
-  , "File browser")
+nmap("<leader>fw", function()
+  -- open file browser in folder of current file
+  telescope.extensions.file_browser.file_browser({
+    path = "%:p:h",
+    cwd_to_path = true,
+  })
+end, "File browser")
 nmap("<leader>fx", telescopeBuildin.builtin, "Telescope builtins")
 nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 
@@ -345,21 +370,22 @@ nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 
 -- build init neovim lsp
 
-
 nmap("gd", function()
-  local success = require "nuxt-goto-component".go()
+  local success = require("nuxt-goto-component").go()
   if not success then
     vim.lsp.buf.definition({ reuse_win = true })
   end
 end)
 nmap("gD", function()
   vim.lsp.buf.definition()
-  vim.cmd('vsplit')
+  vim.cmd("vsplit")
 end)
-nmap("gy", function() vim.lsp.buf.type_definition({ reuse_win = true }) end)
+nmap("gy", function()
+  vim.lsp.buf.type_definition({ reuse_win = true })
+end)
 nmap("gY", function()
   vim.lsp.buf.type_definition()
-  vim.cmd('vsplit')
+  vim.cmd("vsplit")
 end)
 nmap("gI", vim.lsp.buf.implementation)
 nmap("gR", vim.lsp.buf.references)
@@ -381,10 +407,26 @@ nmap("<localleader>d", vim.diagnostic.open_float)
 --
 -- typescript.nvim
 --
-nmap("<localleader>yo", require "typescript".actions.organizeImports, "Organize imports")
-nmap("<localleader>ya", require "typescript".actions.addMissingImports, "Add missing imports")
-nmap("<localleader>yu", require "typescript".actions.removeUnused, "Remove unused")
-nmap("<localleader>yr", "<cmd>TypescriptRenameFile<CR>", "Typescript rename file")
+nmap(
+  "<localleader>yo",
+  require("typescript").actions.organizeImports,
+  "Organize imports"
+)
+nmap(
+  "<localleader>ya",
+  require("typescript").actions.addMissingImports,
+  "Add missing imports"
+)
+nmap(
+  "<localleader>yu",
+  require("typescript").actions.removeUnused,
+  "Remove unused"
+)
+nmap(
+  "<localleader>yr",
+  "<cmd>TypescriptRenameFile<CR>",
+  "Typescript rename file"
+)
 
 --
 -- Trouble
@@ -397,7 +439,9 @@ nmap("coi", ":TSLspToggleInlayHints<CR>", "Toggle treesitter inlay hints")
 -- diagnostic hints
 nmap("cov", require("lsp_lines").toggle)
 
-nmap("cod", function() ToggleDiagnostics() end)
+nmap("cod", function()
+  ToggleDiagnostics()
+end)
 
 --
 -- vim-togglelist
@@ -409,7 +453,12 @@ nmap("coq", ":call ToggleQuickfixList()<CR>")
 -- nvim-autopairs
 --
 
-mymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
+mymap(
+  "i",
+  "<CR>",
+  "v:lua.MUtils.completion_confirm()",
+  { expr = true, noremap = true }
+)
 
 --
 -- gitsigns
@@ -419,50 +468,52 @@ local function gitsigns_keybindings(bufnr)
   local gs = package.loaded.gitsigns
 
   -- Navigation
-  mymap(
-    "n",
-    "]c",
-    function()
-      if vim.wo.diff then
-        return "]c"
-      end
-      vim.schedule(function() gs.next_hunk() end)
-      return "<Ignore>"
-    end,
-    { expr = true }
-  )
+  mymap("n", "]c", function()
+    if vim.wo.diff then
+      return "]c"
+    end
+    vim.schedule(function()
+      gs.next_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true })
 
-  mymap(
-    "n",
-    "[c",
-    function()
-      if vim.wo.diff then
-        return "[c"
-      end
-      vim.schedule(function() gs.prev_hunk() end)
-      return "<Ignore>"
-    end,
-    { expr = true }
-  )
+  mymap("n", "[c", function()
+    if vim.wo.diff then
+      return "[c"
+    end
+    vim.schedule(function()
+      gs.prev_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true })
 
   -- Actions
-  mymap({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", default_map_options)
-  mymap({ "n", "v" }, "<leader>hx", ":Gitsigns reset_hunk<CR>", default_map_options)
+  mymap(
+    { "n", "v" },
+    "<leader>hs",
+    ":Gitsigns stage_hunk<CR>",
+    default_map_options
+  )
+  mymap(
+    { "n", "v" },
+    "<leader>hx",
+    ":Gitsigns reset_hunk<CR>",
+    default_map_options
+  )
   mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options)
   mymap("n", "<leader>hp", gs.preview_hunk, default_map_options)
-  mymap("n", "<leader>hb", function() gs.blame_line { full = true } end)
+  mymap("n", "<leader>hb", function()
+    gs.blame_line({ full = true })
+  end)
 
   mymap("n", "<leader>hS", gs.stage_buffer, default_map_options)
   mymap("n", "<leader>hX", gs.reset_buffer, default_map_options)
   mymap("n", "<leader>hd", gs.diffthis, default_map_options)
-  mymap(
-    "n",
-    "<leader>hD",
-    function() gs.diffthis("~") end,
-    default_map_options
-  )
+  mymap("n", "<leader>hD", function()
+    gs.diffthis("~")
+  end, default_map_options)
   mymap("n", "<leader>he", gs.toggle_deleted, default_map_options)
-
 
   -- Text object
   mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options)
@@ -506,7 +557,7 @@ nmap("<leader>dr", "<cmd>DiffviewRefresh<CR>")
 --
 -- Zen mode
 --
-nmap("<leader>z", require "zen-mode".toggle)
+nmap("<leader>z", require("zen-mode").toggle)
 
 --
 -- nvim-spectre
@@ -538,14 +589,12 @@ vmap("<A-T>", ":TranslateR --target_lang=EN<CR>")
 -- start writing a commit message
 nmap("<leader>C", "<cmd>call feedkeys(':C<space>', 'n')<CR>")
 
-vim.cmd(
-  [[
+vim.cmd([[
   function! ExecuteMacroOverVisualRange()
     echo "@".getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
   endfunction
-]]
-)
+]])
 vmap("@", ":<C-u>call ExecuteMacroOverVisualRange()<CR>")
 
 -- Markdown filetype
@@ -570,17 +619,27 @@ end
 -- Debugger nvim-dap
 
 --  Inspecting the state via the built-in REPL: :lua require'dap'.repl.open() or using the widget UI (:help dap-widgets)
-nmap("<F4>", function() require 'dap'.repl.open() end)
+nmap("<F4>", function()
+  require("dap").repl.open()
+end)
 --  Stepping through code via :lua require'dap'.step_over() and :lua require'dap'.step_into().
-nmap("<F5>", function() require 'dap'.step_over() end)
-nmap("<F6>", function() require 'dap'.step_into() end)
+nmap("<F5>", function()
+  require("dap").step_over()
+end)
+nmap("<F6>", function()
+  require("dap").step_into()
+end)
 --  Launching debug sessions and resuming execution via :lua require'dap'.continue().
-nmap("<F7>", function() require 'dap'.continue() end)
+nmap("<F7>", function()
+  require("dap").continue()
+end)
 --  Setting breakpoints via :lua require'dap'.toggle_breakpoint().
-nmap("<F8>", function() require 'dap'.toggle_breakpoint() end)
+nmap("<F8>", function()
+  require("dap").toggle_breakpoint()
+end)
 
 -- export functions that needs to be called from init.lua
 return {
   gitsigns_keybindings = gitsigns_keybindings,
-  markdown_keybindings = markdown_keybindings
+  markdown_keybindings = markdown_keybindings,
 }
