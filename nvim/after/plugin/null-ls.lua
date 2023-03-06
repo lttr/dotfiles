@@ -1,7 +1,7 @@
 -- https://github.com/jose-elias-alvarez/null-ls.nvim
 
-local utils = require "my.utils"
-local null_ls = require "null-ls"
+local utils = require("my.utils")
+local null_ls = require("null-ls")
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -10,7 +10,8 @@ local function is_a_deno_project()
 end
 
 local function not_a_deno_project_and_has_eslint()
-  return not is_a_deno_project() and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
+  return not is_a_deno_project()
+    and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
 end
 
 local function has_stylelint()
@@ -18,10 +19,11 @@ local function has_stylelint()
 end
 
 local function should_run_prettier()
-  return not is_a_deno_project() and not utils.has_root_file({ ".stop-prettier" })
+  return not is_a_deno_project()
+    and not utils.has_root_file({ ".stop-prettier" })
 end
 
-null_ls.setup {
+null_ls.setup({
   sources = {
     --
     -- Code actions
@@ -30,15 +32,15 @@ null_ls.setup {
     --
     -- Formatting
     --
-    null_ls.builtins.formatting.prettierd.with({ runtime_condition = should_run_prettier }),
+    null_ls.builtins.formatting.prettierd.with({
+      runtime_condition = should_run_prettier,
+    }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
     -- null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
-    null_ls.builtins.formatting.stylelint.with(
-      {
-        runtime_condition = has_stylelint,
-        filetypes = { "scss", "less", "css", "sass", "vue" }
-      }
-    ),
+    null_ls.builtins.formatting.stylelint.with({
+      runtime_condition = has_stylelint,
+      filetypes = { "scss", "less", "css", "sass", "vue" },
+    }),
     null_ls.builtins.formatting.stylua,
     --
     -- Linting / diagnostics
@@ -53,32 +55,25 @@ null_ls.setup {
     --     end
     --   }
     -- ),
-    null_ls.builtins.diagnostics.stylelint.with(
-      {
-        runtime_condition = has_stylelint,
-        filetypes = { "scss", "less", "css", "sass", "vue" }
-      }
-    )
+    null_ls.builtins.diagnostics.stylelint.with({
+      runtime_condition = has_stylelint,
+      filetypes = { "scss", "less", "css", "sass", "vue" },
+    }),
   },
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
       vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd(
-        "BufWritePre",
-        {
-          group = augroup,
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 5000 })
-          end
-        }
-      )
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 5000 })
+        end,
+      })
     end
-    vim.diagnostic.config(
-      {
-        virtual_text = false
-      }
-    )
-  end
-}
+    vim.diagnostic.config({
+      virtual_text = false,
+    })
+  end,
+})

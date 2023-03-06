@@ -14,28 +14,28 @@ vim.cmd(
 )
 
 -- Highlight on yank
-vim.cmd [[
+vim.cmd([[
   augroup yank_highlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
-]]
+]])
 
 -- Force removal of anoying format option (see :help fo-table)
-vim.cmd [[
+vim.cmd([[
   augroup force_format_options
       autocmd!
       autocmd BufEnter * setlocal formatoptions-=o
   augroup end
-]]
+]])
 
 -- Filetypes
-vim.cmd [[
+vim.cmd([[
   augroup filetypes
       autocmd!
       autocmd BufNewFile,BufRead *.ejs.t :set filetype=ejs
   augroup end
-]]
+]])
 
 -- from https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/utils.lua
 local root_has_file_matches = function(pattern)
@@ -52,22 +52,21 @@ end
 
 -- Deno make group
 local denoMakeGroup = vim.api.nvim_create_augroup("DenoMake", { clear = true })
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  {
-    callback = function()
-      if (root_has_file_matches("deno.json") or root_has_file_matches("deno.jsonc")) then
-        vim.bo.makeprg = [[deno lint --quiet --compact]]
-        vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
-      end
-    end,
-    group = denoMakeGroup
-  }
-)
+vim.api.nvim_create_autocmd("BufRead", {
+  callback = function()
+    if
+      root_has_file_matches("deno.json") or root_has_file_matches("deno.jsonc")
+    then
+      vim.bo.makeprg = [[deno lint --quiet --compact]]
+      vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
+    end
+  end,
+  group = denoMakeGroup,
+})
 
 -- Autosave
-vim.cmd [[
+vim.cmd([[
   augroup autosave
-    autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
+    autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent write | endif
   augroup end
-]]
+]])

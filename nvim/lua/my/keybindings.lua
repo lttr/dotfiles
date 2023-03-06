@@ -42,10 +42,10 @@ nmap(
 
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
-nmap("<C-s>", ":update<CR>")
-nmap("<leader>W", "<cmd>noautocmd update<CR>", "Save without actions after safe")
-vmap("<C-s>", "<C-C>:update<CR>")
-imap("<C-s>", "<Esc>:update<CR>")
+nmap("<C-s>", ":write<CR>")
+nmap("<leader>W", "<cmd>noautocmd write<CR>", "Save without actions after safe")
+vmap("<C-s>", "<C-C>:write<CR>")
+imap("<C-s>", "<Esc>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
