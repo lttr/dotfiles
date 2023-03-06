@@ -16,7 +16,7 @@ local packer_bootstrap = ensure_packer()
 require "packer".startup(
   function(use)
     -- local
-    use "~/dotfiles/nvim/plugin/nuxt-goto-component/"
+    use "~/dotfiles/nvim/plugin/nuxt-navigation/"
     use "~/dotfiles/nvim/plugin/cmp-nuxt-component/"
 
     -- packer

@@ -1,3 +1,5 @@
+local scan = require("plenary.scandir")
+
 local utils = require("my.utils")
 local file_exists = utils.file_exists
 local path_join = utils.path_join
@@ -63,7 +65,16 @@ local function handle_composable(word)
   local composables_folder = path_join(cwd, "composables")
   if vim.fn.isdirectory(composables_folder) then
     local file_name = word .. ".ts"
-    local composable_file_path = path_join(composables_folder, file_name)
+
+    local scan_opts = { depth = 10, search_pattern = ".*%.ts" }
+    local result = scan.scan_dir(composables_folder, scan_opts)
+    local composable_file_path = nil
+    for index, value in ipairs(result) do
+      if string.match(value, file_name .. "$") then
+        composable_file_path = value
+      end
+    end
+
     if composable_file_path then
       vim.cmd("edit " .. composable_file_path)
       return true
@@ -75,6 +86,9 @@ local function handle_composable(word)
 end
 
 local function go()
+  if not (vim.fn.expand("%:e") == "vue") then
+    return false
+  end
   if not has_root_file({ "nuxt.config.ts", "nuxt.config.js" }) then
     return false
   end

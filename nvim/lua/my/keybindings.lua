@@ -371,7 +371,7 @@ nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 -- build init neovim lsp
 
 nmap("gd", function()
-  local success = require("nuxt-goto-component").go()
+  local success = require("nuxt-navigation").go()
   if not success then
     vim.lsp.buf.definition({ reuse_win = true })
   end
