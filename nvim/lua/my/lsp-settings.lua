@@ -7,7 +7,7 @@
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup()
 
-local utils = require "my.utils"
+local utils = require("my.utils")
 
 local servers = {
   "angularls",
@@ -27,23 +27,21 @@ local servers = {
   "terraformls",
   "vuels",
   "volar",
-  "yamlls"
+  "yamlls",
   -- tsserver is managed by nvim-lsp-ts-utils
 }
 
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
-mason_lspconfig.setup(
-  {
-    ensure_installed = { "tsserver", unpack(servers) }
-  }
-)
+mason_lspconfig.setup({
+  ensure_installed = { "tsserver", unpack(servers) },
+})
 local lsp_config = require("lspconfig")
 
 local border_options = {
   border = "rounded",
   winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
-  side_padding = 1
+  side_padding = 1,
 }
 
 local common_handlers = {
@@ -51,12 +49,18 @@ local common_handlers = {
     vim.lsp.diagnostic.on_publish_diagnostics,
     {
       -- let plugin lsp_lines handle virtual diagnostic text
-      virtual_text = false
+      virtual_text = false,
     }
   ),
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, border_options),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, border_options),
-  ["textDocument/codeAction"] = vim.lsp.with(vim.lsp.handlers.code_action, border_options)
+  ["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    border_options
+  ),
+  ["textDocument/codeAction"] = vim.lsp.with(
+    vim.lsp.handlers.code_action,
+    border_options
+  ),
 }
 
 local common_on_attach = function(client)
@@ -78,12 +82,16 @@ local common_on_attach = function(client)
 end
 
 local denols = {
-  root_dir = lsp_config.util.root_pattern({ "deno.json", "deno.jsonc", "deps.ts" }),
+  root_dir = lsp_config.util.root_pattern({
+    "deno.json",
+    "deno.jsonc",
+    "deps.ts",
+  }),
   init_options = {
     enable = true,
     lint = true,
-    unstable = true
-  }
+    unstable = true,
+  },
 }
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
@@ -98,11 +106,11 @@ local eslint = {
   codeAction = {
     disableRuleComment = {
       enable = true,
-      location = "separateLine"
+      location = "separateLine",
     },
     showDocumentation = {
-      enable = true
-    }
+      enable = true,
+    },
   },
 }
 
@@ -111,26 +119,38 @@ local vuels = {
     vetur = {
       completion = {
         tagCasing = "initial",
-        autoImport = true
-      }
-    }
-  }
+        autoImport = true,
+      },
+    },
+  },
+}
+
+local volar = {
+  filetypes = {
+    "typescript",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+    "json",
+  },
 }
 
 local jsonls = {
   settings = {
     json = {
-      schemas = require "schemastore".json.schemas(),
-      validate = { enable = true }
-    }
-  }
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
 
 local custom_configs = {
   denols = denols,
   eslint = eslint,
   vuels = vuels,
-  jsonls = jsonls
+  volar = volar,
+  jsonls = jsonls,
 }
 
 local function make_config(server_name)
@@ -143,17 +163,12 @@ local function make_config(server_name)
     custom_config = custom_configs[server_name]
   end
 
-  local merged_config =
-      vim.tbl_deep_extend(
-        "force",
-        {
-          capabilities = capabilities,
-          -- map buffer local keybindings when the language server attaches
-          on_attach = common_on_attach,
-          handlers = common_handlers
-        },
-        custom_config
-      )
+  local merged_config = vim.tbl_deep_extend("force", {
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = common_on_attach,
+    handlers = common_handlers,
+  }, custom_config)
   return merged_config
 end
 
@@ -170,13 +185,18 @@ local function is_a_nuxt_project()
 end
 
 local function setup_server(server)
-  if (server == "tsserver" and is_a_deno_project()) then
+  -- tsserver is managed by nvim-lsp-ts-utils
+  -- if server == "tsserver" and (is_a_deno_project() or is_a_nuxt_project()) then
+  --   return
+  -- end
+  if
+    server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
+  then
     return
   end
-  if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
-    return
-  end
-  if server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project()) then
+  if
+    server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
+  then
     return
   end
   if server == "vuels" and (is_a_vite_project() or is_a_nuxt_project()) then
@@ -192,26 +212,25 @@ for _, name in pairs(servers) do
 end
 
 -- https://github.com/jose-elias-alvarez/typescript.nvim
-if not is_a_deno_project() then
-  require("typescript").setup(
-    {
-      disable_commands = false, -- prevent the plugin from creating Vim commands
-      debug = false, -- enable debug logging for commands
-      go_to_source_definition = {
-        fallback = true -- fall back to standard LSP definition on failure
-      },
-      server = {
-        handlers = common_handlers,
-        on_attach = common_on_attach
-      }
-    }
-  )
+-- tsserver is managed by nvim-lsp-ts-utils
+if not is_a_deno_project() and not is_a_nuxt_project() then
+  require("typescript").setup({
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false, -- enable debug logging for commands
+    go_to_source_definition = {
+      fallback = true, -- fall back to standard LSP definition on failure
+    },
+    server = {
+      handlers = common_handlers,
+      on_attach = common_on_attach,
+    },
+  })
 end
 
 -- https://github.com/ray-x/lsp_signature.nvim
-require "lsp_signature".setup {
+require("lsp_signature").setup({
   hint_enable = true,
   hint_scheme = "Hint",
   hint_prefix = "» ",
-  floating_window = false
-}
+  floating_window = false,
+})
