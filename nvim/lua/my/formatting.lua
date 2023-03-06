@@ -52,7 +52,7 @@ require("formatter").setup(
       scss = { prettier },
       json = { prettier },
       vue = { prettier },
-      lua = { luafmt },
+      -- lua = { luafmt },
       xml = { xmllint }
     }
   }

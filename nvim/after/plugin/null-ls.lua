@@ -39,7 +39,7 @@ null_ls.setup {
         filetypes = { "scss", "less", "css", "sass", "vue" }
       }
     ),
-    null_ls.builtins.formatting.lua_format,
+    null_ls.builtins.formatting.stylua,
     --
     -- Linting / diagnostics
     --
