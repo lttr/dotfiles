@@ -60,16 +60,7 @@ local function handle_component(word)
   return false
 end
 
-local function has_import(word)
-  local whole_file = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-  local import_regex = "^import.*" .. word
-  return string.match(table.concat(whole_file), import_regex)
-end
-
 local function handle_composable(word)
-  -- if has_import(word) then
-  --   return false
-  -- end
   local cwd = vim.fn.getcwd()
   local composables_folder_name = "composables"
   if string.match(word, "Store") then

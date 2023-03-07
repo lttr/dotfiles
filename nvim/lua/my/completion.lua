@@ -12,10 +12,10 @@ local has_words_before = function()
     local line = positionTable[1]
     local col = positionTable[2]
     return col ~= 0
-        and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
+      and vim.api
+          .nvim_buf_get_lines(0, line - 1, line, true)[1]
+          :sub(col, col)
+          :match("%s")
         == nil
   else
     return false
@@ -52,7 +52,7 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs( -4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping(function()
       cmp.complete()
@@ -76,8 +76,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable( -1) then
-        luasnip.jump( -1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
@@ -85,13 +85,14 @@ cmp.setup({
   },
   sources = {
     { name = "css_variables" },
+    { name = "scss_variables" },
     { name = "nuxt_component" },
     { name = "path" },
     { name = "cmp_jira" },
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "nvim_lsp",               max_item_count = 10 },
+    { name = "nvim_lsp", max_item_count = 10 },
     { name = "luasnip" },
     -- {name = "buffer", keyword_length = 5} -- too much noise
   },
@@ -100,6 +101,7 @@ cmp.setup({
       with_text = true,
       menu = {
         css_variables = "[css-var]",
+        scss_variables = "[scss-var]",
         nuxt_component = "[nuxt]",
         path = "[path]",
         nvim_lsp = "[LSP]",
@@ -114,6 +116,12 @@ cmp.setup({
 require("cmp-css-variables").setup({
   files = {
     "./node_modules/open-props/open-props.min.css",
+  },
+})
+
+require("cmp-scss-variables").setup({
+  files = {
+    "./assets/styles/abstracts/_variables.scss",
   },
 })
 

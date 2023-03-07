@@ -11,7 +11,7 @@ local get_selection = function()
   local end_col = cursor_position[3]
 
   -- start should be less then end
-  if (start_row > end_row or (start_row == end_row and start_col > end_col)) then
+  if start_row > end_row or (start_row == end_row and start_col > end_col) then
     start_row, end_row = end_row, start_row
     start_col, end_col = end_col, start_col
   end
@@ -26,30 +26,43 @@ M.evaluate_js = function()
   -- array of lines
   local text = {}
 
-  if (start_col == end_col) then
-    text = vim.api.nvim_buf_get_lines(current_buffer, start_row - 1, end_row, true)
+  if start_col == end_col then
+    text =
+      vim.api.nvim_buf_get_lines(current_buffer, start_row - 1, end_row, true)
   else
-    text = vim.api.nvim_buf_get_text(current_buffer, start_row - 1, start_col - 1, end_row - 1, end_col, {})
+    text = vim.api.nvim_buf_get_text(
+      current_buffer,
+      start_row - 1,
+      start_col - 1,
+      end_row - 1,
+      end_col,
+      {}
+    )
   end
 
   local replacement = ""
 
-  local Job = require "plenary.job"
-  Job:new(
-    {
-      command = "deno",
-      args = {"eval", "-p", "--", table.concat(text, ";")},
-      on_stdout = function(_, return_val)
-        -- remove escape sequence
-        replacement = return_val:gsub("[^%g]", ""):gsub("%[%d%d?%a", "")
-      end,
-      on_stderr = function(_, return_val)
-        print(return_val:gsub("[^%g]", ""):gsub("%[%d%d?%a", ""))
-      end
-    }
-  ):sync()
+  local Job = require("plenary.job")
+  Job:new({
+    command = "deno",
+    args = { "eval", "-p", "--", table.concat(text, ";") },
+    on_stdout = function(_, return_val)
+      -- remove escape sequence
+      replacement = return_val:gsub("[^%g]", ""):gsub("%[%d%d?%a", "")
+    end,
+    on_stderr = function(_, return_val)
+      print(return_val:gsub("[^%g]", ""):gsub("%[%d%d?%a", ""))
+    end,
+  }):sync()
 
-  vim.api.nvim_buf_set_text(current_buffer, start_row - 1, start_col - 1, end_row - 1, end_col, {replacement})
+  vim.api.nvim_buf_set_text(
+    current_buffer,
+    start_row - 1,
+    start_col - 1,
+    end_row - 1,
+    end_col,
+    { replacement }
+  )
 end
 
 -- Look for files that match (exactly) one of the given file names
@@ -102,10 +115,31 @@ M.file_exists = function(name)
   end
 end
 
+M.read_file = function(path)
+  local file = io.open(path, "rb")
+  if not file then
+    return nil
+  end
+  local content = file:read("*a")
+  file:close()
+  return content
+end
+
 M.path_join = function(...)
   local path_separator = "/"
-  local result = table.concat(vim.tbl_flatten({...}), path_separator):gsub(path_separator .. "+", path_separator)
+  local result = table
+    .concat(vim.tbl_flatten({ ... }), path_separator)
+    :gsub(path_separator .. "+", path_separator)
   return result
+end
+
+M.string_startswith = function(string, start)
+  return string:sub(1, #start) == start
+end
+
+M.current_sequence_starts_with = function(start)
+  local word = vim.fn.expand("<cWORD>")
+  return M.string_startswith(word, start)
 end
 
 return M

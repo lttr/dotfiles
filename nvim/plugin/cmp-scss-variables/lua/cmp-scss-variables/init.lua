@@ -17,15 +17,15 @@ end
 
 function source:is_available()
   local ext = vim.fn.expand("%:e")
-  return ext == "css" or ext == "vue"
+  return ext == "scss" or ext == "vue"
 end
 
 function source:get_debug_name()
-  return "css_variables"
+  return "scss_variables"
 end
 
 function source:complete(params, callback)
-  if current_sequence_starts_with("--") then
+  if current_sequence_starts_with("$") then
     callback()
     return
   end
@@ -38,7 +38,7 @@ function source:complete(params, callback)
   for i, css_file_path in ipairs(css_files) do
     if file_exists(css_file_path) then
       local content = read_file(css_file_path) or ""
-      local regexp = "(%-%-[^:]+):([^;]+);"
+      local regexp = "(%$[^:]+):% ([^;]+);"
       for property, value in string.gmatch(content, regexp) do
         local cmp_item = {
           label = property,
@@ -59,7 +59,7 @@ function source:execute(completion_item, callback)
   callback(completion_item)
 end
 
-require("cmp").register_source("css_variables", source.new())
+require("cmp").register_source("scss_variables", source.new())
 
 return {
   setup = function(_opts)
