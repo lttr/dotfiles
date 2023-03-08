@@ -25,7 +25,7 @@ function source:get_debug_name()
 end
 
 function source:complete(params, callback)
-  if current_sequence_starts_with("$") then
+  if not current_sequence_starts_with("$") then
     callback()
     return
   end

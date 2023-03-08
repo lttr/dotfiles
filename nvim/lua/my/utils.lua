@@ -133,13 +133,22 @@ M.path_join = function(...)
   return result
 end
 
-M.string_startswith = function(string, start)
-  return string:sub(1, #start) == start
+M.string_startswith = function(input, start)
+  return input:sub(1, #start) == start
+end
+
+M.string_contains = function(input, sub)
+  return input:find(sub, 1, true) ~= nil
 end
 
 M.current_sequence_starts_with = function(start)
   local word = vim.fn.expand("<cWORD>")
   return M.string_startswith(word, start)
+end
+
+M.current_sequence_contains = function(start)
+  local word = vim.fn.expand("<cWORD>")
+  return M.string_contains(word, start)
 end
 
 return M

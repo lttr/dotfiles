@@ -10,6 +10,8 @@ local function matchstr(...)
   return ok and ret or ""
 end
 
+-- I am not sure what is differnt about this
+-- from vim.fn.expand('<cword>')
 local function get_cursorword()
   local column = vim.api.nvim_win_get_cursor(0)[2]
   local line = vim.api.nvim_get_current_line()

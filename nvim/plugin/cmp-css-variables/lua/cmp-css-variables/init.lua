@@ -1,7 +1,7 @@
 local utils = require("my.utils")
 local path_join = utils.path_join
 local file_exists = utils.file_exists
-local current_sequence_starts_with = utils.current_sequence_starts_with
+local current_sequence_contains = utils.current_sequence_contains
 local read_file = utils.read_file
 
 local source = {}
@@ -25,7 +25,7 @@ function source:get_debug_name()
 end
 
 function source:complete(params, callback)
-  if current_sequence_starts_with("--") then
+  if not current_sequence_contains("--") then
     callback()
     return
   end

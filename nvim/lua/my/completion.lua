@@ -122,6 +122,7 @@ require("cmp-css-variables").setup({
 require("cmp-scss-variables").setup({
   files = {
     "./assets/styles/abstracts/_variables.scss",
+    "./assets/styles/variables.scss",
   },
 })
 
