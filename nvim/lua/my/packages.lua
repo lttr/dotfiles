@@ -142,9 +142,7 @@ require("packer").startup(function(use)
   use("Glench/Vim-Jinja2-Syntax")
   use({
     "iamcco/markdown-preview.nvim",
-    run = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    run = function() vim.fn["mkdp#util#install"]() end,
   })
 
   -- help

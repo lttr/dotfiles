@@ -16,21 +16,13 @@ local function mymap(mode, lhs, rhs, opts, bufnr)
   vim.keymap.set(mode, lhs, rhs, merged_opts)
 end
 
-local function nmap(left, right, desc)
-  mymap("n", left, right, { desc = desc })
-end
+local function nmap(left, right, desc) mymap("n", left, right, { desc = desc }) end
 
-local function imap(left, right, desc)
-  mymap("i", left, right, { desc = desc })
-end
+local function imap(left, right, desc) mymap("i", left, right, { desc = desc }) end
 
-local function vmap(left, right, desc)
-  mymap("v", left, right, { desc = desc })
-end
+local function vmap(left, right, desc) mymap("v", left, right, { desc = desc }) end
 
-local function tmap(left, right, desc)
-  mymap("t", left, right, { desc = desc })
-end
+local function tmap(left, right, desc) mymap("t", left, right, { desc = desc }) end
 
 -- Identify the syntax highlighting group used at the cursor
 -- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
@@ -156,17 +148,13 @@ nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 -- nmap("<C-b>", ":normal gd<CR>")
 
 -- Harpoon
-nmap("<leader>1", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>")
-nmap(
-  "+",
-  "<cmd>lua require('harpoon.mark').add_file()<CR><cmd>lua require('notify').notify('harpooned')<CR>"
-)
-nmap("-", "<cmd>lua require('harpoon.mark').rm_file()<CR>")
+nmap("<localleader>=", function() require("harpoon.mark").add_file() end)
+nmap("<localleader>-", function() require("harpoon.mark").rm_file() end)
 
-nmap("<C-1>", "<cmd>lua require('harpoon.ui').nav_file(1)<CR>")
-nmap("<C-2>", "<cmd>lua require('harpoon.ui').nav_file(2)<CR>")
-nmap("<C-3>", "<cmd>lua require('harpoon.ui').nav_file(3)<CR>")
-nmap("<C-4>", "<cmd>lua require('harpoon.ui').nav_file(4)<CR>")
+nmap("<localleader>u", function() require("harpoon.ui").nav_file(1) end)
+nmap("<localleader>i", function() require("harpoon.ui").nav_file(2) end)
+nmap("<localleader>o", function() require("harpoon.ui").nav_file(3) end)
+nmap("<localleader>p", function() require("harpoon.ui").toggle_quick_menu() end)
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
@@ -179,12 +167,11 @@ nmap(
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")key
-nmap("<localleader>t", function()
-  require("neotest").run.run(vim.fn.expand("%"))
-end)
-nmap("<localleader>T", function()
-  require("neotest").summary.toggle()
-end)
+nmap(
+  "<localleader>t",
+  function() require("neotest").run.run(vim.fn.expand("%")) end
+)
+nmap("<localleader>T", function() require("neotest").summary.toggle() end)
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
@@ -284,75 +271,106 @@ local live_grep = function()
   return telescope.extensions.live_grep_args.live_grep_args()
 end
 
-local recent_files = function()
-  return telescope.extensions.recent_files.pick()
-end
+local recent_files = function() return telescope.extensions.recent_files.pick() end
 
 nmap("<C-p>", find_files)
-imap("<C-t>", function()
-  telescopeBuildin.find_files({
-    mappings = {
-      i = {
-        ["<CR>"] = require("telescope.actions").my_select_action,
+imap(
+  "<C-t>",
+  function()
+    telescopeBuildin.find_files({
+      mappings = {
+        i = {
+          ["<CR>"] = require("telescope.actions").my_select_action,
+        },
       },
-    },
-  })
-end)
+    })
+  end
+)
 
 nmap("<leader>fa", telescopeBuildin.commands, "Commands")
 nmap("<leader>fb", telescopeBuildin.buffers, "Buffers")
 nmap("<leader>fc", telescopeBuildin.command_history, "Command history")
-nmap("<leader>fd", function()
-  telescopeBuildin.lsp_document_diagnostics()
-end, "Diagnostics buffer")
-nmap("<leader>fD", function()
-  telescopeBuildin.lsp_workspace_diagnostics()
-end, "Diagnostics project")
+nmap(
+  "<leader>fd",
+  function() telescopeBuildin.lsp_document_diagnostics() end,
+  "Diagnostics buffer"
+)
+nmap(
+  "<leader>fD",
+  function() telescopeBuildin.lsp_workspace_diagnostics() end,
+  "Diagnostics project"
+)
 nmap("<leader>fe", recent_files, "Recent files")
 nmap("<leader>ff", telescopeBuildin.grep_string, "Find string under cursor")
 nmap("<leader>fg", live_grep, "Live search ripgrep")
-vmap("<leader>fg", function()
-  telescopeBuildin.live_grep({ default_text = GetVisualSelection() })
-end, "Search form selection")
-nmap("<leader>fG", function()
-  telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
-end, "Search under cursor")
+vmap(
+  "<leader>fg",
+  function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end,
+  "Search form selection"
+)
+nmap(
+  "<leader>fG",
+  function()
+    telescopeBuildin.live_grep({ default_text = vim.fn.expand("<cword>") })
+  end,
+  "Search under cursor"
+)
 nmap("<leader>fh", telescopeBuildin.help_tags, "Help")
-nmap("<leader>fH", function()
-  telescopeBuildin.help_tags({ default_text = vim.fn.expand("<cword>") })
-end, "Help current word")
-vmap("<leader>fh", function()
-  telescopeBuildin.help_tags({ default_text = GetVisualSelection() })
-end, "Help from selection")
-nmap("<leader>fi", function()
-  telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" })
-end, "Open dotfile")
-nmap("<leader>fI", function()
-  telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" })
-end, "Search in dotfiles")
-nmap("<leader>fj", telescope.extensions.harpoon.marks, "Harpoon")
+nmap(
+  "<leader>fH",
+  function()
+    telescopeBuildin.help_tags({ default_text = vim.fn.expand("<cword>") })
+  end,
+  "Help current word"
+)
+vmap(
+  "<leader>fh",
+  function() telescopeBuildin.help_tags({ default_text = GetVisualSelection() }) end,
+  "Help from selection"
+)
+nmap(
+  "<leader>fi",
+  function() telescopeBuildin.find_files({ cwd = "$HOME/dotfiles" }) end,
+  "Open dotfile"
+)
+nmap(
+  "<leader>fI",
+  function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end,
+  "Search in dotfiles"
+)
+nmap("<leader>fj", ":echo 'Available shortcut'<CR>", "")
 nmap("<leader>fk", telescopeBuildin.keymaps, "Keymaps")
 nmap(
   "<leader>fl",
   telescope.extensions.buffer_lines.buffer_lines,
   "Buffer lines"
 )
-nmap("<leader>fm", function()
-  telescopeBuildin.lsp_dynamic_workspace_symbols({
-    path_display = { "smart" },
-    ignore_symbols = { "variable", "constant" },
-  })
-end, "Symbols project")
+nmap(
+  "<leader>fm",
+  function()
+    telescopeBuildin.lsp_dynamic_workspace_symbols({
+      path_display = { "smart" },
+      ignore_symbols = { "variable", "constant" },
+    })
+  end,
+  "Symbols project"
+)
 nmap("<leader>fo", document_symbols, "Functions in document")
-nmap("<leader>fp", function()
-  telescope.extensions.repo.cached_list({
-    file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" },
-  })
-end, "Repositories")
+nmap(
+  "<leader>fp",
+  function()
+    telescope.extensions.repo.cached_list({
+      file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" },
+    })
+  end,
+  "Repositories"
+)
 nmap("<leader>fr", telescopeBuildin.lsp_references, "References")
-nmap("<leader>fs", function()
-  telescopeBuildin.search_history()
-end, "Search history")
+nmap(
+  "<leader>fs",
+  function() telescopeBuildin.search_history() end,
+  "Search history"
+)
 nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
 nmap("<leader>fw", function()
   -- open file browser in folder of current file
@@ -380,9 +398,7 @@ nmap("gD", function()
   vim.lsp.buf.definition()
   vim.cmd("vsplit")
 end)
-nmap("gy", function()
-  vim.lsp.buf.type_definition({ reuse_win = true })
-end)
+nmap("gy", function() vim.lsp.buf.type_definition({ reuse_win = true }) end)
 nmap("gY", function()
   vim.lsp.buf.type_definition()
   vim.cmd("vsplit")
@@ -439,9 +455,7 @@ nmap("coi", ":TSLspToggleInlayHints<CR>", "Toggle treesitter inlay hints")
 -- diagnostic hints
 nmap("cov", require("lsp_lines").toggle)
 
-nmap("cod", function()
-  ToggleDiagnostics()
-end)
+nmap("cod", function() ToggleDiagnostics() end)
 
 --
 -- vim-togglelist
@@ -472,9 +486,7 @@ local function gitsigns_keybindings(bufnr)
     if vim.wo.diff then
       return "]c"
     end
-    vim.schedule(function()
-      gs.next_hunk()
-    end)
+    vim.schedule(function() gs.next_hunk() end)
     return "<Ignore>"
   end, { expr = true })
 
@@ -482,9 +494,7 @@ local function gitsigns_keybindings(bufnr)
     if vim.wo.diff then
       return "[c"
     end
-    vim.schedule(function()
-      gs.prev_hunk()
-    end)
+    vim.schedule(function() gs.prev_hunk() end)
     return "<Ignore>"
   end, { expr = true })
 
@@ -503,16 +513,12 @@ local function gitsigns_keybindings(bufnr)
   )
   mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options)
   mymap("n", "<leader>hp", gs.preview_hunk, default_map_options)
-  mymap("n", "<leader>hb", function()
-    gs.blame_line({ full = true })
-  end)
+  mymap("n", "<leader>hb", function() gs.blame_line({ full = true }) end)
 
   mymap("n", "<leader>hS", gs.stage_buffer, default_map_options)
   mymap("n", "<leader>hX", gs.reset_buffer, default_map_options)
   mymap("n", "<leader>hd", gs.diffthis, default_map_options)
-  mymap("n", "<leader>hD", function()
-    gs.diffthis("~")
-  end, default_map_options)
+  mymap("n", "<leader>hD", function() gs.diffthis("~") end, default_map_options)
   mymap("n", "<leader>he", gs.toggle_deleted, default_map_options)
 
   -- Text object
@@ -619,24 +625,14 @@ end
 -- Debugger nvim-dap
 
 --  Inspecting the state via the built-in REPL: :lua require'dap'.repl.open() or using the widget UI (:help dap-widgets)
-nmap("<F4>", function()
-  require("dap").repl.open()
-end)
+nmap("<F4>", function() require("dap").repl.open() end)
 --  Stepping through code via :lua require'dap'.step_over() and :lua require'dap'.step_into().
-nmap("<F5>", function()
-  require("dap").step_over()
-end)
-nmap("<F6>", function()
-  require("dap").step_into()
-end)
+nmap("<F5>", function() require("dap").step_over() end)
+nmap("<F6>", function() require("dap").step_into() end)
 --  Launching debug sessions and resuming execution via :lua require'dap'.continue().
-nmap("<F7>", function()
-  require("dap").continue()
-end)
+nmap("<F7>", function() require("dap").continue() end)
 --  Setting breakpoints via :lua require'dap'.toggle_breakpoint().
-nmap("<F8>", function()
-  require("dap").toggle_breakpoint()
-end)
+nmap("<F8>", function() require("dap").toggle_breakpoint() end)
 
 -- export functions that needs to be called from init.lua
 return {

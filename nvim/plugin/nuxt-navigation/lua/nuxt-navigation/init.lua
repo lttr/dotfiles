@@ -22,20 +22,27 @@ local function get_cursorword()
 end
 
 local function find_component(path, name_parts, count)
-  local component_file_name = table.concat(name_parts, "") .. ".vue"
-  local component_file_path = path_join(path, component_file_name)
-  if file_exists(component_file_path) then
-    return component_file_path
-  else
-    local next_path = path_join(path, name_parts[1])
-    if vim.fn.isdirectory(next_path) then
-      table.remove(name_parts, 1)
-      if count <= 1 then
-        -- Component was not found and the table with name parts is empty
-        return false
-      end
-      return find_component(next_path, name_parts, count - 1)
+  local component_name = table.concat(name_parts, "")
+  local component_variants = {
+    component_name .. ".vue",
+    component_name .. ".client.vue",
+    component_name .. ".server.vue",
+    component_name .. "/" .. component_name .. ".vue",
+  }
+  for i, component_name_variant in ipairs(component_variants) do
+    local component_file_path = path_join(path, component_name_variant)
+    if file_exists(component_file_path) then
+      return component_file_path
     end
+  end
+  local next_path = path_join(path, name_parts[1])
+  if vim.fn.isdirectory(next_path) then
+    table.remove(name_parts, 1)
+    if count <= 1 then
+      -- Component was not found and the table with name parts is empty
+      return false
+    end
+    return find_component(next_path, name_parts, count - 1)
   end
   return nil
 end
