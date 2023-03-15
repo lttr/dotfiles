@@ -4,9 +4,10 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require "oil".setup({
+require("oil").setup({
   keymaps = {
     ["<C-v>"] = "actions.select_vsplit",
     ["<C-s>"] = "actions.select_split",
-  }
+    ["<M-p>"] = "actions.preview",
+  },
 })

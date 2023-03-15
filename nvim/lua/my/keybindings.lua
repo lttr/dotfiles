@@ -356,21 +356,9 @@ nmap(
   "Symbols project"
 )
 nmap("<leader>fo", document_symbols, "Functions in document")
-nmap(
-  "<leader>fp",
-  function()
-    telescope.extensions.repo.cached_list({
-      file_ignore_patterns = { "/%.cache/", "/%.cargo/", "/%.local/" },
-    })
-  end,
-  "Repositories"
-)
+nmap("<leader>fp", telescope.extensions.repo.list, "Repositories")
 nmap("<leader>fr", telescopeBuildin.lsp_references, "References")
-nmap(
-  "<leader>fs",
-  function() telescopeBuildin.search_history() end,
-  "Search history"
-)
+nmap("<leader>fs", telescopeBuildin.search_history, "Search history")
 nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
 nmap("<leader>fw", function()
   -- open file browser in folder of current file
@@ -546,6 +534,9 @@ nmap("<leader>gr", "<cmd>Git restore --staged .<CR>")
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
 nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
+
+-- oil.nvim
+nmap("<localleader>x", "<cmd>Oil %:h<CR>")
 
 --
 -- diffview.vim

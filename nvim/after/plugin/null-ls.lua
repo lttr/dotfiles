@@ -14,9 +14,7 @@ local function not_a_deno_project_and_has_eslint()
     and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
 end
 
-local function has_stylelint()
-  return utils.has_root_file({ ".stylelintrc.js" })
-end
+local function has_stylelint() return utils.has_root_file({ ".stylelintrc.js" }) end
 
 local function should_run_prettier()
   return not is_a_deno_project()
@@ -68,7 +66,7 @@ null_ls.setup({
         group = augroup,
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 5000 })
+          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
         end,
       })
     end
