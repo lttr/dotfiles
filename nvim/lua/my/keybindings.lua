@@ -35,13 +35,13 @@ nmap(
 -- ===== Saving buffer =====
 -- Use ctrl+s for saving, also in Insert mode (from mswin.vim)
 nmap("<C-s>", ":write<CR>")
-nmap("<leader>W", "<cmd>noautocmd write<CR>", "Save without actions after safe")
+nmap("<leader>w", "<cmd>noautocmd write<CR>", "Save without actions after safe")
 vmap("<C-s>", "<C-C>:write<CR>")
 imap("<C-s>", "<Esc>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 
@@ -432,24 +432,30 @@ nmap(
   "Typescript rename file"
 )
 
---
--- Trouble
---
-nmap("cot", "<Cmd>TroubleToggle<CR>", "Trouble toggle")
+-- nmap("co", "<Plug>(unimpaired-toggle)", "Unimpaired toggle")
 
--- inlay hints
-nmap("coi", ":TSLspToggleInlayHints<CR>", "Toggle treesitter inlay hints")
-
--- diagnostic hints
-nmap("cov", require("lsp_lines").toggle)
-
-nmap("cod", function() ToggleDiagnostics() end)
-
---
--- vim-togglelist
---
-
-nmap("coq", ":call ToggleQuickfixList()<CR>")
+-- yob 'background' (dark is off, light is on)
+-- yoc 'cursorline'
+-- yod 'diff' (actually |:diffthis| / |:diffoff|)
+--e
+nmap("cog", function() ToggleDiagnostics() end, "Toggle diagnostics")
+-- yoh 'hlsearch'
+-- yoi 'ignorecase'
+--j
+nmap("cok", require("lsp_lines").toggle, "Toggle diagnostic lines")
+-- yol 'list'
+nmap("coo", require("nvim-highlight-colors").toggle, "Toogle color highlights")
+-- yon 'number'
+nmap("cop", "<cmd>TroubleToggle<CR>", "Toggle Trouble")
+nmap("coq", ":call ToggleQuickfixList()<CR>", "Toggle quickfix list")
+-- yor 'relativenumber'
+-- yos 'spell'
+-- yot 'colorcolumn' ("+1" or last used value)
+-- you 'cursorcolumn'
+-- yov 'virtualedit'
+nmap("coy", "<cmd>TSLspToggleInlayHints<CR>", "Toggle Treesitter inlay hints")
+-- yow 'wrap'
+-- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
 
 --
 -- nvim-autopairs

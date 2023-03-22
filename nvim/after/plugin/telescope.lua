@@ -30,7 +30,7 @@ require("telescope").setup({
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-s>"] = actions.select_horizontal,
-        ["<C-u>"] = false, -- clear prompt
+        ["<C-u>"] = false,                    -- clear prompt
         ["<M-p>"] = layout_actions.toggle_preview,
         ["<C-y>"] = actions.my_select_action, -- copy a value
       },
@@ -76,6 +76,9 @@ require("telescope").setup({
           "~/dotfiles",
         },
       },
+      settings = {
+        auto_lcd = true,
+      },
     },
   },
 })
@@ -93,8 +96,8 @@ require("telescope").load_extension("zoxide")
 require("telescope._extensions.zoxide.config").setup({
   -- show me only the path with '~' for the home directory
   list_command = "zoxide query -ls | grep -v '\\.local' | awk '{ print $2 }' | sed 's:"
-    .. vim.env.HOME
-    .. "/::'",
+      .. vim.env.HOME
+      .. "/::'",
   mappings = {
     default = {
       action = function(selection)
