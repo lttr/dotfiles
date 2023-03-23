@@ -3,7 +3,7 @@
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath("data")
-    .. "/site/pack/packer/start/packer.nvim"
+      .. "/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({
       "git",
@@ -145,6 +145,7 @@ require("packer").startup(function(use)
     run = function() vim.fn["mkdp#util#install"]() end,
   })
   use("epwalsh/obsidian.nvim")
+  use("towolf/vim-helm")
 
   -- help
   use("dbeniamine/cheat.sh-vim")

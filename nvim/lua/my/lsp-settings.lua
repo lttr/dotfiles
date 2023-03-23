@@ -21,7 +21,6 @@ local servers = {
   "jsonls",
   "phpactor",
   "prismals",
-  "lua_ls",
   "svelte",
   "tailwindcss",
   "terraformls",
