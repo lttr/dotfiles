@@ -168,6 +168,8 @@ alias galiases="git config --global --includes --get-regexp alias"
 alias gd="git diff -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'"
 alias gds="git diff --staged -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'"
 alias gdw="git diff --color-words"
+alias gcf="git clean -f"
+alias gcd="git clean -d"
 
 alias gchanged="git update-index --no-assume-unchanged"
 alias gunchanged="git update-index --assume-unchanged"

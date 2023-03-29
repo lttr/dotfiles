@@ -111,6 +111,18 @@ local eslint = {
       enable = true,
     },
   },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+    "vue",
+    "svelte",
+    "astro",
+    "graphql",
+  },
 }
 
 local vuels = {

@@ -32,12 +32,31 @@ null_ls.setup({
     --
     null_ls.builtins.formatting.prettierd.with({
       runtime_condition = should_run_prettier,
+      filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "css",
+        "scss",
+        "less",
+        "html",
+        "json",
+        "jsonc",
+        "yaml",
+        "markdown",
+        "markdown.mdx",
+        "graphql",
+        "handlebars",
+        "svelte",
+      },
     }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
     -- null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with({
       runtime_condition = has_stylelint,
-      filetypes = { "scss", "less", "css", "sass", "vue" },
+      filetypes = { "scss", "less", "css", "sass", "vue", "svelte" },
     }),
     null_ls.builtins.formatting.stylua,
     --
@@ -55,7 +74,7 @@ null_ls.setup({
     -- ),
     null_ls.builtins.diagnostics.stylelint.with({
       runtime_condition = has_stylelint,
-      filetypes = { "scss", "less", "css", "sass", "vue" },
+      filetypes = { "scss", "less", "css", "sass", "vue", "svelte" },
     }),
   },
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save

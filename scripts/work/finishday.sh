@@ -20,7 +20,7 @@ echo
 echo "## Checking timesheets"
 echo
 
-TIMESHEETS_TODAY=`http --json -b "https://jira.quanti.cz/rest/timesheet-gadget/1.0/timesheet.json?csvExport=true&targetUser=trumml" authorization:"$(cat ~/.jira-auth)" | rg "$(date +"%d. %B %y")"`
+TIMESHEETS_TODAY=`http --json -b "https://jira.quanti.cz/rest/timesheet-gadget/1.0/timesheet.json?csvExport=true&weekends=true&targetUser=trumml&reportingDay=2&numOfWeeks=1&offset=0&sum=day" authorization:"$(cat ~/.jira-auth)" | rg "$(date +"%d. %B %y")"`
 
 if [ -z $TIMESHEETS_TODAY ]; then
 	echo "No timesheets today!!!"
