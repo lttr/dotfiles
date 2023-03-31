@@ -41,7 +41,7 @@ imap("<C-s>", "<Esc>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 
@@ -206,7 +206,11 @@ tmap("<A-k>", [[<C-\><C-n><C-w>k]])
 tmap("<A-l>", [[<C-\><C-n><C-w>l]])
 
 -- open word under cursor via OS
-nmap("gx", "<cmd>silent execute '!xdg-open ' . shellescape('<cWORD>')<CR>")
+nmap(
+  "gx",
+  function() require("link-visitor").link_near_cursor() end,
+  "Open link near cursor"
+)
 vmap("gx", "y:silent execute '!xdg-open ' . shellescape('<C-r>\"')<CR>")
 
 nmap(

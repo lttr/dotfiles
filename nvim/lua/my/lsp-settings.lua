@@ -19,6 +19,7 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
+  "marksman",
   "phpactor",
   "prismals",
   "svelte",
