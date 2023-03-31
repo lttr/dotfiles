@@ -1,0 +1,8 @@
+; vi: filetype=ini
+; https://github.com/antfu/ni
+
+; fallback when no lock found, default is "prompt"
+defaultAgent=pnpm
+
+; for global installs
+globalAgent=pnpm

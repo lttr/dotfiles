@@ -110,5 +110,11 @@ export const symlinks: Config[] = [
       src: "/usr/bin/fdfind",
     },
   },
+  {
+    symlink: {
+      dest: path.join(HOME, ".nirc"),
+      src: path.join(DOTFILES, "nirc"),
+    },
+  },
   ...executableScripts,
 ];

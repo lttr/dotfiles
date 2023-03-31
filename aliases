@@ -86,16 +86,13 @@ alias iad="cd ~/ia"
 #                         npm, node, deno
 # =================================================================
 
+# use @antfu/ni instead
 alias nb="npm run build"
 alias nd="npm run dev"
-alias ni="npm install"
-alias nid="npm install --save-dev"
 alias nl="npm run lint"
-alias nr="npm run"
 alias ns="npm start"
 alias nse="npm run serve"
 alias nt="npm run --silent test"
-alias nuni="npm uninstall"
 alias nv="npm run validate"
 alias nw="npm run watch"
 
