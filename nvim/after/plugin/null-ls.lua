@@ -11,10 +11,20 @@ end
 
 local function not_a_deno_project_and_has_eslint()
   return not is_a_deno_project()
-    and utils.has_root_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.json" })
+    and utils.has_root_file({
+      ".eslintrc",
+      ".eslintrc.js",
+      ".eslintrc.json",
+    })
 end
 
-local function has_stylelint() return utils.has_root_file({ ".stylelintrc.js" }) end
+local function has_stylelint()
+  return utils.has_root_file({
+    ".stylelintrc",
+    ".stylelintrc.js",
+    ".stylelintrc.json",
+  })
+end
 
 local function should_run_prettier()
   return not is_a_deno_project()

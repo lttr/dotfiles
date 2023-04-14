@@ -35,8 +35,8 @@ opt.ignorecase = true -- Search case-insensitive
 opt.smartcase = true -- ...except upper-case included
 
 -- Spell check
-opt.spelllang = 'en'
-opt.spellsuggest = 'best,9'
+opt.spelllang = "en"
+opt.spellsuggest = "best,9"
 
 -- Mouse
 opt.mouse = "a" -- Enable the use of mouse in terminal
@@ -67,11 +67,9 @@ opt.swapfile = false
 opt.shell = "/usr/bin/zsh"
 
 -- Search
-vim.cmd(
-  [[
+vim.cmd([[
   if executable("rg")
     set grepprg=rg\ --vimgrep\ --engine\ auto
     set grepformat=%f:%l:%c:%m
   endif
-]]
-)
+]])

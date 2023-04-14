@@ -10,4 +10,7 @@ require("oil").setup({
     ["<C-s>"] = "actions.select_split",
     ["<M-p>"] = "actions.preview",
   },
+  view_options = {
+    show_hidden = true,
+  },
 })
