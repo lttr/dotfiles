@@ -113,9 +113,9 @@ local function go()
     return false
   end
   if word:sub(1, 3) == "use" then
-    handle_composable(word)
+    return handle_composable(word)
   else
-    handle_component(word)
+    return handle_component(word)
   end
 end
 

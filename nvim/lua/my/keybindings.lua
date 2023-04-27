@@ -125,6 +125,7 @@ nmap("<localleader>m", "vip:call vm#commands#visual_cursors()<CR>")
 vmap("<localleader>m", ":call vm#commands#visual_cursors()<CR>")
 -- create cursor for every occurance of current word
 nmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
+vmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
 
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
@@ -412,8 +413,8 @@ vmap("<leader>ca", vim.lsp.buf.code_action)
 vmap("<localleader>er", require("react-extract").extract_to_current_file)
 vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
-nmap("]d", vim.diagnostic.goto_next)
-nmap("[d", vim.diagnostic.goto_prev)
+nmap("]c", vim.diagnostic.goto_next)
+nmap("[c", vim.diagnostic.goto_prev)
 nmap("<localleader>d", vim.diagnostic.open_float)
 
 --
@@ -484,17 +485,17 @@ local function gitsigns_keybindings(bufnr)
   local gs = package.loaded.gitsigns
 
   -- Navigation
-  mymap("n", "]c", function()
+  mymap("n", "]d", function()
     if vim.wo.diff then
-      return "]c"
+      return "]d"
     end
     vim.schedule(function() gs.next_hunk() end)
     return "<Ignore>"
   end, { expr = true })
 
-  mymap("n", "[c", function()
+  mymap("n", "[d", function()
     if vim.wo.diff then
-      return "[c"
+      return "[d"
     end
     vim.schedule(function() gs.prev_hunk() end)
     return "<Ignore>"

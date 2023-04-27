@@ -15,9 +15,7 @@ vim.api.nvim_create_user_command("GP", "Git push", {})
 -- Commit from ex command
 vim.api.nvim_create_user_command(
   "C",
-  function(opts)
-    os.execute('git commit -m "' .. opts.args .. '"')
-  end,
+  function(opts) os.execute('git commit -m "' .. opts.args .. '"') end,
   { nargs = 1 }
 )
 
@@ -25,7 +23,11 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command("N", ":sp %:h/<args>", { nargs = 1 })
 
 -- Close all other buffers
-vim.api.nvim_create_user_command("Bonly", ':update | %bdelete | edit # | normal `"', {})
+vim.api.nvim_create_user_command(
+  "Bonly",
+  ':update | %bdelete | edit # | normal `"',
+  {}
+)
 
 -- Plugin manager
 vim.api.nvim_create_user_command("PI", "PackerInstall", {})
@@ -35,3 +37,10 @@ vim.api.nvim_create_user_command("PS", "PackerSync", {})
 vim.api.nvim_create_user_command("LR", "LspRestart", {})
 -- Show LSP info
 vim.api.nvim_create_user_command("LI", "LspInfo", {})
+
+-- Extract matching lines into new buffer (http://vim.wikia.com/wiki/VimTip1063)
+vim.api.nvim_create_user_command(
+  "Filter",
+  [[let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a]],
+  { nargs = 1 }
+)

@@ -118,7 +118,6 @@ require("packer").startup(function(use)
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-treesitter/nvim-treesitter-textobjects")
-  use("nvim-treesitter/playground")
 
   -- debbugging
   use("mfussenegger/nvim-dap")
@@ -167,6 +166,10 @@ require("packer").startup(function(use)
   use("rbong/vim-flog")
 
   -- classic
+  use({
+    "inkarkat/vim-ExtractMatches",
+    requires = { "inkarkat/vim-ingo-library" },
+  })
   use("airblade/vim-rooter")
   use("kevinhwang91/nvim-bqf")
   use("Olical/vim-enmasse")

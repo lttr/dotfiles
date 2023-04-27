@@ -18,6 +18,10 @@ else
     export WSL=false
 fi
 
+# Nuxt framework specific
+# prevent it from failing on my machine
+export NUXT_TELEMETRY_DISABLED=1
+
 # PATH
 
 # Generated for envman. DEPRECATED? Used by webinstall?
