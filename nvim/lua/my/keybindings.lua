@@ -167,16 +167,23 @@ nmap(
   "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>"
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
--- nmap("<leader>t", "<cmd>AsyncRun -save=1 -mode=term -pos=right deno test -A %:p<CR>")key
-nmap(
-  "<localleader>t",
-  function() require("neotest").run.run(vim.fn.expand("%")) end
-)
-nmap("<localleader>T", function() require("neotest").summary.toggle() end)
+-- nmap(
+--   "<localleader>t",
+--   function() require("neotest").run.run(vim.fn.expand("%")) end
+-- )
+-- nmap("<localleader>T", function() require("neotest").summary.toggle() end)
 nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
 vmap("<localleader>j", utils.evaluate_js)
+
+-- terminal
+nmap("<leader>t", "<cmd>ToggleTerm<CR>", "Toggle terminal")
+nmap(
+  "<localleader>t",
+  "<cmd>ToggleTermSendCurrentLine<CR>",
+  "Execute current line in terminal"
+)
 
 -- help
 nmap("<localleader>H", ":help <C-r><C-w><CR>")

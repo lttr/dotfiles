@@ -155,7 +155,7 @@ require("packer").startup(function(use)
   use("xiyaowong/link-visitor.nvim")
 
   -- executing and terminal
-  use("kassio/neoterm")
+  use("akinsho/toggleterm.nvim")
   use("skywind3000/asyncrun.vim")
   use({ "michaelb/sniprun", run = "bash ./install.sh" })
 
