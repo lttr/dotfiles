@@ -73,9 +73,7 @@ M.has_root_file = function(file_names)
   while true do
     local handle = vim.loop.fs_scandir(path)
     local entry = nil
-    local scan = function(h)
-      entry = vim.loop.fs_scandir_next(h)
-    end
+    local scan = function(h) entry = vim.loop.fs_scandir_next(h) end
 
     -- For files that are outside of local file system (the fs function failed)
     -- only check the "cwd" directory
@@ -137,9 +135,7 @@ M.string_startswith = function(input, start)
   return input:sub(1, #start) == start
 end
 
-M.string_contains = function(input, sub)
-  return input:find(sub, 1, true) ~= nil
-end
+M.string_contains = function(input, sub) return input:find(sub, 1, true) ~= nil end
 
 M.current_sequence_starts_with = function(start)
   local word = vim.fn.expand("<cWORD>")

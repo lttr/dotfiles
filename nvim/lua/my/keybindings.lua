@@ -127,6 +127,8 @@ vmap("<localleader>m", ":call vm#commands#visual_cursors()<CR>")
 nmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
 vmap("<localleader>M", ":call vm#commands#find_all(0, 1)<CR>")
 
+nmap("<localleader>E", '0yt=A<C-r>=<C-r>"<CR><Esc>')
+
 -- search for selected text
 vmap("//", [[y/\V<C-R>=escape(@",'/\')<CR><CR>]])
 
@@ -375,8 +377,9 @@ nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
 nmap("<leader>fw", function()
   -- open file browser in folder of current file
   telescope.extensions.file_browser.file_browser({
-    path = "%:p:h",
-    cwd_to_path = true,
+    -- path = "%:p:h",
+    -- cwd_to_path = true,
+    grouped = true,
   })
 end, "File browser")
 nmap("<leader>fx", telescopeBuildin.builtin, "Telescope builtins")
@@ -545,6 +548,7 @@ nmap("<leader>gh", "<cmd>GV!<CR>")
 nmap("<leader>gp", "<cmd>Git push<CR>")
 nmap("<leader>ga", "<cmd>Git add .<CR>")
 nmap("<leader>gr", "<cmd>Git restore --staged .<CR>")
+nmap("<leader>gb", "<cmd>Git blame<CR>")
 
 --
 -- rnvimr

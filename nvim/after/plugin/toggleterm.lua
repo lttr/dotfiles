@@ -1,5 +1,6 @@
 -- https://github.com/akinsho/toggleterm.nvim
 
 require("toggleterm").setup({
-  direction = "vertical",
+  -- direction = "vertical",
+  -- size = 27
 })

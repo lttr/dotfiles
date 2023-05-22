@@ -213,6 +213,8 @@ alias i="issue"
 alias il="gh issue list"
 alias ila="gh issue list --state all"
 alias gmt="git mergetool"
+alias gsu="git submodule update"
+alias gsur="git submodule update --remote"
 
 # =================================================================
 #                              Lists
