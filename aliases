@@ -97,6 +97,8 @@ alias nv="npm run validate"
 alias nw="npm run watch"
 
 alias pn="pnpm"
+alias pi="pnpm install"
+alias pnu="pnpm add -g pnpm"
 
 alias dt="deno task"
 
@@ -234,6 +236,20 @@ alias mak="targets"
 # =================================================================
 # alias rg='rg ...'
 
+
+# =================================================================
+#                             Magic
+# =================================================================
+
+# Credit:
+# - https://twitter.com/thingskatedid/status/1316075850580652032
+# - https://www.benweintraub.com/2022/11/12/graphviz-in-the-terminal/
+alias icat='kitty icat --align=left'
+alias idot='dot -Efontsize=18 -Efontname=sans -Nfontname=sans -Tpng \
+        -Gbgcolor=black -Gcolor=#eee -Ecolor=#eee -Efontcolor=#eee -Ncolor=#eee -Nfontcolor=#eee \
+    | convert -trim -bordercolor black -border 20 -transparent black -resize '80%' - - \
+    | icat'
+alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # =================================================================
 #                          Zsh aliases

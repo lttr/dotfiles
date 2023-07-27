@@ -179,14 +179,6 @@ nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
 vmap("<localleader>j", utils.evaluate_js)
 
--- terminal
-nmap("<leader>t", "<cmd>ToggleTerm<CR>", "Toggle terminal")
-nmap(
-  "<localleader>t",
-  "<cmd>ToggleTermSendCurrentLine<CR>",
-  "Execute current line in terminal"
-)
-
 -- help
 nmap("<localleader>H", ":help <C-r><C-w><CR>")
 
@@ -207,6 +199,13 @@ nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
 nmap("<localleader>;", "<cmd>s/;*$/;/<CR><cmd>:nohls<CR>``")
 
 -- terminal
+nmap("<leader>t", "<cmd>ToggleTerm<CR>", "Toggle terminal")
+nmap(
+  "<localleader>t",
+  "<cmd>ToggleTermSendCurrentLine<CR>",
+  "Execute current line in terminal"
+)
+
 nmap("<leader>T", "<cmd>vsplit term://zsh<CR>")
 tmap("<Esc>", [[<C-\><C-n>]])
 tmap("<Esc>", [[<C-\><C-n>]])
@@ -512,27 +511,27 @@ local function gitsigns_keybindings(bufnr)
   end, { expr = true })
 
   -- Actions
-  mymap(
-    { "n", "v" },
-    "<leader>hs",
-    ":Gitsigns stage_hunk<CR>",
-    default_map_options
+  nmap("<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+  vmap("<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+  nmap("<leader>hx", ":Gitsigns reset_hunk<CR>", "Restore hunk")
+  vmap("<leader>hx", ":Gitsigns reset_hunk<CR>", "Restore hunk")
+  nmap("<leader>hu", gs.undo_stage_hunk, "Restore staged hunk")
+  nmap("<leader>hp", gs.preview_hunk, "Preview hunk")
+  nmap(
+    "<leader>hb",
+    function() gs.blame_line({ full = true }) end,
+    "Blame line"
   )
-  mymap(
-    { "n", "v" },
-    "<leader>hx",
-    ":Gitsigns reset_hunk<CR>",
-    default_map_options
-  )
-  mymap("n", "<leader>hu", gs.undo_stage_hunk, default_map_options)
-  mymap("n", "<leader>hp", gs.preview_hunk, default_map_options)
-  mymap("n", "<leader>hb", function() gs.blame_line({ full = true }) end)
 
-  mymap("n", "<leader>hS", gs.stage_buffer, default_map_options)
-  mymap("n", "<leader>hX", gs.reset_buffer, default_map_options)
-  mymap("n", "<leader>hd", gs.diffthis, default_map_options)
-  mymap("n", "<leader>hD", function() gs.diffthis("~") end, default_map_options)
-  mymap("n", "<leader>he", gs.toggle_deleted, default_map_options)
+  nmap("<leader>hS", gs.stage_buffer, "Stage buffer")
+  nmap("<leader>hX", gs.reset_buffer, "Restore buffer")
+  nmap("<leader>hd", gs.diffthis, "Diff against index")
+  nmap(
+    "<leader>hD",
+    function() gs.diffthis("~") end,
+    "Diff against last commit"
+  )
+  nmap("<leader>he", gs.toggle_deleted, "Toggle deleted hunks")
 
   -- Text object
   mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options)

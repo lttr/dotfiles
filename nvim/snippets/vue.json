@@ -2,18 +2,97 @@
   "Vue3 template": {
     "prefix": "vbase",
     "body": [
-      "<script lang=\"ts\" setup>",
-      "import { ref } from 'vue'",
-      "</script>\n",
       "<template>",
       "\t<div>",
       "\t\t${0}",
       "\t</div>",
       "</template>\n",
-      "<style lang=\"scss\" scoped>",
+      "<script lang=\"ts\" setup>",
+      "</script>\n",
+      "<style scoped>",
       "\t",
       "</style>"
     ],
     "description": "vue3 base template"
+  },
+  "var(--qc-)": {
+    "prefix": "q",
+    "body": "var(--qc-${0});"
+  },
+  "--qc-space-3xs": {
+    "prefix": "sp3xs",
+    "body": "var(--qc-space-3xs);"
+  },
+  "--qc-space-2xs": {
+    "prefix": "sp2xs",
+    "body": "var(--qc-space-2xs);"
+  },
+  "--qc-space-xs": {
+    "prefix": "spxs",
+    "body": "var(--qc-space-xs);"
+  },
+  "--qc-space-s": {
+    "prefix": "sps",
+    "body": "var(--qc-space-s);"
+  },
+  "--qc-space-m": {
+    "prefix": "spm",
+    "body": "var(--qc-space-m);"
+  },
+  "--qc-space-l": {
+    "prefix": "spl",
+    "body": "var(--qc-space-l);"
+  },
+  "--qc-space-xl": {
+    "prefix": "spxl",
+    "body": "var(--qc-space-xl);"
+  },
+  "--qc-space-2xl": {
+    "prefix": "sp2xl",
+    "body": "var(--qc-space-2xl);"
+  },
+  "--qc-space-3xl": {
+    "prefix": "sp3xl",
+    "body": "var(--qc-space-3xl);"
+  },
+  "--qc-space-3xs-2xs": {
+    "prefix": "sp3xs2xs",
+    "body": "var(--qc-space-3xs-2xs);"
+  },
+  "--qc-space-2xs-xs": {
+    "prefix": "sp2xsxs",
+    "body": "var(--qc-space-2xs-xs);"
+  },
+  "--qc-space-xs-s": {
+    "prefix": "spxss",
+    "body": "var(--qc-space-xs-s);"
+  },
+  "--qc-space-s-m": {
+    "prefix": "spsm",
+    "body": "var(--qc-space-s-m);"
+  },
+  "--qc-space-m-l": {
+    "prefix": "spml",
+    "body": "var(--qc-space-m-l);"
+  },
+  "--qc-space-l-xl": {
+    "prefix": "splxl",
+    "body": "var(--qc-space-l-xl);"
+  },
+  "--qc-space-xl-2xl": {
+    "prefix": "spxl2xl",
+    "body": "var(--qc-space-xl-2xl);"
+  },
+  "--qc-space-2xl-3xl": {
+    "prefix": "sp2xl3xl",
+    "body": "var(--qc-space-2xl-3xl);"
+  },
+  "--qc-space-s-l": {
+    "prefix": "spsl",
+    "body": "var(--qc-space-s-l);"
+  },
+  "--qc-space-xs-l": {
+    "prefix": "spxsl",
+    "body": "var(--qc-space-xs-l);"
   }
 }

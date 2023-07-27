@@ -145,6 +145,7 @@ require("packer").startup(function(use)
   })
   use("epwalsh/obsidian.nvim")
   use("towolf/vim-helm")
+  use("joukevandermaas/vim-ember-hbs")
 
   -- help
   use("dbeniamine/cheat.sh-vim")

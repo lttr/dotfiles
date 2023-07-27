@@ -32,14 +32,15 @@ local border_options = {
 }
 
 cmp.setup({
+  performance = {
+    max_view_entries = 20,
+  },
   snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
+    expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
   completion = {
     -- Only show the autocompletion menu when manually triggered
-    autocomplete = false,
+    -- autocomplete = false,
     -- DO select the first item, but DON'T insert it yet (wait for enter)
     completeopt = "menu,menuone,noinsert",
   },
@@ -54,18 +55,17 @@ cmp.setup({
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping(function()
-      cmp.complete()
-    end),
+    ["<C-Space>"] = cmp.mapping(function() cmp.complete() end),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
+      -- if cmp.visible() then
+      --   cmp.select_next_item()
+      -- else
+      if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
@@ -116,6 +116,8 @@ cmp.setup({
 require("cmp-css-variables").setup({
   files = {
     "./node_modules/open-props/open-props.min.css",
+    "./assets/css/settings.css",
+    "./packages/base-styles/src/runtime/assets/css/main.min.css",
   },
 })
 

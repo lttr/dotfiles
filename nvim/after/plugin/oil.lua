@@ -13,4 +13,6 @@ require("oil").setup({
   view_options = {
     show_hidden = true,
   },
+  delete_to_trash = false,
+  trash_command = "trash-put",
 })

@@ -103,6 +103,44 @@ M.has_root_file = function(file_names)
   return false
 end
 
+-- Look for directory that match (exactly) a given name
+-- It looks for matches in current directory and every parent up to HOME dir
+M.find_root_directory = function(dir_name)
+  local home = vim.env.HOME
+  local path = vim.fn.expand("%:p:h")
+  while true do
+    local handle = vim.loop.fs_scandir(path)
+    local entry = nil
+    local scan = function(h) entry = vim.loop.fs_scandir_next(h) end
+
+    -- For files that are outside of local file system (the fs function failed)
+    -- only check the "cwd" directory
+    if not pcall(scan, handle) then
+      local dir_path = M.path_join(vim.fn.getcwd(), dir_name)
+      if vim.fn.isdirectory(dir_path) == 0 then
+        return dir_path
+      end
+      return nil
+    end
+
+    while entry do
+      if entry == dir_name then
+        if vim.fn.isdirectory(dir_path) == 0 then
+          return M.path_join(path, dir_name)
+        end
+        return nil
+      end
+      entry = vim.loop.fs_scandir_next(handle)
+    end
+    if home == path then
+      break
+    end
+    local _, lastSlashIndex = string.find(path, ".*/")
+    path = string.sub(path, 1, lastSlashIndex - 1)
+  end
+  return nil
+end
+
 M.file_exists = function(name)
   local f = io.open(name, "r")
   if f ~= nil then

@@ -1,0 +1,59 @@
+{
+  "sp3xs": {
+    "body": "--space-3xs"
+  },
+  "sp2xs": {
+    "body": "--space-2xs"
+  },
+  "spxs": {
+    "body": "--space-xs"
+  },
+  "sps": {
+    "body": "--space-s"
+  },
+  "spm": {
+    "body": "--space-m"
+  },
+  "spl": {
+    "body": "--space-l"
+  },
+  "spxl": {
+    "body": "--space-xl"
+  },
+  "sp2xl": {
+    "body": "--space-2xl"
+  },
+  "sp3xl": {
+    "body": "--space-3xl"
+  },
+  "sp3xs2xs": {
+    "body": "--space-3xs-2xs"
+  },
+  "sp2xsxs": {
+    "body": "--space-2xs-xs"
+  },
+  "spxss": {
+    "body": "--space-xs-s"
+  },
+  "spsm": {
+    "body": "--space-s-m"
+  },
+  "spml": {
+    "body": "--space-m-l"
+  },
+  "splxl": {
+    "body": "--space-l-xl"
+  },
+  "spxl2xl": {
+    "body": "--space-xl-2xl"
+  },
+  "sp2xl3xl": {
+    "body": "--space-2xl-3xl"
+  },
+  "spsl": {
+    "body": "--space-s-l"
+  },
+  "spxsl": {
+    "body": "--space-xs-l"
+  }
+}

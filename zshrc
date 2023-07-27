@@ -140,6 +140,9 @@ which npm >/dev/null && source <(npm completion)
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
 fpath+=(~/.zsh/completion)
 
+# turborepo
+fpath+=(~/.zsh/completion/turbo.sh)
+
 autoload bashcompinit && bashcompinit
 
 

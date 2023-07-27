@@ -97,12 +97,9 @@
   "Vue props": {
     "prefix": "vprops",
     "body": [
-      "const props = defineProps({",
-      "\t${1: foo}: {",
-      "\t\ttype: ${2: String},",
-      "\t\tdefault: ${3: 'bar'}",
-      "\t}",
-      "})"
+      "defineProps<{",
+      "\t${0}",
+      "}>()"
     ],
     "description": "Vue props"
   },

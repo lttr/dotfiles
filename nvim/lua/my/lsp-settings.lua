@@ -23,9 +23,9 @@ local servers = {
   "phpactor",
   "prismals",
   "svelte",
-  "tailwindcss",
+  -- "tailwindcss",
   "terraformls",
-  "vuels",
+  -- "vuels",
   "volar",
   "yamlls",
   -- tsserver is managed by nvim-lsp-ts-utils
@@ -66,6 +66,17 @@ local common_handlers = {
 local common_on_attach = function(client)
   -- vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
+  -- stop jsonls and cssls and volar from formatting (I use prettier for that)
+  if client.server_capabilities.documentFormattingProvider then
+    if
+      client.name == "jsonls"
+      or client.name == "cssls"
+      or client.name == "volar"
+    then
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
+  end
   -- Set autocommands conditional on server_capabilities
   -- if client.server_capabilities.document_highlight then
   --   vim.cmd(
@@ -151,6 +162,7 @@ local volar = {
 local jsonls = {
   settings = {
     json = {
+      -- https://github.com/b0o/SchemaStore.nvim
       schemas = require("schemastore").json.schemas(),
       validate = { enable = true },
     },
@@ -206,14 +218,15 @@ local function setup_server(server)
   then
     return
   end
-  if
-    server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
-  then
-    return
-  end
-  if server == "vuels" and (is_a_vite_project() or is_a_nuxt_project()) then
-    return
-  end
+  -- use volar only for now
+  -- if
+  --   server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
+  -- then
+  --   return
+  -- end
+  -- if server == "vuels" and (is_a_vite_project() or is_a_nuxt_project()) then
+  --   return
+  -- end
 
   local config = make_config(server)
   lsp_config[server].setup(config)

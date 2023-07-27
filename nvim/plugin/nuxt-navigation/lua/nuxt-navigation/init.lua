@@ -4,6 +4,7 @@ local utils = require("my.utils")
 local file_exists = utils.file_exists
 local path_join = utils.path_join
 local has_root_file = utils.has_root_file
+local find_root_directory = utils.find_root_directory
 
 local function matchstr(...)
   local ok, ret = pcall(vim.fn.matchstr, ...)
@@ -54,8 +55,8 @@ local function handle_component(word)
     parts_count = parts_count + 1
     table.insert(component_name_parts, part)
   end
-  local cwd = vim.fn.getcwd()
-  local components_folder = path_join(cwd, "components")
+
+  local components_folder = find_root_directory("components")
   if vim.fn.isdirectory(components_folder) then
     local component_file_path =
       find_component(components_folder, component_name_parts, parts_count)
@@ -75,7 +76,7 @@ local function handle_composable(word)
   if string.match(word, "Store") then
     composables_folder_name = "stores"
   end
-  local composables_folder = path_join(cwd, composables_folder_name)
+  local components_folder = find_root_directory(composables_folder_name)
   if vim.fn.isdirectory(composables_folder) then
     local file_name = word .. ".ts"
     if string.match(word, "Store") then
