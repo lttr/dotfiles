@@ -11,3 +11,7 @@ $HOME/.deno/bin/deno task run --filter symlink
 sudo apt install zsh -y
 # Use configured zsh to install everyting else
 zsh -c "deno task run"
+# Use SSH for this repo from now
+cd $HOME/dotfiles
+git remote remove origin
+git add origin master git@github.com:lttr/dotfiles.git
