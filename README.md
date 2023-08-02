@@ -95,12 +95,10 @@ dotfiles/install.sh
 
 ### After install
 
-- install 1Password
-  - download .deb (https://1password.com/downloads/linux)
-  - multi-factor log in
-- install Rambox
-- install Darktable
-- install VSCode
+- install [1Password](https://1password.com/downloads/linux)
+- install [Rambox](https://rambox.app/download-linux/)
+- install Darktable (Pop Shop)
+- install [Obsidian](https://obsidian.md/download)
 - log into Dropbox, select folders to sync
 - set DuckDuckGo as the default search engine, load its configuration via
   bookmarklet (in password manager)
