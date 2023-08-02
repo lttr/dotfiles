@@ -65,6 +65,7 @@ export BROWSER=/usr/bin/firefox
 # user locale
 export LANG=en_US.UTF8
 export LANGUAGE=en_US.UTF8
+export LC_ALL=en_US.UTF8
 export LC_CTYPE=en_US.UTF8
 export LC_NUMERIC=en_US.UTF8
 # export LC_TIME=cs_CZ.UTF8

@@ -84,6 +84,7 @@ const brewPackages = [
   { name: "docker" },
   { name: "docker-compose" },
   { name: "gh" },
+  { name: "glab" },
   { name: "potrace" },
   { name: "rg" },
   { name: "sd" },
@@ -129,12 +130,12 @@ const nerdFont: Config = {
   inlineScript: {
     name: "FiraMonoFont",
     testScript:
-      `ls "${HOME}/.fonts/Fira Mono Regular Nerd Font.otf" 2>&1 >/dev/null`,
+      `ls "${HOME}/.fonts/FiraMonoNerdFontMono-Regular.otf" 2>&1 >/dev/null`,
     setScript: `
-      FONT_FILE_NAME="Fira Mono Regular Nerd Font.otf"
+      FONT_FILE_NAME="FiraMonoNerdFontMono-Regular.otf"
       FONT_TARGET_DIR="${HOME}/.fonts/"
       cd ~/Downloads
-      curl -fsLo "$FONT_FILE_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/complete/Fura%20Mono%20Regular%20Nerd%20Font%20Complete.otf
+      curl -fsLo "$FONT_FILE_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
       mkdir -p "$FONT_TARGET_DIR"
       mv "$FONT_FILE_NAME" "$FONT_TARGET_DIR"
       fc-cache -f

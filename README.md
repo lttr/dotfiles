@@ -89,7 +89,8 @@ dotfiles/install.sh
     - `Dash to panel`
     - `GSconnect`
     - `Bluetooth Quick Connect`
-    - `Sound Switcher Indicator` (from https://yktoo.com/en/software/sound-switcher-indicator/)
+    - `Sound Switcher Indicator` (from
+      https://yktoo.com/en/software/sound-switcher-indicator/)
 - upgrade PopOS if needed (`pop-upgrade release upgrade`)
 
 ### After install
@@ -100,7 +101,6 @@ dotfiles/install.sh
 - install Rambox
 - install Darktable
 - install VSCode
-- log into gh cli
 - log into Dropbox, select folders to sync
 - set DuckDuckGo as the default search engine, load its configuration via
   bookmarklet (in password manager)
@@ -109,7 +109,11 @@ dotfiles/install.sh
 - sign into Firefox/Chrome to sync browser settings
 - consider disabling slow systemd services
   - e.g. `sudo systemctl disable NetworkManager-wait-online.service`
-- update ssh keys (e.g. generate new key for Github, etc.) (https://lukastrumm.com/notes/ssh-keys/, https://github.com/settings/keys)
+- update ssh keys (e.g. generate new key for Github, etc.)
+  (https://lukastrumm.com/notes/ssh-keys/, https://github.com/settings/keys)
+  - log into gh cli (`gh auth login`)
+  - log into glab cli (`glab auth login`)
+  - clone active code repositories
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
