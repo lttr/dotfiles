@@ -115,7 +115,7 @@ dotfiles/install.sh
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
-- change hostname (`sudo hostname pop-os-something`)
+- change hostname (`hostnamectl set-hostname pop-os-lt-foobar`)
 
 ### Automated
 
