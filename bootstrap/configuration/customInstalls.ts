@@ -159,6 +159,7 @@ export const cursors: Config = {
 };
 
 const pnpmPackages = [
+  { name: "@antfu/ni" },
   { name: "browser-sync" },
   { name: "degit" },
   { name: "eslint" },
