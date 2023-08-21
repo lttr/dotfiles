@@ -50,7 +50,10 @@ cmp.setup({
   },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-n>"] = cmp.mapping(function(fallback)
+      fallback()
+    end
+    ),
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -94,7 +97,7 @@ cmp.setup({
     { name = "nvim_lua" },
     { name = "nvim_lsp", max_item_count = 10 },
     { name = "luasnip" },
-    -- {name = "buffer", keyword_length = 5} -- too much noise
+    -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
   formatting = {
     format = lspkind.cmp_format({

@@ -77,21 +77,21 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.background",
       key: "primary-color",
-      value: "#4B4B4B",
+      value: "#1f1f1f",
     },
   },
   {
     gnomeSettings: {
       schema: "org.gnome.desktop.background",
       key: "secondary-color",
-      value: "#1d1d1d",
+      value: "#31111d",
     },
   },
   {
     gnomeSettings: {
       schema: "org.gnome.desktop.background",
       key: "color-shading-type",
-      value: "solid",
+      value: "vertical",
     },
   },
   {
@@ -341,7 +341,7 @@ export const gnomeSettings: Config[] = [
       schema: "org.gnome.shell",
       key: "favorite-apps",
       value:
-        "['firefox.desktop', 'kitty.desktop', 'rambox.desktop', '1password.desktop']",
+        "['firefox.desktop', 'kitty.desktop', 'rambox.desktop', '1password.desktop', 'slack.desktop']",
     },
   },
 ];

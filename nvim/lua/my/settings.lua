@@ -73,3 +73,7 @@ vim.cmd([[
     set grepformat=%f:%l:%c:%m
   endif
 ]])
+
+-- Increments
+-- Increment without considering leading minus or dash sign
+opt.nrformats = 'bin,hex,unsigned'

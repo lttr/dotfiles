@@ -53,7 +53,7 @@ alias tree="tree -I 'node_modules|.git'"
 # =================================================================
 #                            Editing
 # =================================================================
-alias e="$EDITOR"
+alias e="nvim --listen /tmp/nvimsocket"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias eenv="$EDITOR ~/dotfiles/zshenv"
@@ -97,6 +97,7 @@ alias nv="npm run validate"
 alias nw="npm run watch"
 
 alias pn="pnpm"
+alias px="pnpm dlx"
 alias pi="pnpm install"
 alias pnu="pnpm add -g pnpm"
 
@@ -163,6 +164,7 @@ alias gaa="git add --all"
 alias gco="git switch"
 alias gcob="git switchit"
 alias gcan="git commit --amend --no-edit"
+alias wip="git commit --no-verify -m 'wip'"
 alias galiases="git config --global --includes --get-regexp alias"
 alias gd="git diff -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'"
 alias gds="git diff --staged -- . ':!package-lock.json' ':!yarn.lock' ':!pnpm-lock.yaml'"

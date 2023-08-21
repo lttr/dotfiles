@@ -25,6 +25,6 @@ case "$PROJECT_ALIAS" in
     cd ~/work/jira-to-timesheeter && nvim -c "lua require('user.telescope').project_files()"
     ;;
   *)
-    echo "Not found"
+    echo "Project not found"
     ;;
 esac

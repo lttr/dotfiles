@@ -47,6 +47,15 @@ const brew: Config = {
   },
 };
 
+const exp: Config = {
+  inlineScript: {
+    name: "exp",
+    testScript: "test -f ~/opt/exp",
+    setScript:
+      "curl https://raw.githubusercontent.com/troydm/exp/master/exp -o ~/opt/exp && chmod +x ~/opt/exp",
+  },
+};
+
 const kitty: Config = {
   urlScript: {
     name: "kitty",
@@ -159,7 +168,7 @@ export const cursors: Config = {
 };
 
 const pnpmPackages = [
-  { name: "@antfu/ni" },
+  { name: "@antfu/ni", executable: "ni" },
   { name: "browser-sync" },
   { name: "degit" },
   { name: "eslint" },
@@ -183,6 +192,7 @@ export const customInstalls: Config[] = [
   antidote,
   aptUpdate,
   brew,
+  exp,
   fnm,
   // gnomeShellExtensionInstaller,
   googleChrome,
