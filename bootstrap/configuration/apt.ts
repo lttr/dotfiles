@@ -25,7 +25,6 @@ export const apt: Config[] = [
   aptPackage("duf"),
   aptPackage("golang"),
   aptPackage("htop"),
-  aptPackage("httpie"),
   aptPackage("jq"),
   aptPackage("locate"),
   aptPackage("moreutils"),

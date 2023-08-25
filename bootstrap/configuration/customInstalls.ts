@@ -94,6 +94,7 @@ const brewPackages = [
   { name: "docker-compose" },
   { name: "gh" },
   { name: "glab" },
+  { name: "httpie" },
   { name: "potrace" },
   { name: "rg" },
   { name: "sd" },

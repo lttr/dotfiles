@@ -592,3 +592,14 @@ zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a
 #                          Experimantal
 # =================================================================
 
+# Translation tool
+# https://github.com/soimort/translate-shell
+t() {
+    trans :cs -brief "${*}"
+}
+
+# English dictionary tool
+# https://github.com/soimort/translate-shell
+dic() {
+    trans -d :en "${*}"
+}
