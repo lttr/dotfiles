@@ -137,7 +137,7 @@ require("cmp_jira").setup({
     -- email: optional, alternatively specify via $JIRA_USER_EMAIL
     -- url: optional, alternatively specify via $JIRA_WORKSPACE_URL
     -- jql: optional, lua format string, escaped username/email will be passed to string.format()
-    jql = "assignee=%s+and+resolution=unresolved",
+    jql = "assignee=%s",
   },
 })
 require("cmp_git").setup({
