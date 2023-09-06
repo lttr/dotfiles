@@ -155,7 +155,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.settings-daemon.plugins.power",
       key: "sleep-inactive-battery-timeout",
-      value: 1200,
+      value: 60 * 20,
     },
   },
   {
@@ -171,7 +171,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.settings-daemon.plugins.power",
       key: "sleep-inactive-ac-timeout",
-      value: 1800,
+      value: 60 * 30,
     },
   },
   {
@@ -182,12 +182,12 @@ export const gnomeSettings: Config[] = [
     },
   },
 
-  // consider system being idle after 5 minutes
+  // consider system being idle after 15 minutes
   {
     gnomeSettings: {
       schema: "org.gnome.desktop.session",
       key: "idle-delay",
-      value: 300,
+      value: 60 * 15,
     },
   },
 
@@ -196,7 +196,7 @@ export const gnomeSettings: Config[] = [
     gnomeSettings: {
       schema: "org.gnome.desktop.screensaver",
       key: "lock-delay",
-      value: 300,
+      value: 5 * 30,
     },
   },
 
