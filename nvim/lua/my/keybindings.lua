@@ -391,14 +391,17 @@ nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 -- build init neovim lsp
 
 nmap("gd", function()
-  local success = require("nuxt-navigation").go()
+  local success = require("nuxt-navigation").go(false)
   if not success then
     vim.lsp.buf.definition({ reuse_win = true })
   end
 end)
 nmap("gD", function()
-  vim.lsp.buf.definition()
-  vim.cmd("vsplit")
+  local success = require("nuxt-navigation").go(true)
+  if not success then
+    vim.lsp.buf.definition()
+    vim.cmd("vsplit")
+  end
 end)
 nmap("gy", function() vim.lsp.buf.type_definition({ reuse_win = true }) end)
 nmap("gY", function()

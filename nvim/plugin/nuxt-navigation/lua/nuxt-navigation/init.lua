@@ -5,6 +5,7 @@ local file_exists = utils.file_exists
 local path_join = utils.path_join
 local has_root_file = utils.has_root_file
 local find_root_directory = utils.find_root_directory
+local read_file = utils.read_file
 
 local function matchstr(...)
   local ok, ret = pcall(vim.fn.matchstr, ...)
@@ -48,7 +49,19 @@ local function find_component(path, name_parts, count)
   return nil
 end
 
-local function handle_component(word)
+local function find_component_simple(path, component_name) 
+  local paths = vim.split(vim.fn.glob(path .. '/**/' .. component_name .. '.vue'), '\\n')
+  if paths[1] == "" then
+    return nil
+  end
+  return paths[1]
+end
+
+local function handle_component(word, vsplit)
+  local edit_command = "edit"
+  if vsplit then
+    edit_command = "vsplit"
+  end
   local component_name_parts = {}
   local parts_count = 0
   for part in string.gmatch(word, "[A-Z][a-z0-9]*") do
@@ -58,15 +71,35 @@ local function handle_component(word)
 
   local components_folder = find_root_directory("components")
   if vim.fn.isdirectory(components_folder) then
-    local component_file_path =
+    local component_file_path = nil
+    component_file_path = find_component_simple(components_folder, word)
+    if not component_file_path then
+      component_file_path =
       find_component(components_folder, component_name_parts, parts_count)
+    end
     if component_file_path then
-      vim.cmd("edit " .. component_file_path)
+      vim.cmd(edit_command .. " " .. component_file_path)
       return true
     end
   else
     print("There is no expected directory " .. components_folder)
   end
+
+  local dot_nuxt_folder = find_root_directory(".nuxt")
+  if vim.fn.isdirectory(dot_nuxt_folder) then
+    local components_file_path = path_join(dot_nuxt_folder, "components.d.ts")
+    local components_file_contents = read_file(components_file_path)
+
+    -- The line looks like this:
+    -- 'ComponentName': typeof import("../components/ComponentName.vue")['default']
+    local match_string = "'" .. word .. "'" .. ': typeof import%("(.-)"%)'
+    local path_match = string.match(components_file_contents, match_string)
+    local component_file_path = string.gsub(path_match, "dist", "src")
+    local resolved_path = vim.fn.resolve(dot_nuxt_folder .. "../" .. component_file_path)
+    vim.cmd(edit_command .. " " .. resolved_path)
+    return true
+  end
+
   return false
 end
 
@@ -102,11 +135,11 @@ local function handle_composable(word)
   return false
 end
 
-local function go()
+local function go(vsplit)
   if not (vim.fn.expand("%:e") == "vue") then
     return false
   end
-  if not has_root_file({ "nuxt.config.ts", "nuxt.config.js" }) then
+  if not has_root_file({ "nuxt.config.ts", "nuxt.config.js", ".nuxtrc" }) then
     return false
   end
   local word = get_cursorword()
@@ -116,7 +149,7 @@ local function go()
   if word:sub(1, 3) == "use" then
     return handle_composable(word)
   else
-    return handle_component(word)
+    return handle_component(word, vsplit)
   end
 end
 
