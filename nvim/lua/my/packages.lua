@@ -58,7 +58,6 @@ require("packer").startup(function(use)
 
   -- LSP
   use("folke/trouble.nvim")
-  use("tami5/lspsaga.nvim")
   use("lewis6991/gitsigns.nvim")
   use("mhartington/formatter.nvim")
   use("neovim/nvim-lspconfig")
