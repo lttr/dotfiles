@@ -85,19 +85,20 @@ local function handle_component(word, vsplit)
     print("There is no expected directory " .. components_folder)
   end
 
-  local dot_nuxt_folder = find_root_directory(".nuxt")
+  local dot_nuxt_folder = find_root_directory(".nuxt", vim.fn.getcwd())
   if vim.fn.isdirectory(dot_nuxt_folder) then
     local components_file_path = path_join(dot_nuxt_folder, "components.d.ts")
     local components_file_contents = read_file(components_file_path)
-
-    -- The line looks like this:
-    -- 'ComponentName': typeof import("../components/ComponentName.vue")['default']
-    local match_string = "'" .. word .. "'" .. ': typeof import%("(.-)"%)'
-    local path_match = string.match(components_file_contents, match_string)
-    local component_file_path = string.gsub(path_match, "dist", "src")
-    local resolved_path = vim.fn.resolve(dot_nuxt_folder .. "../" .. component_file_path)
-    vim.cmd(edit_command .. " " .. resolved_path)
-    return true
+    if components_file_contents then
+      -- The line looks like this:
+      -- 'ComponentName': typeof import("../components/ComponentName.vue")['default']
+      local match_string = "'" .. word .. "'" .. ': typeof import%("(.-)"%)'
+      local path_match = string.match(components_file_contents, match_string)
+      local component_file_path = string.gsub(path_match, "dist", "src")
+      local resolved_path = vim.fn.resolve(dot_nuxt_folder .. "../" .. component_file_path)
+      vim.cmd(edit_command .. " " .. resolved_path)
+      return true
+    end
   end
 
   return false

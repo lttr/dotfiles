@@ -105,7 +105,7 @@ end
 
 -- Look for directory that match (exactly) a given name
 -- It looks for matches in current directory and every parent up to HOME dir
-M.find_root_directory = function(dir_name)
+M.find_root_directory = function(dir_name, break_dir)
   local home = vim.env.HOME
   local path = vim.fn.expand("%:p:h")
   while true do
@@ -131,6 +131,9 @@ M.find_root_directory = function(dir_name)
         return nil
       end
       entry = vim.loop.fs_scandir_next(handle)
+    end
+    if break_dir == path then
+      break
     end
     if home == path then
       break
