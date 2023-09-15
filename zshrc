@@ -184,7 +184,12 @@ export forgit_rebase=fgrb
 export forgit_blame=fgbl
 export forgit_fixup=fgfu
   
-export FORGIT_FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --height=100%"
+export FORGIT_FZF_DEFAULT_OPTS="
+  --color bg:#2d2d2d,hl:#d8a657,bg+:#45403d,hl+:#d8a657
+  --color pointer:1,info:8,spinner:8,header:8,prompt:12,marker:#d8a657
+  --reverse
+  --height=100%
+  "
 
 export MC_SKIN=/home/lukas/.config/mc/solarized-light.ini
 
