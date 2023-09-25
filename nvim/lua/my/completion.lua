@@ -12,10 +12,10 @@ local has_words_before = function()
     local line = positionTable[1]
     local col = positionTable[2]
     return col ~= 0
-      and vim.api
-          .nvim_buf_get_lines(0, line - 1, line, true)[1]
-          :sub(col, col)
-          :match("%s")
+        and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
         == nil
   else
     return false
@@ -87,6 +87,7 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
+    { name = "css_classes" },
     { name = "css_variables" },
     { name = "scss_variables" },
     { name = "nuxt_component" },
@@ -95,7 +96,7 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "nvim_lsp", max_item_count = 10 },
+    { name = "nvim_lsp",               max_item_count = 10 },
     { name = "luasnip" },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
@@ -103,6 +104,7 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
+        css_classes = "[css-class]",
         css_variables = "[css-var]",
         scss_variables = "[scss-var]",
         nuxt_component = "[nuxt]",
@@ -124,6 +126,12 @@ require("cmp-css-variables").setup({
   },
 })
 
+require("cmp-css-classes").setup({
+  files = {
+    "./packages/base-styles/src/runtime/assets/css/main.min.css",
+  },
+})
+
 require("cmp-scss-variables").setup({
   files = {
     "./assets/styles/abstracts/_variables.scss",
@@ -140,6 +148,7 @@ require("cmp_jira").setup({
     jql = "assignee=%s",
   },
 })
+
 require("cmp_git").setup({
   filetypes = { "gitcommit" },
 })
