@@ -19,6 +19,7 @@ local servers = {
   "graphql",
   "html",
   "jsonls",
+  "lua_ls",
   "marksman",
   "phpactor",
   "prismals",
@@ -69,9 +70,9 @@ local common_on_attach = function(client)
   -- stop jsonls and cssls and volar from formatting (I use prettier for that)
   if client.server_capabilities.documentFormattingProvider then
     if
-      client.name == "jsonls"
-      or client.name == "cssls"
-      or client.name == "volar"
+        client.name == "jsonls"
+        or client.name == "cssls"
+        or client.name == "volar"
     then
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
@@ -137,6 +138,13 @@ local eslint = {
   },
 }
 
+local lua_ls = {
+  Lua = {
+    checkThirdParty = false,
+    hint = { enable = true }
+  }
+}
+
 local vuels = {
   init_options = {
     vetur = {
@@ -172,6 +180,7 @@ local jsonls = {
 local custom_configs = {
   denols = denols,
   eslint = eslint,
+  lua_ls = lua_ls,
   vuels = vuels,
   volar = volar,
   jsonls = jsonls,
@@ -214,7 +223,7 @@ local function setup_server(server)
   --   return
   -- end
   if
-    server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
+      server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
   then
     return
   end
@@ -241,13 +250,36 @@ end
 if not is_a_deno_project() and not is_a_nuxt_project() then
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
+    debug = false,            -- enable debug logging for commands
     go_to_source_definition = {
-      fallback = true, -- fall back to standard LSP definition on failure
+      fallback = true,        -- fall back to standard LSP definition on failure
     },
     server = {
       handlers = common_handlers,
       on_attach = common_on_attach,
+      -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
     },
   })
 end

@@ -41,7 +41,7 @@ imap("<C-s>", "<Esc>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 
@@ -453,6 +453,8 @@ nmap(
   "Typescript rename file"
 )
 
+-- Toggle stuff
+
 -- nmap("co", "<Plug>(unimpaired-toggle)", "Unimpaired toggle")
 
 -- yob 'background' (dark is off, light is on)
@@ -475,6 +477,7 @@ nmap("coq", ":call ToggleQuickfixList()<CR>", "Toggle quickfix list")
 -- you 'cursorcolumn'
 -- yov 'virtualedit'
 nmap("coy", "<cmd>TSLspToggleInlayHints<CR>", "Toggle Treesitter inlay hints")
+nmap("coi", function() vim.lsp.inlay_hint(0, nil) end, "Toggle LSP inlay hints")
 -- yow 'wrap'
 -- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
 
