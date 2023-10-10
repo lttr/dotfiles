@@ -150,10 +150,13 @@ require("packer").startup(function(use)
   -- help
   use("dbeniamine/cheat.sh-vim")
   use("ThePrimeagen/vim-be-good")
-  use("aduros/ai.vim")
   use("PatrBal/vim-textidote")
   use("lalitmee/browse.nvim")
   use("xiyaowong/link-visitor.nvim")
+  use({
+    "jackMort/ChatGPT.nvim",
+    requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
+  })
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")

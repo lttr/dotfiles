@@ -95,10 +95,10 @@
     "description": "Vue inject"
   },
   "Vue props": {
-    "prefix": "vprops",
+    "prefix": "defp",
     "body": [
       "defineProps<{",
-      "\t${0}",
+      "\t${1:data}: ${2:string}",
       "}>()"
     ],
     "description": "Vue props"
@@ -115,10 +115,10 @@
     "description": "Vue props"
   },
   "Vue define Emits": {
-    "prefix": "vemits",
+    "prefix": "defe",
     "body": [
-      "const emits = defineEmits<{",
-      "\t(e: '${1:update}', ${2:value}: ${3: String}): void",
+      "defineEmits<{",
+      "\t'${1:update}': [${2: value}: ${3:string}]",
       "}>()"
     ],
     "description": "Vue define Emits"
