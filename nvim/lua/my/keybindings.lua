@@ -24,6 +24,8 @@ local function vmap(left, right, desc) mymap("v", left, right, { desc = desc }) 
 
 local function tmap(left, right, desc) mymap("t", left, right, { desc = desc }) end
 
+local function nvmap(left, right, desc) mymap({ "n", "v" }, left, right, { desc = desc }) end
+
 -- Identify the syntax highlighting group used at the cursor
 -- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
 nmap("<F9>", "<cmd>TSHighlightCapturesUnderCursor<CR>")
@@ -568,6 +570,22 @@ nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 
 -- oil.nvim
 nmap("<localleader>x", "<cmd>Oil %:h<CR>")
+
+-- ChatGPT.nvim
+nmap("<A-g>", "<cmd>ChatGPT<CR>")
+nvmap("<A-c>e", "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction")
+nvmap("<A-c>g", "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction")
+nvmap("<A-c>t", "<cmd>ChatGPTRun translate<CR>", "Translate")
+nvmap("<A-c>k", "<cmd>ChatGPTRun keywords<CR>", "Keywords")
+nvmap("<A-c>d", "<cmd>ChatGPTRun docstring<CR>", "Docstring")
+nvmap("<A-c>a", "<cmd>ChatGPTRun add_tests<CR>", "Add Tests")
+nvmap("<A-c>o", "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code")
+nvmap("<A-c>s", "<cmd>ChatGPTRun summarize<CR>", "Summarize")
+nvmap("<A-c>f", "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs")
+nvmap("<A-c>x", "<cmd>ChatGPTRun explain_code<CR>", "Explain Code")
+nvmap("<A-c>r", "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit")
+nvmap("<A-c>l", "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis")
+
 
 --
 -- diffview.vim

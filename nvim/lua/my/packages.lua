@@ -99,7 +99,6 @@ require("packer").startup(function(use)
   use("andymass/vim-matchup")
 
   -- web dev
-  use("KabbAmine/vCoolor.vim")
   use("mattn/emmet-vim")
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
