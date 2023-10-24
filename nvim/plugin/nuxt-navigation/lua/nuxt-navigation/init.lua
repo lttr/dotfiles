@@ -49,7 +49,7 @@ local function find_component(path, name_parts, count)
   return nil
 end
 
-local function find_component_simple(path, component_name) 
+local function find_component_simple(path, component_name)
   local paths = vim.split(vim.fn.glob(path .. '/**/' .. component_name .. '.vue'), '\\n')
   if paths[1] == "" then
     return nil
@@ -75,7 +75,7 @@ local function handle_component(word, vsplit)
     component_file_path = find_component_simple(components_folder, word)
     if not component_file_path then
       component_file_path =
-      find_component(components_folder, component_name_parts, parts_count)
+          find_component(components_folder, component_name_parts, parts_count)
     end
     if component_file_path then
       vim.cmd(edit_command .. " " .. component_file_path)
@@ -94,6 +94,9 @@ local function handle_component(word, vsplit)
       -- 'ComponentName': typeof import("../components/ComponentName.vue")['default']
       local match_string = "'" .. word .. "'" .. ': typeof import%("(.-)"%)'
       local path_match = string.match(components_file_contents, match_string)
+      if not path_match then
+        return false
+      end
       local component_file_path = string.gsub(path_match, "dist", "src")
       local resolved_path = vim.fn.resolve(dot_nuxt_folder .. "../" .. component_file_path)
       vim.cmd(edit_command .. " " .. resolved_path)

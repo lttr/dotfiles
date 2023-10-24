@@ -355,7 +355,8 @@ mrco() {
     yes_or_no "Unable to checkout $branch - force it?" &&
         git fetch --all &&
         git reset --hard origin/$branch &&
-        git checkout $branch
+        git checkout $branch &&
+        git pull
   fi
 }
 

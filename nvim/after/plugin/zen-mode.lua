@@ -6,4 +6,9 @@ require("zen-mode").setup {
       signcolumn = "no",
     },
   },
+  plugins = {
+    options = {
+      laststatus = 3
+    },
+  }
 }
