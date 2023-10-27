@@ -129,6 +129,7 @@ require("cmp-css-variables").setup({
 require("cmp-css-classes").setup({
   files = {
     "./packages/base-styles/src/runtime/assets/css/main.min.css",
+    "./node_modules/open-props/open-props.min.css",
   },
 })
 

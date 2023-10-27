@@ -2,5 +2,5 @@
 
 require("toggleterm").setup({
   direction = "vertical",
-  size = 50
+  size = 120
 })
