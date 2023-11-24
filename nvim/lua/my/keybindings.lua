@@ -434,26 +434,26 @@ nmap("<localleader>d", vim.diagnostic.open_float)
 --
 -- typescript.nvim
 --
-nmap(
-  "<localleader>yo",
-  require("typescript").actions.organizeImports,
-  "Organize imports"
-)
-nmap(
-  "<localleader>ya",
-  require("typescript").actions.addMissingImports,
-  "Add missing imports"
-)
-nmap(
-  "<localleader>yu",
-  require("typescript").actions.removeUnused,
-  "Remove unused"
-)
-nmap(
-  "<localleader>yr",
-  "<cmd>TypescriptRenameFile<CR>",
-  "Typescript rename file"
-)
+-- nmap(
+--   "<localleader>yo",
+--   require("typescript").actions.organizeImports,
+--   "Organize imports"
+-- )
+-- nmap(
+--   "<localleader>ya",
+--   require("typescript").actions.addMissingImports,
+--   "Add missing imports"
+-- )
+-- nmap(
+--   "<localleader>yu",
+--   require("typescript").actions.removeUnused,
+--   "Remove unused"
+-- )
+-- nmap(
+--   "<localleader>yr",
+--   "<cmd>TypescriptRenameFile<CR>",
+--   "Typescript rename file"
+-- )
 
 -- Toggle stuff
 

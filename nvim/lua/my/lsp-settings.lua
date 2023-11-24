@@ -247,42 +247,44 @@ end
 
 -- https://github.com/jose-elias-alvarez/typescript.nvim
 -- tsserver is managed by nvim-lsp-ts-utils
-if not is_a_deno_project() and not is_a_nuxt_project() then
-  require("typescript").setup({
-    disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false,            -- enable debug logging for commands
-    go_to_source_definition = {
-      fallback = true,        -- fall back to standard LSP definition on failure
-    },
-    server = {
-      handlers = common_handlers,
-      on_attach = common_on_attach,
-      -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
-      javascript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-        },
-      },
-      typescript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-        },
-      },
-    },
-  })
-end
+-- if not is_a_deno_project() and not is_a_nuxt_project() then
+--   require("typescript").setup({
+--     disable_commands = false, -- prevent the plugin from creating Vim commands
+--     debug = false,            -- enable debug logging for commands
+--     go_to_source_definition = {
+--       fallback = true,        -- fall back to standard LSP definition on failure
+--     },
+--     server = {
+--       handlers = common_handlers,
+--       on_attach = common_on_attach,
+--       -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+--       javascript = {
+--         inlayHints = {
+--           includeInlayEnumMemberValueHints = true,
+--           includeInlayFunctionLikeReturnTypeHints = true,
+--           includeInlayFunctionParameterTypeHints = true,
+--           includeInlayParameterNameHints = 'all',
+--           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--           includeInlayPropertyDeclarationTypeHints = true,
+--           includeInlayVariableTypeHints = true,
+--         },
+--       },
+--       typescript = {
+--         inlayHints = {
+--           includeInlayEnumMemberValueHints = true,
+--           includeInlayFunctionLikeReturnTypeHints = true,
+--           includeInlayFunctionParameterTypeHints = true,
+--           includeInlayParameterNameHints = 'all',
+--           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--           includeInlayPropertyDeclarationTypeHints = true,
+--           includeInlayVariableTypeHints = true,
+--         },
+--       },
+--     },
+--   })
+-- end
+
+-- require("typescript-tools").setup {}
 
 -- https://github.com/ray-x/lsp_signature.nvim
 require("lsp_signature").setup({
