@@ -23,16 +23,23 @@ function customGnomeKeybinding(
 
 const customGnomeKeybindings = [
   ...customGnomeKeybinding(0, "Sleep", "systemctl suspend", "<Super>u"),
+  ...customGnomeKeybinding(
+    1,
+    "VPN Quanti",
+    "nmcli con up id Quanti",
+    "<Primary><Super>v",
+  ),
 ];
 
 const customGnomeKeybindingsSetup = {
   gnomeSettings: {
     schema: "org.gnome.settings-daemon.plugins.media-keys",
     key: "custom-keybindings",
-    value: `[${Array.from(customGnomeKeybindingSchemas)
+    value: `[${
+      Array.from(customGnomeKeybindingSchemas)
         .map((schema) => `'${schema}'`)
         .join(", ")
-      }]`,
+    }]`,
   },
 };
 

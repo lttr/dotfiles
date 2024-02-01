@@ -341,7 +341,7 @@ export const gnomeSettings: Config[] = [
       schema: "org.gnome.shell",
       key: "favorite-apps",
       value:
-        "['firefox.desktop', 'kitty.desktop', 'rambox.desktop', '1password.desktop', 'obsidian_obsidian.desktop', 'com.slack.Slack.desktop']",
+        "['firefox.desktop', 'kitty.desktop', 'rambox_rambox.desktop', '1password.desktop', 'obsidian_obsidian.desktop', 'com.slack.Slack.desktop']",
     },
   },
 ];

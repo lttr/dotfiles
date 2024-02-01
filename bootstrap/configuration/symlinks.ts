@@ -116,5 +116,11 @@ export const symlinks: Config[] = [
       src: path.join(DOTFILES, "nirc"),
     },
   },
+  {
+    symlink: {
+      dest: path.join(HOME, "ia"),
+      src: path.join(HOME, "SynologyDrive/ia"),
+    },
+  },
   ...executableScripts,
 ];

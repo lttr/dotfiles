@@ -96,7 +96,8 @@ require("packer").startup(function(use)
   use("nvim-pack/nvim-spectre")
   use("numToStr/Comment.nvim")
   use("folke/which-key.nvim")
-  use("andymass/vim-matchup")
+  -- TODO has errors
+  -- use("andymass/vim-matchup")
 
   -- web dev
   use("mattn/emmet-vim")

@@ -15,10 +15,11 @@ require "nvim-treesitter.configs".setup {
   autotag = {
     enable = true
   },
-  matchup = {
-    enable = true, -- disabled, since the indication at the end of a function is distracting
-    disable = {}   -- optional, list of language that will be disabled
-  },
+  -- TODO had startup
+  -- matchup = {
+  --   enable = true,   -- disabled, since the indication at the end of a function is distracting
+  --   disable = { "ts" } -- optional, list of language that will be disabled
+  -- },
   textobjects = {
     select = {
       enable = true,
