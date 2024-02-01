@@ -133,8 +133,9 @@ require("packer").startup(function(use)
   use("hashivim/vim-terraform")
   use("jparise/vim-graphql")
   use("maxmellon/vim-jsx-pretty")
-  -- use("jose-elias-alvarez/typescript.nvim")
-  use("pmizio/typescript-tools.nvim")
+  use("jose-elias-alvarez/typescript.nvim")
+  use("davidosomething/format-ts-errors.nvim")
+  -- use("pmizio/typescript-tools.nvim")
   use("nikvdp/ejs-syntax")
   use("napmn/react-extract.nvim")
   use("Janiczek/vim-latte")
@@ -157,11 +158,23 @@ require("packer").startup(function(use)
     "jackMort/ChatGPT.nvim",
     requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
   })
+  use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
+
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")
   use("skywind3000/asyncrun.vim")
   use({ "michaelb/sniprun", run = "bash ./install.sh" })
+  use({
+    'mikesmithgh/kitty-scrollback.nvim',
+    disable = false,
+    opt = true,
+    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
+    event = { 'User KittyScrollbackLaunch' },
+    config = function()
+      require('kitty-scrollback').setup()
+    end,
+  })
 
   -- version control
   use("tpope/vim-fugitive")

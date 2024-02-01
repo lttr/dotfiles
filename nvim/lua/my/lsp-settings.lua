@@ -1,8 +1,6 @@
 -- https://github.com/williamboman/mason-lspconfig.nvim
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
--- https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils
-
 -- https://github.com/folke/neodev.nvim
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 require("neodev").setup()
@@ -29,7 +27,6 @@ local servers = {
   -- "vuels",
   "volar",
   "yamlls",
-  -- tsserver is managed by nvim-lsp-ts-utils
 }
 
 require("mason").setup()
@@ -92,6 +89,45 @@ local common_on_attach = function(client)
   --   )
   -- end
 end
+
+-- https://github.com/davidosomething/format-ts-errors.nvim
+local pretty_ts_error_handlers = {
+  ["textDocument/publishDiagnostics"] = function(
+    _,
+    result,
+    ctx,
+    config
+  )
+    if result.diagnostics == nil then
+      return
+    end
+
+    -- ignore some tsserver diagnostics
+    local idx = 1
+    while idx <= #result.diagnostics do
+      local entry = result.diagnostics[idx]
+
+      local formatter = require('format-ts-errors')[entry.code]
+      entry.message = formatter and formatter(entry.message) or entry.message
+
+      -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+      if entry.code == 80001 then
+        -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
+        table.remove(result.diagnostics, idx)
+      else
+        idx = idx + 1
+      end
+    end
+
+    vim.lsp.diagnostic.on_publish_diagnostics(
+      _,
+      result,
+      ctx,
+      config
+    )
+  end
+}
+
 
 local denols = {
   root_dir = lsp_config.util.root_pattern({
@@ -157,6 +193,7 @@ local vuels = {
 }
 
 local volar = {
+  handlers = pretty_ts_error_handlers,
   filetypes = {
     "typescript",
     "javascript",
@@ -218,10 +255,9 @@ local function is_a_nuxt_project()
 end
 
 local function setup_server(server)
-  -- tsserver is managed by nvim-lsp-ts-utils
-  -- if server == "tsserver" and (is_a_deno_project() or is_a_nuxt_project()) then
-  --   return
-  -- end
+  if server == "tsserver" and (is_a_deno_project() or is_a_nuxt_project()) then
+    return
+  end
   if
       server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
   then
@@ -246,43 +282,42 @@ for _, name in pairs(servers) do
 end
 
 -- https://github.com/jose-elias-alvarez/typescript.nvim
--- tsserver is managed by nvim-lsp-ts-utils
--- if not is_a_deno_project() and not is_a_nuxt_project() then
---   require("typescript").setup({
---     disable_commands = false, -- prevent the plugin from creating Vim commands
---     debug = false,            -- enable debug logging for commands
---     go_to_source_definition = {
---       fallback = true,        -- fall back to standard LSP definition on failure
---     },
---     server = {
---       handlers = common_handlers,
---       on_attach = common_on_attach,
---       -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
---       javascript = {
---         inlayHints = {
---           includeInlayEnumMemberValueHints = true,
---           includeInlayFunctionLikeReturnTypeHints = true,
---           includeInlayFunctionParameterTypeHints = true,
---           includeInlayParameterNameHints = 'all',
---           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
---           includeInlayPropertyDeclarationTypeHints = true,
---           includeInlayVariableTypeHints = true,
---         },
---       },
---       typescript = {
---         inlayHints = {
---           includeInlayEnumMemberValueHints = true,
---           includeInlayFunctionLikeReturnTypeHints = true,
---           includeInlayFunctionParameterTypeHints = true,
---           includeInlayParameterNameHints = 'all',
---           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
---           includeInlayPropertyDeclarationTypeHints = true,
---           includeInlayVariableTypeHints = true,
---         },
---       },
---     },
---   })
--- end
+if not is_a_deno_project() and not is_a_nuxt_project() then
+  require("typescript").setup({
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false,            -- enable debug logging for commands
+    go_to_source_definition = {
+      fallback = true,        -- fall back to standard LSP definition on failure
+    },
+    server = {
+      handlers = vim.tbl_deep_extend("force", common_handlers, pretty_ts_error_handlers),
+      on_attach = common_on_attach,
+      -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+      javascript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+      typescript = {
+        inlayHints = {
+          includeInlayEnumMemberValueHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayVariableTypeHints = true,
+        },
+      },
+    },
+  })
+end
 
 -- require("typescript-tools").setup {}
 

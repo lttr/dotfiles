@@ -1,10 +1,10 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
+require('ts_context_commentstring').setup {}
+vim.g.skip_ts_context_commentstring_module = true
+
 require "nvim-treesitter.configs".setup {
   ensure_installed = "all",
-  context_commentstring = {
-    enable = true
-  },
   highlight = {
     enable = true,
     disable = {}
@@ -17,7 +17,7 @@ require "nvim-treesitter.configs".setup {
   },
   matchup = {
     enable = true, -- disabled, since the indication at the end of a function is distracting
-    disable = {} -- optional, list of language that will be disabled
+    disable = {}   -- optional, list of language that will be disabled
   },
   textobjects = {
     select = {

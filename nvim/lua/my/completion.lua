@@ -49,6 +49,13 @@ cmp.setup({
     documentation = cmp.config.window.bordered(border_options),
   },
   mapping = {
+    ["<c-a>"] = cmp.mapping.complete {
+      config = {
+        sources = {
+          { name = "cody" },
+        },
+      },
+    },
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping(function(fallback)
       fallback()
@@ -87,6 +94,7 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
+    { name = "cody" },
     { name = "css_classes" },
     { name = "css_variables" },
     { name = "scss_variables" },
@@ -104,6 +112,7 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
+        cody = "[cody]",
         css_classes = "[css-class]",
         css_variables = "[css-var]",
         scss_variables = "[scss-var]",
@@ -123,6 +132,7 @@ require("cmp-css-variables").setup({
     "./node_modules/open-props/open-props.min.css",
     "./assets/css/settings.css",
     "./packages/base-styles/src/runtime/assets/css/main.min.css",
+    "./output/puleo.min.css",
   },
 })
 
@@ -130,6 +140,7 @@ require("cmp-css-classes").setup({
   files = {
     "./packages/base-styles/src/runtime/assets/css/main.min.css",
     "./node_modules/open-props/open-props.min.css",
+    "./output/puleo.min.css",
   },
 })
 

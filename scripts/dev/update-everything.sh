@@ -1,6 +1,4 @@
 #!/bin/bash
-set -e
-
 echo
 echo '### sudo apt-get update'
 echo

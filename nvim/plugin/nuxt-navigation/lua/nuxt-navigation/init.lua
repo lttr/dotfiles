@@ -38,7 +38,7 @@ local function find_component(path, name_parts, count)
     end
   end
   local next_path = path_join(path, name_parts[1])
-  if vim.fn.isdirectory(next_path) then
+  if next_path and vim.fn.isdirectory(next_path) then
     table.remove(name_parts, 1)
     if count <= 1 then
       -- Component was not found and the table with name parts is empty
@@ -70,7 +70,7 @@ local function handle_component(word, vsplit)
   end
 
   local components_folder = find_root_directory("components")
-  if vim.fn.isdirectory(components_folder) then
+  if components_folder and vim.fn.isdirectory(components_folder) then
     local component_file_path = nil
     component_file_path = find_component_simple(components_folder, word)
     if not component_file_path then
@@ -82,11 +82,15 @@ local function handle_component(word, vsplit)
       return true
     end
   else
-    print("There is no expected directory " .. components_folder)
+    local directory = ""
+    if components_folder then
+      directory = components_folder
+    end
+    print("There is no expected directory " .. directory)
   end
 
   local dot_nuxt_folder = find_root_directory(".nuxt", vim.fn.getcwd())
-  if vim.fn.isdirectory(dot_nuxt_folder) then
+  if dot_nuxt_folder and vim.fn.isdirectory(dot_nuxt_folder) then
     local components_file_path = path_join(dot_nuxt_folder, "components.d.ts")
     local components_file_contents = read_file(components_file_path)
     if components_file_contents then
@@ -113,8 +117,8 @@ local function handle_composable(word)
   if string.match(word, "Store") then
     composables_folder_name = "stores"
   end
-  local components_folder = find_root_directory(composables_folder_name)
-  if vim.fn.isdirectory(composables_folder) then
+  local composables_folder = find_root_directory(composables_folder_name)
+  if composables_folder and vim.fn.isdirectory(composables_folder) then
     local file_name = word .. ".ts"
     if string.match(word, "Store") then
       file_name = word:sub(4) .. ".ts" -- omit the leading "use" prefix
