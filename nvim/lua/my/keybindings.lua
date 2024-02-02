@@ -90,6 +90,9 @@ nmap("<A-l>", "<C-w>l")
 nmap("<A-j>", "<C-w>j")
 nmap("<A-k>", "<C-w>k")
 
+-- tabs
+nmap("<A-y", "<cmd>tabnext<CR>")
+
 -- open current buffer in vertical split
 nmap("<leader>vv", ":vsplit<CR>")
 nmap("<leader>vs", ":split<CR>")
@@ -482,6 +485,7 @@ nmap("coy", "<cmd>TSLspToggleInlayHints<CR>", "Toggle Treesitter inlay hints")
 nmap("coi", function() vim.lsp.inlay_hint(0, nil) end, "Toggle LSP inlay hints")
 -- yow 'wrap'
 -- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
+
 
 --
 -- nvim-autopairs

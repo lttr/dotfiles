@@ -98,6 +98,7 @@ const brewPackages = [
   { name: "potrace" },
   { name: "rg" },
   { name: "sd" },
+  { name: "unison" },
   { name: "zoxide" },
 ];
 
