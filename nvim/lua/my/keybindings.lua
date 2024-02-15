@@ -486,6 +486,12 @@ nmap("coi", function() vim.lsp.inlay_hint(0, nil) end, "Toggle LSP inlay hints")
 -- yow 'wrap'
 -- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
 
+-- change case (addition to defaults in text-case.nvim)
+nmap("gt.", function() require('textcase').current_word('to_dot_case') end, "Convert to dot.case")
+nmap("gt/", function() require('textcase').current_word('to_path_case') end, "Convert to path/case")
+nmap("gta", function() require('textcase').current_word('to_phrase_case') end, "Convert to Phrase case")
+nmap("gtt", function() require('textcase').current_word('to_title_case') end, "Convert to Title Case")
+
 
 --
 -- nvim-autopairs

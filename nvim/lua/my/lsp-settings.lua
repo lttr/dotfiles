@@ -193,7 +193,7 @@ local vuels = {
 }
 
 local volar = {
-  handlers = pretty_ts_error_handlers,
+  -- handlers = pretty_ts_error_handlers,
   filetypes = {
     "typescript",
     "javascript",
@@ -263,13 +263,9 @@ local function setup_server(server)
   then
     return
   end
-  -- use volar only for now
   -- if
-  --   server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
+  --     server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
   -- then
-  --   return
-  -- end
-  -- if server == "vuels" and (is_a_vite_project() or is_a_nuxt_project()) then
   --   return
   -- end
 
@@ -290,7 +286,7 @@ if not is_a_deno_project() and not is_a_nuxt_project() then
       fallback = true,        -- fall back to standard LSP definition on failure
     },
     server = {
-      handlers = vim.tbl_deep_extend("force", common_handlers, pretty_ts_error_handlers),
+      -- handlers = vim.tbl_deep_extend("force", common_handlers, pretty_ts_error_handlers),
       on_attach = common_on_attach,
       -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
       javascript = {
