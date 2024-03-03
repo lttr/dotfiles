@@ -8,23 +8,18 @@ require("neodev").setup()
 local utils = require("my.utils")
 
 local servers = {
-  "angularls",
   "bashls",
   "cssls",
   "denols",
   "eslint",
-  "gopls",
   "graphql",
   "html",
   "jsonls",
   "lua_ls",
   "marksman",
   "phpactor",
-  "prismals",
-  "svelte",
   -- "tailwindcss",
   "terraformls",
-  -- "vuels",
   "volar",
   "yamlls",
 }
@@ -181,17 +176,6 @@ local lua_ls = {
   }
 }
 
-local vuels = {
-  init_options = {
-    vetur = {
-      completion = {
-        tagCasing = "initial",
-        autoImport = true,
-      },
-    },
-  },
-}
-
 local volar = {
   -- handlers = pretty_ts_error_handlers,
   filetypes = {
@@ -218,7 +202,6 @@ local custom_configs = {
   denols = denols,
   eslint = eslint,
   lua_ls = lua_ls,
-  vuels = vuels,
   volar = volar,
   jsonls = jsonls,
 }

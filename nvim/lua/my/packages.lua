@@ -29,6 +29,8 @@ require("packer").startup(function(use)
   use("~/dotfiles/nvim/plugin/cmp-css-variables/")
   use("~/dotfiles/nvim/plugin/cmp-scss-variables/")
 
+  --klen/nvim-config-local
+
   -- packer
   use("wbthomason/packer.nvim")
 
@@ -103,6 +105,7 @@ require("packer").startup(function(use)
   use("mattn/emmet-vim")
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
+  use("Jezda1337/nvim-html-css")
 
   -- testing
   use({
