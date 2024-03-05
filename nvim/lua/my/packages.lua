@@ -26,7 +26,7 @@ require("packer").startup(function(use)
   use("~/dotfiles/nvim/plugin/nuxt-navigation/")
   use("~/dotfiles/nvim/plugin/cmp-nuxt-component/")
   use("~/dotfiles/nvim/plugin/cmp-css-classes/")
-  use("~/dotfiles/nvim/plugin/cmp-css-variables/")
+  -- use("~/dotfiles/nvim/plugin/cmp-css-variables/")
   use("~/dotfiles/nvim/plugin/cmp-scss-variables/")
 
   --klen/nvim-config-local
@@ -99,13 +99,15 @@ require("packer").startup(function(use)
   use("numToStr/Comment.nvim")
   use("folke/which-key.nvim")
   -- TODO has errors
-  -- use("andymass/vim-matchup")
+  use("andymass/vim-matchup")
 
   -- web dev
   use("mattn/emmet-vim")
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
   use("Jezda1337/nvim-html-css")
+  use("lttr/cmp-css-variables")
+  use("lttr/classy.nvim")
 
   -- testing
   use({

@@ -1,7 +1,7 @@
+local ts_utils = require("nvim-treesitter.ts_utils")
 local utils = require("my.utils")
 local path_join = utils.path_join
 local file_exists = utils.file_exists
-local current_sequence_contains = utils.current_sequence_contains
 local read_file = utils.read_file
 
 local source = {}
@@ -15,9 +15,17 @@ source.new = function()
   return self
 end
 
+local function is_cursor_in_attribute_value()
+  local node = ts_utils.get_node_at_cursor()
+  if node ~= nil then
+    return node:type() == "quoted_attribute_value"
+  end
+  return false
+end
+
 function source:is_available()
   local ext = vim.fn.expand("%:e")
-  return ext == "html" or ext == "vue"
+  return (ext == "html" or ext == "vue") and is_cursor_in_attribute_value()
 end
 
 function source:get_debug_name()
@@ -25,10 +33,6 @@ function source:get_debug_name()
 end
 
 function source:complete(params, callback)
-  -- if not current_sequence_contains("") then
-  --   callback()
-  --   return
-  -- end
   local cwd = vim.fn.getcwd()
   local css_files = {}
   for i, css_file in ipairs(opts.files) do
@@ -62,7 +66,7 @@ function source:execute(completion_item, callback)
   callback(completion_item)
 end
 
-require("cmp").register_source("css_variables", source.new())
+require("cmp").register_source("css_classes", source.new())
 
 return {
   setup = function(_opts)

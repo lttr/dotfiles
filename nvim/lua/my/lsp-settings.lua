@@ -234,7 +234,7 @@ local function is_a_vite_project()
 end
 
 local function is_a_nuxt_project()
-  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts" })
+  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts", ".nuxtrc" })
 end
 
 local function setup_server(server)
@@ -246,11 +246,6 @@ local function setup_server(server)
   then
     return
   end
-  -- if
-  --     server == "volar" and (not is_a_vite_project() and not is_a_nuxt_project())
-  -- then
-  --   return
-  -- end
 
   local config = make_config(server)
   lsp_config[server].setup(config)

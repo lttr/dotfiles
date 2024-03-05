@@ -198,6 +198,9 @@ vmap(
   [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]]
 )
 
+nmap("<localleader>c", "<cmd>ClassyAddClass<CR>", "Classy add class on current tag")
+nmap("<localleader>C", "<cmd>ClassyRemoveClass<CR>", "Classy remove class on current tag")
+
 -- ensure , at the end of a line
 nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
 -- ensure ; at the end of a line

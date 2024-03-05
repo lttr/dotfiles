@@ -33,7 +33,7 @@ local border_options = {
 
 cmp.setup({
   performance = {
-    max_view_entries = 20,
+    max_view_entries = 12,
   },
   snippet = {
     expand = function(args) require("luasnip").lsp_expand(args.body) end,
@@ -68,7 +68,7 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping(function() cmp.complete() end),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
+      behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     }),
     ["<Tab>"] = cmp.mapping(function(fallback)
@@ -96,7 +96,7 @@ cmp.setup({
   sources = {
     { name = "cody" },
     { name = "css_classes" },
-    { name = "css_variables" },
+    { name = "css_variables",          max_item_count = 5 },
     { name = "scss_variables" },
     { name = "nuxt_component" },
     { name = "path" },
@@ -104,8 +104,8 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "nvim_lsp",               max_item_count = 10 },
-    { name = "luasnip" },
+    { name = "nvim_lsp",               max_item_count = 5 },
+    { name = "luasnip",                max_item_count = 5 },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
   formatting = {
@@ -127,12 +127,12 @@ cmp.setup({
   },
 })
 
-require("cmp-css-variables").setup({
+require("cmp_css_variables").setup({
   files = {
     "./node_modules/open-props/open-props.min.css",
     "./assets/css/settings.css",
-    "./packages/base-styles/src/runtime/assets/css/main.min.css",
-    "./output/puleo.min.css",
+    "./packages/base-styles/dist/runtime/assets/css/main.min.css",
+    "./output/puleo.post.css",
   },
 })
 
@@ -140,6 +140,7 @@ require("cmp-css-classes").setup({
   files = {
     "./packages/base-styles/src/runtime/assets/css/main.min.css",
     "./node_modules/open-props/open-props.min.css",
+    "./node_modules/@lttr/puleo/puleo.min.css",
     "./output/puleo.min.css",
   },
 })
