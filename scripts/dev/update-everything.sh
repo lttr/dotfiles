@@ -15,6 +15,13 @@ echo
 sudo apt-get dist-upgrade --yes
 
 echo
+echo '### pop_os upgrade'
+echo
+sudo apt full-upgrade
+pop-upgrade recovery upgrade from-release
+pop-upgrade release upgrade
+
+echo
 echo '### deno upgrade'
 echo
 deno upgrade
