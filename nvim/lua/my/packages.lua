@@ -71,6 +71,7 @@ require("packer").startup(function(use)
   use("Maan2003/lsp_lines.nvim")
   use("folke/zen-mode.nvim")
   use("j-hui/fidget.nvim")
+  use({ 'nvimdev/lspsaga.nvim', after = 'nvim-lspconfig' })
 
   -- snippets
   use("L3MON4D3/LuaSnip")
@@ -116,6 +117,7 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "haydenmeade/neotest-jest",
+      "nvim-neotest/nvim-nio"
     },
   })
 
@@ -164,7 +166,8 @@ require("packer").startup(function(use)
     "jackMort/ChatGPT.nvim",
     requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
   })
-  use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
+  -- use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
+  use('Exafunction/codeium.nvim')
 
 
   -- executing and terminal

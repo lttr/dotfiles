@@ -86,16 +86,17 @@ alias iad="cd ~/ia"
 #                         npm, node, deno
 # =================================================================
 
-# use @antfu/ni instead
-alias nb="npm run build"
-alias nd="npm run dev"
-alias nl="npm run lint"
-alias ns="npm start"
-alias nse="npm run serve"
-alias nt="npm run --silent test"
-alias nk="npm run typecheck"
-alias nv="npm run validate"
-alias nw="npm run watch"
+# 'nr' comes from @antfu/ni
+alias nb="nr build"
+alias np="nr preview"
+alias nd="nr dev"
+alias nl="nr lint"
+alias ns="nr start"
+alias nse="nr serve"
+alias nt="nr --silent test"
+alias nk="nr typecheck"
+alias nv="nr validate"
+alias nw="nr watch"
 
 alias pn="pnpm"
 alias pdx="pnpm dlx"

@@ -201,7 +201,7 @@ fe() { file-recent "$1" }
 # or GUI application (press Ctrl+o)
 file-edit() {
     local out file key
-    IFS=$'\n' out=($(ag --follow -g "$1" | fzf --expect=ctrl-o))
+    IFS=$'\n' out=($(fd "$1" | fzf --expect=ctrl-o))
     key=$(head -1 <<< "$out")
     file=$(head -2 <<< "$out" | tail -1)
     if [ -n "$file" ]; then
@@ -213,7 +213,7 @@ file-edit() {
 # Ignores lines not matching "\w"
 file-search() {
     local out tokens file line
-    out=$(ag --follow --nobreak --noheading --nocolor "\w" "$1" | fzf)
+    out=$(rg --follow --no-heading "$1" | fzf)
     IFS=':' tokens=( $out )
     file=${tokens[1]}
     line=${tokens[2]}

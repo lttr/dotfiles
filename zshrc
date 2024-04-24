@@ -227,6 +227,9 @@ unset antidote_dir plugins_txt static_file # cleanup
 # Zoxide
 which zoxide >/dev/null && eval "$(zoxide init zsh)"
 
+# Atuin
+eval "$(atuin init zsh --disable-up-arrow)"
+
 # =================================================================
 #                           Terminal
 # =================================================================

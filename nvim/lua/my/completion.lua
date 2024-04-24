@@ -49,13 +49,13 @@ cmp.setup({
     documentation = cmp.config.window.bordered(border_options),
   },
   mapping = {
-    ["<c-a>"] = cmp.mapping.complete {
-      config = {
-        sources = {
-          { name = "cody" },
-        },
-      },
-    },
+    -- ["<c-a>"] = cmp.mapping.complete {
+    --   config = {
+    --     sources = {
+    --       { name = "cody" },
+    --     },
+    --   },
+    -- },
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping(function(fallback)
       fallback()
@@ -94,9 +94,10 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
-    { name = "cody" },
+    -- { name = "cody" },
+    { name = "codeium" },
     { name = "css_classes" },
-    { name = "css_variables",          max_item_count = 5 },
+    { name = "css_variables" },
     { name = "scss_variables" },
     { name = "nuxt_component" },
     { name = "path" },
@@ -104,7 +105,7 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "nvim_lsp",               max_item_count = 5 },
+    { name = "nvim_lsp" },
     { name = "luasnip",                max_item_count = 5 },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
@@ -112,7 +113,8 @@ cmp.setup({
     format = lspkind.cmp_format({
       with_text = true,
       menu = {
-        cody = "[cody]",
+        -- cody = "[cody]",
+        codeium = "[codeium]",
         css_classes = "[css-class]",
         css_variables = "[css-var]",
         scss_variables = "[scss-var]",

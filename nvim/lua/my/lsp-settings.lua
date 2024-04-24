@@ -241,9 +241,12 @@ local function setup_server(server)
   if server == "tsserver" and (is_a_deno_project() or is_a_nuxt_project()) then
     return
   end
-  if
-      server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
-  then
+
+  if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
+    return
+  end
+
+  if server == "volar" and is_a_deno_project() then
     return
   end
 
