@@ -18,7 +18,7 @@ local servers = {
   "lua_ls",
   "marksman",
   "phpactor",
-  -- "tailwindcss",
+  "tailwindcss",
   "terraformls",
   "volar",
   "yamlls",
@@ -88,10 +88,10 @@ end
 -- https://github.com/davidosomething/format-ts-errors.nvim
 local pretty_ts_error_handlers = {
   ["textDocument/publishDiagnostics"] = function(
-    _,
-    result,
-    ctx,
-    config
+      _,
+      result,
+      ctx,
+      config
   )
     if result.diagnostics == nil then
       return
@@ -155,6 +155,9 @@ local eslint = {
       enable = true,
     },
   },
+  experimental = {
+    useFlatConfig = true
+  },
   filetypes = {
     "javascript",
     "javascriptreact",
@@ -176,6 +179,7 @@ local lua_ls = {
   }
 }
 
+-- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
 local volar = {
   -- handlers = pretty_ts_error_handlers,
   filetypes = {
@@ -184,8 +188,12 @@ local volar = {
     "javascriptreact",
     "typescriptreact",
     "vue",
-    "json",
   },
+  init_options = {
+    vue = {
+      hybridMode = false
+    }
+  }
 }
 
 local jsonls = {
@@ -238,7 +246,7 @@ local function is_a_nuxt_project()
 end
 
 local function setup_server(server)
-  if server == "tsserver" and (is_a_deno_project() or is_a_nuxt_project()) then
+  if server == "tsserver" and (is_a_deno_project()) then
     return
   end
 

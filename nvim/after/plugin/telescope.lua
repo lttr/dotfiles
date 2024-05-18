@@ -92,6 +92,7 @@ require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("recent_files")
 require("telescope").load_extension("repo")
 require("telescope").load_extension("zoxide")
+require("telescope").load_extension("jsonfly")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup({

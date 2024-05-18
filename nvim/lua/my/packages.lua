@@ -23,6 +23,7 @@ local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
   -- local
+  use("~/dotfiles/nvim/plugin/eslint-spawn/")
   use("~/dotfiles/nvim/plugin/nuxt-navigation/")
   use("~/dotfiles/nvim/plugin/cmp-nuxt-component/")
   use("~/dotfiles/nvim/plugin/cmp-css-classes/")
@@ -45,7 +46,7 @@ require("packer").startup(function(use)
   use("nanozuki/tabby.nvim")
 
   -- explorer
-  use("nvim-telescope/telescope.nvim")
+  use({ "nvim-telescope/telescope.nvim", tag = '0.1.6', })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("jvgrootveld/telescope-zoxide")
   use("cljoly/telescope-repo.nvim")
@@ -155,6 +156,9 @@ require("packer").startup(function(use)
   use("epwalsh/obsidian.nvim")
   use("towolf/vim-helm")
   use("joukevandermaas/vim-ember-hbs")
+  use("Myzel394/jsonfly.nvim")
+  use("phelipetls/jsonpath.nvim")
+  use("luckasRanarison/tailwind-tools.nvim")
 
   -- help
   use("dbeniamine/cheat.sh-vim")
@@ -184,6 +188,7 @@ require("packer").startup(function(use)
       require('kitty-scrollback').setup()
     end,
   })
+  use("metakirby5/codi.vim")
 
   -- version control
   use("tpope/vim-fugitive")

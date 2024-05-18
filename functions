@@ -269,7 +269,7 @@ dir-open() {
     # dir=$(find -L ${1:-*} -path '*/\.*'\
     #     -prune -o -type d\
     #     -print 2> /dev/null | fzf)
-    dir=$(fd | fzf)
+    dir=$(fd --type=d | fzf)
     [ -d "$dir" ] && cd "$dir"
     if [[ $WSL != true ]]; then # on WSL
       xdotool key KP_Enter

@@ -313,13 +313,13 @@ nmap("<leader>fb", telescopeBuildin.buffers, "Buffers")
 nmap("<leader>fc", telescopeBuildin.command_history, "Command history")
 nmap(
   "<leader>fd",
-  function() telescopeBuildin.lsp_document_diagnostics() end,
+  function() telescopeBuildin.diagnostics({ bufnr = 0 }) end,
   "Diagnostics buffer"
 )
 nmap(
-  "<leader>fD",
-  function() telescopeBuildin.lsp_workspace_diagnostics() end,
-  "Diagnostics project"
+  "<leader>fd",
+  function() telescopeBuildin.diagnostics() end,
+  "Diagnostics all buffers"
 )
 nmap("<leader>fe", recent_files, "Recent files")
 nmap("<leader>ff", telescopeBuildin.grep_string, "Find string under cursor")
@@ -359,7 +359,7 @@ nmap(
   function() telescopeBuildin.live_grep({ cwd = "$HOME/dotfiles" }) end,
   "Search in dotfiles"
 )
-nmap("<leader>fj", ":echo 'Available shortcut'<CR>", "")
+nmap("<leader>fj", "<cmd>Telescope jsonfly<CR>", "JsonFly")
 nmap("<leader>fk", telescopeBuildin.keymaps, "Keymaps")
 nmap(
   "<leader>fl",
@@ -581,8 +581,10 @@ nmap("<leader>gb", "<cmd>Git blame<CR>")
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
 nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 
+
 -- oil.nvim
-nmap("<localleader>x", "<cmd>Oil %:h<CR>")
+nmap("-", "<cmd>Oil<CR>", "Open parent directory")
+nmap("<localleader>-", require("oil").toggle_float)
 
 -- ChatGPT.nvim
 nmap("<A-g>", "<cmd>ChatGPT<CR>")

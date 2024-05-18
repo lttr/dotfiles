@@ -44,3 +44,13 @@ vim.api.nvim_create_user_command(
   [[let @a='' | execute 'g/<args>/y A' | new | setlocal bt=nofile | put! a]],
   { nargs = 1 }
 )
+
+-- Lint all files in current working directory using Eslint
+vim.api.nvim_create_user_command(
+  "Eslint",
+  function()
+    require("eslint-spawn").go()
+  end,
+  {}
+)
+

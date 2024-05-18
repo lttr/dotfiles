@@ -96,6 +96,7 @@ cmp.setup({
   sources = {
     -- { name = "cody" },
     { name = "codeium" },
+    { name = "nvim_lsp" },
     { name = "css_classes" },
     { name = "css_variables" },
     { name = "scss_variables" },
@@ -105,7 +106,6 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "nvim_lsp" },
     { name = "luasnip",                max_item_count = 5 },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
