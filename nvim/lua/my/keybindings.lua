@@ -24,7 +24,9 @@ local function vmap(left, right, desc) mymap("v", left, right, { desc = desc }) 
 
 local function tmap(left, right, desc) mymap("t", left, right, { desc = desc }) end
 
-local function nvmap(left, right, desc) mymap({ "n", "v" }, left, right, { desc = desc }) end
+local function nvmap(left, right, desc)
+  mymap({ "n", "v" }, left, right, { desc = desc })
+end
 
 -- Identify the syntax highlighting group used at the cursor
 -- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
@@ -43,7 +45,7 @@ imap("<C-s>", "<Esc>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 
@@ -198,8 +200,16 @@ vmap(
   [[ <cmd>exe "normal yoconsole.log('\<C-r>\"', \<C-r>\")"<CR>== ]]
 )
 
-nmap("<localleader>c", "<cmd>ClassyAddClass<CR>", "Classy add class on current tag")
-nmap("<localleader>C", "<cmd>ClassyRemoveClass<CR>", "Classy remove class on current tag")
+nmap(
+  "<localleader>c",
+  "<cmd>ClassyAddClass<CR>",
+  "Classy add class on current tag"
+)
+nmap(
+  "<localleader>C",
+  "<cmd>ClassyRemoveClass<CR>",
+  "Classy remove class on current tag"
+)
 
 -- ensure , at the end of a line
 nmap("<localleader>,", "<cmd>s/,*$/,/<CR><cmd>:nohls<CR>``")
@@ -221,14 +231,6 @@ tmap("<A-h>", [[<C-\><C-n><C-w>h]])
 tmap("<A-j>", [[<C-\><C-n><C-w>j]])
 tmap("<A-k>", [[<C-\><C-n><C-w>k]])
 tmap("<A-l>", [[<C-\><C-n><C-w>l]])
-
--- open word under cursor via OS
-nmap(
-  "gx",
-  function() require("link-visitor").link_near_cursor() end,
-  "Open link near cursor"
-)
-vmap("gx", "y:silent execute '!xdg-open ' . shellescape('<C-r>\"')<CR>")
 
 nmap(
   "gz",
@@ -403,24 +405,29 @@ nmap("gd", function()
   if not success then
     vim.lsp.buf.definition({ reuse_win = true })
   end
-end)
+end, "Go to definition")
 nmap("gD", function()
   local success = require("nuxt-navigation").go(true)
   if not success then
     vim.lsp.buf.definition()
     vim.cmd("vsplit")
   end
-end)
-nmap("gy", function() vim.lsp.buf.type_definition({ reuse_win = true }) end)
+end, "Go to definition in a window")
+nmap(
+  "gy",
+  function() vim.lsp.buf.type_definition({ reuse_win = true }) end,
+  "Type definition"
+)
 nmap("gY", function()
   vim.lsp.buf.type_definition()
   vim.cmd("vsplit")
-end)
-nmap("gi", vim.lsp.buf.implementation)
+end, "Type definition in a window")
+nmap("gi", vim.lsp.buf.implementation, "Implementation")
 nmap("gI", function()
   vim.lsp.buf.implementation()
   vim.cmd("vsplit")
-end)
+end, "Implementation in a window")
+nmap("gh", function() vim.lsp.buf.typehierarchy() end, "Type hierarchy")
 nmap("<localleader>r", vim.lsp.buf.references, "LSP references")
 nmap("<localleader>k", vim.lsp.buf.hover, "LSP hover")
 nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
@@ -433,8 +440,6 @@ vmap("<leader>ca", vim.lsp.buf.code_action)
 vmap("<localleader>er", require("react-extract").extract_to_current_file)
 vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
-nmap("]c", vim.diagnostic.goto_next)
-nmap("[c", vim.diagnostic.goto_prev)
 nmap("<localleader>d", vim.diagnostic.open_float)
 
 --
@@ -490,11 +495,26 @@ nmap("coi", function() vim.lsp.inlay_hint(0, nil) end, "Toggle LSP inlay hints")
 -- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
 
 -- change case (addition to defaults in text-case.nvim)
-nmap("gt.", function() require('textcase').current_word('to_dot_case') end, "Convert to dot.case")
-nmap("gt/", function() require('textcase').current_word('to_path_case') end, "Convert to path/case")
-nmap("gta", function() require('textcase').current_word('to_phrase_case') end, "Convert to Phrase case")
-nmap("gtt", function() require('textcase').current_word('to_title_case') end, "Convert to Title Case")
-
+nmap(
+  "gt.",
+  function() require("textcase").current_word("to_dot_case") end,
+  "Convert to dot.case"
+)
+nmap(
+  "gt/",
+  function() require("textcase").current_word("to_path_case") end,
+  "Convert to path/case"
+)
+nmap(
+  "gta",
+  function() require("textcase").current_word("to_phrase_case") end,
+  "Convert to Phrase case"
+)
+nmap(
+  "gtt",
+  function() require("textcase").current_word("to_title_case") end,
+  "Convert to Title Case"
+)
 
 --
 -- nvim-autopairs
@@ -515,17 +535,17 @@ local function gitsigns_keybindings(bufnr)
   local gs = package.loaded.gitsigns
 
   -- Navigation
-  mymap("n", "]d", function()
+  mymap("n", "]c", function()
     if vim.wo.diff then
-      return "]d"
+      return "]c"
     end
     vim.schedule(function() gs.next_hunk() end)
     return "<Ignore>"
   end, { expr = true })
 
-  mymap("n", "[d", function()
+  mymap("n", "[c", function()
     if vim.wo.diff then
-      return "[d"
+      return "[c"
     end
     vim.schedule(function() gs.prev_hunk() end)
     return "<Ignore>"
@@ -581,7 +601,6 @@ nmap("<leader>gb", "<cmd>Git blame<CR>")
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
 nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 
-
 -- oil.nvim
 nmap("-", "<cmd>Oil<CR>", "Open parent directory")
 nmap("<localleader>-", require("oil").toggle_float)
@@ -599,8 +618,11 @@ nvmap("<A-c>s", "<cmd>ChatGPTRun summarize<CR>", "Summarize")
 nvmap("<A-c>f", "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs")
 nvmap("<A-c>x", "<cmd>ChatGPTRun explain_code<CR>", "Explain Code")
 nvmap("<A-c>r", "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit")
-nvmap("<A-c>l", "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis")
-
+nvmap(
+  "<A-c>l",
+  "<cmd>ChatGPTRun code_readability_analysis<CR>",
+  "Code Readability Analysis"
+)
 
 --
 -- diffview.vim

@@ -3,7 +3,7 @@
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath("data")
-      .. "/site/pack/packer/start/packer.nvim"
+    .. "/site/pack/packer/start/packer.nvim"
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({
       "git",
@@ -46,7 +46,7 @@ require("packer").startup(function(use)
   use("nanozuki/tabby.nvim")
 
   -- explorer
-  use({ "nvim-telescope/telescope.nvim", tag = '0.1.6', })
+  use({ "nvim-telescope/telescope.nvim", tag = "0.1.6" })
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("jvgrootveld/telescope-zoxide")
   use("cljoly/telescope-repo.nvim")
@@ -72,7 +72,7 @@ require("packer").startup(function(use)
   use("Maan2003/lsp_lines.nvim")
   use("folke/zen-mode.nvim")
   use("j-hui/fidget.nvim")
-  use({ 'nvimdev/lspsaga.nvim', after = 'nvim-lspconfig' })
+  use({ "nvimdev/lspsaga.nvim", after = "nvim-lspconfig" })
 
   -- snippets
   use("L3MON4D3/LuaSnip")
@@ -118,7 +118,7 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "haydenmeade/neotest-jest",
-      "nvim-neotest/nvim-nio"
+      "nvim-neotest/nvim-nio",
     },
   })
 
@@ -165,28 +165,28 @@ require("packer").startup(function(use)
   use("ThePrimeagen/vim-be-good")
   use("PatrBal/vim-textidote")
   use("lalitmee/browse.nvim")
-  use("xiyaowong/link-visitor.nvim")
   use({
     "jackMort/ChatGPT.nvim",
-    requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
   })
   -- use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
-  use('Exafunction/codeium.nvim')
-
+  use("Exafunction/codeium.nvim")
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")
   use("skywind3000/asyncrun.vim")
   use({ "michaelb/sniprun", run = "bash ./install.sh" })
   use({
-    'mikesmithgh/kitty-scrollback.nvim',
+    "mikesmithgh/kitty-scrollback.nvim",
     disable = false,
     opt = true,
-    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
-    event = { 'User KittyScrollbackLaunch' },
-    config = function()
-      require('kitty-scrollback').setup()
-    end,
+    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+    event = { "User KittyScrollbackLaunch" },
+    config = function() require("kitty-scrollback").setup() end,
   })
   use("metakirby5/codi.vim")
 
