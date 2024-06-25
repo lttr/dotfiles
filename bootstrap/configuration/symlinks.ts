@@ -82,6 +82,12 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
+      dest: path.join(HOME, ".config/nvim/snippets"),
+      src: path.join(DOTFILES, "nvim/snippets"),
+    },
+  },
+  {
+    symlink: {
       dest: path.join(HOME, ".config/nvim/plugin/plugins"),
       src: path.join(DOTFILES, "nvim/plugin"),
     },
