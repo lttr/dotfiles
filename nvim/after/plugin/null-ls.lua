@@ -11,16 +11,17 @@ end
 
 local function not_a_deno_project_and_has_eslint()
   return not is_a_deno_project()
-    and utils.has_root_file({
-      ".eslintrc",
-      ".eslintrc.js",
-      ".eslintrc.cjs",
-      ".eslintrc.json",
-    })
+      and utils.has_root_file({
+        ".eslintrc",
+        ".eslintrc.js",
+        ".eslintrc.cjs",
+        ".eslintrc.json",
+      })
 end
 
 local function has_stylelint()
   return utils.has_root_file({
+    "stylelint.config.js",
     ".stylelintrc",
     ".stylelintrc.js",
     ".stylelintrc.cjs",
@@ -30,7 +31,7 @@ end
 
 local function should_run_prettier()
   return not is_a_deno_project()
-    and not utils.has_root_file({ ".stop-prettier" })
+      and not utils.has_root_file({ ".stop-prettier" })
 end
 
 null_ls.setup({

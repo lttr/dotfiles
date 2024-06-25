@@ -18,6 +18,7 @@ local servers = {
   "lua_ls",
   "marksman",
   "phpactor",
+  "pyright",
   "tailwindcss",
   "terraformls",
   "volar",
@@ -62,9 +63,9 @@ local common_on_attach = function(client)
   -- stop jsonls and cssls and volar from formatting (I use prettier for that)
   if client.server_capabilities.documentFormattingProvider then
     if
-        client.name == "jsonls"
-        or client.name == "cssls"
-        or client.name == "volar"
+      client.name == "jsonls"
+      or client.name == "cssls"
+      or client.name == "volar"
     then
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
@@ -87,12 +88,7 @@ end
 
 -- https://github.com/davidosomething/format-ts-errors.nvim
 local pretty_ts_error_handlers = {
-  ["textDocument/publishDiagnostics"] = function(
-      _,
-      result,
-      ctx,
-      config
-  )
+  ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
     if result.diagnostics == nil then
       return
     end
@@ -102,7 +98,7 @@ local pretty_ts_error_handlers = {
     while idx <= #result.diagnostics do
       local entry = result.diagnostics[idx]
 
-      local formatter = require('format-ts-errors')[entry.code]
+      local formatter = require("format-ts-errors")[entry.code]
       entry.message = formatter and formatter(entry.message) or entry.message
 
       -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
@@ -114,15 +110,9 @@ local pretty_ts_error_handlers = {
       end
     end
 
-    vim.lsp.diagnostic.on_publish_diagnostics(
-      _,
-      result,
-      ctx,
-      config
-    )
-  end
+    vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+  end,
 }
-
 
 local denols = {
   root_dir = lsp_config.util.root_pattern({
@@ -146,17 +136,17 @@ local eslint = {
       command = "EslintFixAll",
     })
   end,
-  codeAction = {
-    disableRuleComment = {
-      enable = true,
-      location = "separateLine",
-    },
-    showDocumentation = {
-      enable = true,
-    },
-  },
+  -- When using ESLint, there might be rules that we want to automatically fix,
+  -- but not immediately when saving.
+  -- codeActionOnSave = {
+  --   enable = true,
+  --   mode = "all",
+  -- },
+  -- If we have disabled the automatic fixes for some rules, but the editor
+  -- still displays them as errors.
+  -- rulesCustomizations = {},
   experimental = {
-    useFlatConfig = true
+    useFlatConfig = true,
   },
   filetypes = {
     "javascript",
@@ -175,8 +165,8 @@ local eslint = {
 local lua_ls = {
   Lua = {
     checkThirdParty = false,
-    hint = { enable = true }
-  }
+    hint = { enable = true },
+  },
 }
 
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
@@ -191,9 +181,9 @@ local volar = {
   },
   init_options = {
     vue = {
-      hybridMode = false
-    }
-  }
+      hybridMode = false,
+    },
+  },
 }
 
 local jsonls = {
@@ -250,7 +240,9 @@ local function setup_server(server)
     return
   end
 
-  if server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json") then
+  if
+    server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
+  then
     return
   end
 
@@ -270,9 +262,9 @@ end
 if not is_a_deno_project() and not is_a_nuxt_project() then
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false,            -- enable debug logging for commands
+    debug = false, -- enable debug logging for commands
     go_to_source_definition = {
-      fallback = true,        -- fall back to standard LSP definition on failure
+      fallback = true, -- fall back to standard LSP definition on failure
     },
     server = {
       -- handlers = vim.tbl_deep_extend("force", common_handlers, pretty_ts_error_handlers),
@@ -283,7 +275,7 @@ if not is_a_deno_project() and not is_a_nuxt_project() then
           includeInlayEnumMemberValueHints = true,
           includeInlayFunctionLikeReturnTypeHints = true,
           includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHints = "all",
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayPropertyDeclarationTypeHints = true,
           includeInlayVariableTypeHints = true,
@@ -294,7 +286,7 @@ if not is_a_deno_project() and not is_a_nuxt_project() then
           includeInlayEnumMemberValueHints = true,
           includeInlayFunctionLikeReturnTypeHints = true,
           includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHints = "all",
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayPropertyDeclarationTypeHints = true,
           includeInlayVariableTypeHints = true,

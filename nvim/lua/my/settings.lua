@@ -33,6 +33,7 @@ opt.linebreak = true -- Don't wrap words
 -- Search
 opt.ignorecase = true -- Search case-insensitive
 opt.smartcase = true -- ...except upper-case included
+opt.inccommand = "split" -- Show search and replace preview with offscreen items as well
 
 -- Spell check
 opt.spelllang = "en"
@@ -76,4 +77,4 @@ vim.cmd([[
 
 -- Increments
 -- Increment without considering leading minus or dash sign
-opt.nrformats = 'bin,hex,unsigned'
+opt.nrformats = "bin,hex,unsigned"
