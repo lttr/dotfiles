@@ -9,16 +9,6 @@ local function is_a_deno_project()
   return utils.has_root_file({ "deno.json", "deno.jsonc" })
 end
 
-local function not_a_deno_project_and_has_eslint()
-  return not is_a_deno_project()
-      and utils.has_root_file({
-        ".eslintrc",
-        ".eslintrc.js",
-        ".eslintrc.cjs",
-        ".eslintrc.json",
-      })
-end
-
 local function has_stylelint()
   return utils.has_root_file({
     "stylelint.config.js",
@@ -31,7 +21,7 @@ end
 
 local function should_run_prettier()
   return not is_a_deno_project()
-      and not utils.has_root_file({ ".stop-prettier" })
+    and not utils.has_root_file({ ".stop-prettier" })
 end
 
 null_ls.setup({
@@ -66,25 +56,11 @@ null_ls.setup({
       },
     }),
     null_ls.builtins.formatting.deno_fmt.with({ condition = is_a_deno_project }),
-    -- null_ls.builtins.formatting.eslint_d.with({ condition = not_a_deno_project_and_has_eslint }),
     null_ls.builtins.formatting.stylelint.with({
       runtime_condition = has_stylelint,
       filetypes = { "scss", "less", "css", "sass", "vue", "svelte" },
     }),
     null_ls.builtins.formatting.stylua,
-    --
-    -- Linting / diagnostics
-    --
-    -- Others are run as language servers
-    -- null_ls.builtins.diagnostics.eslint_d.with(
-    --   {
-    --     runtime_condition = not_a_deno_project_and_has_eslint,
-    --     -- ignore prettier warnings from eslint-plugin-prettier
-    --     filter = function(diagnostic)
-    --       return diagnostic.code ~= "prettier/prettier"
-    --     end
-    --   }
-    -- ),
     null_ls.builtins.diagnostics.stylelint.with({
       runtime_condition = has_stylelint,
       filetypes = { "scss", "less", "css", "sass", "vue", "svelte" },
