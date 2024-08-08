@@ -11,5 +11,5 @@ vim.g.vim_markdown_fenced_languages = {
   "html",
   "css",
   "rust",
-  "sql"
+  "sql",
 }

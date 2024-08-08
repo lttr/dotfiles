@@ -48,9 +48,6 @@ vim.api.nvim_create_user_command(
 -- Lint all files in current working directory using Eslint
 vim.api.nvim_create_user_command(
   "Eslint",
-  function()
-    require("eslint-spawn").go()
-  end,
+  function() require("eslint-spawn").go() end,
   {}
 )
-

@@ -14,11 +14,17 @@ local get_node_for_cursor = function(cursor)
   if cursor == nil then
     cursor = vim.api.nvim_win_get_cursor(0)
   end
-  local root = ts_utils.get_root_for_position(unpack({cursor[1] - 1, cursor[2]}))
+  local root =
+    ts_utils.get_root_for_position(unpack({ cursor[1] - 1, cursor[2] }))
   if not root then
     return
   end
-  return root:named_descendant_for_range(cursor[1] - 1, cursor[2], cursor[1] - 1, cursor[2])
+  return root:named_descendant_for_range(
+    cursor[1] - 1,
+    cursor[2],
+    cursor[1] - 1,
+    cursor[2]
+  )
 end
 
 local get_main_node = function(cursor)
@@ -29,7 +35,7 @@ local get_main_node = function(cursor)
   local parent = node:parent()
   local root = ts_utils.get_root_for_node(node)
   local start_row = node:start()
-  while (parent ~= nil and parent ~= root and parent:start() == start_row) do
+  while parent ~= nil and parent ~= root and parent:start() == start_row do
     node = parent
     parent = node:parent()
   end
@@ -57,15 +63,22 @@ local move_col_while_empty = function(bufnr, curr_line)
   return found and found - 1 or 0
 end
 
-local select_range = function(bufnr, start_row, start_col, end_row, end_col, mode)
+local select_range = function(
+  bufnr,
+  start_row,
+  start_col,
+  end_row,
+  end_col,
+  mode
+)
   start_row = start_row + 1
   start_col = start_col + 1
   end_row = end_row + 1
   end_col = end_col + 1
   mode = mode or "v"
-  vim.fn.setpos(".", {bufnr, start_row, start_col, 0})
+  vim.fn.setpos(".", { bufnr, start_row, start_col, 0 })
   vim.cmd("normal! " .. mode, true, true, true)
-  vim.fn.setpos(".", {bufnr, end_row, end_col - 1, 0})
+  vim.fn.setpos(".", { bufnr, end_row, end_col - 1, 0 })
 end
 
 local function get_selection_range(outer)
@@ -82,7 +95,7 @@ local function get_selection_range(outer)
     sel_col = move_col_while_empty(bufnr, sel_row)
   end
 
-  local node = get_main_node({sel_row, sel_col})
+  local node = get_main_node({ sel_row, sel_col })
   if node == nil then
     return
   end
@@ -127,8 +140,8 @@ M.highlight_unit = function(higroup)
   if start_row == nil then
     return
   end
-  last_start = {start_row, start_col}
-  last_end = {end_row, end_col}
+  last_start = { start_row, start_col }
+  last_end = { end_row, end_col }
   vim.highlight.range(bufnr, highlight_ns, higroup, last_start, last_end)
 end
 
@@ -137,7 +150,11 @@ M.enable_highlighting = function(higroup)
   local used_higroup = higroup or "CursorLine"
   vim.cmd("augroup treesitter-unit-highlight")
   vim.cmd("autocmd!")
-  vim.cmd('autocmd CursorMoved * lua require"treesitter-unit".highlight_unit("' .. used_higroup .. '")')
+  vim.cmd(
+    'autocmd CursorMoved * lua require"treesitter-unit".highlight_unit("'
+      .. used_higroup
+      .. '")'
+  )
   vim.cmd("augroup END")
   M.highlight_unit(used_higroup)
   highlighting_enabled = true
@@ -165,7 +182,14 @@ M.delete = function(for_change)
   local node = get_main_node()
   local start_row, start_col, end_row, end_col = node:range()
   local replaced = for_change and " " or ""
-  vim.api.nvim_buf_set_text(bufnr, start_row, start_col, end_row, end_col, {replaced})
+  vim.api.nvim_buf_set_text(
+    bufnr,
+    start_row,
+    start_col,
+    end_row,
+    end_col,
+    { replaced }
+  )
 end
 
 M.change = function()
@@ -173,8 +197,6 @@ M.change = function()
   vim.cmd("startinsert")
 end
 
-M.setup = function(opts)
-  options = vim.tbl_deep_extend("force", options, opts)
-end
+M.setup = function(opts) options = vim.tbl_deep_extend("force", options, opts) end
 
 return M

@@ -47,7 +47,7 @@ nmap("<C-x>", "<C-x>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 

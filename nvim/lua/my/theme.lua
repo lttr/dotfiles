@@ -79,8 +79,8 @@ local orange = "#b46950"
 local pink = "#a96ca5"
 
 -- Nightfox
-local nightfox = require "nightfox"
-local Color = require "nightfox.lib.color"
+local nightfox = require("nightfox")
+local Color = require("nightfox.lib.color")
 
 -- Derived colors
 
@@ -112,8 +112,8 @@ local palettes = {
     orange = orange,
     pink = pink,
     sel0 = Color.from_hex(bg_visual):lighten(-4):to_css(),
-    sel1 = Color.from_hex(border):lighten(-4):to_css()
-  }
+    sel1 = Color.from_hex(border):lighten(-4):to_css(),
+  },
 }
 
 -- Group of current token set by Treesitter can be find by
@@ -135,7 +135,7 @@ local groups = {
   ["@parameter"] = { fg = "palette.fg1" },
   TabLine = { fg = "#666666", bg = "#181818" },
   TabLineSel = { fg = "#999999", bg = "#444444" },
-  TabLineFill = { fg = "palette.fg2", bg = "#262626" }
+  TabLineFill = { fg = "palette.fg2", bg = "#262626" },
 }
 
 -- Treesitter groups mapping
@@ -165,29 +165,27 @@ local specs = {
       statement = "magenta", -- Statements
       string = "green", -- Strings
       type = "yellow", -- Types
-      variable = "white" -- Variables
-    }
-  }
+      variable = "white", -- Variables
+    },
+  },
 }
 
-nightfox.setup(
-  {
-    palettes = palettes,
-    groups = {
-      nordfox = groups
+nightfox.setup({
+  palettes = palettes,
+  groups = {
+    nordfox = groups,
+  },
+  specs = specs,
+  options = {
+    styles = {
+      -- Style that is applied to functions: see `highlight-args` for options
+      comments = "NONE",
+      functions = "NONE",
+      keywords = "NONE",
+      strings = "NONE",
+      variables = "NONE",
     },
-    specs = specs,
-    options = {
-      styles = {
-        -- Style that is applied to functions: see `highlight-args` for options
-        comments = "NONE",
-        functions = "NONE",
-        keywords = "NONE",
-        strings = "NONE",
-        variables = "NONE"
-      }
-    }
-  }
-)
+  },
+})
 
 vim.cmd("colorscheme nordfox")

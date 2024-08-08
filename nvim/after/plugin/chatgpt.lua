@@ -1,6 +1,6 @@
 -- https://github.com/jackMort/ChatGPT.nvim
 
-require "chatgpt".setup {
+require("chatgpt").setup({
   openai_params = {
     model = "gpt-4",
   },
@@ -13,4 +13,4 @@ require "chatgpt".setup {
       height = "70%",
     },
   },
-}
+})

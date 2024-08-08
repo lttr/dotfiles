@@ -20,9 +20,7 @@ function source:is_available()
   return ext == "scss" or ext == "vue"
 end
 
-function source:get_debug_name()
-  return "scss_variables"
-end
+function source:get_debug_name() return "scss_variables" end
 
 function source:complete(params, callback)
   if not current_sequence_starts_with("$") then
@@ -51,13 +49,9 @@ function source:complete(params, callback)
   callback(cmp_data)
 end
 
-function source:resolve(completion_item, callback)
-  callback(completion_item)
-end
+function source:resolve(completion_item, callback) callback(completion_item) end
 
-function source:execute(completion_item, callback)
-  callback(completion_item)
-end
+function source:execute(completion_item, callback) callback(completion_item) end
 
 require("cmp").register_source("scss_variables", source.new())
 

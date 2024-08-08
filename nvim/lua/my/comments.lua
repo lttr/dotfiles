@@ -1,11 +1,11 @@
-require("Comment").setup {
+require("Comment").setup({
   ignore = nil,
   -- LHS of operator-pending mapping in NORMAL + VISUAL mode
   opleader = {
     -- line-comment keymap
     line = "gc",
     -- block-comment keymap
-    block = "gb"
+    block = "gb",
   },
   -- Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
   mappings = {
@@ -17,13 +17,13 @@ require("Comment").setup {
     extra = true,
     -- extended mapping
     -- Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
-    extended = false
+    extended = false,
   },
   -- LHS of toggle mapping in NORMAL + VISUAL mode
   toggler = {
     -- line-comment keymap
     line = "gcc",
     -- block-comment keymap
-    block = "gbc"
-  }
-}
+    block = "gbc",
+  },
+})

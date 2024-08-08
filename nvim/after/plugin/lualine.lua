@@ -1,6 +1,6 @@
 -- https://github.com/nvim-lualine/lualine.nvim
 
-local custom_gruvbox = require "lualine.themes.gruvbox"
+local custom_gruvbox = require("lualine.themes.gruvbox")
 local darkgray = "#3c3836"
 local gray = "#a89984"
 custom_gruvbox.insert.c.bg = darkgray
@@ -26,21 +26,21 @@ local sections = {
       "filename",
       file_status = true,
       path = 1,
-      shorting_target = 35
-    }
+      shorting_target = 35,
+    },
   },
   lualine_x = {
-    {"filetype", colored = false, icon_only = true}
+    { "filetype", colored = false, icon_only = true },
   },
-  lualine_y = {"progress"},
-  lualine_z = {"location"}
+  lualine_y = { "progress" },
+  lualine_z = { "location" },
 }
 
-require("lualine").setup {
+require("lualine").setup({
   options = {
-    theme = custom_gruvbox
+    theme = custom_gruvbox,
   },
   sections = sections,
   inactive_sections = sections,
-  extensions = {"quickfix", "fugitive"}
-}
+  extensions = { "quickfix", "fugitive" },
+})

@@ -1,5 +1,4 @@
-vim.cmd(
-  [[
+vim.cmd([[
 function! SaveAndExec() abort
   if &filetype == 'vim'
     :silent! write
@@ -11,22 +10,19 @@ function! SaveAndExec() abort
 
   return
 endfunction
-]]
-)
+]])
 
 P = function(...)
   print(type(...))
   if type(...) == "table" then
     print(vim.inspect(...))
   else
-    print(vim.inspect({...}))
+    print(vim.inspect({ ... }))
   end
   return ...
 end
 
-RELOAD = function(...)
-  return require("plenary.reload").reload_module(...)
-end
+RELOAD = function(...) return require("plenary.reload").reload_module(...) end
 
 R = function(name)
   RELOAD(name)

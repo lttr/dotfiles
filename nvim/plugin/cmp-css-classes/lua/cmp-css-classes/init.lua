@@ -28,9 +28,7 @@ function source:is_available()
   return (ext == "html" or ext == "vue") and is_cursor_in_attribute_value()
 end
 
-function source:get_debug_name()
-  return "css_classes"
-end
+function source:get_debug_name() return "css_classes" end
 
 function source:complete(params, callback)
   local cwd = vim.fn.getcwd()
@@ -58,13 +56,9 @@ function source:complete(params, callback)
   callback(cmp_data)
 end
 
-function source:resolve(completion_item, callback)
-  callback(completion_item)
-end
+function source:resolve(completion_item, callback) callback(completion_item) end
 
-function source:execute(completion_item, callback)
-  callback(completion_item)
-end
+function source:execute(completion_item, callback) callback(completion_item) end
 
 require("cmp").register_source("css_classes", source.new())
 

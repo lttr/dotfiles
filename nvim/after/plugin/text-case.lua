@@ -1,6 +1,6 @@
 -- https://github.com/johmsalas/text-case.nvim
 
-require('textcase').setup {
+require("textcase").setup({
   -- Set `default_keymappings_enabled` to false if you don't want automatic keymappings to be registered.
   default_keymappings_enabled = true,
   -- `prefix` is only considered if `default_keymappings_enabled` is true. It configures the prefix
@@ -26,4 +26,4 @@ require('textcase').setup {
     "to_upper_phrase_case",
     "to_lower_phrase_case",
   },
-}
+})

@@ -10,12 +10,11 @@ local SEVERITIES = {
 
 local namespace = vim.api.nvim_create_namespace(BINARY_NAME)
 
-local function args()
-  return { '--format', 'json', vim.fn.getcwd() }
-end
+local function args() return { "--format", "json", vim.fn.getcwd() } end
 
 local function command()
-  local local_binary = vim.fn.fnamemodify('./node_modules/.bin/' .. BINARY_NAME, ':p')
+  local local_binary =
+    vim.fn.fnamemodify("./node_modules/.bin/" .. BINARY_NAME, ":p")
   return vim.loop.fs_stat(local_binary) and local_binary or BINARY_NAME
 end
 
@@ -36,8 +35,11 @@ local function parser(output)
       {
         lnum = 0,
         col = 0,
-        message = "Could not parse linter output due to: " .. data .. "\noutput: " .. output
-      }
+        message = "Could not parse linter output due to: "
+          .. data
+          .. "\noutput: "
+          .. output,
+      },
     }
   end
   -- See https://eslint.org/docs/latest/use/formatters/#json
@@ -52,11 +54,11 @@ local function parser(output)
         message = msg.message,
         code = msg.ruleId,
         severity = SEVERITIES[msg.severity],
-        source = BINARY_NAME
+        source = BINARY_NAME,
       }
       table.insert(diagnostics, {
         file = result.filePath,
-        diagnostic = diagnostic
+        diagnostic = diagnostic,
       })
     end
   end
@@ -68,17 +70,12 @@ local function run_eslint()
   Job:new({
     command = command(),
     args = args(),
-    on_stdout = function(_, return_val)
-      output = return_val
-    end,
-    on_stderr = function(_, return_val)
-      output = return_val
-    end,
+    on_stdout = function(_, return_val) output = return_val end,
+    on_stderr = function(_, return_val) output = return_val end,
   }):sync()
 
   return output
 end
-
 
 local function go()
   -- remove all current diagnostics in order to prevend duplicates
@@ -91,9 +88,10 @@ local function go()
     -- open buffer for every file with linting error
     local bufnr = vim.fn.bufadd(item.file)
     -- add bufnr into the diagnostic table
-    local diagnostic = vim.tbl_extend("force", item.diagnostic, { bufnr = bufnr })
+    local diagnostic =
+      vim.tbl_extend("force", item.diagnostic, { bufnr = bufnr })
     publish({ diagnostic }, bufnr)
-    if (diagnostic.severity == vim.diagnostic.severity.WARN) then
+    if diagnostic.severity == vim.diagnostic.severity.WARN then
       counter_warn = counter_warn + 1
     else
       counter_error = counter_error + 1
@@ -101,14 +99,18 @@ local function go()
   end
   -- print how many diagnostics were published
   if counter_error > 0 or counter_warn > 0 then
-    print("Found " ..
-      counter_error .. " linting errors and " .. counter_warn .. " warnings.")
+    print(
+      "Found "
+        .. counter_error
+        .. " linting errors and "
+        .. counter_warn
+        .. " warnings."
+    )
     vim.diagnostic.setqflist({ name = namespace, open = true })
   else
     print("No linting errors found.")
   end
 end
-
 
 return {
   go = go,

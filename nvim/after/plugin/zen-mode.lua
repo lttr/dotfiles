@@ -1,4 +1,4 @@
-require("zen-mode").setup {
+require("zen-mode").setup({
   window = {
     width = 100,
     backdrop = 0.85,
@@ -8,7 +8,7 @@ require("zen-mode").setup {
   },
   plugins = {
     options = {
-      laststatus = 3
+      laststatus = 3,
     },
-  }
-}
+  },
+})

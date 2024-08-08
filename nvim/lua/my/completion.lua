@@ -12,10 +12,10 @@ local has_words_before = function()
     local line = positionTable[1]
     local col = positionTable[2]
     return col ~= 0
-        and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
+      and vim.api
+          .nvim_buf_get_lines(0, line - 1, line, true)[1]
+          :sub(col, col)
+          :match("%s")
         == nil
   else
     return false
@@ -103,7 +103,7 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "luasnip",                max_item_count = 5 },
+    { name = "luasnip", max_item_count = 5 },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
   formatting = {

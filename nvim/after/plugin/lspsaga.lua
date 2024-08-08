@@ -1,10 +1,10 @@
 -- https://nvimdev.github.io/lspsaga/
 
-require('lspsaga').setup {
+require("lspsaga").setup({
   lightbulb = {
-    enable = false
+    enable = false,
   },
   symbol_in_winbar = {
-    enable = false
-  }
-}
+    enable = false,
+  },
+})

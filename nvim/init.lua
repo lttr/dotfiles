@@ -1,14 +1,14 @@
-require "my.utils"
-require "my.packages"
-require "my.settings"
-require "my.autocommands"
-require "my.commands"
-require "my.functions"
-require "my.lsp-settings"
-require "my.completion"
-require "my.comments"
-require "my.keybindings"
-require "my.formatting"
-require "my.diagnostic"
-require "my.theme"
-require "my.ts-js"
+require("my.utils")
+require("my.packages")
+require("my.settings")
+require("my.autocommands")
+require("my.commands")
+require("my.functions")
+require("my.lsp-settings")
+require("my.completion")
+require("my.comments")
+require("my.keybindings")
+require("my.formatting")
+require("my.diagnostic")
+require("my.theme")
+require("my.ts-js")
