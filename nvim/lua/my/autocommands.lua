@@ -37,32 +37,32 @@ vim.cmd([[
   augroup end
 ]])
 
--- from https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/utils.lua
-local root_has_file_matches = function(pattern)
-  local handle = vim.loop.fs_scandir(vim.loop.cwd())
-  local entry = vim.loop.fs_scandir_next(handle)
-  while entry do
-    if entry:match(pattern) then
-      return true
-    end
-    entry = vim.loop.fs_scandir_next(handle)
-  end
-  return false
-end
-
--- Deno make group
-local denoMakeGroup = vim.api.nvim_create_augroup("DenoMake", { clear = true })
-vim.api.nvim_create_autocmd("BufRead", {
-  callback = function()
-    if
-      root_has_file_matches("deno.json") or root_has_file_matches("deno.jsonc")
-    then
-      vim.bo.makeprg = [[deno lint --quiet --compact]]
-      vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
-    end
-  end,
-  group = denoMakeGroup,
-})
+-- -- from https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/lua/null-ls/utils.lua
+-- local root_has_file_matches = function(pattern)
+--   local handle = vim.loop.fs_scandir(vim.loop.cwd())
+--   local entry = vim.loop.fs_scandir_next(handle)
+--   while entry do
+--     if entry:match(pattern) then
+--       return true
+--     end
+--     entry = vim.loop.fs_scandir_next(handle)
+--   end
+--   return false
+-- end
+--
+-- -- Deno make group
+-- local denoMakeGroup = vim.api.nvim_create_augroup("DenoMake", { clear = true })
+-- vim.api.nvim_create_autocmd("BufRead", {
+--   callback = function()
+--     if
+--       root_has_file_matches("deno.json") or root_has_file_matches("deno.jsonc")
+--     then
+--       vim.bo.makeprg = [[deno lint --quiet --compact]]
+--       vim.bo.errorformat = [[%f: line %l\, col %c - %m]]
+--     end
+--   end,
+--   group = denoMakeGroup,
+-- })
 
 -- Autosave
 vim.cmd([[
@@ -70,3 +70,14 @@ vim.cmd([[
     autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent write | endif
   augroup end
 ]])
+
+-- Format on save
+-- local formatting = vim.api.nvim_create_augroup("LspFormatting", {})
+-- vim.api.nvim_clear_autocmds({ group = formatting, buffer = bufnr })
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = formatting,
+--   buffer = bufnr,
+--   callback = function()
+--     vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
+--   end,
+-- })

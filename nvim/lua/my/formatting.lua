@@ -1,3 +1,4 @@
+-- TODO deprecated in favor of conform.nvim
 -- https://github.com/mhartington/formatter.nvim
 
 local prettier = function()
@@ -53,21 +54,21 @@ local xmllint = function()
   }
 end
 
-require("formatter").setup({
-  filetype = {
-    javascript = { prettier },
-    javascriptreact = { prettier },
-    typescript = { prettier },
-    typescriptreact = { prettier },
-    html = { prettier },
-    css = { prettier },
-    scss = { prettier },
-    json = { prettier },
-    vue = { prettier },
-    -- lua = { luafmt },
-    xml = { xmllint },
-  },
-})
+-- require("formatter").setup({
+--   filetype = {
+--     javascript = { prettier },
+--     javascriptreact = { prettier },
+--     typescript = { prettier },
+--     typescriptreact = { prettier },
+--     html = { prettier },
+--     css = { prettier },
+--     scss = { prettier },
+--     json = { prettier },
+--     vue = { prettier },
+--     -- lua = { luafmt },
+--     xml = { xmllint },
+--   },
+-- })
 
 -- vim.api.nvim_exec(
 --   [[

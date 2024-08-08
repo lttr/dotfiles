@@ -63,16 +63,19 @@ require("packer").startup(function(use)
   -- LSP
   use("folke/trouble.nvim")
   use("lewis6991/gitsigns.nvim")
-  use("mhartington/formatter.nvim")
+  -- TODO deprecated in favor of conform.nvim
+  -- use("mhartington/formatter.nvim")
   use("neovim/nvim-lspconfig")
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
+  -- TODO deprecated in favor of conform.nvim
+  -- use("jose-elias-alvarez/null-ls.nvim")
   use("b0o/schemastore.nvim")
   use("Maan2003/lsp_lines.nvim")
   use("folke/zen-mode.nvim")
   use("j-hui/fidget.nvim")
   use({ "nvimdev/lspsaga.nvim", after = "nvim-lspconfig" })
+  use("stevearc/conform.nvim")
 
   -- snippets
   use("L3MON4D3/LuaSnip")
@@ -125,6 +128,7 @@ require("packer").startup(function(use)
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-treesitter/nvim-treesitter-textobjects")
+  use("ckolkey/ts-node-action")
 
   -- debbugging
   use("mfussenegger/nvim-dap")

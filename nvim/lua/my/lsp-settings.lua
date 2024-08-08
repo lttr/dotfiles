@@ -19,6 +19,7 @@ local servers = {
   "marksman",
   "phpactor",
   "pyright",
+  "stylelint_lsp",
   "tailwindcss",
   "terraformls",
   "volar",
@@ -130,12 +131,15 @@ local denols = {
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 
 local eslint = {
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
+  -- It is better to run eslint --fix and then prettier in order to have the
+  -- code formatted even after the eslint transformation which is not always
+  -- precise.
+  -- on_attach = function(client, bufnr)
+  --   vim.api.nvim_create_autocmd("BufWritePre", {
+  --     buffer = bufnr,
+  --     command = "EslintFixAll",
+  --   })
+  -- end,
   -- When using ESLint, there might be rules that we want to automatically fix,
   -- but not immediately when saving.
   -- codeActionOnSave = {
