@@ -42,10 +42,12 @@ nmap("<C-s>", ":write<CR>")
 nmap("<leader>w", "<cmd>noautocmd write<CR>", "Save without actions after safe")
 vmap("<C-s>", "<C-C>:write<CR>")
 imap("<C-s>", "<Esc>:write<CR>")
+nmap("<C-a>", "<C-a>:write<CR>")
+nmap("<C-x>", "<C-x>:write<CR>")
 
 -- comments
 nmap("<C-_>", "<cmd>normal gcc<CR>") -- '_' is actually '/'
-vmap("<C-_>", "<cmd>normal gc<CR>") -- '_' is actually '/'
+vmap("<C-_>", "<cmd>normal gc<CR>")  -- '_' is actually '/'
 nmap("<C-/>", "<cmd>normal gcc<CR>")
 vmap("<C-/>", "<cmd>normal gc<CR>")
 
@@ -209,6 +211,13 @@ nmap(
   "<localleader>C",
   "<cmd>ClassyRemoveClass<CR>",
   "Classy remove class on current tag"
+)
+nmap(
+  "<localleader>v",
+  -- copy class (current word) and prepare a css rule just before ending
+  -- </style> tag
+  [[ yiw/\/style<CR>O<CR>.<Esc>pa {}<Esc>i<CR><Esc>O ]],
+  "Implement class"
 )
 
 -- ensure , at the end of a line

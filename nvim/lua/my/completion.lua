@@ -57,10 +57,7 @@ cmp.setup({
     --   },
     -- },
     ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping(function(fallback)
-      fallback()
-    end
-    ),
+    ["<C-n>"] = cmp.mapping(function(fallback) fallback() end),
     ["<C-k>"] = cmp.mapping.select_prev_item(),
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -131,6 +128,8 @@ cmp.setup({
 
 require("cmp_css_variables").setup({
   files = {
+    "./node_modules/@lttr/puleo/output/puleo.post.css",
+    "./assets/css/main.css",
     "./node_modules/open-props/open-props.min.css",
     "./assets/css/settings.css",
     "./packages/base-styles/dist/runtime/assets/css/main.min.css",
@@ -140,9 +139,10 @@ require("cmp_css_variables").setup({
 
 require("cmp-css-classes").setup({
   files = {
+    "./node_modules/@lttr/puleo/output/puleo.post.css",
+    "./assets/css/main.css",
     "./packages/base-styles/src/runtime/assets/css/main.min.css",
     "./node_modules/open-props/open-props.min.css",
-    "./node_modules/@lttr/puleo/puleo.min.css",
     "./output/puleo.min.css",
   },
 })

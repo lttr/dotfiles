@@ -1,59 +1,29 @@
 {
-  "sp3xs": {
-    "body": "--space-3xs"
+  "sp1": {
+    "body": "--space-1"
   },
-  "sp2xs": {
-    "body": "--space-2xs"
+  "sp2": {
+    "body": "--space-2"
   },
-  "spxs": {
-    "body": "--space-xs"
+  "sp3": {
+    "body": "--space-3"
   },
-  "sps": {
-    "body": "--space-s"
+  "sp4": {
+    "body": "--space-4"
   },
-  "spm": {
-    "body": "--space-m"
+  "sp5": {
+    "body": "--space-5"
   },
-  "spl": {
-    "body": "--space-l"
+  "sp6": {
+    "body": "--space-6"
   },
-  "spxl": {
-    "body": "--space-xl"
+  "sp7": {
+    "body": "--space-7"
   },
-  "sp2xl": {
-    "body": "--space-2xl"
+  "sp8": {
+    "body": "--space-8"
   },
-  "sp3xl": {
-    "body": "--space-3xl"
-  },
-  "sp3xs2xs": {
-    "body": "--space-3xs-2xs"
-  },
-  "sp2xsxs": {
-    "body": "--space-2xs-xs"
-  },
-  "spxss": {
-    "body": "--space-xs-s"
-  },
-  "spsm": {
-    "body": "--space-s-m"
-  },
-  "spml": {
-    "body": "--space-m-l"
-  },
-  "splxl": {
-    "body": "--space-l-xl"
-  },
-  "spxl2xl": {
-    "body": "--space-xl-2xl"
-  },
-  "sp2xl3xl": {
-    "body": "--space-2xl-3xl"
-  },
-  "spsl": {
-    "body": "--space-s-l"
-  },
-  "spxsl": {
-    "body": "--space-xs-l"
+  "sp9": {
+    "body": "--space-9"
   }
 }

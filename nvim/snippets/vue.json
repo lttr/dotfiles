@@ -15,6 +15,42 @@
     ],
     "description": "vue3 base template"
   },
+  "--space-1": {
+    "prefix": "sp1",
+    "body": "var(--space-1)"
+  },
+  "--space-2": {
+    "prefix": "sp2",
+    "body": "var(--space-2)"
+  },
+  "--space-3": {
+    "prefix": "sp3",
+    "body": "var(--space-3)"
+  },
+  "--space-4": {
+    "prefix": "sp4",
+    "body": "var(--space-4)"
+  },
+  "--space-5": {
+    "prefix": "sp5",
+    "body": "var(--space-5)"
+  },
+  "--space-6": {
+    "prefix": "sp6",
+    "body": "var(--space-6)"
+  },
+  "--space-7": {
+    "prefix": "sp7",
+    "body": "var(--space-7)"
+  },
+  "--space-8": {
+    "prefix": "sp8",
+    "body": "var(--space-8)"
+  },
+  "--space-9": {
+    "prefix": "sp9",
+    "body": "var(--space-9)"
+  },
   "var(--qc-)": {
     "prefix": "q",
     "body": "var(--qc-${0})"
