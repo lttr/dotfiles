@@ -224,6 +224,8 @@ alias gmt="git mergetool"
 alias gsu="git submodule update"
 alias gsur="git submodule update --remote"
 
+alias chore="git commit -m 'chore'"
+
 # =================================================================
 #                              Lists
 # =================================================================

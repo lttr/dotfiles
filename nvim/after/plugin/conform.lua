@@ -3,7 +3,7 @@
 local prettier = { "prettierd", "prettier", stop_after_first = true }
 local prettierAndEslint = { "eslint_d", "prettierd" }
 local prettierAndEslintAndStylelint = { "eslint_d", "stylelint", "prettierd" }
-local prettierAndEslint = { "stylelint", "prettierd" }
+local prettierAndStylelint = { "stylelint", "prettierd" }
 
 require("conform").setup({
   formatters_by_ft = {
