@@ -57,7 +57,7 @@ require("packer").startup(function(use)
   use("kevinhwang91/rnvimr")
   use("kyazdani42/nvim-tree.lua")
   use("sindrets/diffview.nvim")
-  use("ThePrimeagen/harpoon")
+  -- use("ThePrimeagen/harpoon")
   use("stevearc/dressing.nvim")
 
   -- LSP
