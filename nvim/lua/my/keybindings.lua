@@ -160,13 +160,20 @@ nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 -- nmap("<C-b>", ":normal gd<CR>")
 
 -- Harpoon
-nmap("<localleader>=", function() require("harpoon.mark").add_file() end)
-nmap("<localleader>-", function() require("harpoon.mark").rm_file() end)
+-- nmap("<localleader>=", function() require("harpoon.mark").add_file() end)
+-- nmap("<localleader>-", function() require("harpoon.mark").rm_file() end)
 
-nmap("<localleader>u", function() require("harpoon.ui").nav_file(1) end)
-nmap("<localleader>i", function() require("harpoon.ui").nav_file(2) end)
-nmap("<localleader>o", function() require("harpoon.ui").nav_file(3) end)
-nmap("<localleader>p", function() require("harpoon.ui").toggle_quick_menu() end)
+-- nmap("<localleader>u", function() require("harpoon.ui").nav_file(1) end)
+-- nmap("<localleader>i", function() require("harpoon.ui").nav_file(2) end)
+-- nmap("<localleader>o", function() require("harpoon.ui").nav_file(3) end)
+-- nmap("<localleader>p", function() require("harpoon.ui").toggle_quick_menu() end)
+
+-- ts-node-action
+nmap(
+  "<localleader>i",
+  require("ts-node-action").node_action,
+  "Trigger TS Node Action"
+)
 
 -- Formatting
 nmap("<leader>F", "<cmd>FormatWrite<CR>")
