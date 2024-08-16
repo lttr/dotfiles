@@ -182,7 +182,7 @@ nmap("<localleader>w", "gwip")
 -- Executing and running
 nmap(
   "<leader>r",
-  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --unstable %:p<CR>"
+  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A %:p<CR>"
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap(

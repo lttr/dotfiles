@@ -29,7 +29,7 @@ aj() {
     dict -d fd-eng-ces "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
 }
 
-cz() {
+cs() {
     dict -d fd-ces-eng "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | sed 's/()//'
 }
 
@@ -402,8 +402,7 @@ draft() {
 blog() {
     IFS=" "
     MY_SITE_DIR="${HOME}/code/lukastrumm"
-    YEAR="$(date +%Y)"
-    BLOG_DIR="src/blog/${YEAR}"
+    BLOG_DIR="src/blog"
     FILE_TITLE="${*}"
     FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | sed "s/[[:space:]]\+/-/g")
     FILE_PATH="${MY_SITE_DIR}/${BLOG_DIR}/${FILE_SLUG}.md"
