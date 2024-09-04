@@ -46,3 +46,10 @@ echo '### brew upgrade'
 echo
 brew upgrade
 
+
+echo
+echo '### neovim plugins and tools update'
+echo
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'MasonUpdate' -c 'qall'
+

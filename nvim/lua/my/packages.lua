@@ -104,6 +104,7 @@ require("packer").startup(function(use)
   use("numToStr/Comment.nvim")
   use("folke/which-key.nvim")
   use("andymass/vim-matchup")
+  use("bennypowers/splitjoin.nvim")
 
   -- web dev
   use("mattn/emmet-vim")
@@ -129,6 +130,7 @@ require("packer").startup(function(use)
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("nvim-treesitter/nvim-treesitter-textobjects")
   use("ckolkey/ts-node-action")
+  use("ziontee113/syntax-tree-surfer")
 
   -- debbugging
   use("mfussenegger/nvim-dap")

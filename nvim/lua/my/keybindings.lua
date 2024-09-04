@@ -28,6 +28,10 @@ local function nvmap(left, right, desc)
   mymap({ "n", "v" }, left, right, { desc = desc })
 end
 
+local function mapexpr(mode, lhs, rhs, desc)
+  mymap(mode, lhs, rhs, { silent = true, expr = true, desc = desc })
+end
+
 -- Identify the syntax highlighting group used at the cursor
 -- Run :TSHighlightCapturesUnderCursor from treesitter-playground if on Treesitter managed filetype
 nmap("<F9>", "<cmd>TSHighlightCapturesUnderCursor<CR>")
@@ -147,8 +151,8 @@ nmap("<A-J>", ":m .+1<CR>==")
 nmap("<A-K>", ":m .-2<CR>==")
 imap("<A-J>", "<Esc>:m .+1<CR>==")
 imap("<A-K>", "<Esc>:m .-2<CR>==")
-vmap("<A-J>", ":m '>+1<CR>gv=gv")
-vmap("<A-K>", ":m '<-2<CR>gv=gv")
+-- vmap("<A-J>", ":m '>+1<CR>gv=gv")
+-- vmap("<A-K>", ":m '<-2<CR>gv=gv")
 
 -- tags
 -- remap emmet (https://github.com/mattn/emmet-vim/issues/86)
@@ -443,7 +447,16 @@ nmap("gI", function()
   vim.lsp.buf.implementation()
   vim.cmd("vsplit")
 end, "Implementation in a window")
-nmap("gh", function() vim.lsp.buf.typehierarchy() end, "Type hierarchy")
+nmap(
+  "gh",
+  function() vim.lsp.buf.typehierarchy("supertypes") end,
+  "Type hierarchy super"
+)
+nmap(
+  "gH",
+  function() vim.lsp.buf.typehierarchy("subtypes") end,
+  "Type hierarchy sub"
+)
 nmap("<localleader>r", vim.lsp.buf.references, "LSP references")
 nmap("<localleader>k", vim.lsp.buf.hover, "LSP hover")
 nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
@@ -522,7 +535,7 @@ nmap(
   "Convert to path/case"
 )
 nmap(
-  "gta",
+  "gt<space>",
   function() require("textcase").current_word("to_phrase_case") end,
   "Convert to Phrase case"
 )
@@ -726,6 +739,44 @@ nmap("<F6>", function() require("dap").step_into() end)
 nmap("<F7>", function() require("dap").continue() end)
 --  Setting breakpoints via :lua require'dap'.toggle_breakpoint().
 nmap("<F8>", function() require("dap").toggle_breakpoint() end)
+
+-- syntax-tree-surfer
+
+-- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
+
+mapexpr("n", "vU", function()
+  vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
+  return "g@l"
+end, "Swap around up")
+mapexpr("n", "vD", function()
+  vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
+  return "g@l"
+end, "Swap around down")
+-- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
+mapexpr("n", "vd", function()
+  vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+  return "g@l"
+end, "Swap inside down")
+mapexpr("n", "vu", function()
+  vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+  return "g@l"
+end, "Swap around up")
+
+-- Visual Selection from Normal Mode
+nmap("vx", "<cmd>STSSelectMasterNode<CR>", "SelectMasterNode")
+nmap("vn", "<cmd>STSSelectCurrentNode<CR>", "SelectCurrentNode")
+-- Select Nodes in Visual Mode
+vmap("J", "<cmd>STSSelectNextSiblingNode<CR>", "Select next sibling node")
+vmap("K", "<cmd>STSSelectPrevSiblingNode<CR>", "Select prev sibling node")
+vmap("H", "<cmd>STSSelectParentNode<CR>", "Select parent node")
+vmap("L", "<cmd>STSSelectChildNode<CR>", "Select child node")
+-- Swapping Nodes in Visual Mode
+vmap("<A-j>", "<cmd>STSSwapNextVisual<CR>", "Swap next visual")
+vmap("<A-k>", "<cmd>STSSwapPrevVisual<CR>", "Swap prev visual")
+
+-- splitjoin.nvim
+nmap("gj", require("splitjoin").join, "Join the object under cursor")
+nmap("g,", require("splitjoin").split, "Split the object under cursor")
 
 -- export functions that needs to be called from init.lua
 return {

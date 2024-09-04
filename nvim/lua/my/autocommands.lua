@@ -71,6 +71,14 @@ vim.cmd([[
   augroup end
 ]])
 
+-- Save on Buf leave
+vim.cmd([[
+  augroup buf_leave_save
+    autocmd!
+    au BufLeave * silent! wall
+  augroup end
+]])
+
 -- Format on save
 -- local formatting = vim.api.nvim_create_augroup("LspFormatting", {})
 -- vim.api.nvim_clear_autocmds({ group = formatting, buffer = bufnr })

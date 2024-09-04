@@ -587,7 +587,7 @@
     "description": "define module"
   },
   "For Loop": {
-    "prefix": "for",
+    "prefix": "fori",
     "body": [
       "for (let ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
       "\tconst ${3:element} = ${2:array}[${1:index}];",
@@ -614,7 +614,7 @@
     "description": "For-In Loop"
   },
   "For-Of Loop": {
-    "prefix": "forof",
+    "prefix": "for",
     "body": ["for (const ${1:iterator} of ${2:object}) {", "\t$0", "}"],
     "description": "For-Of Loop"
   },

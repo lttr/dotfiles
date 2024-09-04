@@ -58,8 +58,12 @@ cmp.setup({
     -- },
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping(function(fallback) fallback() end),
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<C-k>"] = cmp.mapping.select_prev_item({
+      behavior = cmp.SelectBehavior.Select,
+    }),
+    ["<C-j>"] = cmp.mapping.select_next_item({
+      behavior = cmp.SelectBehavior.Select,
+    }),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping(function() cmp.complete() end),
@@ -91,9 +95,34 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
+    { name = "luasnip", max_item_count = 3 },
     -- { name = "cody" },
     { name = "codeium" },
-    { name = "nvim_lsp" },
+    {
+      name = "nvim_lsp",
+      -- Based on https://github.com/vuejs/language-tools/discussions/4495
+      -- Improved autocompletion in Vue files
+      ---@param entry cmp.Entry
+      ---@param ctx cmp.Context
+      entry_filter = function(entry, ctx)
+        -- Check if the buffer type is 'vue'
+        if ctx.filetype ~= "vue" then
+          return true
+        end
+
+        local cursor_before_line = ctx.cursor_before_line
+        -- For events
+        if cursor_before_line:sub(-1) == "@" then
+          return entry.completion_item.label:match("^@")
+        -- For props also exclude events with `:on-` prefix
+        elseif cursor_before_line:sub(-1) == ":" then
+          return entry.completion_item.label:match("^:")
+            and not entry.completion_item.label:match("^:on%-")
+        else
+          return true
+        end
+      end,
+    },
     { name = "css_classes" },
     { name = "css_variables" },
     { name = "scss_variables" },
@@ -103,24 +132,26 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    { name = "luasnip", max_item_count = 5 },
     -- { name = "buffer", keyword_length = 5 } -- too much noise
   },
   formatting = {
+    fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, cmp.ItemField.Menu },
     format = lspkind.cmp_format({
-      with_text = true,
+      mode = "symbol",
+      maxwidth = 36,
+      ellipsis_char = "…",
       menu = {
         -- cody = "[cody]",
-        codeium = "[codeium]",
-        css_classes = "[css-class]",
-        css_variables = "[css-var]",
-        scss_variables = "[scss-var]",
-        nuxt_component = "[nuxt]",
-        path = "[path]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        luasnip = "[snip]",
-        buffer = "[buf]",
+        codeium = "codeium",
+        css_classes = "css-class",
+        css_variables = "css-var",
+        scss_variables = "scss-var",
+        nuxt_component = "nuxt",
+        path = "path",
+        nvim_lsp = "LSP",
+        nvim_lua = "api",
+        luasnip = "snip",
+        buffer = "buf",
       },
     }),
   },

@@ -12,8 +12,19 @@
       "<style scoped>",
       "\t",
       "</style>"
-    ],
-    "description": "vue3 base template"
+    ]
+  },
+  "Vue template section": {
+    "prefix": "vte",
+    "body": ["<template>", "\t<div>", "\t\t${0}", "\t</div>", "</template>\n"]
+  },
+  "Vue script section": {
+    "prefix": "vsc",
+    "body": ["<script lang=\"ts\" setup>", "${0}", "</script>\n"]
+  },
+  "Vue style section": {
+    "prefix": "vst",
+    "body": ["<style scoped>", "${0}", "</style>\n"]
   },
   "--space-1": {
     "prefix": "sp1",
