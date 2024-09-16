@@ -44,9 +44,10 @@ require("packer").startup(function(use)
   use("hoob3rt/lualine.nvim")
   use("rcarriga/nvim-notify")
   use("nanozuki/tabby.nvim")
+  use("hiphish/rainbow-delimiters.nvim")
 
   -- explorer
-  use({ "nvim-telescope/telescope.nvim", tag = "0.1.6" })
+  use({ "nvim-telescope/telescope.nvim", tag = "0.1.8" }) -- conservative updating, too much changes
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("jvgrootveld/telescope-zoxide")
   use("cljoly/telescope-repo.nvim")
@@ -94,6 +95,8 @@ require("packer").startup(function(use)
   -- use "rmagatti/goto-preview"
   use("petertriho/cmp-git")
   use("lttr/cmp-jira")
+
+  -- lua
   use("folke/neodev.nvim")
 
   -- editing
@@ -110,7 +113,7 @@ require("packer").startup(function(use)
   use("mattn/emmet-vim")
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
-  use("Jezda1337/nvim-html-css")
+  use("ESSO0428/nvim-html-css")
   use("lttr/cmp-css-variables")
   use("lttr/classy.nvim")
 
@@ -147,9 +150,11 @@ require("packer").startup(function(use)
   use("hashivim/vim-terraform")
   use("jparise/vim-graphql")
   use("maxmellon/vim-jsx-pretty")
-  use("jose-elias-alvarez/typescript.nvim")
+  -- use("jose-elias-alvarez/typescript.nvim")
   use("davidosomething/format-ts-errors.nvim")
   -- use("pmizio/typescript-tools.nvim")
+  use("pmizio/typescript-tools.nvim")
+  -- use("yioneko/nvim-vtsls")
   use("nikvdp/ejs-syntax")
   use("napmn/react-extract.nvim")
   use("Janiczek/vim-latte")
@@ -178,8 +183,11 @@ require("packer").startup(function(use)
       "nvim-telescope/telescope.nvim",
     },
   })
+
+  -- AI
   -- use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
-  use("Exafunction/codeium.nvim")
+  -- use("Exafunction/codeium.nvim")
+  use("supermaven-inc/supermaven-nvim")
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")

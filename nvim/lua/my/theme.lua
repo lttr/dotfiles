@@ -150,7 +150,8 @@ local specs = {
       bracket = "pink", -- Brackets and Punctuation
       builtin0 = "fg1", -- Builtin variable
       builtin2 = "orange", -- Builtin const
-      builtin3 = "red", -- Not used
+      -- https://github.com/EdenEast/nightfox.nvim/blob/7557f26defd093c4e9bc17f28b08403f706f5a44/lua/nightfox/group/modules/lsp_semantic_tokens.lua#L14
+      builtin3 = "yellow", -- e.g. an interface
       comment = "comment", -- Comment
       conditional = "magenta", -- Conditional and loop
       const = "orange", -- Constants, imports and booleans

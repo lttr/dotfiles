@@ -29,7 +29,7 @@ local servers = {
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
-  ensure_installed = { "tsserver", unpack(servers) },
+  ensure_installed = { unpack(servers) },
 })
 local lsp_config = require("lspconfig")
 
@@ -88,33 +88,35 @@ local common_on_attach = function(client)
 end
 
 -- https://github.com/davidosomething/format-ts-errors.nvim
-local pretty_ts_error_handlers = {
-  ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
-    if result.diagnostics == nil then
-      return
-    end
+-- local pretty_ts_error_handlers = {
+--   ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+--     if result.diagnostics == nil then
+--       return
+--     end
+--
+--     -- ignore some ts_ls diagnostics
+--     local idx = 1
+--     while idx <= #result.diagnostics do
+--       local entry = result.diagnostics[idx]
+--
+--       local formatter = require("format-ts-errors")[entry.code]
+--       entry.message = formatter and formatter(entry.message) or entry.message
+--
+--       -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
+--       if entry.code == 80001 then
+--         -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
+--         table.remove(result.diagnostics, idx)
+--       else
+--         idx = idx + 1
+--       end
+--     end
+--
+--     vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+--   end,
+-- }
 
-    -- ignore some tsserver diagnostics
-    local idx = 1
-    while idx <= #result.diagnostics do
-      local entry = result.diagnostics[idx]
-
-      local formatter = require("format-ts-errors")[entry.code]
-      entry.message = formatter and formatter(entry.message) or entry.message
-
-      -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
-      if entry.code == 80001 then
-        -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
-        table.remove(result.diagnostics, idx)
-      else
-        idx = idx + 1
-      end
-    end
-
-    vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
-  end,
-}
-
+-- TODO upgrade logic for use in mixed repositories
+-- https://www.npbee.me/posts/deno-and-typescript-in-a-monorepo-neovim-lsp
 local denols = {
   root_dir = lsp_config.util.root_pattern({
     "deno.json",
@@ -173,14 +175,57 @@ local lua_ls = {
   },
 }
 
+---Specialized root pattern that allows for an exclusion
+---@param opt { root: string[], exclude: string[] }
+---@return fun(file_name: string): string | nil
+local function root_pattern_exclude(opt)
+  local lsputil = require("lspconfig.util")
+
+  return function(fname)
+    local excluded_root = lsputil.root_pattern(opt.exclude)(fname)
+    local included_root = lsputil.root_pattern(opt.root)(fname)
+
+    if excluded_root then
+      return nil
+    else
+      return included_root
+    end
+  end
+end
+
+local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities()
+
+require("typescript-tools").setup({
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
+  settings = {
+    -- spawn additional tsserver instance to calculate diagnostics on it
+    separate_diagnostic_server = true,
+    expose_as_code_action = { "all" },
+    capabilities = capabilities_cmp,
+    root_dir = root_pattern_exclude({
+      root = { "package.json" },
+      exclude = { "deno.json", "deno.jsonc" },
+    }),
+    single_file_support = false,
+    tsserver_plugins = {
+      "@vue/typescript-plugin",
+    },
+  },
+})
+
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
 local volar = {
   -- handlers = pretty_ts_error_handlers,
   filetypes = {
-    "typescript",
-    "javascript",
-    "javascriptreact",
-    "typescriptreact",
+    -- "typescript",
+    -- "javascript",
+    -- "javascriptreact",
+    -- "typescriptreact",
     "vue",
   },
   init_options = {
@@ -240,19 +285,21 @@ local function is_a_nuxt_project()
 end
 
 local function setup_server(server)
-  if server == "tsserver" and (is_a_deno_project()) then
-    return
-  end
+  -- if server == "ts_ls" and (is_a_deno_project()) then
+  --   return
+  -- end
 
   if
-    server == "denols" and utils.file_exists(vim.fn.getcwd() .. "/package.json")
+    server == "denols"
+    and utils.file_exists(vim.fn.getcwd() .. "/package.json")
+    and not utils.file_exists(vim.fn.getcwd() .. "/deno.json")
   then
     return
   end
 
-  if server == "volar" and is_a_deno_project() then
-    return
-  end
+  -- if server == "volar" and is_a_deno_project() then
+  --   return
+  -- end
 
   local config = make_config(server)
   lsp_config[server].setup(config)
@@ -261,46 +308,6 @@ end
 for _, name in pairs(servers) do
   setup_server(name)
 end
-
--- https://github.com/jose-elias-alvarez/typescript.nvim
-if not is_a_deno_project() and not is_a_nuxt_project() then
-  require("typescript").setup({
-    disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
-    go_to_source_definition = {
-      fallback = true, -- fall back to standard LSP definition on failure
-    },
-    server = {
-      -- handlers = vim.tbl_deep_extend("force", common_handlers, pretty_ts_error_handlers),
-      on_attach = common_on_attach,
-      -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
-      javascript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-        },
-      },
-      typescript = {
-        inlayHints = {
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHints = "all",
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayVariableTypeHints = true,
-        },
-      },
-    },
-  })
-end
-
--- require("typescript-tools").setup {}
 
 -- https://github.com/ray-x/lsp_signature.nvim
 require("lsp_signature").setup({
