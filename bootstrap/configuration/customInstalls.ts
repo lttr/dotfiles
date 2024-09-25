@@ -1,13 +1,6 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 
-export const antidote: Config = {
-  gitClone: {
-    url: "https://github.com/mattmc3/antidote.git",
-    target: `${HOME}/opt/antidote/`,
-  },
-};
-
 // export const gnomeShellExtensionInstaller = {
 //   gnomeShellExtensionInstaller: {},
 // };
@@ -89,6 +82,7 @@ export const aptUpdate: Config = {
 };
 
 const brewPackages = [
+  { name: "antidote" },
   { name: "git-delta", executable: "delta" },
   { name: "docker" },
   { name: "docker-compose" },

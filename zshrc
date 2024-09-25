@@ -202,7 +202,7 @@ export BAT_PAGER="less -RF"
 # =================================================================
 
 # Antidote
-antidote_dir=${HOME}/opt/antidote
+antidote_dir=$(brew --prefix)/opt/antidote/share/antidote
 plugins_txt=${HOME}/.zsh_plugins.txt
 plugins_txt_dotfiles=${HOME}/dotfiles/zsh_plugins.txt
 static_file=${HOME}/.zsh_plugins.zsh
