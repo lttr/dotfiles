@@ -118,12 +118,13 @@ local palettes = {
 
 -- Group of current token set by Treesitter can be find by
 -- :TSHighlightCapturesUnderCursor from treesitter-playground
+-- or :Inspect
 local groups = {
   GitSignsAdd = { fg = green_transparent:to_css() },
   GitSignsChange = { fg = yellow_transparent:to_css() },
   GitSignsRemove = { fg = red_transparent:to_css() },
-  TSType = { fg = yellow, link = "" },
-  TSParameter = { fg = fg, link = "" },
+  -- TSType = { fg = yellow, link = "" },
+  -- TSParameter = { fg = fg, link = "" },
   Folded = { fg = "palette.fg2", link = "" },
   Visual = { bg = bg_visual, link = "" },
   Search = { bg = Color.from_hex(blue):lighten(-25):to_css(), link = "" },
@@ -157,7 +158,7 @@ local specs = {
       const = "orange", -- Constants, imports and booleans
       dep = "fg3", -- Deprecated
       func = "blue", -- Functions and Titles
-      ident = "cyan", -- Identifiers
+      ident = "cyan", -- Identifiers, constructor
       keyword = "magenta", -- Keywords
       number = "orange", -- Numbers
       operator = "fg2", -- Operators

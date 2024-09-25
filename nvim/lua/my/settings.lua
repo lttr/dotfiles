@@ -78,3 +78,6 @@ vim.cmd([[
 -- Increments
 -- Increment without considering leading minus or dash sign
 opt.nrformats = "bin,hex,unsigned"
+
+-- Hide semantic highlights for functions
+vim.api.nvim_set_hl(0, "@lsp.type.function", {})

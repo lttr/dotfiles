@@ -7,6 +7,18 @@ require("neodev").setup()
 
 local utils = require("my.utils")
 
+local function is_a_deno_project()
+  return utils.has_root_file({ "deno.json", "deno.jsonc" })
+end
+
+local function is_a_vite_project()
+  return utils.has_root_file({ "vite.config.js", "vite.config.ts" })
+end
+
+local function is_a_nuxt_project()
+  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts", ".nuxtrc" })
+end
+
 local servers = {
   "bashls",
   "cssls",
@@ -195,28 +207,32 @@ end
 
 local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities()
 
-require("typescript-tools").setup({
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-  },
-  settings = {
-    -- spawn additional tsserver instance to calculate diagnostics on it
-    separate_diagnostic_server = true,
-    expose_as_code_action = { "all" },
-    capabilities = capabilities_cmp,
-    root_dir = root_pattern_exclude({
-      root = { "package.json" },
-      exclude = { "deno.json", "deno.jsonc" },
-    }),
-    single_file_support = false,
-    tsserver_plugins = {
-      "@vue/typescript-plugin",
+if not is_a_deno_project() then
+  require("typescript-tools").setup({
+    filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
     },
-  },
-})
+    settings = {
+      -- spawn additional tsserver instance to calculate diagnostics on it
+      separate_diagnostic_server = true,
+      expose_as_code_action = { "all" },
+      capabilities = capabilities_cmp,
+      -- https://github.com/pmizio/typescript-tools.nvim/issues/132
+      -- https://github.com/pmizio/typescript-tools.nvim/issues/249
+      root_dir = root_pattern_exclude({
+        root = { "package.json" },
+        exclude = { "deno.json", "deno.jsonc" },
+      }),
+      single_file_support = false,
+      tsserver_plugins = {
+        "@vue/typescript-plugin",
+      },
+    },
+  })
+end
 
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
 local volar = {
@@ -270,18 +286,6 @@ local function make_config(server_name)
     handlers = common_handlers,
   }, custom_config)
   return merged_config
-end
-
-local function is_a_deno_project()
-  return utils.has_root_file({ "deno.json", "deno.jsonc" })
-end
-
-local function is_a_vite_project()
-  return utils.has_root_file({ "vite.config.js", "vite.config.ts" })
-end
-
-local function is_a_nuxt_project()
-  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts", ".nuxtrc" })
 end
 
 local function setup_server(server)
