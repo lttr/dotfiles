@@ -1,10 +1,7 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 
-// export const gnomeShellExtensionInstaller = {
-//   gnomeShellExtensionInstaller: {},
-// };
-
+// Update is build in and automatic
 const googleChromeAmd64 = "google-chrome-stable_current_amd64.deb";
 export const googleChrome: Config = {
   debianPackage: {
@@ -13,6 +10,8 @@ export const googleChrome: Config = {
   },
 };
 
+// Update:
+// curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
 export const fnm: Config = {
   urlScript: {
     name: "fnm",
@@ -31,6 +30,7 @@ export const node: Config = {
   dependsOn: fnm,
 };
 
+// Update: brew update
 const brew: Config = {
   urlScript: {
     name: "brew",
@@ -49,6 +49,8 @@ const exp: Config = {
   },
 };
 
+// Update:
+// curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 const kitty: Config = {
   urlScript: {
     name: "kitty",
@@ -185,12 +187,10 @@ const pnpmPackages = [
 ];
 
 export const customInstalls: Config[] = [
-  antidote,
   aptUpdate,
   brew,
   exp,
   fnm,
-  // gnomeShellExtensionInstaller,
   googleChrome,
   kitty,
   neovim,
