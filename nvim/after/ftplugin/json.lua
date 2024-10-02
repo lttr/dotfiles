@@ -10,3 +10,6 @@ vim.keymap.set("n", "y<C-p>", function()
   vim.fn.setreg("+", require("jsonpath").get())
   print('JSON path copied to clipboard: "' .. require("jsonpath").get() .. '"')
 end, { desc = "Copy json path", buffer = true })
+
+-- https://github.com/rest-nvim/rest.nvim/issues/414#issuecomment-2308629381
+vim.bo.formatexpr = "v:lua.require'conform'.formatexpr()"

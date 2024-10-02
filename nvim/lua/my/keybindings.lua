@@ -184,9 +184,11 @@ nmap("<leader>F", "<cmd>FormatWrite<CR>")
 nmap("<localleader>w", "gwip")
 
 -- Executing and running
-nmap(
+vim.keymap.set(
+  "n",
   "<leader>r",
-  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A %:p<CR>"
+  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A %:p<CR>",
+  { silent = true, noremap = false }
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
 -- nmap(
