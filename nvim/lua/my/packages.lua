@@ -187,7 +187,10 @@ require("packer").startup(function(use)
   -- AI
   -- use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
   -- use("Exafunction/codeium.nvim")
-  use("supermaven-inc/supermaven-nvim")
+  use({
+    "supermaven-inc/supermaven-nvim",
+    commit = "40bde487fe31723cdd180843b182f70c6a991226",
+  })
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")
