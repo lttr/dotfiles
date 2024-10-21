@@ -1,5 +1,5 @@
 -- https://github.com/williamboman/mason-lspconfig.nvim
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
 -- https://github.com/folke/neodev.nvim
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
@@ -32,6 +32,7 @@ local servers = {
   "phpactor",
   "pyright",
   "stylelint_lsp",
+  "svelte",
   "tailwindcss",
   "terraformls",
   "volar",
@@ -215,10 +216,11 @@ if not is_a_deno_project() then
       "typescript",
       "typescriptreact",
     },
+    handlers = common_handlers,
     settings = {
       -- spawn additional tsserver instance to calculate diagnostics on it
       separate_diagnostic_server = true,
-      expose_as_code_action = { "all" },
+      expose_as_code_action = "all",
       capabilities = capabilities_cmp,
       -- https://github.com/pmizio/typescript-tools.nvim/issues/132
       -- https://github.com/pmizio/typescript-tools.nvim/issues/249
@@ -229,6 +231,15 @@ if not is_a_deno_project() then
       single_file_support = false,
       tsserver_plugins = {
         "@vue/typescript-plugin",
+      },
+      tsserver_file_preferences = {
+        includeInlayParameterNameHints = "all",
+        includeCompletionsForModuleExports = true,
+        quotePreference = "auto",
+      },
+      tsserver_format_options = {
+        allowIncompleteCompletions = false,
+        allowRenameOfImportPath = false,
       },
     },
   })

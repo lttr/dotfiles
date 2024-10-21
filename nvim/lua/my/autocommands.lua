@@ -1,3 +1,5 @@
+local utils = require("my.utils")
+
 -- Start terminal in insert mode
 vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert" })
 
@@ -89,3 +91,12 @@ vim.cmd([[
 --     vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 3000 })
 --   end,
 -- })
+
+vim.api.nvim_create_autocmd("BufRead", {
+  callback = function()
+    if utils.has_root_file({ ".obsidian.vimrc" }) then
+      vim.opt.conceallevel = 2
+    end
+  end,
+  group = vim.api.nvim_create_augroup("Obsidian", { clear = true }),
+})

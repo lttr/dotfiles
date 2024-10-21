@@ -308,7 +308,7 @@ local document_symbols = function()
   return telescopeBuildin.lsp_document_symbols({
     previewer = false,
     layout_config = { width = 90 },
-    symbols = { "function", "method" },
+    symbols = { "interface", "typeParameter", "function", "method" },
   })
 end
 
@@ -460,6 +460,7 @@ nmap(
   "Type hierarchy sub"
 )
 nmap("<localleader>r", vim.lsp.buf.references, "LSP references")
+nmap("<localleader>R", "<cmd>TSToolsFileReferences<CR>", "File references")
 nmap("<localleader>k", vim.lsp.buf.hover, "LSP hover")
 nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
 -- nmap("<localleader>s", vim.lsp.buf.signature_help)
@@ -474,28 +475,21 @@ vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 nmap("<localleader>d", vim.diagnostic.open_float)
 
 --
--- typescript.nvim
+-- Typescript
 --
--- nmap(
---   "<localleader>yo",
---   require("typescript").actions.organizeImports,
---   "Organize imports"
--- )
--- nmap(
---   "<localleader>ya",
---   require("typescript").actions.addMissingImports,
---   "Add missing imports"
--- )
--- nmap(
---   "<localleader>yu",
---   require("typescript").actions.removeUnused,
---   "Remove unused"
--- )
--- nmap(
---   "<localleader>yr",
---   "<cmd>TypescriptRenameFile<CR>",
---   "Typescript rename file"
--- )
+
+nmap("<localleader>yo", "<cmd>TSToolsOrganizeImports<CR>", "Organize imports")
+nmap(
+  "<localleader>ya",
+  "<cmd>TSToolsAddMissingImports<CR>",
+  "Add missing imports"
+)
+nmap(
+  "<localleader>yu",
+  "<cmd>TSToolsRemoveUnusedImports<CR>",
+  "Remove unused imports"
+)
+nmap("<localleader>yr", "<cmd>TSToolsRenameFile<CR>", "Typescript rename file")
 
 -- Toggle stuff
 

@@ -60,6 +60,13 @@ require("packer").startup(function(use)
   use("sindrets/diffview.nvim")
   -- use("ThePrimeagen/harpoon")
   use("stevearc/dressing.nvim")
+  use({
+    "antosha417/nvim-lsp-file-operations",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-tree.lua",
+    },
+  })
 
   -- LSP
   use("folke/trouble.nvim")
@@ -185,12 +192,7 @@ require("packer").startup(function(use)
   })
 
   -- AI
-  -- use({ 'sourcegraph/sg.nvim', run = 'nvim -l build/init.lua' })
-  -- use("Exafunction/codeium.nvim")
-  use({
-    "supermaven-inc/supermaven-nvim",
-    commit = "40bde487fe31723cdd180843b182f70c6a991226",
-  })
+  use("supermaven-inc/supermaven-nvim")
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")

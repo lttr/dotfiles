@@ -23,6 +23,6 @@ ToggleDiagnostics = function()
     vim.diagnostic.enable()
   else
     vim.api.nvim_echo({ { "Disable diagnostics" } }, false, {})
-    vim.diagnostic.disable()
+    vim.diagnostic.enable(false)
   end
 end

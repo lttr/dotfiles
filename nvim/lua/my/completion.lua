@@ -44,18 +44,6 @@ local tab_function = function(fallback)
   end
 end
 
-local tab_function_supermaven = function(fallback)
-  local suggestion = require("supermaven-nvim.completion_preview")
-
-  if luasnip.expandable() then
-    luasnip.expand()
-  elseif suggestion.has_suggestion() then
-    suggestion.on_accept_suggestion()
-  else
-    fallback()
-  end
-end
-
 cmp.setup({
   performance = {
     max_view_entries = 12,
@@ -97,7 +85,7 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     }),
-    ["<Tab>"] = cmp.mapping(tab_function_supermaven, { "i", "s" }),
+    ["<Tab>"] = cmp.mapping(tab_function, { "i", "s" }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
