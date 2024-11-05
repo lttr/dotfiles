@@ -139,8 +139,6 @@ local function handle_composable(word)
       vim.cmd("edit " .. composable_file_path)
       return true
     end
-  else
-    print("There is no expected directory " .. composables_folder)
   end
   return false
 end

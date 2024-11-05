@@ -53,7 +53,7 @@ cmp.setup({
   },
   completion = {
     -- Only show the autocompletion menu when manually triggered
-    -- autocomplete = false,
+    autocomplete = false,
     -- DO select the first item, but DON'T insert it yet (wait for enter)
     completeopt = "menu,menuone,noinsert",
   },
