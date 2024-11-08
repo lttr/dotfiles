@@ -190,6 +190,17 @@ require("packer").startup(function(use)
       "nvim-telescope/telescope.nvim",
     },
   })
+  use({
+    "yetone/avante.nvim",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+    },
+    run = "make BUILD_FROM_SOURCE=true",
+  })
 
   -- AI
   use("supermaven-inc/supermaven-nvim")
