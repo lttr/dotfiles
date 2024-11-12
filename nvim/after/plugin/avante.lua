@@ -51,7 +51,7 @@ require("avante").setup({
   --     reverse_switch_windows = "<S-Tab>",
   --   },
   -- },
-  -- hints = { enabled = true },
+  hints = { enabled = false },
   -- windows = {
   --   ---@type "right" | "left" | "top" | "bottom"
   --   position = "right", -- the position of the sidebar
