@@ -182,6 +182,7 @@ const pnpmPackages = [
   { name: "pollinate" },
   { name: "prettier" },
   { name: "@fsouza/prettierd", executable: "prettierd" },
+  { name: "sharp-cli" },
   { name: "stylelint" },
   { name: "typescript-language-server" },
 ];
