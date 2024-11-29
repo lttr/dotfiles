@@ -191,12 +191,16 @@ vim.keymap.set(
   { silent = true, noremap = false }
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")
--- nmap(
---   "<localleader>t",
---   function() require("neotest").run.run(vim.fn.expand("%")) end
--- )
--- nmap("<localleader>T", function() require("neotest").summary.toggle() end)
-nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
+nmap(
+  "<leader>j",
+  "<cmd>AsyncRun -save=1 -mode=term -pos=right npm test -- %:p<CR>"
+)
+nmap(
+  "<localleader>j",
+  function() require("neotest").run.run(vim.fn.expand("%")) end
+)
+nmap("<localleader>J", function() require("neotest").summary.toggle() end)
+-- nmap("<leader>a", ":AsyncRun -save=1 -mode=term -pos=right %:p<CR>")
 nmap("<leader>e", "<cmd>%SnipRun<CR>")
 vmap("<localleader>ee", "<Plug>SnipRun")
 vmap("<localleader>j", utils.evaluate_js)
@@ -306,9 +310,14 @@ end
 
 local document_symbols = function()
   return telescopeBuildin.lsp_document_symbols({
-    previewer = false,
-    layout_config = { width = 90 },
-    symbols = { "interface", "typeParameter", "function", "method" },
+    symbols = {
+      "interface",
+      "typeParameter",
+      "function",
+      "method",
+      "constructor",
+      "class",
+    },
   })
 end
 

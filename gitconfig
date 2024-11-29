@@ -126,8 +126,9 @@
   tool = nvim
   conflictstyle = diff3
 
-[interactive]
-    diffFilter = delta --color-only --theme TwoDark
+# Does not work with git add -p
+# [interactive]
+#     diffFilter = delta --color-only --theme TwoDark
 
 # automatically launch merge tool without displaying a prompt
 [mergetool]
