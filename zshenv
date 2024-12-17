@@ -56,6 +56,11 @@ export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 # ripgrep
 export RIPGREP_CONFIG_PATH=$HOME/dotfiles/ripgrep_config
 
+# dotnet
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$PATH:$DOTNET_ROOT"
+export PATH="$PATH:$DOTNET_ROOT/tools" # for photo-cli
+
 # user environment
 export PAGER=/usr/bin/less
 export EDITOR=nvim
