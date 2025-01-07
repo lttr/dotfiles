@@ -116,9 +116,13 @@ local prefill_edit_window = function(request)
   )
 end
 
--- NOTE: most templates are inspired from ChatGPT.nvim -> chatgpt-actions.json
-local avante_grammar_correction =
-  "Correct the text to standard English, but keep any code blocks inside intact."
+-- note most templates are inspired from ChatGPT.nvim -> chatgpt-actions.json
+local avante_grammar_correction = [[
+  Correct the text to standard English, but keep any source code structure
+  intact. Do point out any typos in the code as well. If the visible text is in
+  a different language, use such language for the visible text and do not
+  translate it into English.
+  ]]
 local avante_keywords = "Extract the main keywords from the following text"
 local avante_code_readability_analysis = [[
   You must identify any readability issues in the code snippet.
@@ -211,48 +215,6 @@ require("which-key").add({
       "<leader>au",
       function() require("avante.api").ask({ question = avante_add_tests }) end,
       desc = "Add Tests(ask)",
-    },
-  },
-})
-
-require("which-key").add({
-  { "<leader>a", group = "Avante" }, -- NOTE: add for avante.nvim
-  {
-    mode = { "v" },
-    {
-      "<leader>aG",
-      function() prefill_edit_window(avante_grammar_correction) end,
-      desc = "Grammar Correction",
-    },
-    {
-      "<leader>aK",
-      function() prefill_edit_window(avante_keywords) end,
-      desc = "Keywords",
-    },
-    {
-      "<leader>aO",
-      function() prefill_edit_window(avante_optimize_code) end,
-      desc = "Optimize Code(edit)",
-    },
-    {
-      "<leader>aC",
-      function() prefill_edit_window(avante_complete_code) end,
-      desc = "Complete Code(edit)",
-    },
-    {
-      "<leader>aD",
-      function() prefill_edit_window(avante_add_docstring) end,
-      desc = "Docstring(edit)",
-    },
-    {
-      "<leader>aB",
-      function() prefill_edit_window(avante_fix_bugs) end,
-      desc = "Fix Bugs(edit)",
-    },
-    {
-      "<leader>aU",
-      function() prefill_edit_window(avante_add_tests) end,
-      desc = "Add Tests(edit)",
     },
   },
 })

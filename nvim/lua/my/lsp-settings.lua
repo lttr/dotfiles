@@ -25,6 +25,7 @@ local servers = {
   "denols",
   "eslint",
   "graphql",
+  "harper_ls",
   "html",
   "jsonls",
   "lua_ls",
@@ -272,12 +273,48 @@ local jsonls = {
   },
 }
 
+local harper_ls = {
+  filetypes = {
+    "markdown",
+    "markdown_inline",
+    "vue",
+    "html",
+    "css",
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "yaml",
+    "toml",
+    "gitcommit",
+  },
+  linters = {
+    spell_check = true,
+    spelled_numbers = false,
+    an_a = true,
+    sentence_capitalization = true,
+    unclosed_quotes = true,
+    wrong_quotes = false,
+    long_sentences = true,
+    repeated_words = true,
+    spaces = true,
+    matcher = true,
+    correct_number_suffix = true,
+    number_suffix_capitalization = true,
+    multiple_sequential_pronouns = true,
+    linking_verbs = false,
+    avoid_curses = true,
+    terminating_conjunctions = true,
+  },
+}
+
 local custom_configs = {
   denols = denols,
   eslint = eslint,
+  harper_ls = harper_ls,
+  jsonls = jsonls,
   lua_ls = lua_ls,
   volar = volar,
-  jsonls = jsonls,
 }
 
 local function make_config(server_name)

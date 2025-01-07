@@ -192,6 +192,7 @@ require("packer").startup(function(use)
   })
   use({
     "yetone/avante.nvim",
+    commit = "5c20cc177966be153e1a9fd668f7c2a4bade9b2d", -- https://github.com/yetone/avante.nvim/commit/5c20cc177966be153e1a9fd668f7c2a4bade9b2d
     requires = {
       "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
@@ -199,7 +200,7 @@ require("packer").startup(function(use)
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
     },
-    run = "make BUILD_FROM_SOURCE=true",
+    run = "make",
   })
 
   -- AI
