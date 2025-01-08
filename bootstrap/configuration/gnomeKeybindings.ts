@@ -22,6 +22,24 @@ function customGnomeKeybinding(
 }
 
 const customGnomeKeybindings = [
+  ...customGnomeKeybinding(
+    0,
+    "Center window",
+    "center-window",
+    "<Primary><Super>c",
+  ),
+  ...customGnomeKeybinding(
+    0,
+    "Margin window",
+    "margin-window",
+    "<Primary><Super>m",
+  ),
+  ...customGnomeKeybinding(
+    0,
+    "Minimize but active",
+    "minimize-but-active",
+    "<Primary><Super>b",
+  ),
   ...customGnomeKeybinding(0, "Sleep", "systemctl suspend", "<Super>u"),
   ...customGnomeKeybinding(
     1,
