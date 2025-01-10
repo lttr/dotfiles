@@ -158,7 +158,7 @@ export const cursors: Config = {
       CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
       CURSORS_TARGET_DIR="/usr/share/icons/"
       cd ~/Downloads
-      curl -fsLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.0/BreezeX-Dark.tar.gz
+      curl -fsLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Dark.tar.gz
       tar -xvf "$CURSORS_FILE_NAME"
       sudo mv BreezeX-Dark/ "$CURSORS_TARGET_DIR"
     `,
