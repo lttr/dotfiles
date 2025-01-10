@@ -21,6 +21,12 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+-- Notable mentions:
+-- Harpoon by ThePrimeagen - alternate file navigation is enough for me
+-- mhartington/formatter.nvim - I use conform.nvim instead, but might be useful
+-- for on demand formatting with FormatWrite command
+-- jose-elias-alvarez/null-ls.nvim
+
 require("packer").startup(function(use)
   -- local
   use("~/dotfiles/nvim/plugin/eslint-spawn/")
@@ -29,8 +35,6 @@ require("packer").startup(function(use)
   use("~/dotfiles/nvim/plugin/cmp-css-classes/")
   -- use("~/dotfiles/nvim/plugin/cmp-css-variables/")
   use("~/dotfiles/nvim/plugin/cmp-scss-variables/")
-
-  --klen/nvim-config-local
 
   -- packer
   use("wbthomason/packer.nvim")
@@ -58,7 +62,6 @@ require("packer").startup(function(use)
   use("kevinhwang91/rnvimr")
   use("kyazdani42/nvim-tree.lua")
   use("sindrets/diffview.nvim")
-  -- use("ThePrimeagen/harpoon")
   use("stevearc/dressing.nvim")
   use({
     "antosha417/nvim-lsp-file-operations",
@@ -71,13 +74,9 @@ require("packer").startup(function(use)
   -- LSP
   use("folke/trouble.nvim")
   use("lewis6991/gitsigns.nvim")
-  -- TODO deprecated in favor of conform.nvim
-  -- use("mhartington/formatter.nvim")
   use("neovim/nvim-lspconfig")
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
-  -- TODO deprecated in favor of conform.nvim
-  -- use("jose-elias-alvarez/null-ls.nvim")
   use("b0o/schemastore.nvim")
   use("Maan2003/lsp_lines.nvim")
   use("folke/zen-mode.nvim")
@@ -99,7 +98,6 @@ require("packer").startup(function(use)
   use("hrsh7th/cmp-nvim-lsp-signature-help")
   use("ray-x/lsp_signature.nvim")
   use("onsails/lspkind-nvim")
-  -- use "rmagatti/goto-preview"
   use("petertriho/cmp-git")
   use("lttr/cmp-jira")
 
@@ -157,11 +155,8 @@ require("packer").startup(function(use)
   use("hashivim/vim-terraform")
   use("jparise/vim-graphql")
   use("maxmellon/vim-jsx-pretty")
-  -- use("jose-elias-alvarez/typescript.nvim")
   use("davidosomething/format-ts-errors.nvim")
-  -- use("pmizio/typescript-tools.nvim")
   use("pmizio/typescript-tools.nvim")
-  -- use("yioneko/nvim-vtsls")
   use("nikvdp/ejs-syntax")
   use("napmn/react-extract.nvim")
   use("Janiczek/vim-latte")
@@ -190,9 +185,11 @@ require("packer").startup(function(use)
       "nvim-telescope/telescope.nvim",
     },
   })
+
+  -- AI
+  use("supermaven-inc/supermaven-nvim")
   use({
     "yetone/avante.nvim",
-    commit = "5c20cc177966be153e1a9fd668f7c2a4bade9b2d", -- https://github.com/yetone/avante.nvim/commit/5c20cc177966be153e1a9fd668f7c2a4bade9b2d
     requires = {
       "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
@@ -202,9 +199,6 @@ require("packer").startup(function(use)
     },
     run = "make",
   })
-
-  -- AI
-  use("supermaven-inc/supermaven-nvim")
 
   -- executing and terminal
   use("akinsho/toggleterm.nvim")

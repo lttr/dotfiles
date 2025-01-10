@@ -163,15 +163,6 @@ nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 -- Code navigation
 -- nmap("<C-b>", ":normal gd<CR>")
 
--- Harpoon
--- nmap("<localleader>=", function() require("harpoon.mark").add_file() end)
--- nmap("<localleader>-", function() require("harpoon.mark").rm_file() end)
-
--- nmap("<localleader>u", function() require("harpoon.ui").nav_file(1) end)
--- nmap("<localleader>i", function() require("harpoon.ui").nav_file(2) end)
--- nmap("<localleader>o", function() require("harpoon.ui").nav_file(3) end)
--- nmap("<localleader>p", function() require("harpoon.ui").toggle_quick_menu() end)
-
 -- ts-node-action
 nmap(
   "<localleader>i",
@@ -180,7 +171,6 @@ nmap(
 )
 
 -- Formatting
-nmap("<leader>F", "<cmd>FormatWrite<CR>")
 nmap("<localleader>w", "gwip")
 
 -- Executing and running

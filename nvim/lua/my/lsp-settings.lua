@@ -273,6 +273,7 @@ local jsonls = {
   },
 }
 
+-- https://writewithharper.com/docs/integrations/neovim
 local harper_ls = {
   filetypes = {
     "markdown",
@@ -289,7 +290,7 @@ local harper_ls = {
     "gitcommit",
   },
   linters = {
-    spell_check = true,
+    spell_check = false,
     spelled_numbers = false,
     an_a = true,
     sentence_capitalization = true,

@@ -87,7 +87,6 @@ require("telescope").setup({
 require("telescope").load_extension("buffer_lines")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzf")
--- require("telescope").load_extension("harpoon")
 require("telescope").load_extension("live_grep_args")
 require("telescope").load_extension("recent_files")
 require("telescope").load_extension("repo")
