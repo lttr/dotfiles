@@ -118,7 +118,7 @@ require("packer").startup(function(use)
   use("mattn/emmet-vim")
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
-  use("ESSO0428/nvim-html-css")
+  -- use("ESSO0428/nvim-html-css")
   use("lttr/cmp-css-variables")
   use("lttr/classy.nvim")
 
@@ -142,14 +142,7 @@ require("packer").startup(function(use)
 
   -- debbugging
   use("mfussenegger/nvim-dap")
-  use("mxsdev/nvim-dap-vscode-js")
   use("rcarriga/nvim-dap-ui")
-  use({
-    "microsoft/vscode-js-debug",
-    opt = true,
-    run = "npm install --legacy-peer-deps && npm run compile",
-    tag = "v1.74.1", -- https://github.com/mxsdev/nvim-dap-vscode-js/issues/23
-  })
 
   -- special languages
   use("hashivim/vim-terraform")

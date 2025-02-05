@@ -553,6 +553,28 @@ get-current-workspace-name() {
 
 
 # =================================================================
+#                              Node
+# =================================================================
+
+latest-pnpm() {
+    ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | sort --version-sort --reverse | head -n1 | tr -d '/' | tr -d 'v'
+}
+
+pnpm-up() {
+    pnpm self-update
+    pnpm pkg set packageManager="pnpm@$(latest-pnpm)"
+    echo "Now using $(pnpm --version)"
+}
+
+node-up() {
+    fnm install --lts
+    fnm use lts-latest
+    node --version > .node-version
+    echo "Now using $(node --version)"
+    echo "Remember to check 'pnpm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
+}
+
+# =================================================================
 #                              Work
 # =================================================================
 

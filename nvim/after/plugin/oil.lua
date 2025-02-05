@@ -14,6 +14,5 @@ require("oil").setup({
     show_hidden = true,
   },
   delete_to_trash = true,
-  trash_command = "trash-put",
   skip_confirm_for_simple_edits = true,
 })
