@@ -13,3 +13,4 @@ end, { desc = "Copy json path", buffer = true })
 
 -- https://github.com/rest-nvim/rest.nvim/issues/414#issuecomment-2308629381
 vim.bo.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.bo.formatprg = "prettier"

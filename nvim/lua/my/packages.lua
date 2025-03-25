@@ -59,6 +59,7 @@ require("packer").startup(function(use)
   use("nvim-telescope/telescope-live-grep-args.nvim")
   use("jeetsukumaran/telescope-buffer-lines.nvim")
   use("smartpde/telescope-recent-files")
+  use("isak102/telescope-git-file-history.nvim")
   use("kevinhwang91/rnvimr")
   use("kyazdani42/nvim-tree.lua")
   use("sindrets/diffview.nvim")
@@ -83,6 +84,7 @@ require("packer").startup(function(use)
   use("j-hui/fidget.nvim")
   use({ "nvimdev/lspsaga.nvim", after = "nvim-lspconfig" })
   use("stevearc/conform.nvim")
+  use({ "dnlhc/glance.nvim", cmd = "Glance" })
 
   -- snippets
   use("L3MON4D3/LuaSnip")
@@ -189,6 +191,7 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
+      "HakonHarnes/img-clip.nvim",
     },
     run = "make",
   })

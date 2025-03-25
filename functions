@@ -557,7 +557,7 @@ get-current-workspace-name() {
 # =================================================================
 
 latest-pnpm() {
-    ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | sort --version-sort --reverse | head -n1 | tr -d '/' | tr -d 'v'
+    ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | tr -d '/' | tr -d 'v' | sort --version-sort --reverse | head -n1
 }
 
 pnpm-up() {

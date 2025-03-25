@@ -41,3 +41,44 @@ GetVisualSelection = function()
     return ""
   end
 end
+
+-- Custom function to send the volar/client/findFileReference request
+-- https://github.com/vuejs/language-tools/discussions/3244
+FindVueFileReferences = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local uri = vim.uri_from_bufnr(bufnr)
+  vim.lsp.buf_request(
+    bufnr,
+    "volar/client/findFileReference",
+    { textDocument = { uri = uri } },
+    function(err, result, ctx, config)
+      if err then
+        vim.notify(
+          "Error finding references: " .. vim.inspect(err),
+          vim.log.levels.ERROR
+        )
+      else
+        -- Convert the result to quickfix items
+        local items = {}
+        for _, ref in ipairs(result) do
+          table.insert(items, {
+            filename = vim.uri_to_fname(ref.uri),
+            lnum = ref.range.start.line + 1,
+            col = ref.range.start.character + 1,
+            text = "Reference",
+          })
+        end
+        -- Populate the quickfix
+        vim.fn.setqflist(items)
+        -- Open the quickfix window
+        vim.cmd("copen")
+      end
+    end
+  )
+end
+vim.keymap.set(
+  "n",
+  "<leader>fR",
+  "<cmd>lua FindVueFileReferences()<CR>",
+  { noremap = true, silent = true }
+)

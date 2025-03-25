@@ -41,8 +41,10 @@ require("telescope").setup({
       auto_quoting = true,
       mappings = {
         i = {
-          ["<C-e>"] = live_grep_args_actions.quote_prompt(),
-          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-e>"] = live_grep_args_actions.quote_prompt({
+            postfix = " --iglob **",
+          }),
+          ["<C-k>"] = actions.move_selection_previous, -- restore shortcut
         },
       },
       vimgrep_arguments = {
@@ -92,6 +94,7 @@ require("telescope").load_extension("recent_files")
 require("telescope").load_extension("repo")
 require("telescope").load_extension("zoxide")
 require("telescope").load_extension("jsonfly")
+require("telescope").load_extension("git_file_history")
 
 -- Zoxide extension
 require("telescope._extensions.zoxide.config").setup({

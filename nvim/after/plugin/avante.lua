@@ -8,9 +8,12 @@ require("avante").setup({
   -- auto_suggestions_provider = "claude",
   claude = {
     endpoint = "https://api.anthropic.com",
-    model = "claude-3-5-sonnet-20241022",
+    model = "claude-3-7-sonnet-20250219",
+    -- model = "claude-3-5-sonnet-20241022",
+    timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 4096,
+    max_tokens = 8192,
+    -- disable_tools = true, -- Disable tools for now (it's enabled by default) as it's causing rate-limit problems with Claude, see more here: https://github.com/yetone/avante.nvim/issues/1384
   },
   behaviour = {
     auto_suggestions = false,
@@ -20,6 +23,11 @@ require("avante").setup({
     support_paste_from_clipboard = true,
   },
   hints = { enabled = false },
+  windows = {
+    position = "right", -- the position of the sidebar
+    wrap = true, -- similar to vim.o.wrap
+    width = 35, -- default % based on available width
+  },
 })
 
 -- prefil edit window with common scenarios to avoid repeating query and submit immediately
@@ -75,6 +83,11 @@ local avante_complete_code = "Complete the following codes written in "
 local avante_add_docstring = "Add docstring to the following codes"
 local avante_fix_bugs = "Fix the bugs inside the following codes if any"
 local avante_add_tests = "Implement tests for the following code"
+
+-- build in keymaps
+-- ask = "<leader>aa", -- ask
+-- edit = "<leader>ae", -- edit in visual mode
+-- refresh = "<leader>ar", -- refresh
 
 require("which-key").add({
   { "<leader>a", group = "Avante" },

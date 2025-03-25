@@ -340,7 +340,7 @@ nmap(
   "Diagnostics buffer"
 )
 nmap(
-  "<leader>fd",
+  "<leader>fD",
   function() telescopeBuildin.diagnostics() end,
   "Diagnostics all buffers"
 )
@@ -413,6 +413,11 @@ nmap("<leader>fw", function()
   })
 end, "File browser")
 nmap("<leader>fx", telescopeBuildin.builtin, "Telescope builtins")
+nmap(
+  "<leader>fy",
+  telescope.extensions.git_file_history.git_file_history,
+  "Git file history"
+)
 nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 
 --
@@ -587,23 +592,24 @@ local function gitsigns_keybindings(bufnr)
     function() gs.blame_line({ full = true }) end,
     "Blame line"
   )
-
-  nmap("<leader>hS", gs.stage_buffer, "Stage buffer")
-  nmap("<leader>hX", gs.reset_buffer, "Restore buffer")
-  nmap("<leader>hd", gs.diffthis, "Diff against index")
-  nmap(
-    "<leader>hD",
-    function() gs.diffthis("~") end,
-    "Diff against last commit"
-  )
   nmap("<leader>he", gs.toggle_deleted, "Toggle deleted hunks")
 
   -- Text object
   mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options)
+
+  -- Git operations on current buffer
+  nmap("<leader>gS", gs.stage_buffer, "Stage buffer")
+  nmap("<leader>gX", gs.reset_buffer, "Restore buffer")
+  nmap("<leader>gd", gs.diffthis, "Diff against index")
+  nmap(
+    "<leader>gD",
+    function() gs.diffthis("~") end,
+    "Diff against last commit"
+  )
 end
 
 --
--- vim-fugitive
+-- Git operations on current buffer
 --
 
 nmap("<leader>gs", "<cmd>Git<CR>")
