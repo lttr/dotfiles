@@ -1,17 +1,11 @@
--- https://github.com/Maan2003/lsp_lines.nvim
-require("lsp_lines").setup({
-  source = "always",
-})
-
 -- start with diagnostic text hidden
 vim.diagnostic.config({
   float = { border = "rounded", source = "always" },
   signs = false,
   underline = true,
   update_in_insert = false,
-  -- virtual_text is set for every lsp provider among handlers
-  -- see lsp-settings.lua
-  virtual_lines = false, -- show virtual lines only on demand
+  virtual_text = { current_line = true },
+  -- virtual_lines = { current_line = true },
 })
 
 -- Toogle diagnostics

@@ -46,30 +46,23 @@ mason_lspconfig.setup({
 })
 local lsp_config = require("lspconfig")
 
+-- Doesn't work with neovim 0.11
 local border_options = {
   border = "rounded",
   winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
   side_padding = 1,
 }
 
-local common_handlers = {
-  ["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      -- let plugin lsp_lines handle virtual diagnostic text
-      virtual_text = false,
-    }
-  ),
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, border_options),
-  ["textDocument/signatureHelp"] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    border_options
-  ),
-  ["textDocument/codeAction"] = vim.lsp.with(
-    vim.lsp.handlers.code_action,
-    border_options
-  ),
-}
+-- This works with neovim 0.11 to use rounded borders
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "single"
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+local common_handlers = {}
 
 local common_on_attach = function(client)
   -- vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -149,6 +142,7 @@ local eslint = {
   -- It is better to run eslint --fix and then prettier in order to have the
   -- code formatted even after the eslint transformation which is not always
   -- precise.
+  -- It is done in the conform.lua file
   -- on_attach = function(client, bufnr)
   --   vim.api.nvim_create_autocmd("BufWritePre", {
   --     buffer = bufnr,

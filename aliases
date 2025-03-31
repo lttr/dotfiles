@@ -53,7 +53,7 @@ alias tree="tree -I 'node_modules|.git'"
 # =================================================================
 #                            Editing
 # =================================================================
-alias e="nvim --listen /tmp/nvimsocket"
+alias e="nvim"
 alias evimrc="$EDITOR ~/dotfiles/vimrc"
 alias ezsh="$EDITOR ~/dotfiles/zshrc"
 alias eenv="$EDITOR ~/dotfiles/zshenv"

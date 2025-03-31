@@ -21,6 +21,7 @@ opt.numberwidth = 4
 opt.signcolumn = "yes:1"
 opt.updatetime = 700
 opt.termguicolors = true
+opt.winborder = "single"
 
 -- Buffers
 opt.hidden = true -- Allow buffer switching without saving
@@ -56,7 +57,7 @@ opt.lazyredraw = true -- Postpone rendering after macro ans similar is done
 -- Completion options
 -- Always show menu for completion and DO insert first item so that I can continue typing right awayt
 -- For autocompletion plugin, it might be configured differently in `completion.lua`
-opt.completeopt = "menu,menuone"
+opt.completeopt = "menu,menuone,fuzzy"
 
 -- Undo
 opt.undofile = true -- Automatically saves undo history to an undo file

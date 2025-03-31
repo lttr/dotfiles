@@ -125,9 +125,9 @@ nmap("s", "*``cgn<C-r>0<Esc><C-l>")
 vmap("s", "*``c<C-r>0<Esc><C-l>")
 
 -- replace word under cursor, prepare 'n' and '.' to be used subsequently
-nmap("gr", "*``cgn")
-vmap("gr", 'y/<C-r>"<CR>Ncgn')
--- "gs" -- Go Substitute word under cursor (vim-substitute plugin)
+nmap("gs", "*``cgn")
+vmap("gs", 'y/<C-r>"<CR>Ncgn')
+-- "gS" -- Go Substitute word under cursor (vim-substitute plugin)
 
 -- visual multi - cursor addition
 -- add cursor on current line and move down/up
@@ -399,9 +399,9 @@ nmap(
   end,
   "Symbols project"
 )
-nmap("<leader>fo", document_symbols, "Functions in document")
+nmap("<leader>fo", document_symbols, "Functions in document") -- native nvim is 'gO'
 nmap("<leader>fp", telescope.extensions.repo.list, "Repositories")
-nmap("<leader>fr", telescopeBuildin.lsp_references, "References")
+nmap("<leader>fr", telescopeBuildin.lsp_references, "References") -- native nvim is 'grr'
 nmap("<leader>fs", telescopeBuildin.search_history, "Search history")
 nmap("<leader>ft", telescopeBuildin.git_status, "Git status")
 nmap("<leader>fw", function()
@@ -448,7 +448,7 @@ nmap("gY", function()
   vim.lsp.buf.type_definition()
   vim.cmd("vsplit")
 end, "Type definition in a window")
-nmap("gi", vim.lsp.buf.implementation, "Implementation")
+nmap("gi", vim.lsp.buf.implementation, "Implementation") -- native nvim is 'gri'
 nmap("gI", function()
   vim.lsp.buf.implementation()
   vim.cmd("vsplit")
@@ -471,11 +471,12 @@ nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
 nmap("<F2>", vim.lsp.buf.rename)
 
 -- code actions and refactoring
-nmap("<leader>ca", vim.lsp.buf.code_action)
-vmap("<leader>ca", vim.lsp.buf.code_action)
+-- nmap("<leader>ca", vim.lsp.buf.code_action) -- default is now 'gra'
+-- vmap("<leader>ca", vim.lsp.buf.code_action) -- default is now 'gra'
 vmap("<localleader>er", require("react-extract").extract_to_current_file)
 vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
+-- native nvim next diagnostic is ']d', prev is '[d'
 nmap("<localleader>d", vim.diagnostic.open_float)
 
 --
@@ -507,7 +508,7 @@ nmap("cog", function() ToggleDiagnostics() end, "Toggle diagnostics")
 -- yoh 'hlsearch'
 -- yoi 'ignorecase'
 --j
-nmap("cok", require("lsp_lines").toggle, "Toggle diagnostic lines")
+-- nmap("cok", require("lsp_lines").toggle, "Toggle diagnostic lines")
 -- yol 'list'
 nmap("coo", require("nvim-highlight-colors").toggle, "Toogle color highlights")
 -- yon 'number'

@@ -55,7 +55,7 @@ cmp.setup({
     -- Only show the autocompletion menu when manually triggered
     autocomplete = false,
     -- DO select the first item, but DON'T insert it yet (wait for enter)
-    completeopt = "menu,menuone,noinsert",
+    completeopt = "menu,menuone,fuzzy,noinsert",
   },
   window = {
     completion = cmp.config.window.bordered(border_options),
