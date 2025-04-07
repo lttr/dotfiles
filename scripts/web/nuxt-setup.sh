@@ -42,12 +42,6 @@ pnpm add -D prettier
 echo '{"semi": false}' > .prettierrc
 echo 'pnpm-lock.yaml' > .prettierignore
 
-# Configure package.json scripts
-pnpm dlx add-npm-scripts 'format' 'prettier --write .'
-pnpm dlx add-npm-scripts 'lint' 'eslint'
-pnpm dlx add-npm-scripts 'lint:fix' 'eslint --fix'
-pnpm dlx add-npm-scripts 'start' 'node .output/server/index.mjs'
-
 # Setup TypeScript
 pnpm add -D typescript @total-typescript/ts-reset
 cat > reset.d.ts << 'EOL'
@@ -58,6 +52,13 @@ EOL
 # Add type checking
 pnpm add -D vue-tsc
 pnpm dlx add-npm-scripts 'typecheck' 'nuxi typecheck'
+
+# Configure package.json scripts
+pnpm dlx add-npm-scripts 'format' 'prettier  --list-different --write .'
+pnpm dlx add-npm-scripts 'lint' 'eslint'
+pnpm dlx add-npm-scripts 'lint:fix' 'eslint --fix'
+pnpm dlx add-npm-scripts 'start' 'node .output/server/index.mjs'
+pnpm dlx add-npm-scripts 'validate' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
 
 # Create basic App.vue
 mkdir -p app
