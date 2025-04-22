@@ -61,6 +61,12 @@ export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT"
 export PATH="$PATH:$DOTNET_ROOT/tools" # for photo-cli
 
+# python
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
 # user environment
 export PAGER=/usr/bin/less
 export EDITOR=nvim
