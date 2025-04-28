@@ -57,6 +57,7 @@ pnpm dlx add-npm-scripts 'typecheck' 'nuxi typecheck'
 pnpm dlx add-npm-scripts 'format' 'prettier  --list-different --write .'
 pnpm dlx add-npm-scripts 'lint' 'eslint'
 pnpm dlx add-npm-scripts 'lint:fix' 'eslint --fix'
+pnpm dlx add-npm-scripts 'test' 'exit 0'
 pnpm dlx add-npm-scripts 'start' 'node .output/server/index.mjs'
 pnpm dlx add-npm-scripts 'validate' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
 
@@ -96,26 +97,21 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "@vueuse/nuxt",
   ],
-  devtools: { enabled: true },
   components: [
     {
       path: "~/components",
       pathPrefix: false,
     },
   ],
+  devtools: { enabled: true },
+  // Custom styles
   css: ["@lttr/puleo", "~/assets/css/main.css"],
-  eslint: {
-    config: {
-      nuxt: {
-        sortConfigKeys: true,
-      },
-    },
-  },
   site: {
     url: "https://example.com",
     name: "Website name",
     description: "Website description",
     defaultLocale: "en",
+    indexable: false,
   },
   future: {
     compatibilityVersion: 4,
@@ -123,7 +119,15 @@ export default defineNuxtConfig({
   experimental: {
     typedPages: true,
   },
-  compatibilityDate: "2025-02-01",
+  compatibilityDate: "2025-04-01",
+  eslint: {
+    config: {
+      nuxt: {
+        sortConfigKeys: true,
+      },
+    },
+  },
+  // Custom styles
   lttrConfigPostcss: {
     filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
   },

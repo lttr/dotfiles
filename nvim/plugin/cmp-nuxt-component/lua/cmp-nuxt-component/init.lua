@@ -20,7 +20,7 @@ function source:get_debug_name() return "nuxt_component" end
 
 function source:complete(params, callback)
   local cwd = vim.fn.getcwd()
-  local components_folder = path_join(cwd, "components")
+  local components_folder = path_join(cwd, "app", "components")
   local cmp_data = {}
   if vim.fn.isdirectory(components_folder) then
     local scan_opts = { depth = 2, search_pattern = ".*%.vue" }

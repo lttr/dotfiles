@@ -164,6 +164,7 @@ require("cmp_css_variables").setup({
   files = {
     "./node_modules/@lttr/puleo/output/puleo.post.css",
     "./assets/css/main.css",
+    "./app/assets/css/main.css", -- Nuxt 4
     "./node_modules/open-props/open-props.min.css",
     "./assets/css/settings.css",
     "./packages/base-styles/dist/runtime/assets/css/main.min.css",
