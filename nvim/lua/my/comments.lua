@@ -27,3 +27,6 @@ require("Comment").setup({
     block = "gbc",
   },
 })
+
+local ft = require("Comment.ft")
+ft.set("scss", "//%s")
