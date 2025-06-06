@@ -31,18 +31,25 @@ local servers = {
   "marksman",
   "phpactor",
   "pyright",
+  "somesass_ls",
   "stylelint_lsp",
   "svelte",
   "tailwindcss",
   "terraformls",
-  "volar",
+  "ts_ls", -- managed by typescript-tools
+  "vue_ls",
   "yamlls",
 }
 
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
-  ensure_installed = { unpack(servers) },
+  ensure_installed = servers,
+  automatic_enable = {
+    exclude = {
+      "denols",
+    },
+  },
 })
 local lsp_config = require("lspconfig")
 
@@ -67,16 +74,17 @@ local common_handlers = {}
 local common_on_attach = function(client)
   -- vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  -- stop jsonls and cssls and volar from formatting (I use prettier for that)
+  -- stop jsonls and cssls from formatting (I use prettier for that)
   if client.server_capabilities.documentFormattingProvider then
-    if
-      client.name == "jsonls"
-      or client.name == "cssls"
-      or client.name == "volar"
-    then
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-    end
+    -- if
+    -- client.name == "jsonls"
+    -- or client.name == "cssls"
+    -- or client.name == "stylelint_lsp"
+    -- or client.name == "somesass_ls"
+    -- then
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+    -- end
   end
   -- Set autocommands conditional on server_capabilities
   -- if client.server_capabilities.document_highlight then
@@ -240,7 +248,7 @@ if not is_a_deno_project() then
 end
 
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
-local volar = {
+local vue_ls = {
   -- handlers = pretty_ts_error_handlers,
   filetypes = {
     -- "typescript",
@@ -294,23 +302,22 @@ local function make_config(server_name)
 end
 
 local function setup_server(server)
-  -- if server == "ts_ls" and (is_a_deno_project()) then
-  --   return
-  -- end
+  local config = make_config(server)
 
-  if
-    server == "denols"
-    and utils.file_exists(vim.fn.getcwd() .. "/package.json")
-    and not utils.file_exists(vim.fn.getcwd() .. "/deno.json")
-  then
+  if server == "vue_ls" then
+    lsp_config["volar"].setup(config)
     return
   end
 
-  -- if server == "volar" and is_a_deno_project() then
-  --   return
-  -- end
+  if server == "denols" and not is_a_deno_project() then
+    return
+  end
 
-  local config = make_config(server)
+  -- managed by typescript-tools
+  if server == "ts_ls" then
+    return
+  end
+
   lsp_config[server].setup(config)
 end
 

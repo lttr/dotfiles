@@ -82,3 +82,6 @@ opt.nrformats = "bin,hex,unsigned"
 
 -- Hide semantic highlights for functions
 vim.api.nvim_set_hl(0, "@lsp.type.function", {})
+
+-- Allow project specific settings
+opt.exrc = true

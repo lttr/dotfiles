@@ -33,7 +33,7 @@ require("packer").startup(function(use)
   use("~/dotfiles/nvim/plugin/nuxt-navigation/")
   use("~/dotfiles/nvim/plugin/cmp-nuxt-component/")
   use("~/dotfiles/nvim/plugin/cmp-css-classes/")
-  -- use("~/dotfiles/nvim/plugin/cmp-css-variables/")
+  use("~/dotfiles/nvim/plugin/cmp-css-variables/")
   use("~/dotfiles/nvim/plugin/cmp-scss-variables/")
 
   -- packer
@@ -52,6 +52,7 @@ require("packer").startup(function(use)
 
   -- explorer
   use({ "nvim-telescope/telescope.nvim", tag = "0.1.8" }) -- conservative updating, too much changes
+  -- use("nvim-telescope/telescope.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("jvgrootveld/telescope-zoxide")
   use("cljoly/telescope-repo.nvim")
@@ -120,8 +121,10 @@ require("packer").startup(function(use)
   use("rest-nvim/rest.nvim")
   use("brenoprata10/nvim-highlight-colors")
   -- use("ESSO0428/nvim-html-css")
-  use("lttr/cmp-css-variables")
   use("lttr/classy.nvim")
+
+  -- data
+  use("tpope/vim-dadbod")
 
   -- testing
   use({

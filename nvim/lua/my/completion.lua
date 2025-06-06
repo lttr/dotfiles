@@ -160,7 +160,7 @@ cmp.setup({
   },
 })
 
-require("cmp_css_variables").setup({
+require("cmp-css-variables").setup({
   files = {
     "./node_modules/@lttr/puleo/output/puleo.post.css",
     "./assets/css/main.css",

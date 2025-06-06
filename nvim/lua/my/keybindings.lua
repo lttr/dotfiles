@@ -172,6 +172,7 @@ nmap(
 
 -- Formatting
 nmap("<localleader>w", "gwip")
+nmap("<localleader>s", "vip:sort<CR>", "Sort block of text")
 
 -- Executing and running
 vim.keymap.set(
@@ -435,8 +436,8 @@ end, "Go to definition")
 nmap("gD", function()
   local success = require("nuxt-navigation").go(true)
   if not success then
-    vim.lsp.buf.definition()
     vim.cmd("vsplit")
+    vim.lsp.buf.definition()
   end
 end, "Go to definition in a window")
 nmap(
@@ -467,7 +468,6 @@ nmap("<localleader>r", vim.lsp.buf.references, "LSP references")
 nmap("<localleader>R", "<cmd>TSToolsFileReferences<CR>", "File references")
 nmap("<localleader>k", vim.lsp.buf.hover, "LSP hover")
 nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
--- nmap("<localleader>s", vim.lsp.buf.signature_help)
 nmap("<F2>", vim.lsp.buf.rename)
 
 -- code actions and refactoring
@@ -584,8 +584,10 @@ local function gitsigns_keybindings(bufnr)
   -- Actions
   nmap("<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
   vmap("<leader>hs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+  nmap("<leader>hS", gs.stage_buffer, "Stage buffer")
   nmap("<leader>hx", ":Gitsigns reset_hunk<CR>", "Restore hunk")
   vmap("<leader>hx", ":Gitsigns reset_hunk<CR>", "Restore hunk")
+  nmap("<leader>hX", gs.reset_buffer, "Restore buffer")
   nmap("<leader>hu", gs.undo_stage_hunk, "Restore staged hunk")
   nmap("<leader>hp", gs.preview_hunk, "Preview hunk")
   nmap(
@@ -599,8 +601,6 @@ local function gitsigns_keybindings(bufnr)
   mymap({ "o", "x" }, "ih", gs.select_hunk, default_map_options)
 
   -- Git operations on current buffer
-  nmap("<leader>gS", gs.stage_buffer, "Stage buffer")
-  nmap("<leader>gX", gs.reset_buffer, "Restore buffer")
   nmap("<leader>gd", gs.diffthis, "Diff against index")
   nmap(
     "<leader>gD",

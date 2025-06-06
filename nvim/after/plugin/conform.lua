@@ -2,8 +2,6 @@
 
 local prettier = { "prettierd", "prettier", stop_after_first = true }
 local prettierAndEslint = { "eslint_d", "prettierd" }
-local prettierAndEslintAndStylelint = { "eslint_d", "stylelint", "prettierd" }
-local prettierAndStylelint = { "stylelint", "prettierd" }
 
 local utils = require("my.utils")
 
@@ -29,11 +27,11 @@ require("conform").setup({
     javascriptreact = prettierAndEslint,
     typescript = function(bufnr) return pick_deno_or_not(bufnr) end,
     typescriptreact = function(bufnr) return pick_deno_or_not(bufnr) end,
-    vue = prettierAndEslintAndStylelint,
+    vue = prettierAndEslint,
     svelte = prettierAndEslint,
     html = prettier,
-    css = prettierAndStylelint,
-    scss = prettierAndStylelint,
+    css = prettier,
+    -- scss = prettier,
     json = prettier,
     jsonc = prettier,
     yaml = prettier,
