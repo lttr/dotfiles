@@ -11,10 +11,6 @@ local function is_a_deno_project()
   return utils.has_root_file({ "deno.json", "deno.jsonc" })
 end
 
-local function is_a_vite_project()
-  return utils.has_root_file({ "vite.config.js", "vite.config.ts" })
-end
-
 local function is_a_nuxt_project()
   return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts", ".nuxtrc" })
 end
@@ -72,64 +68,14 @@ end
 local common_handlers = {}
 
 local common_on_attach = function(client)
-  -- vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- stop jsonls and cssls from formatting (I use prettier for that)
+  -- do not allow any lsp servers to do formatting
   if client.server_capabilities.documentFormattingProvider then
-    -- if
-    -- client.name == "jsonls"
-    -- or client.name == "cssls"
-    -- or client.name == "stylelint_lsp"
-    -- or client.name == "somesass_ls"
-    -- then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
-    -- end
   end
-  -- Set autocommands conditional on server_capabilities
-  -- if client.server_capabilities.document_highlight then
-  --   vim.cmd(
-  --     [[
-  --     augroup lsp_document_highlight
-  --     autocmd! * <buffer>
-  --     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-  --     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  --     augroup END
-  --   ]],
-  --     false
-  --   )
-  -- end
 end
 
--- https://github.com/davidosomething/format-ts-errors.nvim
--- local pretty_ts_error_handlers = {
---   ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
---     if result.diagnostics == nil then
---       return
---     end
---
---     -- ignore some ts_ls diagnostics
---     local idx = 1
---     while idx <= #result.diagnostics do
---       local entry = result.diagnostics[idx]
---
---       local formatter = require("format-ts-errors")[entry.code]
---       entry.message = formatter and formatter(entry.message) or entry.message
---
---       -- codes: https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json
---       if entry.code == 80001 then
---         -- { message = "File is a CommonJS module; it may be converted to an ES module.", }
---         table.remove(result.diagnostics, idx)
---       else
---         idx = idx + 1
---       end
---     end
---
---     vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
---   end,
--- }
-
--- TODO upgrade logic for use in mixed repositories
+-- Maybe upgrade logic for use in mixed repositories
 -- https://www.npbee.me/posts/deno-and-typescript-in-a-monorepo-neovim-lsp
 local denols = {
   root_dir = lsp_config.util.root_pattern({
@@ -249,12 +195,7 @@ end
 
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
 local vue_ls = {
-  -- handlers = pretty_ts_error_handlers,
   filetypes = {
-    -- "typescript",
-    -- "javascript",
-    -- "javascriptreact",
-    -- "typescriptreact",
     "vue",
   },
   init_options = {
@@ -279,7 +220,7 @@ local custom_configs = {
   eslint = eslint,
   jsonls = jsonls,
   lua_ls = lua_ls,
-  volar = volar,
+  vue_ls = vue_ls,
 }
 
 local function make_config(server_name)
@@ -305,7 +246,7 @@ local function setup_server(server)
   local config = make_config(server)
 
   if server == "vue_ls" then
-    lsp_config["volar"].setup(config)
+    vim.lsp.config("vue_ls", config)
     return
   end
 
@@ -313,12 +254,13 @@ local function setup_server(server)
     return
   end
 
-  -- managed by typescript-tools
+  -- managed by typescript-tools, skip the initialization
   if server == "ts_ls" then
     return
   end
 
-  lsp_config[server].setup(config)
+  -- lsp_config[server].setup(config)
+  vim.lsp.config(server, config)
 end
 
 for _, name in pairs(servers) do
