@@ -1,6 +1,6 @@
 require("my.utils")
-require("my.packages")
 require("my.settings")
+require("my.packages")
 require("my.autocommands")
 require("my.commands")
 require("my.functions")

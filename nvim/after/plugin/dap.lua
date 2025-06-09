@@ -38,7 +38,7 @@ vim.keymap.set("n", "<leader>ui", require("dapui").toggle)
 -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
 -- debugger_path = vim.fn.stdpath("data") .. '/mason/packages/js-debug-adapter', -- Path to vscode-js-debug installation.
 -- debugger_path = vim.fn.stdpath("data")
---   .. "/site/pack/packer/opt/vscode-js-debug",
+--   .. "/lazy/vscode-js-debug",
 -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
 -- adapters = {
 --   "chrome",

@@ -30,8 +30,8 @@ vim.api.nvim_create_user_command(
 )
 
 -- Plugin manager
-vim.api.nvim_create_user_command("PI", "PackerInstall", {})
-vim.api.nvim_create_user_command("PS", "PackerSync", {})
+vim.api.nvim_create_user_command("PI", "Lazy install", {})
+vim.api.nvim_create_user_command("PS", "Lazy sync", {})
 
 -- Restart LSP service sometimes necessary to pick up external changes
 vim.api.nvim_create_user_command("LR", "LspRestart", {})
