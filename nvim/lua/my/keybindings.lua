@@ -473,8 +473,6 @@ nmap("<F2>", vim.lsp.buf.rename)
 -- code actions and refactoring
 -- nmap("<leader>ca", vim.lsp.buf.code_action) -- default is now 'gra'
 -- vmap("<leader>ca", vim.lsp.buf.code_action) -- default is now 'gra'
-vmap("<localleader>er", require("react-extract").extract_to_current_file)
-vmap("<localleader>ef", require("react-extract").extract_to_new_file)
 
 -- native nvim next diagnostic is ']d', prev is '[d'
 nmap("<localleader>d", vim.diagnostic.open_float)
