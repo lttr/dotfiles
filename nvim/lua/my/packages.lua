@@ -28,7 +28,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Harpoon by ThePrimeagen - alternate file navigation is enough for me
 -- mhartington/formatter.nvim - I use conform.nvim instead, but might be useful
 -- for on demand formatting with FormatWrite command
--- jose-elias-alvarez/null-ls.nvim
 
 require("lazy").setup({
   -- local
