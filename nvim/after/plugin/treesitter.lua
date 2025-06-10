@@ -5,6 +5,8 @@ vim.g.skip_ts_context_commentstring_module = true
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = "all",
+  ignore_install = { "ipkg" }, -- ignore one that produce error during nvim startup
+  auto_install = true,
   highlight = {
     enable = true,
     disable = {},
