@@ -30,6 +30,7 @@ vim.opt.rtp:prepend(lazypath)
 -- for on demand formatting with FormatWrite command
 
 require("lazy").setup({
+  { import = "plugins" },
   -- local
   { dir = "~/dotfiles/nvim/plugin/eslint-spawn/" },
   { dir = "~/dotfiles/nvim/plugin/nuxt-navigation/" },
@@ -150,7 +151,7 @@ require("lazy").setup({
     build = false, -- Disable auto-build to avoid tarball issues
   },
   "nvim-treesitter/nvim-treesitter-textobjects",
-  "ckolkey/ts-node-action",
+
   "ziontee113/syntax-tree-surfer",
 
   -- debbugging

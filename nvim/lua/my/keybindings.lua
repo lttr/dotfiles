@@ -163,13 +163,6 @@ nmap("<C-Y>k", "yatvat<Esc>dd`<da>")
 -- Code navigation
 -- nmap("<C-b>", ":normal gd<CR>")
 
--- ts-node-action
-nmap(
-  "<localleader>i",
-  require("ts-node-action").node_action,
-  "Trigger TS Node Action"
-)
-
 -- Formatting
 nmap("<localleader>w", "gwip")
 nmap("<localleader>s", "vip:sort<CR>", "Sort block of text")
