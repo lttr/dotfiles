@@ -4,9 +4,11 @@ return {
   {
     "CKolkey/ts-node-action",
     keys = {
-      "<localleader>i",
-      require("ts-node-action").node_action,
-      desc = "Trigger TS Node Action",
+      {
+        "<localleader>i",
+        function() require("ts-node-action").node_action() end,
+        desc = "Trigger TS Node Action",
+      },
     },
   },
 }

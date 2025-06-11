@@ -4,7 +4,9 @@ local opt = vim.opt
 
 opt.iskeyword:append("-") -- Count strings joined by dashes as words
 
-vim.g.maplocalleader = "<space>"
+-- Global keys
+vim.g.mapleader = ","
+vim.g.maplocalleader = " "
 
 -- Tabs and indentation
 opt.tabstop = 2 -- Number of spaces that <Tab> counts for

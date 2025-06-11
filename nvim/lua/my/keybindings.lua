@@ -2,11 +2,6 @@ local utils = require("my.utils")
 
 local default_map_options = { noremap = true, silent = true }
 
-vim.cmd([[
-  let mapleader = ","
-  let maplocalleader = "\<space>"
-]])
-
 local function mymap(mode, lhs, rhs, opts, bufnr)
   opts = opts or {}
   local merged_opts = vim.tbl_extend("force", default_map_options, opts)
