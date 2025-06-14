@@ -7,10 +7,11 @@ return {
     preset = "obsidian",
     heading = {
 
-    code = {
-      sign = false,
-      left_pad = 3,
-      right_pad = 3,
+      code = {
+        sign = false,
+        left_pad = 3,
+        right_pad = 3,
+      },
     },
   },
 }
