@@ -61,7 +61,6 @@ require("lazy").setup({
   "jeetsukumaran/telescope-buffer-lines.nvim",
   "smartpde/telescope-recent-files",
   "isak102/telescope-git-file-history.nvim",
-  "kevinhwang91/rnvimr",
   "kyazdani42/nvim-tree.lua",
   "sindrets/diffview.nvim",
   {

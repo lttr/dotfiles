@@ -607,13 +607,6 @@ nmap("<leader>ga", "<cmd>Git add .<CR>")
 nmap("<leader>gr", "<cmd>Git restore --staged .<CR>")
 nmap("<leader>gb", "<cmd>Git blame<CR>")
 
---
--- rnvimr
---
-
--- also Alt-o
--- nmap("<leader>R", ":RnvimrToggle<CR>")
-
 -- nvim-tree
 nmap("<C-e>", "<cmd>NvimTreeFindFile<CR>")
 nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
