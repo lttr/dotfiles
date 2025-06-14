@@ -188,4 +188,12 @@ M.current_sequence_contains = function(start)
   return M.string_contains(word, start)
 end
 
+M.completion_confirm = function()
+  if vim.fn.pumvisible() ~= 0 then
+    return vim.fn["cmp#confirm"]({ select = true })
+  else
+    return require("nvim-autopairs").autopairs_cr()
+  end
+end
+
 return M

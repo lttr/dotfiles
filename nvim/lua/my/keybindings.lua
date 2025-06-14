@@ -539,7 +539,7 @@ nmap(
 mymap(
   "i",
   "<CR>",
-  "v:lua.MUtils.completion_confirm()",
+  "v:lua.require('my.utils').completion_confirm()",
   { expr = true, noremap = true }
 )
 
