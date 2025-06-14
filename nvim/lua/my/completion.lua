@@ -97,6 +97,10 @@ cmp.setup({
     end, { "i", "s" }),
   },
   sources = {
+    -- TODO maybe this does not work, copy pasted from codecompanion's repo
+    per_filetype = {
+      codecompanion = { "codecompanion" },
+    },
     { name = "luasnip", max_item_count = 3 },
     -- { name = "cody" },
     { name = "codeium" },

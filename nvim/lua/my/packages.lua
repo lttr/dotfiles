@@ -64,7 +64,6 @@ require("lazy").setup({
   "kevinhwang91/rnvimr",
   "kyazdani42/nvim-tree.lua",
   "sindrets/diffview.nvim",
-  "stevearc/dressing.nvim",
   {
     "antosha417/nvim-lsp-file-operations",
     dependencies = {
@@ -185,18 +184,17 @@ require("lazy").setup({
 
   -- AI
   "supermaven-inc/supermaven-nvim",
-  {
-    "yetone/avante.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "HakonHarnes/img-clip.nvim",
-    },
-    build = "make",
-  },
+  -- {
+  --   "yetone/avante.nvim",
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   build = "make",
+  -- },
 
   -- executing and terminal
   "akinsho/toggleterm.nvim",

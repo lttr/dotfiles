@@ -1,36 +1,36 @@
 -- https://github.com/yetone/avante.nvim/
 
-require("avante_lib").load()
-
-require("avante").setup({
-  ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-  provider = "claude", -- Recommend using Claude
-  -- auto_suggestions_provider = "claude",
-  providers = {
-    claude = {
-      endpoint = "https://api.anthropic.com",
-      model = "claude-3-7-sonnet-20250219",
-      timeout = 20000, -- Timeout in milliseconds
-      extra_request_body = {
-        temperature = 0,
-        max_tokens = 8192,
-      }
-    },
-  },
-  behaviour = {
-    auto_suggestions = false,
-    auto_set_highlight_group = true,
-    auto_set_keymaps = true,
-    auto_apply_diff_after_generation = false,
-    support_paste_from_clipboard = true,
-  },
-  hints = { enabled = false },
-  windows = {
-    position = "right", -- the position of the sidebar
-    wrap = true, -- similar to vim.o.wrap
-    width = 35, -- default % based on available width
-  },
-})
+-- require("avante_lib").load()
+--
+-- require("avante").setup({
+--   ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
+--   provider = "claude", -- Recommend using Claude
+--   -- auto_suggestions_provider = "claude",
+--   providers = {
+--     claude = {
+--       endpoint = "https://api.anthropic.com",
+--       model = "claude-3-7-sonnet-20250219",
+--       timeout = 20000, -- Timeout in milliseconds
+--       extra_request_body = {
+--         temperature = 0,
+--         max_tokens = 8192,
+--       }
+--     },
+--   },
+--   behaviour = {
+--     auto_suggestions = false,
+--     auto_set_highlight_group = true,
+--     auto_set_keymaps = true,
+--     auto_apply_diff_after_generation = false,
+--     support_paste_from_clipboard = true,
+--   },
+--   hints = { enabled = false },
+--   windows = {
+--     position = "right", -- the position of the sidebar
+--     wrap = true, -- similar to vim.o.wrap
+--     width = 35, -- default % based on available width
+--   },
+-- })
 
 -- prefil edit window with common scenarios to avoid repeating query and submit immediately
 local prefill_edit_window = function(request)
@@ -91,75 +91,75 @@ local avante_add_tests = "Implement tests for the following code"
 -- edit = "<leader>ae", -- edit in visual mode
 -- refresh = "<leader>ar", -- refresh
 
-require("which-key").add({
-  { "<leader>a", group = "Avante" },
-  {
-    mode = { "n", "v" },
-    {
-      "<leader>ac",
-      function() vim.cmd("AvanteClear") end,
-      desc = "AvanteClear",
-    },
-    {
-      "<leader>ag",
-      function()
-        require("avante.api").ask({ question = avante_grammar_correction })
-      end,
-      desc = "Grammar Correction(ask)",
-    },
-    {
-      "<leader>ak",
-      function() require("avante.api").ask({ question = avante_keywords }) end,
-      desc = "Keywords(ask)",
-    },
-    {
-      "<leader>al",
-      function()
-        require("avante.api").ask({
-          question = avante_code_readability_analysis,
-        })
-      end,
-      desc = "Code Readability Analysis(ask)",
-    },
-    {
-      "<leader>ao",
-      function() require("avante.api").ask({ question = avante_optimize_code }) end,
-      desc = "Optimize Code(ask)",
-    },
-    {
-      "<leader>am",
-      function() require("avante.api").ask({ question = avante_summarize }) end,
-      desc = "Summarize text(ask)",
-    },
-    {
-      "<leader>an",
-      function() require("avante.api").ask({ question = avante_translate }) end,
-      desc = "Translate text(ask)",
-    },
-    {
-      "<leader>ax",
-      function() require("avante.api").ask({ question = avante_explain_code }) end,
-      desc = "Explain Code(ask)",
-    },
-    {
-      "<leader>ap",
-      function() require("avante.api").ask({ question = avante_complete_code }) end,
-      desc = "Complete Code(ask)",
-    },
-    {
-      "<leader>ad",
-      function() require("avante.api").ask({ question = avante_add_docstring }) end,
-      desc = "Docstring(ask)",
-    },
-    {
-      "<leader>ab",
-      function() require("avante.api").ask({ question = avante_fix_bugs }) end,
-      desc = "Fix Bugs(ask)",
-    },
-    {
-      "<leader>au",
-      function() require("avante.api").ask({ question = avante_add_tests }) end,
-      desc = "Add Tests(ask)",
-    },
-  },
-})
+-- require("which-key").add({
+--   { "<leader>a", group = "Avante" },
+--   {
+--     mode = { "n", "v" },
+--     {
+--       "<leader>ac",
+--       function() vim.cmd("AvanteClear") end,
+--       desc = "AvanteClear",
+--     },
+--     {
+--       "<leader>ag",
+--       function()
+--         require("avante.api").ask({ question = avante_grammar_correction })
+--       end,
+--       desc = "Grammar Correction(ask)",
+--     },
+--     {
+--       "<leader>ak",
+--       function() require("avante.api").ask({ question = avante_keywords }) end,
+--       desc = "Keywords(ask)",
+--     },
+--     {
+--       "<leader>al",
+--       function()
+--         require("avante.api").ask({
+--           question = avante_code_readability_analysis,
+--         })
+--       end,
+--       desc = "Code Readability Analysis(ask)",
+--     },
+--     {
+--       "<leader>ao",
+--       function() require("avante.api").ask({ question = avante_optimize_code }) end,
+--       desc = "Optimize Code(ask)",
+--     },
+--     {
+--       "<leader>am",
+--       function() require("avante.api").ask({ question = avante_summarize }) end,
+--       desc = "Summarize text(ask)",
+--     },
+--     {
+--       "<leader>an",
+--       function() require("avante.api").ask({ question = avante_translate }) end,
+--       desc = "Translate text(ask)",
+--     },
+--     {
+--       "<leader>ax",
+--       function() require("avante.api").ask({ question = avante_explain_code }) end,
+--       desc = "Explain Code(ask)",
+--     },
+--     {
+--       "<leader>ap",
+--       function() require("avante.api").ask({ question = avante_complete_code }) end,
+--       desc = "Complete Code(ask)",
+--     },
+--     {
+--       "<leader>ad",
+--       function() require("avante.api").ask({ question = avante_add_docstring }) end,
+--       desc = "Docstring(ask)",
+--     },
+--     {
+--       "<leader>ab",
+--       function() require("avante.api").ask({ question = avante_fix_bugs }) end,
+--       desc = "Fix Bugs(ask)",
+--     },
+--     {
+--       "<leader>au",
+--       function() require("avante.api").ask({ question = avante_add_tests }) end,
+--       desc = "Add Tests(ask)",
+--     },
+--   },
+-- })
