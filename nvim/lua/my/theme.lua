@@ -137,6 +137,7 @@ local groups = {
   TabLine = { fg = "#666666", bg = "#181818" },
   TabLineSel = { fg = "#999999", bg = "#444444" },
   TabLineFill = { fg = "palette.fg2", bg = "#262626" },
+  RenderMarkdownCode = { bg = "#252525" },
 }
 
 -- Treesitter groups mapping
