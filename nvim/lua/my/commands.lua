@@ -51,3 +51,15 @@ vim.api.nvim_create_user_command(
   function() require("eslint-spawn").go() end,
   {}
 )
+
+-- Open a new buffer with the contents of :mess
+vim.api.nvim_create_user_command("Messages", function()
+  local messages = vim.fn.execute("messages")
+  vim.cmd("split")
+  vim.cmd("enew")
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(messages, "\n"))
+  vim.bo.buftype = "nofile"
+  vim.bo.bufhidden = "wipe"
+  vim.bo.filetype = "bash"
+end, {})
+vim.api.nvim_create_user_command("Mess", "Messages", {})

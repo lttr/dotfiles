@@ -6,8 +6,20 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
-    input = { enabled = true },
+    input = {
+      enabled = true,
+      win = {
+        width = 80,
+      },
+    },
     image = { enabled = true },
     picker = { enabled = true },
+  },
+  keys = {
+    {
+      "<leader><space>",
+      function() Snacks.picker.smart() end,
+      desc = "Smart Find Files",
+    },
   },
 }
