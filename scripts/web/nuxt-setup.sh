@@ -3,11 +3,28 @@ set -e
 
 # Check if project name is provided
 if [ -z "$1" ]; then
-    echo "Usage: ./nuxt-setup.sh <project-name>"
+    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo]"
     exit 1
 fi
 
 PROJECT_NAME=$1
+USE_PULEO=false
+
+# Parse arguments
+shift
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --puleo)
+            USE_PULEO=true
+            shift
+            ;;
+        *)
+            echo "Unknown option $1"
+            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo]"
+            exit 1
+            ;;
+    esac
+done
 
 # Initialize Nuxt project
 echo "Initializing Nuxt project using nuxi cli"
@@ -71,8 +88,10 @@ cat > app/app.vue << 'EOL'
 </template>
 EOL
 
+# Create CSS files conditionally
 mkdir -p app/assets/css
-cat > app/assets/css/main.css << 'EOL'
+if [ "$USE_PULEO" = true ]; then
+    cat > app/assets/css/main.css << 'EOL'
 :root {
   --font-family-body: "Poppins", sans-serif;
 }
@@ -82,30 +101,58 @@ body {
   font-family: "Poppins";
 }
 EOL
+else
+    cat > app/assets/css/main.css << 'EOL'
+/* Add your custom styles here */
+EOL
+fi
 
 
-# Update nuxt.config.ts with essential configs
-cat > nuxt.config.ts << 'EOL'
-export default defineNuxtConfig({
-  modules: [
-    "@lttr/nuxt-config-postcss",
-    "@nuxt/eslint",
+# Functions to generate Nuxt config sections
+generate_modules() {
+    local modules='"@nuxt/eslint",
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
     "@nuxtjs/plausible",
     "@nuxtjs/seo",
-    "@vueuse/nuxt",
-  ],
-  components: [
+    "@vueuse/nuxt"'
+    
+    if [ "$USE_PULEO" = true ]; then
+        modules='"@lttr/nuxt-config-postcss",
+    '"$modules"
+    fi
+    
+    echo "  modules: [
+    $modules,
+  ],"
+}
+
+generate_css() {
+    if [ "$USE_PULEO" = true ]; then
+        echo '  css: ["@lttr/puleo", "~/assets/css/main.css"],'
+    else
+        echo '  css: ["~/assets/css/main.css"],'
+    fi
+}
+
+generate_puleo_config() {
+    if [ "$USE_PULEO" = true ]; then
+        echo '  // Custom styles
+  lttrConfigPostcss: {
+    filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
+  },'
+    fi
+}
+
+generate_common_config() {
+    echo '  components: [
     {
       path: "~/components",
       pathPrefix: false,
     },
   ],
   devtools: { enabled: true },
-  // Custom styles
-  css: ["@lttr/puleo", "~/assets/css/main.css"],
   site: {
     url: "https://example.com",
     name: "Website name",
@@ -127,14 +174,20 @@ export default defineNuxtConfig({
       },
     },
   },
-  // Custom styles
-  lttrConfigPostcss: {
-    filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
-  },
   plausible: {
     ignoredHostnames: ["localhost"],
     apiHost: "https://plausible.lttr.cz",
-  },
+  },'
+}
+
+# Generate nuxt.config.ts
+cat > nuxt.config.ts << EOL
+export default defineNuxtConfig({
+$(generate_modules)
+$(generate_common_config)
+  // Custom styles
+$(generate_css)
+$(generate_puleo_config)
 })
 EOL
 
@@ -152,9 +205,8 @@ import customConfig from "@lttr/nuxt-config-eslint"
 export default withNuxt(customConfig)
 EOL
 
-# Add essential modules
+# Add essential modules (conditionally include Puleo-related ones)
 pnpm add -D \
-    @lttr/nuxt-config-postcss \
     @nuxt/eslint \
     @nuxt/fonts \
     @nuxt/icon \
@@ -165,8 +217,11 @@ pnpm add -D \
     @vueuse/nuxt \
     @vueuse/core
 
-# Base styling layer
-pnpm add @lttr/puleo
+if [ "$USE_PULEO" = true ]; then
+    pnpm add -D \
+        @lttr/nuxt-config-postcss \
+        @lttr/puleo
+fi
 
 # Create Nixpacks config
 cat > nixpacks.toml << 'EOL'
