@@ -152,7 +152,7 @@ generate_common_config() {
     },
   ],
   devtools: { enabled: true },
-  site: {
+  site: { // TODO Configure site
     url: "https://example.com",
     name: "Website name",
     description: "Website description",
@@ -202,6 +202,15 @@ import withNuxt from "./.nuxt/eslint.config.mjs"
 import customConfig from "@lttr/nuxt-config-eslint"
 
 export default withNuxt(customConfig)
+EOL
+
+# Prepare robots.txt
+rm -f 'public/robots.txt'
+cat > 'public/_robots.txt' << 'EOL'
+User-agent: *
+Disallow: /
+# TODO Add rules for crawlers
+# Allow: /
 EOL
 
 # Add essential modules (conditionally include Puleo-related ones)
