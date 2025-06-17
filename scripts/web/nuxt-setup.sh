@@ -138,8 +138,7 @@ generate_css() {
 
 generate_puleo_config() {
     if [ "$USE_PULEO" = true ]; then
-        echo '  // Custom styles
-  lttrConfigPostcss: {
+        echo '  lttrConfigPostcss: {
     filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
   },'
     fi
