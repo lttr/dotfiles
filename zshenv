@@ -22,6 +22,9 @@ fi
 # prevent it from failing on my machine
 export NUXT_TELEMETRY_DISABLED=1
 
+# open in my editor of choice for https://github.com/yyx990803/launch-editor
+export LAUNCH_EDITOR="open-neovim"
+
 # PATH
 
 # Generated for envman. DEPRECATED? Used by webinstall?
