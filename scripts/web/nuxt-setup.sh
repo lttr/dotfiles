@@ -42,6 +42,12 @@ pnpm pkg set packageManager="pnpm@$(pnpm --version)"
 # Update dependencies
 pnpm dlx taze -w
 
+
+# Set up dependencies configuration
+# Some functionalities of Nuxt does not work without this or explicit
+# installation of more dependencies. (e.g. unplugin-vue-router for typedPages: true)
+echo "shamefully-hoist=true" > .npmrc
+
 # Install deps
 # I had issues with corepack being initiated from nuxi init, therefore I'm using
 # pnpm directly here.

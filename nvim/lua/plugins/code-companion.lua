@@ -148,10 +148,10 @@ return {
         roles = {
           user = "lttr",
         },
-        tools = {
-          opts = {
-            default_tools = {
-              "full_stack_dev", -- Can run code, edit code and modify files
+        variables = {
+          ["buffer"] = {
+            opts = {
+              default_params = "watch",
             },
           },
         },

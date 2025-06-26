@@ -63,3 +63,9 @@ vim.api.nvim_create_user_command("Messages", function()
   vim.bo.filetype = "bash"
 end, {})
 vim.api.nvim_create_user_command("Mess", "Messages", {})
+
+vim.api.nvim_create_user_command(
+  "Date",
+  function() vim.cmd("normal i" .. " " .. os.date("%Y-%m-%d")) end,
+  {}
+)
