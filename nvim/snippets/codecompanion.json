@@ -1,0 +1,5 @@
+{
+  "ee": {
+    "body": "@files edit current #buffer ${0}"
+  }
+}

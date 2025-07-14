@@ -4,6 +4,10 @@
   "contributes": {
     "snippets": [
       {
+        "language": "codecompanion",
+        "path": "./codecompanion.json"
+      },
+      {
         "language": "html",
         "path": "./html.json"
       },
