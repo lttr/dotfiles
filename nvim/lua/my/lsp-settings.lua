@@ -32,7 +32,8 @@ local servers = {
   "svelte",
   "tailwindcss",
   "terraformls",
-  "ts_ls", -- managed by typescript-tools
+  -- "ts_ls", -- managed by typescript-tools
+  "vtsls",
   "vue_ls",
   "yamlls",
 }
@@ -154,56 +155,63 @@ local function root_pattern_exclude(opt)
   end
 end
 
-local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities()
 
 if not is_a_deno_project() then
-  require("typescript-tools").setup({
-    filetypes = {
-      "javascript",
-      "javascriptreact",
-      "typescript",
-      "typescriptreact",
-    },
-    handlers = common_handlers,
-    settings = {
-      -- spawn additional tsserver instance to calculate diagnostics on it
-      separate_diagnostic_server = true,
-      expose_as_code_action = "all",
-      capabilities = capabilities_cmp,
-      -- https://github.com/pmizio/typescript-tools.nvim/issues/132
-      -- https://github.com/pmizio/typescript-tools.nvim/issues/249
-      root_dir = root_pattern_exclude({
-        root = { "package.json" },
-        exclude = { "deno.json", "deno.jsonc" },
-      }),
-      single_file_support = false,
-      tsserver_plugins = {
-        "@vue/typescript-plugin",
-      },
-      tsserver_file_preferences = {
-        includeInlayParameterNameHints = "all",
-        includeCompletionsForModuleExports = true,
-        quotePreference = "auto",
-      },
-      tsserver_format_options = {
-        allowIncompleteCompletions = false,
-        allowRenameOfImportPath = false,
-      },
-    },
-  })
+  -- require("typescript-tools").setup({
+  --   filetypes = {
+  --     "javascript",
+  --     "javascriptreact",
+  --     "typescript",
+  --     "typescriptreact",
+  --   },
+  --   handlers = common_handlers,
+  --   settings = {
+  --     -- spawn additional tsserver instance to calculate diagnostics on it
+  --     separate_diagnostic_server = true,
+  --     expose_as_code_action = "all",
+  --     capabilities = capabilities_cmp,
+  --     -- https://github.com/pmizio/typescript-tools.nvim/issues/132
+  --     -- https://github.com/pmizio/typescript-tools.nvim/issues/249
+  --     root_dir = root_pattern_exclude({
+  --       root = { "package.json" },
+  --       exclude = { "deno.json", "deno.jsonc" },
+  --     }),
+  --     single_file_support = false,
+  --     tsserver_plugins = {
+  --       "@vue/typescript-plugin",
+  --     },
+  --     tsserver_file_preferences = {
+  --       includeInlayParameterNameHints = "all",
+  --       includeCompletionsForModuleExports = true,
+  --       quotePreference = "auto",
+  --     },
+  --     tsserver_format_options = {
+  --       allowIncompleteCompletions = false,
+  --       allowRenameOfImportPath = false,
+  --     },
+  --   },
+  -- })
 end
 
 -- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
-local vue_ls = {
-  filetypes = {
-    "vue",
-  },
-  init_options = {
-    vue = {
-      hybridMode = false,
-    },
-  },
-}
+-- local vtsls = {
+--   filetypes = {
+--     "vue",
+--     "javascript",
+--     "javascriptreact",
+--     "typescript",
+--     "typescriptreact",
+--   },
+--   init_options = {
+--     -- vue = {
+--     --   hybridMode = false,
+--     -- },
+--     typescript = {
+--       tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+--     },
+--   },
+-- }
 
 local jsonls = {
   settings = {
@@ -215,11 +223,106 @@ local jsonls = {
   },
 }
 
+-- Vue handling
+--
+-- based on https://github.com/vuejs/language-tools/wiki/Neovim
+
+local vue_language_server_path = vim.fn.stdpath("data")
+  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local vue_plugin = {
+  name = "@vue/typescript-plugin",
+  location = vue_language_server_path,
+  languages = { "vue" },
+  configNamespace = "typescript",
+}
+
+local vue_ls = {
+  -- TODO temporary fix for https://github.com/mason-org/mason-lspconfig.nvim/issues/587
+  init_options = {
+    typescript = {
+      tsdk = "",
+    },
+  },
+  on_init = function(client)
+    client.handlers["tsserver/request"] = function(_, result, context)
+      local clients =
+        vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
+      if #clients == 0 then
+        vim.notify(
+          "Could not find `vtsls` lsp client, `vue_ls` would not work without it.",
+          vim.log.levels.ERROR
+        )
+        return
+      end
+      local ts_client = clients[1]
+
+      local param = unpack(result)
+      local id, command, payload = unpack(param)
+      ts_client:exec_cmd({
+        title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
+        command = "typescript.tsserverRequest",
+        arguments = {
+          command,
+          payload,
+        },
+      }, { bufnr = context.bufnr }, function(_, r)
+        local response_data = { { id, r.body } }
+        ---@diagnostic disable-next-line: param-type-mismatch
+        client:notify("tsserver/response", response_data)
+      end)
+    end
+  end,
+}
+
+local shared_settings = {
+  suggest = { completeFunctionCalls = true },
+  inlayHints = {
+    functionLikeReturnTypes = { enabled = true },
+    parameterNames = { enabled = "all" },
+    parameterTypes = { enabled = true },
+    propertyDeclarationTypes = { enabled = true },
+    variableTypes = { enabled = true },
+  },
+}
+
+local vtsls = {
+  settings = {
+    typescript = shared_settings,
+    javascript = shared_settings,
+    vue = shared_settings,
+    vtsls = {
+      experimental = {
+        completion = {
+          enableServerSideFuzzyMatch = true,
+        },
+        enableMoveToFileCodeAction = true,
+        autoUseWorkspaceTsdk = true,
+        experimental = {
+          maxInlayHintLength = 30,
+        },
+      },
+      tsserver = {
+        globalPlugins = {
+          vue_plugin,
+        },
+      },
+    },
+  },
+  filetypes = {
+    "typescript",
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
+    "vue",
+  },
+}
+
 local custom_configs = {
   denols = denols,
   eslint = eslint,
   jsonls = jsonls,
   lua_ls = lua_ls,
+  vtsls = vtsls,
   vue_ls = vue_ls,
 }
 
@@ -245,19 +348,14 @@ end
 local function setup_server(server)
   local config = make_config(server)
 
-  if server == "vue_ls" then
-    vim.lsp.config("vue_ls", config)
-    return
-  end
-
   if server == "denols" and not is_a_deno_project() then
     return
   end
 
   -- managed by typescript-tools, skip the initialization
-  if server == "ts_ls" then
-    return
-  end
+  -- if server == "ts_ls" then
+  --   return
+  -- end
 
   -- lsp_config[server].setup(config)
   vim.lsp.config(server, config)
@@ -274,3 +372,13 @@ require("lsp_signature").setup({
   hint_prefix = "» ",
   floating_window = false,
 })
+
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+--   callback = function(args)
+--     local client = vim.lsp.get_client_by_id(args.data.client_id)
+--     if client.server_capabilities.inlayHintProvider then
+--       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+--     end
+--   end,
+-- })

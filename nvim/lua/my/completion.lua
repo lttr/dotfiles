@@ -29,6 +29,7 @@ local border_options = {
   border = "rounded",
   winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
   side_padding = 1,
+  max_height = 15,
 }
 
 local tab_function = function(fallback)
@@ -44,9 +45,12 @@ local tab_function = function(fallback)
   end
 end
 
+-- Set the maximum popup completion menu height
+vim.opt.pumheight = 15
+
 cmp.setup({
   performance = {
-    max_view_entries = 12,
+    max_view_entries = 50, -- Max number of items loaded, others are cut
   },
   snippet = {
     expand = function(args) require("luasnip").lsp_expand(args.body) end,
@@ -62,13 +66,6 @@ cmp.setup({
     documentation = cmp.config.window.bordered(border_options),
   },
   mapping = {
-    -- ["<c-a>"] = cmp.mapping.complete {
-    --   config = {
-    --     sources = {
-    --       { name = "cody" },
-    --     },
-    --   },
-    -- },
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping(function(fallback) fallback() end),
     ["<C-k>"] = cmp.mapping.select_prev_item({
@@ -101,9 +98,6 @@ cmp.setup({
     per_filetype = {
       codecompanion = { "codecompanion" },
     },
-    { name = "luasnip", max_item_count = 3 },
-    -- { name = "cody" },
-    { name = "codeium" },
     {
       name = "nvim_lsp",
       -- Based on https://github.com/vuejs/language-tools/discussions/4495
@@ -114,6 +108,11 @@ cmp.setup({
         -- Check if the buffer type is 'vue'
         if ctx.filetype ~= "vue" then
           return true
+        end
+
+        -- Filter out long versions like v-bind, v-on, etc.
+        if entry.completion_item.label:match("^v%-") then
+          return false
         end
 
         local cursor_before_line = ctx.cursor_before_line
@@ -139,7 +138,7 @@ cmp.setup({
     { name = "git" },
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
-    -- { name = "buffer", keyword_length = 5 } -- too much noise
+    { name = "luasnip", max_item_count = 3 },
   },
   formatting = {
     fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, cmp.ItemField.Menu },
@@ -148,8 +147,6 @@ cmp.setup({
       maxwidth = 36,
       ellipsis_char = "…",
       menu = {
-        -- cody = "[cody]",
-        codeium = "codeium",
         css_classes = "css-class",
         css_variables = "css-var",
         scss_variables = "scss-var",

@@ -415,18 +415,14 @@ nmap("<leader>fz", telescope.extensions.zoxide.list, "Recent directories")
 
 -- build init neovim lsp
 
-nmap("gd", function()
-  local success = require("nuxt-navigation").go(false)
-  if not success then
-    vim.lsp.buf.definition({ reuse_win = true })
-  end
-end, "Go to definition")
+nmap(
+  "gd",
+  function() vim.lsp.buf.definition({ reuse_win = true }) end,
+  "Go to definition"
+)
 nmap("gD", function()
-  local success = require("nuxt-navigation").go(true)
-  if not success then
-    vim.cmd("vsplit")
-    vim.lsp.buf.definition()
-  end
+  vim.cmd("vsplit")
+  vim.lsp.buf.definition()
 end, "Go to definition in a window")
 nmap(
   "gy",
@@ -453,7 +449,6 @@ nmap(
   "Type hierarchy sub"
 )
 nmap("<localleader>r", vim.lsp.buf.references, "LSP references")
-nmap("<localleader>R", "<cmd>TSToolsFileReferences<CR>", "File references")
 nmap("<localleader>k", vim.lsp.buf.hover, "LSP hover")
 nmap("<localleader>h", vim.lsp.buf.signature_help, "LSP signature_help")
 nmap("<F2>", vim.lsp.buf.rename)
@@ -469,18 +464,38 @@ nmap("<localleader>d", vim.diagnostic.open_float)
 -- Typescript
 --
 
-nmap("<localleader>yo", "<cmd>TSToolsOrganizeImports<CR>", "Organize imports")
+nmap("<localleader>yo", "<cmd>VtsExec organize_imports<CR>", "Organize imports")
 nmap(
   "<localleader>ya",
-  "<cmd>TSToolsAddMissingImports<CR>",
+  "<cmd>VtsExec add_missing_imports<CR>",
   "Add missing imports"
 )
 nmap(
   "<localleader>yu",
-  "<cmd>TSToolsRemoveUnusedImports<CR>",
+  "<cmd>VtsExec remove_unused_imports<CR>",
   "Remove unused imports"
 )
-nmap("<localleader>yr", "<cmd>TSToolsRenameFile<CR>", "Typescript rename file")
+nmap(
+  "<localleader>yn",
+  "<cmd>VtsExec rename_file<CR>",
+  "Typescript rename file"
+)
+nmap("<localleader>yr", "<cmd>VtsExec file_references<CR>", "File references")
+nmap(
+  "<localleader>yR",
+  "<cmd>VtsExec restart_tsserver<CR>",
+  "Typescript tsserver restart"
+)
+nmap(
+  "<localleader>yc",
+  "<cmd>VtsExec goto_project_config<CR>",
+  "Typescript go to project config"
+)
+nmap(
+  "<localleader>yd",
+  "<cmd>VtsExec goto_source_definition<CR>",
+  "Typescript go to source code"
+)
 
 -- Toggle stuff
 
@@ -506,7 +521,11 @@ nmap("coq", ":call ToggleQuickfixList()<CR>", "Toggle quickfix list")
 -- you 'cursorcolumn'
 -- yov 'virtualedit'
 nmap("coy", "<cmd>TSLspToggleInlayHints<CR>", "Toggle Treesitter inlay hints")
-nmap("coi", function() vim.lsp.inlay_hint(0, nil) end, "Toggle LSP inlay hints")
+nmap(
+  "coi",
+  function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+  "Toggle LSP inlay hints"
+)
 -- yow 'wrap'
 -- yox 'cursorline' 'cursorcolumn' (x as in crosshairs)
 

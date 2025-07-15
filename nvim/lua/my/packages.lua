@@ -33,7 +33,7 @@ require("lazy").setup({
   { import = "plugins" },
   -- local
   { dir = "~/dotfiles/nvim/plugin/eslint-spawn/" },
-  { dir = "~/dotfiles/nvim/plugin/nuxt-navigation/" },
+  -- { dir = "~/dotfiles/nvim/plugin/nuxt-navigation/" },
   { dir = "~/dotfiles/nvim/plugin/cmp-nuxt-component/" },
   { dir = "~/dotfiles/nvim/plugin/cmp-css-classes/" },
   { dir = "~/dotfiles/nvim/plugin/cmp-css-variables/" },
@@ -161,7 +161,7 @@ require("lazy").setup({
   "jparise/vim-graphql",
   "maxmellon/vim-jsx-pretty",
   "davidosomething/format-ts-errors.nvim",
-  "pmizio/typescript-tools.nvim",
+  -- "pmizio/typescript-tools.nvim",
   "nikvdp/ejs-syntax",
   "Janiczek/vim-latte",
   "Glench/Vim-Jinja2-Syntax",

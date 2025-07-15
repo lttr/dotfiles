@@ -1,3 +1,5 @@
+-- since Vue language tools v3 it does jump to definition by default correctly
+-- and this plugin is not needed anymore
 local scan = require("plenary.scandir")
 
 local utils = require("my.utils")
