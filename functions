@@ -644,3 +644,33 @@ t() {
 dic() {
     trans -d :en "${*}"
 }
+
+# Check how an application was installed across different package managers
+# Usage: check-install <app-name>
+# Example: check-install firefox
+check-install() {
+   local app=$1
+   if [[ -z "$app" ]]; then
+       echo "Usage: check-install <app-name>"
+       return 1
+   fi
+   echo "=== $app ==="
+   # Check APT/dpkg packages
+   if dpkg -l | grep -i "$app" >/dev/null 2>&1; then
+       echo "Found in APT/dpkg"
+       # Check installation method (APT vs manual .deb)
+       echo "  APT History:"
+       if grep -i "$app" /var/log/apt/history.log* 2>/dev/null | head -3; then
+           echo "  → Installed via APT"
+       else
+           echo "  → No APT history (likely manual .deb installation)"
+       fi
+       # Show repository source
+       echo "  Repository info:"
+       apt-cache policy "$app" 2>/dev/null | grep -E "Installed|Candidate" | head -2
+   fi
+   # Check other package managers
+   snap list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Snap"
+   flatpak list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Flatpak"
+   brew list 2>/dev/null | grep -i "$app" >/dev/null 2>&1 && echo "Found in Brew"
+}
