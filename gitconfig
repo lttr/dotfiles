@@ -115,7 +115,7 @@
     editor = nvim
 
 [credential]
-    helper = gnome-keyring
+    helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
