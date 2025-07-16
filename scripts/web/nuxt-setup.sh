@@ -28,11 +28,16 @@ done
 
 # Initialize Nuxt project
 echo "Initializing Nuxt project using nuxi cli"
-pnpm dlx nuxi@latest init $PROJECT_NAME --template v4-compat --package-manager=pnpm --git-init=true --no-install
+MODULES="@nuxt/eslint,@nuxt/fonts,@nuxt/icon,@nuxt/image,@nuxtjs/plausible,@nuxtjs/seo,@vueuse/nuxt"
+pnpm dlx nuxi@latest init $PROJECT_NAME --template v4 --packageManager=pnpm --gitInit=true --modules="$MODULES"
 cd $PROJECT_NAME
 
 git add .
 git commit -m "Nuxi init"
+
+# Setup Node version
+fnm use lts-latest
+node --version > .node-version
 
 # Pin pnpm version
 echo "pnpm version"
@@ -48,14 +53,23 @@ pnpm dlx taze -w
 # installation of more dependencies. (e.g. unplugin-vue-router for typedPages: true)
 echo "shamefully-hoist=true" > .npmrc
 
+# Add ESLint
+pnpm add -D \
+    eslint \
+    @lttr/nuxt-config-eslint
+
+cat > eslint.config.js << 'EOL'
+import withNuxt from "./.nuxt/eslint.config.mjs"
+import customConfig from "@lttr/nuxt-config-eslint"
+
+export default withNuxt(customConfig)
+EOL
+
 # Install deps
 # I had issues with corepack being initiated from nuxi init, therefore I'm using
 # pnpm directly here.
+echo "Installing dependencies with pnpm"
 pnpm install
-
-# Setup Node version
-fnm use lts-latest
-node --version > .node-version
 
 # Add MIT license
 pnpm dlx mit-license --name "Lukas Trumm"
@@ -193,20 +207,6 @@ $(generate_puleo_config)
 })
 EOL
 
-
-# Add ESLint
-pnpm add -D \
-    eslint \
-    @nuxt/eslint \
-    @lttr/nuxt-config-eslint
-
-cat > eslint.config.js << 'EOL'
-import withNuxt from "./.nuxt/eslint.config.mjs"
-import customConfig from "@lttr/nuxt-config-eslint"
-
-export default withNuxt(customConfig)
-EOL
-
 # Prepare robots.txt
 rm -f 'public/robots.txt'
 cat > 'public/_robots.txt' << 'EOL'
@@ -216,22 +216,12 @@ Disallow: /
 # Allow: /
 EOL
 
-# Add essential modules (conditionally include Puleo-related ones)
-pnpm add -D \
-    @nuxt/eslint \
-    @nuxt/fonts \
-    @nuxt/icon \
-    @nuxt/image \
-    @nuxtjs/plausible \
-    @nuxtjs/seo \
-    @iconify-json/uil \
-    @vueuse/nuxt \
-    @vueuse/core
+# Add some icons
+pnpm add -D @iconify-json/uil
 
 if [ "$USE_PULEO" = true ]; then
-    pnpm add -D \
-        @lttr/nuxt-config-postcss \
-        @lttr/puleo
+    pnpm dlx nuxi@latest add module @lttr/nuxt-config-postcss
+    pnpm add -D @lttr/puleo
 fi
 
 # Create Nixpacks config
