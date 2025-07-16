@@ -136,9 +136,9 @@ generate_modules() {
 
 generate_css() {
     if [ "$USE_PULEO" = true ]; then
-        echo '  css: ["@lttr/puleo", "~/assets/css/main.css"],'
+        echo '  css: ["@lttr/puleo", "~~/app/assets/css/main.css"],'
     else
-        echo '  css: ["~/assets/css/main.css"],'
+        echo '  css: ["~~/app/assets/css/main.css"],'
     fi
 }
 
@@ -165,13 +165,10 @@ generate_common_config() {
     defaultLocale: "en",
     indexable: false,
   },
-  future: {
-    compatibilityVersion: 4,
-  },
   experimental: {
     typedPages: true,
   },
-  compatibilityDate: "2025-04-01",
+  compatibilityDate: "2025-07-01",
   eslint: {
     config: {
       nuxt: {
