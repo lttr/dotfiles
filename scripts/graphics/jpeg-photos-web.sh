@@ -5,4 +5,4 @@
 RESOLUTION=1920
 QUALITY=78
 
-sharp -i "$@" -o ./ --mozjpeg resize $RESOLUTION $RESOLUTION --quality $QUALITY --fit inside
+sharp -i "$@" -o ./ --mozjpeg resize $RESOLUTION $RESOLUTION --quality $QUALITY --progressive --fit inside
