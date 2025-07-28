@@ -13,7 +13,6 @@ end
 
 require("telescope").setup({
   defaults = {
-    border = false, -- TODO temporary fix until https://github.com/nvim-telescope/telescope.nvim/issues/3436
     initial_mode = "insert",
     sorting_strategy = "descending",
     layout_strategy = "flex",
