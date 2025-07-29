@@ -1,10 +1,6 @@
 -- https://github.com/williamboman/mason-lspconfig.nvim
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
--- https://github.com/folke/neodev.nvim
--- IMPORTANT: make sure to setup neodev BEFORE lspconfig
-require("neodev").setup()
-
 local utils = require("my.utils")
 
 local function is_a_deno_project()

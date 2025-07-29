@@ -101,9 +101,6 @@ require("lazy").setup({
   "petertriho/cmp-git",
   "lttr/cmp-jira",
 
-  -- lua
-  "folke/neodev.nvim",
-
   -- editing
   "windwp/nvim-ts-autotag",
   "windwp/nvim-autopairs",
