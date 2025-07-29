@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-urxvt -e sh -c " cd `cat ~/.cwd | sed 's#/home/lukas#~#'`; zsh"

@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-# Right click
-if [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
-    i3-msg "workspace $WS_9" >/dev/null
-fi
-
-echo $(date '+%-d.%-m.')

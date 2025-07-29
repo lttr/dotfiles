@@ -1,9 +1,0 @@
-code --classic
-dotnet-sdk --classic
-fx
-powershell --classic
-skype --classic
-spotify
-tldr
-node --classic --channel=12/stable
-

@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-DOTFILES="$HOME/dotfiles"
-
-$DOTFILES/dotbot/bin/dotbot -d $DOTFILES -c $DOTFILES/install/symlinks.conf.yaml
-
-

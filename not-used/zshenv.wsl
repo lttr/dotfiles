@@ -1,3 +1,0 @@
-export EDITOR=code
-export WIN=/mnt/c/Users/Lukas
-export DOCKER_HOST=tcp://0.0.0.0:2375

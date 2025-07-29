@@ -1,4 +1,0 @@
-csvkit
-ddg
-trash-cli
-docker-compose

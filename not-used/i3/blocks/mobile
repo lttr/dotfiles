@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-kdeconnect-cli --list-available | grep 'Lenovo.*paired' >/dev/null
-
-[[ $? == 0 ]] && echo 
