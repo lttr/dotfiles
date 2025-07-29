@@ -114,7 +114,7 @@ require("lazy").setup({
   -- web dev
   "mattn/emmet-vim",
   {
-    "mistweaverco/kulala.nvim",
+    "mistweaverco/kulala.nvim", -- https://github.com/mistweaverco/kulala.nvim
     ft = "http",
     config = function() require("kulala").setup() end,
   },
