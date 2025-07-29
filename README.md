@@ -26,39 +26,7 @@ See more on the links under _Thanks_.
 - `ranger` (directories browser)
 - `rg` (searching program)
 - `zsh` (just a better program launcher :)
-
-##### No longer used //why
-
-- `ag` (searching program) // I use ripgrep, it is the fastest
-- `antibody` (plugins for zsh) // Superceeded by antidote
-- `dunst` (notifications in i3) // only for i3
-- `i3` (window manager) // Gnome on PopOS has good workspace and window layout
-  support and looks good out of the box
-- `kdiff3` (diff program) // Vscode has that, vim has that
-- `rofi` (program launcher) // Gnome is enough, maybe Ulauncher is a better fit
-  for Gnome
-- `tmux` (terminal on the next level) // Terminals can do a lot of what tmux can
-- `urxvt` (capable terminal) // Hyper terminal is fast enough now and
-  multiplatform
-- `hyperterminal` (nice terminal) // Nice but slow
-- `vim` (the most ergonomic editor) // I use neovim
-- `vim` simulations (ideavim, vrapper) // I use neovim for all work
-- `vscode` (editor) // customizable but not enough, fast but not enough,
-  integrated but not enough
-- `windows` (operating system) // Linux became good for everything work oriented
-  tasks
-
-#### Usefull scripts
-
-- for connections
-- for environment and hardware setup
-- shortcuts for applications
-
-#### Others
-
-- aliases and functions (for command line)
-- color schemes
-- some stuff for Windows
+- `atuin` (terminal's memory)
 
 ## How to install
 
@@ -116,31 +84,6 @@ dotfiles/install.sh
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
 - change hostname (`hostnamectl set-hostname pop-os-lt-foobar`)
-
-### Automated
-
-- upgrade system (`sudo apt update`, `sudo apt full-upgrade`)
-
-### No longer used configurations
-
-- sync Dropbox before installation
-  - Dropbox needs running daemon (`dropbox status`, `dropbox start -i`,
-    `dropbox autostart y`)
-- change download folder in your browser (I like `~/down`)
-- import backuped settings into some applications (e.g. doublecommander)
-- enable automatic login in `/etc/gdm3/custom.conf` (in PopOS it can be
-  configured in Settings -> Users)
-- check appearance settings in `lxappearance` utility
-- check backups are set up (I have all work in git or on external drives, that
-  are backed up)
-- check if fonts are linked and installed
-
-## Installation into VirtualBox
-
-- add Shared folder in settings
-- install guest additions (add guest additions from VirtualBox and run
-  `VBoxLinuxAdditions.run` as root)
-- add user to vboxsf group `sudo usermod -a -G vboxsf lukas`
 
 ## Thanks
 
