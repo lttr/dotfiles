@@ -237,12 +237,6 @@ local vue_plugin = {
 }
 
 local vue_ls = {
-  -- TODO temporary fix for https://github.com/mason-org/mason-lspconfig.nvim/issues/587
-  init_options = {
-    typescript = {
-      tsdk = "",
-    },
-  },
   on_init = function(client)
     client.handlers["tsserver/request"] = function(_, result, context)
       local clients =
