@@ -680,10 +680,10 @@ vmap("<leader>s", ":lua require('spectre').open_visual()<CR>")
 nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 
 --
--- rest.nvim
+-- kulala.nvim
 --
--- nmap("<localleader>T", require "rest-nvim".last)
--- nmap("<localleader>t", require "rest-nvim".run)
+nmap("<localleader>T", function() require("kulala").replay() end, "Replay last request")
+nmap("<localleader>t", function() require("kulala").run() end, "Run current request")
 
 --
 -- vim-translator

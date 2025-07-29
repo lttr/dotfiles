@@ -113,15 +113,11 @@ require("lazy").setup({
 
   -- web dev
   "mattn/emmet-vim",
-  -- {
-  --   "rest-nvim/rest.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim" },
-  --   config = function()
-  --     require("rest-nvim").setup({
-  --       skip_ssl_verification = false,
-  --     })
-  --   end,
-  -- },
+  {
+    "mistweaverco/kulala.nvim",
+    ft = "http",
+    config = function() require("kulala").setup() end,
+  },
   "brenoprata10/nvim-highlight-colors",
   "lttr/classy.nvim",
 
