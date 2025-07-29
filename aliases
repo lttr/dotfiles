@@ -43,7 +43,6 @@ alias ll="LC_COLLATE=c ls -lhF --show-control-chars --color --group-directories-
 alias la="LC_COLLATE=c ls -lhFA --show-control-chars --color --group-directories-first --time-style='+%d.%m.%Y %H:%M'"
 
 alias le="less -FiMRX"
-alias lesf="less +F"
 alias bat="batcat"
 
 alias df="df -h /"
@@ -79,7 +78,6 @@ alias learn="cd ~/code/learning-progress"
 alias dotf="cd ~/dotfiles"
 alias down="cd ~/Downloads"
 alias docu="cd ~/Documents"
-alias drop="cd ~/Dropbox"
 alias sand="cd ~/sandbox"
 alias iad="cd ~/ia"
 
@@ -118,7 +116,6 @@ alias mit="npx mit-license --name 'Lukas Trumm'"
 # =================================================================
 
 alias apti="sudo apt-get install -y"
-alias apts="apt search"
 alias aptu="sudo apt-get update"
 alias bsync="browser-sync start --server --files . --no-notify --open ."
 alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC" # Show czech calendar with Monday as the first day of a week
@@ -126,13 +123,10 @@ alias copy="xsel -b"
 alias d="docker"
 alias dc="docker-compose"
 alias ht="http --verify=no"
-alias ipy="ipython"
 alias md="cli-md"
 alias py="python3"
 alias python="python3"
 alias tp="trash-put"
-alias vag="vagrant"
-alias xmlstar="xmlstarlet"
 
 # =================================================================
 #                              Git
@@ -202,7 +196,6 @@ alias gup="git stash save -u && git pull && git stash pop"
 alias gre="git restore"
 alias gre.="git restore ."
 alias gres='git restore --staged'
-alias greb="git rebase"
 git-rem() { git rebase `git_default_branch` }
 alias grem="git-rem"
 alias grec="git rebase --continue"

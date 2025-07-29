@@ -94,7 +94,7 @@ open() {
 }
 
 # Open text files in current terminal, other files separately
-open_smart() {
+o() {
     if [[ -f "$1" ]]; then
         name="$1"
         # make sure the access time of the file is updated
@@ -121,33 +121,6 @@ open_smart() {
     else
         echo "No file called '$name' found."
     fi
-}
-o() { open_smart "$1" }
-
-# Locate documents (pdfs, ms office, open doc)
-locate_documents() {
-    # only from /home/user folder, exclude hidden files in home folder
-    # based on extension, with last character optional (like .docx)
-    local RE="\/home\/$USER\/[^\.].*\.\(pdf\|doc\|xls\|ppt\|odt\|ods\|odp\).\?$"
-    locate --ignore-case --regexp $RE
-}
-
-# Locate text files and scripts
-locate_text_files() {
-    # only from /home/user folder, exclude hidden files in home folder
-    # based on extension
-    local RE="\/home\/$USER\/[^\.].*\.\(txt\|md\|sh\|bash\|zsh\|conf\)$"
-    locate --ignore-case --regexp $RE
-}
-
-# Open a document found in home and selected by fzf
-open_doc() {
-    open_smart "$(locate_documents | fzf)"
-}
-
-# Open a text file found in home and selected by fzf
-open_file() {
-    open_smart "$(locate_text_files | fzf)"
 }
 
 # Extract any archive file
@@ -578,13 +551,6 @@ node-up() {
 #                              Work
 # =================================================================
 
-# Interactively select a sql file with database connection
-# Last edited files will be closer
-# Using dbext in vim
-dbext() {
-    ${EDITOR:-vim} "$( ls --color=never --sort=time ~/work/db/*.sql | fzf )"
-}
-
 # Simple calculator
 calc() {
     awk "BEGIN { print "$*" }"
@@ -593,41 +559,6 @@ calc() {
 emod() {
     git status --porcelain | grep '^\(??\)\|\(M\)' | awk '{print $2}' | xargs ${EDITOR:-vim}
 }
-
-
-# =================================================================
-#                              Tmux
-# =================================================================
-
-# complete words from tmux pane(s) {{{1
-# Source: http://blog.plenz.com/2012-01/zsh-complete-words-from-tmux-pane.html
-_tmux_pane_words() {
-  local expl
-  local -a w
-  if [[ -z "$TMUX_PANE" ]]; then
-    _message "not running inside tmux!"
-    return 1
-  fi
-  # capture current pane first
-  w=( ${(u)=$(tmux capture-pane -J -p)} )
-  for i in $(tmux list-panes -F '#P'); do
-    # skip current pane (handled above)
-    [[ "$TMUX_PANE" = "$i" ]] && continue
-    w+=( ${(u)=$(tmux capture-pane -J -p -t $i)} )
-  done
-  _wanted values expl 'words from current tmux pane' compadd -a w
-}
-
-zle -C tmux-pane-words-prefix   complete-word _generic
-zle -C tmux-pane-words-anywhere complete-word _generic
-bindkey '^X^Tt' tmux-pane-words-prefix
-bindkey '^X^TT' tmux-pane-words-anywhere
-zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' completer _tmux_pane_words
-zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' ignore-line current
-# display the (interactive) menu on first execution of the hotkey
-zstyle ':completion:tmux-pane-words-(prefix|anywhere):*' menu yes select interactive
-zstyle ':completion:tmux-pane-words-anywhere:*' matcher-list 'b:=* m:{A-Za-z}={a-zA-Z}'
-
 
 # =================================================================
 #                          Experimantal
