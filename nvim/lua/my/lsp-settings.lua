@@ -50,7 +50,6 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local common_handlers = {}
 
 local common_on_attach = function(client)
   -- do not allow any lsp servers to do formatting
@@ -184,9 +183,7 @@ local vtsls = {
         },
         enableMoveToFileCodeAction = true,
         autoUseWorkspaceTsdk = true,
-        experimental = {
-          maxInlayHintLength = 30,
-        },
+        maxInlayHintLength = 30,
       },
       tsserver = {
         globalPlugins = {
@@ -227,7 +224,6 @@ local function make_config(server_name)
     capabilities = capabilities,
     -- map buffer local keybindings when the language server attaches
     on_attach = common_on_attach,
-    handlers = common_handlers,
   }, custom_config)
   return merged_config
 end

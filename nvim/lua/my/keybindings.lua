@@ -634,29 +634,9 @@ nmap("<A-`>", "<cmd>NvimTreeToggle<CR>")
 nmap("-", "<cmd>Oil<CR>", "Open parent directory")
 nmap("<localleader>-", require("oil").toggle_float)
 
--- ChatGPT.nvim
-nmap("<A-g>", "<cmd>ChatGPT<CR>")
-nvmap("<A-c>e", "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction")
-nvmap("<A-c>g", "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction")
-nvmap("<A-c>t", "<cmd>ChatGPTRun translate<CR>", "Translate")
-nvmap("<A-c>k", "<cmd>ChatGPTRun keywords<CR>", "Keywords")
-nvmap("<A-c>d", "<cmd>ChatGPTRun docstring<CR>", "Docstring")
-nvmap("<A-c>a", "<cmd>ChatGPTRun add_tests<CR>", "Add Tests")
-nvmap("<A-c>o", "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code")
-nvmap("<A-c>s", "<cmd>ChatGPTRun summarize<CR>", "Summarize")
-nvmap("<A-c>f", "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs")
-nvmap("<A-c>x", "<cmd>ChatGPTRun explain_code<CR>", "Explain Code")
-nvmap("<A-c>r", "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit")
-nvmap(
-  "<A-c>l",
-  "<cmd>ChatGPTRun code_readability_analysis<CR>",
-  "Code Readability Analysis"
-)
-
 --
 -- diffview.vim
 --
-
 nmap("<leader>do", "<cmd>DiffviewOpen<CR>")
 nmap("<leader>dm", "<cmd>DiffviewOpen master..HEAD<CR>")
 nmap("<leader>dc", "<cmd>DiffviewClose<CR>")
@@ -682,8 +662,16 @@ nmap("<leader>sp", "viw:lua require('spectre').open_file_search()<CR>")
 --
 -- kulala.nvim
 --
-nmap("<localleader>T", function() require("kulala").replay() end, "Replay last request")
-nmap("<localleader>t", function() require("kulala").run() end, "Run current request")
+nmap(
+  "<localleader>T",
+  function() require("kulala").replay() end,
+  "Replay last request"
+)
+nmap(
+  "<localleader>t",
+  function() require("kulala").run() end,
+  "Run current request"
+)
 
 --
 -- vim-translator
