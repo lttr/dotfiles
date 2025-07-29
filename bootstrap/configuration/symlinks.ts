@@ -58,6 +58,12 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
+      dest: path.join(HOME, ".config/atuin/config.toml"),
+      src: path.join(DOTFILES, "atuin/config.toml"),
+    },
+  },
+  {
+    symlink: {
       dest: path.join(HOME, ".gitconfig"),
       src: path.join(DOTFILES, "gitconfig"),
     },
