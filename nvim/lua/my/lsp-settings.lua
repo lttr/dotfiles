@@ -7,10 +7,6 @@ local function is_a_deno_project()
   return utils.has_root_file({ "deno.json", "deno.jsonc" })
 end
 
-local function is_a_nuxt_project()
-  return utils.has_root_file({ "nuxt.config.js", "nuxt.config.ts", ".nuxtrc" })
-end
-
 local servers = {
   "bashls",
   "cssls",
@@ -28,7 +24,6 @@ local servers = {
   "svelte",
   "tailwindcss",
   "terraformls",
-  -- "ts_ls", -- managed by typescript-tools
   "vtsls",
   "vue_ls",
   "yamlls",
@@ -45,13 +40,6 @@ mason_lspconfig.setup({
   },
 })
 local lsp_config = require("lspconfig")
-
--- Doesn't work with neovim 0.11
-local border_options = {
-  border = "rounded",
-  winhighlight = "Normal:Normal,FloatBorder:LineNr,CursorLine:Visual,Search:None",
-  side_padding = 1,
-}
 
 -- This works with neovim 0.11 to use rounded borders
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -94,21 +82,6 @@ local eslint = {
   -- code formatted even after the eslint transformation which is not always
   -- precise.
   -- It is done in the conform.lua file
-  -- on_attach = function(client, bufnr)
-  --   vim.api.nvim_create_autocmd("BufWritePre", {
-  --     buffer = bufnr,
-  --     command = "EslintFixAll",
-  --   })
-  -- end,
-  -- When using ESLint, there might be rules that we want to automatically fix,
-  -- but not immediately when saving.
-  -- codeActionOnSave = {
-  --   enable = true,
-  --   mode = "all",
-  -- },
-  -- If we have disabled the automatic fixes for some rules, but the editor
-  -- still displays them as errors.
-  -- rulesCustomizations = {},
   experimental = {
     useFlatConfig = true,
   },
@@ -132,82 +105,6 @@ local lua_ls = {
     hint = { enable = true },
   },
 }
-
----Specialized root pattern that allows for an exclusion
----@param opt { root: string[], exclude: string[] }
----@return fun(file_name: string): string | nil
-local function root_pattern_exclude(opt)
-  local lsputil = require("lspconfig.util")
-
-  return function(fname)
-    local excluded_root = lsputil.root_pattern(opt.exclude)(fname)
-    local included_root = lsputil.root_pattern(opt.root)(fname)
-
-    if excluded_root then
-      return nil
-    else
-      return included_root
-    end
-  end
-end
-
--- local capabilities_cmp = require("cmp_nvim_lsp").default_capabilities()
-
-if not is_a_deno_project() then
-  -- require("typescript-tools").setup({
-  --   filetypes = {
-  --     "javascript",
-  --     "javascriptreact",
-  --     "typescript",
-  --     "typescriptreact",
-  --   },
-  --   handlers = common_handlers,
-  --   settings = {
-  --     -- spawn additional tsserver instance to calculate diagnostics on it
-  --     separate_diagnostic_server = true,
-  --     expose_as_code_action = "all",
-  --     capabilities = capabilities_cmp,
-  --     -- https://github.com/pmizio/typescript-tools.nvim/issues/132
-  --     -- https://github.com/pmizio/typescript-tools.nvim/issues/249
-  --     root_dir = root_pattern_exclude({
-  --       root = { "package.json" },
-  --       exclude = { "deno.json", "deno.jsonc" },
-  --     }),
-  --     single_file_support = false,
-  --     tsserver_plugins = {
-  --       "@vue/typescript-plugin",
-  --     },
-  --     tsserver_file_preferences = {
-  --       includeInlayParameterNameHints = "all",
-  --       includeCompletionsForModuleExports = true,
-  --       quotePreference = "auto",
-  --     },
-  --     tsserver_format_options = {
-  --       allowIncompleteCompletions = false,
-  --       allowRenameOfImportPath = false,
-  --     },
-  --   },
-  -- })
-end
-
--- https://github.com/vuejs/language-tools?tab=readme-ov-file#none-hybrid-modesimilar-to-takeover-mode-configuration-requires-vuelanguage-server-version-207
--- local vtsls = {
---   filetypes = {
---     "vue",
---     "javascript",
---     "javascriptreact",
---     "typescript",
---     "typescriptreact",
---   },
---   init_options = {
---     -- vue = {
---     --   hybridMode = false,
---     -- },
---     typescript = {
---       tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
---     },
---   },
--- }
 
 local jsonls = {
   settings = {
@@ -342,12 +239,6 @@ local function setup_server(server)
     return
   end
 
-  -- managed by typescript-tools, skip the initialization
-  -- if server == "ts_ls" then
-  --   return
-  -- end
-
-  -- lsp_config[server].setup(config)
   vim.lsp.config(server, config)
 end
 
@@ -362,13 +253,3 @@ require("lsp_signature").setup({
   hint_prefix = "» ",
   floating_window = false,
 })
-
--- vim.api.nvim_create_autocmd("LspAttach", {
---   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
---   callback = function(args)
---     local client = vim.lsp.get_client_by_id(args.data.client_id)
---     if client.server_capabilities.inlayHintProvider then
---       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
---     end
---   end,
--- })
