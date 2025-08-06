@@ -220,6 +220,8 @@ alias gsur="git submodule update --remote"
 
 alias chore="git commit -m 'chore'"
 
+alias claudecommit="claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' -p 'commit' && echo 'Last 3 commits:' && git log --oneline -n 3"
+
 # =================================================================
 #                              Lists
 # =================================================================
