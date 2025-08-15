@@ -151,7 +151,7 @@ generate_modules() {
     fi
     
     if [ "$USE_PULEO" = true ]; then
-        modules='"@lttr/nuxt-config-postcss",
+        modules='"@lttr/nuxt-puleo",
     '"$modules"
     fi
     
@@ -161,19 +161,12 @@ generate_modules() {
 }
 
 generate_css() {
-    if [ "$USE_PULEO" = true ]; then
-        echo '  css: ["@lttr/puleo", "~~/app/assets/css/main.css"],'
-    else
-        echo '  css: ["~~/app/assets/css/main.css"],'
-    fi
+    echo '  css: ["~~/app/assets/css/main.css"],'
 }
 
 generate_puleo_config() {
-    if [ "$USE_PULEO" = true ]; then
-        echo '  lttrConfigPostcss: {
-    filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
-  },'
-    fi
+    # The @lttr/nuxt-puleo module handles configuration automatically
+    echo ""
 }
 
 generate_plausible_config() {
@@ -238,8 +231,7 @@ EOL
 pnpm add -D @iconify-json/uil
 
 if [ "$USE_PULEO" = true ]; then
-    pnpm dlx nuxi@latest add module @lttr/nuxt-config-postcss
-    pnpm add -D @lttr/puleo
+    pnpm dlx nuxi@latest add module @lttr/nuxt-puleo
 fi
 
 # Create Nixpacks config
