@@ -3,13 +3,14 @@ set -e
 
 # Check if project name is provided
 if [ -z "$1" ]; then
-    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible]"
+    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui]"
     exit 1
 fi
 
 PROJECT_NAME=$1
 USE_PULEO=false
 USE_PLAUSIBLE=false
+USE_NUXT_UI=false
 
 # Parse arguments
 shift
@@ -23,9 +24,13 @@ while [[ $# -gt 0 ]]; do
             USE_PLAUSIBLE=true
             shift
             ;;
+        --nuxt-ui)
+            USE_NUXT_UI=true
+            shift
+            ;;
         *)
             echo "Unknown option $1"
-            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible]"
+            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui]"
             exit 1
             ;;
     esac
@@ -150,6 +155,11 @@ generate_modules() {
     '"$modules"
     fi
     
+    if [ "$USE_NUXT_UI" = true ]; then
+        modules='"@nuxt/ui",
+    '"$modules"
+    fi
+    
     if [ "$USE_PULEO" = true ]; then
         modules='"@lttr/nuxt-puleo",
     '"$modules"
@@ -232,6 +242,10 @@ pnpm add -D @iconify-json/uil
 
 if [ "$USE_PULEO" = true ]; then
     pnpm dlx nuxi@latest add module @lttr/nuxt-puleo
+fi
+
+if [ "$USE_NUXT_UI" = true ]; then
+    pnpm dlx nuxi@latest add module @nuxt/ui
 fi
 
 # Create Nixpacks config
