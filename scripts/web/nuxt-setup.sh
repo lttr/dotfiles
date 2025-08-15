@@ -3,7 +3,7 @@ set -e
 
 # Check if project name is provided
 if [ -z "$1" ]; then
-    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui]"
+    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks]"
     exit 1
 fi
 
@@ -11,6 +11,7 @@ PROJECT_NAME=$1
 USE_PULEO=false
 USE_PLAUSIBLE=false
 USE_NUXT_UI=false
+USE_NIXPACKS=false
 
 # Parse arguments
 shift
@@ -28,9 +29,13 @@ while [[ $# -gt 0 ]]; do
             USE_NUXT_UI=true
             shift
             ;;
+        --nixpacks)
+            USE_NIXPACKS=true
+            shift
+            ;;
         *)
             echo "Unknown option $1"
-            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui]"
+            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks]"
             exit 1
             ;;
     esac
@@ -279,13 +284,15 @@ export default defineAppConfig({
 EOL
 fi
 
-# Create Nixpacks config
-cat > nixpacks.toml << 'EOL'
+# Create Nixpacks config conditionally
+if [ "$USE_NIXPACKS" = true ]; then
+    cat > nixpacks.toml << 'EOL'
 providers = ["node"]
 
 [variables]
 NIXPACKS_NODE_VERSION = '22'
 EOL
+fi
 
 # Format code
 pnpm dlx format-package --write
