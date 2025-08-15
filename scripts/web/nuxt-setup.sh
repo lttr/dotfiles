@@ -113,17 +113,36 @@ pnpm dlx add-npm-scripts 'validate' 'npm run format && npm run lint:fix && npm r
 
 # Create basic App.vue
 mkdir -p app
-cat > app/app.vue << 'EOL'
+if [ "$USE_NUXT_UI" = true ]; then
+    cat > app/app.vue << 'EOL'
+<template>
+  <UApp>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </UApp>
+</template>
+EOL
+else
+    cat > app/app.vue << 'EOL'
 <template>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
 EOL
+fi
 
 # Create CSS files conditionally
 mkdir -p app/assets/css
-if [ "$USE_PULEO" = true ]; then
+if [ "$USE_NUXT_UI" = true ]; then
+    cat > app/assets/css/main.css << 'EOL'
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* Add your custom styles here */
+EOL
+elif [ "$USE_PULEO" = true ]; then
     cat > app/assets/css/main.css << 'EOL'
 :root {
   --font-family-body: "Poppins", sans-serif;
@@ -246,6 +265,18 @@ fi
 
 if [ "$USE_NUXT_UI" = true ]; then
     pnpm dlx nuxi@latest add module @nuxt/ui
+fi
+
+if [ "$USE_NUXT_UI" = true ]; then
+    # Create app.config.ts for Nuxt UI configuration
+    cat > app.config.ts << 'EOL'
+export default defineAppConfig({
+  ui: {
+    primary: 'green',
+    gray: 'slate'
+  }
+})
+EOL
 fi
 
 # Create Nixpacks config
