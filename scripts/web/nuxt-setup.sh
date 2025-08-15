@@ -47,6 +47,9 @@ MODULES="@nuxt/eslint,@nuxt/fonts,@nuxt/icon,@nuxt/image,@nuxtjs/seo,@vueuse/nux
 if [ "$USE_PLAUSIBLE" = true ]; then
     MODULES="$MODULES,@nuxtjs/plausible"
 fi
+if [ "$USE_NUXT_UI" = true ]; then
+    MODULES="$MODULES,@nuxt/ui"
+fi
 pnpm dlx nuxi@latest init $PROJECT_NAME --template v4 --packageManager=pnpm --gitInit=true --modules="$MODULES"
 cd $PROJECT_NAME
 
@@ -268,9 +271,6 @@ if [ "$USE_PULEO" = true ]; then
     pnpm dlx nuxi@latest add module @lttr/nuxt-puleo
 fi
 
-if [ "$USE_NUXT_UI" = true ]; then
-    pnpm dlx nuxi@latest add module @nuxt/ui
-fi
 
 if [ "$USE_NUXT_UI" = true ]; then
     # Create app.config.ts for Nuxt UI configuration
