@@ -3,12 +3,13 @@ set -e
 
 # Check if project name is provided
 if [ -z "$1" ]; then
-    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo]"
+    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible]"
     exit 1
 fi
 
 PROJECT_NAME=$1
 USE_PULEO=false
+USE_PLAUSIBLE=false
 
 # Parse arguments
 shift
@@ -18,9 +19,13 @@ while [[ $# -gt 0 ]]; do
             USE_PULEO=true
             shift
             ;;
+        --plausible)
+            USE_PLAUSIBLE=true
+            shift
+            ;;
         *)
             echo "Unknown option $1"
-            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo]"
+            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible]"
             exit 1
             ;;
     esac
@@ -28,7 +33,10 @@ done
 
 # Initialize Nuxt project
 echo "Initializing Nuxt project using nuxi cli"
-MODULES="@nuxt/eslint,@nuxt/fonts,@nuxt/icon,@nuxt/image,@nuxtjs/plausible,@nuxtjs/seo,@vueuse/nuxt"
+MODULES="@nuxt/eslint,@nuxt/fonts,@nuxt/icon,@nuxt/image,@nuxtjs/seo,@vueuse/nuxt"
+if [ "$USE_PLAUSIBLE" = true ]; then
+    MODULES="$MODULES,@nuxtjs/plausible"
+fi
 pnpm dlx nuxi@latest init $PROJECT_NAME --template v4 --packageManager=pnpm --gitInit=true --modules="$MODULES"
 cd $PROJECT_NAME
 
@@ -134,9 +142,13 @@ generate_modules() {
     "@nuxt/fonts",
     "@nuxt/icon",
     "@nuxt/image",
-    "@nuxtjs/plausible",
     "@nuxtjs/seo",
     "@vueuse/nuxt"'
+    
+    if [ "$USE_PLAUSIBLE" = true ]; then
+        modules='"@nuxtjs/plausible",
+    '"$modules"
+    fi
     
     if [ "$USE_PULEO" = true ]; then
         modules='"@lttr/nuxt-config-postcss",
@@ -160,6 +172,15 @@ generate_puleo_config() {
     if [ "$USE_PULEO" = true ]; then
         echo '  lttrConfigPostcss: {
     filesWithGlobals: ["./node_modules/@lttr/puleo/output/media.css"],
+  },'
+    fi
+}
+
+generate_plausible_config() {
+    if [ "$USE_PLAUSIBLE" = true ]; then
+        echo '  plausible: {
+    ignoredHostnames: ["localhost"],
+    apiHost: "https://plausible.lttr.cz",
   },'
     fi
 }
@@ -189,10 +210,6 @@ generate_common_config() {
         sortConfigKeys: true,
       },
     },
-  },
-  plausible: {
-    ignoredHostnames: ["localhost"],
-    apiHost: "https://plausible.lttr.cz",
   },'
 }
 
@@ -204,6 +221,7 @@ $(generate_common_config)
   // Custom styles
 $(generate_css)
 $(generate_puleo_config)
+$(generate_plausible_config)
 })
 EOL
 
