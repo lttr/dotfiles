@@ -3,7 +3,7 @@ set -e
 
 # Check if project name is provided
 if [ -z "$1" ]; then
-    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks]"
+    echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks] [--license]"
     exit 1
 fi
 
@@ -12,6 +12,7 @@ USE_PULEO=false
 USE_PLAUSIBLE=false
 USE_NUXT_UI=false
 USE_NIXPACKS=false
+USE_LICENSE=false
 
 # Parse arguments
 shift
@@ -33,9 +34,13 @@ while [[ $# -gt 0 ]]; do
             USE_NIXPACKS=true
             shift
             ;;
+        --license)
+            USE_LICENSE=true
+            shift
+            ;;
         *)
             echo "Unknown option $1"
-            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks]"
+            echo "Usage: ./nuxt-setup.sh <project-name> [--puleo] [--plausible] [--nuxt-ui] [--nixpacks] [--license]"
             exit 1
             ;;
     esac
@@ -92,8 +97,10 @@ EOL
 echo "Installing dependencies with pnpm"
 pnpm install
 
-# Add MIT license
-pnpm dlx mit-license --name "Lukas Trumm"
+# Add MIT license conditionally
+if [ "$USE_LICENSE" = true ]; then
+    pnpm dlx mit-license --name "Lukas Trumm"
+fi
 
 # Setup Prettier
 pnpm add -D prettier
