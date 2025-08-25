@@ -1,0 +1,20 @@
+{
+  "model": "sonnet",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo '$(.tool_input.file_path)' | grep -qE '\\.(ts|js|vue|css|scss|html|json|yml|yaml|md)$'; then npx prettier --write '$(.tool_input.file_path)'; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "printf '\\033[01;32m%s@%s\\033[00m:\\033[01;34m%s\\033[00m' \"$(pwd)\""
+  }
+}
