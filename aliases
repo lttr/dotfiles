@@ -127,6 +127,8 @@ alias md="cli-md"
 alias py="python3"
 alias python="python3"
 alias tp="trash-put"
+alias cl="claude"
+alias clyo="claude --dangerously-skip-permissions"
 
 # =================================================================
 #                              Git
