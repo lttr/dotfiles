@@ -22,7 +22,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hook-code-quality.sh '$(.tool_input.file_path)'"
+            "command": "~/dotfiles/claude/hook-code-quality.sh '.tool_input.file_path'"
           }
         ]
       }
