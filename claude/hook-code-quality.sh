@@ -3,6 +3,9 @@
 # Claude Code Quality Hook
 # Automatically runs ESLint, TypeScript checking, and Prettier on file changes
 # 
+# Prerequisites:
+#   - pnpm (package manager)
+# 
 # Usage:
 #   Hook mode: ./hook-code-quality.sh /path/to/file
 #   Standalone mode: ./hook-code-quality.sh
@@ -98,32 +101,16 @@ run_tool() {
     
     case "$tool" in
         "eslint")
-            if command -v pnpm >/dev/null 2>&1 && [[ -f "package.json" ]]; then
-                pnpm exec eslint --fix "$file" 2>/dev/null || true
-            elif command -v npx >/dev/null 2>&1; then
-                npx eslint --fix "$file" 2>/dev/null || true
-            fi
+            pnpm exec eslint --fix "$file" 2>/dev/null || true
             ;;
         "typescript")
-            if command -v pnpm >/dev/null 2>&1 && [[ -f "package.json" ]]; then
-                pnpm exec tsc --noEmit 2>/dev/null || true
-            elif command -v npx >/dev/null 2>&1; then
-                npx tsc --noEmit 2>/dev/null || true
-            fi
+            pnpm exec tsc --noEmit 2>/dev/null || true
             ;;
         "vue-tsc")
-            if command -v pnpm >/dev/null 2>&1 && [[ -f "package.json" ]]; then
-                pnpm exec vue-tsc --noEmit 2>/dev/null || true
-            elif command -v npx >/dev/null 2>&1; then
-                npx vue-tsc --noEmit 2>/dev/null || true
-            fi
+            pnpm exec vue-tsc --noEmit 2>/dev/null || true
             ;;
         "prettier")
-            if command -v pnpm >/dev/null 2>&1 && [[ -f "package.json" ]]; then
-                pnpm exec prettier --write "$file" 2>/dev/null || true
-            elif command -v npx >/dev/null 2>&1; then
-                npx prettier --write "$file" 2>/dev/null || true
-            fi
+            pnpm exec prettier --write "$file" 2>/dev/null || true
             ;;
     esac
 }
