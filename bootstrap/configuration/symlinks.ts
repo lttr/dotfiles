@@ -146,5 +146,11 @@ export const symlinks: Config[] = [
       src: path.join(DOTFILES, "claude/CLAUDE.md"),
     },
   },
+  {
+    symlink: {
+      dest: path.join(HOME, ".claude/output-styles"),
+      src: path.join(DOTFILES, "claude/output-styles"),
+    },
+  },
   ...executableScripts,
 ];

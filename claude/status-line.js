@@ -109,6 +109,12 @@ function generateStatusLine(inputData) {
     const modelName = modelInfo.display_name || 'Claude';
     parts.push("\x1b[90m[" + modelName + "]\x1b[0m"); // Gray color
     
+    // Output style as separate field
+    const outputStyle = inputData.output_style;
+    if (outputStyle && outputStyle.name) {
+        parts.push("\x1b[90m" + outputStyle.name + "\x1b[0m");
+    }
+    
     return parts.join("\x1b[90m | \x1b[0m");
 }
 
