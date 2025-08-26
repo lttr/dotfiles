@@ -84,7 +84,7 @@ function generateStatusLine(inputData) {
     const currentDir = workspace.current_dir || '';
     if (currentDir) {
         const dirName = basename(currentDir);
-        parts.push("\x1b[38;5;10m❯ " + dirName + "\x1b[0m"); // Bright green (color 10)
+        parts.push("\x1b[1;38;5;248m❯ " + dirName + "\x1b[0m"); // Bold medium gray (color 248)
     }
     
     // Git branch and status
@@ -95,7 +95,7 @@ function generateStatusLine(inputData) {
         if (gitStatus) {
             gitInfo += " " + gitStatus;
         }
-        parts.push("\x1b[38;5;5m" + gitInfo + "\x1b[0m"); // Magenta (color 5)
+        parts.push("\x1b[38;5;242m" + gitInfo + "\x1b[0m"); // Dim gray (color 242)
     }
     
     // Version info (optional, smaller)
@@ -109,7 +109,7 @@ function generateStatusLine(inputData) {
     const modelName = modelInfo.display_name || 'Claude';
     parts.push("\x1b[90m[" + modelName + "]\x1b[0m"); // Gray color
     
-    return parts.join(" | ");
+    return parts.join("\x1b[90m | \x1b[0m");
 }
 
 function main() {
