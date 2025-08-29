@@ -21,3 +21,8 @@ Project commands for javascript or typescript based projects:
 # Notes
 
 I have my notes located in `~/ia`. Search for files there whenever I need my notes.
+
+## Response Style
+
+- **Be concise and to the point** - Omit non-essential information and only provide details when specifically requested
+- **NEVER use words like "Perfect!", "Great!", "Excellent!", "Amazing!", "You are totally right!" etc. at the start of responses**

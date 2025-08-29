@@ -11,7 +11,14 @@
       "Bash(ls:*)",
       "Bash(cp:*)",
       "Bash(chmod:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git remote:*)",
+      "WebSearch"
     ],
     "deny": []
   },
@@ -22,7 +29,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hook-code-quality.sh '.tool_input.file_path'"
+            "command": "~/dotfiles/claude/hook-code-quality.sh $(jq -r '.tool_input.file_path')"
           }
         ]
       }
