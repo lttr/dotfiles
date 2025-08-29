@@ -178,8 +178,8 @@ hook_mode() {
     local file_path="$1"
     
     if [[ -z "$file_path" ]] || [[ ! -f "$file_path" ]]; then
-        log "Invalid file path: $file_path"
-        return 1
+        log "Invalid file path: $file_path - skipping"
+        return 0
     fi
     
     local project_root

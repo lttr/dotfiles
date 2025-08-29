@@ -12,6 +12,7 @@
       "Bash(cp:*)",
       "Bash(chmod:*)",
       "Bash(touch:*)",
+      "Bash(cat:*)",
       "Bash(git status:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
