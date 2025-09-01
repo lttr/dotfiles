@@ -55,7 +55,7 @@ function generateStatusLine(inputData) {
   const currentDir = workspace.current_dir || "";
   if (currentDir) {
     const dirName = basename(currentDir);
-    parts.push("\x1b[1;38;5;248m❯ " + dirName + "\x1b[0m"); // Bold medium gray (color 248)
+    parts.push("\x1b[1;38;5;248m/ " + dirName + "\x1b[0m"); // Bold medium gray (color 248)
   }
 
   // Git branch and status
@@ -72,18 +72,18 @@ function generateStatusLine(inputData) {
   // Version info (optional, smaller)
   const version = inputData.version || "";
   if (version) {
-    parts.push("\x1b[90mv" + version + "\x1b[0m"); // Gray color
+    parts.push("\x1b[90m∇ " + version + "\x1b[0m"); // Gray color
   }
 
   // Model display name
   const modelInfo = inputData.model || {};
   const modelName = modelInfo.display_name || "Claude";
-  parts.push("\x1b[90m[" + modelName + "]\x1b[0m"); // Gray color
+  parts.push("\x1b[90m※ " + modelName + "\x1b[0m"); // Gray color
 
   // Output style as separate field
   const outputStyle = inputData.output_style;
   if (outputStyle && outputStyle.name) {
-    parts.push("\x1b[90m" + outputStyle.name + "\x1b[0m");
+    parts.push("\x1b[90m◈ " + outputStyle.name + "\x1b[0m");
   }
 
   return parts.join("\x1b[90m | \x1b[0m");
