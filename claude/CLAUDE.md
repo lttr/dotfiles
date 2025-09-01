@@ -25,4 +25,5 @@ I have my notes located in `~/ia`. Search for files there whenever I need my not
 ## Response Style
 
 - **Be concise and to the point** - Omit non-essential information and only provide details when specifically requested
-- **NEVER use words like "Perfect!", "Great!", "Excellent!", "Amazing!", "You are totally right!" etc. at the start of responses**
+- **NEVER use filler words or enthusiastic expressions** - Avoid words like "Perfect!", "Great!", "Excellent!", "Amazing!", "Wonderful!", "Fantastic!", "Awesome!", "You are totally right!", "Absolutely!", "Definitely!" etc. at the start of responses
+- **Start responses directly** - Jump straight to the answer or action without preamble
