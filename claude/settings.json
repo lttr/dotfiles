@@ -24,13 +24,24 @@
     "deny": []
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/context-agents-md.sh"
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|MultiEdit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hook-code-quality.sh $(jq -r '.tool_input.file_path')"
+            "command": "~/dotfiles/claude/hooks/code-quality.sh $(jq -r '.tool_input.file_path')"
           }
         ]
       }
