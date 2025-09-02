@@ -115,7 +115,15 @@ run_tool() {
     local file="$3"
     local filename=$(basename "$file")
     
-    cd "$project_root" 2>/dev/null || return 1
+    log "run_tool called with: tool=$tool, project_root=$project_root, file=$file"
+    
+    if ! cd "$project_root" 2>/dev/null; then
+        log "Failed to cd to project root: $project_root"
+        return 1
+    fi
+    
+    log "Successfully changed to project root: $project_root"
+    log "Current directory after cd: $(pwd)"
     
     # Add spacing for non-eslint tools
     [[ "$tool" != "eslint" ]] && echo
@@ -127,8 +135,23 @@ run_tool() {
         "prettier") echo "Prettier formatting: $filename" ;;
     esac
     
-    log "Running ${tool} on $file"
-    ${TOOL_COMMANDS[$tool]} "$file" 2>/dev/null || true
+    log "About to run command: ${TOOL_COMMANDS[$tool]} $file"
+    
+    # Run the command and capture both stdout and stderr
+    local cmd_output
+    local cmd_exit_code
+    cmd_output=$(${TOOL_COMMANDS[$tool]} "$file" 2>&1)
+    cmd_exit_code=$?
+    
+    log "Command output: $cmd_output"
+    log "Command exit code: $cmd_exit_code"
+    
+    if [[ $cmd_exit_code -ne 0 ]]; then
+        log "Command failed with exit code $cmd_exit_code"
+        echo "Error running $tool: $cmd_output" >&2
+    fi
+    
+    return 0  # Always return 0 to not fail the hook
 }
 
 # Process single file with all applicable tools
@@ -207,29 +230,61 @@ standalone_mode() {
 hook_mode() {
     local file_path="$1"
     
-    if [[ -z "$file_path" ]] || [[ ! -f "$file_path" ]]; then
-        log "Invalid file path: $file_path - skipping"
-        return 0
+    log "hook_mode called with file_path: $file_path"
+    
+    if [[ -z "$file_path" ]]; then
+        log "Empty file path provided"
+        return 1
     fi
+    
+    if [[ ! -f "$file_path" ]]; then
+        log "File does not exist: $file_path"
+        log "ls -la dirname: $(ls -la "$(dirname "$file_path")" 2>&1 || echo 'failed')"
+        return 1
+    fi
+    
+    log "File exists: $file_path"
+    log "File info: $(ls -la "$file_path")"
     
     local project_root
     project_root=$(find_project_root "$(dirname "$file_path")")
+    log "Found project root: $project_root"
     
     # Process the file immediately
+    log "About to process file: $file_path in project: $project_root"
     process_file "$file_path" "$project_root"
+    local process_exit_code=$?
+    log "process_file returned: $process_exit_code"
+    
+    return $process_exit_code
 }
 
 # Main execution
 main() {
     # Initialize log
     log "Hook started with args: $*"
+    log "PWD: $PWD"
+    log "Number of args: $#"
+    
+    # Log environment info
+    log "PATH: $PATH"
+    log "which pnpm: $(which pnpm 2>&1 || echo 'not found')"
+    log "pnpm --version: $(pnpm --version 2>&1 || echo 'failed')"
     
     if [[ $# -eq 0 ]]; then
         # No arguments: standalone mode
+        log "Running in standalone mode"
         standalone_mode
+        local exit_code=$?
+        log "Standalone mode exit code: $exit_code"
+        exit $exit_code
     else
         # File path provided: hook mode
+        log "Running in hook mode with file: $1"
         hook_mode "$1"
+        local exit_code=$?
+        log "Hook mode exit code: $exit_code"
+        exit $exit_code
     fi
 }
 
