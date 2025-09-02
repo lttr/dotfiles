@@ -42,10 +42,6 @@
           {
             "type": "command",
             "command": "~/dotfiles/claude/hooks/format-code.sh $(jq -r '.tool_input.file_path')"
-          },
-          {
-            "type": "command",
-            "command": "~/dotfiles/claude/hooks/code-quality.sh $(jq -r '.tool_input.file_path')"
           }
         ]
       }
