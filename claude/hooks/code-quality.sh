@@ -55,32 +55,48 @@ declare -A TOOL_COMMANDS=(
     [prettier]="pnpm exec prettier --write"
 )
 
-# Check if a config file exists
-has_config() {
-    local tool="$1"
-    local project_root="$2"
-    
-    # Special case for vue-tsc: check package.json dependencies too
-    if [[ "$tool" == "vue-tsc" ]]; then
-        [[ -f "$project_root/package.json" ]] && {
-            grep -q '"vue-tsc"\|"@nuxt/typescript-build"' "$project_root/package.json" ||
-            [[ -f "$project_root/nuxt.config.js" ]] || [[ -f "$project_root/nuxt.config.ts" ]]
-        }
-        return $?
-    fi
-    
-    # Check for config files
-    for config in ${TOOL_CONFIGS[$tool]}; do
+# Check if ESLint config exists
+has_eslint_config() {
+    local project_root="$1"
+    for config in ${TOOL_CONFIGS[eslint]}; do
         [[ -f "$project_root/$config" ]] && return 0
     done
-    
-    # Special case for prettier: check package.json
-    if [[ "$tool" == "prettier" && -f "$project_root/package.json" ]]; then
-        grep -q '"prettier"' "$project_root/package.json" && return 0
-    fi
-    
     return 1
 }
+
+# Check if TypeScript config exists
+has_typescript_config() {
+    local project_root="$1"
+    for config in ${TOOL_CONFIGS[typescript]}; do
+        [[ -f "$project_root/$config" ]] && return 0
+    done
+    return 1
+}
+
+# Check if Vue TypeScript config exists
+has_vue_tsc_config() {
+    local project_root="$1"
+    # Check package.json dependencies and config files
+    [[ -f "$project_root/package.json" ]] && {
+        grep -q '"vue-tsc"\|"@nuxt/typescript-build"' "$project_root/package.json" ||
+        [[ -f "$project_root/nuxt.config.js" ]] || [[ -f "$project_root/nuxt.config.ts" ]]
+    }
+}
+
+# Check if Prettier config exists
+has_prettier_config() {
+    local project_root="$1"
+    # Check for config files
+    for config in ${TOOL_CONFIGS[prettier]}; do
+        [[ -f "$project_root/$config" ]] && return 0
+    done
+    # Check package.json
+    if [[ -f "$project_root/package.json" ]]; then
+        grep -q '"prettier"' "$project_root/package.json" && return 0
+    fi
+    return 1
+}
+
 
 # Check if file matches extension pattern
 matches_extension() {
@@ -131,12 +147,26 @@ process_file() {
     
     # Run tools in order: ESLint -> TypeScript -> Vue TypeScript -> Prettier
     local tools_applied=0
-    for tool in eslint typescript vue-tsc prettier; do
-        if has_config "$tool" "$project_root" && matches_extension "$file" "$tool"; then
-            run_tool "$tool" "$project_root" "$file"
-            ((tools_applied++))
-        fi
-    done
+    
+    if has_eslint_config "$project_root" && matches_extension "$file" "eslint"; then
+        run_tool "eslint" "$project_root" "$file"
+        ((tools_applied++))
+    fi
+    
+    if has_typescript_config "$project_root" && matches_extension "$file" "typescript"; then
+        run_tool "typescript" "$project_root" "$file"
+        ((tools_applied++))
+    fi
+    
+    if has_vue_tsc_config "$project_root" && matches_extension "$file" "vue-tsc"; then
+        run_tool "vue-tsc" "$project_root" "$file"
+        ((tools_applied++))
+    fi
+    
+    if has_prettier_config "$project_root" && matches_extension "$file" "prettier"; then
+        run_tool "prettier" "$project_root" "$file"
+        ((tools_applied++))
+    fi
     
     # Log if no tools were applicable
     if [[ $tools_applied -eq 0 ]]; then
