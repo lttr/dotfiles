@@ -25,16 +25,16 @@ IFS=$'\n' read -rd '' -a lines <<< "$response"
 
 if [[ ${#lines[@]} -ge 2 ]]; then
     # Color first line dimmed gray, second line magenta
-    echo "\033[2;37m${lines[1]}\033[0m"
-    echo "\033[35m${lines[2]}\033[0m"
+    echo -e "\033[2;37m${lines[0]}\033[0m"
+    echo -e "\033[35m${lines[1]}\033[0m"
     
-    command="${lines[2]}"
+    command="${lines[1]}"
 
     # Ask user what to do
     while true; do
         echo ""
-        echo -n "\033[32m Execute (y), Edit (e), Follow-up (f), or Cancel (c/n)? [y/e/f/c]: \033[0m"
-        read "choice?"
+        echo -ne "\033[32m Execute (y), Edit (e), Follow-up (f), or Cancel (c/n)? [y/e/f/c]: \033[0m"
+        read choice
         echo ""
         case $choice in
             [Yy]*) 
@@ -62,8 +62,8 @@ if [[ ${#lines[@]} -ge 2 ]]; then
                 ;;
             [Ff]*) 
                 # Follow-up question to Claude
-                echo -n "\033[2;32mFollow-up question: \033[0m"
-                read "followup?"
+                echo -ne "\033[2;32mFollow-up question: \033[0m"
+                read followup
                 if [[ -n "$followup" ]]; then
                     echo ""
                     followup_response=$(claude -pc "$followup")
@@ -72,10 +72,10 @@ if [[ ${#lines[@]} -ge 2 ]]; then
                     IFS=$'\n' read -rd '' -a followup_lines <<< "$followup_response"
                     if [[ ${#followup_lines[@]} -ge 2 ]]; then
                         # Color first line dimmed gray, second line magenta
-                        echo "\033[2;37m${followup_lines[1]}\033[0m"
-                        echo "\033[35m${followup_lines[2]}\033[0m"
+                        echo -e "\033[2;37m${followup_lines[0]}\033[0m"
+                        echo -e "\033[35m${followup_lines[1]}\033[0m"
                         # Update command with follow-up response
-                        command="${followup_lines[2]}"
+                        command="${followup_lines[1]}"
                     else
                         # Fallback if response doesn't have expected format
                         echo "$followup_response"
