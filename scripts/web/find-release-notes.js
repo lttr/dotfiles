@@ -5,15 +5,11 @@ import { readFileSync } from "fs"
 
 /**
  * Generate release notes links for outdated packages
- * Usage: node generate-release-notes.js [path-to-json-file]
- * If no file provided, runs `pnpm outdated --format json` automatically
+ * Usage: node find-release-notes.js
+ * Runs `pnpm outdated --format json` to find outdated packages
  */
 
-function getPnpmOutdatedData(jsonFile) {
-  if (jsonFile) {
-    return JSON.parse(readFileSync(jsonFile, "utf8"))
-  }
-
+function getPnpmOutdatedData() {
   try {
     // pnpm outdated --format json outputs to stderr and exits with code 1 when packages are outdated
     const output = execSync("pnpm outdated --format json", {
@@ -36,10 +32,25 @@ function getPnpmOutdatedData(jsonFile) {
 }
 
 function isMinorOrMajorUpdate(current, latest) {
-  const [currentMajor, currentMinor] = current.split(".").map(Number)
-  const [latestMajor, latestMinor] = latest.split(".").map(Number)
+  const currentParts = current.split(".").map(Number)
+  const latestParts = latest.split(".").map(Number)
+  
+  const currentMajor = currentParts[0] || 0
+  const currentMinor = currentParts[1] || 0
+  const currentPatch = currentParts[2] || 0
+  
+  const latestMajor = latestParts[0] || 0
+  const latestMinor = latestParts[1] || 0
+  const latestPatch = latestParts[2] || 0
 
-  return currentMajor !== latestMajor || currentMinor !== latestMinor
+  // For versions >= 1.0.0, normal semver rules
+  if (currentMajor >= 1 || latestMajor >= 1) {
+    return currentMajor !== latestMajor || currentMinor !== latestMinor
+  }
+  
+  // For versions < 1.0.0, minor is breaking and patch is non-breaking
+  // So we consider minor changes as significant (like major changes in >= 1.0.0)
+  return currentMinor !== latestMinor || currentPatch !== latestPatch
 }
 
 async function checkUrlExists(url) {
@@ -60,6 +71,83 @@ async function fetchNpmPackageInfo(packageName) {
   return response.json()
 }
 
+async function fetchGitHubReleases(repoPath) {
+  try {
+    const url = `https://api.github.com/repos/${repoPath}/releases`
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'find-release-notes-script'
+      }
+    })
+    
+    if (!response.ok) {
+      return []
+    }
+    
+    return await response.json()
+  } catch {
+    return []
+  }
+}
+
+function parseVersion(version) {
+  const cleaned = version.replace(/^[^\d]*/, '') // Remove leading non-digits
+  const parts = cleaned.split('.').map(Number)
+  return {
+    major: parts[0] || 0,
+    minor: parts[1] || 0,
+    patch: parts[2] || 0,
+    original: version
+  }
+}
+
+function compareVersions(a, b) {
+  const vA = parseVersion(a)
+  const vB = parseVersion(b)
+  
+  if (vA.major !== vB.major) return vA.major - vB.major
+  if (vA.minor !== vB.minor) return vA.minor - vB.minor
+  return vA.patch - vB.patch
+}
+
+function isSignificantRelease(version) {
+  const v = parseVersion(version)
+  
+  // For versions >= 1.0.0, only include x.y.0 (major.minor.0)
+  if (v.major >= 1) {
+    return v.patch === 0
+  }
+  
+  // For versions < 1.0.0:
+  // - 0.x.0 are considered major releases (breaking changes)
+  // - 0.x.y where y > 0 are considered minor releases (new features)
+  // We include both as significant
+  return true // All 0.x.y versions are considered significant in pre-1.0
+}
+
+function getVersionsBetween(current, latest, releases) {
+  const currentVersion = parseVersion(current)
+  const latestVersion = parseVersion(latest)
+  
+  return releases
+    .filter(release => {
+      if (release.draft || release.prerelease) return false
+      
+      const version = parseVersion(release.tag_name)
+      
+      // Include versions greater than current and less than or equal to latest
+      if (compareVersions(release.tag_name, current) <= 0 || 
+          compareVersions(release.tag_name, latest) > 0) {
+        return false
+      }
+      
+      // Only include significant releases based on version
+      return isSignificantRelease(release.tag_name)
+    })
+    .sort((a, b) => compareVersions(a.tag_name, b.tag_name))
+}
+
 function extractGitHubRepo(repoUrl) {
   if (!repoUrl) {
     return null
@@ -76,8 +164,17 @@ function extractGitHubRepo(repoUrl) {
 }
 
 async function main() {
-  const jsonFile = process.argv[2]
-  const outdatedData = getPnpmOutdatedData(jsonFile)
+  const arg = process.argv[2]
+  
+  // Handle help flag
+  if (arg === '--help' || arg === '-h') {
+    console.log('Generate release notes links for outdated packages')
+    console.log('Usage: node find-release-notes.js')
+    console.log('Runs `pnpm outdated --format json` to find outdated packages')
+    return
+  }
+  
+  const outdatedData = getPnpmOutdatedData()
 
   if (Object.keys(outdatedData).length === 0) {
     console.log("No outdated packages found!")
@@ -128,6 +225,9 @@ async function main() {
   const repoResults = await Promise.all(repoPromises)
   const repoMap = new Map(repoResults.map((r) => [r.packageName, r.repo]))
 
+  // Collect release notes data
+  const releaseNotesData = []
+
   for (const [packageName, info] of filteredPackages) {
     const { current, latest } = info
     const repoPath = repoMap.get(packageName)
@@ -151,6 +251,45 @@ async function main() {
     console.log(
       `${foundUrl || `https://www.npmjs.com/package/${packageName}?activeTab=versions`}\n`,
     )
+
+    // Fetch GitHub releases for this package
+    const releases = await fetchGitHubReleases(repoPath)
+    if (releases.length > 0) {
+      const relevantReleases = getVersionsBetween(current, latest, releases)
+      if (relevantReleases.length > 0) {
+        releaseNotesData.push({
+          packageName,
+          current,
+          latest,
+          releases: relevantReleases
+        })
+      }
+    }
+  }
+
+  // Output detailed release notes
+  if (releaseNotesData.length > 0) {
+    console.log('\n---\n')
+    console.log('# Detailed Release Notes\n')
+
+    for (const { packageName, current, latest, releases } of releaseNotesData) {
+      console.log(`## ${packageName} Release Notes (${current} → ${latest})\n`)
+      
+      for (const release of releases) {
+        console.log(`### ${release.name || release.tag_name}`)
+        if (release.published_at) {
+          const date = new Date(release.published_at).toLocaleDateString()
+          console.log(`*Released: ${date}*\n`)
+        }
+        
+        if (release.body && release.body.trim()) {
+          console.log(release.body.trim())
+        } else {
+          console.log('*No release notes available*')
+        }
+        console.log('\n---\n')
+      }
+    }
   }
 }
 
