@@ -605,3 +605,82 @@ check-install() {
    flatpak list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Flatpak"
    brew list 2>/dev/null | grep -i "$app" >/dev/null 2>&1 && echo "Found in Brew"
 }
+
+# Execute a prompt directly from the command line using Claude
+clp() {
+    claude -p "$*"
+}
+
+# Prepare a command for execution using Claude
+clpx() {
+    local input="$*"
+    local prompt="
+You are a command line expert. Given a task, respond with a oneliner, that can
+be executed in Bash shell and would satisfy task instructions. I value readable
+output, long variant of arguments. DO output 2 lines: first line with short
+explanation of its arguments and second line with the oneliner command. Never
+output markdown.
+<example-output>
+List directory contents [-l] a long listing format [-t] sort by modification time, newest first
+ls -lt
+</example-output>
+"
+
+    # Get Claude's response
+    local response=$(claude -p "${prompt} Task: ${input}")
+    
+    # Add blank line at the beginning
+    echo ""
+    
+    # Split response into lines and color appropriately
+    local lines=(${(f)response})
+    if [[ ${#lines[@]} -ge 2 ]]; then
+        # Color first line cyan, second line normal
+        echo "\033[36m${lines[1]}\033[0m"
+        echo "${lines[2]}"
+        
+        local command="${lines[2]}"
+
+        # Ask user what to do
+        while true; do
+            echo ""
+            read "choice? Execute (y), Edit (e), or Cancel (c/n)? [y/e/c]: "
+            echo ""
+            case $choice in
+                [Yy]*) 
+                    echo "Executing: $command"
+                    eval "$command"
+                    return 0
+                    ;;
+                [Ee]*) 
+                    # Assumes editor is nvim
+                    # Open command in editor for modification
+                    local temp_file=$(mktemp)
+                    echo "$command" > "$temp_file"
+                    ${EDITOR:-nvim} "$temp_file" +"set filetype=bash" < /dev/tty
+                    local edited_command=$(cat "$temp_file")
+                    rm -f "$temp_file"
+                    
+                    if [[ -n "$edited_command" ]]; then
+                        # Update command with edited version and continue the loop
+                        command="$edited_command"
+                        echo "Edited command: $command"
+                    else
+                        echo "Empty command. Cancelled."
+                        return 1
+                    fi
+                    ;;
+                [CcNn]*) 
+                    echo "Cancelled"
+                    return 1
+                    ;;
+                *) 
+                    echo "Please enter 'y' for execute, 'e' for edit, or 'c' for cancel"
+                    ;;
+            esac
+        done
+    else
+        # Fallback if response doesn't have expected format
+        echo "$response"
+    fi
+}
