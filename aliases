@@ -249,9 +249,9 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-alias aic="claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --print 'commit' && echo 'Last 3 commits:' && git log --oneline -n 3"
+alias aic="echo 'About to commit changes:' && git status --short && echo '' && claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --print 'commit' && echo 'Last 3 commits:' && git log --oneline -n 3"
 # aix: script for figuring out and executing shell commands
-# aip: function wrapping claude on command line: claude --print
+alias ai="clp" # function wrapping `claude --print`
 alias cl="claude"
 alias clyo="claude --dangerously-skip-permissions"
 

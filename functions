@@ -608,5 +608,6 @@ check-install() {
 
 # Execute a prompt directly from the command line using Claude
 clp() {
-    claude -p "$*"
+    echo ""
+    claude --print "$*"
 }
