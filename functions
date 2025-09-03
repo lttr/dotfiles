@@ -635,16 +635,17 @@ ls -lt
     # Split response into lines and color appropriately
     local lines=(${(f)response})
     if [[ ${#lines[@]} -ge 2 ]]; then
-        # Color first line cyan, second line normal
-        echo "\033[36m${lines[1]}\033[0m"
-        echo "${lines[2]}"
+        # Color first line dimmed gray, second line magenta
+        echo "\033[2;37m${lines[1]}\033[0m"
+        echo "\033[35m${lines[2]}\033[0m"
         
         local command="${lines[2]}"
 
         # Ask user what to do
         while true; do
             echo ""
-            read "choice? Execute (y), Edit (e), or Cancel (c/n)? [y/e/c]: "
+            echo -n "\033[32m Execute (y), Edit (e), Follow-up (f), or Cancel (c/n)? [y/e/f/c]: \033[0m"
+            read "choice?"
             echo ""
             case $choice in
                 [Yy]*) 
@@ -670,12 +671,34 @@ ls -lt
                         return 1
                     fi
                     ;;
+                [Ff]*) 
+                    # Follow-up question to Claude
+                    echo -n "\033[2;32mFollow-up question: \033[0m"
+                    read "followup?"
+                    if [[ -n "$followup" ]]; then
+                        echo ""
+                        local followup_response=$(claude -pc "$followup")
+                        echo ""
+                        # Split response into lines and color appropriately
+                        local followup_lines=(${(f)followup_response})
+                        if [[ ${#followup_lines[@]} -ge 2 ]]; then
+                            # Color first line dimmed gray, second line magenta
+                            echo "\033[2;37m${followup_lines[1]}\033[0m"
+                            echo "\033[35m${followup_lines[2]}\033[0m"
+                            # Update command with follow-up response
+                            command="${followup_lines[2]}"
+                        else
+                            # Fallback if response doesn't have expected format
+                            echo "$followup_response"
+                        fi
+                    fi
+                    ;;
                 [CcNn]*) 
                     echo "Cancelled"
                     return 1
                     ;;
                 *) 
-                    echo "Please enter 'y' for execute, 'e' for edit, or 'c' for cancel"
+                    echo "Please enter 'y' for execute, 'e' for edit, 'f' for follow-up, or 'c' for cancel"
                     ;;
             esac
         done
