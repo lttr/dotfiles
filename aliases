@@ -127,8 +127,6 @@ alias md="cli-md"
 alias py="python3"
 alias python="python3"
 alias tp="trash-put"
-alias cl="claude"
-alias clyo="claude --dangerously-skip-permissions"
 
 # =================================================================
 #                              Git
@@ -222,8 +220,6 @@ alias gsur="git submodule update --remote"
 
 alias chore="git commit -m 'chore'"
 
-alias claudecommit="claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' -p 'commit' && echo 'Last 3 commits:' && git log --oneline -n 3"
-
 # =================================================================
 #                              Lists
 # =================================================================
@@ -249,6 +245,15 @@ alias idot='dot -Efontsize=18 -Efontname=sans -Nfontname=sans -Tpng \
     | convert -trim -bordercolor black -border 20 -transparent black -resize '80%' - - \
     | icat'
 alias isvg='sed "s/currentColor/#eee/" | icat'
+
+
+# AI
+
+alias aic="claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --print 'commit' && echo 'Last 3 commits:' && git log --oneline -n 3"
+# aix: script for figuring out and executing shell commands
+# aip: function wrapping claude on command line: claude --print
+alias cl="claude"
+alias clyo="claude --dangerously-skip-permissions"
 
 
 # =================================================================
