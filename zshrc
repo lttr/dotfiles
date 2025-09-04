@@ -296,12 +296,6 @@ fi
 
 
 # =================================================================
-#                        History database
-# =================================================================
-
-# source ~/opt/bash_database_history/zsh_trap.sh
-
-# =================================================================
 #                          Last command
 # =================================================================
 
@@ -321,15 +315,4 @@ else
   compinit -C;
 fi;
 
-
-# The next line updates PATH for Netlify's Git Credential Helper.
-[ -f '/home/lukas/.netlify/helper/path.zsh.inc' ] && source '/home/lukas/.netlify/helper/path.zsh.inc'
-
-
-
-# find-alias
-[[ -s "$HOME/.find-alias.sh" ]] && source "$HOME/.find-alias.sh"
-
-# Profiling
-# zprof
 
