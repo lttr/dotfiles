@@ -21,14 +21,20 @@ response=$(claude -p "$prompt Task: $input")
 echo ""
 
 # Split response into lines and color appropriately
+# IFS sets field separator to newline, -r disables backslash escaping,
+# -d '' reads until null byte, -a stores in array, <<< feeds string as input
 IFS=$'\n' read -rd '' -a lines <<< "$response"
 
+# Check if we have at least 2 lines (${#lines[@]} gets array length)
 if [[ ${#lines[@]} -ge 2 ]]; then
-    # Color first line dimmed gray
+    # Color first line (explanation) dimmed gray
     echo -e "\033[2;37m${lines[0]}\033[0m"
     
+    # Get the command from second line
     command="${lines[1]}"
-    xdotool type "$command"
+    # Place command in clipboard and paste it using xdotool
+    echo -n "$command" | xclip -selection clipboard
+    xdotool key ctrl+shift+v
 else
     # Fallback if response doesn't have expected format
     echo "$response"
