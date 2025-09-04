@@ -2,10 +2,10 @@
 #!/usr/bin/env bash
 
 # Auto-detect main branch if not specified
-if [[ $# -eq 0 ]]; then
-    if git rev-parse --verify main &> /dev/null; then
+if [ $# -eq 0 ]; then
+    if git show-ref --verify --quiet refs/heads/main; then
         BRANCH="main"
-    elif git rev-parse --verify master &> /dev/null; then
+    elif git show-ref --verify --quiet refs/heads/master; then
         BRANCH="master"
     else
         echo "Error: neither 'main' nor 'master' branch exists" >&2
@@ -15,19 +15,23 @@ else
     BRANCH="$1"
 fi
 
-if ! command -v claude &> /dev/null; then
-    echo "Error: claude command not found" >&2
-    exit 1
-fi
+prompt="
+You are a linter. Look at the changes vs $BRANCH and report any issues related to typos. Follow strictly UNIX error format. Do not return any other text.
+<example>
+foo.js:5:10: Unexpected foo. [Error/foo]
+bar.js:6:11: Unexpected bar. [Warning/bar]
+</example>
+"
 
-if ! git rev-parse --git-dir &> /dev/null; then
-    echo "Error: not in a git repository" >&2
-    exit 1
-fi
+# Run claude and capture output
+output=$(claude -p "$prompt")
 
-if ! git rev-parse --verify "$BRANCH" &> /dev/null; then
-    echo "Error: branch '$BRANCH' does not exist" >&2
-    exit 1
-fi
+# Display the output
+echo "$output"
 
-claude -p "You are a linter. Please look at the changes vs. $BRANCH and report any issues related to typos. Report the filename and line number on one line, and a description of the issue on the second line. Do not return any other text."
+# Exit with error code if issues found
+if echo "$output" | grep -q "^[^:]*:[0-9]*:"; then
+    exit 1
+else
+    exit 0
+fi
