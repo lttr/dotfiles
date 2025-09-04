@@ -605,9 +605,3 @@ check-install() {
    flatpak list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Flatpak"
    brew list 2>/dev/null | grep -i "$app" >/dev/null 2>&1 && echo "Found in Brew"
 }
-
-# Execute a prompt directly from the command line using Claude
-clp() {
-    echo ""
-    claude --print "$*"
-}

@@ -250,7 +250,6 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-alias ai="clp" # function wrapping `claude --print`
 alias cl="claude"
 alias clyo="claude --dangerously-skip-permissions"
 
