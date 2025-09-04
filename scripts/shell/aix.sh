@@ -15,7 +15,7 @@ ls -lt
 "
 
 # Get Claude's response
-response=$(claude -p "${prompt} Task: ${input}")
+response=$(claude -p "$prompt Task: $input")
 
 # Add blank line at the beginning
 echo ""
