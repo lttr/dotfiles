@@ -69,3 +69,13 @@ vim.api.nvim_create_user_command(
   function() vim.cmd("normal i" .. " " .. os.date("%Y-%m-%d")) end,
   {}
 )
+
+-- Get active LSP clients
+vim.api.nvim_create_user_command("ActiveLsp", function()
+  vim.print(
+    vim.tbl_map(
+      function(c) return c.name end,
+      vim.lsp.get_clients({ bufnr = 0 })
+    )
+  )
+end, {})
