@@ -50,7 +50,6 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-
 local common_on_attach = function(client)
   -- do not allow any lsp servers to do formatting
   if client.server_capabilities.documentFormattingProvider then
@@ -115,51 +114,6 @@ local jsonls = {
   },
 }
 
--- Vue handling
---
--- based on https://github.com/vuejs/language-tools/wiki/Neovim
-
-local vue_language_server_path = vim.fn.stdpath("data")
-  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
-local vue_plugin = {
-  name = "@vue/typescript-plugin",
-  location = vue_language_server_path,
-  languages = { "vue" },
-  configNamespace = "typescript",
-}
-
-local vue_ls = {
-  on_init = function(client)
-    client.handlers["tsserver/request"] = function(_, result, context)
-      local clients =
-        vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })
-      if #clients == 0 then
-        vim.notify(
-          "Could not find `vtsls` lsp client, `vue_ls` would not work without it.",
-          vim.log.levels.ERROR
-        )
-        return
-      end
-      local ts_client = clients[1]
-
-      local param = unpack(result)
-      local id, command, payload = unpack(param)
-      ts_client:exec_cmd({
-        title = "vue_request_forward", -- You can give title anything as it's used to represent a command in the UI, `:h Client:exec_cmd`
-        command = "typescript.tsserverRequest",
-        arguments = {
-          command,
-          payload,
-        },
-      }, { bufnr = context.bufnr }, function(_, r)
-        local response_data = { { id, r.body } }
-        ---@diagnostic disable-next-line: param-type-mismatch
-        client:notify("tsserver/response", response_data)
-      end)
-    end
-  end,
-}
-
 local shared_settings = {
   suggest = { completeFunctionCalls = true },
   inlayHints = {
@@ -169,6 +123,27 @@ local shared_settings = {
     propertyDeclarationTypes = { enabled = true },
     variableTypes = { enabled = true },
   },
+  preferences = {
+    includeInlayParameterNameHints = "all",
+    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayVariableTypeHints = true,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayEnumMemberValueHints = true,
+  },
+}
+
+-- Vue handling
+--
+-- based on https://github.com/vuejs/language-tools/wiki/Neovim
+local vue_language_server_path = vim.fn.stdpath("data")
+  .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+local vue_plugin = {
+  name = "@vue/typescript-plugin",
+  location = vue_language_server_path,
+  languages = { "vue" },
+  configNamespace = "typescript",
 }
 
 local vtsls = {
@@ -207,7 +182,6 @@ local custom_configs = {
   jsonls = jsonls,
   lua_ls = lua_ls,
   vtsls = vtsls,
-  vue_ls = vue_ls,
 }
 
 local function make_config(server_name)
