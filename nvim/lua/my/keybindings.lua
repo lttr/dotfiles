@@ -504,12 +504,15 @@ nmap(
 -- yob 'background' (dark is off, light is on)
 -- yoc 'cursorline'
 -- yod 'diff' (actually |:diffthis| / |:diffoff|)
---e
+nmap(
+  "coe",
+  function() ToggleDiagnosticsVirtualLines() end,
+  "Toggle errors virtual_lines"
+)
 nmap("cog", function() ToggleDiagnostics() end, "Toggle diagnostics")
 -- yoh 'hlsearch'
 -- yoi 'ignorecase'
---j
--- nmap("cok", require("lsp_lines").toggle, "Toggle diagnostic lines")
+-- yoj
 -- yol 'list'
 nmap("coo", require("nvim-highlight-colors").toggle, "Toogle color highlights")
 -- yon 'number'

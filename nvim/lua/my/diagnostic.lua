@@ -4,8 +4,8 @@ vim.diagnostic.config({
   signs = false,
   underline = true,
   update_in_insert = false,
-  virtual_text = { current_line = true },
-  -- virtual_lines = { current_line = true },
+  virtual_text = false,
+  virtual_lines = false, -- toggle with coe
 })
 
 -- Toogle diagnostics
@@ -19,4 +19,9 @@ ToggleDiagnostics = function()
     vim.api.nvim_echo({ { "Disable diagnostics" } }, false, {})
     vim.diagnostic.enable(false)
   end
+end
+
+ToggleDiagnosticsVirtualLines = function()
+  local new_config = not vim.diagnostic.config().virtual_lines
+  vim.diagnostic.config({ virtual_lines = new_config })
 end
