@@ -85,6 +85,7 @@ export const aptUpdate: Config = {
 
 const brewPackages = [
   { name: "antidote" },
+  { name: "atuin" },
   { name: "git-delta", executable: "delta" },
   { name: "docker" },
   { name: "docker-compose" },
