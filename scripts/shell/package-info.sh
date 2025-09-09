@@ -95,8 +95,25 @@ get_package_info() {
     if command -v brew >/dev/null 2>&1; then
         local brew_prefix=$(brew --prefix 2>/dev/null)
         if [[ "$exec_path" == "$brew_prefix"* ]]; then
+            # First try exact formula name match
             local formula=$(brew list --formula | grep -E "(^|/)$cmd$" | head -1)
-            if [ -n "$formula" ]; then
+            
+            # If no exact match, find which formula provides this executable
+            if [ -z "$formula" ]; then
+                formula=$(brew --prefix)/bin/$cmd
+                if [ -L "$formula" ]; then
+                    # Follow symlink to find the actual formula
+                    local target=$(readlink "$formula")
+                    if [[ "$target" == *"../Cellar/"* ]]; then
+                        formula=$(echo "$target" | sed 's|.*../Cellar/||; s|/.*||')
+                    fi
+                elif [ -f "$exec_path" ]; then
+                    # Try to determine formula from path structure
+                    formula=$(echo "$exec_path" | sed "s|$brew_prefix/Cellar/||; s|/.*||")
+                fi
+            fi
+            
+            if [ -n "$formula" ] && brew list --versions "$formula" >/dev/null 2>&1; then
                 local version=$(brew list --versions "$formula" 2>/dev/null | awk '{print $2}')
                 local install_date=$(stat -c %y "$brew_prefix/Cellar/$formula" 2>/dev/null | cut -d' ' -f1)
                 echo "brew | version: $version | installed: ${install_date:-unknown}"
