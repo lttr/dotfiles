@@ -3,7 +3,27 @@
 # AI-powered git commit helper
 # Shows current changes, generates commit message using Claude, and displays recent commits
 
-prompt="just commit, no questions asked"
+# Parse command line arguments
+no_claude=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -n|--no-claude)
+            no_claude=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [-n|--no-claude]"
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$no_claude" = true ]; then
+    prompt="just commit, no questions asked. Do not add Claude attribution to the commits."
+else
+    prompt="just commit, no questions asked"
+fi
 
 echo 'About to commit changes:'
 git status --short
