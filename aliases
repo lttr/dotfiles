@@ -94,7 +94,7 @@ alias ns="nr start"
 alias nse="nr serve"
 alias nt="nr --silent test"
 alias nk="nr typecheck"
-alias nv="nr validate"
+alias nv="nr verify"
 alias nw="nr watch"
 
 alias pn="pnpm"
