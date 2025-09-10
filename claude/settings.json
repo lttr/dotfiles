@@ -8,6 +8,7 @@
       "Bash(rg:*)",
       "Bash(npm:*)",
       "Bash(pnpm:*)",
+      "Bash(nr:*)",
       "Bash(ls:*)",
       "Bash(cp:*)",
       "Bash(chmod:*)",
@@ -19,6 +20,7 @@
       "Bash(git show:*)",
       "Bash(git branch:*)",
       "Bash(git remote:*)",
+      "Bash(git add:*)",
       "WebSearch",
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs"
