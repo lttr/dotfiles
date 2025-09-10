@@ -19,7 +19,9 @@
       "Bash(git show:*)",
       "Bash(git branch:*)",
       "Bash(git remote:*)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
     ],
     "deny": []
   },
@@ -51,5 +53,6 @@
     "type": "command",
     "command": "node ~/dotfiles/claude/status-line.js",
     "padding": 0
-  }
+  },
+  "model": "opusplan"
 }
