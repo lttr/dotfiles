@@ -1,3 +1,8 @@
+---
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git branch:*)
+description: Display a clean, scannable git status
+---
+
 Display a clean, scannable git status.
 
 Parse `git status` output and format as:

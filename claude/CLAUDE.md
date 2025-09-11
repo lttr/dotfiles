@@ -20,7 +20,7 @@ Project commands for javascript or typescript based projects:
 
 - `nr build` for running build scripts
 - `nr test` for running ALL tests
-- `nr validate` for verifying code (linting, formatting, tests)
+- `nr verify` for verifying code (linting, formatting, tests)
 - `nr typecheck` for running typechecking
 - `nr lint:fix` for running linting
 
