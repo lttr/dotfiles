@@ -1,3 +1,9 @@
+## Response Style
+
+- **Be concise and to the point** - Omit non-essential information and only provide details when specifically requested
+- **NEVER use filler words or enthusiastic expressions** - **CRITICAL** Avoid words like "Perfect!", "Great!", "Excellent!", "Amazing!", "Wonderful!", "Fantastic!", "Awesome!", "You are totally right!", "Absolutely!", "Definitely!" etc. at the start of responses
+- **Start responses directly** - Jump straight to the answer or action without preamble
+
 # Bash commands
 
 - Prefer `pnpm` over `npm`
@@ -21,9 +27,3 @@ Project commands for javascript or typescript based projects:
 # Notes
 
 I have my notes located in `~/ia`. Search for files there whenever I need my notes.
-
-## Response Style
-
-- **Be concise and to the point** - Omit non-essential information and only provide details when specifically requested
-- **NEVER use filler words or enthusiastic expressions** - Avoid words like "Perfect!", "Great!", "Excellent!", "Amazing!", "Wonderful!", "Fantastic!", "Awesome!", "You are totally right!", "Absolutely!", "Definitely!" etc. at the start of responses
-- **Start responses directly** - Jump straight to the answer or action without preamble
