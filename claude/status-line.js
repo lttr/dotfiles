@@ -81,9 +81,9 @@ function getContextWindowPercentage(inputData) {
       return { bar: createProgressBar(percentage), percentage };
     }
 
-    return null;
+    return { bar: createProgressBar(0), percentage: 0 };
   } catch {
-    return null;
+    return { bar: createProgressBar(0), percentage: 0 };
   }
 }
 
