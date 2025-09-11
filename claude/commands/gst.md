@@ -20,11 +20,5 @@ Untracked:
 2 modified, 1 untracked
 ```
 
-Use minimal colors for terminal use:
-
-- Branch name in green
-- Section headers in blue
-- Counts in yellow
-
 Keep output compact and easy to scan at a glance.
 

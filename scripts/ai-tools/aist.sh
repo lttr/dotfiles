@@ -8,6 +8,11 @@
   echo ""
   echo "Do not use markdown formatting in your response. Use plain text only."
   echo ""
+  echo "Use minimal colors for terminal use:"
+  echo "- Branch name in green"
+  echo "- Section headers in blue" 
+  echo "- Counts in yellow"
+  echo ""
   echo "Current git status:"
   git status
   echo ""
