@@ -124,7 +124,7 @@ pnpm dlx add-npm-scripts 'lint' 'eslint'
 pnpm dlx add-npm-scripts 'lint:fix' 'eslint --fix'
 pnpm dlx add-npm-scripts 'test' 'exit 0'
 pnpm dlx add-npm-scripts 'start' 'node .output/server/index.mjs'
-pnpm dlx add-npm-scripts 'validate' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
+pnpm dlx add-npm-scripts 'verify' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
 
 # Create basic App.vue
 mkdir -p app

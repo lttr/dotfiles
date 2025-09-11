@@ -78,7 +78,7 @@ check_nuxt_project() {
     # Check package.json scripts from setup
     print_status "info" "Checking package.json scripts..."
     
-    local required_scripts=("format" "lint" "lint:fix" "typecheck" "test" "start" "validate")
+    local required_scripts=("format" "lint" "lint:fix" "typecheck" "test" "start" "verify")
     for script in "${required_scripts[@]}"; do
         if grep -q "\"$script\":" package.json; then
             print_status "ok" "Script '$script' exists"
