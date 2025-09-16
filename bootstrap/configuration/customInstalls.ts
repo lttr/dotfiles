@@ -89,6 +89,7 @@ const brewPackages = [
   { name: "git-delta", executable: "delta" },
   { name: "docker" },
   { name: "docker-compose" },
+  { name: "eza" },
   { name: "gh" },
   { name: "glab" },
   { name: "httpie" },

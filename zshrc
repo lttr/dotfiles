@@ -145,6 +145,12 @@ fpath+=(~/.zsh/completion/turbo.sh)
 
 autoload bashcompinit && bashcompinit
 
+# eza # https://github.com/eza-community/eza/blob/main/INSTALL.md#completions
+export FPATH="$HOME/opt/eza/completions/zsh:$FPATH"
+if type brew &>/dev/null; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
 
 # =================================================================
 #                             Colors
