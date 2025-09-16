@@ -131,6 +131,9 @@ return {
     adapters = {
       anthropic = function()
         return require("codecompanion.adapters").extend("anthropic", {
+          env = {
+            api_key = "ANTHROPIC_API_KEY_FOR_CODECOMPANION",
+          },
           schema = {
             extended_thinking = {
               default = false,
