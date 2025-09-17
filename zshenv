@@ -6,6 +6,9 @@
 #  /___||___/|_| |_| \___||_| |_| \_/
 #
 
+# Profiling start
+# zmodload zsh/zprof
+
 # zsh
 export ZSH_DIR="$HOME/.zsh"
 # jump over whole words
@@ -110,3 +113,5 @@ export WS_9="9:  "
 export WS10="10: "
 export WS11="11: "
 
+# Profiling end
+# zprof

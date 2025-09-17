@@ -131,12 +131,6 @@ zstyle ':completion:*' matcher-list '' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
-which npm >/dev/null && source <(npm completion)
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
 fpath+=(~/.zsh/completion)
 
@@ -281,17 +275,6 @@ source ~/dotfiles/aliases
 
 
 # =================================================================
-#                          WSL config
-# =================================================================
-
-if [[ $WSL == "true" ]]; then
-    source ~/dotfiles/zshenv.wsl
-    source ~/dotfiles/zshrc.wsl
-    source ~/dotfiles/aliases.wsl
-fi
-
-
-# =================================================================
 #                          Local config
 # =================================================================
 
@@ -321,4 +304,5 @@ else
   compinit -C;
 fi;
 
-
+# End of Profiling
+# zprof
