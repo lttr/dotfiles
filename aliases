@@ -103,7 +103,7 @@ alias nw="nr watch"
 
 alias pn="pnpm"
 alias pdx="pnpm dlx"
-alias pex="pnpm exec"
+alias px="pnpm exec"
 alias pi="pnpm install"
 alias pnu="pnpm add -g pnpm"
 
