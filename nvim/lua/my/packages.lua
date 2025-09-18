@@ -74,7 +74,7 @@ require("lazy").setup({
   -- LSP
   "folke/trouble.nvim",
   "lewis6991/gitsigns.nvim",
-  "neovim/nvim-lspconfig",
+  { "neovim/nvim-lspconfig", version = "v2.0.0" },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "b0o/schemastore.nvim",
