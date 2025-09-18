@@ -23,9 +23,6 @@ export LAUNCH_EDITOR="open-neovim"
 
 # PATH
 
-# Generated for envman. DEPRECATED? Used by webinstall?
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
-
 # my bin folders
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -42,9 +39,14 @@ which fnm >/dev/null && eval "$(fnm --log-level=error env --use-on-cd)"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# brew
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
-[ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# brew - direct path setup to save ~286ms on startup
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}"
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
+  export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+fi
 
 # vscode
 export PATH=$PATH:/usr/share/code
@@ -60,11 +62,18 @@ export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT"
 export PATH="$PATH:$DOTNET_ROOT/tools" # for photo-cli
 
-# python
-# pyenv
+# python - lazy load pyenv to save ~287ms on startup
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+if [[ -x "$PYENV_ROOT/bin/pyenv" ]]; then
+  _pyenv_lazy_load() {
+    eval "$(pyenv init - zsh)"
+    unfunction _pyenv_lazy_load
+  }
+  alias pyenv='_pyenv_lazy_load && pyenv'
+  alias python='_pyenv_lazy_load && python'
+  alias pip='_pyenv_lazy_load && pip'
+fi
 
 # user environment
 export PAGER=/usr/bin/less
@@ -91,20 +100,7 @@ export LC_MEASUREMENT=en_US.UTF8
 export LC_IDENTIFICATION=en_US.UTF8
 
 # user prompt
-export PURE_CMD_MAX_EXEC_TIME=10000
-
-# i3wm workspaces
-export WS_1="1:  "
-export WS_2="2:  "
-export WS_3="3:  "
-export WS_4="4:  "
-export WS_5="5:  "
-export WS_6="6:  "
-export WS_7="7:  "
-export WS_8="8:  "
-export WS_9="9:  "
-export WS10="10: "
-export WS11="11: "
+export PURE_CMD_MAX_EXEC_TIME=2000
 
 # Profiling end
 # zprof

@@ -57,7 +57,6 @@ bindkey '^[d' dir-recent
 zle -N dir-open
 bindkey '^[j' dir-open
 
-
 # Alt+l to copy last command into clipboard
 zle -N last-command
 bindkey '^[l' last-command
@@ -131,19 +130,15 @@ zstyle ':completion:*' matcher-list '' \
   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
   'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
 
+# Custom completions first
+fpath=(~/.zsh/completion $fpath)
+
+# Add essential modern tool completions
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
-fpath+=(~/.zsh/completion)
+[ -d "$HOME/opt/eza/completions/zsh" ] && fpath+=("$HOME/opt/eza/completions/zsh")
 
-# turborepo
-fpath+=(~/.zsh/completion/turbo.sh)
-
+# Load bash completions normally (no lazy loading to avoid overriding commands)
 autoload bashcompinit && bashcompinit
-
-# eza # https://github.com/eza-community/eza/blob/main/INSTALL.md#completions
-export FPATH="$HOME/opt/eza/completions/zsh:$FPATH"
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
 
 
 # =================================================================
@@ -201,7 +196,7 @@ export BAT_PAGER="less -RF"
 #                            Plugins
 # =================================================================
 
-# Antidote
+# Antidote - optimized with static file generation
 antidote_dir=$(brew --prefix)/opt/antidote/share/antidote
 plugins_txt=${HOME}/.zsh_plugins.txt
 plugins_txt_dotfiles=${HOME}/dotfiles/zsh_plugins.txt
@@ -233,8 +228,6 @@ eval "$(atuin init zsh --disable-up-arrow)"
 # =================================================================
 #                           Terminal
 # =================================================================
-
-# My terminal (kitty now) for some reason does not display tab title according to pure prompt logic
 
 if [[ $TERM =~ "kitty" ]]; then
   precmd () {
@@ -288,21 +281,8 @@ source ~/dotfiles/aliases
 #                          Last command
 # =================================================================
 
-# Source: https://gist.github.com/ctechols/ca1035271ad134841284
-# On slow systems, checking the cached .zcompdump file to see if it must be
-# regenerated adds a noticable delay to zsh startup.  This little hack restricts
-# it to once a day.  It should be pasted into your own completion file.
-#
-# The globbing is a little complicated here:
-# - '#q' is an explicit glob qualifier that makes globbing work within zsh's [[ ]] construct.
-# - 'N' makes the glob pattern evaluate to nothing when it doesn't match (rather than throw a globbing error)
-# - '.' matches "regular files"
-# - 'mh+24' matches files (or directories or whatever) that are older than 24 hours.
-if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit;
-else
-  compinit -C;
-fi;
+# Fast compinit with minimal completions
+compinit -C
 
 # End of Profiling
 # zprof
