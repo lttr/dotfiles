@@ -135,7 +135,6 @@ fpath=(~/.zsh/completion $fpath)
 
 # Add essential modern tool completions
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
-[ -d "$HOME/opt/eza/completions/zsh" ] && fpath+=("$HOME/opt/eza/completions/zsh")
 
 # Load bash completions normally (no lazy loading to avoid overriding commands)
 autoload bashcompinit && bashcompinit
