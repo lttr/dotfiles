@@ -23,7 +23,18 @@
       "Bash(git add:*)",
       "WebSearch",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "mcp__playwright__navigate",
+      "mcp__playwright__screenshot",
+      "mcp__playwright__click",
+      "mcp__playwright__type",
+      "mcp__playwright__scroll",
+      "mcp__playwright__wait_for_selector",
+      "mcp__playwright__get_page_content",
+      "mcp__playwright__get_current_url",
+      "mcp__playwright__go_back",
+      "mcp__playwright__go_forward",
+      "mcp__playwright__reload_page"
     ],
     "deny": []
   },
@@ -58,3 +69,4 @@
   },
   "model": "opusplan"
 }
+
