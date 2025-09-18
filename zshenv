@@ -14,13 +14,6 @@ export ZSH_DIR="$HOME/.zsh"
 # jump over whole words
 export WORDCHARS='`~!@#$%^&*()-_=+[{]};:\"\|,<.>/?'
 
-# is this inside Windows subsystem for Linux
-if uname -a | grep -i Microsoft >/dev/null; then
-    export WSL=true
-else
-    export WSL=false
-fi
-
 # Nuxt framework specific
 # prevent it from failing on my machine
 export NUXT_TELEMETRY_DISABLED=1

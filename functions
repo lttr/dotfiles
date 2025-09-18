@@ -99,22 +99,13 @@ o() {
         name="$1"
         # make sure the access time of the file is updated
         touch -a -t $(date +%Y%m%d%H%M.%S) $name
-        if [[ $WSL = true ]]; then # on WSL
-            WINDOWS_PATH="$(wslpath -s -w "$name")"
-            if [[ ! $(file --brief --mime-type "$name") =~ "text.*"  ]]; then
-                cmd.exe /c "start "" "$WINDOWS_PATH""
-            else
-                gvim.exe "$WINDOWS_PATH" 2>/dev/null
-            fi
-        else # on Unix
-            if file -L "$name" | grep -q text ; then
-                # open text files in editor
-                ${EDITOR:-vim} $name
-            else
-                # open separately, suppress output and don't exit when
-                # parent terminal exits
-                ( xdg-open "$name" &>/dev/null & )
-            fi
+        if file -L "$name" | grep -q text ; then
+            # open text files in editor
+            ${EDITOR:-vim} $name
+        else
+            # open separately, suppress output and don't exit when
+            # parent terminal exits
+            ( xdg-open "$name" &>/dev/null & )
         fi
     elif [[ -d "$1" ]]; then
         ( xdg-open "$1" &>/dev/null & )
@@ -230,9 +221,6 @@ dir-recent() {
         fzf --no-sort --query "$*" |\
         sed "s:~:$HOME:") \
     && cd "$dir"
-    if [[ $WSL != true ]]; then # on WSL
-      xdotool key KP_Enter
-    fi
 }
 dr() { dir-recent "$1" }
 
@@ -244,9 +232,6 @@ dir-open() {
     #     -print 2> /dev/null | fzf)
     dir=$(fd --type=d | fzf)
     [ -d "$dir" ] && cd "$dir"
-    if [[ $WSL != true ]]; then # on WSL
-      xdotool key KP_Enter
-    fi
 }
 de() { dir-open "$1" }
 
