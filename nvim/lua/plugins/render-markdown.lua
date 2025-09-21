@@ -9,12 +9,18 @@ return {
       icons = {}, -- display normal # signs instead of icons
       sign = false,
     },
+    html = {
+      comment = {
+        conceal = false,
+      },
+    },
     code = {
       sign = false,
-      left_pad = 3,
+      left_pad = 0,
       right_pad = 3,
       inline_pad = 1,
-      border = "thick", -- Background covers leading and trailing ```
+      conceal_delimiters = false,
+      border = "none",
       style = "normal", -- No language indicator
     },
   },
