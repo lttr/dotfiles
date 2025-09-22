@@ -22,10 +22,10 @@ function getGitInfo() {
 
   const changes = execGit("git status --porcelain");
   const changeCount = changes ? changes.split("\n").length : 0;
-  
+
   return {
     branch,
-    status: changeCount > 0 ? `±${changeCount}` : ""
+    status: changeCount > 0 ? `±${changeCount}` : "",
   };
 }
 
@@ -38,10 +38,12 @@ function createProgressBar(percentage) {
 function getContextWindowPercentage(inputData) {
   try {
     const { context, transcript_path } = inputData;
-    
+
     // Use actual context data if available
     if (context?.used_tokens && context?.max_tokens) {
-      const percentage = Math.round((context.used_tokens / context.max_tokens) * 100);
+      const percentage = Math.round(
+        (context.used_tokens / context.max_tokens) * 100,
+      );
       return { bar: createProgressBar(percentage), percentage };
     }
 
@@ -52,17 +54,18 @@ function getContextWindowPercentage(inputData) {
     if (transcript_path && existsSync(transcript_path)) {
       const content = readFileSync(transcript_path, "utf8");
       const lines = content.trim().split("\n");
-      
+
       // Find the most recent usage data by looking through recent lines
       for (let i = lines.length - 1; i >= Math.max(0, lines.length - 10); i--) {
         try {
           const entry = JSON.parse(lines[i]);
           if (entry.message?.usage) {
             const usage = entry.message.usage;
-            const inputTokens = (usage.cache_read_input_tokens || 0) + 
-                              (usage.cache_creation_input_tokens || 0) + 
-                              (usage.input_tokens || 0);
-            
+            const inputTokens =
+              (usage.cache_read_input_tokens || 0) +
+              (usage.cache_creation_input_tokens || 0) +
+              (usage.input_tokens || 0);
+
             // For Sonnet 4, assume 200k input context limit
             const maxTokens = 200000;
             const percentage = Math.round((inputTokens / maxTokens) * 100);
@@ -77,7 +80,10 @@ function getContextWindowPercentage(inputData) {
     // Final fallback to file size estimation
     if (transcript_path && existsSync(transcript_path)) {
       const contentLength = readFileSync(transcript_path, "utf8").length;
-      const percentage = Math.min(Math.round((contentLength / 800000) * 100), 99);
+      const percentage = Math.min(
+        Math.round((contentLength / 800000) * 100),
+        99,
+      );
       return { bar: createProgressBar(percentage), percentage };
     }
 
@@ -97,7 +103,9 @@ function generateStatusLine(inputData) {
 
   // Current directory
   if (workspace.current_dir) {
-    parts.push(colorize(`/ ${basename(workspace.current_dir)}`, "\x1b[1;38;5;248m"));
+    parts.push(
+      colorize(`/ ${basename(workspace.current_dir)}`, "\x1b[1;38;5;248m"),
+    );
   }
 
   // Git info
@@ -123,7 +131,8 @@ function generateStatusLine(inputData) {
   // Context window
   const contextResult = getContextWindowPercentage(inputData);
   if (contextResult) {
-    const color = contextResult.percentage > 75 ? "\x1b[38;5;208m" : "\x1b[90m";
+    // Use orange color if context is above reasonable threshold
+    const color = contextResult.percentage > 60 ? "\x1b[38;5;208m" : "\x1b[90m";
     parts.push(colorize(contextResult.bar, color));
   }
 
