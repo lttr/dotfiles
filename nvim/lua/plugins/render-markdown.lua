@@ -8,6 +8,7 @@ return {
     heading = {
       icons = {}, -- display normal # signs instead of icons
       sign = false,
+      enabled = false,
     },
     html = {
       comment = {
