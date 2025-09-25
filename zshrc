@@ -34,8 +34,9 @@ bindkey '^[[F' end-of-line
 
 # Do not catch Ctrl+q and Ctrl+s by the terminal
 # (I use it in vim)
-stty start undef
-stty stop undef
+# TODO Maybe not needed anymore
+# stty start undef
+# stty stop undef
 
 # Alt+i to search inside files
 zle -N file-search
@@ -137,13 +138,15 @@ fpath=(~/.zsh/completion $fpath)
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 # Load bash completions normally (no lazy loading to avoid overriding commands)
-autoload bashcompinit && bashcompinit
+# TODO Maybe not needed anymore
+# autoload bashcompinit && bashcompinit
 
 
 # =================================================================
 #                             Colors
 # =================================================================
 
+# TODO Maybe not needed anymore
 # eval $(dircolors ~/dotfiles/colors/dircolors)
 
 LIST_FILES_COMMAND='fd --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock'
@@ -196,6 +199,7 @@ export BAT_PAGER="less -RF"
 # =================================================================
 
 # Antidote - optimized with static file generation
+
 antidote_dir=$(brew --prefix)/opt/antidote/share/antidote
 plugins_txt=${HOME}/.zsh_plugins.txt
 plugins_txt_dotfiles=${HOME}/dotfiles/zsh_plugins.txt
@@ -213,13 +217,14 @@ if [[ ! $static_file -nt $plugins_txt ]]; then # static_file is newer then plugi
 fi
 source $static_file # source the static plugins file
 unset antidote_dir plugins_txt static_file # cleanup
+
 # end Antidote
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Zoxide
-which zoxide >/dev/null && eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 
 # Atuin
 eval "$(atuin init zsh --disable-up-arrow)"
@@ -280,7 +285,7 @@ source ~/dotfiles/aliases
 #                          Last command
 # =================================================================
 
-# Fast compinit with minimal completions
+# Fast compinit with minimal completions  
 compinit -C
 
 # End of Profiling
