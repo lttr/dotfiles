@@ -48,18 +48,6 @@ ra() {
     rm -f -- "$tempfile"
 }
 
-# Browse images
-images() {
-    feh \
-        --image-bg black \
-        --geometry 1600x1000 \
-        --auto-zoom \
-        --title "%u/%l | %n | %wx%h | %S" \
-        --info ";indentify %F" \
-        --hide-pointer \
-        --action ";i3-msg 'workspace 6:  ' && gthumb %F >/dev/null 2>&1"
-}
-
 # Browser history
 bhistory() {
     local cols sep google_history open
@@ -72,6 +60,37 @@ bhistory() {
     sqlite3 -separator $sep /tmp/h \
         "select substr(title, 1, $cols), url
          from urls order by last_visit_time desc" | \
+    awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | \
+    fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open 2&>1 >/dev/null
+}
+
+fhistory() {
+    local cols sep firefox_history open default_path
+    cols=$(( COLUMNS / 3 ))
+    sep='{::}'
+    open=xdg-open
+    
+    # Get default profile path from profiles.ini
+    default_path=$(grep -A3 "Profile0" ~/.mozilla/firefox/profiles.ini | grep "Path=" | cut -d'=' -f2)
+    
+    if [[ -z "$default_path" ]]; then
+        echo "No default Firefox profile found"
+        return 1
+    fi
+    
+    firefox_history="$HOME/.mozilla/firefox/$default_path/places.sqlite"
+    
+    if [[ ! -f "$firefox_history" ]]; then
+        echo "Firefox history not found at: $firefox_history"
+        return 1
+    fi
+    
+    cp -f "$firefox_history" /tmp/h
+    sqlite3 -separator $sep /tmp/h \
+        "select substr(moz_places.title, 1, $cols), moz_places.url
+         from moz_places, moz_historyvisits 
+         where moz_places.id = moz_historyvisits.place_id
+         order by moz_historyvisits.visit_date desc" | \
     awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' | \
     fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs $open 2&>1 >/dev/null
 }
@@ -502,26 +521,11 @@ vectorize() {
 
 
 # =================================================================
-#                              i3wm
-# =================================================================
-
-get-current-workspace-name() {
-   i3-msg -t get_workspaces | jq -r '.[] | select(.focused==true).name'
-}
-
-
-# =================================================================
 #                              Node
 # =================================================================
 
 latest-pnpm() {
     ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | tr -d '/' | tr -d 'v' | sort --version-sort --reverse | head -n1
-}
-
-pnpm-up() {
-    pnpm self-update
-    pnpm pkg set packageManager="pnpm@$(latest-pnpm)"
-    echo "Now using $(pnpm --version)"
 }
 
 node-up() {
@@ -541,6 +545,7 @@ calc() {
     awk "BEGIN { print "$*" }"
 }
 
+# open files that has been modified in current repo
 emod() {
     git status --porcelain | grep '^\(??\)\|\(M\)' | awk '{print $2}' | xargs ${EDITOR:-vim}
 }
