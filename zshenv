@@ -33,7 +33,17 @@ export PATH="$PNPM_HOME:$PATH"
 
 # fnm
 export PATH="$HOME/.local/share/fnm:$PATH"
-which fnm >/dev/null && eval "$(fnm --log-level=error env --use-on-cd)"
+
+# fnm env caching - regenerate once per day to avoid 300ms startup delay
+# Cache the output of 'fnm env' to avoid running it on every shell startup
+FNM_CACHE="$HOME/.cache/fnm/env_cache.zsh"
+# Check if cache doesn't exist or was created before today
+if [[ ! -f "$FNM_CACHE" ]] || [[ $(date -r "$FNM_CACHE" +%Y%m%d 2>/dev/null) != $(date +%Y%m%d) ]]; then
+  mkdir -p "$(dirname "$FNM_CACHE")"
+  fnm --log-level=error env --use-on-cd > "$FNM_CACHE"
+fi
+# Source the cached fnm environment
+source "$FNM_CACHE"
 
 # deno
 export DENO_INSTALL="$HOME/.deno"
@@ -61,19 +71,6 @@ export RIPGREP_CONFIG_PATH=$HOME/dotfiles/ripgrep_config
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT"
 export PATH="$PATH:$DOTNET_ROOT/tools" # for photo-cli
-
-# python - lazy load pyenv to save ~287ms on startup
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-if [[ -x "$PYENV_ROOT/bin/pyenv" ]]; then
-  _pyenv_lazy_load() {
-    eval "$(pyenv init - zsh)"
-    unfunction _pyenv_lazy_load
-  }
-  alias pyenv='_pyenv_lazy_load && pyenv'
-  alias python='_pyenv_lazy_load && python'
-  alias pip='_pyenv_lazy_load && pip'
-fi
 
 # user environment
 export PAGER=/usr/bin/less
