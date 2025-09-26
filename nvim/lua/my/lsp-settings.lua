@@ -176,12 +176,35 @@ local vtsls = {
   },
 }
 
+local tailwindcss = {
+  filetypes = {
+    "html",
+    "css",
+    "scss",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "svelte",
+  },
+  settings = {
+    tailwindCSS = {
+      includeLanguages = {
+        vue = "vue",
+        html = "html",
+      },
+    },
+  },
+}
+
 local custom_configs = {
   denols = denols,
   eslint = eslint,
   jsonls = jsonls,
   lua_ls = lua_ls,
   vtsls = vtsls,
+  tailwindcss = tailwindcss,
 }
 
 local function make_config(server_name)
