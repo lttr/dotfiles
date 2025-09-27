@@ -20,9 +20,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ "$no_claude" = true ]; then
-    prompt="just commit, no questions asked. Do not add Claude attribution to the commits."
+    prompt="git commit. If there are staged files, only commit those, otherwise stage all changes and new files and commit. Do not add Claude attribution to the commits."
 else
-    prompt="just commit, no questions asked"
+    prompt="git commit. If there are staged files, only commit those, otherwise stage all changes and new files and commit."
 fi
 
 echo 'About to commit changes:'
