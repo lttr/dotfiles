@@ -33,11 +33,12 @@ require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
   ensure_installed = servers,
-  automatic_enable = {
-    exclude = {
-      "denols",
-    },
-  },
+  -- automatic_enable is disabled because:
+  -- 1. It only provides configs for ~20 servers in mason-lspconfig/lsp/
+  -- 2. For other servers (vtsls, eslint, tailwindcss, etc.), it just calls vim.lsp.enable() without config
+  -- 3. Without proper config (cmd, root_dir, etc.), servers fail to start
+  -- 4. Manual setup below ensures all servers get complete configurations from nvim-lspconfig
+  automatic_enable = false,
 })
 local lsp_config = require("lspconfig")
 
@@ -174,6 +175,11 @@ local vtsls = {
     "typescriptreact",
     "vue",
   },
+  init_options = {
+    typescript = {
+      tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+    },
+  },
 }
 
 local tailwindcss = {
@@ -217,11 +223,19 @@ local function make_config(server_name)
     custom_config = custom_configs[server_name]
   end
 
+  -- Get default config from lspconfig which includes cmd
+  local default_config = {}
+  local ok, lspconfig_def = pcall(require, "lspconfig.configs." .. server_name)
+  if ok and lspconfig_def.default_config then
+    default_config = lspconfig_def.default_config
+  end
+
   local merged_config = vim.tbl_deep_extend("force", {
     capabilities = capabilities,
     -- map buffer local keybindings when the language server attaches
     on_attach = common_on_attach,
-  }, custom_config)
+    autostart = true,
+  }, default_config, custom_config)
   return merged_config
 end
 
@@ -232,7 +246,46 @@ local function setup_server(server)
     return
   end
 
+  -- Configure the server with complete config (including cmd, root_dir, etc.)
   vim.lsp.config(server, config)
+  -- Enable the server (this is our manual enable, replacing mason's incomplete automatic_enable)
+  vim.lsp.enable(server)
+
+  -- Set up autocommand to start server on appropriate filetypes
+  if config.filetypes then
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = config.filetypes,
+      callback = function(args)
+        local bufname = vim.api.nvim_buf_get_name(args.buf)
+        local root_dir = vim.fn.getcwd()
+
+        -- Only calculate root_dir if we have a valid buffer name
+        if
+          bufname ~= ""
+          and config.root_dir
+          and type(config.root_dir) == "function"
+        then
+          local calculated_root = config.root_dir(bufname, args.buf)
+          if calculated_root then
+            root_dir = calculated_root
+          end
+        end
+
+        vim.lsp.start({
+          name = server,
+          cmd = config.cmd,
+          root_dir = root_dir,
+          capabilities = config.capabilities,
+          on_attach = config.on_attach,
+          settings = config.settings,
+        }, { bufnr = args.buf })
+      end,
+      group = vim.api.nvim_create_augroup(
+        "lsp_autostart_" .. server,
+        { clear = true }
+      ),
+    })
+  end
 end
 
 for _, name in pairs(servers) do
