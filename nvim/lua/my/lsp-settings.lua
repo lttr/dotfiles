@@ -16,7 +16,6 @@ local servers = {
   "html",
   "jsonls",
   "lua_ls",
-  "marksman",
   "phpactor",
   "pyright",
   "somesass_ls",
@@ -265,7 +264,7 @@ local function setup_server(server)
           and config.root_dir
           and type(config.root_dir) == "function"
         then
-          local calculated_root = config.root_dir(bufname, args.buf)
+          local calculated_root = config.root_dir(bufname)
           if calculated_root then
             root_dir = calculated_root
           end
