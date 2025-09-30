@@ -76,5 +76,5 @@
     "command": "node ~/dotfiles/claude/status-line.js",
     "padding": 0
   },
-  "model": "opusplan"
+  "alwaysThinkingEnabled": false
 }
