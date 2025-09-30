@@ -210,6 +210,17 @@ return {
           name = "anthropic",
           model = "claude-sonnet-4-20250514",
         },
+        keymaps = {
+          accept_change = {
+            modes = { n = "ga" },
+            description = "Accept the suggested change",
+          },
+          reject_change = {
+            modes = { n = "gr" },
+            opts = { nowait = true },
+            description = "Reject the suggested change",
+          },
+        },
       },
       cmd = {
         adapter = {
@@ -245,7 +256,7 @@ return {
     },
     {
       "<Leader>a",
-      "<cmd>CodeCompanion<CR>",
+      ":CodeCompanion<CR>",
       desc = "Open CodeCompanion inline edit",
       mode = { "v" },
     },
