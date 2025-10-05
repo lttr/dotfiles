@@ -12,7 +12,7 @@ return {
         width = 80,
       },
     },
-    image = { enabled = true },
+    image = { enabled = false },
     picker = { enabled = true },
   },
   keys = {
