@@ -281,6 +281,16 @@ dir-locate() {
 #                              Git
 # =================================================================
 
+# Git status with fallback to file listing
+gst() {
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        git status
+    else
+        echo "Not a git repository. Listing files instead:"
+        EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions
+    fi
+}
+
 # Easy git commit
 c() {
     IFS=' '

@@ -207,7 +207,7 @@ alias grem="git-rem"
 alias grec="git rebase --continue"
 git-fem() { git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch` @{1}..`git_default_branch` }
 alias gfem="git-fem"
-alias gst="git status"
+# gst is now a function in ~/dotfiles/functions
 alias gs="git status -s"
 alias grs="git recursive-status"
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
