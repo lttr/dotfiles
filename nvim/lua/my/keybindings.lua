@@ -514,16 +514,14 @@ nmap("cog", function() ToggleDiagnostics() end, "Toggle diagnostics")
 -- yoi 'ignorecase'
 -- yoj
 -- yol 'list'
-nmap("coo", require("nvim-highlight-colors").toggle, "Toogle color highlights")
+nmap("coo", require("nvim-highlight-colors").toggle, "Toggle color highlights")
 -- yon 'number'
-nmap("cop", "<cmd>TroubleToggle<CR>", "Toggle Trouble")
 nmap("coq", ":call ToggleQuickfixList()<CR>", "Toggle quickfix list")
 -- yor 'relativenumber'
 -- yos 'spell'
 -- yot 'colorcolumn' ("+1" or last used value)
 -- you 'cursorcolumn'
 -- yov 'virtualedit'
-nmap("coy", "<cmd>TSLspToggleInlayHints<CR>", "Toggle Treesitter inlay hints")
 nmap(
   "coi",
   function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
