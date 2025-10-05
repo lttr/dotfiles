@@ -41,6 +41,7 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # https://github.com/eza-community/eza/?tab=readme-ov-file#long-view-options
 # https://github.com/eza-community/eza/blob/main/man/eza_colors-explanation.5.md
 alias l="EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions"
+alias lt="l --sort newest"
 
 alias ls="LC_COLLATE=c ls -F -1 --show-control-chars --color --group-directories-first"
 alias ll="LC_COLLATE=c ls -lhF --show-control-chars --color --group-directories-first --time-style='+%d.%m.%Y %H:%M'"
