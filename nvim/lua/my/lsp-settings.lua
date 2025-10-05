@@ -235,6 +235,29 @@ local function make_config(server_name)
     on_attach = common_on_attach,
     autostart = true,
   }, default_config, custom_config)
+
+  -- WORKAROUND: Neovim 0.11 LSP API breaking change compatibility wrapper
+  --
+  -- In neovim 0.11, vim.lsp.enable() now passes buffer numbers to root_dir functions,
+  -- but nvim-lspconfig's root_dir functions expect file paths (strings).
+  -- This causes errors like "vim/fs.lua:0: path: expected string, got number"
+  --
+  -- This wrapper converts buffer numbers to file paths before calling the original root_dir.
+  --
+  -- Can be removed when:
+  -- - nvim-lspconfig updates their root_dir functions to handle buffer numbers, OR
+  -- - You stop using vim.lsp.enable() and switch to a different LSP setup method
+  if merged_config.root_dir and type(merged_config.root_dir) == "function" then
+    local original_root_dir = merged_config.root_dir
+    merged_config.root_dir = function(path_or_bufnr)
+      -- Convert buffer number to file path
+      if type(path_or_bufnr) == "number" then
+        path_or_bufnr = vim.api.nvim_buf_get_name(path_or_bufnr)
+      end
+      return original_root_dir(path_or_bufnr)
+    end
+  end
+
   return merged_config
 end
 
