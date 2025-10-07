@@ -27,6 +27,7 @@ Based on the above changes, create git commits following the standard Claude com
 - Record initial commit with `git rev-parse HEAD`
 - After creating commits, show summary of new commits created
 - Display new commits with `git log --oneline` and recent commits for context
+- Return only the first line of the commit message(s) for brevity
 
 **Attribution:**
 
