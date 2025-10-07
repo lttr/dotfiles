@@ -148,7 +148,7 @@ return {
       chat = {
         adapter = {
           name = "anthropic",
-          model = "claude-sonnet-4-20250514",
+          model = "claude-sonnet-4-5-20250929",
         },
         roles = {
           user = "lttr",
@@ -208,7 +208,7 @@ return {
       inline = {
         adapter = {
           name = "anthropic",
-          model = "claude-sonnet-4-20250514",
+          model = "claude-sonnet-4-5-20250929",
         },
         keymaps = {
           accept_change = {
@@ -225,7 +225,7 @@ return {
       cmd = {
         adapter = {
           name = "anthropic",
-          model = "claude-sonnet-4-20250514",
+          model = "claude-sonnet-4-5-20250929",
         },
       },
     },
