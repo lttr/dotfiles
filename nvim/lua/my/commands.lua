@@ -12,13 +12,6 @@ vim.api.nvim_create_user_command("GA", "Git add --all", {})
 -- Push
 vim.api.nvim_create_user_command("GP", "Git push", {})
 
--- Commit from ex command
-vim.api.nvim_create_user_command(
-  "C",
-  function(opts) os.execute('git commit -m "' .. opts.args .. '"') end,
-  { nargs = 1 }
-)
-
 -- Create new file next to current one
 vim.api.nvim_create_user_command("N", ":sp %:h/<args>", { nargs = 1 })
 

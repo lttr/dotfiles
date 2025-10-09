@@ -687,9 +687,6 @@ vmap("<A-T>", ":TranslateR --target_lang=EN<CR>")
 -- custom
 --
 
--- start writing a commit message
-nmap("<leader>C", "<cmd>call feedkeys(':C<space>', 'n')<CR>")
-
 vim.cmd([[
   function! ExecuteMacroOverVisualRange()
     echo "@".getcmdline()

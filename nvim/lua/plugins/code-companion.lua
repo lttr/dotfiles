@@ -243,25 +243,25 @@ return {
   },
   keys = {
     {
-      "<Leader>A",
+      "<leader>C",
       "<cmd>CodeCompanionActions<CR>",
       desc = "Open the action palette",
       mode = { "n", "v" },
     },
     {
-      "<Leader>a",
+      "<leader>c",
       "<cmd>CodeCompanionChat Toggle<CR>",
       desc = "Toggle a chat buffer",
       mode = { "n" },
     },
     {
-      "<Leader>a",
+      "<leader>c",
       ":CodeCompanion<CR>",
       desc = "Open CodeCompanion inline edit",
       mode = { "v" },
     },
     {
-      "<LocalLeader>a",
+      "<leader>cs",
       "<cmd>CodeCompanionChat Add<CR>",
       desc = "Add code to a chat buffer",
       mode = { "v" },
