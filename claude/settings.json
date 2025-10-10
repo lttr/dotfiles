@@ -73,7 +73,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "node ~/dotfiles/claude/status-line.js",
+    "command": "node ~/dotfiles/claude/scripts/status-line.js",
     "padding": 0
   },
   "alwaysThinkingEnabled": false
