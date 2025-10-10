@@ -10,6 +10,53 @@
 #                         Utilities
 # =================================================================
 
+# Smart list function
+# Lists directory contents, previews files, shows archive contents, or displays images
+# Usage: l [path]
+#   - No argument or directory: list directory contents with eza
+#   - File (text): preview first 40 lines with batcat
+#   - File (archive): list archive contents (zip, tar variants)
+#   - File (image): render in terminal with icat
+l() {
+    local target="${1:-.}"
+
+    if [[ -d "$target" ]]; then
+        # Directory: use eza to list contents
+        EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions "$target"
+    elif [[ -f "$target" ]]; then
+        local mime_type=$(file --mime-type -b "$target")
+
+        # Check if it's an archive
+        case "${target:l}" in
+            *.zip)
+                unzip -l "$target"
+                ;;
+            *.tar|*.tar.gz|*.tgz|*.tar.bz2|*.tbz2|*.tar.xz)
+                tar -tvf "$target"
+                ;;
+            # Check if it's an image
+            *.png|*.jpg|*.jpeg|*.gif|*.webp)
+                # make the image fit in the terminal
+                # use kitty image protocol to display it
+                convert "$target" -resize 800x500 - | kitty +kitten icat
+                ;;
+            *)
+                # Check MIME type for images (fallback)
+                if [[ "$mime_type" =~ ^image/ ]]; then
+                    # use kitty image protocol to display it
+                    kitty +kitten icat "$target"
+                else
+                    # Regular file: preview with batcat (first 40 lines)
+                    batcat --paging=never --line-range=:40 "$target"
+                fi
+                ;;
+        esac
+    else
+        echo "Error: '$target' is not a valid file or directory"
+        return 1
+    fi
+}
+
 yes_or_no() {
     while true; do
         read yn"?$* [y/n]: "
@@ -574,34 +621,4 @@ t() {
 # https://github.com/soimort/translate-shell
 dic() {
     trans -d :en "${*}"
-}
-
-# Check how an application was installed across different package managers
-# Usage: check-install <app-name>
-# Example: check-install firefox
-check-install() {
-   local app=$1
-   if [[ -z "$app" ]]; then
-       echo "Usage: check-install <app-name>"
-       return 1
-   fi
-   echo "=== $app ==="
-   # Check APT/dpkg packages
-   if dpkg -l | grep -i "$app" >/dev/null 2>&1; then
-       echo "Found in APT/dpkg"
-       # Check installation method (APT vs manual .deb)
-       echo "  APT History:"
-       if grep -i "$app" /var/log/apt/history.log* 2>/dev/null | head -3; then
-           echo "  → Installed via APT"
-       else
-           echo "  → No APT history (likely manual .deb installation)"
-       fi
-       # Show repository source
-       echo "  Repository info:"
-       apt-cache policy "$app" 2>/dev/null | grep -E "Installed|Candidate" | head -2
-   fi
-   # Check other package managers
-   snap list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Snap"
-   flatpak list | grep -i "$app" >/dev/null 2>&1 && echo "Found in Flatpak"
-   brew list 2>/dev/null | grep -i "$app" >/dev/null 2>&1 && echo "Found in Brew"
 }
