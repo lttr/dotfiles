@@ -84,7 +84,7 @@ Create and run a bash script to download all docs in parallel with frontmatter h
 
 ```bash
 REPO_ROOT=$(git rev-parse --show-toplevel)
-DOCS_DIR="$REPO_ROOT/.agents/docs"
+DOCS_DIR="$REPO_ROOT/.aitools/package-docs"
 mkdir -p "$DOCS_DIR"
 
 # Function to download with frontmatter
@@ -140,7 +140,7 @@ After completion, report:
 2. **Documentation location**:
 
    ```
-   Documentation saved to: <repo_root>/.agents/docs/
+   Documentation saved to: <repo_root>/.aitools/package-docs/
    ```
 
 3. **File list** with file sizes (to verify successful downloads)
@@ -155,7 +155,7 @@ Selected top 5 dependencies:
 - tailwindcss (3.4) - Styling framework [/tailwindlabs/tailwindcss]
 - prisma (5.7) - Database ORM [/prisma/prisma]
 
-Documentation saved to: /home/user/project/.agents/docs/
+Documentation saved to: /home/user/project/.aitools/package-docs/
 
 Files created:
 - nuxt-3.16.md (245 KB)

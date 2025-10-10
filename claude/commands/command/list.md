@@ -40,4 +40,3 @@ for f in ~/.claude/commands/*.md; do
     fi
 done
 ```
-
