@@ -1,7 +1,7 @@
 ---
-allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*), Bash(git show:*), Bash(git rev-parse:*), Bash(git rev-list:*)
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*), Bash(git show:*), Bash(git rev-parse:*), Bash(git rev-list:*), Bash(git push:*)
 description: Create a git commit with intelligent message generation
-argument-hint: [commit message] [no-claude]
+argument-hint: [commit message] [no-claude] [push]
 ---
 
 ## Context
@@ -17,8 +17,9 @@ Based on the above changes, create git commits following the standard Claude com
 
 **Arguments handling:**
 
-- If `$ARGUMENTS` contains a message (excluding "no-claude" and "multi") you should consider the message during the commit workflow
+- If `$ARGUMENTS` contains a message (excluding "no-claude", "multi", and "push") you should consider the message during the commit workflow
 - If `$ARGUMENTS` contains "no-claude" anywhere, omit the Claude attribution from the commit message(s)
+- If `$ARGUMENTS` contains "push" anywhere, push the commits to the remote after creating them
 
 **Commit behavior:**
 
@@ -28,6 +29,7 @@ Based on the above changes, create git commits following the standard Claude com
 - After creating commits, show summary of new commits created
 - Display new commits with `git log --oneline` and recent commits for context
 - Return only the first line of the commit message(s) for brevity
+- If "push" appears in `$ARGUMENTS`, push the commits to the remote repository after creating them using `git push`
 
 **Attribution:**
 

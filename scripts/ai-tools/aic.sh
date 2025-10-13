@@ -26,7 +26,14 @@ else
 fi
 
 echo 'About to commit changes:'
-git status --short
+# Check if there are staged changes
+if git diff --cached --quiet; then
+    # No staged changes, show all changes
+    git status --short
+else
+    # Show only staged changes
+    git diff --cached --name-status
+fi
 echo ''
 claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --print "$prompt" > /dev/null
 echo 'Committed:'
