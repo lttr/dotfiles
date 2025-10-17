@@ -164,5 +164,11 @@ export const symlinks: Config[] = [
       src: path.join(DOTFILES, "claude/agents"),
     },
   },
+  {
+    symlink: {
+      dest: path.join(HOME, ".claude/skills"),
+      src: path.join(DOTFILES, "claude/skills"),
+    },
+  },
   ...executableScripts,
 ];
