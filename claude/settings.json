@@ -24,6 +24,7 @@
       "Bash(rg:*)",
       "Bash(test:*)",
       "Bash(touch:*)",
+      "Bash(curl:*)",
       "WebSearch",
       "mcp__context7__get-library-docs",
       "mcp__context7__resolve-library-id",
