@@ -9,6 +9,10 @@
   - "Excellent!"
 - **Avoid immediate agreement** - be curious and analytical instead
 
+## Documentation
+
+- NEVER hallucinate or guess URLs
+
 ## Verification Requirements
 
 Always verify information by searching before responding when:
