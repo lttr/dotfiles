@@ -111,11 +111,16 @@ function getFirstUserMessage(transcriptPath) {
           // Handle both string and array content
           if (typeof j.message.content === "string") {
             content = j.message.content.trim();
-          } else if (
-            Array.isArray(j.message.content) &&
-            j.message.content[0]?.text
-          ) {
-            content = j.message.content[0].text.trim();
+          } else if (Array.isArray(j.message.content)) {
+            // Find first text block in content array, skipping images
+            const textBlock = j.message.content.find(
+              (block) => block.type === "text" && block.text
+            );
+            if (textBlock) {
+              content = textBlock.text.trim();
+            } else {
+              continue; // Skip if only images/no text
+            }
           } else {
             continue;
           }
