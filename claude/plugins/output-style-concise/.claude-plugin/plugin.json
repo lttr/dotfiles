@@ -1,7 +1,7 @@
 {
   "name": "output-style-concise",
-  "version": "1.0.0",
-  "description": "Minimal words maximum speed direct actions",
+  "version": "1.0.1",
+  "description": "Enforces concise output with 50-word maximum responses (replaces deprecated concise output style)",
   "author": {
     "name": "Lukas Trumm"
   }
