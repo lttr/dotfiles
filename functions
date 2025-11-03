@@ -22,7 +22,7 @@ l() {
 
     if [[ -d "$target" ]]; then
         # Directory: use eza to list contents
-        EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions "$target"
+        eval "$EZA_BASE_COMMAND \"$target\""
     elif [[ -f "$target" ]]; then
         local mime_type=$(file --mime-type -b "$target")
 
