@@ -88,5 +88,8 @@
     "command": "node ~/dotfiles/claude/scripts/status-line.js",
     "padding": 0
   },
+  "enabledPlugins": {
+    "output-style-concise@lttr-marketplace": true
+  },
   "alwaysThinkingEnabled": false
 }

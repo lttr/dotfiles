@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
 import { basename } from "path";
+import { homedir } from "os";
 
 function execGit(command) {
   try {
@@ -268,6 +269,26 @@ function getGitDiffDelta() {
   return delta > 0 ? ` Δ+${delta}` : ` Δ${delta}`;
 }
 
+function getActivePlugins() {
+  try {
+    const settingsPath = `${homedir()}/dotfiles/claude/settings.json`;
+    if (!existsSync(settingsPath)) return [];
+
+    const settings = JSON.parse(readFileSync(settingsPath, "utf8"));
+    if (!settings.enabledPlugins || typeof settings.enabledPlugins !== 'object') return [];
+
+    // Extract plugin names from enabledPlugins object
+    return Object.entries(settings.enabledPlugins)
+      .filter(([_, enabled]) => enabled)
+      .map(([pluginId, _]) => {
+        // Remove marketplace suffix: "output-style-concise@lttr-marketplace" -> "output-style-concise"
+        return pluginId.split('@')[0];
+      });
+  } catch {
+    return [];
+  }
+}
+
 function colorize(text, color) {
   return `${color}${text}\x1b[0m`;
 }
@@ -306,8 +327,13 @@ function generateStatusLine(inputData) {
     parts.push(colorize(`∇ ${version}`, "\x1b[90m"));
   }
 
-  // Output style
-  if (output_style?.name) {
+  // Output style (from plugin or built-in)
+  const activePlugins = getActivePlugins();
+  const outputStylePlugin = activePlugins.find(p => p.startsWith('output-style-'));
+
+  if (outputStylePlugin) {
+    parts.push(colorize(`◈ ${outputStylePlugin}`, "\x1b[90m"));
+  } else if (output_style?.name && output_style.name !== 'default') {
     parts.push(colorize(`◈ ${output_style.name}`, "\x1b[90m"));
   }
 

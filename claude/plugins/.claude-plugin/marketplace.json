@@ -1,0 +1,13 @@
+{
+  "name": "lttr-marketplace",
+  "owner": {
+    "name": "Lukas Trumm"
+  },
+  "plugins": [
+    {
+      "name": "output-style-concise",
+      "source": "./output-style-concise",
+      "description": "Minimal words maximum speed direct actions"
+    }
+  ]
+}
