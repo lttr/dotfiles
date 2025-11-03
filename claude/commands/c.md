@@ -23,9 +23,15 @@ Based on the above changes, create git commits following the standard Claude com
 
 **Commit behavior:**
 
-- Stage changes and write a set of logical commits for them, or only a single commit if the changes are cohesive
+- Analyze the git diff and determine if changes should be split into multiple commits
 - Show initial status with `git status --short`
 - Record initial commit with `git rev-parse HEAD`
+- Create commits following these rules:
+  - **Single commit**: Use when all changes are directly related to the same feature/fix/refactor
+  - **Multiple commits**: Create separate commits when changes touch unrelated concerns, even if in related files
+  - Example requiring 2 commits: Plugin metadata changes + status line display changes (different features)
+  - Example requiring 1 commit: Add new function + update tests for that function (same feature)
+- Stage files selectively for each commit using `git add <specific-files>` when creating multiple commits
 - After creating commits, show summary of new commits created
 - Display new commits with `git log --oneline` and recent commits for context
 - Return only the first line of the commit message(s) for brevity
