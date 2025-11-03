@@ -351,13 +351,16 @@ function generateStatusLine(inputData) {
     parts.push(colorize(contextResult.bar, color));
   }
 
-  // Session summary
+  // Build first line
+  const firstLine = parts.join(colorize(" | ", "\x1b[90m"));
+
+  // Session summary on second line
   const sessionSummary = getSessionSummary(transcript_path, session_id);
   if (sessionSummary) {
-    parts.push(colorize(`⌘ ${sessionSummary}`, "\x1b[90m"));
+    return firstLine + "\n" + colorize(`⌘ ${sessionSummary}`, "\x1b[90m");
   }
 
-  return parts.join(colorize(" | ", "\x1b[90m"));
+  return firstLine;
 }
 
 function main() {
