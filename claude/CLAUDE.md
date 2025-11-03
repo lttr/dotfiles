@@ -51,4 +51,8 @@ Project commands for javascript or typescript based projects:
 
 # Notes
 
-I have my notes located in `~/ia`. Search for files there whenever I need my notes.
+I have my personal and work relate notes located in `~/ia`. Search for files there whenever I need my notes.
+
+## Plans
+
+- At the end of each plan, give me a list of unresolved questions if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
