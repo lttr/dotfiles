@@ -37,6 +37,19 @@ scripts/mcp-enable-chrome-devtools.sh
 claude mcp remove chrome-devtools --scope local
 ```
 
+### nuxt-ui
+Nuxt UI documentation server providing components, composables, examples, and templates via HTTP.
+
+**Enable/Install:**
+```bash
+scripts/mcp-enable-nuxt-ui.sh
+```
+
+**Disable/Remove:**
+```bash
+claude mcp remove nuxt-ui --scope local
+```
+
 ## Usage Workflow
 
 ### Enabling/Installing MCP Servers
@@ -68,12 +81,16 @@ When the user requests disabling or removing an MCP server:
 
 ## Scripts
 
-All enable scripts install MCPs with `--scope local` and `--transport stdio`, meaning:
+All enable scripts install MCPs with `--scope local`, meaning:
 - Local scope: Project-specific, not shared via git
-- Stdio transport: Runs locally via npx, not remote HTTP/SSE
+
+Transport types:
+- Stdio transport: Runs locally via npx (context7, chrome-devtools)
+- HTTP transport: Connects to remote server (nuxt-ui)
 
 Available scripts:
-- `scripts/mcp-enable-context7.sh` - Install @upstash/context7-mcp
-- `scripts/mcp-enable-chrome-devtools.sh` - Install chrome-devtools-mcp
+- `scripts/mcp-enable-context7.sh` - Install @upstash/context7-mcp (stdio)
+- `scripts/mcp-enable-chrome-devtools.sh` - Install chrome-devtools-mcp (stdio)
+- `scripts/mcp-enable-nuxt-ui.sh` - Connect to nuxt-ui remote server (HTTP)
 
 For disabling, use `claude mcp remove <server-name> --scope local` directly
