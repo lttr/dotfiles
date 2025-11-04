@@ -16,7 +16,7 @@ Library documentation server providing up-to-date code examples and API referenc
 
 **Enable/Install:**
 ```bash
-scripts/mcp-enable-context7.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-context7.sh
 ```
 
 **Disable/Remove:**
@@ -29,7 +29,7 @@ Browser automation and debugging server using Chrome DevTools Protocol.
 
 **Enable/Install:**
 ```bash
-scripts/mcp-enable-chrome-devtools.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-chrome-devtools.sh
 ```
 
 **Disable/Remove:**
@@ -42,7 +42,7 @@ Nuxt UI documentation server providing components, composables, examples, and te
 
 **Enable/Install:**
 ```bash
-scripts/mcp-enable-nuxt-ui.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-nuxt-ui.sh
 ```
 
 **Disable/Remove:**
@@ -89,8 +89,8 @@ Transport types:
 - HTTP transport: Connects to remote server (nuxt-ui)
 
 Available scripts:
-- `scripts/mcp-enable-context7.sh` - Install @upstash/context7-mcp (stdio)
-- `scripts/mcp-enable-chrome-devtools.sh` - Install chrome-devtools-mcp (stdio)
-- `scripts/mcp-enable-nuxt-ui.sh` - Connect to nuxt-ui remote server (HTTP)
+- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-context7.sh` - Install @upstash/context7-mcp (stdio)
+- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-chrome-devtools.sh` - Install chrome-devtools-mcp (stdio)
+- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-nuxt-ui.sh` - Connect to nuxt-ui remote server (HTTP)
 
 For disabling, use `claude mcp remove <server-name> --scope local` directly
