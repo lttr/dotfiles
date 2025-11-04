@@ -49,9 +49,14 @@ Project commands for javascript or typescript based projects:
 - `nr typecheck` for running typechecking
 - `nr lint:fix` for running linting
 
+# Git Workflow
+
+- Always run `nr verify` before committing changes
+- When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
+
 # Notes
 
-I have my personal and work relate notes located in `~/ia`. Search for files there whenever I need my notes.
+I have my personal and work related notes located in `~/ia`. Search for files there whenever I need my notes.
 
 ## Plans
 
