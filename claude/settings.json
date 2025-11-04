@@ -89,7 +89,8 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "output-style-concise@lttr-marketplace": true
+    "nuxt@nuxt-claude-plugin": true
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": false,
+  "outputStyle": "concise"
 }
