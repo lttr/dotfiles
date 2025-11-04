@@ -22,7 +22,7 @@ l() {
 
     if [[ -d "$target" ]]; then
         # Directory: use eza to list contents
-        eval "$EZA_BASE_COMMAND \"$target\""
+        eval "$EZA_BASE_COMMAND --all \"$target\""
     elif [[ -f "$target" ]]; then
         local mime_type=$(file --mime-type -b "$target")
 

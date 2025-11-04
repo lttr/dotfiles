@@ -194,7 +194,7 @@ export BAT_THEME="TwoDark"
 export BAT_PAGER="less -RF"
 
 # eza base command (shared between functions and aliases)
-export EZA_BASE_COMMAND="EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions"
+export EZA_BASE_COMMAND="EZA_COLORS=reset eza --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions"
 
 
 # =================================================================
