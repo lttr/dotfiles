@@ -113,7 +113,7 @@ function getFirstUserMessage(transcriptPath) {
           } else if (Array.isArray(j.message.content)) {
             // Find first text block in content array, skipping images
             const textBlock = j.message.content.find(
-              (block) => block.type === "text" && block.text
+              (block) => block.type === "text" && block.text,
             );
             if (textBlock) {
               content = textBlock.text.trim();
@@ -312,9 +312,11 @@ function generateStatusLine(inputData) {
   }
 
   // Output style
-  const styleName = output_style?.name || (typeof output_style === 'string' ? output_style : null);
+  const styleName =
+    output_style?.name ||
+    (typeof output_style === "string" ? output_style : null);
   if (styleName) {
-    parts.push(colorize(`◈ ${styleName}`, "\x1b[90m"));
+    parts.push(colorize(`◈ ${styleName?.toLowerCase()}`, "\x1b[90m"));
   }
 
   // Session duration
