@@ -92,6 +92,6 @@
     "nuxt@nuxt-claude-plugin": true
   },
   "outputStyle": "concise",
-  "alwaysThinkingEnabled": false,
-  "spinnerTipsEnabled": false
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": false
 }
