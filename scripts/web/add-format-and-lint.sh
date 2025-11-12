@@ -50,7 +50,7 @@ echo
 
 # Add ESLint dependencies
 echo "Installing ESLint dependencies..."
-pnpm add -D eslint @lttr/nuxt-config-eslint
+pnpm add -D eslint @nuxt/eslint @lttr/nuxt-config-eslint
 
 echo
 echo "Creating configuration files..."
