@@ -69,6 +69,15 @@
             "command": "~/dotfiles/claude/hooks/context-agents-md.sh"
           }
         ]
+      },
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/reset-timer-on-clear.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [

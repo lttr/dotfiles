@@ -146,28 +146,44 @@ function getFirstUserMessage(transcriptPath) {
   return null;
 }
 
-function getSessionDuration(transcriptPath) {
-  if (!transcriptPath || !existsSync(transcriptPath)) return null;
+function getSessionDuration(transcriptPath, sessionId) {
+  if (!transcriptPath || !existsSync(transcriptPath)) return "0m";
 
   try {
     const data = readFileSync(transcriptPath, "utf8");
     const lines = data.split("\n").filter((l) => l.trim());
 
-    if (lines.length < 2) return null;
+    if (lines.length < 2) return "0m";
+
+    // Check for /clear marker file to reset timer
+    const gitDir = execGit("git rev-parse --git-common-dir");
+    const markerFile = gitDir ? `${gitDir}/statusbar/session-${sessionId}-clear-marker` : null;
 
     let firstTs = null;
     let lastTs = null;
+    let clearMarkerTs = null;
 
-    // Get first timestamp
+    // Check if /clear was issued by looking for the marker file
+    if (markerFile && existsSync(markerFile)) {
+      try {
+        clearMarkerTs = parseInt(readFileSync(markerFile, "utf8").trim());
+      } catch {}
+    }
+
+    // Get first timestamp (after clear marker if exists)
     for (const line of lines) {
       try {
         const j = JSON.parse(line);
         if (j.timestamp) {
-          firstTs =
-            typeof j.timestamp === "string"
-              ? new Date(j.timestamp).getTime()
-              : j.timestamp;
-          break;
+          const ts = typeof j.timestamp === "string"
+            ? new Date(j.timestamp).getTime()
+            : j.timestamp;
+
+          // Only use timestamps after the clear marker
+          if (!clearMarkerTs || ts > clearMarkerTs) {
+            firstTs = ts;
+            break;
+          }
         }
       } catch {}
     }
@@ -196,12 +212,12 @@ function getSessionDuration(transcriptPath) {
       } else if (minutes > 0) {
         return `${minutes}m`;
       } else {
-        return "<1m";
+        return "0m";
       }
     }
   } catch {}
 
-  return null;
+  return "0m";
 }
 
 function getSessionSummary(transcriptPath, sessionId) {
@@ -319,11 +335,9 @@ function generateStatusLine(inputData) {
     parts.push(colorize(`◈ ${styleName?.toLowerCase()}`, "\x1b[90m"));
   }
 
-  // Session duration
-  const duration = getSessionDuration(transcript_path);
-  if (duration) {
-    parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
-  }
+  // Session duration - always show
+  const duration = getSessionDuration(transcript_path, session_id);
+  parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
 
   // Context window
   const contextResult = getContextWindowPercentage(inputData);
