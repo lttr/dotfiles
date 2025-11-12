@@ -22,6 +22,29 @@ vim.api.nvim_create_user_command(
   {}
 )
 
+-- Copy absolute path of current file
+vim.api.nvim_create_user_command("CopyAbsPath", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify('Copied "' .. path .. '" to the clipboard!')
+end, {})
+
+-- Copy relative path of current file (relative to git repo root or cwd)
+vim.api.nvim_create_user_command("CopyRelPath", function()
+  local abs_path = vim.fn.expand("%:p")
+  local git_root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(vim.fn.expand("%:p:h")) .. " rev-parse --show-toplevel 2>/dev/null")[1]
+
+  local rel_path
+  if git_root and git_root ~= "" then
+    rel_path = vim.fn.fnamemodify(abs_path, ":s?" .. git_root .. "/??")
+  else
+    rel_path = vim.fn.expand("%:.")
+  end
+
+  vim.fn.setreg("+", rel_path)
+  vim.notify('Copied "' .. rel_path .. '" to the clipboard!')
+end, {})
+
 -- Plugin manager
 vim.api.nvim_create_user_command("PI", "Lazy install", {})
 vim.api.nvim_create_user_command("PS", "Lazy sync", {})
