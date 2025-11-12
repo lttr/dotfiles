@@ -51,7 +51,8 @@ Project commands for javascript or typescript based projects:
 
 # Git Workflow
 
-- Always run `nr verify` before committing changes
+- Always run `nr verify` before committing changes (if npm script "verify"
+  exists in package.json)
 - When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
 
 # Notes
