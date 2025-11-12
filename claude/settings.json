@@ -89,7 +89,7 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "nuxt@nuxt-claude-plugin": true
+    "nuxt@lttr-claude-marketplace": true
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
