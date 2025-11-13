@@ -286,7 +286,7 @@ dir-recent() {
         sed "s:$HOME:~:" |\
         fzf --no-sort --query "$*" |\
         sed "s:~:$HOME:") \
-    && cd "$dir"
+    && cd "$dir" && zle reset-prompt
 }
 dr() { dir-recent "$1" }
 
@@ -297,7 +297,7 @@ dir-open() {
     #     -prune -o -type d\
     #     -print 2> /dev/null | fzf)
     dir=$(fd --type=d | fzf)
-    [ -d "$dir" ] && cd "$dir"
+    [ -d "$dir" ] && cd "$dir" && zle reset-prompt
 }
 de() { dir-open "$1" }
 
@@ -307,7 +307,7 @@ dir-with-file() {
     local dir
     file=$(fzf --query "$1")\
         && dir=$(dirname "$file")
-    [ -d "$dir" ] && cd "$dir"
+    [ -d "$dir" ] && cd "$dir" && zle reset-prompt
 }
 
 # Change to any directory or directory with file in it found by locate command
