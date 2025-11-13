@@ -1,3 +1,5 @@
+-- https://github.com/coder/claudecode.nvim
+
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
