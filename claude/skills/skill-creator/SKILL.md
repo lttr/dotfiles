@@ -88,7 +88,22 @@ Skills use a three-level loading system to manage context efficiently:
 
 To create a skill, follow the "Skill Creation Process" in order, skipping steps only if there is a clear reason why they are not applicable.
 
-### Step 1: Understanding the Skill with Concrete Examples
+### Step 1: Determine Skill Location and Scope
+
+Before diving into skill functionality, determine where the skill should live. Use the AskUserQuestion tool to clarify:
+
+**Skill placement options:**
+1. **Global user skills** (`~/.claude/skills/`) - For skills used across all projects
+2. **Project-specific skills** (`<project>/.claude/skills/`) - For project/repo-specific workflows
+3. **Plugin skills** (`<plugin-repo>/plugins/<name>/skills/`) - For skills distributed via plugin marketplace
+
+Ask the user which scope applies. This determines the output path for Step 3 (initialization).
+
+**Example questions:**
+- "Should this skill be available globally across all your projects, or specific to this project/repository?"
+- "Are you building this skill to distribute as part of a plugin marketplace?"
+
+### Step 2: Understanding the Skill with Concrete Examples
 
 Skip this step only when the skill's usage patterns are already clearly understood. It remains valuable even when working with an existing skill.
 
@@ -105,7 +120,7 @@ To avoid overwhelming users, avoid asking too many questions in a single message
 
 Conclude this step when there is a clear sense of the functionality the skill should support.
 
-### Step 2: Planning the Reusable Skill Contents
+### Step 3: Planning the Reusable Skill Contents
 
 To turn concrete examples into an effective skill, analyze each example by:
 
@@ -129,7 +144,7 @@ Example: When building a `big-query` skill to handle queries like "How many user
 
 To establish the skill's contents, analyze each concrete example to create a list of the reusable resources to include: scripts, references, and assets.
 
-### Step 3: Initializing the Skill
+### Step 4: Initializing the Skill
 
 At this point, it is time to actually create the skill.
 
@@ -143,6 +158,11 @@ Usage:
 scripts/init_skill.py <skill-name> --path <output-directory>
 ```
 
+Use the path determined in Step 1:
+- **Global:** `~/.claude/skills/`
+- **Project:** `<project-path>/.claude/skills/`
+- **Plugin:** `<plugin-repo>/plugins/<plugin-name>/skills/`
+
 The script:
 
 - Creates the skill directory at the specified path
@@ -152,7 +172,7 @@ The script:
 
 After initialization, customize or remove the generated SKILL.md and example files as needed.
 
-### Step 4: Edit the Skill
+### Step 5: Edit the Skill
 
 When editing the (newly-generated or existing) skill, remember that the skill is being created for another instance of Claude to use. Focus on including information that would be beneficial and non-obvious to Claude. Consider what procedural knowledge, domain-specific details, or reusable assets would help another Claude instance execute these tasks more effectively.
 
@@ -164,6 +184,20 @@ Also, delete any example files and directories not needed for the skill. The ini
 
 #### Update SKILL.md
 
+**CRITICAL: Complete the frontmatter first.** The YAML frontmatter at the top of SKILL.md determines when Claude will use the skill. The template includes `[TODO:...]` placeholders that MUST be replaced:
+
+```yaml
+---
+name: skill-name
+description: [TODO: Complete and informative explanation...]
+---
+```
+
+Replace the description TODO with a detailed explanation covering:
+- **What** the skill does
+- **When** to use it (specific triggers: file types, keywords, scenarios)
+- Write in third person (e.g., "This skill should be used when..." not "Use this skill when...")
+
 **Writing Style:** Write the entire skill using **imperative/infinitive form** (verb-first instructions), not second person. Use objective, instructional language (e.g., "To accomplish X, do Y" rather than "You should do X" or "If you need to do X"). This maintains consistency and clarity for AI consumption.
 
 To complete SKILL.md, answer the following questions:
@@ -172,33 +206,28 @@ To complete SKILL.md, answer the following questions:
 2. When should the skill be used?
 3. In practice, how should Claude use the skill? All reusable skill contents developed above should be referenced so that Claude knows how to use them.
 
-### Step 5: Packaging a Skill
+### Step 6: Validation (Optional)
 
-Once the skill is ready, it should be packaged into a distributable zip file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:
+For Claude Code skills, packaging is typically not needed since skills are used directly from their directory location. However, validation can still be useful to check skill structure:
 
 ```bash
 scripts/package_skill.py <path/to/skill-folder>
 ```
 
-Optional output directory specification:
+The validation checks:
+- YAML frontmatter format and required fields
+- Skill naming conventions and directory structure
+- Description completeness and quality
+- File organization and resource references
 
-```bash
-scripts/package_skill.py <path/to/skill-folder> ./dist
-```
+**Note:** The packaging script also creates a zip file for Claude Chat distribution. This is optional for Claude Code workflows where skills are typically:
+- Added to `~/.claude/skills/` for global access
+- Included in project `.claude/skills/` for project-specific use
+- Distributed via plugin marketplaces
 
-The packaging script will:
+If validation fails, fix the errors and test the skill directly in Claude Code.
 
-1. **Validate** the skill automatically, checking:
-   - YAML frontmatter format and required fields
-   - Skill naming conventions and directory structure
-   - Description completeness and quality
-   - File organization and resource references
-
-2. **Package** the skill if validation passes, creating a zip file named after the skill (e.g., `my-skill.zip`) that includes all files and maintains the proper directory structure for distribution.
-
-If validation fails, the script will report the errors and exit without creating a package. Fix any validation errors and run the packaging command again.
-
-### Step 6: Iterate
+### Step 7: Iterate
 
 After testing the skill, users may request improvements. Often this happens right after using the skill, with fresh context of how the skill performed.
 
