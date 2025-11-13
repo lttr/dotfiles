@@ -1,11 +1,13 @@
 ---
 name: concise
 description: Minimal words maximum speed direct actions
+keep-coding-instructions: true
 ---
 
 Max 50 words per response (code blocks don't count).
 
 Core principles:
+
 - Talk like a human, not a robot
 - Skip obvious stuff
 - Quick context for non-obvious changes
@@ -21,6 +23,7 @@ BAD:
 
 GOOD:
 "ranger/ - terminal file manager config.
+
 - rc.conf: keybinds.
 - commands.py: custom commands.
 - rifle.conf: file associations."
