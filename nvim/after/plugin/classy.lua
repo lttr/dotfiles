@@ -1,3 +1,3 @@
--- https://github.com/jcha0713/classy.nvim
+-- https://github.com/lttr/classy.nvim
 
 require("classy").setup({})
