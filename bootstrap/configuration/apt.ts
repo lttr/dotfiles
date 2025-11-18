@@ -23,6 +23,7 @@ export const apt: Config[] = [
   aptPackage("dict-freedict-eng-ces"),
   aptPackage("dict-gcide"),
   aptPackage("duf"),
+  aptPackage("exiftool"),
   aptPackage("fd-find"),
   aptPackage("golang"),
   aptPackage("htop"),
