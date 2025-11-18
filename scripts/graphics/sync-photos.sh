@@ -136,7 +136,12 @@ log() {
 
 log_verbose() {
     local message="$1"
+    # Always write to log file (unless dry-run)
     log "$message"
+    # Also write to stdout with dimmed color for visibility
+    if [ "$DRY_RUN" = true ]; then
+        echo -e "${BLUE}  ${message}${NC}"
+    fi
 }
 
 # Check dependencies
@@ -221,7 +226,6 @@ sync_photos_from_source() {
     # Create a temporary filter file to exclude MOV files with matching HEIC
     local filter_file
     filter_file=$(mktemp)
-    trap "rm -f $filter_file" EXIT
 
     # Find all HEIC files in source and create exclude rules for matching MOV files
     find "$source" -type f -iname "*.heic" 2>/dev/null | while read -r heic_file; do
@@ -264,10 +268,29 @@ sync_photos_from_source() {
     # Add source and destination
     rsync_cmd+=("${source}/" "${SOURCE_DIR}/")
 
-    # Execute rsync
+    # Execute rsync with retry logic
     echo -e "${YELLOW}Running rsync...${NC}"
-    if ! "${rsync_cmd[@]}"; then
-        echo -e "${RED}Warning: rsync encountered errors${NC}" >&2
+    local max_retries=3
+    local retry_count=0
+    local rsync_success=false
+
+    while [ $retry_count -lt $max_retries ]; do
+        if "${rsync_cmd[@]}"; then
+            rsync_success=true
+            break
+        else
+            ((retry_count++))
+            if [ $retry_count -lt $max_retries ]; then
+                local wait_time=$((2 ** retry_count))
+                echo -e "${YELLOW}rsync failed (attempt $retry_count/$max_retries). Retrying in ${wait_time}s...${NC}" >&2
+                sleep $wait_time
+            fi
+        fi
+    done
+
+    if [ "$rsync_success" = false ]; then
+        echo -e "${RED}Warning: rsync failed after $max_retries attempts${NC}" >&2
+        log "rsync failed for ${label} after ${max_retries} attempts"
         return 1
     fi
 
@@ -335,6 +358,9 @@ sync_photos_from_source() {
         fi
     fi
 
+    # Clean up temporary filter file
+    rm -f "$filter_file"
+
     echo -e "${GREEN}Sync from ${label} complete${NC}"
 }
 
@@ -342,24 +368,39 @@ sync_photos_from_source() {
 sync_all_photos() {
     echo -e "${GREEN}=== Phase 1: Syncing Photos ===${NC}"
 
+    # Track sync results
+    local -a sync_success=()
+    local -a sync_failed=()
+
     # Mount and sync from SMB
     if mount_smb; then
         # Sync from tuc photos
         if [ -d "$SMB_FULL_PATH_TUC" ]; then
-            sync_photos_from_source "$SMB_FULL_PATH_TUC" "SMB (tuc)"
+            if sync_photos_from_source "$SMB_FULL_PATH_TUC" "SMB (tuc)"; then
+                sync_success+=("SMB (tuc)")
+            else
+                sync_failed+=("SMB (tuc)")
+            fi
         else
             echo -e "${YELLOW}Warning: SMB path not found: ${SMB_FULL_PATH_TUC}${NC}"
+            sync_failed+=("SMB (tuc) - path not found")
         fi
 
         # Sync from zipi photos
         echo ""
         if [ -d "$SMB_FULL_PATH_ZIPI" ]; then
-            sync_photos_from_source "$SMB_FULL_PATH_ZIPI" "SMB (zipi)"
+            if sync_photos_from_source "$SMB_FULL_PATH_ZIPI" "SMB (zipi)"; then
+                sync_success+=("SMB (zipi)")
+            else
+                sync_failed+=("SMB (zipi)")
+            fi
         else
             echo -e "${YELLOW}Warning: SMB path not found: ${SMB_FULL_PATH_ZIPI}${NC}"
+            sync_failed+=("SMB (zipi) - path not found")
         fi
     else
         echo -e "${YELLOW}Skipping SMB sync due to mount failure${NC}"
+        sync_failed+=("SMB - mount failed")
     fi
 
     # Sync from SD cards
@@ -374,7 +415,27 @@ sync_all_photos() {
     else
         for sd_path in "${sd_cards[@]}"; do
             echo -e "${GREEN}Found SD card: ${sd_path}${NC}"
-            sync_photos_from_source "$sd_path" "SD Card"
+            if sync_photos_from_source "$sd_path" "SD Card"; then
+                sync_success+=("SD Card")
+            else
+                sync_failed+=("SD Card")
+            fi
+        done
+    fi
+
+    # Print sync summary
+    echo ""
+    echo -e "${GREEN}=== Sync Summary ===${NC}"
+    if [ ${#sync_success[@]} -gt 0 ]; then
+        echo -e "${GREEN}Successful syncs (${#sync_success[@]}):${NC}"
+        for source in "${sync_success[@]}"; do
+            echo -e "  ${GREEN}✓${NC} $source"
+        done
+    fi
+    if [ ${#sync_failed[@]} -gt 0 ]; then
+        echo -e "${RED}Failed syncs (${#sync_failed[@]}):${NC}"
+        for source in "${sync_failed[@]}"; do
+            echo -e "  ${RED}✗${NC} $source"
         done
     fi
 
