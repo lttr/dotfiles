@@ -59,6 +59,10 @@ Project commands for javascript or typescript based projects:
 
 I have my personal and work related notes located in `~/ia`. Search for files there whenever I need my notes.
 
-## Plans
+# Screenshots
+
+Screenshots are saved by default in `~/Pictures/Screenshots` by the Gnome screenshot utility.
+
+# Plans
 
 - At the end of each plan, give me a list of unresolved questions if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
