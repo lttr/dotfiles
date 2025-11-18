@@ -18,6 +18,7 @@ TIME_THRESHOLD_DAYS=3
 GPS_DISTANCE_THRESHOLD_KM=50
 SOURCE_DIR="${HOME}/Photos/synced"
 GROUPED_DIR="${HOME}/Photos/grouped"
+LOG_FILE="${HOME}/Photos/sync-photos.log"
 
 # SMB configuration
 SMB_SERVER="diskstation.local"
@@ -34,6 +35,7 @@ SMB_FULL_PATH_ZIPI="${SMB_MOUNT_POINT}/${SMB_PATH_ZIPI}"
 DRY_RUN=false
 SYNC_ONLY=false
 GROUP_ONLY=false
+IMPORT_PATH=""
 
 # Help message
 show_help() {
@@ -48,6 +50,7 @@ Options:
     --dry-run          Show what would be done without making changes
     --sync-only        Only sync photos, don't group by events
     --group-only       Only group existing photos, don't sync new ones
+    --import PATH      Import photos from PATH (directory or zip) to grouped events
     -h, --help         Show this help message
 
 Configuration:
@@ -59,6 +62,7 @@ Configuration:
     Destination:
         - Synced: ${SOURCE_DIR}
         - Grouped: ${GROUPED_DIR}
+        - Log file: ${LOG_FILE}
 
     Filters:
         - Sync: All files (rsync --update skips existing)
@@ -70,6 +74,8 @@ Examples:
     $(basename "$0") --dry-run          # Preview changes
     $(basename "$0") --sync-only        # Only sync new photos
     $(basename "$0") --group-only       # Only organize existing photos
+    $(basename "$0") --import ~/Downloads/photos.zip    # Import from zip file
+    $(basename "$0") --import /media/sdcard/DCIM        # Import from directory
 
 EOF
 }
@@ -93,6 +99,14 @@ while [ $# -gt 0 ]; do
             GROUP_ONLY=true
             shift
             ;;
+        --import)
+            if [ -z "$2" ]; then
+                echo -e "${RED}Error: --import requires a path argument${NC}" >&2
+                exit 1
+            fi
+            IMPORT_PATH="$2"
+            shift 2
+            ;;
         *)
             echo -e "${RED}Error: Unknown option $1${NC}" >&2
             show_help
@@ -107,11 +121,29 @@ if [ "$SYNC_ONLY" = true ] && [ "$GROUP_ONLY" = true ]; then
     exit 1
 fi
 
+if [ -n "$IMPORT_PATH" ] && { [ "$SYNC_ONLY" = true ] || [ "$GROUP_ONLY" = true ]; }; then
+    echo -e "${RED}Error: Cannot use --import with --sync-only or --group-only${NC}" >&2
+    exit 1
+fi
+
+# Logging functions
+log() {
+    local message="$1"
+    if [ "$DRY_RUN" = false ]; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $message" >> "$LOG_FILE"
+    fi
+}
+
+log_verbose() {
+    local message="$1"
+    log "$message"
+}
+
 # Check dependencies
 check_dependencies() {
     local missing_deps=()
 
-    for cmd in rsync exiftool gio bc; do
+    for cmd in rsync exiftool gio bc unzip; do
         if ! command -v "$cmd" &> /dev/null; then
             missing_deps+=("$cmd")
         fi
@@ -424,6 +456,120 @@ days_between() {
     echo "${diff#-}"
 }
 
+# Import photos from external path (zip or directory)
+import_photos() {
+    local import_path="$1"
+
+    echo -e "${GREEN}=== Importing Photos ===${NC}"
+    echo -e "${YELLOW}Import path: ${import_path}${NC}"
+
+    # Check if path exists
+    if [ ! -e "$import_path" ]; then
+        echo -e "${RED}Error: Import path does not exist: ${import_path}${NC}" >&2
+        exit 1
+    fi
+
+    local temp_extract_dir=""
+    local source_dir=""
+
+    # Check if it's a zip file
+    if [ -f "$import_path" ]; then
+        if [[ "$import_path" =~ \.zip$ ]]; then
+            echo -e "${YELLOW}Extracting zip file...${NC}"
+
+            # Create temporary directory for extraction
+            temp_extract_dir=$(mktemp -d)
+            trap "rm -rf $temp_extract_dir" EXIT
+
+            if [ "$DRY_RUN" = false ]; then
+                if ! unzip -q "$import_path" -d "$temp_extract_dir"; then
+                    echo -e "${RED}Error: Failed to extract zip file${NC}" >&2
+                    exit 1
+                fi
+            else
+                echo -e "${YELLOW}[DRY RUN] Would extract: ${import_path} to ${temp_extract_dir}${NC}"
+            fi
+
+            source_dir="$temp_extract_dir"
+            echo -e "${GREEN}Extracted to: ${source_dir}${NC}"
+        else
+            echo -e "${RED}Error: File is not a zip file: ${import_path}${NC}" >&2
+            exit 1
+        fi
+    elif [ -d "$import_path" ]; then
+        source_dir="$import_path"
+        echo -e "${GREEN}Using directory: ${source_dir}${NC}"
+    else
+        echo -e "${RED}Error: Import path is neither a file nor directory${NC}" >&2
+        exit 1
+    fi
+
+    # Copy photos to SOURCE_DIR maintaining year structure
+    echo -e "${YELLOW}Copying photos to synced directory...${NC}"
+
+    if [ "$DRY_RUN" = false ]; then
+        mkdir -p "$SOURCE_DIR"
+    fi
+
+    local copied_count=0
+
+    # Find all photo/video files recursively
+    while IFS= read -r file; do
+        # Get year from file modification time or EXIF data
+        local year
+        local exif_date
+        exif_date=$(exiftool -s -s -s -d "%Y" -DateTimeOriginal "$file" 2>/dev/null || \
+                    exiftool -s -s -s -d "%Y" -CreateDate "$file" 2>/dev/null || \
+                    echo "")
+
+        if [ -n "$exif_date" ]; then
+            year="$exif_date"
+        else
+            year=$(stat -c %Y "$file" | xargs -I{} date -d @{} +%Y)
+        fi
+
+        # Create year directory
+        if [ "$DRY_RUN" = false ]; then
+            mkdir -p "${SOURCE_DIR}/${year}"
+        fi
+
+        local basename
+        basename=$(basename "$file")
+        local target="${SOURCE_DIR}/${year}/${basename}"
+
+        # Handle filename collisions
+        if [ -f "$target" ]; then
+            local target_size file_size
+            target_size=$(stat -c %s "$target" 2>/dev/null || echo "0")
+            file_size=$(stat -c %s "$file" 2>/dev/null || echo "0")
+
+            if [ "$target_size" -eq "$file_size" ]; then
+                # Same size = likely duplicate, skip
+                continue
+            else
+                # Different size = collision, add timestamp
+                local timestamp base ext
+                timestamp=$(stat -c %Y "$file")
+                base="${basename%.*}"
+                ext="${basename##*.}"
+                target="${SOURCE_DIR}/${year}/${base}_${timestamp}.${ext}"
+            fi
+        fi
+
+        if [ "$DRY_RUN" = true ]; then
+            echo -e "${YELLOW}[DRY RUN] Would copy: ${file} -> ${target}${NC}"
+        else
+            cp "$file" "$target"
+        fi
+        ((copied_count++))
+    done < <(find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
+
+    echo -e "${GREEN}Copied ${copied_count} files to ${SOURCE_DIR}${NC}"
+
+    # Now group the imported photos
+    group_photos_by_events
+}
+
 # Phase 2: Group photos by events
 group_photos_by_events() {
     echo ""
@@ -466,6 +612,11 @@ group_photos_by_events() {
     local event_letter="A"
     local prev_date="" prev_lat="" prev_lon=""
     local no_date_photos=0
+
+    # Track changes per event
+    declare -A event_new_files
+    declare -A event_existing_files
+    declare -A event_first_seen
 
     while IFS='|' read -r photo date lat lon; do
         local event_dir
@@ -510,7 +661,8 @@ group_photos_by_events() {
             # Create new event if needed
             if [ "$new_event" = true ]; then
                 current_event="${year_month}-${event_letter}"
-                echo -e "${BLUE}New event: ${current_event}${NC}"
+                event_first_seen["$current_event"]=1
+                log_verbose "Created new event: $current_event"
 
                 # Increment letter
                 event_letter=$(echo "$event_letter" | tr 'A-Y' 'B-Z')
@@ -536,24 +688,64 @@ group_photos_by_events() {
         photo_name=$(basename "$photo")
         local target="${event_dir}/${photo_name}"
 
+        # Determine event key for tracking (use "unknown-date" if no date)
+        local event_key="${current_event:-unknown-date}"
+
         if [ "$DRY_RUN" = true ]; then
-            echo -e "${YELLOW}[DRY RUN] Would copy: ${photo} -> ${target}${NC}"
+            log_verbose "[DRY RUN] Would copy: ${photo} -> ${target}"
+            event_new_files["$event_key"]=$((${event_new_files["$event_key"]:-0} + 1))
         else
             if [ ! -f "$target" ]; then
                 cp "$photo" "$target"
+                log_verbose "Copied: ${photo_name} -> ${event_key}/"
+                event_new_files["$event_key"]=$((${event_new_files["$event_key"]:-0} + 1))
+            else
+                log_verbose "Skipped (exists): ${photo_name} in ${event_key}/"
+                event_existing_files["$event_key"]=$((${event_existing_files["$event_key"]:-0} + 1))
             fi
         fi
     done < "$temp_data"
 
-    # Report photos without date
-    if [ "$no_date_photos" -gt 0 ]; then
-        echo ""
-        echo -e "${YELLOW}Warning: ${no_date_photos} photos without EXIF date placed in 'unknown-date' folder${NC}"
-    fi
+    # Report summary
+    echo ""
+    echo -e "${GREEN}=== Grouping Summary ===${NC}"
+
+    # Sort events and display changes
+    local total_new=0
+    local total_existing=0
+    local events_with_changes=0
+
+    for event in $(printf '%s\n' "${!event_new_files[@]}" "${!event_existing_files[@]}" | sort -u); do
+        local new_count=${event_new_files["$event"]:-0}
+        local existing_count=${event_existing_files["$event"]:-0}
+        local total_count=$((new_count + existing_count))
+
+        if [ "$new_count" -gt 0 ] || [ "$existing_count" -gt 0 ]; then
+            ((events_with_changes++))
+            if [ "$new_count" -gt 0 ]; then
+                echo -e "${GREEN}${event}${NC}: +${new_count} new"
+                ((total_new += new_count))
+            fi
+            if [ "$existing_count" -gt 0 ]; then
+                log_verbose "${event}: ${existing_count} already existed (skipped)"
+                ((total_existing += existing_count))
+            fi
+        fi
+    done
 
     echo ""
-    echo -e "${GREEN}Photo grouping complete!${NC}"
-    echo -e "${GREEN}Grouped photos are in: ${GROUPED_DIR}${NC}"
+    echo -e "${GREEN}Total: ${total_new} new files added to ${events_with_changes} events${NC}"
+    if [ "$total_existing" -gt 0 ]; then
+        echo -e "${YELLOW}Skipped ${total_existing} existing files (see log for details)${NC}"
+    fi
+
+    if [ "$no_date_photos" -gt 0 ]; then
+        echo -e "${YELLOW}Warning: ${no_date_photos} photos without EXIF date placed in 'unknown-date'${NC}"
+    fi
+
+    if [ "$DRY_RUN" = false ]; then
+        echo -e "${BLUE}Verbose log: ${LOG_FILE}${NC}"
+    fi
 }
 
 # Main execution
@@ -564,22 +756,34 @@ main() {
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}=== DRY RUN MODE ===${NC}"
         echo ""
+    else
+        # Initialize log file
+        mkdir -p "$(dirname "$LOG_FILE")"
+        log "=== Photo Sync Started ==="
+        log "Mode: $([ -n "$IMPORT_PATH" ] && echo "Import from $IMPORT_PATH" || echo "Normal sync")"
     fi
 
     # Check dependencies
     check_dependencies
 
     # Execute based on flags
-    if [ "$GROUP_ONLY" = false ]; then
-        sync_all_photos
-    fi
+    if [ -n "$IMPORT_PATH" ]; then
+        # Import mode: copy files and group them
+        import_photos "$IMPORT_PATH"
+    else
+        # Normal mode: sync and/or group
+        if [ "$GROUP_ONLY" = false ]; then
+            sync_all_photos
+        fi
 
-    if [ "$SYNC_ONLY" = false ]; then
-        group_photos_by_events
+        if [ "$SYNC_ONLY" = false ]; then
+            group_photos_by_events
+        fi
     fi
 
     echo ""
     echo -e "${GREEN}All done!${NC}"
+    log "=== Photo Sync Completed ==="
 }
 
 main
