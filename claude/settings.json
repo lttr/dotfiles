@@ -99,7 +99,8 @@
   },
   "enabledPlugins": {
     "nuxt@lttr-claude-marketplace": true,
-    "browser-tools@lttr-claude-marketplace": true
+    "browser-tools@lttr-claude-marketplace": true,
+    "video-to-article@lttr-claude-marketplace": true
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
