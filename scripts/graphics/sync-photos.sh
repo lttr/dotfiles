@@ -26,7 +26,7 @@ SMB_SHARE="homes"
 SMB_MOUNT_POINT="/run/user/$(id -u)/gvfs/smb-share:server=${SMB_SERVER},share=${SMB_SHARE}"
 
 # SMB source paths
-SMB_PATH_TUC="tuc/Photos/fotky z mobilu/DCIM/Camera"
+SMB_PATH_TUC="tuc/Photos"
 SMB_PATH_ZIPI="zipi/Photos"
 SMB_FULL_PATH_TUC="${SMB_MOUNT_POINT}/${SMB_PATH_TUC}"
 SMB_FULL_PATH_ZIPI="${SMB_MOUNT_POINT}/${SMB_PATH_ZIPI}"
@@ -294,70 +294,6 @@ sync_photos_from_source() {
         return 1
     fi
 
-    # Organize files into year-based directories
-    echo -e "${YELLOW}Organizing files by year...${NC}"
-    local organized_count=0
-    local duplicate_count=0
-    local collision_count=0
-
-    find "${SOURCE_DIR}" -maxdepth 1 -type f 2>/dev/null | while read -r file; do
-        # Get year from file modification time
-        local year
-        year=$(stat -c %Y "$file" | xargs -I{} date -d @{} +%Y)
-
-        # Create year directory
-        if [ "$DRY_RUN" = false ]; then
-            mkdir -p "${SOURCE_DIR}/${year}"
-        fi
-
-        local basename
-        basename=$(basename "$file")
-        local target="${SOURCE_DIR}/${year}/${basename}"
-
-        # Handle filename collisions
-        if [ -f "$target" ]; then
-            local target_size file_size
-            target_size=$(stat -c %s "$target" 2>/dev/null || echo "0")
-            file_size=$(stat -c %s "$file" 2>/dev/null || echo "0")
-
-            if [ "$target_size" -eq "$file_size" ]; then
-                # Same size = likely duplicate, skip
-                if [ "$DRY_RUN" = false ]; then
-                    rm "$file"
-                fi
-                ((duplicate_count++)) || true
-            else
-                # Different size = collision, add timestamp
-                local timestamp base ext
-                timestamp=$(stat -c %Y "$file")
-                base="${basename%.*}"
-                ext="${basename##*.}"
-                target="${SOURCE_DIR}/${year}/${base}_${timestamp}.${ext}"
-
-                if [ "$DRY_RUN" = false ]; then
-                    mv "$file" "$target"
-                fi
-                ((collision_count++)) || true
-            fi
-        else
-            # No collision, move normally
-            if [ "$DRY_RUN" = false ]; then
-                mv "$file" "$target"
-            fi
-            ((organized_count++)) || true
-        fi
-    done
-
-    if [ "$organized_count" -gt 0 ] || [ "$collision_count" -gt 0 ] || [ "$duplicate_count" -gt 0 ]; then
-        echo -e "${GREEN}Organized: ${organized_count} files${NC}"
-        if [ "$collision_count" -gt 0 ]; then
-            echo -e "${YELLOW}Renamed: ${collision_count} files (name collision)${NC}"
-        fi
-        if [ "$duplicate_count" -gt 0 ]; then
-            echo -e "${YELLOW}Skipped: ${duplicate_count} duplicates${NC}"
-        fi
-    fi
-
     # Clean up temporary filter file
     rm -f "$filter_file"
 
@@ -565,7 +501,7 @@ import_photos() {
         exit 1
     fi
 
-    # Copy photos to SOURCE_DIR maintaining year structure
+    # Copy photos to SOURCE_DIR maintaining original structure
     echo -e "${YELLOW}Copying photos to synced directory...${NC}"
 
     if [ "$DRY_RUN" = false ]; then
@@ -576,27 +512,17 @@ import_photos() {
 
     # Find all photo/video files recursively
     while IFS= read -r file; do
-        # Get year from file modification time or EXIF data
-        local year
-        local exif_date
-        exif_date=$(exiftool -s -s -s -d "%Y" -DateTimeOriginal "$file" 2>/dev/null || \
-                    exiftool -s -s -s -d "%Y" -CreateDate "$file" 2>/dev/null || \
-                    echo "")
+        # Get relative path from source directory to maintain structure
+        local rel_path
+        rel_path="${file#$source_dir/}"
+        local target="${SOURCE_DIR}/${rel_path}"
+        local target_dir
+        target_dir=$(dirname "$target")
 
-        if [ -n "$exif_date" ]; then
-            year="$exif_date"
-        else
-            year=$(stat -c %Y "$file" | xargs -I{} date -d @{} +%Y)
-        fi
-
-        # Create year directory
+        # Create target directory structure
         if [ "$DRY_RUN" = false ]; then
-            mkdir -p "${SOURCE_DIR}/${year}"
+            mkdir -p "$target_dir"
         fi
-
-        local basename
-        basename=$(basename "$file")
-        local target="${SOURCE_DIR}/${year}/${basename}"
 
         # Handle filename collisions
         if [ -f "$target" ]; then
@@ -609,11 +535,12 @@ import_photos() {
                 continue
             else
                 # Different size = collision, add timestamp
-                local timestamp base ext
+                local timestamp basename base ext
                 timestamp=$(stat -c %Y "$file")
+                basename=$(basename "$file")
                 base="${basename%.*}"
                 ext="${basename##*.}"
-                target="${SOURCE_DIR}/${year}/${base}_${timestamp}.${ext}"
+                target="${target_dir}/${base}_${timestamp}.${ext}"
             fi
         fi
 
@@ -658,7 +585,7 @@ group_photos_by_events() {
         if (( photo_count % 50 == 0 )); then
             echo -e "${YELLOW}Processed ${photo_count} photos...${NC}"
         fi
-    done < <(find "$SOURCE_DIR" -mindepth 2 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
+    done < <(find "$SOURCE_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
 
     echo -e "${GREEN}Processed ${photo_count} photos${NC}"
 
