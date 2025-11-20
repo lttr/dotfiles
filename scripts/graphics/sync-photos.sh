@@ -279,7 +279,7 @@ sync_photos_from_source() {
             rsync_success=true
             break
         else
-            ((retry_count++))
+            ((retry_count++)) || true
             if [ $retry_count -lt $max_retries ]; then
                 local wait_time=$((2 ** retry_count))
                 echo -e "${YELLOW}rsync failed (attempt $retry_count/$max_retries). Retrying in ${wait_time}s...${NC}" >&2
@@ -325,7 +325,7 @@ sync_photos_from_source() {
                 if [ "$DRY_RUN" = false ]; then
                     rm "$file"
                 fi
-                ((duplicate_count++))
+                ((duplicate_count++)) || true
             else
                 # Different size = collision, add timestamp
                 local timestamp base ext
@@ -337,14 +337,14 @@ sync_photos_from_source() {
                 if [ "$DRY_RUN" = false ]; then
                     mv "$file" "$target"
                 fi
-                ((collision_count++))
+                ((collision_count++)) || true
             fi
         else
             # No collision, move normally
             if [ "$DRY_RUN" = false ]; then
                 mv "$file" "$target"
             fi
-            ((organized_count++))
+            ((organized_count++)) || true
         fi
     done
 
@@ -622,7 +622,7 @@ import_photos() {
         else
             cp "$file" "$target"
         fi
-        ((copied_count++))
+        ((copied_count++)) || true
     done < <(find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
 
     echo -e "${GREEN}Copied ${copied_count} files to ${SOURCE_DIR}${NC}"
@@ -644,7 +644,6 @@ group_photos_by_events() {
     # Create temp file for photo data
     local temp_data
     temp_data=$(mktemp)
-    trap "rm -f $temp_data" EXIT
 
     echo -e "${YELLOW}Extracting EXIF data from photos...${NC}"
 
@@ -654,7 +653,7 @@ group_photos_by_events() {
         local exif_data
         exif_data=$(get_photo_exif "$photo")
         echo "${photo}|${exif_data}" >> "$temp_data"
-        ((photo_count++))
+        ((photo_count++)) || true
 
         if (( photo_count % 50 == 0 )); then
             echo -e "${YELLOW}Processed ${photo_count} photos...${NC}"
@@ -686,7 +685,7 @@ group_photos_by_events() {
         if [ -z "$date" ]; then
             # Photos without date go to "unknown-date" folder
             event_dir="${GROUPED_DIR}/unknown-date"
-            ((no_date_photos++))
+            ((no_date_photos++)) || true
 
             if [ "$DRY_RUN" = false ]; then
                 mkdir -p "$event_dir"
@@ -782,7 +781,7 @@ group_photos_by_events() {
         local total_count=$((new_count + existing_count))
 
         if [ "$new_count" -gt 0 ] || [ "$existing_count" -gt 0 ]; then
-            ((events_with_changes++))
+            ((events_with_changes++)) || true
             if [ "$new_count" -gt 0 ]; then
                 echo -e "${GREEN}${event}${NC}: +${new_count} new"
                 ((total_new += new_count))
@@ -807,6 +806,9 @@ group_photos_by_events() {
     if [ "$DRY_RUN" = false ]; then
         echo -e "${BLUE}Verbose log: ${LOG_FILE}${NC}"
     fi
+
+    # Clean up temporary file
+    rm -f "$temp_data"
 }
 
 # Main execution
