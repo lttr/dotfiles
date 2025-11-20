@@ -60,7 +60,10 @@ Configuration:
         - SD cards: Auto-detected at /media/\$USER/*/DCIM/
 
     Destination:
-        - Synced: ${SYNCED_DIR}
+        - Synced (preserves source structure):
+            - ${SYNCED_DIR}/mobil-tuc/
+            - ${SYNCED_DIR}/mobil-zipi/
+            - ${SYNCED_DIR}/sdcard/
         - Grouped: ${GROUPED_DIR}
         - Log file: ${LOG_FILE}
 
@@ -204,10 +207,12 @@ detect_sd_cards() {
 sync_photos_from_source() {
     local source="$1"
     local label="$2"
+    local subdir="$3"
 
     echo ""
     echo -e "${BLUE}Syncing photos from ${label}...${NC}"
     echo -e "${YELLOW}Source: ${source}${NC}"
+    echo -e "${YELLOW}Destination: ${SYNCED_DIR}/${subdir}${NC}"
 
     if [ ! -d "$source" ]; then
         echo -e "${RED}Warning: Source directory not found: ${source}${NC}" >&2
@@ -215,8 +220,9 @@ sync_photos_from_source() {
     fi
 
     # Create destination directory
+    local dest_dir="${SYNCED_DIR}/${subdir}"
     if [ "$DRY_RUN" = false ]; then
-        mkdir -p "$SYNCED_DIR"
+        mkdir -p "$dest_dir"
     fi
 
     # Build rsync command with filter to exclude iPhone Live Photo MOV files
@@ -266,7 +272,7 @@ sync_photos_from_source() {
     fi
 
     # Add source and destination
-    rsync_cmd+=("${source}/" "${SYNCED_DIR}/")
+    rsync_cmd+=("${source}/" "${dest_dir}/")
 
     # Execute rsync with retry logic
     echo -e "${YELLOW}Running rsync...${NC}"
@@ -312,7 +318,7 @@ sync_all_photos() {
     if mount_smb; then
         # Sync from tuc photos
         if [ -d "$SMB_FULL_PATH_TUC" ]; then
-            if sync_photos_from_source "$SMB_FULL_PATH_TUC" "SMB (tuc)"; then
+            if sync_photos_from_source "$SMB_FULL_PATH_TUC" "SMB (tuc)" "mobil-tuc"; then
                 sync_success+=("SMB (tuc)")
             else
                 sync_failed+=("SMB (tuc)")
@@ -325,7 +331,7 @@ sync_all_photos() {
         # Sync from zipi photos
         echo ""
         if [ -d "$SMB_FULL_PATH_ZIPI" ]; then
-            if sync_photos_from_source "$SMB_FULL_PATH_ZIPI" "SMB (zipi)"; then
+            if sync_photos_from_source "$SMB_FULL_PATH_ZIPI" "SMB (zipi)" "mobil-zipi"; then
                 sync_success+=("SMB (zipi)")
             else
                 sync_failed+=("SMB (zipi)")
@@ -351,7 +357,7 @@ sync_all_photos() {
     else
         for sd_path in "${sd_cards[@]}"; do
             echo -e "${GREEN}Found SD card: ${sd_path}${NC}"
-            if sync_photos_from_source "$sd_path" "SD Card"; then
+            if sync_photos_from_source "$sd_path" "SD Card" "sdcard"; then
                 sync_success+=("SD Card")
             else
                 sync_failed+=("SD Card")
