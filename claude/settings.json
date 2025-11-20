@@ -85,5 +85,5 @@
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true
 }
