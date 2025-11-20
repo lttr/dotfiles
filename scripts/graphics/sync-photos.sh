@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 MONTHS_TO_SYNC=3
 TIME_THRESHOLD_DAYS=3
 GPS_DISTANCE_THRESHOLD_KM=50
-SOURCE_DIR="${HOME}/Photos/synced"
+SYNCED_DIR="${HOME}/Photos/synced"
 GROUPED_DIR="${HOME}/Photos/grouped"
 LOG_FILE="${HOME}/Photos/sync-photos.log"
 
@@ -60,7 +60,7 @@ Configuration:
         - SD cards: Auto-detected at /media/\$USER/*/DCIM/
 
     Destination:
-        - Synced: ${SOURCE_DIR}
+        - Synced: ${SYNCED_DIR}
         - Grouped: ${GROUPED_DIR}
         - Log file: ${LOG_FILE}
 
@@ -216,7 +216,7 @@ sync_photos_from_source() {
 
     # Create destination directory
     if [ "$DRY_RUN" = false ]; then
-        mkdir -p "$SOURCE_DIR"
+        mkdir -p "$SYNCED_DIR"
     fi
 
     # Build rsync command with filter to exclude iPhone Live Photo MOV files
@@ -266,7 +266,7 @@ sync_photos_from_source() {
     fi
 
     # Add source and destination
-    rsync_cmd+=("${source}/" "${SOURCE_DIR}/")
+    rsync_cmd+=("${source}/" "${SYNCED_DIR}/")
 
     # Execute rsync with retry logic
     echo -e "${YELLOW}Running rsync...${NC}"
@@ -501,11 +501,11 @@ import_photos() {
         exit 1
     fi
 
-    # Copy photos to SOURCE_DIR maintaining original structure
+    # Copy photos to SYNCED_DIR maintaining original structure
     echo -e "${YELLOW}Copying photos to synced directory...${NC}"
 
     if [ "$DRY_RUN" = false ]; then
-        mkdir -p "$SOURCE_DIR"
+        mkdir -p "$SYNCED_DIR"
     fi
 
     local copied_count=0
@@ -515,7 +515,7 @@ import_photos() {
         # Get relative path from source directory to maintain structure
         local rel_path
         rel_path="${file#$source_dir/}"
-        local target="${SOURCE_DIR}/${rel_path}"
+        local target="${SYNCED_DIR}/${rel_path}"
         local target_dir
         target_dir=$(dirname "$target")
 
@@ -552,7 +552,7 @@ import_photos() {
         ((copied_count++)) || true
     done < <(find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
 
-    echo -e "${GREEN}Copied ${copied_count} files to ${SOURCE_DIR}${NC}"
+    echo -e "${GREEN}Copied ${copied_count} files to ${SYNCED_DIR}${NC}"
 
     # Now group the imported photos
     group_photos_by_events
@@ -563,8 +563,8 @@ group_photos_by_events() {
     echo ""
     echo -e "${GREEN}=== Phase 2: Grouping Photos by Events ===${NC}"
 
-    if [ ! -d "$SOURCE_DIR" ] || [ -z "$(ls -A "$SOURCE_DIR" 2>/dev/null)" ]; then
-        echo -e "${YELLOW}No photos found in ${SOURCE_DIR}${NC}"
+    if [ ! -d "$SYNCED_DIR" ] || [ -z "$(ls -A "$SYNCED_DIR" 2>/dev/null)" ]; then
+        echo -e "${YELLOW}No photos found in ${SYNCED_DIR}${NC}"
         return
     fi
 
@@ -585,7 +585,7 @@ group_photos_by_events() {
         if (( photo_count % 50 == 0 )); then
             echo -e "${YELLOW}Processed ${photo_count} photos...${NC}"
         fi
-    done < <(find "$SOURCE_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
+    done < <(find "$SYNCED_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
 
     echo -e "${GREEN}Processed ${photo_count} photos${NC}"
 
