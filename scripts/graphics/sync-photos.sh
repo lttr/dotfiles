@@ -18,7 +18,8 @@ TIME_THRESHOLD_DAYS=3
 GPS_DISTANCE_THRESHOLD_KM=50
 SYNCED_DIR="${HOME}/Photos/synced"
 GROUPED_DIR="${HOME}/Photos/grouped"
-LOG_FILE="${HOME}/Photos/sync-photos.log"
+LOG_FILE="${SYNCED_DIR}/.sync-photos.log"
+PROCESSED_DB="${SYNCED_DIR}/.sync-photos-processed.txt"
 
 # SMB configuration
 SMB_SERVER="diskstation.local"
@@ -64,8 +65,9 @@ Configuration:
             - ${SYNCED_DIR}/mobil-tuc/
             - ${SYNCED_DIR}/mobil-zipi/
             - ${SYNCED_DIR}/sdcard/
+            - ${LOG_FILE} (log file)
+            - ${PROCESSED_DB} (processed files database)
         - Grouped: ${GROUPED_DIR}
-        - Log file: ${LOG_FILE}
 
     Filters:
         - Sync: All files (rsync --update skips existing)
@@ -459,6 +461,30 @@ days_between() {
     echo "${diff#-}"
 }
 
+# Load processed files database into associative array
+load_processed_files() {
+    local -n arr=$1
+
+    if [ ! -f "$PROCESSED_DB" ]; then
+        return 0
+    fi
+
+    while IFS='|' read -r filepath mtime event; do
+        arr["$filepath|$mtime"]=1
+    done < "$PROCESSED_DB"
+}
+
+# Mark a file as processed
+mark_file_processed() {
+    local filepath="$1"
+    local mtime="$2"
+    local event="$3"
+
+    if [ "$DRY_RUN" = false ]; then
+        echo "${filepath}|${mtime}|${event}" >> "$PROCESSED_DB"
+    fi
+}
+
 # Import photos from external path (zip or directory)
 import_photos() {
     local import_path="$1"
@@ -574,6 +600,11 @@ group_photos_by_events() {
         return
     fi
 
+    # Load processed files database
+    declare -A processed_files
+    load_processed_files processed_files
+    echo -e "${YELLOW}Loaded ${#processed_files[@]} already-processed files${NC}"
+
     # Create temp file for photo data
     local temp_data
     temp_data=$(mktemp)
@@ -582,7 +613,18 @@ group_photos_by_events() {
 
     # Extract EXIF data for all photos and videos
     local photo_count=0
+    local skipped_count=0
     while IFS= read -r photo; do
+        # Check if already processed
+        local mtime
+        mtime=$(stat -c %Y "$photo" 2>/dev/null || echo "0")
+        local lookup_key="${photo}|${mtime}"
+
+        if [[ -v processed_files["$lookup_key"] ]]; then
+            ((skipped_count++)) || true
+            continue
+        fi
+
         local exif_data
         exif_data=$(get_photo_exif "$photo")
         echo "${photo}|${exif_data}" >> "$temp_data"
@@ -593,7 +635,7 @@ group_photos_by_events() {
         fi
     done < <(find "$SYNCED_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
 
-    echo -e "${GREEN}Processed ${photo_count} photos${NC}"
+    echo -e "${GREEN}Processed ${photo_count} photos (skipped ${skipped_count} already-processed)${NC}"
 
     # Sort by date
     sort -t'|' -k2 "$temp_data" -o "$temp_data"
@@ -604,6 +646,7 @@ group_photos_by_events() {
     local current_event=""
     local event_letter="A"
     local prev_date="" prev_lat="" prev_lon=""
+    local prev_year_month=""
     local no_date_photos=0
 
     # Track changes per event
@@ -653,11 +696,17 @@ group_photos_by_events() {
 
             # Create new event if needed
             if [ "$new_event" = true ]; then
+                # Reset letter to A if we've moved to a new month
+                if [ "$prev_year_month" != "$year_month" ]; then
+                    event_letter="A"
+                    prev_year_month="$year_month"
+                fi
+
                 current_event="${year_month}-${event_letter}"
                 event_first_seen["$current_event"]=1
                 log_verbose "Created new event: $current_event"
 
-                # Increment letter
+                # Increment letter for next event in same month
                 event_letter=$(echo "$event_letter" | tr 'A-Y' 'B-Z')
                 if [ "$event_letter" = "Z" ]; then
                     event_letter="AA"
@@ -692,9 +741,19 @@ group_photos_by_events() {
                 cp "$photo" "$target"
                 log_verbose "Copied: ${photo_name} -> ${event_key}/"
                 event_new_files["$event_key"]=$((${event_new_files["$event_key"]:-0} + 1))
+
+                # Mark file as processed
+                local mtime
+                mtime=$(stat -c %Y "$photo" 2>/dev/null || echo "0")
+                mark_file_processed "$photo" "$mtime" "$event_key"
             else
                 log_verbose "Skipped (exists): ${photo_name} in ${event_key}/"
                 event_existing_files["$event_key"]=$((${event_existing_files["$event_key"]:-0} + 1))
+
+                # Mark file as processed even if it already exists
+                local mtime
+                mtime=$(stat -c %Y "$photo" 2>/dev/null || echo "0")
+                mark_file_processed "$photo" "$mtime" "$event_key"
             fi
         fi
     done < "$temp_data"
