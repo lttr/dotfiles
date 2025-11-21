@@ -601,7 +601,7 @@ group_photos_by_events() {
     fi
 
     # Load processed files database
-    declare -A processed_files
+    declare -A processed_files=()
     load_processed_files processed_files
     echo -e "${YELLOW}Loaded ${#processed_files[@]} already-processed files${NC}"
 
@@ -650,9 +650,9 @@ group_photos_by_events() {
     local no_date_photos=0
 
     # Track changes per event
-    declare -A event_new_files
-    declare -A event_existing_files
-    declare -A event_first_seen
+    declare -A event_new_files=()
+    declare -A event_existing_files=()
+    declare -A event_first_seen=()
 
     while IFS='|' read -r photo date lat lon; do
         local event_dir
