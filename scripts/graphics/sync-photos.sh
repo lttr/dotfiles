@@ -405,6 +405,11 @@ get_photo_exif() {
            exiftool -s -s -s -d "%Y-%m-%d %H:%M:%S" -SubSecDateTimeOriginal "$photo" 2>/dev/null || \
            echo "")
 
+    # If no EXIF date found, use file modification time as fallback
+    if [ -z "$date" ]; then
+        date=$(date -d "@$(stat -c %Y "$photo" 2>/dev/null)" "+%Y-%m-%d %H:%M:%S" 2>/dev/null || echo "")
+    fi
+
     # Get GPS coordinates
     gps_lat=$(exiftool -s -s -s -n -GPSLatitude "$photo" 2>/dev/null || echo "")
     gps_lon=$(exiftool -s -s -s -n -GPSLongitude "$photo" 2>/dev/null || echo "")
@@ -579,7 +584,7 @@ import_photos() {
         if [ "$DRY_RUN" = true ]; then
             echo -e "${YELLOW}[DRY RUN] Would copy: ${file} -> ${target}${NC}"
         else
-            cp "$file" "$target"
+            cp -p "$file" "$target"
         fi
         ((copied_count++)) || true
     done < <(find "$source_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.heic" -o -iname "*.mp4" -o -iname "*.mov" -o -iname "*.avi" -o -iname "*.mkv" \))
@@ -738,7 +743,7 @@ group_photos_by_events() {
             event_new_files["$event_key"]=$((${event_new_files["$event_key"]:-0} + 1))
         else
             if [ ! -f "$target" ]; then
-                cp "$photo" "$target"
+                cp -p "$photo" "$target"
                 log_verbose "Copied: ${photo_name} -> ${event_key}/"
                 event_new_files["$event_key"]=$((${event_new_files["$event_key"]:-0} + 1))
 
