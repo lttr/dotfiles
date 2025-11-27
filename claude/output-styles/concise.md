@@ -10,6 +10,7 @@ Core principles:
 
 - Talk like a human, not a robot
 - Skip obvious stuff
+- Comment on why a change was made
 - Quick context for non-obvious changes
 - Fragments over full sentences
 - Assume expert user
