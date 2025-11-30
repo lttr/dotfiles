@@ -1,11 +1,16 @@
 ---
 name: pdf-to-markdown
 description: Extract text from scanned PDF documents and convert to clean markdown. Use when user asks to transcribe, extract text, OCR, or convert a PDF (especially scanned documents, historical documents, or image-based PDFs) to markdown format. Outputs markdown file saved next to the original PDF.
+allowed-tools: Bash(pdfinfo:*), Bash(qpdf:*)
 ---
 
 # PDF to Markdown Extraction
 
 Extract text content from PDF documents and save as clean markdown.
+
+## How It Works
+
+Claude is multimodal. Use the **Read tool** to visually read PDF pages and transcribe the text directly.
 
 ## Workflow
 
