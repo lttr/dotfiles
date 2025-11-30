@@ -166,7 +166,7 @@ nmap("<localleader>s", "vip:sort<CR>", "Sort block of text")
 vim.keymap.set(
   "n",
   "<leader>r",
-  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A %:p<CR>",
+  "<cmd>AsyncRun -save=1 -mode=term -pos=right deno run -A --env-file %:p<CR>",
   { silent = true, noremap = false }
 )
 nmap("<leader>n", "<cmd>AsyncRun -save=1 -mode=term -pos=right node %:p<CR>")

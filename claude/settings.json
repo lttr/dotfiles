@@ -85,5 +85,6 @@
     "azure-devops@lttr-claude-marketplace": true
   },
   "outputStyle": "concise",
-  "spinnerTipsEnabled": false
+  "spinnerTipsEnabled": false,
+  "alwaysThinkingEnabled": false
 }
