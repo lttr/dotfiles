@@ -82,7 +82,8 @@
     "nuxt@lttr-claude-marketplace": true,
     "browser-tools@lttr-claude-marketplace": true,
     "video-to-article@lttr-claude-marketplace": true,
-    "azure-devops@lttr-claude-marketplace": true
+    "azure-devops@lttr-claude-marketplace": true,
+    "claude-opus-4-5-migration@claude-code-plugins": true
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
