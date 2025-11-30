@@ -9,11 +9,54 @@ Extract text content from PDF documents and save as clean markdown.
 
 ## Workflow
 
-1. **Analyze the PDF** - View each page of the PDF to read its content
-2. **Extract text** - Transcribe all visible text, preserving document structure
-3. **Format as markdown** - Apply appropriate heading levels, lists, and formatting
-4. **Review for errors** - Check the grammar/spelling of the document in its language, fix obvious OCR-style typos
-5. **Save output** - Write markdown file next to original PDF with same base name
+1. **Check PDF size** - Count pages using `pdfinfo <file>.pdf | grep Pages`
+2. **Split if large (10+ pages)** - Use qpdf to split into 4-page chunks
+3. **Extract text** - For small PDFs: read directly. For large PDFs: process chunks in parallel using Task agents
+4. **Merge results** - Combine extracted text in page order
+5. **Format as markdown** - Apply appropriate heading levels, lists, and formatting
+6. **Review for errors** - Check grammar/spelling, fix obvious OCR-style typos
+7. **Save output** - Write markdown file next to original PDF with same base name
+8. **Cleanup** - Remove temporary chunk files
+
+## Handling Large PDFs (10+ pages)
+
+For PDFs with 10 or more pages, split into chunks for parallel processing.
+
+### Prerequisites
+
+Ensure `qpdf` is installed:
+
+```bash
+# Check if installed
+command -v qpdf
+
+# Install if missing (Debian/Ubuntu)
+sudo apt install qpdf
+```
+
+### Splitting Process
+
+```bash
+# Create unique temp directory
+TMPDIR=$(mktemp -d)
+
+# Split into 4-page chunks
+qpdf --split-pages=4 input.pdf "$TMPDIR/chunk-%d.pdf"
+```
+
+This creates files like `chunk-1.pdf`, `chunk-2.pdf`, etc.
+
+### Parallel Extraction
+
+Launch multiple Task agents concurrently (one per chunk) to extract text. Each agent reads its assigned chunk and returns the extracted text. Collect and merge results in page order.
+
+### Cleanup
+
+After merging, remove the temporary directory:
+
+```bash
+rm -rf "$TMPDIR"
+```
 
 ## Output Location
 
