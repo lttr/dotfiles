@@ -177,6 +177,19 @@ local vtsls = {
   init_options = {
     typescript = {
       tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
+      globalPlugins = {
+        vue_plugin,
+        {
+          name = "@dxup/unimport",
+          location = vim.fn.getcwd() .. "/node_modules/@dxup/unimport",
+          languages = { "typescript", "javascript", "vue" },
+        },
+        {
+          name = "@dxup/nuxt",
+          location = vim.fn.getcwd() .. "/node_modules/@dxup/nuxt",
+          languages = { "typescript", "javascript", "vue" },
+        },
+      },
     },
   },
 }
