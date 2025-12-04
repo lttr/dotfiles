@@ -147,20 +147,14 @@ if echo "$RESPONSE" | jq -e '.text' > /dev/null 2>&1; then
 
     # Copy to clipboard if requested
     if [ "$COPY_TO_CLIPBOARD" = true ]; then
-        if command -v xclip &> /dev/null; then
-            echo "$TRANSCRIPTION" | xclip -selection clipboard
-            if [ "$RAW_OUTPUT" = false ]; then
-                echo
-                echo "Transcription copied to clipboard"
-            fi
-        elif command -v pbcopy &> /dev/null; then
-            echo "$TRANSCRIPTION" | pbcopy
+        if command -v xsel &> /dev/null; then
+            echo "$TRANSCRIPTION" | xsel --clipboard --input
             if [ "$RAW_OUTPUT" = false ]; then
                 echo
                 echo "Transcription copied to clipboard"
             fi
         else
-            echo "Warning: No clipboard utility found (xclip/pbcopy)" >&2
+            echo "Warning: xsel not found" >&2
         fi
     fi
 else
