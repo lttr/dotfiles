@@ -55,19 +55,18 @@ dotfiles/install.sh
   - works best using Firefox (https://extensions.gnome.org)
   - install browser extension - link on top of the page
     - `Dash to panel`
-    - `GSconnect`
-    - `Bluetooth Quick Connect`
-    - `Sound Switcher Indicator` (from
-      https://yktoo.com/en/software/sound-switcher-indicator/)
+    - (`GSconnect`)
+    - (`Bluetooth Quick Connect`)
+    - [`Sound Switcher Indicator`](https://yktoo.com/en/software/sound-switcher-indicator/installation/)
 - upgrade PopOS if needed (`pop-upgrade release upgrade`)
 
 ### After install
 
-- install [1Password](https://1password.com/downloads/linux)
-- install [Rambox](https://rambox.app/download-linux/)
-- install Darktable (Pop Shop)
-- install [Obsidian](https://obsidian.md/download)
-- log into Dropbox, select folders to sync
+- install [1Password](https://1password.com/downloads/linux), deb
+- install ~[Rambox](https://rambox.app/download-linux/)~ [Ferdium](https://ferdium.org/download), deb
+- install [Obsidian](https://obsidian.md/download), deb
+- install Darktable (Pop Shop, flatpak)
+- (log into Dropbox, select folders to sync), I prefer Synology Drive these days
 - set DuckDuckGo as the default search engine, load its configuration via
   bookmarklet (in password manager)
 - copy `/etc/fstab` from backup, careful with changing current filesystem root

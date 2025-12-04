@@ -169,6 +169,7 @@ export const cursors: Config = {
 
 const pnpmPackages = [
   { name: "@antfu/ni", executable: "ni" },
+  { name: "@anthropic-ai/claude-code" },
   { name: "browser-sync" },
   { name: "degit" },
   { name: "eslint" },
