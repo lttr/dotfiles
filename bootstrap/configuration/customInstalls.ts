@@ -220,6 +220,18 @@ const nerdFont: Config = {
   },
 };
 
+const soundSwitcherIndicator: Config = {
+  inlineScript: {
+    name: "soundSwitcherIndicator",
+    testScript: `dpkg -l indicator-sound-switcher 2>/dev/null | grep -q "^ii"`,
+    setScript: `
+      sudo apt-add-repository -y ppa:yktooo/ppa
+      sudo apt-get update
+      sudo apt-get install -y indicator-sound-switcher
+    `,
+  },
+};
+
 export const cursors: Config = {
   inlineScript: {
     name: "cursors",
@@ -282,6 +294,7 @@ export const customInstalls: Config[] = [
   node,
   nerdFont,
   cursors,
+  soundSwitcherIndicator,
   fzf,
   fzfSetup,
   ...brewPackages.map((brewConfig) => ({
