@@ -80,6 +80,9 @@ dotfiles/install.sh
   - log into glab cli (`glab auth login`)
   - clone active code repositories
 - list of startup applications (located at `~/.config/autostart/*.desktop`)
+  - Firefox
+  - Kitty
+  - Synology Drive Client
 - bookmarks in Gnome Files (located at `~/.config/gtk-3/bookmarks` and
   `~/.config/gtk-3/servers`)
 - change hostname (`hostnamectl set-hostname pop-os-lt-foobar`)
