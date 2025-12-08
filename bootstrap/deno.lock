@@ -1,5 +1,5 @@
 {
-  "version": "2",
+  "version": "5",
   "remote": {
     "https://deno.land/std@0.106.0/path/_constants.ts": "1247fee4a79b70c89f23499691ef169b41b6ccf01887a0abd131009c5581b853",
     "https://deno.land/std@0.106.0/path/_interface.ts": "1fa73b02aaa24867e481a48492b44f2598cd9dfa513c7b34001437007d3642e4",
@@ -69,13 +69,14 @@
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/helpers/isExecutable.ts": "7604b9a77e641d453b2f7cad037809177e2a22f95bda72d95ea980ec64ca1e9f",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts": "85a1210d921a50247fefff8fbe9baa7eea0ff09a10b818f53d48c91ad14ebc52",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/print.ts": "32abbbce1412c12ddad3733acf3e33e09188fb694de57d0862fab3f88758cde2",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resource.ts": "7df3986d916494fadb9358bf2ac88ccbd52bbb6c4276aa63b6d0eea408ad8c17",
+    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resource.ts": "e0a39434d7bdeb5b2faeb5ce331910efa52d519c45ae2fc72ef93f0d0fd9faef",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/appForMimeType.ts": "dde1d2208ed71e98250bfe39c0ee45c9cbd0f727be2fb6713e7a53c78c728134",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/aptInstall.ts": "1b8cda065e49b1213e37712bfb50babc88fe4d614abb2e43f302489077118648",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/aptUpdate.ts": "bd8b0caff740cda0b014660f0774e3b4fe0780e43023b4f8216068a5106d0438",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/brew.ts": "031c504e43a220befc436d5282c15d6c6b247a3f64ec8f6ea92b5dd46beee3f2",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/debianPackage.ts": "c124353874e194717234c9ea6b750124b78820027119ee051675335d30987213",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/directory.ts": "1a9f24edc127d3519a773ca485e1f9e9b77938d579e17a5053bb570462ebea34",
+    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/flatpak.ts": "ec18dfb6d63e298a9095e04169d3564b2b8dcc24b26b389c26529e8f8abb00f9",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gitClone.ts": "121061bf5a6200bbedb924777308d6f04bfb132175a606791886af0bb0ac58da",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gnomeSettings.ts": "55758d6710ef1a46f035710f69c67c1208b5cc9e287b51fce765cdd4cd2a48af",
     "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gnomeShellExtension.ts": "069df3bd6099966cd58e3b95edfaf6462034629af44ec6c4b98b8389d7fb594c",
