@@ -2,8 +2,10 @@
 
 # Upgrade system
 sudo apt update && sudo apt full-upgrade -y
-# Install deno
-curl -fsSL https://deno.land/x/install/install.sh | sh
+# Install deno if not present
+if ! command -v deno &> /dev/null; then
+    curl -fsSL https://deno.land/x/install/install.sh | sh -s -- -y
+fi
 # Install symlinks in order to configure zsh
 cd $HOME/dotfiles/bootstrap/
 $HOME/.deno/bin/deno task run --filter symlink
