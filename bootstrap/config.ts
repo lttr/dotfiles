@@ -3,6 +3,7 @@ import { appForMimeTypes } from "./configuration/appForMimeTypes.ts";
 import { apt } from "./configuration/apt.ts";
 import { customInstalls } from "./configuration/customInstalls.ts";
 import { directories } from "./configuration/directories.ts";
+import { flatpak } from "./configuration/flatpak.ts";
 import { gnomeKeybindings } from "./configuration/gnomeKeybindings.ts";
 import { gnomeSettings } from "./configuration/gnomeSettings.ts";
 import { gnomeShellExtensions } from "./configuration/gnomeShellExtensions.ts";
@@ -14,6 +15,7 @@ export const config: Array<Config> = [
   ...appForMimeTypes,
   ...customInstalls,
   ...directories,
+  ...flatpak,
   ...gnomeKeybindings,
   ...gnomeSettings,
   ...gnomeShellExtensions,
