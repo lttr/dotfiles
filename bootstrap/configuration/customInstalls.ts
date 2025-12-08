@@ -238,12 +238,12 @@ export const cursors: Config = {
     testScript: `ls "/usr/share/icons/BreezeX-Dark/" 2>&1 >/dev/null`,
     setScript: `
       set -e
-      CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
+      CURSORS_FILE_NAME="BreezeX-Dark.tar.xz"
       CURSORS_TARGET_DIR="/usr/share/icons/"
       mkdir -p ~/Downloads
       cd ~/Downloads
       rm -f "$CURSORS_FILE_NAME"
-      curl -fSLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Dark.tar.gz
+      curl -fSLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Dark.tar.xz
       if [ ! -f "$CURSORS_FILE_NAME" ]; then
         echo "Error: Failed to download cursor theme"
         exit 1
