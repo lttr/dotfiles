@@ -1,12 +1,80 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 
-// Update is build in and automatic
-const googleChromeAmd64 = "google-chrome-stable_current_amd64.deb";
+/**
+ * Fetches the latest .deb release URL from a GitHub repository.
+ * Automatically selects amd64 architecture when multiple .deb files exist.
+ * @param repo - GitHub repo in format "owner/repo"
+ * @returns Promise with the download URL or throws if not found
+ */
+async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
+  const response = await fetch(
+    `https://api.github.com/repos/${repo}/releases/latest`,
+    {
+      headers: {
+        Accept: "application/vnd.github+json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch releases for ${repo}: ${response.status}`);
+  }
+
+  const release = await response.json();
+  const debAssets = release.assets.filter((asset: { name: string }) =>
+    asset.name.endsWith(".deb")
+  );
+
+  if (debAssets.length === 0) {
+    throw new Error(`No .deb file found in latest release for ${repo}`);
+  }
+
+  // If multiple .deb files, prefer amd64
+  let debAsset = debAssets[0];
+  if (debAssets.length > 1) {
+    const amd64Asset = debAssets.find((asset: { name: string }) =>
+      asset.name.includes("amd64")
+    );
+    if (amd64Asset) {
+      debAsset = amd64Asset;
+    }
+  }
+
+  return debAsset.browser_download_url;
+}
+
+// Google Chrome - update is built in and automatic via apt
 export const googleChrome: Config = {
   debianPackage: {
     name: "google-chrome",
-    url: `https://dl.google.com/linux/direct/${googleChromeAmd64}`,
+    url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+  },
+};
+
+// 1Password
+export const onePassword: Config = {
+  debianPackage: {
+    name: "1password",
+    url: "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb",
+  },
+};
+
+// Obsidian - fetched from GitHub releases
+const obsidianDebUrl = await getGitHubReleaseDebUrl("obsidianmd/obsidian-releases");
+export const obsidian: Config = {
+  debianPackage: {
+    name: "obsidian",
+    url: obsidianDebUrl,
+  },
+};
+
+// Ferdium - fetched from GitHub releases
+const ferdiumDebUrl = await getGitHubReleaseDebUrl("ferdium/ferdium-app");
+export const ferdium: Config = {
+  debianPackage: {
+    name: "ferdium",
+    url: ferdiumDebUrl,
   },
 };
 
@@ -157,10 +225,18 @@ export const cursors: Config = {
     name: "cursors",
     testScript: `ls "/usr/share/icons/BreezeX-Dark/" 2>&1 >/dev/null`,
     setScript: `
+      set -e
       CURSORS_FILE_NAME="BreezeX-Dark.tar.gz"
       CURSORS_TARGET_DIR="/usr/share/icons/"
+      mkdir -p ~/Downloads
       cd ~/Downloads
-      curl -fsLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Dark.tar.gz
+      rm -f "$CURSORS_FILE_NAME"
+      curl -fSLo "$CURSORS_FILE_NAME" https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Dark.tar.gz
+      if [ ! -f "$CURSORS_FILE_NAME" ]; then
+        echo "Error: Failed to download cursor theme"
+        exit 1
+      fi
+      rm -rf BreezeX-Dark/
       tar -xvf "$CURSORS_FILE_NAME"
       sudo mv BreezeX-Dark/ "$CURSORS_TARGET_DIR"
     `,
@@ -194,11 +270,14 @@ export const customInstalls: Config[] = [
   aptUpdate,
   brew,
   exp,
+  ferdium,
   fnm,
   googleChrome,
   kitty,
   neovim,
   neovimDeps,
+  obsidian,
+  onePassword,
   pnpm,
   node,
   nerdFont,

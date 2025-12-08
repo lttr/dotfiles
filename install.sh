@@ -14,4 +14,6 @@ zsh -c "deno task run"
 # Use SSH for this repo from now
 cd $HOME/dotfiles
 git remote remove origin
-git add origin master git@github.com:lttr/dotfiles.git
+git remote add origin git@github.com:lttr/dotfiles.git
+git fetch origin
+git branch --set-upstream-to=origin/master master
