@@ -14,7 +14,7 @@ async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
       headers: {
         Accept: "application/vnd.github+json",
       },
-    }
+    },
   );
 
   if (!response.ok) {
@@ -48,7 +48,8 @@ async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
 export const googleChrome: Config = {
   debianPackage: {
     name: "google-chrome",
-    url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+    url:
+      "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
   },
 };
 
@@ -56,12 +57,15 @@ export const googleChrome: Config = {
 export const onePassword: Config = {
   debianPackage: {
     name: "1password",
-    url: "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb",
+    url:
+      "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb",
   },
 };
 
 // Obsidian - fetched from GitHub releases
-const obsidianDebUrl = await getGitHubReleaseDebUrl("obsidianmd/obsidian-releases");
+const obsidianDebUrl = await getGitHubReleaseDebUrl(
+  "obsidianmd/obsidian-releases",
+);
 export const obsidian: Config = {
   debianPackage: {
     name: "obsidian",
@@ -147,12 +151,19 @@ const pnpm: Config = {
   },
 };
 
+const claudeCode: Config = {
+  urlScript: {
+    name: "claude-code",
+    url: "https://claude.ai/install.sh",
+  },
+};
+
 export const aptUpdate: Config = {
   aptUpdate: {},
 };
 
 const brewPackages = [
-  { name: "antidote" },
+  { name: "antidote", executable: "atuin" }, // A hact to not install antidote every time, since there is no executable for it
   { name: "atuin" },
   { name: "git-delta", executable: "delta" },
   { name: "docker" },
@@ -257,7 +268,6 @@ export const cursors: Config = {
 
 const pnpmPackages = [
   { name: "@antfu/ni", executable: "ni" },
-  { name: "@anthropic-ai/claude-code" },
   { name: "browser-sync" },
   { name: "degit" },
   { name: "eslint" },
@@ -273,7 +283,7 @@ const pnpmPackages = [
   { name: "pollinate" },
   { name: "prettier" },
   { name: "@fsouza/prettierd", executable: "prettierd" },
-  { name: "sharp-cli" },
+  { name: "sharp-cli", executable: "sharp" },
   { name: "stylelint" },
   { name: "typescript-language-server" },
 ];
@@ -281,6 +291,7 @@ const pnpmPackages = [
 export const customInstalls: Config[] = [
   aptUpdate,
   brew,
+  claudeCode,
   exp,
   ferdium,
   fnm,
