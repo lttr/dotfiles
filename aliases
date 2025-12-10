@@ -154,9 +154,11 @@ git_default_branch() {
     done
     if [ -z "$branch" ]; then
         branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
-    elif [ -z "$branch" ]; then
-        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2)
-    elif [ -z "$branch" ]; then
+    fi
+    if [ -z "$branch" ]; then
+        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2 | tr -d ' ')
+    fi
+    if [ -z "$branch" ]; then
         branch="master"
     fi
     echo $branch
