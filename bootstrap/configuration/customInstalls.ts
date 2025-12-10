@@ -243,6 +243,18 @@ const soundSwitcherIndicator: Config = {
   },
 };
 
+const gitCredentialLibsecret: Config = {
+  inlineScript: {
+    name: "git-credential-libsecret",
+    testScript: "command -v git-credential-libsecret",
+    setScript: `
+      sudo apt install -y libsecret-1-dev
+      sudo make -C /usr/share/doc/git/contrib/credential/libsecret
+      sudo ln -sf /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret /usr/local/bin/
+    `,
+  },
+};
+
 export const cursors: Config = {
   inlineScript: {
     name: "cursors",
@@ -292,22 +304,23 @@ export const customInstalls: Config[] = [
   aptUpdate,
   brew,
   claudeCode,
+  cursors,
   exp,
   ferdium,
   fnm,
+  fzf,
+  fzfSetup,
+  gitCredentialLibsecret,
   googleChrome,
   kitty,
+  nerdFont,
   neovim,
   neovimDeps,
+  node,
   obsidian,
   onePassword,
   pnpm,
-  node,
-  nerdFont,
-  cursors,
   soundSwitcherIndicator,
-  fzf,
-  fzfSetup,
   ...brewPackages.map((brewConfig) => ({
     brew: { ...brewConfig, dependsOn: brew },
   })),

@@ -114,8 +114,11 @@
     pager = delta
     editor = nvim
 
+# git-credential-libsecret is an integration with Gnome, needs to be installed separately:
+# -> apt install libsecret-1-dev
+# -> sudo make in /usr/share/doc/git/contrib/credential/libsecret
 [credential]
-    helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+    helper = libsecret
 
 # define command which will be used when "nvim" is set as a merge tool
 [mergetool "nvim"]
