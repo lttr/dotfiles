@@ -17,10 +17,12 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 ## Development
 
 **Package managers:**
+
 - Prefer `pnpm` over `npm` (use `npm` if package-lock.json exists)
 - Aliases: `ni` (install), `nr <script>` (run), `nun` (uninstall)
 
 **Common scripts:**
+
 - `nr build` / `nr test` / `nr verify` / `nr typecheck` / `nr lint:fix`
 
 **Tools:** Prefer `fd` over `find`
@@ -45,4 +47,8 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 ## Browser Usage
 
-Use browser-tools skill when: testing UI changes, debugging frontend issues, capturing screenshots, or verifying rendered output.
+- Use browser-tools skill when: testing UI changes, debugging frontend issues,
+  capturing screenshots, or verifying rendered output.
+- When I ask "let me pick and element" you should load skill browser-tools and
+  use browser-pick tool for it, check whether the browser is started beforehand
+
