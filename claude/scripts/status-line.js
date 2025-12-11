@@ -51,6 +51,11 @@ function getContextWindowPercentage(inputData) {
     // This is not using a documented API - we're parsing Claude Code's internal
     // transcript file format to extract token usage from API responses.
     // This may break if the internal format changes.
+    //
+    // TODO: v2.0.65 added context_window to statusLineInput but it contains
+    // cumulative tokens (total_input_tokens summed across all API calls), not
+    // current context usage. When/if Claude Code exposes current_context_tokens,
+    // refactor to use that instead of transcript parsing.
     if (transcript_path && existsSync(transcript_path)) {
       const content = readFileSync(transcript_path, "utf8");
       const lines = content.trim().split("\n");
