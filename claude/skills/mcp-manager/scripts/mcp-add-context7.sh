@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Enable context7 MCP server locally in current project
+# Add context7 MCP server to current project (local scope)
 
 set -e
 
@@ -8,4 +8,4 @@ claude mcp add context7 \
   --transport stdio \
   -- npx -y @upstash/context7-mcp
 
-echo "✓ Enabled context7 MCP (local scope)"
+echo "✓ Added context7 MCP to project (local scope)"

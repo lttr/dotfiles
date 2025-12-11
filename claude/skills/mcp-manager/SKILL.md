@@ -1,25 +1,40 @@
 ---
 name: mcp-manager
-description: Manage MCP (Model Context Protocol) servers in Claude Code projects. Use this skill when the user requests enabling, installing, disabling, or removing specific MCP servers like context7 or chrome-devtools. Always operates at project level (local scope only).
+description: Add or remove MCP (Model Context Protocol) servers to local project scope. Use this skill when the user wants to add or remove specific MCP servers like context7 or chrome-devtools for the current project. For enabling/disabling or global MCP management, direct users to use the native /mcp command.
 ---
 
 # MCP Manager
 
 ## Overview
 
-Manage MCP servers in Claude Code projects by enabling, installing, disabling, or removing specific servers. **This skill ALWAYS operates at the project level (local scope only)** - all MCP changes are project-specific and not shared via git.
+Add or remove MCP servers at the **local project level only**. This skill handles project-specific MCP configuration that isn't shared via git.
+
+## Scope
+
+**This skill handles:**
+- Adding MCP servers to current project (local scope)
+- Removing MCP servers from current project (local scope)
+
+**This skill does NOT handle (redirect to `claude mcp` CLI):**
+- Enabling/disabling MCP servers
+- Global or user-level MCP configuration
+- Listing available MCP servers
+- MCP server status/diagnostics
+
+When user asks about enabling, disabling, or global MCP management, respond:
+> "For enabling/disabling MCP servers or global configuration, use `claude mcp` in your terminal which provides full MCP management."
 
 ## Available MCP Servers
 
 ### context7
 Library documentation server providing up-to-date code examples and API references.
 
-**Enable/Install:**
+**Add to project:**
 ```bash
-~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-context7.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-add-context7.sh
 ```
 
-**Disable/Remove:**
+**Remove from project:**
 ```bash
 claude mcp remove context7 --scope local
 ```
@@ -27,12 +42,12 @@ claude mcp remove context7 --scope local
 ### chrome-devtools
 Browser automation and debugging server using Chrome DevTools Protocol.
 
-**Enable/Install:**
+**Add to project:**
 ```bash
-~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-chrome-devtools.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-add-chrome-devtools.sh
 ```
 
-**Disable/Remove:**
+**Remove from project:**
 ```bash
 claude mcp remove chrome-devtools --scope local
 ```
@@ -40,57 +55,53 @@ claude mcp remove chrome-devtools --scope local
 ### nuxt-ui
 Nuxt UI documentation server providing components, composables, examples, and templates via HTTP.
 
-**Enable/Install:**
+**Add to project:**
 ```bash
-~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-nuxt-ui.sh
+~/dotfiles/claude/skills/mcp-manager/scripts/mcp-add-nuxt-ui.sh
 ```
 
-**Disable/Remove:**
+**Remove from project:**
 ```bash
 claude mcp remove nuxt-ui --scope local
 ```
 
-## Usage Workflow
+## Usage
 
-### Enabling/Installing MCP Servers
+### Adding MCP Servers
 
-When the user requests enabling or installing an MCP server:
+When user requests adding an MCP server to the project:
 
-1. Identify which MCP server(s) to enable
+1. Identify which MCP server(s) to add
 2. Execute the corresponding script from `scripts/`
-3. Confirm successful installation
+3. Confirm successful addition
 
 **Example user requests:**
-- "Enable context7 MCP in this project"
-- "Install chrome-devtools MCP"
-- "Add context7"
-- "Set up chrome-devtools"
+- "Add context7 to this project"
+- "Install chrome-devtools MCP here"
+- "Set up nuxt-ui MCP for this repo"
 
-### Disabling/Removing MCP Servers
+### Removing MCP Servers
 
-When the user requests disabling or removing an MCP server:
+When user requests removing an MCP server from the project:
 
 1. Identify which MCP server(s) to remove
 2. Run `claude mcp remove <server-name> --scope local`
 3. Confirm successful removal
 
 **Example user requests:**
-- "Disable context7 MCP"
-- "Remove chrome-devtools"
-- "Uninstall context7"
+- "Remove context7 from this project"
+- "Uninstall chrome-devtools MCP"
+
+### Redirecting Other Requests
+
+For requests about enabling, disabling, listing, or global management:
+
+> "Use `claude mcp` in your terminal for that - it provides full MCP server management including enable/disable, listing, and global configuration."
 
 ## Scripts
 
-All enable scripts install MCPs with `--scope local`, meaning:
-- Local scope: Project-specific, not shared via git
+All add scripts use `--scope local` (project-specific, not shared via git).
 
 Transport types:
-- Stdio transport: Runs locally via npx (context7, chrome-devtools)
-- HTTP transport: Connects to remote server (nuxt-ui)
-
-Available scripts:
-- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-context7.sh` - Install @upstash/context7-mcp (stdio)
-- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-chrome-devtools.sh` - Install chrome-devtools-mcp (stdio)
-- `~/dotfiles/claude/skills/mcp-manager/scripts/mcp-enable-nuxt-ui.sh` - Connect to nuxt-ui remote server (HTTP)
-
-For disabling, use `claude mcp remove <server-name> --scope local` directly
+- **Stdio**: Runs locally via npx (context7, chrome-devtools)
+- **HTTP**: Connects to remote server (nuxt-ui)

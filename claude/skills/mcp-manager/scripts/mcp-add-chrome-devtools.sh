@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Enable chrome-devtools MCP server locally in current project
+# Add chrome-devtools MCP server to current project (local scope)
 
 set -e
 
@@ -8,4 +8,4 @@ claude mcp add chrome-devtools \
   --transport stdio \
   -- npx -y chrome-devtools-mcp@latest
 
-echo "✓ Enabled chrome-devtools MCP (local scope)"
+echo "✓ Added chrome-devtools MCP to project (local scope)"
