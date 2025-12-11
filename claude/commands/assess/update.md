@@ -33,3 +33,10 @@ Output a brief message explaining *why* before each step (not what - the user se
    Use WebFetch to consult the actual release notes URLs.
 
 Focus on actionable guidance. Skip packages with only patch updates unless they contain security fixes.
+
+5. End with a "Suggested upgrade commands" section containing copy-pasteable commands:
+   - Group safe batch updates: `pnpm update pkg1 pkg2 pkg3`
+   - Individual commands for breaking changes: `pnpm update pkg@version`
+   - Any post-upgrade verification steps: `nr typecheck`, `nr test`, etc.
+
+   Format as a numbered list the user can execute sequentially or ask Claude to run.
