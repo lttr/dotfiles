@@ -9,29 +9,27 @@ This command helps assess dependency updates in a JavaScript/TypeScript project.
 
 ## Your task
 
-1. **Create logs directory if needed:**
+Output a brief message explaining *why* before each step (not what - the user sees tool output).
+
+1. Output: "Checking for outdated dependencies and fetching their release notes (this may take a moment as it queries npm and GitHub)..."
    ```bash
    mkdir -p .aitools/logs
-   ```
-
-2. **Generate dependency release notes with timestamped filename:**
-   ```bash
    TIMESTAMP=$(date +%Y-%m-%d)
    find-release-notes > ".aitools/logs/dependency-update-notes-${TIMESTAMP}.md"
    ```
 
-3. **Read the generated file:**
-   Read the generated `.aitools/logs/dependency-update-notes-${TIMESTAMP}.md` file to understand which dependencies need updates.
+2. Output: "Identifying breaking changes and upgrade risks..."
+   Read the generated file to understand which dependencies need updates.
 
-4. **Analyze and advise:**
-   Based on the release notes content, provide:
+3. Based on the release notes content, provide:
    - Summary of packages with breaking changes (major updates)
    - Summary of packages with new features (minor updates)
    - Prioritized upgrade order (dependencies that others rely on first)
    - Specific migration steps for packages with breaking changes
    - Any packages that can be safely batch-updated together
 
-5. **If release notes are incomplete:**
-   Use WebFetch to consult the actual release notes URLs listed in the file for packages with significant version jumps.
+4. If release notes are incomplete for packages with significant version jumps:
+   Output: "Release notes missing for [package] - checking upstream..."
+   Use WebFetch to consult the actual release notes URLs.
 
 Focus on actionable guidance. Skip packages with only patch updates unless they contain security fixes.
