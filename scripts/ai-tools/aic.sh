@@ -35,7 +35,7 @@ else
     git diff --cached --name-status
 fi
 echo ''
-claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --model haiku --print "$prompt" > /dev/null
+claude --allowedTools 'Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)' --model sonnet --print "$prompt" > /dev/null
 echo 'Committed:'
 git log --oneline -n 1
 echo ''
