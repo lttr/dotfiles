@@ -153,7 +153,7 @@ const pnpm: Config = {
 
 const claudeCode: Config = {
   urlScript: {
-    name: "claude-code",
+    name: "claude",
     url: "https://claude.ai/install.sh",
   },
 };
