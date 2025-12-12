@@ -21,7 +21,5 @@ export {
   resources,
   runConfigurationSet,
   showDepGraph,
-} from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
-// from "../../code/deno-dsc/mod.ts";
-export type { Config } from "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts";
-//from "../../code/deno-dsc/mod.ts";
+} from "jsr:@lttr/deno-dsc@^0.1.0";
+export type { Config } from "jsr:@lttr/deno-dsc@^0.1.0";

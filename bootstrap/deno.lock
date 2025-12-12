@@ -1,10 +1,100 @@
 {
   "version": "5",
+  "specifiers": {
+    "jsr:@lttr/deno-dsc@0.1": "0.1.0",
+    "jsr:@std/assert@1": "1.0.16",
+    "jsr:@std/fmt@^1.0.5": "1.0.8",
+    "jsr:@std/fs@1": "1.0.20",
+    "jsr:@std/fs@^1.0.11": "1.0.20",
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "jsr:@std/io@~0.225.2": "0.225.2",
+    "jsr:@std/log@0": "0.224.14",
+    "jsr:@std/path@1": "1.1.3",
+    "jsr:@std/path@^1.1.3": "1.1.3",
+    "npm:ts-graphviz@^3.0.6": "3.0.6"
+  },
+  "jsr": {
+    "@lttr/deno-dsc@0.1.0": {
+      "integrity": "af309f95bbf0cea8344f1b5a900a73be5dcbd628b8ad077df77422f2f9af7967",
+      "dependencies": [
+        "jsr:@std/assert",
+        "jsr:@std/fs@1",
+        "jsr:@std/log",
+        "jsr:@std/path@1",
+        "npm:ts-graphviz"
+      ]
+    },
+    "@std/assert@1.0.16": {
+      "integrity": "6a7272ed1eaa77defe76e5ff63ca705d9c495077e2d5fd0126d2b53fc5bd6532",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/fmt@1.0.8": {
+      "integrity": "71e1fc498787e4434d213647a6e43e794af4fd393ef8f52062246e06f7e372b7"
+    },
+    "@std/fs@1.0.20": {
+      "integrity": "e953206aae48d46ee65e8783ded459f23bec7dd1f3879512911c35e5484ea187",
+      "dependencies": [
+        "jsr:@std/internal",
+        "jsr:@std/path@^1.1.3"
+      ]
+    },
+    "@std/internal@1.0.12": {
+      "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    },
+    "@std/io@0.225.2": {
+      "integrity": "3c740cd4ee4c082e6cfc86458f47e2ab7cb353dc6234d5e9b1f91a2de5f4d6c7"
+    },
+    "@std/log@0.224.14": {
+      "integrity": "257f7adceee3b53bb2bc86c7242e7d1bc59729e57d4981c4a7e5b876c808f05e",
+      "dependencies": [
+        "jsr:@std/fmt",
+        "jsr:@std/fs@^1.0.11",
+        "jsr:@std/io"
+      ]
+    },
+    "@std/path@1.1.3": {
+      "integrity": "b015962d82a5e6daea980c32b82d2c40142149639968549c649031a230b1afb3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    }
+  },
+  "npm": {
+    "@ts-graphviz/adapter@3.0.5": {
+      "integrity": "sha512-l6U+jizdkgnwq8Gb4I/Azgr/TGM452ovx2SLxUU/mGZNtrdOol4qi7Gn+d5hP3weBKkUNV9C7j1Xawg4w1DkCw==",
+      "dependencies": [
+        "@ts-graphviz/common"
+      ]
+    },
+    "@ts-graphviz/ast@3.0.5": {
+      "integrity": "sha512-gwrhTWspMU0qIP8V3yLnwUcnV+pJuPRTp5RAzpqYlKcD7NIsMtZfCzN2fzg8SpkJFC5S/9Ajlv7zJy37LhGH6A==",
+      "dependencies": [
+        "@ts-graphviz/common"
+      ]
+    },
+    "@ts-graphviz/common@3.0.4": {
+      "integrity": "sha512-lwyjx7FAXLCh4/8bHWHRr45yj1GycoGz747XxF3rbJ2SDDpCC12De0cT06v2EuHqAwpq629+A9VDft5G/wRAIw=="
+    },
+    "@ts-graphviz/core@3.0.6": {
+      "integrity": "sha512-5g/Tj1xoUgOnB0yhTe4uHR6WTm5zZSm6o79DihTHENOT5/dli70cAI28ousc8hB46N4PKEPqDMR5C/W/jCvtow==",
+      "dependencies": [
+        "@ts-graphviz/ast",
+        "@ts-graphviz/common"
+      ]
+    },
+    "ts-graphviz@3.0.6": {
+      "integrity": "sha512-NZAbgrRP4HPTgD/w032eQM2P1bEYv+peW+fiw4CreEKwZvqtWm2B7gi4Kon5fzRuP+VP8m7hpIBAWHT5rqEK6w==",
+      "dependencies": [
+        "@ts-graphviz/adapter",
+        "@ts-graphviz/ast",
+        "@ts-graphviz/common",
+        "@ts-graphviz/core"
+      ]
+    }
+  },
   "remote": {
-    "https://deno.land/std@0.106.0/path/_constants.ts": "1247fee4a79b70c89f23499691ef169b41b6ccf01887a0abd131009c5581b853",
-    "https://deno.land/std@0.106.0/path/_interface.ts": "1fa73b02aaa24867e481a48492b44f2598cd9dfa513c7b34001437007d3642e4",
-    "https://deno.land/std@0.106.0/path/_util.ts": "2e06a3b9e79beaf62687196bd4b60a4c391d862cfa007a20fc3a39f778ba073b",
-    "https://deno.land/std@0.106.0/path/posix.ts": "b81974c768d298f8dcd2c720229639b3803ca4a241fa9a355c762fa2bc5ef0c1",
     "https://deno.land/std@0.65.0/_util/assert.ts": "e1f76e77c5ccb5a8e0dbbbe6cce3a56d2556c8cb5a9a8802fc9565af72462149",
     "https://deno.land/std@0.65.0/bytes/mod.ts": "b1a149ac741728db00bda9ce1a2d044f248edd5ac95e708a6cc501bfd3adb4a7",
     "https://deno.land/std@0.65.0/flags/mod.ts": "11f51e7fec72bfe01d531acb4e0b0ae54115439367377b088b3c6e7e7142918f",
@@ -37,57 +127,6 @@
     "https://deno.land/std@0.65.0/path/mod.ts": "6de8885c2534757097818e302becd1cefcbc4c28ac022cc279e612ee04e8cfd1",
     "https://deno.land/std@0.65.0/path/posix.ts": "1a6e53e1c90dde43750f38134ace0f6300f7330f5456b60d4979a4564fcf5f7a",
     "https://deno.land/std@0.65.0/path/separator.ts": "9dd15d46ff84a16e13554f56af7fee1f85f8d0f379efbbe60ac066a60561f036",
-    "https://deno.land/std@0.65.0/path/win32.ts": "b530878b0f3f281c7f06fa73dc8e89a15106ab06e88ca1dea27394d09a1b0514",
-    "https://deno.land/std@0.65.0/testing/asserts.ts": "1e9f87e0ecc456caa00a95f3345c5a7aeea0a4bf25c443a54341d9f6e36e5edf",
-    "https://deno.land/std@0.65.0/testing/diff.ts": "b685fb818c3527f0890628711934863672de2e94f01db421731654243f1eac8f",
-    "https://deno.land/x/download@v1.0.0/download.ts": "b42f26df5f5816573ad57c8877cf8755947a0795fa51036e5c123c84ff08022b",
-    "https://deno.land/x/download@v1.0.0/mod.ts": "5449293b77155a9371b67e484d327ba3f9a6f56fc9ab733f19b045a4a2369fec",
-    "https://deno.land/x/download@v1.0.0/types.ts": "9bbae77a97fcc13a5abddceb2048ab76f3b2fccf71ed99a542dbc225c27d9329",
-    "https://deno.land/x/graphviz@v0.2.1/attribute.ts": "faf93fa35c56c19c5d987f233c017e2092f04e4723595856012a2ec238e7c97f",
-    "https://deno.land/x/graphviz@v0.2.1/mod.ts": "718a29bdb7bd85c1cdab5ea80d8149e87d4a93cb4b56af5585a755504bfda992",
-    "https://deno.land/x/graphviz@v0.2.1/model/abstract.ts": "3d05630107191cb5308353aa921b7dfce9c5f866ed8bbdce6afaac69cf544dbd",
-    "https://deno.land/x/graphviz@v0.2.1/model/attributes_base.ts": "051a1be037db3d87574a12021e1a04bd3d2ed1f6fa0d66a32cd2eed535486ac7",
-    "https://deno.land/x/graphviz@v0.2.1/model/clusters.ts": "5ada6cedc07b76ef8cd9b779cd75eb9c9a07933ebb1eb4d344a590f0667fd93b",
-    "https://deno.land/x/graphviz@v0.2.1/model/edges.ts": "5d4a06f233693007a9a511f2f7ec363535ba9d4b772000efa81305f835dcc4b9",
-    "https://deno.land/x/graphviz@v0.2.1/model/nodes.ts": "41fa84315eb00e51a0cc54a871d76a35bcbb9fca3c1637c15d153ecf9772ba5d",
-    "https://deno.land/x/graphviz@v0.2.1/model/root_clusters.ts": "286c8d4f8e546007b90d51510240314c28c1433db8d091728b8f9c7e0ff36871",
-    "https://deno.land/x/graphviz@v0.2.1/render/renderer.ts": "c530930806d6ef01be7f15d545938a7600574bddd100e72ab712c729961856d1",
-    "https://deno.land/x/graphviz@v0.2.1/render/to_dot.ts": "f67565a59758284bf4583a2d4ab5fbe874f638bd073f7adba27f022783900697",
-    "https://deno.land/x/graphviz@v0.2.1/render/utils.ts": "ff15015df774090801f02bbd716dfa3201de5fe9e8f17cdd71bbf35bf63063d5",
-    "https://deno.land/x/graphviz@v0.2.1/render_dot.ts": "64270af90b202469deeff294c50b267293739794dbfc4624fa2b09ab809b18a9",
-    "https://deno.land/x/graphviz@v0.2.1/types.ts": "bb6cd563ebd503b9cb159bf2b7a3ffb25b1d0137fc95ec4fef7b9f8ebcde2003",
-    "https://deno.land/x/graphviz@v0.2.1/usecase.ts": "54ddc12300421e4c6586aaaa5dd19517715c4539279b8ab6fec425a5aa2f340d",
-    "https://deno.land/x/is_exe@v1.0.3/mod.ts": "a6e5adf8a712cc8e5eee693ee80553d3b26ff48e988fd3ba28d2f2b9c4abd151",
-    "https://deno.land/x/is_exe@v1.0.3/src/main.ts": "28cd35707a9003bb8abdf36a0f6bfcfd946482efeb2412735409b57bdeed3109",
-    "https://deno.land/x/open@v0.0.5/index.ts": "387293f5063d620137d9ba87fa4a9aece5ac435ca9f5bf5e3f0999634f68e294",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/configuration.ts": "45220efca8b31a0aaf06fbc751edf42af923b718fc37297cada7b2072366c228",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/dep-graph/dep-graph.ts": "66cecdcac2a1e76913be57a30c6efd2a3647b3c0e66f30678c9f3946d36eac9a",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/dep-graph/html-page.ts": "b329dd428428377acc21c47040800320f79a673fec1e70015fbc8ed3bde3a6c3",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/deps.ts": "87433873b646cc539f964661aa999d325cdffa1d2eb7bd1af4c40ca1d5b1383e",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/graph.ts": "9ee27aeb1d2eba9ef3e8a8009a12982faed839f65bbaf3a1fca133c0b40b2a5b",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/helpers/command.ts": "a25d3feb9f5d0cfe4f3718fdda40d9d0b4ef346f6a63123b550be0c747265f00",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/helpers/isExecutable.ts": "7604b9a77e641d453b2f7cad037809177e2a22f95bda72d95ea980ec64ca1e9f",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/mod.ts": "85a1210d921a50247fefff8fbe9baa7eea0ff09a10b818f53d48c91ad14ebc52",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/print.ts": "32abbbce1412c12ddad3733acf3e33e09188fb694de57d0862fab3f88758cde2",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resource.ts": "e0a39434d7bdeb5b2faeb5ce331910efa52d519c45ae2fc72ef93f0d0fd9faef",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/appForMimeType.ts": "dde1d2208ed71e98250bfe39c0ee45c9cbd0f727be2fb6713e7a53c78c728134",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/aptInstall.ts": "1b8cda065e49b1213e37712bfb50babc88fe4d614abb2e43f302489077118648",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/aptUpdate.ts": "bd8b0caff740cda0b014660f0774e3b4fe0780e43023b4f8216068a5106d0438",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/brew.ts": "031c504e43a220befc436d5282c15d6c6b247a3f64ec8f6ea92b5dd46beee3f2",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/debianPackage.ts": "c124353874e194717234c9ea6b750124b78820027119ee051675335d30987213",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/directory.ts": "1a9f24edc127d3519a773ca485e1f9e9b77938d579e17a5053bb570462ebea34",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/flatpak.ts": "ec18dfb6d63e298a9095e04169d3564b2b8dcc24b26b389c26529e8f8abb00f9",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gitClone.ts": "121061bf5a6200bbedb924777308d6f04bfb132175a606791886af0bb0ac58da",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gnomeSettings.ts": "55758d6710ef1a46f035710f69c67c1208b5cc9e287b51fce765cdd4cd2a48af",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gnomeShellExtension.ts": "069df3bd6099966cd58e3b95edfaf6462034629af44ec6c4b98b8389d7fb594c",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/gnomeShellExtensionInstaller.ts": "f5b1eb79e54a6b975e78e4a0f3fb121b4491fddd8921df27158622198a805afe",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/inlineScript.ts": "f278bd87aac85e0875d87c66311e8f5642b086861bf53cdd19ee926bfd064626",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/loginShell.ts": "6e8fa72ee5036e01cad18fb3ed74199f373da23e5883675da9b1ed26086922b8",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/pnpmGlobalInstall.ts": "b0b28dd389d919f5ca6330ed6d3468f9adb8daacdd51a1e85b4b86ebce4e8a39",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/symlink.ts": "9fe492c1b5df753b3f1a571a19d6ce8b1775ccedfbafeff64e2166bf7861b22b",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/urlScript.ts": "d40b7c0df03627ffe6af7a3d7d079c231669f343182798f1d70b1fcfc1966e1e",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/resources/webInstall.ts": "1aef7de978ce8e6b73ad74ddb8f065fdd57ef30f3d5c2e02e0a305c33e17a295",
-    "https://raw.githubusercontent.com/lttr/deno-dsc/master/run.ts": "5c5193f4b27d5b2b22542831c5e37e2b82a5c026175296df5ae21fedc6c2b638",
-    "https://raw.githubusercontent.com/satty1987/json_tree/master/mod.ts": "f635eeff567dd4050944294e3297dbc59a370acb6fb6e065ebb5a03516a40942"
+    "https://deno.land/std@0.65.0/path/win32.ts": "b530878b0f3f281c7f06fa73dc8e89a15106ab06e88ca1dea27394d09a1b0514"
   }
 }
