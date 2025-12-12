@@ -24,11 +24,7 @@ local servers = {
   "tailwindcss",
   "terraformls",
   "vtsls",
-  -- NOTE: vue_ls removed - vtsls handles Vue files via @vue/typescript-plugin
-  -- The vue_ls server (vue-language-server) provides additional features like
-  -- template intellisense, but requires explicit cmd config since nvim-lspconfig
-  -- doesn't have a built-in config for it yet. For most use cases, vtsls + the
-  -- vue plugin is sufficient.
+  "vue_ls",
   "yamlls",
 }
 
@@ -165,6 +161,9 @@ local vue_plugin = {
   location = vue_language_server_path,
   languages = { "vue" },
   configNamespace = "typescript",
+  -- IMPORTANT: This allows the vue plugin to work even when using workspace tsserver
+  -- Without this, dxup won't work because vue plugin wouldn't load with workspace TS
+  enableForWorkspaceTypeScriptVersions = true,
 }
 
 local vtsls = {
@@ -173,18 +172,16 @@ local vtsls = {
     javascript = shared_settings,
     vue = shared_settings,
     vtsls = {
+      -- IMPORTANT: autoUseWorkspaceTsdk must be at this level (not inside experimental)
+      -- This is critical for dxup/Nuxt to work correctly.
+      -- It ensures vtsls uses the project's node_modules/typescript instead of bundled version.
+      -- Without this, "go to definition" jumps to generated .nuxt types instead of source files
+      autoUseWorkspaceTsdk = true,
       experimental = {
         completion = {
           enableServerSideFuzzyMatch = true,
         },
         enableMoveToFileCodeAction = true,
-        -- IMPORTANT: autoUseWorkspaceTsdk is critical for dxup/Nuxt to work correctly
-        -- It ensures vtsls uses the project's node_modules/typescript instead of a bundled version.
-        -- This is required because:
-        -- 1. dxup hooks into TypeScript as a plugin (configured in tsconfig.json or nuxt.config.ts)
-        -- 2. The plugin only loads if vtsls uses the same TS instance where dxup is registered
-        -- 3. Without this, "go to definition" jumps to generated .nuxt types instead of source files
-        autoUseWorkspaceTsdk = true,
         maxInlayHintLength = 30,
       },
       tsserver = {
@@ -201,14 +198,16 @@ local vtsls = {
     "typescriptreact",
     "vue",
   },
-  -- NOTE on tsdk (TypeScript SDK path):
-  -- - autoUseWorkspaceTsdk=true (above) makes vtsls prefer workspace TS when available
-  -- - If workspace has no TS, vtsls falls back to its bundled version
-  -- - We don't set explicit tsdk here because:
-  --   1. vim.fn.getcwd() at config load time points to wrong directory
-  --   2. Explicit tsdk can override autoUseWorkspaceTsdk incorrectly
-  -- - If you get "prepareRename failed" errors, ensure the project has typescript installed:
-  --   pnpm add -D typescript
+  -- Use lock files as primary root markers for monorepo support
+  -- This ensures vtsls starts from the actual project root (where dependencies are installed)
+  root_dir = lsp_config.util.root_pattern(
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml",
+    "bun.lockb",
+    "bun.lock",
+    ".git"
+  ),
 }
 
 local tailwindcss = {
@@ -250,6 +249,60 @@ local stylelint_lsp = {
   ),
 }
 
+-- vue_ls: Vue Language Server with TypeScript request forwarding to vtsls
+-- This provides additional Vue template features while delegating TS operations to vtsls
+-- Based on: https://github.com/KazariEX/dxup/issues/13#issuecomment-3646107055
+local vue_ls = {
+  cmd = { "vue-language-server", "--stdio" },
+  filetypes = { "vue" },
+  root_dir = lsp_config.util.root_pattern("package.json"),
+  on_init = function(client)
+    local retries = 0
+
+    ---@param _ lsp.ResponseError
+    ---@param result any
+    ---@param context lsp.HandlerContext
+    local function typescriptHandler(_, result, context)
+      local ts_client = vim.lsp.get_clients({ bufnr = context.bufnr, name = "vtsls" })[1]
+        or vim.lsp.get_clients({ bufnr = context.bufnr, name = "ts_ls" })[1]
+        or vim.lsp.get_clients({ bufnr = context.bufnr, name = "typescript-tools" })[1]
+
+      if not ts_client then
+        -- Retry for a short delay until vtsls is attached
+        if retries <= 10 then
+          retries = retries + 1
+          vim.defer_fn(function()
+            typescriptHandler(_, result, context)
+          end, 100)
+        else
+          vim.notify(
+            "Could not find vtsls, ts_ls, or typescript-tools LSP client required by vue_ls.",
+            vim.log.levels.ERROR
+          )
+        end
+        return
+      end
+
+      local param = unpack(result)
+      local id, command, payload = unpack(param)
+      ts_client:exec_cmd({
+        title = "vue_request_forward",
+        command = "typescript.tsserverRequest",
+        arguments = {
+          command,
+          payload,
+        },
+      }, { bufnr = context.bufnr }, function(_, r)
+        local response_data = { { id, r and r.body } }
+        ---@diagnostic disable-next-line: param-type-mismatch
+        client:notify("tsserver/response", response_data)
+      end)
+    end
+
+    client.handlers["tsserver/request"] = typescriptHandler
+  end,
+}
+
 local custom_configs = {
   denols = denols,
   eslint = eslint,
@@ -257,6 +310,7 @@ local custom_configs = {
   stylelint_lsp = stylelint_lsp,
   lua_ls = lua_ls,
   vtsls = vtsls,
+  vue_ls = vue_ls,
   tailwindcss = tailwindcss,
 }
 
@@ -351,6 +405,8 @@ local function setup_server(server)
           root_dir = root_dir,
           capabilities = config.capabilities,
           on_attach = config.on_attach,
+          on_init = config.on_init,
+          init_options = config.init_options,
           settings = config.settings,
         }, { bufnr = args.buf })
       end,
