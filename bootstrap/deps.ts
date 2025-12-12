@@ -1,17 +1,16 @@
-// std
-import * as fs from "https://deno.land/std@0.65.0/fs/mod.ts";
-import * as log from "https://deno.land/std@0.65.0/log/mod.ts";
-import * as path from "https://deno.land/std@0.65.0/path/mod.ts";
+// std - using JSR for Deno 2
+import * as fs from "jsr:@std/fs@^1";
+import * as log from "jsr:@std/log@^0.224";
+import * as path from "jsr:@std/path@^1";
 
 export { fs };
 export { log };
 export { path };
 
-export { ensureSymlink } from "https://deno.land/std@0.65.0/fs/ensure_symlink.ts";
-export { getFileInfoType } from "https://deno.land/std@0.65.0/fs/_util.ts";
-export { ensureDir } from "https://deno.land/std@0.65.0/fs/ensure_dir.ts";
-export { exists } from "https://deno.land/std@0.65.0/fs/exists.ts";
-export { parse } from "https://deno.land/std@0.65.0/flags/mod.ts";
+export { ensureSymlink } from "jsr:@std/fs@^1/ensure-symlink";
+export { ensureDir } from "jsr:@std/fs@^1/ensure-dir";
+export { exists } from "jsr:@std/fs@^1/exists";
+export { parseArgs as parse } from "jsr:@std/cli@^1/parse-args";
 
 // user land
 
