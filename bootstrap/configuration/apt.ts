@@ -12,6 +12,7 @@ function aptPackage(packageName: string) {
 
 export const zsh = aptPackage("zsh");
 export const gthumb = aptPackage("gthumb");
+export const gnupg2 = aptPackage("gnupg2");
 
 export const apt: Config[] = [
   // commandline apps
@@ -25,6 +26,7 @@ export const apt: Config[] = [
   aptPackage("duf"),
   aptPackage("exiftool"),
   aptPackage("fd-find"),
+  gnupg2,
   aptPackage("golang"),
   aptPackage("htop"),
   aptPackage("jq"),

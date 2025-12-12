@@ -1,5 +1,6 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
+import { gnupg2 } from "./apt.ts";
 
 /**
  * Fetches the latest .deb release URL from a GitHub repository.
@@ -59,6 +60,7 @@ export const onePassword: Config = {
     name: "1password",
     url:
       "https://downloads.1password.com/linux/debian/amd64/stable/1password-latest.deb",
+    dependsOn: gnupg2,
   },
 };
 
