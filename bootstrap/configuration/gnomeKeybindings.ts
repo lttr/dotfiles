@@ -22,30 +22,30 @@ function customGnomeKeybinding(
 }
 
 const customGnomeKeybindings = [
-  ...customGnomeKeybinding(
-    0,
-    "Center window",
-    "center-window",
-    "<Primary><Super>c",
-  ),
-  ...customGnomeKeybinding(
-    0,
-    "Margin window",
-    "margin-window",
-    "<Primary><Super>m",
-  ),
-  ...customGnomeKeybinding(
-    0,
-    "Minimize but active",
-    "minimize-but-active",
-    "<Primary><Super>b",
-  ),
   ...customGnomeKeybinding(0, "Sleep", "systemctl suspend", "<Super>u"),
   ...customGnomeKeybinding(
     1,
-    "VPN Quanti",
-    "nmcli con up id Quanti",
-    "<Primary><Super>v",
+    "Realtime voice transcription - czech",
+    "/home/lukas/code/realtime-transcript-linux/voice_transcription.py --engine elevenlabs",
+    "<Alt><Super>l",
+  ),
+  ...customGnomeKeybinding(
+    2,
+    "Minimize but active",
+    "minimize-but-active",
+    "<Alt><Super>b",
+  ),
+  ...customGnomeKeybinding(
+    3,
+    "Realtime voice transcription",
+    "/home/lukas/code/realtime-transcript-linux/voice_transcription.py",
+    "<Alt><Super>k",
+  ),
+  ...customGnomeKeybinding(
+    4,
+    "Realtime voice transcription STOP",
+    "/home/lukas/code/realtime-transcript-linux/voice_transcription.py stop",
+    "<Alt><Super>o",
   ),
 ];
 
