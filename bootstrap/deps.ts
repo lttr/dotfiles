@@ -1,16 +1,16 @@
-// std - using JSR for Deno 2
-import * as fs from "jsr:@std/fs@^1";
-import * as log from "jsr:@std/log@^0.224";
-import * as path from "jsr:@std/path@^1";
+// std - using bare specifiers via deno.json imports
+import * as fs from "@std/fs";
+import * as log from "@std/log";
+import * as path from "@std/path";
 
 export { fs };
 export { log };
 export { path };
 
-export { ensureSymlink } from "jsr:@std/fs@^1/ensure-symlink";
-export { ensureDir } from "jsr:@std/fs@^1/ensure-dir";
-export { exists } from "jsr:@std/fs@^1/exists";
-export { parseArgs as parse } from "jsr:@std/cli@^1/parse-args";
+export { ensureSymlink } from "@std/fs/ensure-symlink";
+export { ensureDir } from "@std/fs/ensure-dir";
+export { exists } from "@std/fs/exists";
+export { parseArgs as parse } from "@std/cli/parse-args";
 
 // user land
 
@@ -20,5 +20,5 @@ export {
   resources,
   runConfigurationSet,
   showDepGraph,
-} from "jsr:@lttr/deno-dsc@^0.1.0";
-export type { Config } from "jsr:@lttr/deno-dsc@^0.1.0";
+} from "@lttr/deno-dsc";
+export type { Config } from "@lttr/deno-dsc";
