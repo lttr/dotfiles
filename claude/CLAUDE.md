@@ -51,4 +51,4 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
   capturing screenshots, or verifying rendered output.
 - When I ask "let me pick and element" you should load skill browser-tools and
   use browser-pick tool for it, check whether the browser is started beforehand
-
+- when i ask to save something to specs you should create a file in .aitools/specs/ directory
