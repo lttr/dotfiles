@@ -24,7 +24,11 @@ local servers = {
   "tailwindcss",
   "terraformls",
   "vtsls",
-  "vue_ls",
+  -- NOTE: vue_ls removed - vtsls handles Vue files via @vue/typescript-plugin
+  -- The vue_ls server (vue-language-server) provides additional features like
+  -- template intellisense, but requires explicit cmd config since nvim-lspconfig
+  -- doesn't have a built-in config for it yet. For most use cases, vtsls + the
+  -- vue plugin is sufficient.
   "yamlls",
 }
 
@@ -134,11 +138,28 @@ local shared_settings = {
   },
 }
 
--- Vue handling
+-- Vue + TypeScript handling
 --
--- based on https://github.com/vuejs/language-tools/wiki/Neovim
+-- References:
+-- - https://github.com/vuejs/language-tools/wiki/Neovim
+-- - https://github.com/KazariEX/dxup (enhanced Nuxt/Vue DX)
+--
+-- For Nuxt 4.2+ projects, enable dxup features in nuxt.config.ts:
+--   experimental: { typescriptPlugin: true }
+-- Then run `nuxt prepare` and restart LSP.
+--
+-- dxup provides:
+-- - Go to definition for auto-imported components, composables, nitro routes
+-- - Automatic rename updates for auto-imported components
+-- - Better navigation for runtime config, typed pages, etc.
+
+-- Path to vue-language-server installed by Mason
+-- This is needed for the @vue/typescript-plugin which provides Vue SFC support in TS files
 local vue_language_server_path = vim.fn.stdpath("data")
   .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+
+-- The Vue TypeScript plugin enables TypeScript features in .vue files
+-- It gets loaded by vtsls/tsserver to provide intellisense for Vue SFCs
 local vue_plugin = {
   name = "@vue/typescript-plugin",
   location = vue_language_server_path,
@@ -157,6 +178,12 @@ local vtsls = {
           enableServerSideFuzzyMatch = true,
         },
         enableMoveToFileCodeAction = true,
+        -- IMPORTANT: autoUseWorkspaceTsdk is critical for dxup/Nuxt to work correctly
+        -- It ensures vtsls uses the project's node_modules/typescript instead of a bundled version.
+        -- This is required because:
+        -- 1. dxup hooks into TypeScript as a plugin (configured in tsconfig.json or nuxt.config.ts)
+        -- 2. The plugin only loads if vtsls uses the same TS instance where dxup is registered
+        -- 3. Without this, "go to definition" jumps to generated .nuxt types instead of source files
         autoUseWorkspaceTsdk = true,
         maxInlayHintLength = 30,
       },
@@ -174,24 +201,14 @@ local vtsls = {
     "typescriptreact",
     "vue",
   },
-  init_options = {
-    typescript = {
-      tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib",
-      globalPlugins = {
-        vue_plugin,
-        {
-          name = "@dxup/unimport",
-          location = vim.fn.getcwd() .. "/node_modules/@dxup/unimport",
-          languages = { "typescript", "javascript", "vue" },
-        },
-        {
-          name = "@dxup/nuxt",
-          location = vim.fn.getcwd() .. "/node_modules/@dxup/nuxt",
-          languages = { "typescript", "javascript", "vue" },
-        },
-      },
-    },
-  },
+  -- NOTE on tsdk (TypeScript SDK path):
+  -- - autoUseWorkspaceTsdk=true (above) makes vtsls prefer workspace TS when available
+  -- - If workspace has no TS, vtsls falls back to its bundled version
+  -- - We don't set explicit tsdk here because:
+  --   1. vim.fn.getcwd() at config load time points to wrong directory
+  --   2. Explicit tsdk can override autoUseWorkspaceTsdk incorrectly
+  -- - If you get "prepareRename failed" errors, ensure the project has typescript installed:
+  --   pnpm add -D typescript
 }
 
 local tailwindcss = {
@@ -216,10 +233,26 @@ local tailwindcss = {
   },
 }
 
+-- stylelint_lsp: Only start if project has a stylelint config file
+-- Without this, stylelint-lsp errors on every file: "No configuration provided"
+local stylelint_lsp = {
+  root_dir = lsp_config.util.root_pattern(
+    ".stylelintrc",
+    ".stylelintrc.js",
+    ".stylelintrc.json",
+    ".stylelintrc.yaml",
+    ".stylelintrc.yml",
+    "stylelint.config.js",
+    "stylelint.config.cjs",
+    "stylelint.config.mjs"
+  ),
+}
+
 local custom_configs = {
   denols = denols,
   eslint = eslint,
   jsonls = jsonls,
+  stylelint_lsp = stylelint_lsp,
   lua_ls = lua_ls,
   vtsls = vtsls,
   tailwindcss = tailwindcss,
