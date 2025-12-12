@@ -4,7 +4,7 @@
     "@std/log": "jsr:@std/log@^0.224.14",
     "@std/path": "jsr:@std/path@^1.1.3",
     "@std/cli": "jsr:@std/cli@^1.0.24",
-    "@lttr/deno-dsc": "jsr:@lttr/deno-dsc@^0.1.1"
+    "@lttr/deno-dsc": "jsr:@lttr/deno-dsc@^0.1.2"
   },
   "tasks": {
     "run": "deno run --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",

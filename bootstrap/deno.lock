@@ -1,10 +1,8 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@lttr/deno-dsc@0.1": "0.1.0",
-    "jsr:@lttr/deno-dsc@~0.1.1": "0.1.1",
+    "jsr:@lttr/deno-dsc@~0.1.2": "0.1.2",
     "jsr:@std/assert@1": "1.0.16",
-    "jsr:@std/cli@1": "1.0.24",
     "jsr:@std/cli@^1.0.24": "1.0.24",
     "jsr:@std/fmt@^1.0.5": "1.0.8",
     "jsr:@std/fs@1": "1.0.20",
@@ -13,25 +11,14 @@
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/io@~0.225.2": "0.225.2",
     "jsr:@std/log@0": "0.224.14",
-    "jsr:@std/log@0.224": "0.224.14",
     "jsr:@std/log@~0.224.14": "0.224.14",
     "jsr:@std/path@1": "1.1.3",
     "jsr:@std/path@^1.1.3": "1.1.3",
     "npm:ts-graphviz@^3.0.6": "3.0.6"
   },
   "jsr": {
-    "@lttr/deno-dsc@0.1.0": {
-      "integrity": "af309f95bbf0cea8344f1b5a900a73be5dcbd628b8ad077df77422f2f9af7967",
-      "dependencies": [
-        "jsr:@std/assert",
-        "jsr:@std/fs@1",
-        "jsr:@std/log@0",
-        "jsr:@std/path@1",
-        "npm:ts-graphviz"
-      ]
-    },
-    "@lttr/deno-dsc@0.1.1": {
-      "integrity": "0acdba97f5c8fedec8a64f721cd60db11b6b2e428a7fca0faf84614506e8d8bd",
+    "@lttr/deno-dsc@0.1.2": {
+      "integrity": "36111eca5db8958af57bbdf3e0127cc05b2c522de6b9863f531d937bcea5f2d5",
       "dependencies": [
         "jsr:@std/assert",
         "jsr:@std/fs@1",
@@ -153,7 +140,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@lttr/deno-dsc@~0.1.1",
+      "jsr:@lttr/deno-dsc@~0.1.2",
       "jsr:@std/cli@^1.0.24",
       "jsr:@std/fs@^1.0.20",
       "jsr:@std/log@~0.224.14",
