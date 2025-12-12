@@ -84,6 +84,17 @@ export const ferdium: Config = {
   },
 };
 
+// Claude Desktop - fetched from GitHub releases
+const claudeDesktopDebUrl = await getGitHubReleaseDebUrl(
+  "aaddrick/claude-desktop-debian",
+);
+export const claudeDesktop: Config = {
+  debianPackage: {
+    name: "claude-desktop",
+    url: claudeDesktopDebUrl,
+  },
+};
+
 // Update:
 // curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
 export const fnm: Config = {
@@ -306,6 +317,7 @@ export const customInstalls: Config[] = [
   aptUpdate,
   brew,
   claudeCode,
+  claudeDesktop,
   cursors,
   exp,
   ferdium,
