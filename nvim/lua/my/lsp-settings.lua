@@ -235,7 +235,9 @@ local tailwindcss = {
 
 -- stylelint_lsp: Only start if project has a stylelint config file
 -- Without this, stylelint-lsp errors on every file: "No configuration provided"
+-- The `conditional = true` flag tells setup_server to skip this server if root_dir returns nil
 local stylelint_lsp = {
+  conditional = true,
   root_dir = lsp_config.util.root_pattern(
     ".stylelintrc",
     ".stylelintrc.js",
@@ -336,6 +338,10 @@ local function setup_server(server)
           local calculated_root = config.root_dir(bufname)
           if calculated_root then
             root_dir = calculated_root
+          elseif config.conditional then
+            -- For conditional servers (like stylelint_lsp), don't start if
+            -- root_dir returns nil (meaning required config file not found)
+            return
           end
         end
 
