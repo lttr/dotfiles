@@ -754,11 +754,8 @@ group_photos_by_events() {
             else
                 log_verbose "Skipped (exists): ${photo_name} in ${event_key}/"
                 event_existing_files["$event_key"]=$((${event_existing_files["$event_key"]:-0} + 1))
-
-                # Mark file as processed even if it already exists
-                local mtime
-                mtime=$(stat -c %Y "$photo" 2>/dev/null || echo "0")
-                mark_file_processed "$photo" "$mtime" "$event_key"
+                # Don't mark as processed here - only mark after successful copy
+                # This ensures files that failed to copy will be retried
             fi
         fi
     done < "$temp_data"
