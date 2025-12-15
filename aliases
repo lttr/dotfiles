@@ -260,8 +260,8 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-alias cl="claude"
-alias clyo="claude --dangerously-skip-permissions"
+alias cls="claude"
+alias cl="claude --dangerously-skip-permissions"
 
 
 # =================================================================
