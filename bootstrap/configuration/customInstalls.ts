@@ -1,6 +1,6 @@
 import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
-import { gnupg2 } from "./apt.ts";
+import { aptUpdate, gnupg2 } from "./apt.ts";
 
 /**
  * Fetches the latest .deb release URL from a GitHub repository.
@@ -171,10 +171,6 @@ const claudeCode: Config = {
   },
 };
 
-export const aptUpdate: Config = {
-  aptUpdate: {},
-};
-
 const brewPackages = [
   { name: "antidote", executable: "atuin" }, // A hact to not install antidote every time, since there is no executable for it
   { name: "atuin" },
@@ -268,6 +264,17 @@ const gitCredentialLibsecret: Config = {
   },
 };
 
+const azureCli: Config = {
+  inlineScript: {
+    name: "azure-cli",
+    testScript: "command -v az && az extension show --name azure-devops",
+    setScript: `
+      curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      az extension add --name azure-devops
+    `,
+  },
+};
+
 export const cursors: Config = {
   inlineScript: {
     name: "cursors",
@@ -315,6 +322,7 @@ const pnpmPackages = [
 
 export const customInstalls: Config[] = [
   aptUpdate,
+  azureCli,
   brew,
   claudeCode,
   claudeDesktop,

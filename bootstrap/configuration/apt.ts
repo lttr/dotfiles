@@ -1,5 +1,8 @@
 import type { Config } from "../deps.ts";
-import { aptUpdate } from "./customInstalls.ts";
+
+export const aptUpdate: Config = {
+  aptUpdate: {},
+};
 
 function aptPackage(packageName: string) {
   return {
@@ -26,6 +29,7 @@ export const apt: Config[] = [
   aptPackage("duf"),
   aptPackage("exiftool"),
   aptPackage("fd-find"),
+  aptPackage("libheif-examples"), // provides heif-convert for HEIC images
   gnupg2,
   aptPackage("golang"),
   aptPackage("htop"),
