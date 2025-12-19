@@ -58,6 +58,15 @@ for GIT_DIR in $(find $ROOT_DIR -maxdepth $DEPTH -name ".git" -type d); do
 
     [ $DEBUG -eq 1 ] && echo
 
+    # Check if repo has any remotes - if not, it's archived/ok
+    REMOTES=$(git --git-dir $GIT_DIR remote)
+    if [ -z "$REMOTES" ]; then
+        if [ -z "$SUPPRESS_OK" ]; then
+            printf "${PROJ_DIR}: ${C_OK}ok${C_RESET} (no remote)\n"
+        fi
+        continue
+    fi
+
     # Find all remote branches that have been checked out and figure out if
     # they need a push or pull. We do this with various tests and put the name
     # of the branches in NEEDS_XXXX, seperated by newlines. After we're done,
