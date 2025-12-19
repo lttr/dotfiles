@@ -16,6 +16,7 @@ export const flatpak: Config[] = [
   flatpakApp("com.synology.SynologyDrive"),
   flatpakApp("org.darktable.Darktable"),
   flatpakApp("org.gnome.Epiphany"),
+  flatpakApp("org.inkscape.Inkscape"),
   flatpakApp("org.kde.kdenlive"),
   flatpakApp("org.ksnip.ksnip"),
   flatpakApp("org.remmina.Remmina"),
