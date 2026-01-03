@@ -1,50 +1,43 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*), Bash(git show:*), Bash(git rev-parse:*), Bash(git rev-list:*), Bash(git push:*)
 description: Create a git commit with intelligent message generation
-argument-hint: [commit message] [no-claude] [push]
+argument-hint: [commit message] [push] [all]
 ---
 
 ## Context
 
 - Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
 - Current branch: !`git branch --show-current`
 - Recent commits: !`git log --oneline -10`
+- Current diff: !`git diff HEAD`
 
-## Your task
+## Task
 
-Based on the above changes, create git commits following the standard Claude commit workflow.
+Commit files modified by Claude (via Edit/MultiEdit/Write) in this conversation.
 
-**Arguments handling:**
+**Arguments (`$ARGUMENTS`):**
 
-- If `$ARGUMENTS` contains a message (excluding "no-claude", "multi", and "push") you should consider the message during the commit workflow
-- If `$ARGUMENTS` contains "no-claude" anywhere, omit the Claude attribution from the commit message(s)
-- If `$ARGUMENTS` contains "push" anywhere, push the commits to the remote after creating them
+- Text (excluding "push"/"all") → use as commit message guidance
+- `push` → push after committing
+- `all` → commit all changes, not just Claude-modified files
 
-**Commit behavior:**
+**Pre-staged files:**
 
-- Analyze the git diff and determine if changes should be split into multiple commits
-- Show initial status with `git status --short`
-- Record initial commit with `git rev-parse HEAD`
-- Create commits following these rules:
-  - **Single commit**: Use when all changes are directly related to the same feature/fix/refactor
-  - **Multiple commits**: Create separate commits when changes touch unrelated concerns, even if in related files
-  - Example requiring 2 commits: Plugin metadata changes + status line display changes (different features)
-  - Example requiring 1 commit: Add new function + update tests for that function (same feature)
-- Stage files selectively for each commit using `git add <specific-files>` when creating multiple commits
-- After creating commits, show summary of new commits created
-- Display new commits with `git log --oneline` and recent commits for context
-- Return only the first line of the commit message(s) for brevity
-- If "push" appears in `$ARGUMENTS`, push the commits to the remote repository after creating them using `git push`
+Check `git diff --cached --name-only`. If any staged files weren't modified by Claude, warn user and ask: (a) include them, (b) unstage them, or (c) abort.
 
-**Attribution:**
+**Attribution check:**
 
-- By default, include the standard Claude attribution:
+If `.claude/settings.json` or `.claude/settings.local.json` in project root doesn't have `"attributionEnabled": true`, warn user that commit attribution is disabled.
 
-```
-🤖 Generated with [Claude Code](https://claude.ai/code)
+**Workflow:**
 
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
+1. Identify Claude-modified files from conversation (or all files if `$ARGUMENTS` contains "all")
+2. If no files to commit, inform user
+3. Record `git rev-parse HEAD`
+4. Split into multiple commits if changes are unrelated
+5. Stage with `git add <files>` and commit (file-level staging includes others' changes to same file)
+6. Show summary: `git log --oneline` from recorded HEAD
+7. Push if "push" in `$ARGUMENTS`
 
-- If "no-claude" appears in `$ARGUMENTS`, omit the attribution
+Execute git commands in parallel where possible. Output only the first line of commit message(s).
+
