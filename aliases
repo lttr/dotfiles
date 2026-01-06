@@ -128,7 +128,7 @@ alias bsync="browser-sync start --server --files . --no-notify --open ."
 alias cal="LC_TIME=cs_CZ.UTF-8 ncal -MC" # Show czech calendar with Monday as the first day of a week
 alias copy="xsel -b"
 alias d="docker"
-alias dc="docker-compose"
+alias dc="docker compose"
 alias ht="http --verify=no"
 alias md="cli-md"
 alias py="python3"
