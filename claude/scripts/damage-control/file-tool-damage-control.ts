@@ -15,7 +15,7 @@
 
 import { loadConfig, readStdin, checkFilePath } from "./shared.ts";
 
-const SUPPORTED_TOOLS = ["Edit", "Write", "MultiEdit"];
+const SUPPORTED_TOOLS = ["Read", "Edit", "Write", "MultiEdit"];
 
 async function main(): Promise<void> {
   const config = loadConfig(import.meta.url);
