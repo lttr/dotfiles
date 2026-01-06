@@ -58,8 +58,17 @@
       "Skill(browser-tools:browser-tools)",
       "WebSearch"
     ],
-    "deny": [],
-    "ask": [],
+    "deny": [
+      "Bash(rm -rf /*:*)",
+      "Bash(rm -rf ~/*:*)",
+      "Bash(sudo rm -rf:*)",
+      "Bash(mkfs:*)",
+      "Bash(dd if=* of=/dev/*:*)"
+    ],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
     "defaultMode": "default"
   },
   "hooks": {
@@ -90,6 +99,38 @@
           {
             "type": "command",
             "command": "if [ -f .prettierrc ]; then file_path=$(jq -r '.tool_input.file_path'); case \"$file_path\" in *.js|*.jsx|*.ts|*.tsx|*.vue|*.svelte|*.json|*.css|*.scss|*.less|*.html|*.md|*.yaml|*.yml) pnpm exec prettier --write \"$file_path\" 2>/dev/null || true ;; esac; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/dotfiles/claude/scripts/damage-control/bash-tool-damage-control.ts",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/dotfiles/claude/scripts/damage-control/edit-tool-damage-control.ts",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun run ~/dotfiles/claude/scripts/damage-control/write-tool-damage-control.ts",
+            "timeout": 5
           }
         ]
       }
