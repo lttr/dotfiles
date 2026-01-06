@@ -134,7 +134,7 @@ alias md="cli-md"
 alias py="python3"
 alias python="python3"
 alias tp="trash-put"
-alias cloc="echo 'Using \`tokei --sort files --compact\` instead of \`cloc\`'; tokei --sort files --compact"
+alias cloc="echo 'Using \`tokei -e \"*lock*\" --sort files\` instead of \`cloc\`'; tokei -e \"*lock*\" --sort files"
 
 # =================================================================
 #                              Git
