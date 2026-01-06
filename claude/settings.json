@@ -109,27 +109,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/dotfiles/claude/scripts/damage-control/bash-tool-damage-control.ts",
+            "command": "~/dotfiles/claude/scripts/damage-control/bash-tool-damage-control.ts",
             "timeout": 5
           }
         ]
       },
       {
-        "matcher": "Edit",
+        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "bun run ~/dotfiles/claude/scripts/damage-control/edit-tool-damage-control.ts",
-            "timeout": 5
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bun run ~/dotfiles/claude/scripts/damage-control/write-tool-damage-control.ts",
+            "command": "~/dotfiles/claude/scripts/damage-control/file-tool-damage-control.ts",
             "timeout": 5
           }
         ]

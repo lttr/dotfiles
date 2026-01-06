@@ -1,11 +1,12 @@
+#!/usr/bin/env node
 /**
- * Claude Code Security Firewall - Bun/TypeScript Implementation
- * ==============================================================
+ * Claude Code Security Firewall - Bash Tool
+ * ==========================================
  *
  * Blocks dangerous commands before execution via PreToolUse hook.
- * Loads patterns from patterns.yaml for easy customization.
+ * Loads patterns from patterns.json for easy customization.
  *
- * Requires: bun add yaml (or npm install yaml)
+ * Adapted based on: https://github.com/disler/claude-code-damage-control
  *
  * Exit codes:
  *   0 = Allow command (or JSON output with permissionDecision)
@@ -15,44 +16,21 @@
  *   {"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "ask", "permissionDecisionReason": "..."}}
  */
 
-import { existsSync, readFileSync } from "fs";
-import { dirname, join } from "path";
-import { homedir } from "os";
-import { parse as parseYaml } from "yaml";
-
-// =============================================================================
-// GLOB PATTERN UTILITIES
-// =============================================================================
-
-function isGlobPattern(pattern: string): boolean {
-  return pattern.includes('*') || pattern.includes('?') || pattern.includes('[');
-}
-
-function globToRegex(globPattern: string): string {
-  // Convert glob pattern to regex for matching in commands
-  let result = "";
-  for (const char of globPattern) {
-    if (char === '*') {
-      result += '[^\\s/]*';  // Match any chars except whitespace and path sep
-    } else if (char === '?') {
-      result += '[^\\s/]';   // Match single char except whitespace and path sep
-    } else if ('.+^${}()|[]\\'.includes(char)) {
-      result += '\\' + char;
-    } else {
-      result += char;
-    }
-  }
-  return result;
-}
+import { homedir } from "node:os";
+import {
+  type Config,
+  isGlobPattern,
+  globToRegex,
+  loadConfig,
+  readStdin,
+} from "./shared.ts";
 
 // =============================================================================
 // OPERATION PATTERNS - Edit these to customize what operations are blocked
 // =============================================================================
-// {path} will be replaced with the escaped path at runtime
 
-type PatternTuple = [string, string]; // [pattern, operation]
+type PatternTuple = [string, string];
 
-// Operations blocked for READ-ONLY paths (all modifications)
 const WRITE_PATTERNS: PatternTuple[] = [
   [">\\s*{path}", "write"],
   ["\\btee\\s+(?!.*-a).*{path}", "write"],
@@ -93,7 +71,6 @@ const TRUNCATE_PATTERNS: PatternTuple[] = [
   [":\\s*>\\s*{path}", "truncate"],
 ];
 
-// Combined patterns for read-only paths (block ALL modifications)
 const READ_ONLY_BLOCKED: PatternTuple[] = [
   ...WRITE_PATTERNS,
   ...APPEND_PATTERNS,
@@ -104,82 +81,7 @@ const READ_ONLY_BLOCKED: PatternTuple[] = [
   ...TRUNCATE_PATTERNS,
 ];
 
-// Patterns for no-delete paths (block ONLY delete operations)
 const NO_DELETE_BLOCKED: PatternTuple[] = DELETE_PATTERNS;
-
-// =============================================================================
-// TYPES
-// =============================================================================
-
-interface Pattern {
-  pattern: string;
-  reason: string;
-  ask?: boolean;
-}
-
-interface Config {
-  bashToolPatterns: Pattern[];
-  zeroAccessPaths: string[];
-  readOnlyPaths: string[];
-  noDeletePaths: string[];
-}
-
-interface HookInput {
-  tool_name: string;
-  tool_input: {
-    command?: string;
-    [key: string]: unknown;
-  };
-}
-
-// =============================================================================
-// CONFIGURATION
-// =============================================================================
-
-function getConfigPath(): string {
-  // 1. Check project hooks directory (installed location)
-  const projectDir = process.env.CLAUDE_PROJECT_DIR;
-  if (projectDir) {
-    const projectConfig = join(projectDir, ".claude", "hooks", "damage-control", "patterns.yaml");
-    if (existsSync(projectConfig)) {
-      return projectConfig;
-    }
-  }
-
-  // 2. Check script's own directory (installed location)
-  const scriptDir = dirname(Bun.main);
-  const localConfig = join(scriptDir, "patterns.yaml");
-  if (existsSync(localConfig)) {
-    return localConfig;
-  }
-
-  // 3. Check skill root directory (development location)
-  const skillRoot = join(scriptDir, "..", "..", "patterns.yaml");
-  if (existsSync(skillRoot)) {
-    return skillRoot;
-  }
-
-  return localConfig; // Default, even if it doesn't exist
-}
-
-function loadConfig(): Config {
-  const configPath = getConfigPath();
-
-  if (!existsSync(configPath)) {
-    console.error(`Warning: Config not found at ${configPath}`);
-    return { bashToolPatterns: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
-  }
-
-  const content = readFileSync(configPath, "utf-8");
-  const config = parseYaml(content) as Partial<Config>;
-
-  return {
-    bashToolPatterns: config.bashToolPatterns || [],
-    zeroAccessPaths: config.zeroAccessPaths || [],
-    readOnlyPaths: config.readOnlyPaths || [],
-    noDeletePaths: config.noDeletePaths || [],
-  };
-}
 
 // =============================================================================
 // PATH CHECKING
@@ -191,17 +93,10 @@ function checkPathPatterns(
   patterns: PatternTuple[],
   pathType: string
 ): { blocked: boolean; reason: string } {
-  /**
-   * Supports both:
-   * - Literal paths: ~/.bashrc, /etc/hosts (prefix matching)
-   * - Glob patterns: *.lock, *.md, src/* (glob matching)
-   */
   if (isGlobPattern(path)) {
-    // Glob pattern - convert to regex for command matching
     const globRegex = globToRegex(path);
     for (const [patternTemplate, operation] of patterns) {
       try {
-        // Build a regex that matches: operation ... glob_pattern
         const cmdPrefix = patternTemplate.replace("{path}", "");
         if (cmdPrefix) {
           const regex = new RegExp(cmdPrefix + globRegex, "i");
@@ -217,13 +112,11 @@ function checkPathPatterns(
       }
     }
   } else {
-    // Original literal path matching (prefix-based)
     const expanded = path.replace(/^~/, homedir());
     const escapedExpanded = expanded.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const escapedOriginal = path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     for (const [patternTemplate, operation] of patterns) {
-      // Check both expanded path (/Users/x/.ssh/) and original tilde form (~/.ssh/)
       const patternExpanded = patternTemplate.replace("{path}", escapedExpanded);
       const patternOriginal = patternTemplate.replace("{path}", escapedOriginal);
       try {
@@ -248,15 +141,15 @@ function checkCommand(
   command: string,
   config: Config
 ): { blocked: boolean; ask: boolean; reason: string } {
-  // 1. Check against patterns from YAML (may block or ask)
+  // 1. Check against patterns from JSON (may block or ask)
   for (const { pattern, reason, ask: shouldAsk } of config.bashToolPatterns) {
     try {
       const regex = new RegExp(pattern, "i");
       if (regex.test(command)) {
         if (shouldAsk) {
-          return { blocked: false, ask: true, reason }; // Ask for confirmation
+          return { blocked: false, ask: true, reason };
         } else {
-          return { blocked: true, ask: false, reason: `Blocked: ${reason}` }; // Block
+          return { blocked: true, ask: false, reason: `Blocked: ${reason}` };
         }
       }
     } catch {
@@ -267,10 +160,9 @@ function checkCommand(
   // 2. Check for ANY access to zero-access paths (including reads)
   for (const zeroPath of config.zeroAccessPaths) {
     if (isGlobPattern(zeroPath)) {
-      // Convert glob to regex for command matching
       const globRegex = globToRegex(zeroPath);
       try {
-        const regex = new RegExp(globRegex, 'i');
+        const regex = new RegExp(globRegex, "i");
         if (regex.test(command)) {
           return {
             blocked: true,
@@ -282,9 +174,7 @@ function checkCommand(
         continue;
       }
     } else {
-      // Original literal path matching
       const expanded = zeroPath.replace(/^~/, homedir());
-      // Check both expanded path (/Users/x/.ssh/) and original tilde form (~/.ssh/)
       if (command.includes(expanded) || command.includes(zeroPath)) {
         return {
           blocked: true,
@@ -319,24 +209,16 @@ function checkCommand(
 // =============================================================================
 
 async function main(): Promise<void> {
-  const config = loadConfig();
+  const config = loadConfig(import.meta.url);
 
-  // Read stdin
-  let inputText = "";
-  for await (const chunk of Bun.stdin.stream()) {
-    inputText += new TextDecoder().decode(chunk);
-  }
-
-  // Parse input
-  let input: HookInput;
+  let input;
   try {
-    input = JSON.parse(inputText);
+    input = await readStdin();
   } catch (e) {
     console.error(`Error: Invalid JSON input: ${e}`);
     process.exit(1);
   }
 
-  // Only check Bash commands
   if (input.tool_name !== "Bash") {
     process.exit(0);
   }
@@ -346,17 +228,13 @@ async function main(): Promise<void> {
     process.exit(0);
   }
 
-  // Check the command
   const { blocked, ask, reason } = checkCommand(command, config);
 
   if (blocked) {
     console.error(`SECURITY: ${reason}`);
-    console.error(
-      `Command: ${command.slice(0, 100)}${command.length > 100 ? "..." : ""}`
-    );
+    console.error(`Command: ${command.slice(0, 100)}${command.length > 100 ? "..." : ""}`);
     process.exit(2);
   } else if (ask) {
-    // Output JSON to trigger confirmation dialog
     const output = {
       hookSpecificOutput: {
         hookEventName: "PreToolUse",
@@ -373,5 +251,5 @@ async function main(): Promise<void> {
 
 main().catch((e) => {
   console.error(`Hook error: ${e}`);
-  process.exit(0); // Fail open
+  process.exit(0);
 });
