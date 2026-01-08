@@ -75,13 +75,33 @@ local denols = {
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#eslint
 
+local function uses_flat_eslint_config()
+  return vim.fn.glob("eslint.config.*") ~= ""
+end
+
 local eslint = {
   -- It is better to run eslint --fix and then prettier in order to have the
   -- code formatted even after the eslint transformation which is not always
   -- precise.
   -- It is done in the conform.lua file
-  experimental = {
-    useFlatConfig = true,
+  root_dir = lsp_config.util.root_pattern(
+    "eslint.config.js",
+    "eslint.config.mjs",
+    "eslint.config.cjs",
+    ".eslintrc",
+    ".eslintrc.js",
+    ".eslintrc.cjs",
+    ".eslintrc.json",
+    ".eslintrc.yaml",
+    ".eslintrc.yml",
+    "package.json"
+  ),
+  settings = {
+    -- "auto" detects working dir from eslint config location instead of file location
+    workingDirectories = { mode = "auto" },
+    experimental = {
+      useFlatConfig = uses_flat_eslint_config(),
+    },
   },
   filetypes = {
     "javascript",
