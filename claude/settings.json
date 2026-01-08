@@ -138,7 +138,8 @@
     "azure-devops@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
     "ideation@nicknisi": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "triage@lttr-claude-marketplace": true
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
