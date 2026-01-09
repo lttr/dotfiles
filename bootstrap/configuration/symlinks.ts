@@ -70,6 +70,12 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
+      dest: path.join(HOME, ".config/git/ignore"),
+      src: path.join(DOTFILES, "gitignore"),
+    },
+  },
+  {
+    symlink: {
       dest: path.join(HOME, ".config/nvim/init.lua"),
       src: path.join(DOTFILES, "nvim/init.lua"),
     },
