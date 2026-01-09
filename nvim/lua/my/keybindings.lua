@@ -280,9 +280,23 @@ local telescope = require("telescope")
 
 local find_files = function()
   return telescopeBuildin.find_files({
+    -- same as LIST_FILES_COMMAND in zshrc
     find_command = {
-      "rg",
-      "--files",
+      "fd",
+      "--hidden",
+      "--no-ignore",
+      "--exclude",
+      ".git",
+      "--exclude",
+      "node_modules",
+      "--exclude",
+      "build/",
+      "--exclude",
+      "dist/",
+      "--exclude",
+      ".lock",
+      "--exclude",
+      ".nuxt",
     },
   })
 end
@@ -307,6 +321,8 @@ end
 local recent_files = function() return telescope.extensions.recent_files.pick() end
 
 nmap("<C-p>", find_files)
+
+-- TODO: how does this work?
 imap(
   "<C-t>",
   function()
