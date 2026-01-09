@@ -283,6 +283,7 @@ local find_files = function()
     -- same as LIST_FILES_COMMAND in zshrc
     find_command = {
       "fd",
+      "--strip-cwd-prefix",
       "--hidden",
       "--no-ignore",
       "--exclude",
