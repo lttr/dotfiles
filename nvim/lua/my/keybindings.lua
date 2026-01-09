@@ -339,7 +339,7 @@ nmap("<leader>fg", live_grep, "Live search ripgrep")
 vmap(
   "<leader>fg",
   function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end,
-  "Search form selection"
+  "Search from selection"
 )
 nmap(
   "<leader>fG",
@@ -348,6 +348,11 @@ nmap(
   end,
   "Search under cursor"
 )
+vmap(
+  "<leader>fG",
+  function() telescopeBuildin.live_grep({ default_text = GetVisualSelection() }) end,
+  "Search from selection"
+) -- same as <leader>fg
 nmap("<leader>fh", telescopeBuildin.help_tags, "Help")
 nmap(
   "<leader>fH",
