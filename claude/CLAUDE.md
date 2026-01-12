@@ -14,6 +14,10 @@
 
 Search before responding for: CLI flags/syntax, APIs, recent features, technical specs, time-sensitive claims.
 
+## Dates
+
+- Relative dates → use "Today's date" from `<env>` block, state calculated date before acting
+
 ## Development
 
 **Package managers:**
