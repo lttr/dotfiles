@@ -22,6 +22,7 @@ export interface Pattern {
 
 export interface Config {
   bashToolPatterns: Pattern[];
+  allowedPaths: string[];
   zeroAccessPaths: string[];
   readOnlyPaths: string[];
   noDeletePaths: string[];
@@ -129,7 +130,7 @@ export function loadConfig(callerUrl: string): Config {
 
   if (!existsSync(configPath)) {
     console.error(`Warning: Config not found at ${configPath}`);
-    return { bashToolPatterns: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
+    return { bashToolPatterns: [], allowedPaths: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
   }
 
   const content = readFileSync(configPath, "utf-8");
@@ -137,6 +138,7 @@ export function loadConfig(callerUrl: string): Config {
 
   return {
     bashToolPatterns: config.bashToolPatterns || [],
+    allowedPaths: config.allowedPaths || [],
     zeroAccessPaths: config.zeroAccessPaths || [],
     readOnlyPaths: config.readOnlyPaths || [],
     noDeletePaths: config.noDeletePaths || [],
@@ -164,6 +166,13 @@ export function checkFilePath(
   filePath: string,
   config: Config
 ): { blocked: boolean; reason: string } {
+  // Check allowlist first - these paths are always permitted
+  for (const allowedPath of config.allowedPaths) {
+    if (matchPath(filePath, allowedPath)) {
+      return { blocked: false, reason: "" };
+    }
+  }
+
   for (const zeroPath of config.zeroAccessPaths) {
     if (matchPath(filePath, zeroPath)) {
       return { blocked: true, reason: `zero-access path ${zeroPath} (no operations allowed)` };

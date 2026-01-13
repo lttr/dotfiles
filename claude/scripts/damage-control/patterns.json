@@ -1,4 +1,7 @@
 {
+  "allowedPaths": [
+    ".env.example"
+  ],
   "bashToolPatterns": [
     {
       "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]",
