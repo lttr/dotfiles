@@ -25,10 +25,6 @@ Commit files modified by Claude (via Edit/MultiEdit/Write) in this conversation.
 
 Check `git diff --cached --name-only`. If any staged files weren't modified by Claude, warn user and ask: (a) include them, (b) unstage them, or (c) abort.
 
-**Attribution check:**
-
-If `.claude/settings.json` or `.claude/settings.local.json` in project root doesn't have `"attributionEnabled": true`, warn user that commit attribution is disabled.
-
 **Workflow:**
 
 1. Identify Claude-modified files from conversation (or all files if `$ARGUMENTS` contains "all")
@@ -40,4 +36,3 @@ If `.claude/settings.json` or `.claude/settings.local.json` in project root does
 7. Push if "push" in `$ARGUMENTS`
 
 Execute git commands in parallel where possible. Output only the first line of commit message(s).
-
