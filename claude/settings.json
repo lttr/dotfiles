@@ -142,5 +142,9 @@
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": true,
-  "promptSuggestionEnabled": false
+  "promptSuggestionEnabled": false,
+  "fileSuggestion": {
+    "type": "command",
+    "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
+  }
 }
