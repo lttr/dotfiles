@@ -24,10 +24,10 @@ Help the user resume work on a project they haven't touched recently. Gather and
 ### 1. Git State (always run)
 
 Gather in parallel:
-- `git status` - uncommitted changes
-- `git stash list` - stashed work
-- `git branch -a` - all branches (highlight feature/wip branches)
-- `git log --oneline -15 --date=short --format="%h %ad %s"` - recent commits with dates
+- `git status` - uncommitted changes (summarize by filename, not full paths)
+- `git stash list` - stashed work (include stash message)
+- `git branch -a` - all branches (filter to feature/wip branches only)
+- `git log --oneline -5 --date=short --format="%h %ad %s"` - last 5 commits max
 - `git log -1 --format="%ar"` - time since last commit
 - `git rev-list --count @{u}..HEAD 2>/dev/null` - unpushed commits (if tracking remote)
 
@@ -37,14 +37,24 @@ Detect project type and show key info:
 - Check for: `package.json`, `requirements.txt`, `go.mod`, `Cargo.toml`, `pyproject.toml`
 - If `package.json`: show name, scripts available
 - If README exists: summarize purpose (first paragraph)
-- Check `.aitools/plans/` for existing plans - list recent ones
 
-### 3. Work-in-Progress Signals (quick scan)
+### 3. Filter Unfinished Plans
+
+For each plan in `.aitools/plans/`:
+1. Read the plan file to identify key features/components it describes
+2. Search git log and codebase for evidence it's implemented:
+   - Commit messages mentioning the feature
+   - Files/functions the plan describes actually existing
+   - Related branches merged to main
+3. Categorize: "not started", "in progress", "likely done"
+4. Only show "not started" and "in progress" plans
+
+### 4. Work-in-Progress Signals (quick scan)
 
 - Count TODO/FIXME in codebase: `rg -c "TODO|FIXME" --type-not lock 2>/dev/null | wc -l`
 - Identify WIP/feature branches from branch list
 
-### 4. Deep Analysis (only if `deep`)
+### 5. Deep Analysis (only if `deep`)
 
 If `$ARGUMENTS` contains `deep`:
 - Use Task tool with `subagent_type=Explore` to understand:
@@ -58,32 +68,37 @@ If `$ARGUMENTS` contains `deep`:
 Present findings as:
 
 ```
-## Quick Status
-- **Branch:** main (3 uncommitted files)
-- **Last activity:** 2 weeks ago
-- **Stashed:** 1 stash
+## Resume Point
+[1-2 sentences: What was being worked on + suggested next action]
+Example: "Last touched auth flow. Stash has schema changes. → Apply stash or continue with video support plan?"
 
-## Recent Activity
-[Table or list of last 10-15 commits with dates]
+## Working State
+[Only show if there ARE uncommitted changes, stashes, or unpushed commits]
+- Modified: server/api/albums.ts, components/Gallery.vue
+- Stash: "schema reorganization WIP" (1 stash)
+- Unpushed: 3 commits
 
-## Open Branches
-- feature/auth-flow (ahead of main by 5 commits)
-- fix/login-bug
+## Unfinished Plans
+[Only show plans that appear NOT yet implemented - cross-reference plan content with recent commits/branches]
+- video-lightbox (phase 5) - not started
+- background-jobs - partially done (queue system merged, workers pending)
 
-## Project
-- **Type:** Node.js (package.json)
-- **Scripts:** dev, build, test, lint
-- **TODOs:** 12 across codebase
+## WIP Branches
+[Feature/fix branches not yet merged]
+- feature/video-upload (5 commits ahead)
 
-## Existing Plans
-- 2024-12-15_auth-refactor.md
-- 2024-12-10_api-design.md
-
-## Suggested Actions
-1. [Based on analysis - what to do next]
+## Last 3 Commits
+abc1234 2026-01-03 fix(admin): responsive toolbar
+def5678 2026-01-03 fix(auth): await session fetch
+ghi9012 2026-01-03 fix(album): loading flash
 ```
 
-Keep output scannable. Use tables where appropriate. Front-load most important info.
+**Key principles:**
+- Resume Point = #1 priority, immediately actionable
+- Hide sections with nothing to show
+- Plans: read plan files, check if main features exist in codebase/git history
+- Git log: max 3-5 commits, just for orientation
+- Front-load decisions/actions, not historical data
 
 ## Rules
 
