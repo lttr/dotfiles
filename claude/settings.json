@@ -65,10 +65,7 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": [
-      "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
-    ],
+    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"],
     "defaultMode": "default"
   },
   "hooks": {
@@ -146,5 +143,6 @@
   "fileSuggestion": {
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
-  }
+  },
+  "plansDirectory": ".aitools/plans"
 }
