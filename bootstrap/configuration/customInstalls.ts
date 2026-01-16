@@ -252,6 +252,18 @@ const soundSwitcherIndicator: Config = {
   },
 };
 
+const ffmpeg7: Config = {
+  inlineScript: {
+    name: "ffmpeg7",
+    testScript: `ffmpeg -version 2>/dev/null | grep -q "ffmpeg version 7"`,
+    setScript: `
+      sudo add-apt-repository -y ppa:ubuntuhandbook1/ffmpeg7
+      sudo apt-get update
+      sudo apt-get install -y ffmpeg
+    `,
+  },
+};
+
 const gitCredentialLibsecret: Config = {
   inlineScript: {
     name: "git-credential-libsecret",
@@ -329,6 +341,7 @@ export const customInstalls: Config[] = [
   cursors,
   exp,
   ferdium,
+  ffmpeg7,
   fnm,
   fzf,
   fzfSetup,
