@@ -1,3 +1,5 @@
+<!-- ~/.claude/CLAUDE.md symlinked here -->
+
 ## Response Style
 
 - **Optimize for quick shared understanding** - User skims responses, so front-load key information
@@ -29,7 +31,10 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - `nr build` / `nr test` / `nr verify` / `nr typecheck` / `nr lint:fix`
 
-**Tools:** Prefer `fd` over `find`
+**Tools:**
+
+- Prefer `fd` over `find`
+- Prefer `rg` over `grep`
 
 ## Git Workflow
 
@@ -45,14 +50,36 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - Screenshots I manually make are saved by default in `~/Pictures/Screenshots` by the Gnome screenshot utility.
 
-## Plans
-
-- At the end of each plan, give me a list of unresolved questions if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
-
 ## Browser Usage
 
 - Use browser-tools skill when: testing UI changes, debugging frontend issues,
   capturing screenshots, or verifying rendered output.
 - When I ask "let me pick and element" you should load skill browser-tools and
   use browser-pick tool for it, check whether the browser is started beforehand
-- when i ask to save something to specs you should create a file in .aitools/specs/ directory
+
+## Plans
+
+- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
+- At the end of each plan, give me a list of unresolved questions to answer, if any.
+- Save plans to `.aitools/plans/` using standard naming convention
+
+## Project Local Memory
+
+`.aitools/` directory stores AI-generated artifacts per project:
+
+| Folder          | Purpose                                      |
+| --------------- | -------------------------------------------- |
+| `plans/`        | Implementation plans                         |
+| `specs/`        | Task specifications                          |
+| `triage/`       | Ticket analysis summaries and clarifications |
+| `reviews/`      | Code review reports                          |
+| `logs/`         | Logs describing AI tools' actions            |
+| `package-docs/` | Downloaded package documentation             |
+
+**Naming convention**: `{timestamp}_{slug}.md`
+
+- Timestamp: `YYYY-MM-DD_HH-MM`
+- Example: `2025-01-16_09-30_auth-refactor.md`
+- Slugify: lowercase, spaces→hyphens, no special chars, max 50 chars
+
+When asked to save specs, plans, etc. → use this convention.
