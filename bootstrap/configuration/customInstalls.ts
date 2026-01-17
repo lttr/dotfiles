@@ -252,6 +252,17 @@ const soundSwitcherIndicator: Config = {
   },
 };
 
+const at: Config = {
+  inlineScript: {
+    name: "at",
+    testScript: `command -v at && systemctl is-enabled atd`,
+    setScript: `
+      sudo apt-get install -y at
+      sudo systemctl enable --now atd
+    `,
+  },
+};
+
 const ffmpeg7: Config = {
   inlineScript: {
     name: "ffmpeg7",
@@ -334,6 +345,7 @@ const pnpmPackages = [
 
 export const customInstalls: Config[] = [
   aptUpdate,
+  at,
   azureCli,
   brew,
   claudeCode,
