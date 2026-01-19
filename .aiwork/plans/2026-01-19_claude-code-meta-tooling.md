@@ -1,8 +1,14 @@
+---
+created: 2026-01-19
+type: plan
+status: complete
+---
+
 # Claude Code Authoring Plugin (`cc`)
 
-Move Claude Code authoring tools (for creating plugins, skills, commands) to marketplace.
+## Goal
 
-**Plugin name:** `cc` (Claude Code Authoring)
+Move Claude Code authoring tools (for creating plugins, skills, commands) to marketplace as `cc` plugin.
 
 ## Resulting Commands & Skills
 
@@ -69,20 +75,6 @@ plugins/cc/
 └── README.md
 ```
 
-## Steps
-
-1. Delete redundant items from dotfiles
-2. Create `plugins/cc/` in marketplace
-3. Copy skills and commands
-4. Add plugin.json (version 1.0.0)
-5. Update marketplace.json
-6. Test installation
-7. Remove originals from dotfiles
-
-## Notes
-
-- Reference `claude-code-guide` built-in agent in README
-
 ## plugin.json
 
 ```json
@@ -96,3 +88,17 @@ plugins/cc/
   "keywords": ["claude-code", "plugin", "skill", "authoring", "introspection"]
 }
 ```
+
+## Steps
+
+1. Delete redundant items from dotfiles
+2. Create `plugins/cc/` in marketplace
+3. Copy skills and commands
+4. Add plugin.json (version 1.0.0)
+5. Update marketplace.json
+6. Test installation
+7. Remove originals from dotfiles
+
+## Unresolved Questions
+
+None. Reference `claude-code-guide` built-in agent in README.

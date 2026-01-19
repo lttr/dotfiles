@@ -1,7 +1,7 @@
 ---
 created: 2026-01-19
 type: plan
-status: active
+status: complete
 ---
 
 # Plan: Rename .aitools → .aiwork

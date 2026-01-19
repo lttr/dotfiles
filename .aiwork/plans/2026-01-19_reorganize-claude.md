@@ -1,10 +1,16 @@
+---
+created: 2026-01-19
+type: plan
+status: draft
+references:
+  - ./2026-01-19_claude-code-meta-tooling.md
+---
+
 # Reorganize dotfiles/claude → claude-marketplace
 
-## Related Plans
+## Goal
 
-- **`claude-code-meta-tooling.md`** - Plugin/skill creator + list commands (implement first)
-
----
+Move generic reusable commands/skills from dotfiles to marketplace plugins, keep personal ones.
 
 ## Analysis: Dependency Categories
 
@@ -30,8 +36,6 @@
 - `skills/pdf-to-markdown/`, `img-optimize/` - Personal workflows
 - `settings.json` - Instance config
 
----
-
 ## Proposed New Plugins
 
 ### 1. **assess** plugin
@@ -52,14 +56,10 @@ plugins/toolsforai/
 └── README.md
 ```
 
----
-
 ## Move to Existing Plugin
 
 ### nuxt plugin
 Add: `commands/assess/nuxt-4.md` → `/nuxt:assess`
-
----
 
 ## Keep in dotfiles (final list)
 
@@ -88,19 +88,15 @@ dotfiles/claude/
     └── img-optimize/
 ```
 
----
+## Steps
 
-## Migration Steps
-
-1. Implement `claude-code-meta-tooling.md` first
+1. Implement `2026-01-19_claude-code-meta-tooling.md` first
 2. Create `assess` and `toolsforai` plugins in marketplace
 3. Add `assess/nuxt-4.md` to existing nuxt plugin
 4. Update marketplace.json
 5. Test installations
 6. Remove moved files from dotfiles
 7. Commit both repos
-
----
 
 ## Unresolved Questions
 
