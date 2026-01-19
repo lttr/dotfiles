@@ -34,6 +34,13 @@ references:
 ---
 ```
 
+### Status Definitions
+
+- **draft** - Work in progress, not ready for use
+- **active** - Approved and currently being implemented
+- **complete** - All items resolved (each implemented, dropped, or superseded by other work)
+- **superseded** - Replaced by a newer document
+
 ## Type Overviews
 
 ### triage/
