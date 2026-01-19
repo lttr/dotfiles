@@ -94,14 +94,21 @@ function getFirstUserMessage(transcriptPath) {
   return null;
 }
 
+function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${hours}:${minutes}`;
+}
+
 function getSessionDuration(transcriptPath, sessionId) {
-  if (!transcriptPath || !existsSync(transcriptPath)) return "0m";
+  if (!transcriptPath || !existsSync(transcriptPath)) return { duration: "0m", lastActivity: null };
 
   try {
     const data = readFileSync(transcriptPath, "utf8");
     const lines = data.split("\n").filter((l) => l.trim());
 
-    if (lines.length < 2) return "0m";
+    if (lines.length < 2) return { duration: "0m", lastActivity: null };
 
     // Check for /clear marker file to reset timer
     const gitDir = execGit("git rev-parse --git-common-dir");
@@ -155,17 +162,20 @@ function getSessionDuration(transcriptPath, sessionId) {
       const hours = Math.floor(durationMs / (1000 * 60 * 60));
       const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
 
+      let duration;
       if (hours > 0) {
-        return `${hours}h\u2009${minutes}m`;
+        duration = `${hours}h\u2009${minutes}m`;
       } else if (minutes > 0) {
-        return `${minutes}m`;
+        duration = `${minutes}m`;
       } else {
-        return "0m";
+        duration = "0m";
       }
+
+      return { duration, lastActivity: formatTime(lastTs) };
     }
   } catch {}
 
-  return "0m";
+  return { duration: "0m", lastActivity: null };
 }
 
 function getSessionSummary(transcriptPath, sessionId) {
@@ -283,8 +293,8 @@ function generateStatusLine(inputData) {
     parts.push(colorize(`◈ ${styleName?.toLowerCase()}`, "\x1b[90m"));
   }
 
-  // Session duration - always show
-  const duration = getSessionDuration(transcript_path, session_id);
+  // Session duration
+  const { duration, lastActivity } = getSessionDuration(transcript_path, session_id);
   parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
 
   // Context window
@@ -298,10 +308,11 @@ function generateStatusLine(inputData) {
   // Build first line
   const firstLine = parts.join(colorize(" | ", "\x1b[90m"));
 
-  // Session summary on second line
+  // Session summary on second line, prefixed with last activity time
   const sessionSummary = getSessionSummary(transcript_path, session_id);
   if (sessionSummary) {
-    return firstLine + "\n" + colorize(`⌘ ${sessionSummary}`, "\x1b[90m");
+    const timePrefix = lastActivity ? `${lastActivity} ` : "";
+    return firstLine + "\n" + colorize(`${timePrefix}⌘ ${sessionSummary}`, "\x1b[90m");
   }
 
   return firstLine;
