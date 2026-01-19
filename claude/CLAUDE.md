@@ -65,4 +65,4 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 ## AI-Generated Artifacts
 
-@AIWORK.md
+@aiwork-protocol.md
