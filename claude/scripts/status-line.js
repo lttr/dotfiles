@@ -36,66 +36,9 @@ function createProgressBar(percentage) {
 }
 
 function getContextWindowPercentage(inputData) {
-  try {
-    const { context, transcript_path } = inputData;
-
-    // Use actual context data if available
-    if (context?.used_tokens && context?.max_tokens) {
-      const percentage = Math.round(
-        (context.used_tokens / context.max_tokens) * 100,
-      );
-      return { bar: createProgressBar(percentage), percentage };
-    }
-
-    // HACK: Parse transcript for actual token usage data
-    // This is not using a documented API - we're parsing Claude Code's internal
-    // transcript file format to extract token usage from API responses.
-    // This may break if the internal format changes.
-    //
-    // TODO: v2.0.65 added context_window to statusLineInput but it contains
-    // cumulative tokens (total_input_tokens summed across all API calls), not
-    // current context usage. When/if Claude Code exposes current_context_tokens,
-    // refactor to use that instead of transcript parsing.
-    if (transcript_path && existsSync(transcript_path)) {
-      const content = readFileSync(transcript_path, "utf8");
-      const lines = content.trim().split("\n");
-
-      // Find the most recent usage data by looking through recent lines
-      for (let i = lines.length - 1; i >= Math.max(0, lines.length - 10); i--) {
-        try {
-          const entry = JSON.parse(lines[i]);
-          if (entry.message?.usage) {
-            const usage = entry.message.usage;
-            const inputTokens =
-              (usage.cache_read_input_tokens || 0) +
-              (usage.cache_creation_input_tokens || 0) +
-              (usage.input_tokens || 0);
-
-            // For Sonnet 4, assume 200k input context limit
-            const maxTokens = 200000;
-            const percentage = Math.round((inputTokens / maxTokens) * 100);
-            return { bar: createProgressBar(percentage), percentage };
-          }
-        } catch {
-          continue;
-        }
-      }
-    }
-
-    // Final fallback to file size estimation
-    if (transcript_path && existsSync(transcript_path)) {
-      const contentLength = readFileSync(transcript_path, "utf8").length;
-      const percentage = Math.min(
-        Math.round((contentLength / 800000) * 100),
-        99,
-      );
-      return { bar: createProgressBar(percentage), percentage };
-    }
-
-    return { bar: createProgressBar(0), percentage: 0 };
-  } catch {
-    return { bar: createProgressBar(0), percentage: 0 };
-  }
+  const { context_window } = inputData;
+  const percentage = context_window?.used_percentage ?? 0;
+  return { bar: createProgressBar(percentage), percentage };
 }
 
 function getFirstUserMessage(transcriptPath) {
