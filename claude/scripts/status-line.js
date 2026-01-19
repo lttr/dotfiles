@@ -311,7 +311,7 @@ function generateStatusLine(inputData) {
   // Session summary on second line, prefixed with last activity time
   const sessionSummary = getSessionSummary(transcript_path, session_id);
   if (sessionSummary) {
-    const timePrefix = lastActivity ? `${lastActivity} ` : "";
+    const timePrefix = lastActivity ? `◴ ${lastActivity} ` : "";
     return firstLine + "\n" + colorize(`${timePrefix}⌘ ${sessionSummary}`, "\x1b[90m");
   }
 
