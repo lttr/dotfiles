@@ -104,7 +104,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hooks/copy-plan-to-aitools.ts",
+            "command": "~/dotfiles/claude/hooks/copy-plan-to-aiwork.ts",
             "timeout": 10
           }
         ]
@@ -153,6 +153,5 @@
   "fileSuggestion": {
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
-  },
-  "plansDirectory": ".aitools/plans"
+  }
 }

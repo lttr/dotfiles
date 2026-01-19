@@ -74,4 +74,4 @@ and Vite based project aspects.
 
 - Is there `AGENTS.md` or `CLAUDE.md` commited into the repository?
 - Are there AI tool specific configuration files? (`.claude/settings.json`)
-- Is there a folder for accompanying files for AI tools? (`.aitools/`)
+- Is there a folder for AI-related work? (`.aiwork/`)

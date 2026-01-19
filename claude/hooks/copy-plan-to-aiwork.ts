@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * PostToolUse hook for ExitPlanMode
- * Copies plans to .aitools/plans/ with AITOOLS frontmatter.
+ * Copies plans to .aiwork/plans/ with frontmatter.
  */
 
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
@@ -16,7 +16,7 @@ async function main() {
   const { cwd } = input;
   if (!filePath || !plan || !cwd) process.exit(0);
 
-  const plansDir = join(cwd, ".aitools", "plans");
+  const plansDir = join(cwd, ".aiwork", "plans");
   if (!existsSync(plansDir)) mkdirSync(plansDir, { recursive: true });
 
   // Use Claude's generated filename as slug

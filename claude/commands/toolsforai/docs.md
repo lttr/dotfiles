@@ -110,7 +110,7 @@ For each library, download from the appropriate source:
 
 ```bash
 REPO_ROOT=$(git rev-parse --show-toplevel)
-DOCS_DIR="$REPO_ROOT/.aitools/package-docs"
+DOCS_DIR="$REPO_ROOT/.aiwork/package-docs"
 mkdir -p "$DOCS_DIR"
 
 # Function to download with frontmatter
@@ -162,7 +162,7 @@ After completion, report:
 3. **Documentation location**:
 
    ```
-   Documentation saved to: <repo_root>/.aitools/package-docs/
+   Documentation saved to: <repo_root>/.aiwork/package-docs/
    ```
 
 4. **File list** with file sizes (to verify successful downloads)
@@ -181,7 +181,7 @@ Source breakdown:
 - Context7 (exact version): 2 libraries
 - llms.txt: 3 libraries
 
-Documentation saved to: /home/user/project/.aitools/package-docs/
+Documentation saved to: /home/user/project/.aiwork/package-docs/
 
 Files created:
 - nuxt-3.16.md (245 KB)

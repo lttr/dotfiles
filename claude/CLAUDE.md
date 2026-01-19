@@ -61,25 +61,8 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
 - At the end of each plan, give me a list of unresolved questions to answer, if any.
-- Save plans to `.aitools/plans/` using standard naming convention
+- Save plans to `.aiwork/plans/` using standard naming convention.
 
-## Project Local Memory
+## AI-Generated Artifacts
 
-`.aitools/` directory stores AI-generated artifacts per project:
-
-| Folder          | Purpose                                      |
-| --------------- | -------------------------------------------- |
-| `plans/`        | Implementation plans                         |
-| `specs/`        | Task specifications                          |
-| `triage/`       | Ticket analysis summaries and clarifications |
-| `reviews/`      | Code review reports                          |
-| `logs/`         | Logs describing AI tools' actions            |
-| `package-docs/` | Downloaded package documentation             |
-
-**Naming convention**: `{timestamp}_{slug}.md`
-
-- Timestamp: `YYYY-MM-DD_HH-MM`
-- Example: `2025-01-16_09-30_auth-refactor.md`
-- Slugify: lowercase, spaces→hyphens, no special chars, max 50 chars
-
-When asked to save specs, plans, etc. → use this convention.
+@AIWORK.md

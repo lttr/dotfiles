@@ -13,9 +13,9 @@ Output a brief message explaining *why* before each step (not what - the user se
 
 1. Output: "Checking for outdated dependencies and fetching their release notes (this may take a moment as it queries npm and GitHub)..."
    ```bash
-   mkdir -p .aitools/logs
+   mkdir -p .aiwork/logs
    TIMESTAMP=$(date +%Y-%m-%d)
-   find-release-notes > ".aitools/logs/dependency-update-notes-${TIMESTAMP}.md"
+   find-release-notes > ".aiwork/logs/dependency-update-notes-${TIMESTAMP}.md"
    ```
 
 2. Output: "Identifying breaking changes and upgrade risks..."

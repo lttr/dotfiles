@@ -40,7 +40,7 @@ Detect project type and show key info:
 
 ### 3. Filter Unfinished Plans
 
-For each plan in `.aitools/plans/`:
+For each plan in `.aiwork/plans/`:
 1. Read the plan file to identify key features/components it describes
 2. Search git log and codebase for evidence it's implemented:
    - Commit messages mentioning the feature
