@@ -43,7 +43,7 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # 'l' is now a smart function in ~/dotfiles/functions
 # 'EZA_BASE_COMMAND' variable is defined in ~/dotfiles/zshrc
 alias ltime="$EZA_BASE_COMMAND --all --sort=newest"
-alias ltree="$EZA_BASE_COMMAND --all --tree"
+alias ltree="$EZA_BASE_COMMAND --all --tree -I '.git|node_modules|build|dist|*.lock|.nuxt'"
 
 alias ls="LC_COLLATE=c ls -F -1 --show-control-chars --color --group-directories-first"
 alias ll="LC_COLLATE=c ls -lhF --show-control-chars --color --group-directories-first --time-style='+%d.%m.%Y %H:%M'"
