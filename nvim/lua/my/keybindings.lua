@@ -539,6 +539,7 @@ nmap("cog", function() ToggleDiagnostics() end, "Toggle diagnostics")
 nmap("coo", require("nvim-highlight-colors").toggle, "Toggle color highlights")
 -- yon 'number'
 nmap("coq", ":call ToggleQuickfixList()<CR>", "Toggle quickfix list")
+nmap("com", "<cmd>RenderMarkdown toggle<CR>", "Toggle markdown rendering")
 -- yor 'relativenumber'
 -- yos 'spell'
 -- yot 'colorcolumn' ("+1" or last used value)
