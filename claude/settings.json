@@ -1,4 +1,8 @@
 {
+  "fileSuggestion": {
+    "type": "command",
+    "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
+  },
   "permissions": {
     "allow": [
       "Bash(basename:*)",
@@ -65,7 +69,10 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
     "defaultMode": "default"
   },
   "hooks": {
@@ -144,14 +151,11 @@
     "video-to-article@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
     "ideation@nicknisi": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "ast-grep@ast-grep-marketplace": true
   },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": true,
-  "promptSuggestionEnabled": false,
-  "fileSuggestion": {
-    "type": "command",
-    "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
-  }
+  "promptSuggestionEnabled": false
 }
