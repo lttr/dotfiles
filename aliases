@@ -106,7 +106,7 @@ alias nw="nr watch"
 
 alias pn="pnpm"
 alias pdx="pnpm dlx"
-alias px="pnpm exec"
+# px is a script in dotfiles/scripts/
 alias pi="pnpm install"
 alias pnu="pnpm add -g pnpm"
 
@@ -116,7 +116,7 @@ alias deps="cat package.json | json dependencies | json --items -a key value | s
 alias devdeps="cat package.json | json devDependencies | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 alias scripts="cat package.json | json scripts | json --items -a key value | sed 's/ /|/' | column -s '|' -t"
 
-alias mit="npx mit-license --name 'Lukas Trumm'"
+alias mit="pnpm dlx mit-license --name 'Lukas Trumm'"
 
 # =================================================================
 #                         Other programs

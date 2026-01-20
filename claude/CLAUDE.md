@@ -26,6 +26,7 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - Prefer `pnpm` over `npm` (use `npm` if package-lock.json exists)
 - Aliases: `ni` (install), `nr <script>` (run), `nun` (uninstall)
+- Prefer `px` over `npx` (`px` tries pnpm exec, falls back to pnpm dlx)
 
 **Common scripts:**
 

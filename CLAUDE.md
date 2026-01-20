@@ -81,12 +81,14 @@ Prefixes in `aliases`:
 
 ### For This Repository
 - **Installation**: Run `install.sh` to bootstrap environment and create symlinks
+- **Symlinks only**: Run `symlinks.sh` to update symlinks without full install
 - **Editing**: Edit files in dotfiles directory (not symlinked locations)
   - Use editor aliases: `ezsh`, `ealias`, `efunc`, `eterm`
   - Changes take effect on new shell or after `source ~/dotfiles/zshrc`
 - **Scripts**: Place in appropriate `scripts/<category>/` subdirectory
   - Make executable: `chmod +x script.sh`
   - Use `#!/usr/bin/env zsh` or `#!/usr/bin/env bash` shebangs
+  - Scripts with `.sh`, `.ts`, `.js` extensions are auto-symlinked to `~/bin`
 
 ## Key Dependencies
 
