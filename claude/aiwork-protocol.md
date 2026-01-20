@@ -1,6 +1,6 @@
 # .aiwork Folder Protocol
 
-`.aiwork/` is a folder for AI-related work. It stores artifacts per project.
+`.aiwork/` is a repository-local folder for AI-related work. Place it in each repository's root to store AI artifacts.
 
 ## Folder Structure
 
@@ -61,6 +61,10 @@ Sections: Summary, Critical/Important Issues, Recommendation (approve|changes-re
 
 ### logs/
 Freeform timestamped entries with artifact links.
+
+## Version Control
+
+Whether to commit `.aiwork/` is up to you. It can be version controlled for traceability or gitignored as ephemeral working artifacts.
 
 ## Cross-referencing
 
