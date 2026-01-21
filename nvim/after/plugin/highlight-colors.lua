@@ -5,3 +5,6 @@ require("nvim-highlight-colors").setup({
   render = "virtual",
   enable_tailwind = true,
 })
+
+-- Turn off highlight colors by default, toggle on demand
+require("nvim-highlight-colors").turnOff()
