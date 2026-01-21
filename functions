@@ -412,6 +412,18 @@ mrs() {
     glab mr list
 }
 
+# Git log "table"
+glg() {
+  git log --graph --abbrev-commit --decorate \
+    --date=format:'%Y-%m-%d %H:%M' \
+    --format=format:'%C(yellow)%h%C(reset) %C(cyan)%cd%C(reset) %<(80,trunc)%s %C(green)(%<(12,trunc)%an)%C(reset)%C(auto)%d' \
+    --first-parent \
+    --grep='\[skip ci\]' --invert-grep \
+    --color=always \
+    "${@:--n20}" \
+    | sed 's/Merged PR [0-9]*:/PR:/'
+}
+
 
 # =================================================================
 #                              Code
