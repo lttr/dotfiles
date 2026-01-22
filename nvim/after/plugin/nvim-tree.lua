@@ -9,6 +9,10 @@ require("nvim-tree").setup({
   notify = {
     threshold = vim.log.levels.WARN,
   },
+  filters = {
+    dotfiles = false,
+    git_ignored = false,
+  },
   renderer = {
     highlight_modified = "name",
   },
