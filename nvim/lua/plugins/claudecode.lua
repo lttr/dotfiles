@@ -25,7 +25,7 @@ return {
       "<cmd>ClaudeCodeSelectModel<cr>",
       desc = "Select Claude model",
     },
-    { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+    { "<leader>as", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
     {
       "<leader>as",
       "<cmd>ClaudeCodeSend<cr>",
