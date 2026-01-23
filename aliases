@@ -262,6 +262,7 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 alias cls="claude"
 alias cl="claude --dangerously-skip-permissions"
+alias aicp="aic && git push"
 
 
 # =================================================================
