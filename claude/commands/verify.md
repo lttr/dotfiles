@@ -26,7 +26,7 @@ Verify project, report and fix errors.
 | 2 | test | After phase 1 |
 | 3 | build | After phase 2 |
 
-- Skip missing scripts
+- Run all available scripts (skip only if script doesn't exist in package.json)
 - Continue to next phase on failures (collect all errors)
 
 **3. Non-JS projects**
@@ -38,5 +38,5 @@ Verify project, report and fix errors.
 - For complex/many errors: report them, suggest fix plan, don't attempt bulk fixes
 
 **5. Summary**
-- Status: ✅ passed | ⚠️ warnings | ❌ failures
+- Status: passed | warnings | failures (plain text, no emojis)
 - Remaining issues needing attention
