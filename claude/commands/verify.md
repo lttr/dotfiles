@@ -6,38 +6,37 @@ argument-hint:
 
 ## Context
 
-- Current working directory: !`pwd`
-- Check if package.json exists: !`ls package.json 2>/dev/null || echo "No package.json found"`
-- Package.json scripts (if exists): !`cat package.json 2>/dev/null | grep -A 20 '"scripts"' || echo "No scripts section found"`
+- Working directory: !`pwd`
+- package.json: !`ls package.json 2>/dev/null || echo "not found"`
+- Scripts: !`cat package.json 2>/dev/null | grep -A 30 '"scripts"' || echo "none"`
 
-## Your task
+## Task
 
-Verify the project and fix any errors that arise. Follow this priority order:
+Verify project, report and fix errors.
 
-**Step 1: Detect project type**
-- Check if `package.json` exists to determine if it's a JavaScript/TypeScript project
-- Report project type found
+**1. Detect setup**
+- Package manager: `pnpm` (or `npm` if package-lock.json exists)
+- If `verify` script exists → run it and stop
 
-**Step 2: Run verification scripts**
-- If `package.json` has a `verify` script: run `pnpm run verify` (or `npm run verify` if package-lock.json exists)
-- If no `verify` script exists, try these in order:
-  1. `pnpm run lint` (if lint script exists)
-  2. `pnpm run typecheck` (if typecheck script exists)
-  3. `pnpm run test` (if test script exists)
-  4. `pnpm run build` (if build script exists)
+**2. Run scripts in phases**
 
-**Step 3: Handle other project types**
-- For non-package.json projects, attempt to use locally installed tools only
-- Try common verification commands if tools are available locally
-- Do NOT install new tools or dependencies
+| Phase | Scripts | Execution |
+|-------|---------|-----------|
+| 1 | lint, typecheck | Parallel (two Bash calls, one message) |
+| 2 | test | After phase 1 |
+| 3 | build | After phase 2 |
 
-**Step 4: Error handling**
-- Report results of each script and whether it exists
-- Fix simple, obvious errors (like missing semicolons, unused imports, etc.)
-- **CRITICAL**: For complex errors with many issues, just report them - do not attempt to fix everything at once
-- Provide a clear plan for fixing complex errors in iterations
+- Skip missing scripts
+- Continue to next phase on failures (collect all errors)
 
-**Step 5: Summary**
-- Provide final status of verification
-- List any remaining issues that need manual attention
-- Suggest next steps for complex problems
+**3. Non-JS projects**
+- Use locally installed tools only
+- Don't install dependencies
+
+**4. Error handling**
+- Fix simple errors (formatting, unused imports)
+- For complex/many errors: report them, suggest fix plan, don't attempt bulk fixes
+
+**5. Summary**
+- Status: ✅ passed | ⚠️ warnings | ❌ failures
+- Remaining issues needing attention
