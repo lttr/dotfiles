@@ -216,6 +216,7 @@ alias gfem="git-fem"
 alias gs="git status -s"
 alias grs="git recursive-status"
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
+alias gpf='git push --force-with-lease'
 alias gul='git pull'
 alias gundo='git reset --mixed HEAD~'
 alias standup="git-standup"
