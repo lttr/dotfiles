@@ -27,7 +27,8 @@ Verify project, report and fix errors.
 | 3 | build | After phase 2 |
 
 - Run all available scripts (skip only if script doesn't exist in package.json)
-- Continue to next phase on failures (collect all errors)
+- Failures don't stop the pipeline - collect all errors across all phases
+- Summary comes only after phase 3 completes
 
 **3. Non-JS projects**
 - Use locally installed tools only
@@ -37,6 +38,7 @@ Verify project, report and fix errors.
 - Fix simple errors (formatting, unused imports)
 - For complex/many errors: report them, suggest fix plan, don't attempt bulk fixes
 
-**5. Summary**
+**5. Summary** (only after ALL phases completed)
+- Verify checklist: lint ✓ | typecheck ✓ | test ✓ | build ✓ (or N/A if script missing)
 - Status: passed | warnings | failures (plain text, no emojis)
 - Remaining issues needing attention
