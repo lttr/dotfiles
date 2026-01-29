@@ -21,6 +21,7 @@ import {
   type Config,
   isGlobPattern,
   globToRegex,
+  matchGlob,
   loadConfig,
   readStdin,
 } from "./shared.ts";
@@ -158,12 +159,26 @@ function checkCommand(
   }
 
   // 2. Check for ANY access to zero-access paths (including reads)
+  // Extract path-like tokens from command to check against allowlist
+  const commandTokens = command.match(/[^\s;|&"'`]+/g) || [];
+  const isAllowed = (token: string): boolean =>
+    config.allowedPaths.some((ap) =>
+      isGlobPattern(ap) ? matchGlob(token, ap) || matchGlob(token.split("/").pop() || "", ap) : token.endsWith(ap)
+    );
+
   for (const zeroPath of config.zeroAccessPaths) {
     if (isGlobPattern(zeroPath)) {
       const globRegex = globToRegex(zeroPath);
       try {
-        const regex = new RegExp(globRegex, "i");
+        // Anchor to path-like context: preceded by whitespace, /, =, or start of string
+        // This prevents matching code like "Object.keys()" against "*.key"
+        const regex = new RegExp(`(?:^|[\\s/=])${globRegex}(?:\\s|$|[;|&"'\`])`, "i");
         if (regex.test(command)) {
+          // Skip if all matching tokens are in the allowlist
+          if (commandTokens.some((t) => matchGlob(t, zeroPath) || matchGlob(t.split("/").pop() || "", zeroPath)) &&
+              commandTokens.filter((t) => matchGlob(t, zeroPath) || matchGlob(t.split("/").pop() || "", zeroPath)).every(isAllowed)) {
+            continue;
+          }
           return {
             blocked: true,
             ask: false,
@@ -176,6 +191,11 @@ function checkCommand(
     } else {
       const expanded = zeroPath.replace(/^~/, homedir());
       if (command.includes(expanded) || command.includes(zeroPath)) {
+        // Skip if all matching tokens are in the allowlist
+        if (commandTokens.some((t) => t.includes(expanded) || t.includes(zeroPath)) &&
+            commandTokens.filter((t) => t.includes(expanded) || t.includes(zeroPath)).every(isAllowed)) {
+          continue;
+        }
         return {
           blocked: true,
           ask: false,
