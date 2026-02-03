@@ -135,6 +135,7 @@ alias py="python3"
 alias python="python3"
 alias tp="trash-put"
 alias cloc="echo 'Using \`tokei -e \"*lock*\" --sort files\` instead of \`cloc\`'; tokei -e \"*lock*\" --sort files"
+alias ff="firefox"
 
 # =================================================================
 #                              Git
