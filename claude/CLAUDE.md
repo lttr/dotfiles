@@ -2,15 +2,14 @@
 
 ## Response Style
 
-- **Optimize for quick shared understanding** - User skims responses, so front-load key information
-- **Be concise by default** - Only elaborate when asked
-- **Focus on essential information only**
-- **No praise or filler** - Skip "Perfect!", "Excellent!", "You're right!" - be curious and analytical instead
-- **Be proactive** - Don't ask "Should I check X?" - just check it using agents, skills, websearch, or context
+- **Front-load key information** - User skims responses
+- **Be proactive** - Don't ask "Should I check X?" - just check it
+- **Be curious and analytical** - Skip praise, investigate instead
 
 ## Documentation
 
 - NEVER hallucinate or guess URLs
+- Avoid mdash "—" unless in prose where it fits well
 
 ## Verification
 
@@ -62,7 +61,7 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
 - At the end of each plan, give me a list of unresolved questions to answer, if any.
-- Save plans to `.aiwork/plans/` using standard naming convention.
+- Save plans to `.aiwork/{task-folder}/` per aiwork protocol.
 
 ## AI-Generated Artifacts
 
