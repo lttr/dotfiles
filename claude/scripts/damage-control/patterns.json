@@ -5,19 +5,23 @@
   "bashToolPatterns": [
     {
       "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]",
-      "reason": "rm with recursive or force flags"
+      "reason": "rm with recursive or force flags",
+      "ask": true
     },
     {
       "pattern": "\\brm\\s+-[rRf]",
-      "reason": "rm with recursive or force flags"
+      "reason": "rm with recursive or force flags",
+      "ask": true
     },
     {
       "pattern": "\\brm\\s+--recursive",
-      "reason": "rm with --recursive flag"
+      "reason": "rm with --recursive flag",
+      "ask": true
     },
     {
       "pattern": "\\brm\\s+--force",
-      "reason": "rm with --force flag"
+      "reason": "rm with --force flag",
+      "ask": true
     },
     {
       "pattern": "\\bsudo\\s+rm\\b",
@@ -28,12 +32,9 @@
       "reason": "rmdir ignore-fail"
     },
     {
-      "pattern": "\\bchmod\\s+(-[^\\s]+\\s+)*777\\b",
-      "reason": "chmod 777 (world writable)"
-    },
-    {
-      "pattern": "\\bchmod\\s+-[Rr].*777",
-      "reason": "recursive chmod 777"
+      "pattern": "\\bchmod\\b",
+      "reason": "chmod (changes file permissions)",
+      "ask": true
     },
     {
       "pattern": "\\bchown\\s+-[Rr].*\\broot\\b",

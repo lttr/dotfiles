@@ -12,7 +12,6 @@
       "Bash(browser-screenshot)",
       "Bash(browser-start:*)",
       "Bash(cat:*)",
-      "Bash(chmod:*)",
       "Bash(cp:*)",
       "Bash(curl:*)",
       "Bash(eslint:*)",
