@@ -17,7 +17,7 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 ## Dates
 
-- Relative dates → use "Today's date" from `<env>` block, state calculated date before acting
+- Relative dates → use current date from system context, state calculated date before acting
 
 ## Development
 
