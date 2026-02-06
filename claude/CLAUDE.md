@@ -46,10 +46,6 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - I have my personal and work related notes located in `~/ia`. Search for files there whenever I need my notes.
 
-## Screenshots
-
-- Screenshots I manually make are saved by default in `~/Pictures/Screenshots` by the Gnome screenshot utility.
-
 ## Browser Usage
 
 - Use browser-tools skill when: testing UI changes, debugging frontend issues,
