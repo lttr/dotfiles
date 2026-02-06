@@ -10,27 +10,31 @@ Deno + `@david/dax` is the **default scripting stack** on this machine. Use it f
 ## Script Template
 
 ```typescript
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-run --allow-env
+#!/usr/bin/env -S deno run --allow-run --allow-env
 import $ from "jsr:@david/dax";
 
 // script body here
 ```
 
-**Mandatory rules:**
-- Shebang: `#!/usr/bin/env -S deno run <permissions>`
-- Import from JSR: `import $ from "jsr:@david/dax";`
-- Make executable: `chmod +x script.ts`
-- Placement: `~/dotfiles/scripts/<category>/` for auto-symlinking to `~/bin`
-- Use **minimal required permissions** in shebang
+Minimal shebang is `--allow-run --allow-env` (both always required by dax). Add `--allow-read`, `--allow-write`, `--allow-net` as needed.
+
+Every script follows these three steps:
+1. First line is always the shebang: `#!/usr/bin/env -S deno run <permissions>`
+2. Import from JSR: `import $ from "jsr:@david/dax";`
+3. After writing, run `chmod +x <file>` via Bash tool
+
+Place scripts in `~/dotfiles/scripts/<category>/` for auto-symlinking to `~/bin`. Use minimal required permissions in the shebang.
 
 ### Deno Permissions
 
+`--allow-run` and `--allow-env` are always required - dax reads env internally even for simple commands.
+
 | Flag | When needed |
 |------|-------------|
+| `--allow-run` | Always (dax executes commands) |
+| `--allow-env` | Always (dax reads env internally) |
 | `--allow-read` | Reading files/dirs |
 | `--allow-write` | Writing files |
-| `--allow-run` | Running shell commands (needed for almost all dax scripts) |
-| `--allow-env` | Accessing env vars |
 | `--allow-net` | HTTP requests via `$.request()` |
 | `-A` | All permissions (quick scripts only) |
 
@@ -226,8 +230,8 @@ const $ = build$({
 ## Workflow
 
 1. Determine script purpose and required Deno permissions
-2. Write script with shebang, JSR import, body
-3. `chmod +x script.ts`
+2. Write script with shebang as first line, JSR import
+3. Run `chmod +x <script>` via Bash tool
 4. Place in `~/dotfiles/scripts/<category>/` if it should be in PATH
 
 ## Notes
