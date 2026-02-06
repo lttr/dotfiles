@@ -2,7 +2,7 @@
 
 ## Response Style
 
-- **Front-load key information** - User skims responses
+- **Front-load key information** - User skims responses, but always show diffs after edits (summarize large diffs)
 - **Be proactive** - Don't ask "Should I check X?" - just check it
 - **Be curious and analytical** - Skip praise, investigate instead
 
