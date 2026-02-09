@@ -90,6 +90,11 @@ Prefixes in `aliases`:
   - Use `#!/usr/bin/env zsh` or `#!/usr/bin/env bash` shebangs
   - Scripts with `.sh`, `.ts`, `.js` extensions are auto-symlinked to `~/bin`
 
+## Damage Control
+
+Before destructive/risky bash commands, briefly state why in your message text
+(appears above the hook's permission prompt).
+
 ## Key Dependencies
 
 Zsh (with antidote plugin manager), Kitty terminal, Neovim, fzf, ripgrep, fd, eza, zoxide, atuin, Deno
