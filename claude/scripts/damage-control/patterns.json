@@ -57,6 +57,11 @@
       "reason": "git push -f (use --force-with-lease)"
     },
     {
+      "pattern": "\\bgit\\s+push\\s+.*--force-with-lease",
+      "reason": "git push --force-with-lease (overwrites remote history)",
+      "ask": true
+    },
+    {
       "pattern": "\\bgit\\s+stash\\s+clear\\b",
       "reason": "git stash clear (deletes ALL stashes)"
     },
