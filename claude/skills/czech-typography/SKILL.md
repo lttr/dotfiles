@@ -9,19 +9,19 @@ description: Czech typography rules for web development. Use when building web p
 
 | Znak | Pravidlo | Příklad |
 |------|----------|---------|
-| `. , ; : ? !` | Bez mezery před, mezera za | `Text, další text.` |
-| `( )` | Mezera vně, bez mezery uvnitř | `Text (v závorce) pokračuje.` |
-| `„ “` | Těsně k textu, tvar 99–66 | `Řekl: „Ahoj.“` |
-| `‚ ‘` | Vnořené uvozovky | `„Řekl: ‚Ahoj.‘“` |
+| . , ; : ? ! | Bez mezery před, mezera za | `Text, další text.` |
+| ( ) | Mezera vně, bez mezery uvnitř | `Text (v závorce) pokračuje.` |
+| „ " | Těsně k textu, tvar 99–66 | `Řekl: „Ahoj."` |
+| ‚ ' | Vnořené uvozovky | `„Řekl: ‚Ahoj.'"` |
 
 ## Pomlčka vs. spojovník
 
 | Znak | Použití | Příklad |
 |------|---------|---------|
-| `-` (spojovník) | Složená slova, bez mezer | `česko-anglický`, `modro-bílý` |
-| `–` (pomlčka) | Rozsah jednoslovný, bez mezer | `8–16 h`, `Praha–Brno`, `str. 10–15` |
-| `–` (pomlčka) | Rozsah víceslovný, s mezerami | `Karlovy Vary – Liberec` |
-| `–` (pomlčka) | Vsuvka, s mezerami | `Text – poznámka – pokračuje.` |
+| - (spojovník) | Složená slova, bez mezer | `česko-anglický`, `modro-bílý` |
+| – (pomlčka) | Rozsah jednoslovný, bez mezer | `8–16 h`, `Praha–Brno`, `str. 10–15` |
+| – (pomlčka) | Rozsah víceslovný, s mezerami | `Karlovy Vary – Liberec` |
+| – (pomlčka) | Vsuvka, s mezerami | `Text – poznámka – pokračuje.` |
 
 ## Lomítko
 
