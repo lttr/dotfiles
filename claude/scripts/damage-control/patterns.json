@@ -403,6 +403,87 @@
       "pattern": "\\bDELETE\\s+FROM\\s+\\w+\\s+WHERE\\b.*\\bid\\s*=",
       "reason": "SQL DELETE with specific ID",
       "ask": true
+    },
+
+    {
+      "pattern": "\\bnpm\\s+(install|i|add)\\s+\\S",
+      "reason": "npm: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bpnpm\\s+(add|i|install)\\s+\\S",
+      "reason": "pnpm: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\byarn\\s+add\\b",
+      "reason": "yarn: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bbun\\s+(add|i|install)\\s+\\S",
+      "reason": "bun: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bni\\s+\\S",
+      "reason": "ni: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bnpx\\s+\\S",
+      "reason": "npx: downloads and runs package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bnpm\\s+exec\\s+\\S",
+      "reason": "npm exec: downloads and runs package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bpnpm\\s+dlx\\s+\\S",
+      "reason": "pnpm dlx: downloads and runs package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bbunx\\s+\\S",
+      "reason": "bunx: downloads and runs package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bpx\\s+\\S",
+      "reason": "px: downloads and runs package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bpip3?\\s+install\\s+\\S",
+      "reason": "pip: installing package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bcargo\\s+(add|install)\\s+\\S",
+      "reason": "cargo: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bgem\\s+install\\s+\\S",
+      "reason": "gem: installing package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bgo\\s+(install|get)\\s+\\S",
+      "reason": "go: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bdeno\\s+(add|install)\\s+\\S",
+      "reason": "deno: adding package (verify name)",
+      "ask": true
+    },
+    {
+      "pattern": "\\bbrew\\s+install\\s+\\S",
+      "reason": "brew: installing package (verify name)",
+      "ask": true
     }
   ],
   "zeroAccessPaths": [
