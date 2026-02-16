@@ -4,97 +4,68 @@
 
 ## Structure
 
-Each task gets its own folder. Artifacts inside are created sequentially as the work progresses.
+Each task gets its own folder. Artifacts are created as the work progresses.
 
 ```
 .aiwork/
   2026-01-27_auth-refactor/
-    2026-01-27_09-30_triage.md
-    2026-01-27_10-15_research.md
-    2026-01-27_11-00_spec.md
-    2026-01-27_14-00_plan.md
-    2026-01-28_09-00_plan.md       # second plan for next chunk
-    2026-01-28_16-00_review.md
-    2026-01-28_16-30_notes.md
-    docs/                           # downloaded reference docs
-      nextauth-v5.md
+    triage.md
+    research.md
+    spec.md
+    plan.md
+    review.md
 ```
 
 ### Folder Naming
 
-`{YYYY-MM-DD}_{slug}/`
+`{YYYY-MM-DD}_{slug}/` - slug is lowercase kebab-case, max 40 chars.
 
-- Slug: lowercase kebab-case, max 40 chars
-- Example: `2026-01-27_auth-refactor/`
+### File Naming
 
-### Artifact Naming
+`{type}.md` - just the artifact type. When multiple of the same type exist, add a numbered suffix: `plan.md`, `plan_2.md`, `plan_3.md`.
 
-`{YYYY-MM-DD}_{hh-mm}_{type}.md`
+### Longer Tasks
 
-- Datetime of creation, 24h format
-- Type is the artifact kind (see below)
-
-### Simple Tasks
-
-When only a few artifacts are needed, skip phases that add no value.
+For tasks spanning multiple days with many artifacts, optionally add date prefixes for chronological clarity:
 
 ```
 .aiwork/
-  2026-01-27_add-logout-button/
+  2026-01-27_auth-refactor/
+    triage.md
+    research.md
     spec.md
     plan.md
+    2026-01-28_plan_2.md
+    2026-01-28_review.md
+    docs/
+      nextauth-v5.md
 ```
-
-Datetime prefix on files is optional when the task is short-lived. A folder with just `review.md` is also fine.
 
 ## Artifact Types
 
-All phases are optional. Use only what the task needs. Recommended sections listed below are guidelines, not requirements.
+All types are optional. Use only what the task needs.
 
-### triage
-Requirement analysis — what is the problem, what do we know.
-Sections: Summary, Analysis, Dependencies, Completeness %, Blocker Questions
-
-### research
-Knowledge gathering — exploring codebase, reading docs, understanding constraints.
-Sections: Findings, Key Decisions, Open Questions
-
-### spec
-Implementation specification — what exactly are we building.
-Sections: Summary, Decisions table, Scope (in/out), Implementation, Acceptance Criteria
-
-### plan
-Implementation steps — how to build it, in actionable chunks. Multiple plans allowed for phased work.
-Sections: Goal, Steps (numbered), Unresolved Questions
-
-### review
-Code review report.
-Sections: Summary, Critical/Important Issues, Recommendation (approve|changes-requested)
-
-### notes
-Process information, findings, decisions, or other useful context gained during implementation.
-Freeform structure.
-
-### docs/
-Subfolder for downloaded external documentation relevant to the task.
+- **triage** - Requirement analysis, what is the problem, what do we know
+- **research** - Knowledge gathering, codebase exploration, reading docs
+- **prd** - Product requirements, user stories, success criteria
+- **spec** - Technical specification, architecture and implementation decisions
+- **plan** - Implementation steps, how to build it in actionable chunks (typical output of Plan mode)
+- **review** - Code review report
+- **notes** - Findings, decisions, or other useful context from implementation
+- **docs/** - Subfolder for downloaded external documentation
 
 ## Frontmatter
 
 ```yaml
 ---
 status: draft|active|complete|superseded
-ticket: #123456                    # if applicable
-references:                        # external references
+ticket: #123456
+references:
   - https://docs.example.com/auth
 ---
 ```
 
-### Status Definitions
-
-- **draft** - Work in progress
-- **active** - Approved, currently being implemented
-- **complete** - All items resolved
-- **superseded** - Replaced by a newer artifact (add `superseded_by: filename.md`)
+Status values: **draft** (WIP), **active** (approved, implementing), **complete** (done), **superseded** (replaced - add `superseded_by: filename.md`).
 
 ## Version Control
 
