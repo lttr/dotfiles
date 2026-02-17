@@ -150,7 +150,7 @@
     "typescript-lsp@claude-plugins-official": true,
     "ast-grep@ast-grep-marketplace": true
   },
-  "outputStyle": "concise",
+  "outputStyle": "default",
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": true,
   "promptSuggestionEnabled": false,
