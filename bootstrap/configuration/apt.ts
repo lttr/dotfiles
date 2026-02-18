@@ -55,5 +55,7 @@ export const apt: Config[] = [
   aptPackage("gpick"),
   gthumb,
   aptPackage("nautilus-dropbox"),
+  aptPackage("network-manager-openconnect-gnome"),
+  aptPackage("openconnect"),
   aptPackage("wmctrl"),
 ];

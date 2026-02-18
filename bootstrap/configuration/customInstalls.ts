@@ -184,7 +184,9 @@ const brewPackages = [
   { name: "potrace" },
   { name: "rg" },
   { name: "sd" },
+  { name: "tokei" },
   { name: "unison" },
+  { name: "yt-dlp" },
   { name: "zoxide" },
 ];
 
@@ -326,6 +328,7 @@ const pnpmPackages = [
   { name: "browser-sync" },
   { name: "degit" },
   { name: "eslint" },
+  { name: "eslint-formatter-unix" },
   { name: "eslint_d" },
   { name: "firebase-tools", executable: "firebase" },
   { name: "git-standup" },
@@ -334,6 +337,7 @@ const pnpmPackages = [
   { name: "netlify-cli", executable: "netlify" },
   { name: "npm-why" },
   { name: "nx" },
+  { name: "@playwright/cli", executable: "playwright-cli" },
   { name: "open-cli" },
   { name: "pollinate" },
   { name: "prettier" },
