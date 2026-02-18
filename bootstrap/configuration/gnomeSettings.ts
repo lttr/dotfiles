@@ -341,7 +341,7 @@ export const gnomeSettings: Config[] = [
       schema: "org.gnome.shell",
       key: "favorite-apps",
       value:
-        "['firefox.desktop', 'kitty.desktop', 'ferdium.desktop', '1password.desktop', 'obsidian.desktop', 'com.slack.Slack.desktop', 'claude-desktop.desktop', 'google-chrome.desktop']",
+        "['firefox.desktop', 'kitty.desktop', 'ferdium.desktop', '1password.desktop', 'obsidian.desktop', 'com.slack.Slack.desktop', 'claude-desktop.desktop', 'google-chrome.desktop', 'microsoft-edge.desktop']",
     },
   },
 ];
