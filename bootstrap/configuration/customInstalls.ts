@@ -108,9 +108,9 @@ export const node: Config = {
   inlineScript: {
     name: "node",
     testScript:
-      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm current | grep 22',
+      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm current | grep 24',
     setScript:
-      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm install 22',
+      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm install 24',
   },
   dependsOn: fnm,
 };
