@@ -149,14 +149,12 @@
     "browser-tools@lttr-claude-marketplace": true,
     "video-to-article@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
-    "ideation@nicknisi": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "ast-grep@ast-grep-marketplace": true
+    "typescript-lsp@claude-plugins-official": true
   },
   "outputStyle": "default",
   "spinnerTipsEnabled": false,
   "alwaysThinkingEnabled": true,
   "promptSuggestionEnabled": false,
-  "showTurnDuration": false,
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "showTurnDuration": false
 }
