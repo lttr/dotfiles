@@ -59,7 +59,8 @@
       "Bash(xargs rg:*)",
       "Skill(browser-tools)",
       "Skill(browser-tools:browser-tools)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__pencil"
     ],
     "deny": [
       "Bash(rm -rf /*:*)",
