@@ -23,6 +23,10 @@ playwright-cli screenshot
 playwright-cli close
 ```
 
+## Important
+
+There is NO `execute` or `run` command. To interact with elements, use `snapshot` to get refs, then use dedicated commands (`click`, `fill`, `type`, etc.) with those refs. For JS evaluation use `eval`. For running Playwright page API code use `run-code`.
+
 ## Commands
 
 ### Core

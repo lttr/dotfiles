@@ -23,7 +23,7 @@ Load the `playwright-cli` skill and use Playwright to test in a real browser.
 
 ### Steps
 
-1. **Start browser** - `playwright-cli open` (or `playwright-cli open <url>` if URL given)
+1. **Start browser** - `playwright-cli open --headed` (or `playwright-cli open --headed <url>` if URL given). Only omit `--headed` if $ARGUMENTS contains the word "headless".
 2. **Start dev server if needed** - If testing localhost and no server running, start one in background with `nr dev` or `nr start`
 3. **Navigate** to the relevant page
 4. **Test the functionality** - Interact with the UI: click buttons, fill forms, navigate flows. Use `playwright-cli snapshot` to read page state and find element refs.
