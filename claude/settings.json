@@ -102,7 +102,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "if [ -f .prettierrc ]; then file_path=$(jq -r '.tool_input.file_path'); case \"$file_path\" in *.js|*.jsx|*.ts|*.tsx|*.vue|*.svelte|*.json|*.css|*.scss|*.less|*.html|*.md|*.yaml|*.yml) pnpm exec prettier --write \"$file_path\" 2>/dev/null || true ;; esac; fi"
+            "command": "# px = pnpm exec with fallback to pnpm dlx\nif [ -f .prettierrc ]; then file_path=$(jq -r '.tool_input.file_path'); case \"$file_path\" in *.js|*.jsx|*.ts|*.tsx|*.vue|*.svelte|*.json|*.css|*.scss|*.less|*.html|*.md|*.yaml|*.yml) px prettier --write \"$file_path\" 2>/dev/null || true ;; esac; fi"
           }
         ]
       },
