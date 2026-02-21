@@ -19,8 +19,7 @@ async function main() {
   const plansDir = join(cwd, ".aiwork", "plans");
   if (!existsSync(plansDir)) mkdirSync(plansDir, { recursive: true });
 
-  // Use Claude's generated filename as slug
-  const slug = filePath.split("/").pop().replace(".md", "");
+  const slug = slugFromHeading(plan) ?? slugFromPath(filePath);
   const date = new Date().toISOString().slice(0, 10);
   const targetPath = join(plansDir, `${date}_${slug}.md`);
 
@@ -49,6 +48,28 @@ function ensureFrontmatter(plan, date) {
   if (!fm.includes("status:")) fm += "\nstatus: active";
 
   return `---\n${fm}\n---\n${plan.slice(endIdx + 5)}`;
+}
+
+/** Extract slug from first # heading, e.g. "# My Plan Title" → "my-plan-title" */
+function slugFromHeading(plan: string): string | undefined {
+  // Skip frontmatter if present
+  let text = plan;
+  if (text.startsWith("---\n")) {
+    const end = text.indexOf("\n---\n", 4);
+    if (end !== -1) text = text.slice(end + 5);
+  }
+  const match = text.match(/^#\s+(.+)/m);
+  if (!match) return undefined;
+  return match[1]
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 40);
+}
+
+/** Fallback: use Claude's generated plan filename */
+function slugFromPath(filePath: string): string {
+  return filePath.split("/").pop()!.replace(".md", "");
 }
 
 main().catch(() => process.exit(0));
