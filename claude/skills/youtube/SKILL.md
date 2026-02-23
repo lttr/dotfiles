@@ -1,7 +1,7 @@
 ---
 name: youtube
 description: This skill should be used when the user wants to extract a transcript from a YouTube video, summarize a YouTube video, or critically analyze a YouTube video's claims. Trigger on keywords like "youtube", "transcript", "summarize video", "critique video", or when a YouTube URL is provided.
-allowed-tools: Read, Write, Glob, Grep, Task, Bash(cat:*), Bash(ls:*), Bash(yt-dlp:*), Bash(firefox:*), WebFetch
+allowed-tools: Read, Write, Glob, Grep, Task, Bash(cat:*), Bash(ls:*), Bash(yt-dlp:*), Bash(sed:*), Bash(awk:*), Bash(firefox:*), WebFetch
 argument-hint: [critique|summarize] <url>
 ---
 
@@ -25,14 +25,20 @@ Input: $ARGUMENTS
 ### Download subtitles with yt-dlp
 
 ```bash
-yt-dlp --cookies-from-browser=firefox --write-auto-sub --write-sub --sub-lang en --skip-download --output "%(title)s.%(ext)s" "VIDEO_URL"
+yt-dlp --cookies-from-browser=firefox --write-auto-sub --write-sub --sub-lang en --skip-download --output "/tmp/yt-transcript/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
 If `--cookies-from-browser=firefox` fails, try `chrome`, then no cookies flag.
 
-### Read the transcript
+### Convert to plain text
 
-Read the downloaded subtitle file (`.vtt` or `.srt`). The LLM can process VTT/SRT markup directly - no conversion needed.
+Auto-generated VTT files are extremely verbose (timestamps, positioning, HTML tags, duplicate overlapping lines). Strip them to plain text before reading:
+
+```bash
+sed -E '/^WEBVTT/d; /^Kind:/d; /^Language:/d; /^NOTE/d; /^$/d; /^[0-9]{2}:[0-9]{2}/d; /-->/d; s/<[^>]*>//g' FILE.vtt | awk '!seen[$0]++' > FILE.txt
+```
+
+This removes metadata/timestamps, strips HTML tags, and deduplicates overlapping lines. Read the resulting `.txt` file.
 
 If mode is **transcript-only**: report file path, language, line count. **Stop here.**
 
