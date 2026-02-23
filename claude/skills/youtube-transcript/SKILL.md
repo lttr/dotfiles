@@ -1,7 +1,7 @@
 ---
 name: youtube-transcript
 description: This skill should be used when the user wants to extract a transcript from a YouTube video, summarize a YouTube video, or critically analyze a YouTube video's claims. Trigger on keywords like "youtube", "transcript", "summarize video", "critique video", or when a YouTube URL is provided.
-allowed-tools: Read, Write, Glob, Grep, Task, Bash(cat:*), Bash(ls:*), Bash(yt-dlp:*), Bash(sed:*), Bash(awk:*), Bash(firefox:*)
+allowed-tools: Read, Write, Glob, Grep, Task, Bash(cat:*), Bash(ls:*), Bash(yt-dlp:*), Bash(deno:*), Bash(firefox:*)
 argument-hint: [critique|summarize] <url>
 ---
 
@@ -27,8 +27,8 @@ Input: $ARGUMENTS
 Use a fixed output name to avoid special characters in video titles breaking shell commands:
 
 ```bash
-rm -rf /tmp/yt-transcript && mkdir -p /tmp/yt-transcript
-yt-dlp --cookies-from-browser=firefox --write-auto-sub --write-sub --sub-lang en --skip-download --output "/tmp/yt-transcript/video.%(ext)s" "VIDEO_URL"
+mkdir -p /tmp/yt-transcript
+yt-dlp --cookies-from-browser=firefox --write-auto-sub --write-sub --sub-lang en --skip-download --force-overwrites --output "/tmp/yt-transcript/video.%(ext)s" "VIDEO_URL"
 ```
 
 If `--cookies-from-browser=firefox` fails, try `chrome`, then no cookies flag.
@@ -38,10 +38,10 @@ If `--cookies-from-browser=firefox` fails, try `chrome`, then no cookies flag.
 Auto-generated VTT files are extremely verbose (timestamps, positioning, HTML tags, duplicate overlapping lines). Strip them to plain text before reading:
 
 ```bash
-sed -E '/^WEBVTT/d; /^Kind:/d; /^Language:/d; /^NOTE/d; /^$/d; /^[0-9]{2}:[0-9]{2}/d; /-->/d; s/<[^>]*>//g' /tmp/yt-transcript/video.en.vtt | awk '!seen[$0]++' > /tmp/yt-transcript/transcript.txt
+deno run --allow-read --allow-write ~/dotfiles/claude/skills/youtube-transcript/vtt-to-text.ts /tmp/yt-transcript/video.en.vtt /tmp/yt-transcript/transcript.txt
 ```
 
-This removes metadata/timestamps, strips HTML tags, and deduplicates overlapping lines. Read the resulting `.txt` file.
+Read the resulting `.txt` file.
 
 If mode is **transcript-only**: report file path, language, line count. **Stop here.**
 
