@@ -154,8 +154,8 @@
   },
   "outputStyle": "default",
   "spinnerTipsEnabled": false,
-  "alwaysThinkingEnabled": true,
   "promptSuggestionEnabled": false,
   "skipDangerousModePermissionPrompt": true,
-  "showTurnDuration": false
+  "showTurnDuration": false,
+  "effortLevel": "medium"
 }
