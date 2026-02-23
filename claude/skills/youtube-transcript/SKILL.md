@@ -91,7 +91,8 @@ event: {channel}
 
 Read `critique.md` in this skill's directory for the full critique template with examples.
 
-## Step 4: Cleanup and open
+## Step 4: Cleanup, report, and open
 
 1. Clean up: `rm /tmp/yt-transcript/transcript.txt`
-2. Open result in Firefox: `firefox "$path" &`
+2. **Print key findings in chat** - show the Overview and Key Findings sections directly in the conversation so the user doesn't have to open the file to see the result.
+3. Open result in Firefox: `firefox "$path" &`
