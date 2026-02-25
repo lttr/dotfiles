@@ -123,7 +123,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/scripts/damage-control/bash-tool-damage-control.ts",
+            "command": "~/dotfiles/claude/hooks/damage-control/bash-tool-damage-control.ts",
             "timeout": 5
           },
           {
@@ -138,7 +138,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/scripts/damage-control/file-tool-damage-control.ts",
+            "command": "~/dotfiles/claude/hooks/damage-control/file-tool-damage-control.ts",
             "timeout": 5
           }
         ]
