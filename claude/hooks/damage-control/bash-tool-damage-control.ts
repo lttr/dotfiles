@@ -24,6 +24,7 @@ import {
   matchGlob,
   loadConfig,
   readStdin,
+  logBlock,
 } from "./shared.ts";
 
 // =============================================================================
@@ -251,6 +252,7 @@ async function main(): Promise<void> {
   const { blocked, ask, reason } = checkCommand(command, config);
 
   if (blocked) {
+    logBlock("bash-damage-control", `reason=${reason} cmd=${command}`);
     console.error(`SECURITY: ${reason}`);
     console.error(`Command: ${command.slice(0, 100)}${command.length > 100 ? "..." : ""}`);
     process.exit(2);

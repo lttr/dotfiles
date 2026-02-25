@@ -5,7 +5,7 @@
  * Adapted based on: https://github.com/disler/claude-code-damage-control
  */
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, appendFileSync, mkdirSync } from "node:fs";
 import { dirname, join, basename } from "node:path";
 import { homedir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -156,6 +156,23 @@ export async function readStdin(): Promise<HookInput> {
   }
   const inputText = Buffer.concat(chunks).toString("utf-8");
   return JSON.parse(inputText);
+}
+
+// =============================================================================
+// LOGGING
+// =============================================================================
+
+const LOG_FILE = join(homedir(), ".claude", "cache", "hook-blocks.log");
+
+export function logBlock(rule: string, detail: string): void {
+  const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+  const line = `[${timestamp}] BLOCKED rule=${rule} ${detail.slice(0, 120)}\n`;
+  try {
+    mkdirSync(dirname(LOG_FILE), { recursive: true });
+    appendFileSync(LOG_FILE, line);
+  } catch {
+    // best-effort logging
+  }
 }
 
 // =============================================================================

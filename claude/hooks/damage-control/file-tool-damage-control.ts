@@ -13,7 +13,7 @@
  *   2 = Block operation (stderr fed back to Claude)
  */
 
-import { loadConfig, readStdin, checkFilePath } from "./shared.ts";
+import { loadConfig, readStdin, checkFilePath, logBlock } from "./shared.ts";
 
 const SUPPORTED_TOOLS = ["Read", "Edit", "Write", "MultiEdit"];
 
@@ -40,6 +40,7 @@ async function main(): Promise<void> {
   const { blocked, reason } = checkFilePath(filePath, config);
   if (blocked) {
     const toolName = input.tool_name.toLowerCase();
+    logBlock("file-damage-control", `tool=${toolName} reason=${reason} path=${filePath}`);
     console.error(`SECURITY: Blocked ${toolName} to ${reason}: ${filePath}`);
     process.exit(2);
   }
