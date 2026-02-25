@@ -21,20 +21,9 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 ## Development
 
-**Package managers:**
-
-- Prefer `pnpm` over `npm` (use `npm` if package-lock.json exists)
-- Aliases: `ni` (install), `nr <script>` (run), `nun` (uninstall)
-- Prefer `px` over `npx` (`px` tries pnpm exec, falls back to pnpm dlx)
-
 **Common scripts:**
 
 - `nr build` / `nr test` / `nr verify` / `nr typecheck` / `nr lint:fix`
-
-**Tools:**
-
-- Prefer `fd` over `find`
-- Prefer `rg` over `grep`
 
 ## Git Workflow
 

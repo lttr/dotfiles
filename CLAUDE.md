@@ -54,14 +54,6 @@ Personal dotfiles repository for managing development machine configuration, she
 - `c "message"` - Quick git commit
 - `mrco` - Checkout GitLab merge request using fzf
 
-### Tool Preferences
-
-- `fd` over `find` for directory searches
-- `rg` (ripgrep) for content searches
-- `eza` for enhanced directory listings
-- `batcat` for file previewing
-- `@antfu/ni` aliases: `ni` (install), `nr` (run script), `nun` (uninstall)
-
 ### Alias Conventions
 
 Prefixes in `aliases`:
