@@ -21,6 +21,7 @@ export interface Pattern {
 }
 
 export interface Config {
+  trustedPackages: string[];
   bashToolPatterns: Pattern[];
   allowedPaths: string[];
   zeroAccessPaths: string[];
@@ -130,13 +131,14 @@ export function loadConfig(callerUrl: string): Config {
 
   if (!existsSync(configPath)) {
     console.error(`Warning: Config not found at ${configPath}`);
-    return { bashToolPatterns: [], allowedPaths: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
+    return { trustedPackages: [], bashToolPatterns: [], allowedPaths: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
   }
 
   const content = readFileSync(configPath, "utf-8");
   const config = JSON.parse(content) as Partial<Config>;
 
   return {
+    trustedPackages: config.trustedPackages || [],
     bashToolPatterns: config.bashToolPatterns || [],
     allowedPaths: config.allowedPaths || [],
     zeroAccessPaths: config.zeroAccessPaths || [],

@@ -2,6 +2,25 @@
   "allowedPaths": [
     ".env.example"
   ],
+  "trustedPackages": [
+    "eslint",
+    "stylelint",
+    "prettier",
+    "vue-tsc",
+    "tsc",
+    "nuxi",
+    "nuxt",
+    "nx",
+    "tailwindcss",
+    "codemod",
+    "format-package",
+    "add-npm-scripts",
+    "update-browserslist-db",
+    "web-ext",
+    "@playwright/",
+    "@nuxt/",
+    "@tailwindcss/"
+  ],
   "bashToolPatterns": [
     {
       "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]",

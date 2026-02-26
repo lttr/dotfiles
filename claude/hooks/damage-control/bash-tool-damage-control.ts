@@ -143,7 +143,19 @@ function checkCommand(
   command: string,
   config: Config
 ): { blocked: boolean; ask: boolean; reason: string } {
-  // 1. Check against patterns from JSON (may block or ask)
+  // 1. Check if command runs a trusted package via a package runner
+  const runnerMatch = command.match(/\b(npx|pnpx|px|bunx)\s+(\S+)/) || command.match(/\bpnpm\s+dlx\s+(\S+)/);
+  if (runnerMatch) {
+    const pkg = runnerMatch[runnerMatch.length === 3 ? 2 : 1];
+    const isTrusted = config.trustedPackages.some((tp) =>
+      tp.endsWith("/") ? pkg.startsWith(tp) : pkg === tp || pkg.startsWith(tp + "@")
+    );
+    if (isTrusted) {
+      return { blocked: false, ask: false, reason: "" };
+    }
+  }
+
+  // 2. Check against patterns from JSON (may block or ask)
   for (const { pattern, reason, ask: shouldAsk } of config.bashToolPatterns) {
     try {
       const regex = new RegExp(pattern, "i");
