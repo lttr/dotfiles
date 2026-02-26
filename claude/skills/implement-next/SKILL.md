@@ -7,6 +7,8 @@ argument-hint: [plan-or-spec-path]
 
 # Implement Next Step
 
+The plan already exists - skip plan mode and implement directly.
+
 Implement the next unimplemented plan from `.aiwork/`. Follows `@aiwork-protocol.md`.
 
 **Arguments (`$ARGUMENTS`):** Optional path to a plan or spec file. If omitted, auto-detect from `.aiwork/`.
