@@ -431,16 +431,6 @@
       "ask": true
     },
     {
-      "pattern": "\\bnpx\\s+\\S",
-      "reason": "npx: downloads and runs package (verify name)",
-      "ask": true
-    },
-    {
-      "pattern": "\\bnpm\\s+exec\\s+\\S",
-      "reason": "npm exec: downloads and runs package (verify name)",
-      "ask": true
-    },
-    {
       "pattern": "\\bpnpm\\s+dlx\\s+\\S",
       "reason": "pnpm dlx: downloads and runs package (verify name)",
       "ask": true
