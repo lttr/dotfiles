@@ -18,6 +18,7 @@
     "update-browserslist-db",
     "web-ext",
     "@playwright/",
+    "playwright-cli",
     "@nuxt/",
     "@tailwindcss/"
   ],
