@@ -30,15 +30,32 @@ function getGitInfo() {
 }
 
 function createProgressBar(percentage) {
-  const filledChars = Math.round((percentage / 100) * 5);
-  const emptyChars = 5 - filledChars;
-  return "█".repeat(filledChars) + "░".repeat(emptyChars);
+  const thresholds = [5, 10, 20, 40, 70];
+  const filled = thresholds.filter(t => percentage >= t).length;
+  return "█".repeat(filled) + "░".repeat(5 - filled);
 }
 
-function getContextWindowPercentage(inputData) {
+function formatTokenCount(tokens) {
+  if (tokens >= 1_000_000) return `${(tokens / 1_000_000).toFixed(1)}M`;
+  if (tokens >= 1_000) return `${Math.round(tokens / 1_000)}k`;
+  return `${tokens}`;
+}
+
+function getContextWindowInfo(inputData) {
   const { context_window } = inputData;
   const percentage = context_window?.used_percentage ?? 0;
-  return { bar: createProgressBar(percentage), percentage };
+  const usage = context_window?.current_usage;
+  const capacity = context_window?.context_window_size;
+
+  let label;
+  if (usage && capacity) {
+    const used = (usage.input_tokens || 0) + (usage.cache_creation_input_tokens || 0) + (usage.cache_read_input_tokens || 0);
+    label = `${createProgressBar(percentage)} ${formatTokenCount(used)}`;
+  } else {
+    label = `${createProgressBar(percentage)} ${Math.round(percentage)}%`;
+  }
+
+  return { bar: label, percentage };
 }
 
 function getFirstUserMessage(transcriptPath) {
@@ -298,10 +315,10 @@ function generateStatusLine(inputData) {
   parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
 
   // Context window
-  const contextResult = getContextWindowPercentage(inputData);
+  const contextResult = getContextWindowInfo(inputData);
   if (contextResult) {
-    // Use orange color if context is above reasonable threshold
-    const color = contextResult.percentage > 60 ? "\x1b[38;5;208m" : "\x1b[90m";
+    const pct = contextResult.percentage;
+    const color = pct > 50 ? "\x1b[38;5;208m" : pct > 20 ? "\x1b[38;5;220m" : pct >= 5 ? "\x1b[38;5;248m" : "\x1b[90m";
     parts.push(colorize(contextResult.bar, color));
   }
 
