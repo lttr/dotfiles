@@ -47,15 +47,14 @@ function getContextWindowInfo(inputData) {
   const usage = context_window?.current_usage;
   const capacity = context_window?.context_window_size;
 
-  let label;
   if (usage && capacity) {
     const used = (usage.input_tokens || 0) + (usage.cache_creation_input_tokens || 0) + (usage.cache_read_input_tokens || 0);
-    label = `${createProgressBar(percentage)} ${formatTokenCount(used)}`;
-  } else {
-    label = `${createProgressBar(percentage)} ${Math.round(percentage)}%`;
+    const label = used > 0 ? ` ${formatTokenCount(used)}` : "";
+    return { bar: `${createProgressBar(percentage)}${label}`, percentage };
   }
 
-  return { bar: label, percentage };
+  const label = percentage > 0 ? ` ${Math.round(percentage)}%` : "";
+  return { bar: `${createProgressBar(percentage)}${label}`, percentage };
 }
 
 function getFirstUserMessage(transcriptPath) {
