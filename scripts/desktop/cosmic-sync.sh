@@ -21,6 +21,7 @@ CONFIGS=(
   "comp:com.system76.CosmicComp:autotile_behavior"
   "comp:com.system76.CosmicComp:appearance_settings"
   "applist:com.system76.CosmicAppList:favorites"
+  "panel:com.system76.CosmicPanel.Panel:output"
   "theme:com.system76.CosmicTheme.Mode:is_dark"
 )
 
