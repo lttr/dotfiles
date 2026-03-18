@@ -1,4 +1,5 @@
 #!/bin/sh
+# DEPRECATED: X11/GNOME only, not compatible with COSMIC/Wayland
 
 fw=`xdotool getwindowfocus`
 

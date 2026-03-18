@@ -1,3 +1,6 @@
+// DEPRECATED: GNOME/X11 only, not compatible with COSMIC/Wayland
+// Desktop settings are now managed via cosmic-sync.sh
+
 import { Config } from "../deps.ts";
 import { cursors } from "./customInstalls.ts";
 

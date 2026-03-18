@@ -32,9 +32,9 @@ if [[ ${#lines[@]} -ge 2 ]]; then
     
     # Get the command from second line
     command="${lines[1]}"
-    # Place command in clipboard and paste it using xdotool
-    echo -n "$command" | xsel --clipboard --input
-    xdotool key ctrl+shift+v
+    # Place command in clipboard and paste it
+    echo -n "$command" | wl-copy
+    wtype -M ctrl -M shift -k v -m ctrl -m shift
 else
     # Fallback if response doesn't have expected format
     echo "$response"

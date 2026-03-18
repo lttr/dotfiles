@@ -1,4 +1,5 @@
 #!/bin/sh
+# DEPRECATED: X11/GNOME only, not compatible with COSMIC/Wayland (replaced by cosmic-ext-window-helper)
 
 # Get the active window ID
 ACTIVE_WINDOW=$(xdotool getactivewindow)

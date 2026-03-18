@@ -4,9 +4,10 @@ import { apt } from "./configuration/apt.ts";
 import { customInstalls } from "./configuration/customInstalls.ts";
 import { directories } from "./configuration/directories.ts";
 import { flatpak } from "./configuration/flatpak.ts";
-import { gnomeKeybindings } from "./configuration/gnomeKeybindings.ts";
-import { gnomeSettings } from "./configuration/gnomeSettings.ts";
-import { gnomeShellExtensions } from "./configuration/gnomeShellExtensions.ts";
+// DEPRECATED: GNOME configs, replaced by COSMIC desktop
+// import { gnomeKeybindings } from "./configuration/gnomeKeybindings.ts";
+// import { gnomeSettings } from "./configuration/gnomeSettings.ts";
+// import { gnomeShellExtensions } from "./configuration/gnomeShellExtensions.ts";
 import { shell } from "./configuration/shell.ts";
 import { symlinks } from "./configuration/symlinks.ts";
 
@@ -16,9 +17,9 @@ export const config: Array<Config> = [
   ...customInstalls,
   ...directories,
   ...flatpak,
-  ...gnomeKeybindings,
-  ...gnomeSettings,
-  ...gnomeShellExtensions,
+  // ...gnomeKeybindings,
+  // ...gnomeSettings,
+  // ...gnomeShellExtensions,
   ...shell,
   ...symlinks,
 ];

@@ -1,3 +1,6 @@
+// DEPRECATED: GNOME/X11 only, not compatible with COSMIC/Wayland
+// Shortcuts are now managed via cosmic-sync.sh and cosmic/shortcuts/
+
 const EMPTY_ARRAY = "@as []";
 
 const customGnomeKeybindingSchemas = new Set<string>();

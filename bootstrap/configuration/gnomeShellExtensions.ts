@@ -1,3 +1,5 @@
+// DEPRECATED: GNOME/X11 only, not compatible with COSMIC/Wayland
+
 import { HOME } from "../constants.ts";
 import { Config } from "../deps.ts";
 // import { gnomeShellExtensionInstaller } from "./customInstalls.ts";

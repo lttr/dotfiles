@@ -43,19 +43,24 @@ export const apt: Config[] = [
   aptPackage("tree"),
   aptPackage("unrar"),
   aptPackage("vlc"),
-  aptPackage("xbindkeys"),
-  aptPackage("xdotool"),
-  aptPackage("xsel"),
+  // DEPRECATED: X11/GNOME only
+  // aptPackage("xbindkeys"),
+  // aptPackage("xdotool"),
+  // aptPackage("xsel"),
+  aptPackage("wl-clipboard"),
+  aptPackage("wtype"),
   zsh,
 
   // graphical apps
 
-  aptPackage("dconf-editor"),
-  aptPackage("gnome-tweaks"),
-  aptPackage("gpick"),
+  // DEPRECATED: GNOME only
+  // aptPackage("dconf-editor"),
+  // aptPackage("gnome-tweaks"),
+  // aptPackage("gpick"),
   gthumb,
-  aptPackage("nautilus-dropbox"),
+  // aptPackage("nautilus-dropbox"),
   aptPackage("network-manager-openconnect-gnome"),
   aptPackage("openconnect"),
-  aptPackage("wmctrl"),
+  // DEPRECATED: X11 only
+  // aptPackage("wmctrl"),
 ];

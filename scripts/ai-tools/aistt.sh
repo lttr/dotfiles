@@ -147,14 +147,14 @@ if echo "$RESPONSE" | jq -e '.text' > /dev/null 2>&1; then
 
     # Copy to clipboard if requested
     if [ "$COPY_TO_CLIPBOARD" = true ]; then
-        if command -v xsel &> /dev/null; then
-            echo "$TRANSCRIPTION" | xsel --clipboard --input
+        if command -v wl-copy &> /dev/null; then
+            echo "$TRANSCRIPTION" | wl-copy
             if [ "$RAW_OUTPUT" = false ]; then
                 echo
                 echo "Transcription copied to clipboard"
             fi
         else
-            echo "Warning: xsel not found" >&2
+            echo "Warning: wl-copy not found (install wl-clipboard)" >&2
         fi
     fi
 else

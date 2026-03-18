@@ -512,7 +512,7 @@ mkcd() {
 
 # Copy last command executed on command line into clipboard
 last-command() {
-    fc -l -1 | cut -d' ' -f4- | xsel --clipboard
+    fc -l -1 | cut -d' ' -f4- | wl-copy
 }
 
 # Print all executable files on path
@@ -533,9 +533,9 @@ list-functions() {
 # Insert sequence `!!` which is expanded into output of last
 # command by double Tab
 insert-last-output() {
-    xdotool type --clearmodifiers '`!!`' \
-        && xdotool key --clearmodifiers Tab \
-        && xdotool key --clearmodifiers Tab
+    wtype '`!!`' \
+        && wtype -k Tab \
+        && wtype -k Tab
 }
 
 # kill processes blocking ports
@@ -572,6 +572,7 @@ zkill() {
     fi
 }
 
+# DEPRECATED: X11/GNOME only, not compatible with COSMIC/Wayland
 close_applications() {
     xdotool search --class ".*" | xargs -inum xdotool getwindowpid num 2> /dev/null | grep "^[0-9]" | uniq -u | xargs kill
 }

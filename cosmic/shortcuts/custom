@@ -41,8 +41,8 @@
             Alt,
         ],
         key: "b",
-        description: Some("Minimize but active"),
-    ): Spawn("minimize-but-active"),
+        description: Some("Minimize all but active"),
+    ): Spawn("cosmic-ext-window-helper minimize true 'not is_active and not is_minimized and workspace.has_focus'"),
     (
         modifiers: [
             Super,
@@ -277,4 +277,11 @@
         ],
         key: "Left",
     ): Move(Left),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "d",
+        description: Some("Show desktop"),
+    ): Spawn("cosmic-ext-window-helper minimize true 'not is_minimized and workspace.has_focus'"),
 }

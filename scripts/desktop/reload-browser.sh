@@ -1,4 +1,5 @@
 #!/bin/sh
+# DEPRECATED: X11/GNOME only, not compatible with COSMIC/Wayland
 # reload-browser - A cross-platform wrapper for reloading the current
 # browser tab
 # Eric Radman, 2014

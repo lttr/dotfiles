@@ -15,7 +15,7 @@ export const flatpak: Config[] = [
   flatpakApp("com.spotify.Client"),
   flatpakApp("com.synology.SynologyDrive"),
   flatpakApp("org.darktable.Darktable"),
-  flatpakApp("org.gnome.Epiphany"),
+  // flatpakApp("org.gnome.Epiphany"), // GNOME Web - not needed with COSMIC
   flatpakApp("org.inkscape.Inkscape"),
   flatpakApp("no.mifi.losslesscut"),
   flatpakApp("org.kde.kdenlive"),
