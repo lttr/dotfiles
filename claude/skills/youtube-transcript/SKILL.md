@@ -42,7 +42,7 @@ mkdir -p ~/SynologyDrive/moje/AI/summaries
 Auto-generated VTT files are extremely verbose (timestamps, positioning, HTML tags, duplicate overlapping lines). Strip them to plain text:
 
 ```bash
-deno run --allow-read --allow-write ~/dotfiles/claude/skills/youtube-transcript/vtt-to-text.ts /tmp/yt-transcript/video.en.vtt /tmp/yt-transcript/transcript.txt
+deno run --allow-read --allow-write $CLAUDE_SKILL_DIR/vtt-to-text.ts /tmp/yt-transcript/video.en.vtt /tmp/yt-transcript/transcript.txt
 ```
 
 Read the resulting `.txt` file.
@@ -89,7 +89,7 @@ event: {channel}
 
 ### Critique template
 
-Read `critique.md` in this skill's directory for the full critique template with examples.
+Read `$CLAUDE_SKILL_DIR/critique.md` for the full critique template with examples.
 
 ## Step 4: Cleanup, report, and open
 

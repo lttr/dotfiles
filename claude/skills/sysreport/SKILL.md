@@ -12,7 +12,7 @@ Generate a concise system health report for a Linux workstation.
 1. Run the data collection script:
 
 ```bash
-bash /home/lukas/dotfiles/claude/skills/sysreport/scripts/sysreport.sh 2>&1
+bash $CLAUDE_SKILL_DIR/scripts/sysreport.sh 2>&1
 ```
 
 2. Parse the output sections and produce a **summary report** in the following format:
