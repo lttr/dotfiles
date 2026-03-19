@@ -62,8 +62,7 @@ git add .
 git commit -m "Nuxi init"
 
 # Setup Node version
-fnm use lts-latest
-node --version > .node-version
+vp env pin lts
 
 # Pin pnpm version
 echo "pnpm version"

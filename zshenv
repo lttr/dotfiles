@@ -21,6 +21,9 @@ export NUXT_TELEMETRY_DISABLED=1
 # open in my editor of choice for https://github.com/yyx990803/launch-editor
 export LAUNCH_EDITOR="open-neovim"
 
+# Vite+ bin (https://viteplus.dev)
+source "$HOME/.vite-plus/env"
+
 # PATH
 
 # my bin folders
@@ -30,20 +33,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
-
-# fnm
-export PATH="$HOME/.local/share/fnm:$PATH"
-
-# fnm env caching - regenerate once per day to avoid 300ms startup delay
-# Cache the output of 'fnm env' to avoid running it on every shell startup
-FNM_CACHE="$HOME/.cache/fnm/env_cache.zsh"
-# Check if cache doesn't exist or was created before today
-if [[ ! -f "$FNM_CACHE" ]] || [[ $(date -r "$FNM_CACHE" +%Y%m%d 2>/dev/null) != $(date +%Y%m%d) ]]; then
-  mkdir -p "$(dirname "$FNM_CACHE")"
-  fnm --log-level=error env --use-on-cd > "$FNM_CACHE"
-fi
-# Source the cached fnm environment
-source "$FNM_CACHE"
 
 # deno
 export DENO_INSTALL="$HOME/.deno"

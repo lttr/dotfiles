@@ -599,9 +599,8 @@ latest-pnpm() {
 }
 
 node-up() {
-    fnm install --lts
-    fnm use lts-latest
-    node --version > .node-version
+    vp env pin lts
+    vp env install
     echo "Now using $(node --version)"
     echo "Remember to check 'pnpm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
 }

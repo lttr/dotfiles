@@ -32,9 +32,9 @@ echo
 pnpm update --global
 
 echo
-echo '### fnm install --lts'
+echo '### vp env default lts'
 echo
-fnm install --lts
+vp env default lts
 
 echo
 echo '### brew update'

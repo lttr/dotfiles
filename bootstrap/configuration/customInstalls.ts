@@ -95,24 +95,21 @@ export const claudeDesktop: Config = {
   },
 };
 
-// Update:
-// curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
-export const fnm: Config = {
+// Update: curl -fsSL https://viteplus.dev/install.sh | bash
+export const vitePlus: Config = {
   urlScript: {
-    name: "fnm",
-    url: "https://fnm.vercel.app/install",
+    name: "vite-plus",
+    url: "https://viteplus.dev/install.sh",
   },
 };
 
 export const node: Config = {
   inlineScript: {
     name: "node",
-    testScript:
-      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm current | grep 24',
-    setScript:
-      'eval "$(~/.local/share/fnm/fnm env)" && ~/.local/share/fnm/fnm install 24',
+    testScript: "vp env current | grep 24",
+    setScript: "vp env default 24 && vp env install",
   },
-  dependsOn: fnm,
+  dependsOn: vitePlus,
 };
 
 // Update: brew update
@@ -358,7 +355,7 @@ export const customInstalls: Config[] = [
   exp,
   ferdium,
   ffmpeg7,
-  fnm,
+  vitePlus,
   fzf,
   fzfSetup,
   gitCredentialLibsecret,
