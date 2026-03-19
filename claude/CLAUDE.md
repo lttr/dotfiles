@@ -19,6 +19,16 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 - Relative dates → use current date from system context, state calculated date before acting
 
+## Tool Preferences
+
+When running shell commands, prefer these tools:
+
+- `fd` over `find`
+- `rg` over `grep`/`egrep`
+- `pnpm` over `npm` (unless package-lock.json exists)
+- `px` over `npx` (`px` tries pnpm exec, falls back to pnpm dlx)
+- `nr <script>` over `pnpm run <script>`
+
 ## Development
 
 **Common scripts:**
