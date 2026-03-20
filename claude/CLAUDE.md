@@ -23,6 +23,7 @@ Search before responding for: CLI flags/syntax, APIs, recent features, technical
 
 When running shell commands, prefer these tools:
 
+- `trash-put` over `rm` (recoverable delete)
 - `fd` over `find`
 - `rg` over `grep`/`egrep`
 - `pnpm` over `npm` (unless package-lock.json exists)
