@@ -272,7 +272,6 @@ function generateStatusLine(inputData) {
   const {
     workspace = {},
     model = {},
-    output_style,
     version,
     session_id,
     transcript_path,
@@ -299,14 +298,6 @@ function generateStatusLine(inputData) {
   // Version
   if (version) {
     parts.push(colorize(`∇ ${version}`, "\x1b[90m"));
-  }
-
-  // Output style
-  const styleName =
-    output_style?.name ||
-    (typeof output_style === "string" ? output_style : null);
-  if (styleName) {
-    parts.push(colorize(`◈ ${styleName?.toLowerCase()}`, "\x1b[90m"));
   }
 
   // Session duration

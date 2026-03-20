@@ -152,9 +152,8 @@
     "cc@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "outputStyle": "default",
   "spinnerTipsEnabled": false,
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "promptSuggestionEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "showTurnDuration": false
