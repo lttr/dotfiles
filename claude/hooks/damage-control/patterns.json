@@ -1,7 +1,5 @@
 {
-  "allowedPaths": [
-    ".env.example"
-  ],
+  "allowedPaths": [".env.example"],
   "trustedPackages": [
     "eslint",
     "stylelint",
@@ -63,6 +61,14 @@
     {
       "pattern": "\\bgit\\s+reset\\s+--hard\\b",
       "reason": "git reset --hard (use --soft or stash)"
+    },
+    {
+      "pattern": "\\bgit\\s+commit\\s+.*--no-verify",
+      "reason": "git commit --no-verify (skips pre-commit hooks)"
+    },
+    {
+      "pattern": "\\bgit\\s+push\\s+.*--no-verify",
+      "reason": "git push --no-verify (skips pre-push hooks)"
     },
     {
       "pattern": "\\bgit\\s+clean\\s+(-[^\\s]*)*-[fd]",
