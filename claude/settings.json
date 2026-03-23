@@ -137,6 +137,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/log-skill-usage.sh",
+            "timeout": 5
+          }
+        ]
       }
     ]
   },
