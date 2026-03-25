@@ -72,7 +72,7 @@ Common fields:
 - **`references`** - Parent tickets, related PRs, external docs.
 - **`superseded_by`** - Points to the replacement artifact when this one is no longer current.
 
-Any other fields are fine - use what makes sense for the artifact. Avoid fields that require manual upkeep across sessions (they go stale).
+Add any other fields that make sense. Avoid fields that need manual upkeep across sessions.
 
 ## Version Control
 
