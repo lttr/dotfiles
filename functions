@@ -602,7 +602,7 @@ node-up() {
     vp env pin lts
     vp env install
     echo "Now using $(node --version)"
-    echo "Remember to check 'pnpm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
+    echo "Remember to check 'vp pm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
 }
 
 # =================================================================

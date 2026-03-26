@@ -234,7 +234,7 @@ check_nuxt_project() {
     if [ -d "node_modules" ] && [ "$(ls -A node_modules)" ]; then
         print_status "ok" "node_modules populated"
     else
-        print_status "warn" "node_modules missing or empty - run 'pnpm install'"
+        print_status "warn" "node_modules missing or empty - run 'vp install'"
     fi
     
     cd - > /dev/null

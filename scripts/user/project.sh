@@ -16,7 +16,7 @@ case "$PROJECT_ALIAS" in
   "lt" | "lutr" | "lukastrumm")
     code ~/code/lukastrumm
     cd ~/code/lukastrumm
-    npm run serve
+    vp run serve
     ;;
   "jira")
     ( firefox http://localhost:8080 &>/dev/null & )

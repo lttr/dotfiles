@@ -35,9 +35,9 @@ Save the output to a file for reference (follow project conventions for artifact
    Use WebFetch to consult the actual release notes URLs from the generated file.
 
 5. End with a **Suggested upgrade commands** section:
-   - Group safe batch updates: `pnpm update pkg1 pkg2 pkg3`
-   - Individual commands for breaking changes: `pnpm update pkg@version`
-   - Post-upgrade verification: `nr typecheck`, `nr test`, etc.
+   - Group safe batch updates: `vp update pkg1 pkg2 pkg3`
+   - Individual commands for breaking changes: `vp update pkg@version`
+   - Post-upgrade verification: `vp run typecheck`, `vp run test`, etc.
    - Format as a numbered list the user can execute sequentially.
 
 Skip packages with only patch updates unless they contain security fixes.

@@ -144,7 +144,7 @@ function checkCommand(
   config: Config
 ): { blocked: boolean; ask: boolean; reason: string } {
   // 1. Check if command runs a trusted package via a package runner
-  const runnerMatch = command.match(/\b(npx|pnpx|px|bunx)\s+(\S+)/) || command.match(/\bpnpm\s+dlx\s+(\S+)/);
+  const runnerMatch = command.match(/\b(npx|pnpx|vpx|bunx)\s+(\S+)/) || command.match(/\b(pnpm|vp)\s+dlx\s+(\S+)/);
   if (runnerMatch) {
     const pkg = runnerMatch[runnerMatch.length === 3 ? 2 : 1];
     const isTrusted = config.trustedPackages.some((tp) =>

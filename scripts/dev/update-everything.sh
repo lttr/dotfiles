@@ -27,9 +27,9 @@ echo
 deno upgrade
 
 echo
-echo '### pnpm update --global'
+echo '### vp update --global'
 echo
-pnpm update --global
+vp update --global
 
 echo
 echo '### vp env default lts'

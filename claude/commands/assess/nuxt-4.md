@@ -47,7 +47,7 @@ and Vite based project aspects.
 - Is there a "script" for lint-fixing code? Like `"lint:fix": "eslint --fix"`
 - Is there config for linting code? (`.eslintrc`, `eslint` field in `package.json`, `.oxlintrc.json`)
 - Is there config for ignoring certain files from being linted? (`.eslintignore` contains `.nuxt` and `.output`)
-- Is there a "script" for single command verification? (`"verify": "npm run format && npm run lint:fix && npm run typecheck && npm test"`)
+- Is there a "script" for single command verification? (`"verify": "vp run format && vp run lint:fix && vp run typecheck && vp run test"`)
 
 ### CI/CD
 

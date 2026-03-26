@@ -432,13 +432,13 @@
     },
 
     {
-      "pattern": "\\bnpm\\s+(install|i|add)\\s+\\S",
-      "reason": "npm: adding package (verify name)",
+      "pattern": "\\b(npm|pnpm)\\s+(install|i|add)\\s+\\S",
+      "reason": "npm/pnpm: adding package (verify name, prefer vp add)",
       "ask": true
     },
     {
-      "pattern": "\\bpnpm\\s+(add|i|install)\\s+\\S",
-      "reason": "pnpm: adding package (verify name)",
+      "pattern": "\\bvp\\s+(add|install)\\s+\\S",
+      "reason": "vp: adding package (verify name)",
       "ask": true
     },
     {
@@ -457,18 +457,13 @@
       "ask": true
     },
     {
-      "pattern": "\\bpnpm\\s+dlx\\s+\\S",
-      "reason": "pnpm dlx: downloads and runs package (verify name)",
+      "pattern": "\\b(npx|pnpx|vpx|bunx)\\s+\\S",
+      "reason": "package runner: downloads and runs package (verify name)",
       "ask": true
     },
     {
-      "pattern": "\\bbunx\\s+\\S",
-      "reason": "bunx: downloads and runs package (verify name)",
-      "ask": true
-    },
-    {
-      "pattern": "\\bpx\\s+\\S",
-      "reason": "px: downloads and runs package (verify name)",
+      "pattern": "\\b(pnpm\\s+dlx|vp\\s+dlx)\\s+\\S",
+      "reason": "dlx: downloads and runs package (verify name)",
       "ask": true
     },
     {

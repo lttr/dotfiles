@@ -58,18 +58,18 @@ Personal dotfiles repository for managing development machine configuration, she
 
 Prefixes in `aliases`:
 - `e*` - Editor shortcuts (evimrc, ezsh, ealias, efunc)
-- `n*` - npm/node shortcuts (nb=build, nd=dev, nt=test, nv=verify)
+- `n*` - vp run shortcuts (nb=build, nd=dev, nt=test, nv=verify)
 - `g*` - Git shortcuts (ga=add, gco=switch, gd=diff, gl=log, etc.)
 - Navigation: `..`, `...`, `repo` (~/code), `dotf` (~/dotfiles), `iad` (~/ia notes)
 
 ## Development Workflow
 
 ### For JavaScript/TypeScript Projects
-- `nr build` - Run build script
-- `nr test` - Run tests
-- `nr verify` - Run verification (lint + typecheck + test)
-- `nr typecheck` - Type checking
-- `nr lint:fix` - Fix linting issues
+- `vp run build` - Run build script
+- `vp run test` - Run tests
+- `vp run verify` - Run verification (lint + typecheck + test)
+- `vp run typecheck` - Type checking
+- `vp run lint:fix` - Fix linting issues
 
 ### For This Repository
 - **Installation**: Run `install.sh` to bootstrap environment and create symlinks

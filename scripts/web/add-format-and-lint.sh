@@ -50,7 +50,7 @@ echo
 
 # Add ESLint dependencies
 echo "Installing ESLint dependencies..."
-pnpm add -D eslint @nuxt/eslint @lttr/nuxt-config-eslint
+vp add -D eslint @nuxt/eslint @lttr/nuxt-config-eslint
 
 echo
 echo "Creating configuration files..."
@@ -79,16 +79,16 @@ echo "Adding npm scripts..."
 echo
 
 # Add npm scripts (warn if already exists)
-pnpm dlx add-npm-scripts --warn 'verify' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
-pnpm dlx add-npm-scripts --warn 'test' 'exit 0'
-pnpm dlx add-npm-scripts --warn 'format' 'prettier --list-different --write . --'
-pnpm dlx add-npm-scripts --warn 'lint' 'eslint'
-pnpm dlx add-npm-scripts --warn 'lint:fix' 'eslint --fix'
-pnpm dlx add-npm-scripts --warn 'typecheck' 'nuxt typecheck'
+vpx add-npm-scripts --warn 'verify' 'vp run format && vp run lint:fix && vp run typecheck && vp run test'
+vpx add-npm-scripts --warn 'test' 'exit 0'
+vpx add-npm-scripts --warn 'format' 'prettier --list-different --write . --'
+vpx add-npm-scripts --warn 'lint' 'eslint'
+vpx add-npm-scripts --warn 'lint:fix' 'eslint --fix'
+vpx add-npm-scripts --warn 'typecheck' 'nuxt typecheck'
 
 echo
 if confirm "Format package.json?"; then
-    pnpm dlx format-package --write
+    vpx format-package --write
     echo "Formatted package.json"
 else
     echo "Skipped formatting package.json"

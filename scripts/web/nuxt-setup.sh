@@ -55,7 +55,7 @@ fi
 if [ "$USE_NUXT_UI" = true ]; then
     MODULES="$MODULES,@nuxt/ui"
 fi
-pnpm dlx nuxi@latest init $PROJECT_NAME --template v4 --packageManager=pnpm --gitInit=true --modules="$MODULES"
+vp dlx nuxi@latest init $PROJECT_NAME --template v4 --packageManager=pnpm --gitInit=true --modules="$MODULES"
 cd $PROJECT_NAME
 
 git add .
@@ -70,7 +70,7 @@ pnpm --version
 pnpm pkg set packageManager="pnpm@$(pnpm --version)"
 
 # Update dependencies
-pnpm dlx taze -w
+vp dlx taze -w
 
 
 # Set up dependencies configuration
@@ -79,7 +79,7 @@ pnpm dlx taze -w
 echo "shamefully-hoist=true" > .npmrc
 
 # Add ESLint
-pnpm add -D \
+vp add -D \
     eslint \
     @lttr/nuxt-config-eslint
 
@@ -91,39 +91,36 @@ export default withNuxt(customConfig)
 EOL
 
 # Install deps
-# I had issues with corepack being initiated from nuxi init, therefore I'm using
-# pnpm directly here.
-echo "Installing dependencies with pnpm"
-pnpm install
+vp install
 
 # Add MIT license conditionally
 if [ "$USE_LICENSE" = true ]; then
-    pnpm dlx mit-license --name "Lukas Trumm"
+    vp dlx mit-license --name "Lukas Trumm"
 fi
 
 # Setup Prettier
-pnpm add -D prettier
+vp add -D prettier
 echo '{"semi": false}' > .prettierrc
 echo 'pnpm-lock.yaml' > .prettierignore
 
 # Setup TypeScript
-pnpm add -D typescript @total-typescript/ts-reset
+vp add -D typescript @total-typescript/ts-reset
 cat > reset.d.ts << 'EOL'
 // Do not add any other lines of code to this file!
 import "@total-typescript/ts-reset";
 EOL
 
 # Add type checking
-pnpm add -D vue-tsc
-pnpm dlx add-npm-scripts 'typecheck' 'nuxi typecheck'
+vp add -D vue-tsc
+vpx add-npm-scripts 'typecheck' 'nuxi typecheck'
 
 # Configure package.json scripts
-pnpm dlx add-npm-scripts 'format' 'prettier  --list-different --write .'
-pnpm dlx add-npm-scripts 'lint' 'eslint'
-pnpm dlx add-npm-scripts 'lint:fix' 'eslint --fix'
-pnpm dlx add-npm-scripts 'test' 'exit 0'
-pnpm dlx add-npm-scripts 'start' 'node .output/server/index.mjs'
-pnpm dlx add-npm-scripts 'verify' 'npm run format && npm run lint:fix && npm run typecheck && npm test'
+vpx add-npm-scripts 'format' 'prettier  --list-different --write .'
+vpx add-npm-scripts 'lint' 'eslint'
+vpx add-npm-scripts 'lint:fix' 'eslint --fix'
+vpx add-npm-scripts 'test' 'exit 0'
+vpx add-npm-scripts 'start' 'node .output/server/index.mjs'
+vpx add-npm-scripts 'verify' 'vp run format && vp run lint:fix && vp run typecheck && vp run test'
 
 # Create basic App.vue
 mkdir -p app
@@ -271,10 +268,10 @@ Disallow: /
 EOL
 
 # Add some icons
-pnpm add -D @iconify-json/uil
+vp add -D @iconify-json/uil
 
 if [ "$USE_PULEO" = true ]; then
-    pnpm dlx nuxi@latest add module @lttr/nuxt-puleo
+    vp dlx nuxi@latest add module @lttr/nuxt-puleo
 fi
 
 
@@ -301,8 +298,8 @@ EOL
 fi
 
 # Format code
-pnpm dlx format-package --write
-pnpm exec prettier --write .
+vpx format-package --write
+vp exec prettier --write .
 
 # Initialize git repository and commit
 git add .

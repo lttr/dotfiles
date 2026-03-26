@@ -26,19 +26,19 @@ When running shell commands, prefer these tools:
 - `trash-put` over `rm` (recoverable delete)
 - `fd` over `find`
 - `rg` over `grep`/`egrep`
-- `pnpm` over `npm` (unless package-lock.json exists)
-- `px` over `npx` (`px` tries pnpm exec, falls back to pnpm dlx)
-- `nr <script>` over `pnpm run <script>`
+- `vp` over `pnpm`/`npm` (vite-plus unified toolchain)
+- `vpx` over `npx` (`vpx` tries local bins, falls back to remote download)
+- `vp run <script>` over `pnpm run`/`npm run`
 
 ## Development
 
 **Common scripts:**
 
-- `nr build` / `nr test` / `nr verify` / `nr typecheck` / `nr lint:fix`
+- `vp run build` / `vp run test` / `vp run verify` / `vp run typecheck` / `vp run lint:fix`
 
 ## Git Workflow
 
-- Always run `nr verify` before committing changes (if npm script "verify"
+- Always run `vp run verify` before committing changes (if "verify" script
   exists in package.json)
 - When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
 
