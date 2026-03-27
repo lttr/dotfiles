@@ -47,7 +47,7 @@
       "Bash(npx eslint:*)",
       "Bash(npx playwright test:*)",
       "Bash(npx stylelint:*)",
-      "Bash(nr:*)",
+      "Bash(vp:*)",
       "Bash(pgrep:*)",
       "Bash(pkill:*)",
       "Bash(pnpm:*)",
