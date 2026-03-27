@@ -20,7 +20,7 @@ Never output markdown, additional text, or explanations. Only output the 3 forma
 "
 
 # Get Claude's response with web search enabled (using faster model)
-response=$(claude --allowedTools "WebSearch" --model claude-3-haiku-20240307 -p "$prompt Search query: $input")
+response=$(claude --allowedTools "WebSearch" --model haiku -p "$prompt Search query: $input")
 
 # Add blank line at the beginning
 echo ""
