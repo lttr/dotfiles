@@ -95,11 +95,11 @@ export const claudeDesktop: Config = {
   },
 };
 
-// Update: curl -fsSL https://viteplus.dev/install.sh | bash
+// Update: curl -fsSL https://vite.plus | bash
 export const vitePlus: Config = {
   urlScript: {
     name: "vite-plus",
-    url: "https://viteplus.dev/install.sh",
+    url: "https://vite.plus",
   },
 };
 
@@ -320,28 +320,42 @@ export const cursors: Config = {
   },
 };
 
-const pnpmPackages = [
-  { name: "@antfu/ni", executable: "ni" },
-  { name: "browser-sync" },
-  { name: "degit" },
-  { name: "eslint" },
-  { name: "eslint-formatter-unix" },
-  { name: "eslint_d" },
-  { name: "firebase-tools", executable: "firebase" },
-  { name: "git-standup" },
-  { name: "hygen" },
-  { name: "json" },
-  { name: "netlify-cli", executable: "netlify" },
-  { name: "npm-why" },
-  { name: "nx" },
-  { name: "@playwright/cli", executable: "playwright-cli" },
-  { name: "open-cli" },
-  { name: "pollinate" },
-  { name: "prettier" },
-  { name: "@fsouza/prettierd", executable: "prettierd" },
-  { name: "sharp-cli", executable: "sharp" },
-  { name: "stylelint" },
-  { name: "typescript-language-server" },
+function vpGlobal(
+  { name, executable, lib }: { name: string; executable?: string; lib?: boolean },
+): Config {
+  return {
+    inlineScript: {
+      name: `vp-global-${executable || name}`,
+      testScript: lib
+        ? `vp list -g ${name} 2>/dev/null | grep -q "${name}"`
+        : `command -v ${executable || name}`,
+      setScript: `vp install -g ${name}`,
+      dependsOn: vitePlus,
+    },
+  };
+}
+
+const vpGlobalPackages: Config[] = [
+  vpGlobal({ name: "@ast-grep/cli", executable: "sg" }),
+  vpGlobal({ name: "@playwright/cli", executable: "playwright-cli" }),
+  vpGlobal({ name: "@typescript-eslint/eslint-plugin", lib: true }),
+  vpGlobal({ name: "@typescript-eslint/parser", lib: true }),
+  vpGlobal({ name: "@vue/typescript-plugin", lib: true }),
+  vpGlobal({ name: "browser-sync" }),
+  vpGlobal({ name: "degit" }),
+  vpGlobal({ name: "eslint" }),
+  vpGlobal({ name: "eslint-formatter-unix", lib: true }),
+  vpGlobal({ name: "git-standup" }),
+  vpGlobal({ name: "hygen" }),
+  vpGlobal({ name: "json" }),
+  vpGlobal({ name: "nx" }),
+  vpGlobal({ name: "pollinate" }),
+  vpGlobal({ name: "prettier" }),
+  vpGlobal({ name: "sharp-cli", executable: "sharp" }),
+  vpGlobal({ name: "stylelint" }),
+  vpGlobal({ name: "stylelint-lsp" }),
+  vpGlobal({ name: "taze" }),
+  vpGlobal({ name: "typescript-language-server" }),
 ];
 
 export const customInstalls: Config[] = [
@@ -372,9 +386,5 @@ export const customInstalls: Config[] = [
   ...brewPackages.map((brewConfig) => ({
     brew: { ...brewConfig, dependsOn: brew },
   })),
-  ...pnpmPackages.map((pnpmConfig) => {
-    return {
-      pnpmGlobalInstall: { ...pnpmConfig, dependsOn: pnpm },
-    };
-  }),
+  ...vpGlobalPackages,
 ];
