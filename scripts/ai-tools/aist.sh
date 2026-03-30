@@ -18,4 +18,4 @@
   echo ""
   echo "Current git diff:"
   git diff
-} | claude -p
+} | claude --bare -p
