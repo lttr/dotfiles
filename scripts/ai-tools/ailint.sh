@@ -24,7 +24,7 @@ bar.js:6:11: Unexpected bar. [Warning/bar]
 "
 
 # Run claude and capture output
-output=$(claude --bare -p "$prompt")
+output=$(claude -p "$prompt")
 
 # Display the output
 echo "$output"
