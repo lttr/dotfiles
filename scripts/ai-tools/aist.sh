@@ -18,4 +18,4 @@
   echo ""
   echo "Current git diff:"
   git diff
-} | claude --bare -p
+} | ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY_FOR_TOOLS" claude --bare -p

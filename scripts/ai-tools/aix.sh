@@ -15,7 +15,7 @@ ls -lt
 "
 
 # Get Claude's response
-response=$(claude --bare -p "$prompt Task: $input")
+response=$(ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY_FOR_TOOLS" claude --bare -p "$prompt Task: $input")
 
 # Add blank line at the beginning
 echo ""

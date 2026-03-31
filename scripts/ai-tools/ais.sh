@@ -20,7 +20,7 @@ Never output markdown, additional text, or explanations. Only output the 3 forma
 "
 
 # Get Claude's response with web search enabled (using faster model)
-response=$(claude --bare --allowedTools "WebSearch" --model haiku -p "$prompt Search query: $input")
+response=$(ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY_FOR_TOOLS" claude --bare --allowedTools "WebSearch" --model haiku -p "$prompt Search query: $input")
 
 # Add blank line at the beginning
 echo ""
