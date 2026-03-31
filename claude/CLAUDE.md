@@ -44,7 +44,7 @@ When running shell commands, prefer these tools:
 
 ## Notes
 
-- I have my personal and work related notes located in `~/ia`. Search for files there whenever I need my notes.
+- I have my personal and work related notes located in `~/notes`. Search for files there whenever I need my notes.
 
 ## Browser Usage
 

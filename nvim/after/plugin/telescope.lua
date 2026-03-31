@@ -76,7 +76,7 @@ require("telescope").setup({
           "~/code",
           "~/work",
           "~/dotfiles",
-          "~/SynologyDrive",
+          "~/notes",
         },
       },
       settings = {

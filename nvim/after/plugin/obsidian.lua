@@ -1,7 +1,7 @@
 -- https://github.com/epwalsh/obsidian.nvim
 
 require("obsidian").setup({
-  dir = "~/ia",
+  dir = "~/notes",
   completion = {
     nvim_cmp = true,
   },
@@ -9,7 +9,7 @@ require("obsidian").setup({
   -- ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
   event = {
-    "BufReadPre " .. vim.fn.expand("~") .. "/ia/*.md",
-    "BufNewFile " .. vim.fn.expand("~") .. "/ia/*.md",
+    "BufReadPre " .. vim.fn.expand("~") .. "/notes/*.md",
+    "BufNewFile " .. vim.fn.expand("~") .. "/notes/*.md",
   },
 })

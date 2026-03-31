@@ -72,8 +72,6 @@ alias ,fe="nvim -c \"lua require('telescope.builtin').oldfiles({ previewer = fal
 #                            Scripts
 # =================================================================
 alias p="project"
-alias ias="ia-search"
-alias iaf="ia-file"
 
 # =================================================================
 #                          Directories
@@ -86,7 +84,7 @@ alias dotf="cd ~/dotfiles"
 alias down="cd ~/Downloads"
 alias docu="cd ~/Documents"
 alias sand="cd ~/sandbox"
-alias iad="cd ~/ia"
+alias notd="cd ~/notes"
 
 # =================================================================
 #                         npm, node, deno

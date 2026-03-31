@@ -130,12 +130,6 @@ export const symlinks: Config[] = [
   },
   {
     symlink: {
-      dest: path.join(HOME, "ia"),
-      src: path.join(HOME, "SynologyDrive/ia"),
-    },
-  },
-  {
-    symlink: {
       dest: path.join(HOME, ".claude/settings.json"),
       src: path.join(DOTFILES, "claude/settings.json"),
     },

@@ -461,36 +461,26 @@ blog() {
     nvim "${FILE_PATH}" +"cd ${MY_SITE_DIR}"
 }
 
+# Open Obsidian with daily note (no args) or create new note (with args)
+# Usage: note [note name with spaces]
 note() {
-    IFS=" "
-    MY_SITE_DIR="${HOME}/code/lukastrumm"
-    NOTES_DIR="src/notes"
-    FILE_TITLE="${*}"
-    FILE_SLUG=$(echo $FILE_TITLE | tr "[:upper:]" "[:lower:]" | tr -d "!" | sed "s/[[:space:]]\+/-/g")
-    FILE_PATH="${MY_SITE_DIR}/${NOTES_DIR}/${FILE_SLUG}.md"
-    echo "---" >> $FILE_PATH
-    echo "title: ${FILE_TITLE}" >> $FILE_PATH
-    echo "date: $(date +'%Y-%m-%d')" >> $FILE_PATH
-    echo "tags: " >> $FILE_PATH
-    echo "---" >> $FILE_PATH
-    echo "" >> $FILE_PATH
-    nvim "${FILE_PATH}" +"cd ${MY_SITE_DIR}"
+    local notes_dir="$HOME/notes"
+    if [ -z "$1" ]; then
+        local file="$notes_dir/daily/$(date +%Y-%m)/$(date +%d).md"
+    else
+        local file="$notes_dir/inbox/${*}.md"
+    fi
+    mkdir -p "$(dirname "$file")"
+    [ -f "$file" ] || touch "$file"
+    ( xdg-open "obsidian://open?path=$file" &>/dev/null & )
 }
 
+# List notes via fzf and open selected in Obsidian
 notes() {
-    local out key relativePath webPath localPath url
-    if [ -n "$1" ]; then
-        IFS=$'\n' out=($(cd ~/code/lukastrumm/src; rg -t md "$1" | fzf --query "$1" --expect=ctrl-o))
-    else
-        IFS=$'\n' out=($(cd ~/code/lukastrumm/src; rg -t md -l "" | fzf --expect=ctrl-o))
-    fi
-    key=$(head -1 <<< "$out")
-    relativePath=$(head -2 <<< "$out" | tail -1 | cut -f1 -d':')
-    webPath=$(echo $relativePath | sed 's/\.md//')
-    localPath="/home/lukas/code/lukastrumm/src/${relativePath}"
-    url="https://lukastrumm.com/${webPath}"
-    if [ -n "$relativePath" ]; then
-        [ "$key" = ctrl-o ] && xdg-open "$url" &>/dev/null || ${EDITOR:-vim} "$localPath" < /dev/tty
+    local file
+    file=$(fd -t f -e md . ~/notes | sed "s|$HOME/notes/||" | fzf --query "$*")
+    if [ -n "$file" ]; then
+        ( xdg-open "obsidian://open?path=$(printf '%s' "$HOME/notes/$file" | sed 's/ /%20/g')" &>/dev/null & )
     fi
 }
 

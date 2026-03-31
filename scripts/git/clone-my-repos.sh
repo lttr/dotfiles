@@ -9,7 +9,9 @@ REPOS=$(gh repo list --json "name,isFork,isArchived" --jq  '.[] | select(.isArch
 cd $CODE_DIR
 
 echo $REPOS | while read NAME ; do
-  if [ "$NAME" != "dotfiles" ]; then
+  if [ "$NAME" = "dotfiles" ] || [ "$NAME" = "notes" ]; then
+    echo "Skipping $NAME (cloned separately into ~/$NAME)"
+  else
     gh repo clone "$NAME"
   fi
 done

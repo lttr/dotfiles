@@ -60,7 +60,7 @@ Prefixes in `aliases`:
 - `e*` - Editor shortcuts (evimrc, ezsh, ealias, efunc)
 - `n*` - vp run shortcuts (nb=build, nd=dev, nt=test, nv=verify)
 - `g*` - Git shortcuts (ga=add, gco=switch, gd=diff, gl=log, etc.)
-- Navigation: `..`, `...`, `repo` (~/code), `dotf` (~/dotfiles), `iad` (~/ia notes)
+- Navigation: `..`, `...`, `repo` (~/code), `dotf` (~/dotfiles), `notd` (~/notes)
 
 ## Development Workflow
 
