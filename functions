@@ -652,6 +652,13 @@ vectorize() {
 #                              Node
 # =================================================================
 
+nr() {
+    local pkg="package.json"
+    [[ ! -f "$pkg" ]] && echo "No package.json found" && return 1
+    local script=$(jq -r '.scripts // {} | keys[]' "$pkg" | fzf --query "$*")
+    [[ -n "$script" ]] && vp run "$script"
+}
+
 latest-pnpm() {
     ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | tr -d '/' | tr -d 'v' | sort --version-sort --reverse | head -n1
 }
