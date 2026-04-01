@@ -76,15 +76,14 @@ alias p="project"
 # =================================================================
 #                          Directories
 # =================================================================
-alias home="cd ~"
-alias repo="cd ~/code"
 alias lutr="cd ~/code/lukastrumm"
-alias learn="cd ~/code/learning-progress"
+alias lt="cd ~/code/lukastrumm"
 alias dotf="cd ~/dotfiles"
 alias down="cd ~/Downloads"
 alias docu="cd ~/Documents"
 alias sand="cd ~/sandbox"
 alias notd="cd ~/notes"
+alias no="cd ~/notes"
 
 # =================================================================
 #                         npm, node, deno
