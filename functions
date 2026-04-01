@@ -328,45 +328,30 @@ dir-locate() {
 #                              Git
 # =================================================================
 
-# Git status with fallback to file listing
-gst() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        git status
-    else
-        echo "Not a git repository. Listing files instead:"
-        EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions
-    fi
-}
-
-# Easy git commit
+# Easy git commit with message
 c() {
     IFS=' '
     git commit -m "${*}"
 }
 
-gac() { # git add and commit
-    IFS=' '
-    git add --all
-    git commit -m "${*}"
-}
-
+# Amend commit message
 ca() {
     IFS=' '
     git commit --amend -m "${*}"
 }
 
+# Empty commit
 ce() {
     IFS=' '
     git commit --allow-empty -m "${*}"
 }
 
-# Easy github issue
-issue() {
-    IFS=' '
-    gh issue create --title "${*}"
+# Open modified files in editor
+emod() {
+    git status --porcelain | grep '^\(??\)\|\(M\)' | awk '{print $2}' | xargs ${EDITOR:-vim}
 }
 
-# Searchable git log
+# Searchable git log with fzf
 fzf-log() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
@@ -378,38 +363,65 @@ fzf-log() {
 FZF-EOF"
 }
 
-# Checkout merge request from gitlab
-mrco() {
-  local out id
-  out=$(glab mr list | grep '^!' | fzf --query "$1")
-  if [ -n "$out" ]; then
-    # id=$(echo $out | awk '{ print $1 }' | tr -d '!')
-    branch=$(echo $out | awk -F '(' '{ print $3 }' | tr -d ')')
-    glab mr checkout $branch
-    yes_or_no "Unable to checkout $branch - force it?" &&
-        git fetch --all &&
-        git reset --hard origin/$branch &&
-        git checkout $branch &&
-        git pull
-  fi
+# Add all and commit
+gac() {
+    IFS=' '
+    git add --all
+    git commit -m "${*}"
 }
 
-mrme() {
-  local out id
-  out=$(glab mr list | grep '^!' | fzf --query "$1")
-  if [ -n "$out" ]; then
-    id=$(echo $out | awk '{ print $1 }' | tr -d '!')
-    glab mr merge --remove-source-branch --auto-merge --yes $id
-  fi
+# Switch to default branch
+gcom() {
+    git switch $(git_default_branch)
 }
 
-mrmerge() {
-    glab mr merge --remove-source-branch --auto-merge --yes
+# Detect the default branch name
+git_default_branch() {
+    local branch
+    for dir in "." ".." "../.." "../../.."; do
+        key_file=$dir/.git/default_branch
+        if [ -f "$key_file" ]; then
+            branch=`cat "$key_file"`
+            break
+        fi
+    done
+    if [ -z "$branch" ]; then
+        branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
+    fi
+    if [ -z "$branch" ]; then
+        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2 | tr -d ' ')
+    fi
+    if [ -z "$branch" ]; then
+        branch="master"
+    fi
+    echo $branch
 }
 
-# List gitlab merge requests
-mrs() {
-    glab mr list
+# Fetch default branch and update it
+git-fem() {
+    git fetch origin `git_default_branch`:`git_default_branch`
+    git log --oneline `git_default_branch` @{1}..`git_default_branch`
+}
+
+# Switch to default branch and pull, then prune gone branches
+git-gogo() {
+    git checkout `git_default_branch` && git pull && git gone
+}
+
+# Rebase current branch on default branch
+git-rem() {
+    git rebase `git_default_branch`
+}
+
+# Sync: pull+push on default branch, fetch+rebase on feature branch
+git-sync() {
+    local default=$(git_default_branch)
+    local current=$(git symbolic-ref --short HEAD)
+    if [ "$current" = "$default" ]; then
+        git pull && git push
+    else
+        git fetch origin "$default":"$default" && git rebase "$default"
+    fi
 }
 
 # Git log "table"
@@ -422,6 +434,62 @@ glg() {
     --color=always \
     "${@:--n20}" \
     | sed 's/Merged PR [0-9]*:/PR:/'
+}
+
+# Git status with fallback to file listing
+gst() {
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        git status
+    else
+        echo "Not a git repository. Listing files instead:"
+        EZA_COLORS=reset eza --all --long --git --no-user --group-directories-first --icons=auto --smart-group --time-style=relative --no-permissions
+    fi
+}
+
+# Stash, pull, unstash
+gup() {
+    git stash save -u && git pull && git stash pop
+}
+
+# Create github issue
+issue() {
+    IFS=' '
+    gh issue create --title "${*}"
+}
+
+# Checkout merge request from gitlab
+mrco() {
+  local out id
+  out=$(glab mr list | grep '^!' | fzf --query "$1")
+  if [ -n "$out" ]; then
+    branch=$(echo $out | awk -F '(' '{ print $3 }' | tr -d ')')
+    glab mr checkout $branch
+    yes_or_no "Unable to checkout $branch - force it?" &&
+        git fetch --all &&
+        git reset --hard origin/$branch &&
+        git checkout $branch &&
+        git pull
+  fi
+}
+
+# Select and merge a merge request from gitlab
+mrme() {
+  local out id
+  out=$(glab mr list | grep '^!' | fzf --query "$1")
+  if [ -n "$out" ]; then
+    id=$(echo $out | awk '{ print $1 }' | tr -d '!')
+    glab mr merge --remove-source-branch --auto-merge --yes $id
+  fi
+}
+
+# Merge current merge request
+mrmerge() {
+    glab mr merge --remove-source-branch --auto-merge --yes
+}
+
+# List gitlab merge requests
+mrs() {
+    glab mr list
 }
 
 
@@ -602,11 +670,6 @@ node-up() {
 # Simple calculator
 calc() {
     awk "BEGIN { print "$*" }"
-}
-
-# open files that has been modified in current repo
-emod() {
-    git status --porcelain | grep '^\(??\)\|\(M\)' | awk '{print $2}' | xargs ${EDITOR:-vim}
 }
 
 # =================================================================

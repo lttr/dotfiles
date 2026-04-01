@@ -136,34 +136,6 @@ alias ff="firefox"
 #                              Git
 # =================================================================
 
-
-git_default_branch() {
-    local branch
-    # First look for my custom file named 'deafult_branch' in the git repo,
-    # where the name of the default branch should be specified
-    for dir in "." ".." "../.." "../../.."; do
-        key_file=$dir/.git/default_branch
-        if [ -f "$key_file" ]; then 
-            branch=`cat "$key_file"`
-            break
-        fi
-    done
-    if [ -z "$branch" ]; then
-        branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's#^refs/remotes/origin/##')
-    fi
-    if [ -z "$branch" ]; then
-        branch=$(git remote show origin 2>/dev/null | grep "HEAD branch" | cut -d ":" -f 2 | tr -d ' ')
-    fi
-    if [ -z "$branch" ]; then
-        branch="master"
-    fi
-    echo $branch
-}
-
-gcom() {
-    git switch $(git_default_branch)
-}
-
 alias ga="git add"
 alias gaa="git add --all"
 alias gco="git switch"
@@ -199,25 +171,21 @@ alias gmmy="git $logformat --all -n15 --author=\"Lukas Trumm\""
 alias gfh="git $logformat --all --follow" # file history
 alias gsf="git show --name-status"
 alias gfe="git fetch"
-alias gup="git stash save -u && git pull && git stash pop"
+alias gfem="git-fem"
 alias gre="git restore"
 alias gre.="git restore ."
-alias gres='git restore --staged'
-git-rem() { git rebase `git_default_branch` }
+alias gres="git restore --staged"
 alias grem="git-rem"
 alias grec="git rebase --continue"
-git-fem() { git fetch origin `git_default_branch`:`git_default_branch`; git log --oneline `git_default_branch` @{1}..`git_default_branch` }
-alias gfem="git-fem"
-# gst is now a function in ~/dotfiles/functions
 alias gs="git status -s"
 alias grs="git recursive-status"
 alias gpu='[[ -z $(git config "branch.$(git symbolic-ref --short HEAD).merge") ]] && git push -u origin $(git symbolic-ref --short HEAD) || git push'
 alias gpf='git push --force-with-lease'
 alias gul='git pull'
+alias gsync="git-sync"
 alias gundo='git reset --mixed HEAD~'
 alias standup="git-standup"
 alias myweek="git standup -d 8 -D 'short'"
-git-gogo() { git checkout `git_default_branch` && git pull && git gone }
 alias gogo="git-gogo"
 alias i="issue"
 alias il="gh issue list"
