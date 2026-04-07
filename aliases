@@ -224,7 +224,6 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-alias cls="claude"
 alias cl="claude --dangerously-skip-permissions"
 alias aicp="aic && git push"
 
