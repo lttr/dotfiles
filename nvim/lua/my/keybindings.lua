@@ -749,39 +749,34 @@ nmap("<F7>", function() require("dap").continue() end)
 --  Setting breakpoints via :lua require'dap'.toggle_breakpoint().
 nmap("<F8>", function() require("dap").toggle_breakpoint() end)
 
--- syntax-tree-surfer
+-- syntax-tree-surfer (DISABLED: depends on nvim-treesitter.ts_utils removed in 0.12)
+-- TODO: find alternative or wait for plugin update
+-- See built-in v_an/v_in for basic node expansion
 
--- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
-
-mapexpr("n", "vU", function()
-  vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
-  return "g@l"
-end, "Swap around up")
-mapexpr("n", "vD", function()
-  vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
-  return "g@l"
-end, "Swap around down")
--- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
-mapexpr("n", "vd", function()
-  vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
-  return "g@l"
-end, "Swap inside down")
-mapexpr("n", "vu", function()
-  vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
-  return "g@l"
-end, "Swap around up")
-
--- Visual Selection from Normal Mode
-nmap("vx", "<cmd>STSSelectMasterNode<CR>", "SelectMasterNode")
-nmap("vn", "<cmd>STSSelectCurrentNode<CR>", "SelectCurrentNode")
--- Select Nodes in Visual Mode
-vmap("J", "<cmd>STSSelectNextSiblingNode<CR>", "Select next sibling node")
-vmap("K", "<cmd>STSSelectPrevSiblingNode<CR>", "Select prev sibling node")
-vmap("H", "<cmd>STSSelectParentNode<CR>", "Select parent node")
-vmap("L", "<cmd>STSSelectChildNode<CR>", "Select child node")
--- Swapping Nodes in Visual Mode
-vmap("<A-j>", "<cmd>STSSwapNextVisual<CR>", "Swap next visual")
-vmap("<A-k>", "<cmd>STSSwapPrevVisual<CR>", "Swap prev visual")
+-- mapexpr("n", "vU", function()
+--   vim.opt.opfunc = "v:lua.STSSwapUpNormal_Dot"
+--   return "g@l"
+-- end, "Swap around up")
+-- mapexpr("n", "vD", function()
+--   vim.opt.opfunc = "v:lua.STSSwapDownNormal_Dot"
+--   return "g@l"
+-- end, "Swap around down")
+-- mapexpr("n", "vd", function()
+--   vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
+--   return "g@l"
+-- end, "Swap inside down")
+-- mapexpr("n", "vu", function()
+--   vim.opt.opfunc = "v:lua.STSSwapCurrentNodePrevNormal_Dot"
+--   return "g@l"
+-- end, "Swap around up")
+-- nmap("vx", "<cmd>STSSelectMasterNode<CR>", "SelectMasterNode")
+-- nmap("vn", "<cmd>STSSelectCurrentNode<CR>", "SelectCurrentNode")
+-- vmap("J", "<cmd>STSSelectNextSiblingNode<CR>", "Select next sibling node")
+-- vmap("K", "<cmd>STSSelectPrevSiblingNode<CR>", "Select prev sibling node")
+-- vmap("H", "<cmd>STSSelectParentNode<CR>", "Select parent node")
+-- vmap("L", "<cmd>STSSelectChildNode<CR>", "Select child node")
+-- vmap("<A-j>", "<cmd>STSSwapNextVisual<CR>", "Swap next visual")
+-- vmap("<A-k>", "<cmd>STSSwapPrevVisual<CR>", "Swap prev visual")
 
 -- splitjoin.nvim
 nmap("gj", require("splitjoin").join, "Join the object under cursor")

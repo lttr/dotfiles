@@ -79,7 +79,6 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "b0o/schemastore.nvim",
   "folke/zen-mode.nvim",
-  "j-hui/fidget.nvim",
   { "nvimdev/lspsaga.nvim", dependencies = { "neovim/nvim-lspconfig" } },
   "stevearc/conform.nvim",
   { "dnlhc/glance.nvim", cmd = "Glance" },
@@ -139,11 +138,12 @@ require("lazy").setup({
   "JoosepAlviste/nvim-ts-context-commentstring",
   {
     "nvim-treesitter/nvim-treesitter",
-    build = false, -- Disable auto-build to avoid tarball issues
+    lazy = false,
+    build = ":TSUpdate",
   },
   "nvim-treesitter/nvim-treesitter-textobjects",
 
-  "ziontee113/syntax-tree-surfer",
+  -- "ziontee113/syntax-tree-surfer", -- DISABLED: depends on nvim-treesitter.ts_utils removed in 0.12
 
   -- debbugging
   "mfussenegger/nvim-dap",

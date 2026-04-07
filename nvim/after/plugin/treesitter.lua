@@ -1,64 +1,48 @@
--- https://github.com/nvim-treesitter/nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter (0.12+)
 
+-- ts-context-commentstring (independent of nvim-treesitter module API)
 require("ts_context_commentstring").setup({})
 vim.g.skip_ts_context_commentstring_module = true
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = "all",
-  ignore_install = { "ipkg" }, -- ignore one that produce error during nvim startup
-  auto_install = true,
-  highlight = {
-    enable = true,
-    disable = {},
-  },
-  indent = {
-    enable = true,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      -- Automatically jump forward to textobj, similar to targets.vim
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ar"] = "@parameter.outer",
-        ["ir"] = "@parameter.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["aa"] = "@attribute.outer",
-        ["ia"] = "@attribute.inner",
-        ["ai"] = "@conditional.outer",
-        ["ii"] = "@conditional.inner",
-      },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["<A-]>"] = "@function.outer",
-      },
-      goto_previous_start = {
-        ["<A-[>"] = "@function.outer",
-      },
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<localleader>r"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<localleader>R"] = "@parameter.inner",
-      },
-    },
-    lsp_interop = {
-      enable = true,
-      border = "rounded",
-      peek_definition_code = {
-        ["gF"] = "@function.outer",
-        ["gC"] = "@class.outer",
-      },
-    },
-  },
+-- Install parsers
+require("nvim-treesitter").install({ "all" })
+
+-- Highlight is auto-enabled in 0.12 for languages with bundled queries
+
+-- Treesitter indent (replaces old indent = { enable = true })
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
+
+-- Textobjects
+-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+require("nvim-treesitter-textobjects").setup({
+  select = { lookahead = true },
+  move = { set_jumps = true },
+})
+
+-- Select
+local sel = require("nvim-treesitter-textobjects.select").select_textobject
+for _, map in ipairs({
+  { "af", "@function.outer" }, { "if", "@function.inner" },
+  { "ar", "@parameter.outer" }, { "ir", "@parameter.inner" },
+  { "ac", "@class.outer" }, { "ic", "@class.inner" },
+  { "aa", "@attribute.outer" }, { "ia", "@attribute.inner" },
+  { "ai", "@conditional.outer" }, { "ii", "@conditional.inner" },
+}) do
+  vim.keymap.set({ "x", "o" }, map[1], function() sel(map[2], "textobjects") end)
+end
+
+-- Move
+local move = require("nvim-treesitter-textobjects.move")
+vim.keymap.set({ "n", "x", "o" }, "<A-]>", function() move.goto_next_start("@function.outer", "textobjects") end)
+vim.keymap.set({ "n", "x", "o" }, "<A-[>", function() move.goto_previous_start("@function.outer", "textobjects") end)
+
+-- Swap
+local swap = require("nvim-treesitter-textobjects.swap")
+vim.keymap.set("n", "<localleader>r", function() swap.swap_next("@parameter.inner") end)
+vim.keymap.set("n", "<localleader>R", function() swap.swap_previous("@parameter.inner") end)
+
+-- NOTE: lsp_interop (gF/gC peek definition) removed in 0.12 textobjects, no replacement available
