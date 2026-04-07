@@ -1,4 +1,4 @@
-local ts_utils = require("nvim-treesitter.ts_utils")
+-- Use built-in vim.treesitter API (nvim-treesitter.ts_utils removed in 0.12)
 local utils = require("my.utils")
 local path_join = utils.path_join
 local file_exists = utils.file_exists
@@ -16,7 +16,7 @@ source.new = function()
 end
 
 local function is_cursor_in_attribute_value()
-  local node = ts_utils.get_node_at_cursor()
+  local node = vim.treesitter.get_node()
   if node ~= nil then
     return node:type() == "quoted_attribute_value"
   end

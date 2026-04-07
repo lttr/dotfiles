@@ -1,4 +1,4 @@
-local ts_utils = require("nvim-treesitter.ts_utils")
+-- Use built-in vim.treesitter API (nvim-treesitter.ts_utils removed in 0.12)
 
 -- TODO try use following code to implement something usefull, sort of a plugin
 
@@ -14,8 +14,11 @@ local get_node_for_cursor = function(cursor)
   if cursor == nil then
     cursor = vim.api.nvim_win_get_cursor(0)
   end
-  local root =
-    ts_utils.get_root_for_position(unpack({ cursor[1] - 1, cursor[2] }))
+  local node = vim.treesitter.get_node({ pos = { cursor[1] - 1, cursor[2] } })
+  local root = node
+  if root then
+    while root:parent() do root = root:parent() end
+  end
   if not root then
     return
   end
@@ -33,7 +36,8 @@ local get_main_node = function(cursor)
     return node
   end
   local parent = node:parent()
-  local root = ts_utils.get_root_for_node(node)
+  local root = node
+  while root:parent() do root = root:parent() end
   local start_row = node:start()
   while parent ~= nil and parent ~= root and parent:start() == start_row do
     node = parent

@@ -44,5 +44,3 @@ vim.keymap.set({ "n", "x", "o" }, "<A-[>", function() move.goto_previous_start("
 local swap = require("nvim-treesitter-textobjects.swap")
 vim.keymap.set("n", "<localleader>r", function() swap.swap_next("@parameter.inner") end)
 vim.keymap.set("n", "<localleader>R", function() swap.swap_previous("@parameter.inner") end)
-
--- NOTE: lsp_interop (gF/gC peek definition) removed in 0.12 textobjects, no replacement available
