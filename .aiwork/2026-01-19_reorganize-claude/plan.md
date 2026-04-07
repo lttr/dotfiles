@@ -1,9 +1,7 @@
 ---
-created: 2026-01-19
-type: plan
 status: draft
 references:
-  - ./2026-01-19_claude-code-meta-tooling.md
+  - ../2026-01-19_claude-code-meta-tooling/plan.md
 ---
 
 # Reorganize dotfiles/claude → claude-marketplace

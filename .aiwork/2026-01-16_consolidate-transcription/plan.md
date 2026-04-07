@@ -1,6 +1,4 @@
 ---
-created: 2026-01-16
-type: plan
 status: draft
 ---
 
