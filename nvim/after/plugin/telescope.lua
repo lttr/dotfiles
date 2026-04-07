@@ -22,7 +22,7 @@ require("telescope").setup({
       },
     },
     file_ignore_patterns = { "^node_modules/", "%.lock" }, -- lua regexes
-    path_display = function(_, path) return path:gsub(vim.env.HOME .. "/", "") end,
+    path_display = function(_, path) return (path:gsub(vim.env.HOME .. "/", "")) end,
     mappings = {
       i = {
         ["<Esc>"] = actions.close,

@@ -51,8 +51,7 @@ require("lazy").setup({
   "hiphish/rainbow-delimiters.nvim",
 
   -- explorer
-  { "nvim-telescope/telescope.nvim", tag = "0.1.8" }, -- conservative updating, too much changes
-  -- "nvim-telescope/telescope.nvim",
+  { "nvim-telescope/telescope.nvim", tag = "v0.2.2" },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   "jvgrootveld/telescope-zoxide",
   "cljoly/telescope-repo.nvim",
@@ -138,12 +137,12 @@ require("lazy").setup({
   "JoosepAlviste/nvim-ts-context-commentstring",
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     lazy = false,
     build = ":TSUpdate",
   },
-  "nvim-treesitter/nvim-treesitter-textobjects",
+  { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
 
-  -- "ziontee113/syntax-tree-surfer", -- DISABLED: depends on nvim-treesitter.ts_utils removed in 0.12
 
   -- debbugging
   "mfussenegger/nvim-dap",
