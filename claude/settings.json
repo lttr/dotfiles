@@ -57,6 +57,8 @@
       "Bash(touch:*)",
       "Bash(xargs kill -9)",
       "Bash(xargs rg:*)",
+      "Edit(/.claude/skills/**)",
+      "Write(/.claude/skills/**)",
       "Skill(browser-tools)",
       "Skill(browser-tools:browser-tools)",
       "WebSearch",
