@@ -73,7 +73,7 @@
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "acceptEdits"
   },
   "hooks": {
     "SessionStart": [
