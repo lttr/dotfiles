@@ -292,6 +292,14 @@ function generateStatusLine(inputData) {
     parts.push(colorize(gitText, "\x1b[38;5;242m"));
   }
 
+  // Context window
+  const contextResult = getContextWindowInfo(inputData);
+  if (contextResult) {
+    const pct = contextResult.percentage;
+    const color = pct > 50 ? "\x1b[38;5;208m" : pct > 20 ? "\x1b[38;5;220m" : pct >= 5 ? "\x1b[38;5;248m" : "\x1b[90m";
+    parts.push(colorize(contextResult.bar, color));
+  }
+
   // Model
   parts.push(colorize(`※ ${model.display_name || "Claude"}`, "\x1b[90m"));
 
@@ -303,14 +311,6 @@ function generateStatusLine(inputData) {
   // Session duration
   const { duration, lastActivity } = getSessionDuration(transcript_path, session_id);
   parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
-
-  // Context window
-  const contextResult = getContextWindowInfo(inputData);
-  if (contextResult) {
-    const pct = contextResult.percentage;
-    const color = pct > 50 ? "\x1b[38;5;208m" : pct > 20 ? "\x1b[38;5;220m" : pct >= 5 ? "\x1b[38;5;248m" : "\x1b[90m";
-    parts.push(colorize(contextResult.bar, color));
-  }
 
   // Build first line
   const firstLine = parts.join(colorize(" | ", "\x1b[90m"));

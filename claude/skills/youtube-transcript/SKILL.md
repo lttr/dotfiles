@@ -31,10 +31,10 @@ yt-dlp --cookies-from-browser=firefox --write-auto-sub --write-sub --sub-lang en
 
 If `--cookies-from-browser=firefox` fails, try `chrome`, then no cookies flag.
 
-In parallel (if summarize/critique mode), also create the output directory:
+In parallel (if summarize/critique mode), also ensure the output directory exists:
 
 ```bash
-mkdir -p ~/SynologyDrive/moje/AI/summaries
+mkdir -p "$(pwd)/summaries"
 ```
 
 ## Step 2: Convert VTT to plain text
@@ -63,7 +63,7 @@ The subagent prompt should contain all data and end with: "Write the summary to 
 
 ### Output path
 
-`~/SynologyDrive/moje/AI/summaries/{YYYY-MM-DD}_{slug}.md` (slug: lowercase kebab-case from title, max 60 chars)
+`./summaries/{YYYY-MM-DD}_{slug}.md` inside the current working directory (slug: lowercase kebab-case from title, max 60 chars). Always write into the repo the skill was invoked from.
 
 ### Summarize template
 
