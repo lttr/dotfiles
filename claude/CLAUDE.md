@@ -46,13 +46,6 @@ When running shell commands, prefer these tools:
 
 - I have my personal and work related notes located in `~/notes`. Search for files there whenever I need my notes.
 
-## Browser Usage
-
-- Use browser-tools skill when: testing UI changes, debugging frontend issues,
-  capturing screenshots, or verifying rendered output.
-- When I ask "let me pick and element" you should load skill browser-tools and
-  use browser-pick tool for it, check whether the browser is started beforehand
-
 ## Plans
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
