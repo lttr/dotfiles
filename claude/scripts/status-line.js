@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from "fs";
 import { execSync } from "child_process";
 import { basename } from "path";
+import { homedir } from "os";
 
 function execGit(command) {
   try {
@@ -267,6 +268,19 @@ function colorize(text, color) {
   return `${color}${text}\x1b[0m`;
 }
 
+function getCavemanBadge() {
+  const flag = `${homedir()}/.claude/.caveman-active`;
+  if (!existsSync(flag)) return null;
+  try {
+    const mode = readFileSync(flag, "utf8").trim();
+    if (!mode) return null;
+    const label = mode === "full" ? "caveman" : `caveman:${mode}`;
+    return colorize(`[${label}]`, "\x1b[90m");
+  } catch {
+    return null;
+  }
+}
+
 function generateStatusLine(inputData) {
   const parts = [];
   const {
@@ -287,8 +301,7 @@ function generateStatusLine(inputData) {
   // Git info
   const gitInfo = getGitInfo();
   if (gitInfo) {
-    const diffDelta = getGitDiffDelta();
-    const gitText = `⌥ ${gitInfo.branch}${diffDelta}${gitInfo.status ? ` ${gitInfo.status}` : ""}`;
+    const gitText = `⌥ ${gitInfo.branch}`;
     parts.push(colorize(gitText, "\x1b[38;5;242m"));
   }
 
@@ -300,8 +313,19 @@ function generateStatusLine(inputData) {
     parts.push(colorize(contextResult.bar, color));
   }
 
+  // Output style
+  const outputStyleName = inputData.output_style?.name;
+  if (outputStyleName && outputStyleName !== "default") {
+    parts.push(colorize(`[${outputStyleName}]`, "\x1b[90m"));
+  }
+
+  // Caveman mode
+  const cavemanBadge = getCavemanBadge();
+  if (cavemanBadge) parts.push(cavemanBadge);
+
   // Model
-  parts.push(colorize(`※ ${model.display_name || "Claude"}`, "\x1b[90m"));
+  const modelName = (model.display_name || "Claude").replace(/\s*\(([^)]+?)\s*context\)/, " $1");
+  parts.push(colorize(`※ ${modelName}`, "\x1b[90m"));
 
   // Version
   if (version) {
