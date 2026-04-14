@@ -30,16 +30,8 @@ When running shell commands, prefer these tools:
 - `vpx` over `npx` (`vpx` tries local bins, falls back to remote download)
 - `vp run <script>` over `pnpm run`/`npm run`
 
-## Development
-
-**Common scripts:**
-
-- `vp run build` / `vp run test` / `vp run verify` / `vp run typecheck` / `vp run lint:fix`
-
 ## Git Workflow
 
-- Always run `vp run verify` before committing changes (if "verify" script
-  exists in package.json)
 - When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
 
 ## Notes
@@ -51,17 +43,3 @@ When running shell commands, prefer these tools:
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
 - At the end of each plan, give me a list of unresolved questions to answer, if any.
 - Save plans to `.aiwork/{task-folder}/` per aiwork protocol.
-
-## Browser Automation
-
-Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
-
-Core workflow:
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
-
-## AI-Generated Artifacts
-
-@aiwork-protocol.md
