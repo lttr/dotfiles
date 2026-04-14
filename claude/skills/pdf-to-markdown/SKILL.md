@@ -1,5 +1,6 @@
 ---
 name: pdf-to-markdown
+disable-model-invocation: true
 description: Extract text from scanned PDF documents and convert to clean markdown. Use when user asks to transcribe, extract text, OCR, or convert a PDF (especially scanned documents, historical documents, or image-based PDFs) to markdown format. Outputs markdown file saved next to the original PDF.
 allowed-tools: Bash(pdfinfo:*), Bash(qpdf:*)
 ---

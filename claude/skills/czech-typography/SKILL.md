@@ -1,5 +1,6 @@
 ---
 name: czech-typography
+disable-model-invocation: true
 description: Czech typography rules for web development. Use when building web pages in Czech language, writing Czech content, or fixing typography issues in Czech text. Covers punctuation, dashes, quotes, numbers, units, non-breaking spaces, and HTML entities.
 ---
 

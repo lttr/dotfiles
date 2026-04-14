@@ -1,5 +1,6 @@
 ---
 name: sysreport
+disable-model-invocation: true
 description: This skill should be used to generate a system health and status report for a Linux machine. Trigger when user asks for system info, system status, health check, machine report, PC report, diagnostics, or uses keywords like "sysreport", "system report", "how's my machine", "system health". Covers hardware, CPU, memory, disk, temperatures, network, Docker, top processes, listening ports, and recent errors.
 ---
 

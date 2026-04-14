@@ -1,5 +1,6 @@
 ---
 name: youtube-transcript
+disable-model-invocation: true
 description: This skill should be used when the user wants to extract a transcript from a YouTube video, summarize a YouTube video, or critically analyze a YouTube video's claims. Trigger on keywords like "youtube", "transcript", "summarize video", "critique video", or when a YouTube URL is provided.
 allowed-tools: Read, Write, Glob, Grep, Task, Bash(cat:*), Bash(ls:*), Bash(yt-dlp:*), Bash(deno:*), Bash(firefox:*), Bash(mkdir:*)
 argument-hint: [critique|summarize] <url>

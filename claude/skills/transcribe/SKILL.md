@@ -1,5 +1,6 @@
 ---
 name: transcribe
+disable-model-invocation: true
 description: Transcribe audio/video files to text using ElevenLabs Scribe API. Use when user wants to transcribe audio (ogg, mp3, wav, m4a, flac, webm) or video files (mp4, mkv, mov, avi) or voice messages. Trigger on keywords like "transcribe", "voice message", "audio to text", or when an audio/video file path is provided.
 allowed-tools: Bash(ffmpeg:*), Bash(curl:*), Bash(jq:*), Bash(rm:*), Bash(mktemp:*), Read, Write
 argument-hint: <audio-file> [language-code]
