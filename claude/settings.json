@@ -6,11 +6,6 @@
   "permissions": {
     "allow": [
       "Bash(basename:*)",
-      "Bash(browser-eval:*)",
-      "Bash(browser-nav:*)",
-      "Bash(browser-pick:*)",
-      "Bash(browser-screenshot)",
-      "Bash(browser-start:*)",
       "Bash(cat:*)",
       "Bash(cp:*)",
       "Bash(curl:*)",
@@ -59,8 +54,6 @@
       "Bash(xargs rg:*)",
       "Edit(/.claude/skills/**)",
       "Write(/.claude/skills/**)",
-      "Skill(browser-tools)",
-      "Skill(browser-tools:browser-tools)",
       "WebSearch",
       "mcp__pencil"
     ],
@@ -71,10 +64,7 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": [
-      "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
-    ],
+    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"],
     "defaultMode": "acceptEdits"
   },
   "hooks": {
@@ -158,11 +148,17 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "nuxt@lttr-claude-marketplace": true,
-    "browser-tools@lttr-claude-marketplace": true,
-    "video-to-article@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
   },
   "spinnerTipsEnabled": false,
   "effortLevel": "medium",
