@@ -16,11 +16,24 @@ Repository-local folder for AI work artifacts, organized by feature or task. Art
     spec.md
 ```
 
-- **Folder:** `{YYYY-MM-DD}_{slug}/` — slug lowercase kebab-case, max 40 chars.
-- **File:** `{type}.md`. Multiple of same type → numbered suffix (`plan.md`, `plan_2.md`, `plan_3.md`).
-- **Multi-day tasks:** optionally prefix filenames with `{YYYY-MM-DD}_` for chronology.
+- **Folder:** `{YYYY-MM-DD}_{slug}/`, slug lowercase kebab-case, max 40 chars.
+- **File:** `{type}.md`. Numbering for multiples of same type:
+  - `plan.md` → `plan_2.md` → `plan_3.md` — when one plan was expected, more followed.
+  - `plan_1.md` → `plan_2.md` → `plan_3.md` — when multiple are expected from the start.
+  - Don't mix schemes in one folder.
+- **Multi-day:** optionally prefix filenames with `{YYYY-MM-DD}_`.
 
-Each task usually needs just 1-2 artifacts. Pick types that fit.
+Usually 1-2 artifacts per task. Pick types that fit.
+
+## Grouping and restructuring
+
+One task = one folder. Drift signals:
+
+- Two folders with overlapping scope or near-identical slugs
+- Cross-folder `references:` / "Source plan: ../..." pointers
+- Folder that exists only because a ticket number arrived mid-task
+
+On drift, propose consolidation: move artifacts into the canonical folder with a `superseded_by:` pointer, or merge under one date. Ask before moving files.
 
 ## Artifact types (all optional)
 
