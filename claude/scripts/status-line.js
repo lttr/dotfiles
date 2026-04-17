@@ -332,21 +332,7 @@ function generateStatusLine(inputData) {
     parts.push(colorize(`∇ ${version}`, "\x1b[90m"));
   }
 
-  // Session duration
-  const { duration, lastActivity } = getSessionDuration(transcript_path, session_id);
-  parts.push(colorize(`⏱ ${duration}`, "\x1b[90m"));
-
-  // Build first line
-  const firstLine = parts.join(colorize(" | ", "\x1b[90m"));
-
-  // Session summary on second line, prefixed with last activity time
-  const sessionSummary = getSessionSummary(transcript_path, session_id);
-  if (sessionSummary) {
-    const timePrefix = lastActivity ? `◴ ${lastActivity} ` : "";
-    return firstLine + "\n" + colorize(`${timePrefix}⌘ ${sessionSummary}`, "\x1b[90m");
-  }
-
-  return firstLine;
+  return parts.join(colorize(" | ", "\x1b[90m"));
 }
 
 function main() {
