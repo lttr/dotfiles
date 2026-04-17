@@ -64,7 +64,10 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
     "defaultMode": "acceptEdits"
   },
   "hooks": {
@@ -163,6 +166,7 @@
   "spinnerTipsEnabled": false,
   "effortLevel": "medium",
   "promptSuggestionEnabled": false,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "showTurnDuration": false
 }
