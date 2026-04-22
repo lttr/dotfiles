@@ -164,7 +164,7 @@ export async function readStdin(): Promise<HookInput> {
 // LOGGING
 // =============================================================================
 
-const LOG_FILE = join(homedir(), ".claude", "cache", "hook-blocks.log");
+const LOG_FILE = join(homedir(), ".claude", "custom-hook-blocks.log");
 
 export function logBlock(rule: string, detail: string): void {
   const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);

@@ -50,8 +50,8 @@
       "reason": "rmdir ignore-fail"
     },
     {
-      "pattern": "\\bchmod\\b",
-      "reason": "chmod (changes file permissions)",
+      "pattern": "\\bchmod\\s+(?![ugoa]*[+-]x\\b)\\S",
+      "reason": "chmod (non +x mode)",
       "ask": true
     },
     {
