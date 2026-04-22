@@ -15,6 +15,11 @@
 
 Search before responding for: CLI flags/syntax, APIs, recent features, technical specs, time-sensitive claims.
 
+## Secrets
+
+- Don't touch `.env*`, `*.key`, `*.pem`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
+- Need a value? Ask the user for that specific value.
+
 ## Dates
 
 - Relative dates → use current date from system context, state calculated date before acting
