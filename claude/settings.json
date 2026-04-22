@@ -157,6 +157,18 @@
           }
         ]
       }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/auto-allow-claude-paths.ts",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
