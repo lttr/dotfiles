@@ -64,9 +64,14 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
     "defaultMode": "default",
-    "additionalDirectories": ["/home/lukas/code/claude-marketplace/"]
+    "additionalDirectories": [
+      "/home/lukas/code/claude-marketplace/"
+    ]
   },
   "hooks": {
     "SessionStart": [
@@ -175,7 +180,7 @@
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "tui": "fullscreen",
+  "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "showTurnDuration": false
 }

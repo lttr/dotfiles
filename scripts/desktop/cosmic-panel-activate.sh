@@ -78,7 +78,10 @@ find_desktop_file() {
   for dir in "${DESKTOP_DIRS[@]}"; do
     [[ -d "$dir" ]] || continue
     local match
-    match=$(ls "$dir"/*.desktop 2>/dev/null | grep -i "$pattern" | grep -v 'msedge-' | head -1)
+    # Skip NoDisplay=true entries (URL handlers, mime helpers) so e.g. "Claude"
+    # picks claude-desktop.desktop, not claude-code-url-handler.desktop.
+    match=$(ls "$dir"/*.desktop 2>/dev/null | grep -i "$pattern" | grep -v 'msedge-' \
+      | while read -r f; do grep -q '^NoDisplay=true' "$f" || echo "$f"; done | head -1)
     if [[ -n "$match" ]]; then
       echo "$match"
       return
