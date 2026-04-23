@@ -1,7 +1,7 @@
 ---
 name: plan-next
 description: Plan the next implementation step from a spec file. Use when user wants to plan the next step, references a spec file, or says "plan next", "next step", "plan from spec". Finds the latest spec in .aiwork/*/ and creates numbered plan files.
-allowed-tools: Read, Glob, Grep, Task, Write, Edit, AskUserQuestion, EnterPlanMode, ExitPlanMode, Bash(ls:*), Bash(find:*)
+allowed-tools: Read, Glob, Grep, Task, Write, Edit, AskUserQuestion, Bash(ls:*), Bash(find:*)
 argument-hint: [spec-file-path]
 ---
 
@@ -37,17 +37,15 @@ Read each existing plan to understand which steps are already planned or impleme
 
 If all steps are planned, inform the user and stop.
 
-### 3. Enter plan mode
+### 3. Plan the step
 
-Call `EnterPlanMode`. Then:
-
-1. **Explore** the codebase for the identified step using `Task(Explore)` agents - understand files to modify, existing patterns, dependencies
-2. **Design** the implementation approach - keep it concise, actionable
+1. **Explore** codebase for identified step using `Task(Explore)` agents — files to modify, existing patterns, dependencies
+2. **Design** implementation approach — concise, actionable
 3. **Clarify** ambiguities with `AskUserQuestion`
 
 ### 4. Write the plan
 
-Save the plan next to the spec file as `plan_N.md` where N is the next available number (always numbered, even for the first: `plan_1.md`).
+Save plan next to spec as `plan_N.md` where N is next available number (always numbered, even first: `plan_1.md`).
 
 Use aiwork frontmatter:
 
@@ -66,11 +64,9 @@ Plan content:
 - **Changes**: Files to create/modify with concise descriptions of what changes
 - **Verification**: How to test the changes
 
-Also write a copy to the plan mode plan file path for `ExitPlanMode` to pick up.
-
 ### 5. User review
 
-Call `ExitPlanMode` to let the user review and approve the plan.
+Show plan summary, ask user to review `plan_N.md` and approve before implementation.
 
 ### 6. After approval
 
