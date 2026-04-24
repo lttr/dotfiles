@@ -310,7 +310,9 @@ function generateStatusLine(inputData) {
   if (contextResult) {
     const pct = contextResult.percentage;
     const color = pct > 50 ? "\x1b[38;5;208m" : pct > 20 ? "\x1b[38;5;220m" : pct >= 5 ? "\x1b[38;5;248m" : "\x1b[90m";
-    parts.push(colorize(contextResult.bar, color));
+    const effortLevel = inputData.effort?.level;
+    const effortSuffix = effortLevel ? colorize(` ✦${effortLevel}`, "\x1b[90m") : "";
+    parts.push(colorize(contextResult.bar, color) + effortSuffix);
   }
 
   // Output style
