@@ -194,5 +194,7 @@
   "promptSuggestionEnabled": false,
   "tui": "default",
   "skipDangerousModePermissionPrompt": true,
-  "showTurnDuration": false
+  "preferredNotifChannel": "notifications_disabled",
+  "showTurnDuration": false,
+  "remoteControlAtStartup": false
 }
