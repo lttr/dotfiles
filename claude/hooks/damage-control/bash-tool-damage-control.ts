@@ -95,13 +95,18 @@ function checkPathPatterns(
   patterns: PatternTuple[],
   pathType: string
 ): { blocked: boolean; reason: string } {
+  // Prevent substring matches like `/bin/` inside `/home/x/.local/bin/`:
+  // require the path's first char to not be preceded by a path-name char.
+  const boundary = (p: string) => (p.startsWith("/") ? "(?<![A-Za-z0-9._\\-])" : "");
+
   if (isGlobPattern(path)) {
     const globRegex = globToRegex(path);
+    const lb = boundary(path);
     for (const [patternTemplate, operation] of patterns) {
       try {
         const cmdPrefix = patternTemplate.replace("{path}", "");
         if (cmdPrefix) {
-          const regex = new RegExp(cmdPrefix + globRegex, "i");
+          const regex = new RegExp(cmdPrefix + lb + globRegex, "i");
           if (regex.test(command)) {
             return {
               blocked: true,
@@ -117,10 +122,12 @@ function checkPathPatterns(
     const expanded = path.replace(/^~/, homedir());
     const escapedExpanded = expanded.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const escapedOriginal = path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const lbExpanded = boundary(expanded);
+    const lbOriginal = boundary(path);
 
     for (const [patternTemplate, operation] of patterns) {
-      const patternExpanded = patternTemplate.replace("{path}", escapedExpanded);
-      const patternOriginal = patternTemplate.replace("{path}", escapedOriginal);
+      const patternExpanded = patternTemplate.replace("{path}", lbExpanded + escapedExpanded);
+      const patternOriginal = patternTemplate.replace("{path}", lbOriginal + escapedOriginal);
       try {
         const regexExpanded = new RegExp(patternExpanded);
         const regexOriginal = new RegExp(patternOriginal);
