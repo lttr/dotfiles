@@ -670,6 +670,11 @@ node-up() {
     echo "Remember to check 'vp pm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
 }
 
+pnpm-up() {
+    pnpm self-update
+    echo "Now using pnpm $(pnpm --version)"
+}
+
 # =================================================================
 #                              Work
 # =================================================================
