@@ -27,6 +27,11 @@ echo
 deno upgrade
 
 echo
+echo '### vp upgrade'
+echo
+vp upgrade
+
+echo
 echo '### vp update --global'
 echo
 vp update --global
