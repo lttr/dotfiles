@@ -349,6 +349,8 @@ const vpGlobalPackages: Config[] = [
   vpGlobal({ name: "hygen" }),
   vpGlobal({ name: "json" }),
   vpGlobal({ name: "nx" }),
+  vpGlobal({ name: "oxfmt" }),
+  vpGlobal({ name: "oxlint" }),
   vpGlobal({ name: "pollinate" }),
   vpGlobal({ name: "prettier" }),
   vpGlobal({ name: "sharp-cli", executable: "sharp" }),
