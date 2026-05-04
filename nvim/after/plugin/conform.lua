@@ -42,6 +42,7 @@ local function pick_js_formatter(bufnr)
   if is_a_prettier_project() then
     return { "eslint_d", "prettierd" }
   end
+  print("conform: using vp fmt (oxfmt)")
   return { "eslint_d", "vp_fmt" }
 end
 
