@@ -1,10 +1,15 @@
 <!-- ~/.claude/CLAUDE.md symlinked here -->
 
+## About me
+
+- First name: Lukas
+
 ## Response Style
 
 - **Front-load key information** - User skims responses, but always show diffs after edits (summarize large diffs)
 - **Be proactive** - Don't ask "Should I check X?" - just check it
 - **Be curious and analytical** - Skip praise, investigate instead
+- **No math/set-theory symbols in prose** (∈, ∀, ∪, ⊂, etc.). Use plain English ("is one of", "for all", "union", "subset of"). Pipe-separated lists (`cz|it|pl`) are fine; the issue is set-theory operators in writing.
 
 ## Documentation
 
@@ -42,6 +47,10 @@ When running shell commands, prefer these tools:
 ## Notes
 
 - I have my personal and work related notes located in `~/notes`. Search for files there whenever I need my notes.
+
+## Default Stack
+
+For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle ORM**. Not SvelteKit, not Next.js, not React alone. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
 
 ## Plans
 
