@@ -2,121 +2,26 @@
     (
         modifiers: [
             Super,
+            Alt,
+            Shift,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
         ],
         key: "j",
-    ): Maximize,
-    (
-        modifiers: [],
-        key: "Menu",
-    ): Spawn("/home/lukas/code/realtime-transcript-linux/voice_transcription.py stop"),
-    (
-        modifiers: [],
-        key: "XF86Calculator",
-        description: Some("Voice transcription"),
-    ): Spawn("/home/lukas/code/realtime-transcript-linux/voice_transcription.py --engine elevenlabs"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "Up",
-    ): Maximize,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "6",
-        description: Some("Panel app 6"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 6"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "plus",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 1"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "Left",
-    ): Move(Left),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "Left",
-    ): MoveToOutput(Left),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "e",
-        description: Some("File Explorer"),
-    ): Spawn("cosmic-files"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "yacute",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 7"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "rcaron",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 5"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "u",
-        description: Some("Sleep"),
-    ): Spawn("systemctl suspend"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "Down",
-    ): Maximize,
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "Down",
-    ): MoveToNextWorkspace,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "8",
-        description: Some("Panel app 8"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 8"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "b",
-    ): Minimize,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "bracketleft",
-        description: Some("Volume Down"),
-    ): Spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "Right",
-    ): Move(Right),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "x",
-    ): Close,
+    ): Move(Down),
     (
         modifiers: [
             Super,
@@ -127,83 +32,24 @@
     (
         modifiers: [
             Super,
-            Shift,
-        ],
-        key: "j",
-    ): MoveToNextWorkspace,
-    (
-        modifiers: [
-            Super,
-            Alt,
-        ],
-        key: "b",
-        description: Some("Minimize all but active"),
-    ): Spawn("cosmic-ext-window-helper minimize true \'not is_active and not is_minimized and workspace.has_focus\'"),
-    (
-        modifiers: [
-            Super,
             Ctrl,
+            Shift,
         ],
         key: "Down",
-    ): NextWorkspace,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "bracketright",
-        description: Some("Volume Up"),
-    ): Spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "2",
-        description: Some("Panel app 2"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 2"),
-    (
-        modifiers: [
-            Super,
-            Alt,
-            Shift,
-        ],
-        key: "l",
     ): Disable,
     (
         modifiers: [
             Super,
-            Alt,
             Shift,
         ],
-        key: "h",
+        key: "4",
     ): Disable,
     (
         modifiers: [
             Super,
-        ],
-        key: "ecaron",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 2"),
-    (
-        modifiers: [
-            Super,
-            Alt,
-            Shift,
         ],
         key: "Left",
-    ): Disable,
-    (
-        modifiers: [
-            Super,
-            Ctrl,
-        ],
-        key: "k",
-    ): PreviousWorkspace,
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "h",
-    ): MoveToOutput(Left),
+    ): Move(Left),
     (
         modifiers: [
             Super,
@@ -213,16 +59,15 @@
     (
         modifiers: [
             Super,
+            Shift,
         ],
-        key: "d",
-        description: Some("Show desktop"),
-    ): Spawn("cosmic-ext-window-helper minimize true \'not is_minimized and workspace.has_focus\'"),
+        key: "j",
+    ): Disable,
     (
         modifiers: [
             Super,
         ],
-        key: "5",
-        description: Some("Panel app 5"),
+        key: "rcaron",
     ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 5"),
     (
         modifiers: [
@@ -236,120 +81,59 @@
         modifiers: [
             Super,
         ],
-        key: "iacute",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 9"),
-    (
-        modifiers: [
-            Super,
-            Ctrl,
-        ],
-        key: "Up",
-    ): PreviousWorkspace,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "k",
-    ): Maximize,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "zcaron",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 6"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "l",
-    ): Move(Right),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "3",
-        description: Some("Panel app 3"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 3"),
-    (
-        modifiers: [
-            Super,
-            Ctrl,
-        ],
-        key: "j",
-    ): NextWorkspace,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "scaron",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 3"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "7",
-        description: Some("Panel app 7"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 7"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "h",
-    ): Move(Left),
+        key: "ecaron",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 2"),
     (
         modifiers: [
             Super,
             Shift,
         ],
-        key: "k",
-    ): MoveToPreviousWorkspace,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "eacute",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 10"),
-    (
-        modifiers: [
-            Super,
-            Shift,
-        ],
-        key: "Right",
-    ): MoveToOutput(Right),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "ccaron",
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 4"),
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "m",
+        key: "9",
     ): Disable,
     (
         modifiers: [
             Super,
         ],
-        key: "4",
-        description: Some("Panel app 4"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 4"),
+        key: "e",
+        description: Some("File Explorer"),
+    ): Spawn("cosmic-files"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "8",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "b",
+        description: Some("Minimize all but active"),
+    ): Spawn("cosmic-ext-window-helper minimize true \'not is_active and not is_minimized and workspace.has_focus\'"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "Left",
+    ): Disable,
     (
         modifiers: [
             Super,
             Alt,
             Shift,
         ],
-        key: "Right",
+        key: "Left",
     ): Disable,
-    (
-        modifiers: [
-            Super,
-        ],
-        key: "0",
-        description: Some("Panel app 10"),
-    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 10"),
     (
         modifiers: [
             Super,
@@ -363,7 +147,117 @@
             Shift,
         ],
         key: "Up",
-    ): MoveToPreviousWorkspace,
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "Right",
+    ): Move(Right),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "m",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "yacute",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 7"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "5",
+        description: Some("Panel app 5"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 5"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "Up",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "Down",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "7",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "Left",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "scaron",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 3"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "Right",
+    ): MoveToOutput(Right),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "eacute",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 10"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "2",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "Right",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "Down",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "6",
+    ): Disable,
     (
         modifiers: [
             Super,
@@ -374,9 +268,319 @@
     (
         modifiers: [
             Super,
+        ],
+        key: "4",
+        description: Some("Panel app 4"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 4"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "0",
+        description: Some("Panel app 10"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 10"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "l",
+    ): Move(Right),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "j",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "ccaron",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 4"),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "Up",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "k",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
             Alt,
         ],
         key: "k",
         description: Some("Voice transcription"),
     ): Spawn("/home/lukas/code/realtime-transcript-linux/voice_transcription.py --engine elevenlabs"),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "u",
+        description: Some("Sleep"),
+    ): Spawn("systemctl suspend"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "bracketright",
+        description: Some("Volume Up"),
+    ): Spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "Up",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "Right",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "3",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "h",
+    ): MoveToOutput(Left),
+    (
+        modifiers: [
+            Super,
+            Alt,
+            Shift,
+        ],
+        key: "Right",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "d",
+        description: Some("Show desktop"),
+    ): Spawn("cosmic-ext-window-helper minimize true \'not is_minimized and workspace.has_focus\'"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "bracketleft",
+        description: Some("Volume Down"),
+    ): Spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "Down",
+    ): Disable,
+    (
+        modifiers: [],
+        key: "Menu",
+    ): Spawn("/home/lukas/code/realtime-transcript-linux/voice_transcription.py stop"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "1",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "k",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "3",
+        description: Some("Panel app 3"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 3"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "Up",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Alt,
+            Shift,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "8",
+        description: Some("Panel app 8"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 8"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "h",
+    ): Move(Left),
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "Down",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "5",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "2",
+        description: Some("Panel app 2"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 2"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "zcaron",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 6"),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "Left",
+    ): MoveToOutput(Left),
+    (
+        modifiers: [],
+        key: "XF86Calculator",
+        description: Some("Voice transcription"),
+    ): Spawn("/home/lukas/code/realtime-transcript-linux/voice_transcription.py --engine elevenlabs"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "k",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "iacute",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 9"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "b",
+    ): Minimize,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "7",
+        description: Some("Panel app 7"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 7"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "plus",
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 1"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "6",
+        description: Some("Panel app 6"),
+    ): Spawn("/home/lukas/bin/cosmic-panel-activate.sh 6"),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+            Shift,
+        ],
+        key: "j",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "k",
+    ): Move(Up),
+    (
+        modifiers: [
+            Super,
+            Ctrl,
+        ],
+        key: "Right",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "0",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "x",
+    ): Close,
+    (
+        modifiers: [
+            Super,
+            Alt,
+        ],
+        key: "Left",
+    ): Disable,
 }

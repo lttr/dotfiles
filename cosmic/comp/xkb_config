@@ -1,8 +1,8 @@
 (
     rules: "",
     model: "",
-    layout: "cz,us",
-    variant: "qwerty,",
+    layout: "us,cz",
+    variant: ",qwerty",
     options: Some(",caps:escape"),
     repeat_delay: 600,
     repeat_rate: 25,

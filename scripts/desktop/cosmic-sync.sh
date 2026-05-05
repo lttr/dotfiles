@@ -57,7 +57,7 @@ sync_config() {
 
     cp "$src" "$dst"
     echo "  sync: $subdir/$key"
-    ((count++))
+    count=$((count + 1))
   done
 
   echo "Synced $count file(s)"
