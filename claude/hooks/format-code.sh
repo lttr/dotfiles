@@ -6,13 +6,16 @@
 #
 #   1. Read file_path from tool input JSON on stdin (jq).
 #   2. Bail if file no exist or extension not in supported list.
-#   3. Walk up tree from file's dir looking for prettier config
-#      (.prettierrc*, prettier.config.*). Stop at /, $HOME, or first hit.
-#   4. Prettier config found  -> `vpx prettier --write <file>`.
-#      No prettier config     -> `cd <file dir> && vp fmt --write <file>`.
-#                                cd is needed because vp fmt require cwd inside
-#                                a vp workspace; the explicit path scope formatting
-#                                to that one file only.
+#   3. Walk up tree from file's dir. At each dir check for:
+#        - prettier config (.prettierrc*, prettier.config.*)
+#        - oxfmt trigger (vite.config.*, .oxfmtrc*, oxfmt.config.*)
+#      First dir with a hit wins. Prettier wins ties at same dir.
+#      Stop at /, $HOME, or first hit.
+#   4. Prettier hit -> `vpx prettier --write <file>`.
+#      Oxfmt hit    -> `cd <file dir> && vp fmt --write <file>`.
+#                      cd needed because vp fmt require cwd inside a vp
+#                      workspace; explicit path scope formatting to that file.
+#      No hit       -> exit 0 (no implicit formatting).
 #   5. Errors swallow — vp/prettier may not apply in every project.
 #
 # vpx = vite-plus package runner (local-first, remote fallback).
@@ -43,20 +46,42 @@ prettier_configs=(
   prettier.config.ts
 )
 
+oxfmt_configs=(
+  vite.config.ts
+  vite.config.js
+  vite.config.mjs
+  vite.config.cjs
+  vite.config.mts
+  vite.config.cts
+  .oxfmtrc
+  .oxfmtrc.json
+  oxfmt.config.js
+  oxfmt.config.cjs
+  oxfmt.config.mjs
+  oxfmt.config.ts
+  oxfmt.config.json
+)
+
 dir=$(dirname "$file_path")
-prettier_found=0
+formatter=""
 while [ -n "$dir" ] && [ "$dir" != "/" ] && [ "$dir" != "$HOME" ]; do
   for cfg in "${prettier_configs[@]}"; do
     if [ -f "$dir/$cfg" ]; then
-      prettier_found=1
+      formatter="prettier"
+      break 2
+    fi
+  done
+  for cfg in "${oxfmt_configs[@]}"; do
+    if [ -f "$dir/$cfg" ]; then
+      formatter="oxfmt"
       break 2
     fi
   done
   dir=$(dirname "$dir")
 done
 
-if [ "$prettier_found" = "1" ]; then
-  vpx prettier --write "$file_path" 2>/dev/null || true
-else
-  (cd "$(dirname "$file_path")" && vp fmt --write "$file_path") 2>/dev/null || true
-fi
+case "$formatter" in
+  prettier) vpx prettier --write "$file_path" 2>/dev/null || true ;;
+  oxfmt)    (cd "$(dirname "$file_path")" && vp fmt --write "$file_path") 2>/dev/null || true ;;
+  *)        exit 0 ;;
+esac
