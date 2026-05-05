@@ -61,6 +61,9 @@ export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT"
 export PATH="$PATH:$DOTNET_ROOT/tools" # for photo-cli
 
+# Rust
+source "$HOME/.cargo/env"
+
 # user environment
 export PAGER=/usr/bin/less
 export EDITOR=nvim
@@ -90,3 +93,4 @@ export PURE_CMD_MAX_EXEC_TIME=2000
 
 # Profiling end
 # zprof
+. "$HOME/.cargo/env"
