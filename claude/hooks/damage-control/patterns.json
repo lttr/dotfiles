@@ -452,11 +452,6 @@
       "ask": true
     },
     {
-      "pattern": "\\bni\\s+\\S",
-      "reason": "ni: adding package (verify name)",
-      "ask": true
-    },
-    {
       "pattern": "\\b(npx|pnpx|vpx|bunx)\\s+\\S",
       "reason": "package runner: downloads and runs package (verify name)",
       "ask": true
