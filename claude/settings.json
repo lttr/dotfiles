@@ -192,9 +192,11 @@
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
   "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "preferredNotifChannel": "notifications_disabled",
   "showTurnDuration": false,
-  "remoteControlAtStartup": false
+  "remoteControlAtStartup": false,
+  "terminalProgressBarEnabled": false
 }
