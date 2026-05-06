@@ -93,4 +93,3 @@ export PURE_CMD_MAX_EXEC_TIME=2000
 
 # Profiling end
 # zprof
-. "$HOME/.cargo/env"
