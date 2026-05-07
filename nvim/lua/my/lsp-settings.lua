@@ -93,8 +93,7 @@ local eslint = {
     ".eslintrc.cjs",
     ".eslintrc.json",
     ".eslintrc.yaml",
-    ".eslintrc.yml",
-    "package.json"
+    ".eslintrc.yml"
   ),
   settings = {
     -- "auto" detects working dir from eslint config location instead of file location
