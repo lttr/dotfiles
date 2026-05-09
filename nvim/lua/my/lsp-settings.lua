@@ -95,6 +95,8 @@ local eslint = {
     ".eslintrc.yaml",
     ".eslintrc.yml"
   ),
+  single_file_support = false,
+  conditional = true,
   settings = {
     -- "auto" detects working dir from eslint config location instead of file location
     workingDirectories = { mode = "auto" },
