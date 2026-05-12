@@ -60,7 +60,8 @@
     },
     {
       "pattern": "\\bgit\\s+reset\\s+--hard\\b",
-      "reason": "git reset --hard (use --soft or stash)"
+      "reason": "git reset --hard (use --soft or stash)",
+      "ask": true
     },
     {
       "pattern": "\\bgit\\s+commit\\s+.*--no-verify",
