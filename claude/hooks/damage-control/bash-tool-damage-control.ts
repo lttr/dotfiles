@@ -25,6 +25,10 @@ import {
   loadConfig,
   readStdin,
   logBlock,
+  isPackageCommand,
+  extractPackages,
+  loadLearnedPackages,
+  isTrustedPackage,
 } from "./shared.ts";
 
 // =============================================================================
@@ -150,15 +154,16 @@ function checkCommand(
   command: string,
   config: Config
 ): { blocked: boolean; ask: boolean; reason: string } {
-  // 1. Check if command runs a trusted package via a package runner
-  const runnerMatch = command.match(/\b(npx|pnpx|vpx|bunx)\s+(\S+)/) || command.match(/\b(pnpm|vp)\s+dlx\s+(\S+)/);
-  if (runnerMatch) {
-    const pkg = runnerMatch[runnerMatch.length === 3 ? 2 : 1];
-    const isTrusted = config.trustedPackages.some((tp) =>
-      tp.endsWith("/") ? pkg.startsWith(tp) : pkg === tp || pkg.startsWith(tp + "@")
-    );
-    if (isTrusted) {
-      return { blocked: false, ask: false, reason: "" };
+  // 1. Package install / runner: allow without asking if every package is
+  // already trusted (patterns.json) or learned (previously approved).
+  // Otherwise fall through so the `ask` patterns prompt for verification.
+  if (isPackageCommand(command)) {
+    const pkgs = extractPackages(command);
+    if (pkgs.length > 0) {
+      const learned = loadLearnedPackages();
+      if (pkgs.every((p) => isTrustedPackage(p, config.trustedPackages, learned))) {
+        return { blocked: false, ask: false, reason: "" };
+      }
     }
   }
 

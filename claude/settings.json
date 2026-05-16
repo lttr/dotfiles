@@ -68,7 +68,7 @@
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
     ],
-    "defaultMode": "default",
+    "defaultMode": "auto",
     "additionalDirectories": [
       "/home/lukas/code/claude-marketplace/"
     ]
@@ -111,6 +111,16 @@
             "type": "command",
             "command": "~/dotfiles/claude/hooks/copy-plan-to-aiwork.ts",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/damage-control/record-approved-packages.ts",
+            "timeout": 5
           }
         ]
       }
@@ -197,6 +207,7 @@
   "skipDangerousModePermissionPrompt": true,
   "preferredNotifChannel": "notifications_disabled",
   "showTurnDuration": false,
+  "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
-  "terminalProgressBarEnabled": false
+  "skipAutoPermissionPrompt": true
 }
