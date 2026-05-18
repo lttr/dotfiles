@@ -1,4 +1,5 @@
 zsh-users/zsh-syntax-highlighting
 wfxr/forgit
+junegunn/fzf-git.sh
 mafredri/zsh-async
 sindresorhus/pure

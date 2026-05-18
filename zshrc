@@ -183,6 +183,9 @@ export forgit_cherry_pick=fgcp
 export forgit_rebase=fgrb
 export forgit_blame=fgbl
 export forgit_fixup=fgfu
+
+# list only local branches
+export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS="--list"
   
 export FORGIT_FZF_DEFAULT_OPTS="
   --color bg:#2d2d2d,hl:#d8a657,bg+:#45403d,hl+:#d8a657
@@ -228,6 +231,25 @@ unset antidote_dir plugins_txt static_file # cleanup
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fzf-git.sh - fuzzy pickers for git objects (branches, hashes, tags, stashes...)
+# Loaded via antidote (junegunn/fzf-git.sh in zsh_plugins.txt); rebind its keys here.
+# fzf-git.sh hardcodes a Ctrl-g prefix (^gb branches, ^gh hashes, ...), but
+# Ctrl-g is taken here by edit-command-line. Drop its ^g chords and rebind
+# every widget onto a Ctrl-o prefix instead.
+# Free standalone Ctrl-o (default accept-line-and-down-history) so it can act
+# purely as a chord prefix - with KEYTIMEOUT=1 a direct binding fires instantly.
+for m in emacs vicmd viins; do bindkey -M $m -r '^o'; done
+for o in files branches tags remotes hashes stashes lreflogs each_ref worktrees '?list_bindings'; do
+  for m in emacs vicmd viins; do
+    bindkey -M $m -r "^g^${o[1]}"                     # drop fzf-git's default ^g chords
+    bindkey -M $m -r "^g${o[1]}"
+    bindkey -M $m "^o^${o[1]}" "fzf-git-${o}-widget"  # e.g. Ctrl-o Ctrl-b -> branches
+    bindkey -M $m "^o${o[1]}"  "fzf-git-${o}-widget"  # e.g. Ctrl-o b      -> branches
+  done
+done
+# Reassert standalone Ctrl-g (also restores it if any ^g chord slipped through).
+bindkey '^G' edit-command-line
 
 # Zoxide
 eval "$(zoxide init zsh)"
