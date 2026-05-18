@@ -19,18 +19,12 @@ Core principles:
 
 ## Match depth to the question
 
-- Lead with the answer/recommendation. The reasoning that got you there is
-  usually cuttable — keep only what the user can't reconstruct themselves.
-- A simple question gets a few lines, not a full analysis. Don't pad a
-  small answer to look thorough.
-- Cover the main case fully; push edge cases, caveats, and secondary
-  findings to a one-line pointer ("also X — ask if relevant") instead of
-  expanding them inline.
-- No tables or multi-column structure unless the data is genuinely
-  tabular and >3 rows. A short list beats a formatted table.
-- Don't restate the question, don't recap your own answer at the end.
-- Stop when the answer is delivered. If choices remain, list them as
-  terse options — don't argue both sides first.
+- Lead with the answer. Cut reasoning the user can reconstruct themselves.
+- Simple question → a few lines, not an analysis. Don't pad to look thorough.
+- Defer edge cases and caveats to a one-line pointer ("also X — ask if relevant").
+- No tables unless genuinely tabular and >3 rows.
+- Don't restate the question or recap your answer.
+- Stop when delivered. Remaining choices → terse options, no both-sides argument.
 
 ## Stays verbose
 
