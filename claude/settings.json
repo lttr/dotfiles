@@ -4,59 +4,7 @@
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
   "permissions": {
-    "allow": [
-      "Bash(basename:*)",
-      "Bash(cat:*)",
-      "Bash(cp:*)",
-      "Bash(curl:*)",
-      "Bash(eslint:*)",
-      "Bash(fd:*)",
-      "Bash(find:*)",
-      "Bash(gh --help)",
-      "Bash(gh issue list:*)",
-      "Bash(gh issue view:*)",
-      "Bash(gh pr diff:*)",
-      "Bash(gh pr list:*)",
-      "Bash(gh pr view:*)",
-      "Bash(gh repo view:*)",
-      "Bash(gh run list:*)",
-      "Bash(gh run view:*)",
-      "Bash(gh search:*)",
-      "Bash(gh status:*)",
-      "Bash(git add:*)",
-      "Bash(git branch:*)",
-      "Bash(git commit:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git rebase:*)",
-      "Bash(git remote:*)",
-      "Bash(git rev-parse:*)",
-      "Bash(git show:*)",
-      "Bash(git status:*)",
-      "Bash(git submodule:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(lsof:*)",
-      "Bash(mkdir:*)",
-      "Bash(npm:*)",
-      "Bash(npx eslint:*)",
-      "Bash(npx playwright test:*)",
-      "Bash(npx stylelint:*)",
-      "Bash(vp:*)",
-      "Bash(pgrep:*)",
-      "Bash(pkill:*)",
-      "Bash(pnpm:*)",
-      "Bash(python3:*)",
-      "Bash(rg:*)",
-      "Bash(test:*)",
-      "Bash(touch:*)",
-      "Bash(xargs kill -9)",
-      "Bash(xargs rg:*)",
-      "Edit(/.claude/skills/**)",
-      "Write(/.claude/skills/**)",
-      "WebSearch",
-      "mcp__pencil"
-    ],
+    "allow": [],
     "deny": [
       "Bash(rm -rf /*:*)",
       "Bash(rm -rf ~/*:*)",
@@ -64,14 +12,7 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": [
-      "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
-    ],
-    "defaultMode": "auto",
-    "additionalDirectories": [
-      "/home/lukas/code/claude-marketplace/"
-    ]
+    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"]
   },
   "hooks": {
     "SessionStart": [
@@ -199,6 +140,7 @@
       }
     }
   },
+  "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
