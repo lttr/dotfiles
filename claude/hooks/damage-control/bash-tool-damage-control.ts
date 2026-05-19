@@ -59,6 +59,8 @@ const MOVE_COPY_PATTERNS: PatternTuple[] = [
   ["\\bcp\\s+.*\\s+{path}", "copy"],
 ];
 
+// Note: trash-put is intentionally NOT blocked - it is recoverable, so it
+// acts as the safety net rather than a hazard.
 const DELETE_PATTERNS: PatternTuple[] = [
   ["\\brm\\s+.*{path}", "delete"],
   ["\\bunlink\\s+.*{path}", "delete"],
@@ -103,6 +105,10 @@ function checkPathPatterns(
   // require the path's first char to not be preceded by a path-name char.
   const boundary = (p: string) => (p.startsWith("/") ? "(?<![A-Za-z0-9._\\-])" : "");
 
+  // For irreversible deletes, point the agent at the recoverable alternative.
+  const hint = (operation: string) =>
+    operation === "delete" ? ". If this deletion is intended and safe, use 'trash-put' instead (recoverable)" : "";
+
   if (isGlobPattern(path)) {
     const globRegex = globToRegex(path);
     const lb = boundary(path);
@@ -114,7 +120,7 @@ function checkPathPatterns(
           if (regex.test(command)) {
             return {
               blocked: true,
-              reason: `Blocked: ${operation} operation on ${pathType} ${path}`,
+              reason: `Blocked: ${operation} operation on ${pathType} ${path}${hint(operation)}`,
             };
           }
         }
@@ -138,7 +144,7 @@ function checkPathPatterns(
         if (regexExpanded.test(command) || regexOriginal.test(command)) {
           return {
             blocked: true,
-            reason: `Blocked: ${operation} operation on ${pathType} ${path}`,
+            reason: `Blocked: ${operation} operation on ${pathType} ${path}${hint(operation)}`,
           };
         }
       } catch {

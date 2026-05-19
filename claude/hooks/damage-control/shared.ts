@@ -197,7 +197,7 @@ export function logHook(tag: string, detail: string): void {
 // the PostToolUse hook records its package names here, and the PreToolUse
 // hook auto-allows them next time instead of asking again.
 
-const LEARNED_PACKAGES_FILE = join(homedir(), ".claude", "damage-control", "learned-packages.json");
+const LEARNED_PACKAGES_FILE = join(homedir(), ".claude", "custom-learned-packages.json");
 
 // Matched against the START of a command segment only - so install strings
 // embedded in echo/script arguments are not mistaken for real installs.
@@ -297,7 +297,7 @@ export function extractPackages(command: string): string[] {
     const isRunner = isRunnerSegment(segment);
     if (!isRunner && !isInstallSegment(segment)) continue;
     for (const tok of segment.split(/\s+/)) {
-      if (/^[<>]/.test(tok)) break;        // redirection - stop, rest is not packages
+      if (/^&?\d*[<>]/.test(tok)) break;   // redirection (>, 2>&1, 1>f, &>) - rest is not packages
       if (PACKAGE_VERBS.has(tok)) continue;
       if (tok.startsWith("-")) continue;   // flags
       if (/^[./~]/.test(tok)) continue;    // local paths
