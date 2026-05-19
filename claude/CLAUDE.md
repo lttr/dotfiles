@@ -20,6 +20,8 @@
 
 Search before responding for: CLI flags/syntax, APIs, recent features, technical specs, time-sensitive claims.
 
+Prefer `agent-browser` for browser testing.
+
 ## Secrets
 
 - Don't touch `.env*`, `*.key`, `*.pem`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
