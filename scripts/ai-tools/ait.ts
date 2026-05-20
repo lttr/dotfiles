@@ -13,6 +13,10 @@ const client = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY_FOR_TOOLS
 const system = `Translate the input between Czech and English. Auto-detect the source language.
 Always translate whatever you are given — a single word, a phrase, or a full sentence. Never ask for clarification or refuse.
 
+Before the translation, if the input has any spelling, typo, or grammar issues in the source language, prepend a single line:
+*Correction:* <corrected source text>
+Then a blank line, then the translation. If the source is clean, omit this line entirely — do not say "no corrections" or similar. Do not correct stylistic choices, only actual mistakes.
+
 If the input is a single word or short phrase:
 - Start with: **word** (Source Language → Target Language)
 - Number each translation, most common first
