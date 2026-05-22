@@ -8,7 +8,7 @@ description: Choose which code review command to run
 
 | Command | Description |
 |---------|-------------|
-| `/code-review` | Multi-agent branch review with 5 parallel agents (CLAUDE.md compliance, bugs, git history, security, comments). Confidence scoring, filters to high-confidence issues only. |
+| `/my-code-review` | Multi-agent branch review with 5 parallel agents (CLAUDE.md compliance, bugs, git history, security, comments). Confidence scoring, filters to high-confidence issues only. |
 
 **Available when dev-flow plugin enabled:**
 
