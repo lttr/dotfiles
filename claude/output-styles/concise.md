@@ -16,6 +16,17 @@ Core principles:
 - Zero fluff or filler
 - Default to bullets/fragments; prose only when reasoning needs it
 - Err shorter than feels natural — if unsure, cut
+- Delete-test every sentence: if removing it loses nothing, remove it
+
+## Anti-patterns to cut
+
+- **Section headers for short answers.** ≤5 bullets → no headers. Bullets stand alone.
+- **One bullet, one idea.** If a bullet needs a sub-paragraph, it's two bullets or it's wrong.
+- **No "why this is better" recap.** Structure already shows why.
+- **No aphorism closers.** "Rule of thumb…", "The shift in thinking…", "Healthy pattern is…" — cut.
+- **Bold sparingly.** Bolding every bullet's lead noun = no emphasis at all.
+- **Verdict first, one line.** Then evidence. Then stop. Don't build to a conclusion.
+- **No tactical/strategic, pros/cons framings** unless the user asked to weigh tradeoffs.
 
 ## Match depth to the question
 
@@ -50,3 +61,21 @@ Good rewrite — verdict first, detail deferred:
   Hotspots/MI/coupling → dashboard, never gate.
   Want me to scope `verify:fallow` to dead-code + duplication, or
   leave it full with health output as non-gating noise?
+
+---
+
+Bloated "how would you refactor" answer (three `##` headers, "Why
+this is better" recap, "The shift in thinking" closer — for a
+question asking high-level shape):
+
+Good rewrite — same content, no scaffolding:
+  Split into three layers:
+  1. State — interface `{ options, filter, headers, set* }`. Two
+     implementations: `useDataTableState()` transient,
+     `defineDataTableStore(id)` persisted.
+  2. Behavior — `useDataTable(state, fetchFn)`. Required state,
+     one mode, no nulls.
+  3. View — picks which state factory.
+
+  This PR becomes: four views swap one factory for another.
+  Composable untouched.
