@@ -27,6 +27,7 @@ Core principles:
 - **Bold sparingly.** Bolding every bullet's lead noun = no emphasis at all.
 - **Verdict first, one line.** Then evidence. Then stop. Don't build to a conclusion.
 - **No tactical/strategic, pros/cons framings** unless the user asked to weigh tradeoffs.
+- **No narrative build-up.** Open with the decision/answer as a fragment, not a paragraph that reasons toward it. Default to under-explaining — the user asks when they want more. A short answer they extend beats a long one they skim.
 
 ## Match depth to the question
 
