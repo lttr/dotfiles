@@ -37,7 +37,7 @@ $CLAUDE_SKILL_DIR/datetime.ts period <iso> <day|week|month|year> <start|end>
 $CLAUDE_SKILL_DIR/datetime.ts next-weekday <1-7|cs-name> [from-iso] [inclusive]
 $CLAUDE_SKILL_DIR/datetime.ts dst <year> [tz]
 $CLAUDE_SKILL_DIR/datetime.ts is-working-day <yyyy-mm-dd>
-$CLAUDE_SKILL_DIR/datetime.ts working-days <from> <to>
+$CLAUDE_SKILL_DIR/datetime.ts working-days <from> <to> [--list]
 $CLAUDE_SKILL_DIR/datetime.ts holidays <from> <to>
 $CLAUDE_SKILL_DIR/datetime.ts holidays-year <year>
 $CLAUDE_SKILL_DIR/datetime.ts sum <duration> [<duration> ...]
@@ -47,6 +47,7 @@ $CLAUDE_SKILL_DIR/datetime.ts sum <duration> [<duration> ...]
 ISO weekday: 1=po, 7=ne. Czech names accepted: `pondělí úterý středa čtvrtek pátek sobota neděle`.
 Duration JSON: any subset of `{years, months, weeks, days, hours, minutes, seconds}`, may be negative.
 `sum` duration tokens: bare number = hours (e.g. `1`, `0.5`), or unit-suffixed (`1h`, `30m`, `45s`, `1h30m`, `2h15m30s`). Negatives allowed.
+`working-days --list` appends `dates: string[]` (ISO `YYYY-MM-DD`, ascending) of every working day in range. Omit for count-only output. Use when you need the actual workday dates, not just totals — never hand-roll a day loop (DST off-by-one risk).
 
 ## Examples
 

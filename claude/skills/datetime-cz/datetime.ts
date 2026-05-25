@@ -215,24 +215,29 @@ function isWorkingDayCmd(date: string) {
   };
 }
 
-function workingDaysCmd(from: string, to: string) {
+function workingDaysCmd(from: string, to: string, list = false) {
   const a = Temporal.PlainDate.from(from);
   const b = Temporal.PlainDate.from(to);
   const [start, end] = Temporal.PlainDate.compare(a, b) <= 0 ? [a, b] : [b, a];
   let total = 0, working = 0, weekend = 0;
   const holidays: { date: string; name: string }[] = [];
+  const dates: string[] = [];
   for (let cur = start; Temporal.PlainDate.compare(cur, end) <= 0; cur = cur.add({ days: 1 })) {
     total++;
     const isWE = cur.dayOfWeek >= 6;
     const h = findHoliday(cur);
     if (isWE) weekend++;
     if (h && !isWE) holidays.push({ date: cur.toString(), name: h.name });
-    if (!isWE && !h) working++;
+    if (!isWE && !h) {
+      working++;
+      if (list) dates.push(cur.toString());
+    }
   }
   return {
     from: start.toString(), to: end.toString(), inclusive: true,
     total_days: total, working_days: working, weekend_days: weekend,
     holiday_days_on_weekday: holidays.length, holidays,
+    ...(list ? { dates } : {}),
   };
 }
 
@@ -312,7 +317,7 @@ function main() {
     case "next-weekday": out = nextWeekdayCmd(args[0], args[1], args[2]); break;
     case "dst": out = dstCmd(parseInt(args[0], 10), args[1]); break;
     case "is-working-day": out = isWorkingDayCmd(args[0]); break;
-    case "working-days": out = workingDaysCmd(args[0], args[1]); break;
+    case "working-days": out = workingDaysCmd(args[0], args[1], args.includes("--list")); break;
     case "holidays": out = holidaysRangeCmd(args[0], args[1]); break;
     case "holidays-year": out = holidaysYearCmd(parseInt(args[0], 10)); break;
     case "sum": out = sumCmd(args); break;
