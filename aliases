@@ -102,7 +102,6 @@ alias nv="vp run verify"
 alias nw="vp run watch"
 
 alias in="vp install"
-alias pn="pnpm"
 
 alias dt="deno task"
 

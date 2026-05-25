@@ -32,7 +32,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
 
 # deno
 export DENO_INSTALL="$HOME/.deno"
