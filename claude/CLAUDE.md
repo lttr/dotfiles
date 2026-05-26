@@ -24,7 +24,8 @@ Prefer `agent-browser` for browser testing.
 
 ## Secrets
 
-- Don't touch `.env*`, `*.key`, `*.pem`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
+- Don't touch `.env*`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
+- `*.key`/`*.pem` are NOT hook-blocked (allowed for dev/simulated TLS). Still don't read or modify real private keys; dev/self-signed certs are fair game.
 - Need a value? Ask the user for that specific value.
 
 ## Dates
