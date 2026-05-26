@@ -51,11 +51,11 @@ function getContextWindowInfo(inputData) {
   if (usage && capacity) {
     const used = (usage.input_tokens || 0) + (usage.cache_creation_input_tokens || 0) + (usage.cache_read_input_tokens || 0);
     const label = used > 0 ? ` ${formatTokenCount(used)}` : "";
-    return { bar: `${createProgressBar(percentage)}${label}`, percentage };
+    return { bar: `${createProgressBar(percentage)}${label}`, percentage, used };
   }
 
   const label = percentage > 0 ? ` ${Math.round(percentage)}%` : "";
-  return { bar: `${createProgressBar(percentage)}${label}`, percentage };
+  return { bar: `${createProgressBar(percentage)}${label}`, percentage, used: 0 };
 }
 
 function getFirstUserMessage(transcriptPath) {
@@ -308,8 +308,12 @@ function generateStatusLine(inputData) {
   // Context window
   const contextResult = getContextWindowInfo(inputData);
   if (contextResult) {
-    const pct = contextResult.percentage;
-    const color = pct > 50 ? "\x1b[38;5;208m" : pct > 20 ? "\x1b[38;5;220m" : pct >= 5 ? "\x1b[38;5;248m" : "\x1b[90m";
+    const t = contextResult.used;
+    const color = t >= 500_000 ? "\x1b[38;5;196m" // ≥500k: red
+      : t >= 200_000 ? "\x1b[38;5;208m" // ≥200k: orange
+      : t >= 120_000 ? "\x1b[38;5;220m" // ≥120k: yellow
+      : t > 0 ? "\x1b[38;5;248m" // gray
+      : "\x1b[90m";
     const effortLevel = inputData.effort?.level;
     const effortSuffix = effortLevel ? colorize(` ✦${effortLevel}`, "\x1b[90m") : "";
     parts.push(colorize(contextResult.bar, color) + effortSuffix);
