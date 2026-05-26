@@ -511,8 +511,6 @@
     "*-secret.yaml",
     "secrets.yaml",
     "~/.docker/",
-    "*.pem",
-    "*.key",
     "*.p12",
     "*.pfx",
     "*.tfstate",
