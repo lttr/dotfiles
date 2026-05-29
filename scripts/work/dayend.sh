@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-# Run claude /day:end from the 'done' project (where the skill is defined)
-exec claude --cwd ~/code/done "/day:end"
+
+# cd to ~/code/done and launch Claude in auto permission mode with /day-end.
+set -euo pipefail
+
+cd "${HOME}/code/done"
+exec claude --permission-mode auto "/day-end" "$@"
