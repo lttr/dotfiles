@@ -433,7 +433,7 @@
     },
 
     {
-      "pattern": "\\b(npm|pnpm)\\s+(install|i|add)\\s+\\S",
+      "pattern": "\\b(npm|pnpm)\\s+(install|i|add)\\s+(?!\\d*[<>])(?![|&])\\S",
       "reason": "npm/pnpm: adding package (verify name, prefer vp add)",
       "ask": true
     },
