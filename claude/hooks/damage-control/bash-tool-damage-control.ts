@@ -192,6 +192,7 @@ function checkCommand(
   // 2. Check for ANY access to zero-access paths (including reads)
   // Extract path-like tokens from command to check against allowlist
   const commandTokens = command.match(/[^\s;|&"'`]+/g) || [];
+  const escapeRe = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const isAllowed = (token: string): boolean =>
     config.allowedPaths.some((ap) =>
       isGlobPattern(ap) ? matchGlob(token, ap) || matchGlob(token.split("/").pop() || "", ap) : token.endsWith(ap)
@@ -220,13 +221,19 @@ function checkCommand(
         continue;
       }
     } else {
-      const expanded = zeroPath.replace(/^~/, homedir());
-      if (command.includes(expanded) || command.includes(zeroPath)) {
+      // Non-glob literal. Match only at path boundaries within a token (start,
+      // or after / = :) so e.g. ".env" does not match the ".env" substring
+      // inside "os.environ". Directory patterns (trailing /) match any suffix;
+      // file patterns must end at a token / path boundary.
+      const endsSlash = zeroPath.endsWith("/");
+      const suffix = endsSlash ? "" : "(?:$|[/:])";
+      const res = [zeroPath.replace(/^~/, homedir()), zeroPath].map(
+        (lit) => new RegExp(`(?:^|[/=:])${escapeRe(lit)}${suffix}`)
+      );
+      const hits = commandTokens.filter((t) => res.some((re) => re.test(t)));
+      if (hits.length > 0) {
         // Skip if all matching tokens are in the allowlist
-        if (commandTokens.some((t) => t.includes(expanded) || t.includes(zeroPath)) &&
-            commandTokens.filter((t) => t.includes(expanded) || t.includes(zeroPath)).every(isAllowed)) {
-          continue;
-        }
+        if (hits.every(isAllowed)) continue;
         return {
           blocked: true,
           ask: false,
