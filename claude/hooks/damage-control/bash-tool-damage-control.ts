@@ -156,6 +156,21 @@ function checkPathPatterns(
   return { blocked: false, reason: "" };
 }
 
+/**
+ * Blank the contents of multi-word quoted strings so message/data text is not
+ * scanned for path patterns. Fixes false positives like `git commit -m "...env
+ * stuff..."`, `echo "the .env file"`, and `python3 -c "import os; os.environ"`.
+ * Single-token quoted operands (e.g. `cat ".env"`) and unquoted redirect targets
+ * (`echo x > .env`) are preserved, so real secret access is still caught. Only
+ * the path-access scans use this; the dangerous-command scan sees the raw command.
+ */
+function stripQuotedText(command: string): string {
+  return command.replace(
+    /(['"`])((?:\\.|(?!\1).)*)\1/g,
+    (match, quote, body) => (/\s/.test(body) ? `${quote}${quote}` : match)
+  );
+}
+
 function checkCommand(
   command: string,
   config: Config
@@ -190,8 +205,11 @@ function checkCommand(
   }
 
   // 2. Check for ANY access to zero-access paths (including reads)
+  // Scan a copy with multi-word quoted text blanked, so commit messages / echoed
+  // prose / inline code are not mistaken for path access (real operands survive).
+  const scanCommand = stripQuotedText(command);
   // Extract path-like tokens from command to check against allowlist
-  const commandTokens = command.match(/[^\s;|&"'`]+/g) || [];
+  const commandTokens = scanCommand.match(/[^\s;|&"'`]+/g) || [];
   const escapeRe = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const isAllowed = (token: string): boolean =>
     config.allowedPaths.some((ap) =>
@@ -205,7 +223,7 @@ function checkCommand(
         // Anchor to path-like context: preceded by whitespace, /, =, or start of string
         // This prevents matching code like "Object.keys()" against "*.key"
         const regex = new RegExp(`(?:^|[\\s/=])${globRegex}(?:\\s|$|[;|&"'\`])`, "i");
-        if (regex.test(command)) {
+        if (regex.test(scanCommand)) {
           // Skip if all matching tokens are in the allowlist
           if (commandTokens.some((t) => matchGlob(t, zeroPath) || matchGlob(t.split("/").pop() || "", zeroPath)) &&
               commandTokens.filter((t) => matchGlob(t, zeroPath) || matchGlob(t.split("/").pop() || "", zeroPath)).every(isAllowed)) {
@@ -245,7 +263,7 @@ function checkCommand(
 
   // 3. Check for modifications to read-only paths (reads allowed)
   for (const readonlyPath of config.readOnlyPaths) {
-    const result = checkPathPatterns(command, readonlyPath, READ_ONLY_BLOCKED, "read-only path");
+    const result = checkPathPatterns(scanCommand, readonlyPath, READ_ONLY_BLOCKED, "read-only path");
     if (result.blocked) {
       return { ...result, ask: false };
     }
@@ -253,7 +271,7 @@ function checkCommand(
 
   // 4. Check for deletions on no-delete paths (read/write/edit allowed)
   for (const noDeletePath of config.noDeletePaths) {
-    const result = checkPathPatterns(command, noDeletePath, NO_DELETE_BLOCKED, "no-delete path");
+    const result = checkPathPatterns(scanCommand, noDeletePath, NO_DELETE_BLOCKED, "no-delete path");
     if (result.blocked) {
       return { ...result, ask: false };
     }
