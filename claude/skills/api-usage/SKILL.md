@@ -8,6 +8,11 @@ description: Check Anthropic API spend and token usage from the org admin API wi
 
 Quick look at Anthropic **API** spend and token usage for an organization.
 
+## Prerequisites
+
+- `jq` — JSON parsing
+- `op` — 1Password CLI, to load the admin key (or supply the key another way)
+
 ## Key
 
 Needs an **admin** key (`sk-ant-admin...`). Normal API keys and user-OAuth
