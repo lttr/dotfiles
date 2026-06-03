@@ -144,6 +144,9 @@ fpath=(~/.zsh/completion $fpath)
 # TODO Maybe not needed anymore
 # autoload bashcompinit && bashcompinit
 
+# Anthropic cli zsh completion
+ant @completion zsh > "${fpath[1]}/_ant"
+
 
 # =================================================================
 #                             Colors
