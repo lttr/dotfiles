@@ -1,6 +1,6 @@
 ---
 name: datetime-cz
-description: Compute exact dates, times, weekdays, working days, Czech state holidays, DST transitions, and duration sums via the bundled `datetime.ts` Deno CLI. Use whenever the answer depends on a real calendar fact (today's date/weekday in Europe/Prague, holiday lookup, working-day count, Easter-derived dates, DST direction) OR on summing a list of hours/minutes (worklog totals, time tallies). Trigger when the user asks "what day is X", "is X a working day", "how many working days in May", "when is Velikonoce / Velký pátek", "next Tuesday", "month-end date", "DST switch", any worklog/vacation calculation, or any sum of hour/minute values. Do NOT guess or do mental math — Easter shifts every year, weekday/holiday combos are easy to misremember, and even trivial sums (1+1+1+5+1) fail silently in head.
+description: Compute exact dates, weekdays, working days, Czech state holidays, DST transitions, and duration sums via the bundled `datetime.ts` Deno CLI. Use whenever the answer depends on a real calendar fact (today's date/weekday in Europe/Prague, holiday lookup, working-day count, Easter-derived dates, DST direction) or on summing hours/minutes (worklogs, time tallies). Triggers: "what day is X", "is X a working day", "working days in May", "when is Velikonoce / Velký pátek", "next Tuesday", "month-end date", "DST switch", any worklog/vacation calc or hour/minute sum. Do NOT guess or do mental math.
 ---
 
 # datetime-cz
