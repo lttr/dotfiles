@@ -225,7 +225,8 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 alias cl="claude --dangerously-skip-permissions"
 alias clc="claude --dangerously-skip-permissions --continue"
-alias clcf="claude --dangerously-skip-permissions --continue --fork-session"
+alias clr="claude --dangerously-skip-permissions --resume"
+alias clf="claude --dangerously-skip-permissions --resume --fork-session"
 alias aicp="aic && git push"
 
 
