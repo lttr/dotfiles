@@ -4,7 +4,7 @@ import Anthropic from "npm:@anthropic-ai/sdk";
 
 const input = Deno.args.join(" ");
 if (!input) {
-  console.error("usage: ait <text>");
+  console.error("usage: t <text>");
   Deno.exit(1);
 }
 
