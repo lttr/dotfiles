@@ -683,19 +683,3 @@ pnpm-up() {
 calc() {
     awk "BEGIN { print "$*" }"
 }
-
-# =================================================================
-#                          Experimantal
-# =================================================================
-
-# Translation tool
-# https://github.com/soimort/translate-shell
-t() {
-    trans :cs -brief "${*}"
-}
-
-# English dictionary tool
-# https://github.com/soimort/translate-shell
-dic() {
-    trans -d :en "${*}"
-}

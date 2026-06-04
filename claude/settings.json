@@ -12,7 +12,10 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"]
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
   },
   "hooks": {
     "SessionStart": [
@@ -129,17 +132,9 @@
   },
   "enabledPlugins": {
     "cc@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "caveman@caveman": true
+    "typescript-lsp@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
-    }
-  },
+  "extraKnownMarketplaces": {},
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
