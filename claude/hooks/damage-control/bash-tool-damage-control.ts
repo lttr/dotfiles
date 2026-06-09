@@ -180,11 +180,14 @@ function checkCommand(
   // Otherwise fall through so the `ask` patterns prompt for verification.
   if (isPackageCommand(command)) {
     const pkgs = extractPackages(command);
-    if (pkgs.length > 0) {
-      const learned = loadLearnedPackages();
-      if (pkgs.every((p) => isTrustedPackage(p, config.trustedPackages, learned))) {
-        return { blocked: false, ask: false, reason: "" };
-      }
+    // No real package names to verify (bare `vp install` / `npm install` from
+    // manifest, or only flags like `-- --ignore-workspace`) -> nothing to vet.
+    if (pkgs.length === 0) {
+      return { blocked: false, ask: false, reason: "" };
+    }
+    const learned = loadLearnedPackages();
+    if (pkgs.every((p) => isTrustedPackage(p, config.trustedPackages, learned))) {
+      return { blocked: false, ask: false, reason: "" };
     }
   }
 
