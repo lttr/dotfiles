@@ -4,6 +4,7 @@ return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
   config = true,
+  terminal_cmd = "claude --permission-mode auto",
   opts = {
     focus_after_send = true,
     terminal = {
