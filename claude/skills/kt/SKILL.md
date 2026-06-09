@@ -8,6 +8,10 @@ allowed-tools: Bash(bash:*), Bash(kitty:*)
 
 Open the last mentioned file path in neovim, inside a new kitty window pane (split within the current OS window).
 
+## Prerequisite
+
+Runs only inside the kitty terminal with remote control enabled (`kitty @` must work). If `kitty @ ls` fails, tell the user this skill is kitty-only and stop.
+
 ## Workflow
 
 1. Find the last file path mentioned, read, edited, or written in recent conversation
