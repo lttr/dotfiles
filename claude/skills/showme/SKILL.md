@@ -24,11 +24,16 @@ driving (navigate, snapshot, click, fill, login), use the **`agent-browser`** sk
    ```
    No window? A headless daemon was already up — `agent-browser close --all`, then reopen.
 
-3. **Drive to the state** via the `agent-browser` snapshot-and-ref loop. Stop *at or just before* the point of interest — don't fire the key action yourself unless it's needed to reach the state and isn't destructive; leave it for the user.
+3. **Drive to the state** via the `agent-browser` snapshot-and-ref loop, up to the point of interest.
 
-4. **Hand over — do NOT close.** Leave the window open (the daemon keeps it alive) and tell the user, in a few lines:
+4. **Verify it yourself first — then decide whether to hand over.** When the state is a *claim to confirm* (a bug, regression, or "X happens when you do Y"), and the key action is non-destructive, **fire it yourself and check the outcome before involving the user.** Don't hand over a window that "should" show something you haven't confirmed it shows.
+   - **It reproduced** → reset to just-before the action (reload / undo) so the user can trigger it themselves, then hand over (step 5). Note that you confirmed it.
+   - **It did NOT reproduce (false positive)** → stop. Don't hand over. Tell the user the claim didn't hold, with the evidence (what you did, what actually happened vs. expected). This is the whole point of trying first: catch false positives without making the user click through a dead end.
+   - **Action is destructive, or the state is open-ended exploration** (not a specific claim) → don't fire it; leave it for the user and go to step 5.
+
+5. **Hand over — do NOT close.** Leave the window open (the daemon keeps it alive) and tell the user, in a few lines:
    - **It's open** — session `showme`, on which page.
-   - **You are here** — current state + what you set up.
+   - **You are here** — current state + what you set up (and that you confirmed the action works, if you did).
    - **Try this** — the exact action (e.g. "click the blue *Save* button").
    - **You'll see** — what should happen, so they know what to look for.
 
