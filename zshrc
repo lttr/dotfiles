@@ -166,10 +166,10 @@ export FZF_DEFAULT_OPTS="
   --height=30
   "
 
-LIST_FILES_COMMAND="fd --strip-cwd-prefix --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock --exclude .nuxt --exclude .output --exclude .claude/worktrees"
-
-# Ctrl-T: sort files by mtime (stat | sort) so newest show on top.
-export FZF_CTRL_T_COMMAND="$LIST_FILES_COMMAND -0 | xargs -0 -r stat --format='%Y %n' | sort -rn | cut -d' ' -f2-"
+# Ctrl-T: newest-first file list (shared with Claude Code @ picker). See scripts/shell/list-files-mtime.sh.
+export FZF_CTRL_T_COMMAND="$HOME/dotfiles/scripts/shell/list-files-mtime.sh"
+# Keep mtime order under a query: index tiebreak before length, else equal-scoring paths sort by length.
+export FZF_CTRL_T_OPTS="--tiebreak=index ${FZF_CTRL_T_OPTS}"
 
 export forgit_log=fglo
 export forgit_diff=fgd

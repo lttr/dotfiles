@@ -280,7 +280,7 @@ local telescope = require("telescope")
 
 local find_files = function()
   return telescopeBuildin.find_files({
-    -- same as LIST_FILES_COMMAND in zshrc
+    -- keep excludes in sync with scripts/shell/list-files-mtime.sh
     find_command = {
       "fd",
       "--strip-cwd-prefix",
@@ -298,6 +298,10 @@ local find_files = function()
       ".lock",
       "--exclude",
       ".nuxt",
+      "--exclude",
+      ".output",
+      "--exclude",
+      ".claude/worktrees",
     },
   })
 end

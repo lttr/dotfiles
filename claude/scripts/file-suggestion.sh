@@ -1,18 +1,10 @@
 #!/usr/bin/env bash
-# Custom file suggestion for Claude Code using fd
-# Based on LIST_FILES_COMMAND from ~/dotfiles/zshrc
+# Custom file suggestion for Claude Code's @ picker.
 # Receives JSON via stdin: {"query": "partial/path"}
-# Outputs newline-separated file paths
+# Outputs newline-separated file paths, newest (mtime) first.
+# File list is shared with fzf Ctrl-T via scripts/shell/list-files-mtime.sh.
 
 query=$(cat | jq -r '.query')
 
-fd --strip-cwd-prefix --hidden --no-ignore \
-  --exclude .git \
-  --exclude node_modules \
-  --exclude build/ \
-  --exclude dist/ \
-  --exclude .lock \
-  --exclude .output \
-  --exclude .nuxt \
-  --exclude .claude/worktrees \
-  2>/dev/null | fzf --filter "$query" | head -15
+"$HOME/dotfiles/scripts/shell/list-files-mtime.sh" \
+  | fzf --filter "$query" --tiebreak=index | head -15
