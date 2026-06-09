@@ -155,7 +155,7 @@ ant @completion zsh > "${fpath[1]}/_ant"
 # TODO Maybe not needed anymore
 # eval $(dircolors ~/dotfiles/colors/dircolors)
 
-LIST_FILES_COMMAND='fd --strip-cwd-prefix --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock --exclude .nuxt --exclude .output'
+LIST_FILES_COMMAND='fd --strip-cwd-prefix --hidden --no-ignore --exclude .git --exclude node_modules --exclude build/ --exclude dist/ --exclude .lock --exclude .nuxt --exclude .output --exclude .claude/worktrees'
 
 # Numbers represent terminal colors, see kitty.conf
 # bg+ is background color for active item (same color as selection in my vim)

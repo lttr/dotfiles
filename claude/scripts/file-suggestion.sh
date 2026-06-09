@@ -14,4 +14,5 @@ fd --strip-cwd-prefix --hidden --no-ignore \
   --exclude .lock \
   --exclude .output \
   --exclude .nuxt \
+  --exclude .claude/worktrees \
   2>/dev/null | fzf --filter "$query" | head -15
