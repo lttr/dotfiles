@@ -3,6 +3,7 @@
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
+  "skillListingBudgetFraction": 0.005,
   "permissions": {
     "allow": [],
     "deny": [
@@ -12,7 +13,14 @@
       "Bash(mkfs:*)",
       "Bash(dd if=* of=/dev/*:*)"
     ],
-    "ask": ["Bash(git push --force:*)", "Bash(git reset --hard:*)"]
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  },
+  "skillOverrides": {
+    "deep-research": "name-only",
+    "fewer-permission-prompts": "off"
   },
   "hooks": {
     "SessionStart": [
@@ -122,6 +130,9 @@
       }
     ]
   },
+  "worktree": {
+    "baseRef": "fresh"
+  },
   "statusLine": {
     "type": "command",
     "command": "node ~/dotfiles/claude/scripts/status-line.js",
@@ -132,12 +143,6 @@
     "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {},
-  "skillOverrides": {
-    "deep-research": "name-only",
-    "fewer-permission-prompts": "off"
-  },
-  "skillListingBudgetFraction": 0.005,
-  "maxSkillDescriptionChars": 250,
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
@@ -147,8 +152,10 @@
   "skipDangerousModePermissionPrompt": true,
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
+  "autoCompactEnabled": false,
   "showTurnDuration": false,
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "maxSkillDescriptionChars": 250
 }
