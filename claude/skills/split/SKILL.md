@@ -19,10 +19,10 @@ Runs only inside the kitty terminal with remote control enabled (`kitty @` must 
 
 ```bash
 # no args — resume the fork, wait for user input
-kitty @ launch --type window --cwd "$PWD" claude --resume "$CLAUDE_CODE_SESSION_ID" --fork-session
+kitty @ launch --type window --cwd "$PWD" claude --dangerously-skip-permissions --resume "$CLAUDE_CODE_SESSION_ID" --fork-session
 
 # with args — fork and kick off with that prompt
-kitty @ launch --type window --cwd "$PWD" claude --resume "$CLAUDE_CODE_SESSION_ID" --fork-session "<arguments>"
+kitty @ launch --type window --cwd "$PWD" claude --dangerously-skip-permissions --resume "$CLAUDE_CODE_SESSION_ID" --fork-session "<arguments>"
 ```
 
 3. Tell the user the fork opened in a new split and they can keep using either window independently.
