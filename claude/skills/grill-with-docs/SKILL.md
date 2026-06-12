@@ -51,6 +51,10 @@ If a `CONTEXT-MAP.md` exists at the root, the repo has multiple glossaries. The 
 
 Create files lazily — only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
 
+### Other docs
+
+A repo often has more markdown than `GLOSSARY.md` and ADRs — design notes, architecture overviews, runbooks, RFCs, often under `docs/`. Don't read them wholesale; that burns context. Instead, when a grilling question touches a topic, `rg` the docs for the relevant terms and read only the hits. Treat what you find as context to challenge against, not law — only `GLOSSARY.md` and ADRs are authoritative. If a doc contradicts the plan, surface it like any other conflict.
+
 ## During the session
 
 ### Challenge against the language
