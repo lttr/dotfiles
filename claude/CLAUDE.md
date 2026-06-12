@@ -12,13 +12,11 @@
 ## Documentation
 
 - NEVER hallucinate or guess URLs
-- Avoid mdash "—" unless in English prose where it fits well
+- Use em-dashes sparingly; never in commit messages, code, or docs
 
 ## Verification
 
-Search before responding for: CLI flags/syntax, APIs, recent features, technical specs, time-sensitive claims.
-
-Prefer `agent-browser` for browser testing.
+Verify (search/docs) before stating: CLI flags, API signatures, anything version-specific or post-cutoff. Don't guess.
 
 ## Secrets
 
@@ -28,7 +26,7 @@ Prefer `agent-browser` for browser testing.
 
 ## Dates
 
-- Relative dates → use current date from system context, state calculated date before acting
+- Date math (relative dates, working days, durations): use the datetime-cz skill, state the calculated date before acting
 
 ## Tool Preferences
 
