@@ -1,6 +1,6 @@
 ---
 name: grill-with-docs
-description: Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (BOUNDED-CONTEXT.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.
+description: Grilling session that challenges your plan against the existing domain model, sharpens terminology, and updates documentation (GLOSSARY.md, ADRs) inline as decisions crystallise. Use when user wants to stress-test a plan against their project's language and documented decisions.
 ---
 
 <what-to-do>
@@ -21,11 +21,11 @@ During codebase exploration, also look for existing documentation:
 
 ### File structure
 
-Most repos have a single bounded context:
+Most repos have a single glossary:
 
 ```
 /
-├── BOUNDED-CONTEXT.md
+├── GLOSSARY.md
 ├── docs/
 │   └── adr/
 │       ├── 0001-event-sourced-orders.md
@@ -33,29 +33,29 @@ Most repos have a single bounded context:
 └── src/
 ```
 
-If a `BOUNDED-CONTEXT-MAP.md` exists at the root, the repo has multiple bounded contexts. The map points to where each one lives:
+If a `CONTEXT-MAP.md` exists at the root, the repo has multiple glossaries. The map points to where each one lives:
 
 ```
 /
-├── BOUNDED-CONTEXT-MAP.md
+├── CONTEXT-MAP.md
 ├── docs/
 │   └── adr/                          ← system-wide decisions
 ├── src/
 │   ├── ordering/
-│   │   ├── BOUNDED-CONTEXT.md
+│   │   ├── GLOSSARY.md
 │   │   └── docs/adr/                 ← context-specific decisions
 │   └── billing/
-│       ├── BOUNDED-CONTEXT.md
+│       ├── GLOSSARY.md
 │       └── docs/adr/
 ```
 
-Create files lazily — only when you have something to write. If no `BOUNDED-CONTEXT.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
+Create files lazily — only when you have something to write. If no `GLOSSARY.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
 
 ## During the session
 
 ### Challenge against the language
 
-When the user uses a term that conflicts with the existing language in `BOUNDED-CONTEXT.md`, call it out immediately. "Your language defines 'cancellation' as X, but you seem to mean Y — which is it?"
+When the user uses a term that conflicts with the existing language in `GLOSSARY.md`, call it out immediately. "Your language defines 'cancellation' as X, but you seem to mean Y — which is it?"
 
 ### Sharpen fuzzy language
 
@@ -69,11 +69,11 @@ When domain relationships are being discussed, stress-test them with specific sc
 
 When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"
 
-### Update BOUNDED-CONTEXT.md inline
+### Update GLOSSARY.md inline
 
-When a term is resolved, update `BOUNDED-CONTEXT.md` right there. Don't batch these up — capture them as they happen. Use the format in [BOUNDED-CONTEXT-FORMAT.md](./BOUNDED-CONTEXT-FORMAT.md).
+When a term is resolved, update `GLOSSARY.md` right there. Don't batch these up — capture them as they happen. Use the format in [GLOSSARY-FORMAT.md](./GLOSSARY-FORMAT.md).
 
-The Language section is the meat — keep it devoid of implementation details. Do not treat `BOUNDED-CONTEXT.md` as a spec or scratch pad. Boundary and Integration sections exist for context-scoping only; everything else lives in ADRs or code.
+Keep it devoid of implementation details. Do not treat `GLOSSARY.md` as a spec or scratch pad — it holds canonical terms and nothing else; everything else lives in ADRs or code.
 
 ### Offer ADRs sparingly
 
