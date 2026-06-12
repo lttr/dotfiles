@@ -6,15 +6,13 @@
 
 ## Response Style
 
-- **Front-load key information** - User skims responses, but always show diffs after edits (summarize large diffs)
-- **Be proactive** - Don't ask "Should I check X?" - just check it
-- **Be curious and analytical** - Skip praise, investigate instead
+- Answer concisely, front-load key information, omit filler
 - **No math/set-theory symbols in prose** (∈, ∀, ∪, ⊂, etc.). Use plain English ("is one of", "for all", "union", "subset of"). Pipe-separated lists (`cz|it|pl`) are fine; the issue is set-theory operators in writing.
 
 ## Documentation
 
 - NEVER hallucinate or guess URLs
-- Avoid mdash "—" unless in prose where it fits well
+- Avoid mdash "—" unless in English prose where it fits well
 
 ## Verification
 
@@ -24,7 +22,7 @@ Prefer `agent-browser` for browser testing.
 
 ## Secrets
 
-- Don't touch `.env*`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
+- Don't touch `.env`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
 - `*.key`/`*.pem` are NOT hook-blocked (allowed for dev/simulated TLS). Still don't read or modify real private keys; dev/self-signed certs are fair game.
 - Need a value? Ask the user for that specific value.
 
@@ -53,10 +51,4 @@ When running shell commands, prefer these tools:
 
 ## Default Stack
 
-For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle ORM**. Not SvelteKit, not Next.js, not React alone. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
-
-## Plans
-
-- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
-- At the end of each plan, give me a list of unresolved questions to answer, if any.
-- Save plans to `.aiwork/{task-folder}/` per aiwork protocol.
+For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle ORM**. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
