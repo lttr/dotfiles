@@ -1,33 +1,27 @@
 ---
 name: tldr
-description: Re-assess your own last answer and re-emit it tighter, obeying the project + global CLAUDE.md and output-style rules more strictly. Use when the user says "/tldr", "tldr", "tighten that", "too long", "just the point", or wants the previous response distilled to only what they need to read.
+description: Re-emit your own last answer tighter, following the project and global CLAUDE.md and output-style rules more strictly. Use when the user says "/tldr", "tldr", "tighten that", "too long", or "just the point".
 disable-model-invocation: true
 allowed-tools: Read
 ---
 
 # TL;DR - distill the last answer
 
-Take **your own immediately preceding response** and re-emit it as the leanest version that still carries everything the user actually needs. Nothing more, nothing less.
+Rewrite **your immediately preceding response** as the leanest version that still says everything the user needs. Nothing more, nothing less.
 
-## Rules to enforce
+## Rules
 
-1. Re-read the active instructions before rewriting:
-   - Global: `~/.claude/CLAUDE.md` and the active output-style (already in context, re-read if unsure).
-   - Project: nearest `CLAUDE.md` from cwd upward.
-   Apply whichever rules the original answer broke.
-2. Apply the output-style hard:
-   - Verdict/answer first, as a fragment. No build-up, no recap.
-   - Bullets/fragments over prose. ≤5 bullets → no section headers.
-   - One bullet, one idea. Delete-test every sentence. If removing it loses nothing, remove it.
-   - Cut praise, fluff, "why this is better" closers, aphorisms.
-   - Err shorter than feels natural.
-   - Tighter, not harder to read. Use normal everyday words and plain sentences. Shorter must never mean more cryptic or telegraphic.
-   - No mdash (—) and no semicolons. Use a period, a comma, or "and" instead.
-3. **Never drop substance.** Keep full diffs, commands, error output, file:line refs, security caveats, and risk warnings verbatim. Concise applies to prose, not evidence.
-4. Don't re-run work or re-investigate. This is a rewrite of what was already said, not a new attempt. If the original was wrong, say so in one line rather than silently fixing.
+1. Re-read the active rules first and apply whichever the original broke: `~/.claude/CLAUDE.md`, the active output-style, and the nearest project `CLAUDE.md` from cwd upward.
+2. Tighten hard:
+   - Answer first, as a fragment. No build-up, no recap.
+   - Bullets and fragments over prose. Five or fewer bullets means no section headers.
+   - One bullet, one idea. Drop any sentence that loses nothing when removed.
+   - Cut praise, fluff, "why this is better" closers, and aphorisms.
+   - Tighter, not harder to read. Plain everyday words. Shorter must never mean cryptic.
+   - No mdash and no semicolons. Use a period, a comma, or "and".
+3. Keep all substance: diffs, commands, error output, file:line refs, and security or risk warnings stay verbatim. Concise applies to prose, not evidence.
+4. Don't redo the work. This is a rewrite, not a new attempt. If the original was wrong, say so in one line instead of silently fixing it.
 
 ## Output
 
-Just the tightened answer. Don't preface it ("Here's the shorter version..."), don't explain what you cut, don't ask follow-ups. Emit the distillation and stop.
-
-If the last answer was already minimal, say so in one line and leave it.
+Just the tightened answer. No preface, no list of what you cut, no follow-up questions. If the last answer was already minimal, say so in one line and stop.
