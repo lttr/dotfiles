@@ -1,19 +1,13 @@
 ---
-allowed-tools: Read, Glob, Grep, Edit, Write, Bash(git:*), Bash(ls:*), Bash(wc:*), Bash(cat:*), Bash(head:*), Bash(find:*), Bash(fd:*), Bash(rg:*), Bash(du:*), Bash(cloc:*), Bash(pnpm:*), Bash(corepack:*), Bash(vp:*), Bash(vpx:*), Bash(node:*), Task
-description: Assess a Nuxt repo against the desired tooling baseline and migrate it there, committing each change as it lands
+name: nuxt-baseline
+description: Assess a Nuxt repo against the desired tooling baseline (Vite+/pnpm/Nixpacks) and migrate it there, committing each change as it lands. Use when the user wants to bring a Nuxt project up to standard tooling, audit its setup, modernize deps/toolchain, or says "nuxt baseline", "assess nuxt", "migrate to baseline".
+allowed-tools: Read, Glob, Grep, Edit, Write, Bash, Task
 argument-hint: [assess-only]
 ---
 
-## Context
+# Nuxt baseline
 
-- Current working directory: !`pwd`
-- Git repository: !`git rev-parse --show-toplevel 2>/dev/null || echo "Not a git repository"`
-- Working tree: !`git status --short 2>/dev/null || echo "n/a"`
-- Recent commits: !`git log --oneline -5 2>/dev/null || echo "No git history"`
-
-## Your task
-
-Bring this repository to the **desired tooling baseline** below. Two phases:
+Bring a Nuxt repository to the **desired tooling baseline** below. Two phases:
 
 1. **Assess** — gap-analyse the repo against each item in the baseline. Report
    what already conforms, what's missing, and what's outdated.
@@ -21,11 +15,18 @@ Bring this repository to the **desired tooling baseline** below. Two phases:
    as you go (see Strategy). One logical change per commit, verified before the
    next.
 
-If `$ARGUMENTS` contains `assess-only`, stop after phase 1 and produce the gap
-report without touching files.
+If the user passes `assess-only`, stop after phase 1 and produce the gap report
+without touching files.
 
-Refuse to start migrating with a dirty working tree — ask the user to commit or
-stash first, so each migration commit is isolated.
+## First, gather context
+
+Before assessing, run these to ground yourself (use Bash):
+
+- `pwd` and `git rev-parse --show-toplevel` — confirm repo root.
+- `git status --short` — working tree state. **Refuse to start migrating with a
+  dirty tree** — ask the user to commit or stash first, so each migration commit
+  is isolated.
+- `git log --oneline -10` — recent commits, to match commit granularity/style.
 
 ## Desired tooling baseline
 
@@ -174,7 +175,7 @@ changes (runtime, package manager) first, because later steps run under them.
    3. Re-Read any files the pre-commit hook may have rewritten.
    4. Commit it alone with a focused conventional-commit message
       (`chore:`, `build:`, `fix:`, `docs:`). One logical change per commit —
-      mirror the granularity in this repo's history
+      mirror the granularity in the repo's history
       (e.g. "bump packageManager to pnpm@11", "override corepack version in
       nixpacks", "complete pnpm 11 migration").
    5. If a step can't be verified or breaks something you can't fix, stop and
