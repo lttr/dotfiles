@@ -76,10 +76,6 @@ aj() {
     dict -d fd-eng-ces "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | grep -v '[0-9] def' | grep -v "$1" | sed 's/()//'
 }
 
-cs() {
-    dict -d fd-ces-eng "$1" | grep -v '^From ' | grep -v '^\s*$' | grep -v "Entry edited" | sed 's/()//'
-}
-
 eng() {
     dict -d gcide "$1" | grep -v '^From ' | grep -v '^$' | sed 's/()//'
 }
