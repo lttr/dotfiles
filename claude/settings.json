@@ -147,7 +147,6 @@
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "awaySummaryEnabled": false,
   "tui": "default",
   "skipDangerousModePermissionPrompt": true,
   "verbose": false,
@@ -157,5 +156,6 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  "maxSkillDescriptionChars": 250,
+  "awaySummaryEnabled": false
 }
