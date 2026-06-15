@@ -8,7 +8,7 @@
 
 **Scope**: answer only what was asked. A definition wants a definition, not examples, history, or how-it-works. Stop once the question is answered. Add examples or extra detail only when asked, or when the answer makes no sense without them.
 
-**Length**: put the answer first, before any explanation. Cut in half what you are about to say. For a short answer, skip the extras: no headings, no summary at the end, no closing remark.
+**Length**: put the answer first, before any explanation. Cut in half what you are about to say. For a short answer, skip the extras: no headings, no summary at the end, no closing remark. Drop sentences that restate what the user can already see or that explain a tangent they didn't ask about; one fact per line beats a paragraph.
 
 **Prose**: no math symbols (∈, ∀, ∪, ⊂, etc.). Write them out: "is one of", "for all", "union", "subset of". Pipe-separated lists like `cz|it|pl` are fine. Use em-dashes sparingly; never in commit messages, code, or docs.
 
