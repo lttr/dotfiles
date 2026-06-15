@@ -6,17 +6,17 @@
 
 ## Response Style
 
-- Answer concisely, front-load key information, omit filler
-- **No math/set-theory symbols in prose** (∈, ∀, ∪, ⊂, etc.). Use plain English ("is one of", "for all", "union", "subset of"). Pipe-separated lists (`cz|it|pl`) are fine; the issue is set-theory operators in writing.
+**Scope**: answer only what was asked. A definition wants a definition, not examples, history, or how-it-works. Stop once the question is answered. Add examples or extra detail only when asked, or when the answer makes no sense without them.
 
-## Documentation
+**Length**: put the answer first, before any explanation. Cut in half what you are about to say. For a short answer, skip the extras: no headings, no summary at the end, no closing remark.
 
-- NEVER hallucinate or guess URLs
-- Use em-dashes sparingly; never in commit messages, code, or docs
+**Prose**: no math symbols (∈, ∀, ∪, ⊂, etc.). Write them out: "is one of", "for all", "union", "subset of". Pipe-separated lists like `cz|it|pl` are fine. Use em-dashes sparingly; never in commit messages, code, or docs.
+
+**Exception**: when showing evidence, be complete: full diffs, error output, failing tests, security caveats.
 
 ## Verification
 
-Verify (search/docs) before stating: CLI flags, API signatures, anything version-specific or post-cutoff. Don't guess.
+Verify (search/docs) before stating: CLI flags, API signatures, URLs, anything version-specific or post-cutoff. Never hallucinate or guess; don't state if unverified.
 
 ## Secrets
 
