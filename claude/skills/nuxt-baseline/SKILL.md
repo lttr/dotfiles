@@ -130,8 +130,8 @@ If the deploy target is **Coolify** (or otherwise Nixpacks-built), commit a
 - pnpm 11 needs a current corepack — Nixpacks pins an old one that can't launch
   pnpm 11 (`ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`). Override the install cmds:
   `cmds = ["npm install -g corepack@latest && corepack enable", "pnpm i --frozen-lockfile"]`.
-- A root `start` script (`node web/.output/server/index.mjs` for a `web/`
-  workspace) that Nixpacks' start phase picks up.
+- A root `start` script (`node .output/server/index.mjs`) that Nixpacks' start
+  phase picks up.
 - Auto-deploy on push to the default branch is configured in Coolify, not in
   the repo — note it but don't try to set it from here.
 
