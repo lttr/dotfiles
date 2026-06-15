@@ -166,7 +166,7 @@ function checkPathPatterns(
  */
 function stripQuotedText(command: string): string {
   return command.replace(
-    /(['"`])((?:\\.|(?!\1).)*)\1/g,
+    /(['"`])((?:\\.|(?!\1).)*)\1/gs,
     (match, quote, body) => (/\s/.test(body) ? `${quote}${quote}` : match)
   );
 }
