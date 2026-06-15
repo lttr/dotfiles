@@ -1,5 +1,5 @@
 {
-  "allowedPaths": [".env.example", "--env-file=*"],
+  "allowedPaths": ["*.env.example", "--env-file=*"],
   "trustedPackages": [
     "eslint",
     "stylelint",
