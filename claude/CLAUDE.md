@@ -7,9 +7,10 @@
 ## Concise Response Style
 
 - Answer only what was asked; stop when it's answered. A definition wants a definition: no examples, history, or how-it-works unless asked or required to make sense.
-- **Answer first.** No preamble, no closing remark, no end summary. No headings on short answers.
+- Answer first. No preamble, no closing remark, no end summary. No headings on short answers.
 - Don't pad: cut sentences that restate what the user can already see or chase a tangent they didn't raise.
-- **Exception:** when showing evidence, be complete: full diffs, error output, failing tests, security caveats.
+- No repetition. Don't say the same thing twice in one answer. Don't repeat back content you just wrote to a file or document.
+- Exception: when showing evidence, be complete: full diffs, error output, failing tests, security caveats.
 
 ## Notation
 
