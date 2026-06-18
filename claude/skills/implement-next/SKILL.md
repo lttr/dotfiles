@@ -1,40 +1,47 @@
 ---
 name: implement-next
-description: Implement the next unimplemented plan from .aiwork/. Use when user says "implement next", "implement step", "start implementing", or provides a plan file path to implement. Companion to /plan-next.
+description: Implement the next unimplemented plan, falling back to a spec/prd when no plan exists.
 allowed-tools: Read, Glob, Grep, Task, Write, Edit, AskUserQuestion, Bash
 argument-hint: [plan-or-spec-path]
+disable-model-invocation: true
 ---
 
 # Implement Next Step
 
-The plan already exists - skip plan mode and implement directly.
+The plan (or spec/prd) already exists, skip plan mode and implement directly. Follows `aiwork-protocol`.
 
-Implement the next unimplemented plan from `.aiwork/`. Follows `@aiwork-protocol.md`.
+**Arguments (`$ARGUMENTS`):** Optional path to a plan, spec, or prd file. If omitted, auto-detect.
 
-**Arguments (`$ARGUMENTS`):** Optional path to a plan or spec file. If omitted, auto-detect from `.aiwork/`.
-
-## 1. Find the plan
+## 1. Find what to implement
 
 - **Plan path given**: use directly
-- **Spec path given**: scan its folder for lowest-numbered plan with `status: draft|active`
-- **No args**: find most recently modified `.aiwork/*/` folder, then first `draft|active` plan in it
+- **Spec/prd path given**: scan its folder for lowest-numbered plan with `status: draft|active`; if none, implement the spec/prd directly
+- **No args**: find most recently modified `aiwork-protocol` folder, then its first `draft|active` plan; if none, look for spec or prd
+**Nothing found?** Tell user: "No plan, spec, or prd found.
 
-**No plan found?** Tell user: "No unimplemented plan found. Run `/plan-next` to create one." Stop.
+## 2. If implementing from a spec/prd (no plan)
 
-## 2. Implement
+Check it's concrete enough for one run. **Warn and stop for confirmation** if any hold:
 
-Read the plan and its referenced spec for context. Set plan `status: active`.
+- Open questions, TBDs, or unresolved decisions
+- Scope spans many subsystems, better split into plans
+- Key technical choices (data model, API shape, file targets) unspecified
+- Success criteria too vague to tell when "done"
 
-Execute the **Changes** section. Read files before modifying. Follow existing patterns. Stay focused on what the plan specifies.
+Warn: "Spec too broad/underspecified because <reason>. Suggest `/plan-next`. Implement anyway?" Wait.
 
-## 3. Verify & complete
+## 3. Implement
 
-Run verification per the plan's **Verification** section. Fix issues.
+Read the plan (and referenced spec) or the spec/prd. If a plan, set `status: active`.
 
-Then update status:
+Execute the **Changes** section (or what the spec specifies). Read files before modifying, follow existing patterns, don't expand scope.
+
+## 4. Verify & complete
+
+Verify per the **Verification** section or success criteria. Fix issues. Then set status:
 - Plan frontmatter: `status: complete`
-- Spec checklist: `- [ ]` -> `- [x]` for the completed step
+- Spec/prd checklist: `- [ ]` -> `- [x]`
 
-## 4. Report
+## 5. Report
 
-Summarize changes. If more steps remain, ask: "Run `/implement-next` or `/plan-next` if next step needs planning?"
+Summarize changes. If steps remain, ask: "Run `/implement-next` or `/plan-next` if next step needs planning?"
