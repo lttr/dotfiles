@@ -23,23 +23,19 @@
   "bashToolPatterns": [
     {
       "pattern": "\\brm\\s+(-[^\\s]*)*-[rRf]",
-      "reason": "rm with recursive or force flags",
-      "ask": true
+      "reason": "forceful rm (-r/-f). Do you really need to force-remove? Prefer 'trash-put' (recoverable, removes directories too). If the deletion is intended, run trash-put instead of rm."
     },
     {
       "pattern": "\\brm\\s+-[rRf]",
-      "reason": "rm with recursive or force flags",
-      "ask": true
+      "reason": "forceful rm (-r/-f). Do you really need to force-remove? Prefer 'trash-put' (recoverable, removes directories too). If the deletion is intended, run trash-put instead of rm."
     },
     {
       "pattern": "\\brm\\s+--recursive",
-      "reason": "rm with --recursive flag",
-      "ask": true
+      "reason": "rm --recursive. Do you really need to recursively remove? Prefer 'trash-put' (recoverable, removes directories too). If the deletion is intended, run trash-put instead of rm."
     },
     {
       "pattern": "\\brm\\s+--force",
-      "reason": "rm with --force flag",
-      "ask": true
+      "reason": "rm --force. Do you really need to force-remove? Prefer 'trash-put' (recoverable, removes directories too). If the deletion is intended, run trash-put instead of rm."
     },
     {
       "pattern": "\\bsudo\\s+rm\\b",
