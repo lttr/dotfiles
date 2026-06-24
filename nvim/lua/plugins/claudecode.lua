@@ -26,7 +26,15 @@ return {
       "<cmd>ClaudeCodeSelectModel<cr>",
       desc = "Select Claude model",
     },
-    { "<leader>as", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+    {
+      "<leader>as",
+      function()
+        -- Bypass :ClaudeCodeAdd, whose parser splits the path on whitespace
+        -- and chokes on filenames containing spaces.
+        require("claudecode").send_at_mention(vim.fn.expand("%:p"))
+      end,
+      desc = "Add current buffer",
+    },
     {
       "<leader>as",
       "<cmd>ClaudeCodeSend<cr>",
