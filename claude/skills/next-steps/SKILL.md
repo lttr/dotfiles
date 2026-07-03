@@ -2,7 +2,7 @@
 name: next-steps
 description: Show status overview and next steps for an .aiwork/ spec. Use when user says "next steps", "what's left", "status", "progress", or wants to see what's planned, unplanned, or incomplete for a task.
 allowed-tools: Read, Glob, Grep
-argument-hint: [spec-or-task-folder-path]
+argument-hint: "[spec-or-task-folder-path]"
 ---
 
 # Next Steps

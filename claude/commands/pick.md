@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(agent-browser:*), Bash(google-chrome:*), Bash(curl:*), Bash(ss:*), Bash(seq:*), Bash(sleep:*), Bash(cat:*), Bash(vp:*), Bash(grep:*), Read, Glob
 description: Pick an element from the browser (starts dev server if needed)
-argument-hint: [prompt]
+argument-hint: "[prompt]"
 ---
 
 ## Context

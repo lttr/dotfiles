@@ -3,7 +3,7 @@ name: memory-promote
 disable-model-invocation: true
 description: Audit auto-memory files for the current repo (or all projects) and suggest promoting each one to a more persistent layer — global/project CLAUDE.md, an existing or new skill, a settings.json hook, or a checked-in reference doc. Use when the user says "audit memory", "promote memory", "clean up memories", "memory-promote", or wants to move ephemeral memory into durable config.
 allowed-tools: Bash(ls:*), Bash(fd:*), Bash(rg:*), Bash(cat:*), Bash(realpath:*), Bash(pwd:*), Read, Edit, Write
-argument-hint: [--all|global] [--list] [--project <path>] [--apply]
+argument-hint: "[--all|global] [--list] [--project <path>] [--apply]"
 ---
 
 # Memory Promote

@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*), Bash(git show:*), Bash(git rev-parse:*), Bash(git rev-list:*), Bash(git push:*)
 description: Create a git commit with intelligent message generation
-argument-hint: [commit message] [push] [all]
+argument-hint: "[commit message] [push] [all]"
 ---
 
 ## Context
