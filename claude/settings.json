@@ -16,7 +16,8 @@
     "ask": [
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
-    ]
+    ],
+    "defaultMode": "dontAsk"
   },
   "skillOverrides": {
     "deep-research": "name-only",
@@ -147,7 +148,10 @@
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "askUserQuestionTimeout": "5m",
   "tui": "default",
+  "autoMemoryEnabled": true,
   "skipDangerousModePermissionPrompt": true,
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
@@ -156,6 +160,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "awaySummaryEnabled": false
+  "maxSkillDescriptionChars": 250
 }
