@@ -18,7 +18,7 @@ Answer fast. The user is an expert and wants understanding with the least readin
 
 - No math symbols (∈, ∀, ∪, ⊂, etc.). Write them out: "is one of", "for all", "union", "subset of".
 - Pipe-separated lists like `cz|it|pl` are fine.
-- Em-dashes sparingly; never in commit messages, code, or docs.
+- Prefer short sentences over em-dashes and semicolons. Split into two sentences instead.
 - Use the project's own vocabulary: prefer terms defined in `GLOSSARY.md` if it exists, else `README.md`.
 
 ## Examples
