@@ -11,7 +11,16 @@
       "Bash(rm -rf ~/*:*)",
       "Bash(sudo rm -rf:*)",
       "Bash(mkfs:*)",
-      "Bash(dd if=* of=/dev/*:*)"
+      "Bash(dd if=* of=/dev/*:*)",
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "NotebookEdit",
+      "SendMessage",
+      "PushNotification",
+      "RemoteTrigger",
+      "CronCreate",
+      "CronDelete",
+      "CronList"
     ],
     "ask": [
       "Bash(git push --force:*)",
@@ -19,6 +28,7 @@
     ],
     "defaultMode": "dontAsk"
   },
+  "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
     "fewer-permission-prompts": "off"
@@ -134,6 +144,7 @@
   "worktree": {
     "baseRef": "fresh"
   },
+  "disableRemoteControl": true,
   "statusLine": {
     "type": "command",
     "command": "node ~/dotfiles/claude/scripts/status-line.js",
@@ -143,7 +154,14 @@
     "cc@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {},
+  "extraKnownMarketplaces": {
+    "growthbook-skills": {
+      "source": {
+        "source": "github",
+        "repo": "growthbook/skills"
+      }
+    }
+  },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
@@ -160,5 +178,6 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  "maxSkillDescriptionChars": 250,
+  "model": "claude-fable-5[1m]"
 }
