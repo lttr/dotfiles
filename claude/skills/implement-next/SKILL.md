@@ -28,7 +28,7 @@ Check it's concrete enough for one run. **Warn and stop for confirmation** if an
 - Key technical choices (data model, API shape, file targets) unspecified
 - Success criteria too vague to tell when "done"
 
-Warn: "Spec too broad/underspecified because <reason>. Suggest `/plan-next`. Implement anyway?" Wait.
+Warn: "Spec too broad/underspecified because <reason>. Implement anyway?" Wait.
 
 ## 3. Implement
 
@@ -44,4 +44,4 @@ Verify per the **Verification** section or success criteria. Fix issues. Then se
 
 ## 5. Report
 
-Summarize changes. If steps remain, ask: "Run `/implement-next` or `/plan-next` if next step needs planning?"
+Summarize changes. If steps remain, ask: "Run `/implement-next`?"

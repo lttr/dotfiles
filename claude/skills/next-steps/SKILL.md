@@ -30,5 +30,5 @@ Read the spec and all plan files in the folder. For each step in the spec's impl
 Keep output brief. Print:
 
 1. **Status table**: step number, title, plan file (or `-`), status
-2. **Next action**: one line - `/implement-next`, `/plan-next`, or "all done"
+2. **Next action**: one line - `/implement-next` or "all done"
 3. **Open questions / blockers**: only if any exist, brief bullet list
