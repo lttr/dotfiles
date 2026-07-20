@@ -31,7 +31,11 @@
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
-    "fewer-permission-prompts": "off"
+    "fewer-permission-prompts": "off",
+    "schedule": "name-only",
+    "loop": "name-only",
+    "keybindings-help": "name-only",
+    "update-config": "name-only"
   },
   "hooks": {
     "SessionStart": [
