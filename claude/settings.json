@@ -173,7 +173,7 @@
   "awaySummaryEnabled": false,
   "askUserQuestionTimeout": "5m",
   "tui": "default",
-  "autoMemoryEnabled": true,
+  "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
