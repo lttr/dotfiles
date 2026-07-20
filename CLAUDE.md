@@ -9,6 +9,7 @@ Personal dotfiles for PopOS/Ubuntu. Deployed via symlinks.
 - `bootstrap/` - Deno-based installer (TS tasks under `configuration/`)
 - `claude/` - Claude Code config (commands, agents, hooks, scripts)
 - `scripts/<category>/` - utility scripts (shell/, git/, dev/, graphics/, ...)
+- `cosmic/` - COSMIC desktop config; see `cosmic/dock-gray-icons.md` for the grayscale panel-icon setup
 
 ## Workflow
 
