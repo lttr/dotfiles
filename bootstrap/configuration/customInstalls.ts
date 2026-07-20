@@ -337,7 +337,6 @@ function vpGlobal(
 
 const vpGlobalPackages: Config[] = [
   vpGlobal({ name: "@ast-grep/cli", executable: "sg" }),
-  vpGlobal({ name: "@playwright/cli", executable: "playwright-cli" }),
   vpGlobal({ name: "@typescript-eslint/eslint-plugin", lib: true }),
   vpGlobal({ name: "@typescript-eslint/parser", lib: true }),
   vpGlobal({ name: "@vue/typescript-plugin", lib: true }),

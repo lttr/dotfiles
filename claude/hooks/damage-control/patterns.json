@@ -15,8 +15,6 @@
     "add-npm-scripts",
     "update-browserslist-db",
     "web-ext",
-    "@playwright/",
-    "playwright-cli",
     "@nuxt/",
     "@tailwindcss/"
   ],
