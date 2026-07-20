@@ -1,5 +1,6 @@
 ---
 name: skills-map
+disable-model-invocation: true
 description: Scan current directory (recursively) for Claude Code skills, slash commands, agents, hooks, and plugin/MCP configs, then render an interactive HTML graph of their explicit and implicit relationships. Use when the user says "skills map", "skill graph", "visualize skills", "map skills", "how do my skills relate", or wants to audit a skill collection before publishing.
 allowed-tools: Bash(node:*), Agent
 argument-hint: [root] [--include PATH]... [--out PATH] [--semantic PATH] [--no-open] [--deep]

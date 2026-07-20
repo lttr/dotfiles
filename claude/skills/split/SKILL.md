@@ -1,5 +1,6 @@
 ---
 name: split
+disable-model-invocation: true
 description: Fork the current Claude session into a new kitty split (new session ID), leaving this session untouched. Use when the user says "split", "branch this", "fork this session", "open this in a new window", or wants to continue a parallel conversation in a separate kitty pane. Kitty-only.
 allowed-tools: Bash(kitty @ launch:*), Bash(kitty @ ls:*)
 ---

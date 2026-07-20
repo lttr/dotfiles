@@ -1,5 +1,6 @@
 ---
 name: gv
+disable-model-invocation: true
 description: Start a `gv --collect` review session — open the git-history-viewer in the browser so the user authors inline review comments on the current repo, then act on the feedback they finish with. Use when the user says "gv", "gv collect", "collect review", "start a review session", "let me review", "gv review", or wants to hand-author review comments in the browser for Claude to implement.
 allowed-tools: Bash(gv:*), Bash(vpx:*)
 ---

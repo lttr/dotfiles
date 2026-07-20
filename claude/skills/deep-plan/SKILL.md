@@ -1,5 +1,6 @@
 ---
 name: deep-plan
+disable-model-invocation: true
 description: Produce a thorough implementation plan using multi-agent codebase exploration. Use when user says "deep plan", "thorough plan", "multi-agent plan", or wants an exhaustive plan with parallel research and critique.
 allowed-tools: Read, Glob, Grep, Task, Write, Edit, Agent, AskUserQuestion, Bash(ls:*), Bash(git:*)
 argument-hint: [task description or file path]
