@@ -2,6 +2,7 @@
 name: showme
 description: Open a real (headed) browser, drive it to a specific state in a web app — a feature, a flow, a particular screen, or a bug — then leave the window open for the user to click around in, with a short note on what to try and what to watch for. Use when the user wants to "show me X", "take me to that state/screen", "let me click around in it", "open a browser I can play with", "set up the repro", "drive me to <feature/flow/situation>", or describes any app state they want to experience firsthand.
 allowed-tools: Bash(agent-browser:*)
+disable-model-invocation: true
 ---
 
 # showme
@@ -10,9 +11,11 @@ Drive a headed browser to a described state, then hand the user the live window.
 The state can be anything — a feature to try, a flow mid-way, a specific screen,
 an edge case, or a bug. Your job is the tedious setup; theirs is the experiencing.
 
-This skill only adds the **headed + leave-open + handoff** wrapper. For the actual
-driving (navigate, snapshot, click, fill, login), use the **`agent-browser`** skill
-— don't re-derive it here.
+**Depends on the [`agent-browser`](../agent-browser/SKILL.md) skill and the
+`agent-browser` CLI.** This skill only adds the **headed + leave-open + handoff**
+wrapper — for the actual driving (navigate, snapshot, click, fill, login), load
+`agent-browser` and follow it; don't re-derive it here. If `agent-browser` isn't
+available, stop and say so rather than falling back to another automation tool.
 
 ## Steps
 
