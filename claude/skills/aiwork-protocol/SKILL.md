@@ -44,7 +44,7 @@ On drift, propose consolidation: move artifacts into the canonical folder with a
 - **plan** — actionable implementation steps
 - **review** — code review report
 - **notes** — findings, decisions from implementation
-- **tickets/** — subfolder of tracer-bullet tickets, one file per ticket (`NN_slug.md`, numbered in dependency order), `status` + `blocked_by` in frontmatter; created by `/to-tickets`, worked by `/implement-next`
+- **tickets/** — subfolder of vertical-slice tickets, one file per ticket (`NN_slug.md`, numbered in dependency order), `status` + `blocked_by` in frontmatter; created by `/to-tickets`, worked by `/implement-next`
 - **docs/** — subfolder for downloaded external docs
 
 Custom types (`cascade-map.md`, `checklist.md`) are fine when they fit better.
