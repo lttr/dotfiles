@@ -44,10 +44,11 @@ This session acts as **orchestrator** and spawns one subagent per ticket.
 <ticket-loop>
 
 1. Set ticket `status: in-progress`.
-2. Implement. Use `/tdd` where possible, at the seams recorded in the spec's Testing Decisions section. Read files before modifying, follow existing patterns, don't expand scope.
-3. Run `/simplify` — skip only when the change was a small mechanical edit.
-4. Run `/verify`. Then confirm each acceptance criterion against actual behavior. Check off `- [ ]` → `- [x]`; set ticket `status: done`.
-5. Commit. Do not ask.
+2. State your understanding of what needs to be done — the goal and the intended changes — before touching code. Not a question, just a statement for the record.
+3. Implement. Use `/tdd` where possible, at the seams recorded in the spec's Testing Decisions section. Read files before modifying, follow existing patterns, don't expand scope.
+4. Run `/simplify` — skip only when the change was a small mechanical edit.
+5. Run `/verify`. Then confirm each acceptance criterion against actual behavior. Check off `- [ ]` → `- [x]`; set ticket `status: done`.
+6. Commit. Do not ask.
 
 Throughout: keep `implementation-notes.md` in the task folder (an `aiwork-protocol` artifact) as a chronological log. Two kinds of entries:
 
