@@ -25,10 +25,12 @@ Read the spec and all plan files in the folder. For each step in the spec's impl
 - What is the plan's `status:`? (`draft` / `active` / `complete` / `superseded`)
 - Does the spec checklist mark it `[x]` or `[ ]`?
 
+If a `tickets/` subfolder exists, also read each ticket's frontmatter: `status` (`ready` / `in-progress` / `done`) and `blocked_by`. The **frontier** is every `ready` ticket whose blockers are all `done`.
+
 ## 3. Report
 
 Keep output brief. Print:
 
-1. **Status table**: step number, title, plan file (or `-`), status
-2. **Next action**: one line - `/implement-next` or "all done"
+1. **Status table**: step number, title, plan/ticket file (or `-`), status; for tickets include blockers
+2. **Next action**: one line - `/implement-next` (naming the frontier ticket if tickets exist) or "all done"
 3. **Open questions / blockers**: only if any exist, brief bullet list
