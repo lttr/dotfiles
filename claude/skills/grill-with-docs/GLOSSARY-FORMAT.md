@@ -7,6 +7,8 @@ A `GLOSSARY.md` is the ubiquitous language of a context: the canonical terms use
 ```md
 # {Context Name} Glossary
 
+{One or two sentence description of what this context is and why it exists.}
+
 **Order**:
 {A one or two sentence description of the term}
 _Avoid_: Purchase, transaction
@@ -29,9 +31,17 @@ _Avoid_: Client, buyer, account
 ```md
 # Context Map
 
+## Contexts
+
 - [Ordering](./src/ordering/GLOSSARY.md) — receives and tracks customer orders
 - [Billing](./src/billing/GLOSSARY.md) — generates invoices and processes payments
 - [Fulfillment](./src/fulfillment/GLOSSARY.md) — manages warehouse picking and shipping
+
+## Relationships
+
+- **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
+- **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices
+- **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`
 ```
 
 The skill infers which structure applies:
@@ -45,9 +55,6 @@ When multiple glossaries exist, infer which one the current topic relates to. If
 ## Rules
 
 - **Be opinionated.** When multiple words exist for the same concept, pick the best one and list the others as aliases to avoid.
-- **Flag conflicts explicitly.** If a term is used ambiguously, call it out in "Flagged ambiguities" with a clear resolution.
 - **Keep definitions tight.** One or two sentences max. Define what it IS, not what it does.
-- **Show relationships.** Use bold term names and express cardinality where obvious.
 - **Only include terms specific to this context.** General programming concepts (timeouts, error types, utility patterns) don't belong even if used extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.
 - **Group terms under subheadings** when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.
-- **Write an example dialogue.** A conversation between a dev and a domain expert that demonstrates how the terms interact naturally and clarifies boundaries between related concepts.
