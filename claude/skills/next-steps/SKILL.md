@@ -7,7 +7,7 @@ argument-hint: [spec-or-task-folder-path]
 
 # Next Steps
 
-Show a status overview for an `.aiwork/` task. Follows `@aiwork-protocol.md`.
+Show a status overview for an `.aiwork/` task. Follows the `aiwork-protocol` skill.
 
 **Arguments (`$ARGUMENTS`):** Optional path to a spec file or task folder. If omitted, find most recently modified `.aiwork/*/`.
 
@@ -32,5 +32,5 @@ If a `tickets/` subfolder exists, also read each ticket's frontmatter: `status` 
 Keep output brief. Print:
 
 1. **Status table**: step number, title, plan/ticket file (or `-`), status; for tickets include blockers
-2. **Next action**: one line - `/implement-next` (naming the frontier ticket if tickets exist) or "all done"
+2. **Next action**: one line - `/implement` (naming the frontier ticket if tickets exist) or "all done"
 3. **Open questions / blockers**: only if any exist, brief bullet list

@@ -58,8 +58,8 @@ The generator itself does no language understanding. To add logical relationship
    - Write JSON to `./.skills-map-semantic.json` in the format:
      ```json
      { "edges": [
-       { "source": "skill:next-steps", "target": "skill:implement-next",
-         "label": "recommends running", "rationale": "next-steps points at implement-next as the follow-up action" }
+       { "source": "skill:next-steps", "target": "skill:implement",
+         "label": "recommends running", "rationale": "next-steps points at implement as the follow-up action" }
      ] }
      ```
    - Node IDs follow `<type>:<name>` — match exactly what's already in the graph (check the existing HTML's `DATA` blob or re-derive from file layout).

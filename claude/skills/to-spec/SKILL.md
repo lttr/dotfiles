@@ -14,7 +14,7 @@ This skill takes the current conversation context and codebase understanding and
 
 Check with the user that these seams match their expectations.
 
-3. Write the spec using the template below, then save it according to the /aiwork-protocol.
+3. Write the spec using the template below, then save it per the `aiwork-protocol` skill.
 
 <spec-template>
 

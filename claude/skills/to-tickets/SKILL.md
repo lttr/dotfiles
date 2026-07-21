@@ -1,12 +1,12 @@
 ---
 name: to-tickets
-description: Break a plan, spec, or the current conversation into vertical-slice tickets, each declaring its blocking edges, saved as markdown files under the task's .aiwork/ folder per the aiwork-protocol.
+description: Break a plan, spec, or the current conversation into vertical-slice tickets, each declaring its blocking edges.
 disable-model-invocation: true
 ---
 
 # To Tickets
 
-Break a plan, spec, or conversation into a set of **tickets** — thin end-to-end vertical slices, each declaring the tickets that **block** it. Tickets are markdown files stored per the `aiwork-protocol`.
+Break a plan, spec, or conversation into a set of **tickets** — thin end-to-end vertical slices, each declaring the tickets that **block** it. Tickets are markdown files stored per the `aiwork-protocol` skill.
 
 ## Process
 
@@ -53,24 +53,11 @@ Ask the user:
 
 Iterate until the user approves the breakdown.
 
-### 5. Save the tickets per the aiwork-protocol
+### 5. Save the tickets
 
-Write the approved tickets into the task's `.aiwork/` folder:
+Load the `aiwork-protocol` skill (if not already loaded) and follow its folder and `tickets/` conventions. Use the task's existing folder if one exists — one task, one folder.
 
-- If the work already has a folder (the source spec/plan lives in `.aiwork/{YYYY-MM-DD}_{slug}/`), use that folder — one task, one folder.
-- Otherwise create `.aiwork/{YYYY-MM-DD}_{slug}/` per the protocol (today's date, lowercase kebab slug, max 40 chars).
-
-Write one file per ticket under `tickets/`, numbered from `01` in dependency order (blockers first):
-
-```
-.aiwork/{YYYY-MM-DD}_{slug}/
-  spec.md
-  tickets/
-    01_expand-schema.md
-    02_migrate-api.md
-```
-
-Use the template below — one ticket per file, never a single combined file. Blocking edges and status live in frontmatter so they stay machine-scannable (e.g. for `/next-steps`).
+Use the template below — one ticket per file, never a single combined file. Blocking edges and status live in frontmatter so they stay machine-scannable.
 
 Do NOT modify the source spec or plan.
 
@@ -100,4 +87,4 @@ Avoid specific file paths or code snippets — they go stale fast. Exception: if
 
 ## Working the tickets
 
-Work the **frontier**: any ticket whose blockers are all `done`. For a purely linear chain that means top to bottom. Implement one ticket at a time in a fresh session (pass the ticket path to `/implement-next`), updating its `status` as you go, and clearing context between tickets.
+Work the **frontier**: any ticket whose blockers are all `done`. For a purely linear chain that means top to bottom. Implement one ticket at a time in a fresh session, updating its `status` as you go, and clearing context between tickets.
