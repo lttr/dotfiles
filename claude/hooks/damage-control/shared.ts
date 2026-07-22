@@ -192,24 +192,31 @@ export function logHook(tag: string, detail: string): void {
 // PACKAGE EXTRACTION + LEARNED ALLOWLIST
 // =============================================================================
 //
-// Package-install / runner commands match `ask: true` patterns in
-// patterns.json (reason "verify name"). Once the user approves an install,
-// the PostToolUse hook records its package names here, and the PreToolUse
-// hook auto-allows them next time instead of asking again.
+// Package-install / runner commands prompt for verification when they name a
+// package that is not yet trusted. Once the user approves an install, the
+// PostToolUse hook records its package names here, and the PreToolUse hook
+// auto-allows them next time instead of asking again.
 
 const LEARNED_PACKAGES_FILE = join(homedir(), ".claude", "custom-learned-packages.json");
 
-// Matched against the START of a command segment only - so install strings
-// embedded in echo/script arguments are not mistaken for real installs.
-const INSTALL_HEAD_RE =
-  /^(?:(?:npm|pnpm|yarn|bun)\s+(?:add|i|install)|vp\s+(?:add|install)|pip3?\s+install|cargo\s+(?:add|install)|gem\s+install|go\s+(?:install|get)|deno\s+(?:add|install)|brew\s+install)\b/;
-const RUNNER_HEAD_RE = /^(?:(?:npx|pnpx|vpx|bunx)|(?:pnpm|vp)\s+dlx)\b/;
-
-const PACKAGE_VERBS = new Set([
-  "npm", "pnpm", "yarn", "bun", "vp", "pip", "pip3", "cargo", "gem", "go", "deno", "brew",
-  "npx", "pnpx", "vpx", "bunx",
-  "add", "i", "install", "dlx", "get",
-]);
+// Package-manager invocations, keyed by their first token.
+const RUNNER_HEADS = new Set(["npx", "pnpx", "vpx", "bunx"]);
+const DLX_HEADS = new Set(["pnpm", "vp"]); // `pnpm dlx` / `vp dlx` run like npx
+const NODE_INSTALL = ["add", "i", "install"];
+const INSTALL_SUBCOMMANDS: Record<string, string[]> = {
+  npm: NODE_INSTALL,
+  pnpm: NODE_INSTALL,
+  yarn: NODE_INSTALL,
+  bun: NODE_INSTALL,
+  vp: ["add", "install"],
+  pip: ["install"],
+  pip3: ["install"],
+  cargo: ["add", "install"],
+  gem: ["install"],
+  go: ["install", "get"],
+  deno: ["add", "install"],
+  brew: ["install"],
+};
 
 // A valid package name: optional @scope, then alphanumerics plus . _ - /
 // (covers npm scoped names, pip names, and go module paths). Rejects tokens
@@ -217,11 +224,12 @@ const PACKAGE_VERBS = new Set([
 const VALID_PACKAGE_RE = /^@?[a-z0-9][a-z0-9._/-]*$/i;
 
 /**
- * Split a command into top-level segments, ignoring separators that appear
- * inside quotes (so install strings embedded in script arguments are not
- * mistaken for real commands). Strips leading sudo / VAR=val prefixes.
+ * Split a command into top-level segments of tokens, ignoring separators that
+ * appear inside quotes (so install strings embedded in script arguments are
+ * not mistaken for real commands). Quote characters are kept on their tokens,
+ * which is what stops `-m "npx foo"` from reading as an invocation.
  */
-function commandSegments(command: string): string[] {
+function commandSegments(command: string): string[][] {
   const raw: string[] = [];
   let cur = "";
   let quote: string | null = null;
@@ -246,24 +254,39 @@ function commandSegments(command: string): string[] {
     cur += c;
   }
   if (cur) raw.push(cur);
-  return raw
-    .map((s) => s.trim().replace(/^(?:(?:sudo|command|\w+=\S*)\s+)*/, "").trim())
-    .filter(Boolean);
+  return raw.map((s) => s.trim().split(/\s+/).filter(Boolean)).filter((toks) => toks.length > 0);
 }
 
-/** True if a segment begins with an install command. */
-function isInstallSegment(segment: string): boolean {
-  return INSTALL_HEAD_RE.test(segment);
+interface Invocation {
+  kind: "runner" | "install";
+  /** Index of the first token after the command head. */
+  start: number;
 }
 
-/** True if a segment begins with a download-and-run (npx/dlx) command. */
-function isRunnerSegment(segment: string): boolean {
-  return RUNNER_HEAD_RE.test(segment);
+/**
+ * Find a package-manager invocation among a segment's tokens.
+ *
+ * Searched at ANY position rather than only the first token: `timeout 300 npx
+ * vue-tsc`, `sudo npm install x` and `env FOO=1 vpx y` are all the same
+ * invocation as their bare forms, and enumerating every wrapper that can
+ * precede a command is a losing game. Being too eager here is low-cost - the
+ * result only decides whether a package-name prompt is raised, never a block.
+ */
+function findInvocation(tokens: string[]): Invocation | null {
+  for (let i = 0; i < tokens.length; i++) {
+    const tok = tokens[i];
+    const next = tokens[i + 1];
+    if (RUNNER_HEADS.has(tok)) return { kind: "runner", start: i + 1 };
+    if (!next) continue;
+    if (next === "dlx" && DLX_HEADS.has(tok)) return { kind: "runner", start: i + 2 };
+    if (INSTALL_SUBCOMMANDS[tok]?.includes(next)) return { kind: "install", start: i + 2 };
+  }
+  return null;
 }
 
 /** True if the command installs packages or downloads-and-runs one. */
 export function isPackageCommand(command: string): boolean {
-  return commandSegments(command).some((s) => isInstallSegment(s) || isRunnerSegment(s));
+  return commandSegments(command).some((toks) => findInvocation(toks) !== null);
 }
 
 /** Strip version / range / extras suffix from a package token, scope-aware. */
@@ -289,22 +312,21 @@ export function normalizePackageName(token: string): string {
 /**
  * Extract normalized package names from an install/runner command.
  * Runners (npx/dlx) only take a single package; installers take all.
- * Only segments that BEGIN with a package command are parsed.
  */
 export function extractPackages(command: string): string[] {
   const pkgs: string[] = [];
-  for (const segment of commandSegments(command)) {
-    const isRunner = isRunnerSegment(segment);
-    if (!isRunner && !isInstallSegment(segment)) continue;
-    for (const tok of segment.split(/\s+/)) {
+  for (const tokens of commandSegments(command)) {
+    const invocation = findInvocation(tokens);
+    if (!invocation) continue;
+    for (let i = invocation.start; i < tokens.length; i++) {
+      const tok = tokens[i];
       if (/^&?\d*[<>]/.test(tok)) break;   // redirection (>, 2>&1, 1>f, &>) - rest is not packages
-      if (PACKAGE_VERBS.has(tok)) continue;
-      if (tok.startsWith("-")) continue;   // flags
+      if (tok.startsWith("-")) continue;   // flags (and bare --)
       if (/^[./~]/.test(tok)) continue;    // local paths
       const name = normalizePackageName(tok);
       if (!VALID_PACKAGE_RE.test(name)) continue;
       pkgs.push(name);
-      if (isRunner) break;                 // runner: only the first token is a package
+      if (invocation.kind === "runner") break;  // runners take a single package
     }
   }
   return pkgs;

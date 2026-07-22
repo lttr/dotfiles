@@ -25,7 +25,6 @@ import {
   loadConfig,
   readStdin,
   logBlock,
-  isPackageCommand,
   extractPackages,
   loadLearnedPackages,
   isTrustedPackage,
@@ -171,40 +170,37 @@ function stripQuotedText(command: string): string {
   );
 }
 
+/**
+ * Packages named by the command that are neither trusted (patterns.json) nor
+ * learned (previously approved) - the names left to verify. Bare installs
+ * from a manifest (`vp install`, `npm install`) name no packages.
+ */
+function unverifiedPackages(command: string, config: Config): string[] {
+  const pkgs = extractPackages(command);
+  if (pkgs.length === 0) return [];
+  const learned = loadLearnedPackages();
+  return pkgs.filter((p) => !isTrustedPackage(p, config.trustedPackages, learned));
+}
+
 function checkCommand(
   command: string,
   config: Config
 ): { blocked: boolean; ask: boolean; reason: string } {
-  // 1. Package install / runner: allow without asking if every package is
-  // already trusted (patterns.json) or learned (previously approved).
-  // Otherwise fall through so the `ask` patterns prompt for verification.
-  if (isPackageCommand(command)) {
-    const pkgs = extractPackages(command);
-    // No real package names to verify (bare `vp install` / `npm install` from
-    // manifest, or only flags like `-- --ignore-workspace`) -> nothing to vet.
-    if (pkgs.length === 0) {
-      return { blocked: false, ask: false, reason: "" };
-    }
-    const learned = loadLearnedPackages();
-    if (pkgs.every((p) => isTrustedPackage(p, config.trustedPackages, learned))) {
-      return { blocked: false, ask: false, reason: "" };
-    }
-  }
-
-  // 2. Check against patterns from JSON (may block or ask)
+  // 1. Check against patterns from JSON. Blocks win over asks regardless of
+  // where they sit in the list, so the first ask is held until every block
+  // pattern and every path check below has had its say.
+  let pendingAsk = "";
   for (const { pattern, reason, ask: shouldAsk } of config.bashToolPatterns) {
+    if (shouldAsk && pendingAsk) continue; // only the first ask reason is used
     try {
-      const regex = new RegExp(pattern, "i");
-      if (regex.test(command)) {
-        if (shouldAsk) {
-          return { blocked: false, ask: true, reason };
-        } else {
-          return { blocked: true, ask: false, reason: `Blocked: ${reason}` };
-        }
-      }
+      if (!new RegExp(pattern, "i").test(command)) continue;
     } catch {
       continue;
     }
+    if (!shouldAsk) {
+      return { blocked: true, ask: false, reason: `Blocked: ${reason}` };
+    }
+    pendingAsk = reason;
   }
 
   // 2. Check for ANY access to zero-access paths (including reads)
@@ -278,6 +274,23 @@ function checkCommand(
     if (result.blocked) {
       return { ...result, ask: false };
     }
+  }
+
+  // 5. Package install / runner naming an untrusted package. Derived from the
+  // quote-aware detector in shared.ts (the single source of truth for what
+  // counts as a package command), and only checked after every block above:
+  // a trusted install must never carry a blocked command along with it
+  // (`npm install eslint && rm -rf ~/notes`).
+  if (!pendingAsk) {
+    const unverified = unverifiedPackages(command, config);
+    if (unverified.length > 0) {
+      pendingAsk = `package install/runner: verify package name(s): ${unverified.join(", ")}`;
+    }
+  }
+
+  // Nothing blocked - now a held-back ask can be raised.
+  if (pendingAsk) {
+    return { blocked: false, ask: true, reason: pendingAsk };
   }
 
   return { blocked: false, ask: false, reason: "" };
