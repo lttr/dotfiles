@@ -5,6 +5,7 @@
 // Usage: aiboard [project-dir ...] [--port 4517] [--no-open]
 // Default project dir is the cwd. Each dir must contain an .aiwork/ folder.
 import $ from "jsr:@david/dax";
+import { marked } from "npm:marked@15";
 
 // ---------- CLI ----------
 
@@ -68,40 +69,14 @@ const escHtml = (s: string) =>
   s.replace(/[&<>"]/g, (c) =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c] as string));
 
-// minimal markdown: headings, bullets, bold, inline code, fenced code
-function mdToHtml(src: string): string {
-  const out: string[] = [];
-  let inCode = false, inList = false;
-  for (const line of src.split("\n")) {
-    if (line.startsWith("```")) {
-      out.push(inCode ? "</pre>" : "<pre>");
-      inCode = !inCode;
-      continue;
-    }
-    if (inCode) {
-      out.push(escHtml(line));
-      continue;
-    }
-    const h = escHtml(line)
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
-    const isLi = /^\s*[-*] /.test(line);
-    if (isLi && !inList) {
-      out.push("<ul>");
-      inList = true;
-    }
-    if (!isLi && inList) {
-      out.push("</ul>");
-      inList = false;
-    }
-    if (/^#{1,6} /.test(line)) out.push("<h4>" + h.replace(/^#+ /, "") + "</h4>");
-    else if (isLi) out.push("<li>" + h.replace(/^\s*[-*] /, "") + "</li>");
-    else if (line.trim()) out.push("<p>" + h + "</p>");
-  }
-  if (inList) out.push("</ul>");
-  if (inCode) out.push("</pre>");
-  return out.join("\n");
-}
+// GFM markdown via marked; HTML comments render as muted asides
+const renderer = new marked.Renderer();
+renderer.html = ({ text }: { text: string }) => {
+  const m = text.trim().match(/^<!--([\s\S]*?)-->$/);
+  return m ? `<div class="md-comment">${escHtml(m[1].trim())}</div>` : text;
+};
+marked.use({ renderer, gfm: true, breaks: true });
+const mdToHtml = (src: string) => marked.parse(src, { async: false }) as string;
 
 function parseFrontmatter(text: string): Record<string, string> {
   const m = text.match(/^---\n([\s\S]*?)\n---/);
@@ -239,6 +214,17 @@ for (const p of projects) {
 
 // ---------- Server ----------
 
+// frontmatter block -> key/value rows (unparseable lines shown verbatim)
+function fmToHtml(yaml: string): string {
+  const rows = yaml.split("\n").filter((l) => l.trim()).map((line) => {
+    const kv = line.match(/^(\w[\w-]*):\s*(.*)$/);
+    return kv
+      ? `<div class="fm-row"><span class="fm-key">${escHtml(kv[1])}</span><span>${escHtml(kv[2])}</span></div>`
+      : `<div class="fm-row">${escHtml(line)}</div>`;
+  });
+  return `<div class="frontmatter">${rows.join("")}</div>`;
+}
+
 const docPage = (title: string, body: string) => `<!doctype html>
 <html lang="en">
 <head>
@@ -246,20 +232,52 @@ const docPage = (title: string, body: string) => `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escHtml(title)}</title>
 <style>
-  :root { --surface: #efeeea; --ink: #1a1a19; --ink-2: #5f5e5a; --line: #e3e1dc; }
+  :root { --surface: #efeeea; --ink: #1a1a19; --ink-2: #5f5e5a; --line: #e3e1dc;
+          --accent: #4a6fa5; --subtle: rgba(127, 127, 127, 0.12); }
   @media (prefers-color-scheme: dark) {
-    :root { --surface: #232321; --ink: #ececea; --ink-2: #a3a29c; --line: #383835; }
+    :root { --surface: #232321; --ink: #ececea; --ink-2: #a3a29c; --line: #383835;
+            --accent: #7f9fce; }
   }
+  * { box-sizing: border-box; }
   body { margin: 0 auto; max-width: 46rem; padding: 32px 20px;
          background: var(--surface); color: var(--ink);
          font: 16px/1.6 system-ui, sans-serif; }
-  h4 { font-size: 18px; margin: 20px 0 6px; }
-  pre { background: rgba(127, 127, 127, 0.12); padding: 10px 12px;
-        border-radius: 6px; overflow-x: auto; }
-  code { background: rgba(127, 127, 127, 0.12); padding: 0 4px; border-radius: 3px; }
+  h1, h2, h3, h4, h5, h6 { margin: 24px 0 12px; font-weight: 600; line-height: 1.25; }
+  h1 { font-size: 1.6em; border-bottom: 1px solid var(--line); padding-bottom: 0.3em; }
+  h2 { font-size: 1.3em; border-bottom: 1px solid var(--line); padding-bottom: 0.3em; }
+  h3 { font-size: 1.15em; }
+  p, ul, ol, pre, table, blockquote { margin: 0 0 14px; }
+  ul, ol { padding-left: 1.8em; }
+  li { margin: 0.2em 0; }
+  li:has(> input[type=checkbox]) { list-style: none; }
+  li > input[type=checkbox] { margin: 0 0.45em 0 -1.5em; }
+  code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+         font-size: 85%; background: var(--subtle); padding: 0.15em 0.35em;
+         border-radius: 2px; }
+  pre { background: var(--subtle); padding: 12px 14px; border-radius: 2px;
+        overflow-x: auto; line-height: 1.45; }
+  pre code { background: transparent; padding: 0; }
+  blockquote { padding: 0 1em; color: var(--ink-2);
+               border-left: 3px solid var(--line); }
+  hr { border: 0; height: 2px; background: var(--line); margin: 24px 0; }
+  table { border-collapse: collapse; display: block; max-width: 100%;
+          overflow-x: auto; }
+  th, td { border: 1px solid var(--line); padding: 5px 11px; }
+  th { background: var(--subtle); }
+  tr:nth-child(2n) td { background: rgba(127, 127, 127, 0.05); }
+  img { max-width: 100%; border-radius: 2px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .md-comment { color: var(--ink-2); font-style: italic; font-size: 14px;
+                border-left: 2px solid var(--line); padding: 6px 10px;
+                margin: 0 0 14px; opacity: 0.85; }
   .file { color: var(--ink-2); font-size: 14px; border-bottom: 1px solid var(--line);
           padding-bottom: 8px; margin-bottom: 16px; }
-  .fm { color: var(--ink-2); font-size: 13px; }
+  .frontmatter { background: var(--subtle); border-left: 3px solid var(--accent);
+                 border-radius: 2px; padding: 10px 14px; margin: 0 0 20px;
+                 font-size: 14px; }
+  .fm-row { display: flex; gap: 8px; margin: 3px 0; }
+  .fm-key { color: var(--ink-2); min-width: 90px; }
 </style>
 </head>
 <body><div class="file">${escHtml(title)}</div>
@@ -296,12 +314,12 @@ const html = `<!doctype html>
   #conn.ok { background: var(--good); }
   main { padding: 16px 20px; display: grid; gap: 20px; }
   .task { background: var(--card); border: 1px solid var(--line);
-          border-radius: 8px; padding: 14px 16px; }
+          border-radius: 2px; padding: 14px 16px; }
   .task-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
                margin-bottom: 10px; }
   .task-head .proj { color: var(--ink-2); font-size: 14px; }
   .task-head .name { font-weight: 600; }
-  .badge { font-size: 13px; padding: 1px 8px; border-radius: 10px;
+  .badge { font-size: 13px; padding: 1px 8px; border-radius: 2px;
            border: 1px solid var(--line); color: var(--ink-2); }
   .badge.running { color: var(--good); border-color: var(--good); }
   .badge.running::before { content: "● "; animation: pulse 1.5s infinite; }
@@ -312,7 +330,7 @@ const html = `<!doctype html>
            align-content: start; }
   .col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
             color: var(--ink-2); margin: 0 0 8px; font-weight: 600; }
-  .card { border: 1px solid var(--line); border-left-width: 3px; border-radius: 6px;
+  .card { border: 1px solid var(--line); border-left-width: 3px; border-radius: 2px;
           padding: 8px 10px; margin-bottom: 8px; background: var(--card); }
   .card .t { font-weight: 500; margin-bottom: 2px; }
   .card .m { font-size: 14px; color: var(--ink-2); }
@@ -320,16 +338,31 @@ const html = `<!doctype html>
   .card.in-progress { border-left-color: var(--warn); }
   .card.blocked { border-left-color: var(--crit); }
   .card.ready { border-left-color: var(--accent); }
-  .notes { border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px;
+  .notes { border: 1px solid var(--line); border-radius: 2px; padding: 10px 14px;
            overflow: auto; max-height: 420px; font-size: 15px; }
-  .notes h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
-              color: var(--ink-2); margin: 0 0 8px; font-weight: 600;
-              position: sticky; top: -10px; background: var(--card); padding: 4px 0; }
-  .notes pre { background: var(--surface); padding: 6px 8px; border-radius: 4px;
-               overflow-x: auto; }
-  .notes code { background: var(--surface); padding: 0 3px; border-radius: 3px; }
-  .notes ul { padding-left: 20px; margin: 4px 0; }
-  .notes h4 { margin: 10px 0 4px; font-size: 15px; }
+  .notes .nt { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
+               color: var(--ink-2); margin: 0 0 8px; font-weight: 600;
+               position: sticky; top: -10px; background: var(--card); padding: 4px 0; }
+  .notes pre { background: var(--surface); padding: 6px 8px; border-radius: 2px;
+               overflow-x: auto; font-size: 13px; line-height: 1.45; }
+  .notes code { background: var(--surface); padding: 0 3px; border-radius: 2px;
+                font-size: 90%; }
+  .notes pre code { background: transparent; padding: 0; font-size: 100%; }
+  .notes ul, .notes ol { padding-left: 20px; margin: 4px 0; }
+  .notes p { margin: 6px 0; }
+  .notes :is(h1, h2, h3, h4, h5, h6):not(.nt) { margin: 12px 0 4px; font-size: 15px;
+              font-weight: 600; border: 0; padding: 0; }
+  .notes li:has(> input[type=checkbox]) { list-style: none; }
+  .notes li > input[type=checkbox] { margin: 0 0.4em 0 -1.3em; }
+  .notes blockquote { margin: 6px 0; padding: 0 10px; color: var(--ink-2);
+                      border-left: 3px solid var(--line); }
+  .notes table { border-collapse: collapse; margin: 6px 0; display: block;
+                 max-width: 100%; overflow-x: auto; font-size: 14px; }
+  .notes th, .notes td { border: 1px solid var(--line); padding: 3px 8px; }
+  .notes hr { border: 0; height: 1px; background: var(--line); margin: 12px 0; }
+  .notes .md-comment { color: var(--ink-2); font-style: italic; font-size: 13px;
+                       border-left: 2px solid var(--line); padding: 2px 8px;
+                       margin: 6px 0; opacity: 0.85; }
   .empty { color: var(--ink-2); font-style: italic; }
   .idle summary { cursor: pointer; color: var(--ink-2); font-size: 14px;
                   text-transform: uppercase; letter-spacing: 0.05em;
@@ -403,7 +436,7 @@ function render(projects) {
     return;
   }
   const idleHtml = idle.length
-    ? \`<details class="idle"\${active.length ? "" : " open"}>
+    ? \`<details class="idle" open>
         <summary>Idle / done (\${idle.length})</summary>
         \${idle.map(idleRow).join("")}</details>\`
     : "";
@@ -420,8 +453,8 @@ function render(projects) {
       ? \`<div class="board">\${cols}</div>\`
       : '<div class="empty">No tickets — spec-level work item.</div>';
     const notes = task.notes
-      ? \`<div class="notes"><h3><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
-      : '<div class="notes"><h3>notes</h3><p class="empty">No notes yet.</p></div>';
+      ? \`<div class="notes"><h3 class="nt"><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
+      : '<div class="notes"><h3 class="nt">notes</h3><p class="empty">No notes yet.</p></div>';
     return \`<section class="task">
       <div class="task-head">
         <span class="proj">\${esc(task.proj)} /</span>
@@ -481,7 +514,7 @@ Deno.serve({
     const text = await target.readText();
     if (target.toString().endsWith(".md")) {
       const fm = text.match(/^---\n([\s\S]*?)\n---\n?/);
-      const body = (fm ? `<pre class="fm">${escHtml(fm[1])}</pre>` : "") +
+      const body = (fm ? fmToHtml(fm[1]) : "") +
         mdToHtml(fm ? text.slice(fm[0].length) : text);
       return new Response(docPage(target.basename(), body), {
         headers: { "content-type": "text/html; charset=utf-8" },
