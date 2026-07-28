@@ -27,9 +27,8 @@
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
     ],
-    "defaultMode": "dontAsk"
+    "defaultMode": "auto"
   },
-  "model": "opus",
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
