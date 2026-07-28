@@ -29,6 +29,7 @@
     ],
     "defaultMode": "dontAsk"
   },
+  "model": "opus",
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
@@ -182,6 +183,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "model": "claude-fable-5[1m]"
+  "maxSkillDescriptionChars": 250
 }
