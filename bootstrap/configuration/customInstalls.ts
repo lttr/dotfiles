@@ -84,17 +84,6 @@ export const ferdium: Config = {
   },
 };
 
-// Claude Desktop - fetched from GitHub releases
-const claudeDesktopDebUrl = await getGitHubReleaseDebUrl(
-  "aaddrick/claude-desktop-debian",
-);
-export const claudeDesktop: Config = {
-  debianPackage: {
-    name: "claude-desktop",
-    url: claudeDesktopDebUrl,
-  },
-};
-
 // Update: curl -fsSL https://vite.plus | bash
 export const vitePlus: Config = {
   urlScript: {
@@ -365,7 +354,6 @@ export const customInstalls: Config[] = [
   azureCli,
   brew,
   claudeCode,
-  claudeDesktop,
   cursors,
   exp,
   ferdium,
