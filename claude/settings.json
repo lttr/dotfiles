@@ -1,60 +1,83 @@
 {
-  "fileSuggestion": {
-    "type": "command",
-    "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
-  },
+  "autoCompactEnabled": false,
+  "autoMemoryEnabled": false,
+  "awaySummaryEnabled": false,
+  "disableClaudeAiConnectors": true,
+  "disableRemoteControl": true,
+  "effortLevel": "high",
+  "maxSkillDescriptionChars": 250,
+  "outputStyle": "concise",
+  "preferredNotifChannel": "notifications_disabled",
+  "promptSuggestionEnabled": false,
+  "remoteControlAtStartup": false,
+  "showTurnDuration": false,
   "skillListingBudgetFraction": 0.005,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
+  "spinnerTipsEnabled": false,
+  "terminalProgressBarEnabled": false,
+  "tui": "default",
+  "verbose": false,
+
+  "enabledPlugins": {
+    "cc@lttr-claude-marketplace": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "fileSuggestion": {
+    "command": "~/dotfiles/claude/scripts/file-suggestion.sh",
+    "type": "command"
+  },
   "permissions": {
     "allow": [],
-    "deny": [
-      "Bash(rm -rf /*:*)",
-      "Bash(rm -rf ~/*:*)",
-      "Bash(sudo rm -rf:*)",
-      "Bash(mkfs:*)",
-      "Bash(dd if=* of=/dev/*:*)",
-      "AskUserQuestion",
-      "EnterPlanMode",
-      "ExitPlanMode",
-      "NotebookEdit",
-      "SendMessage",
-      "PushNotification",
-      "RemoteTrigger",
-      "CronCreate",
-      "CronDelete",
-      "CronList"
-    ],
     "ask": [
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
     ],
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "deny": [
+      "AskUserQuestion",
+      "Bash(dd if=* of=/dev/*:*)",
+      "Bash(mkfs:*)",
+      "Bash(rm -rf /*:*)",
+      "Bash(rm -rf ~/*:*)",
+      "Bash(sudo rm -rf:*)",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "NotebookEdit",
+      "PushNotification",
+      "RemoteTrigger",
+      "SendMessage"
+    ]
   },
-  "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
     "fewer-permission-prompts": "off",
-    "schedule": "name-only",
-    "loop": "name-only",
     "keybindings-help": "name-only",
+    "loop": "name-only",
+    "schedule": "name-only",
     "update-config": "name-only"
   },
+  "statusLine": {
+    "command": "node ~/dotfiles/claude/scripts/status-line.js",
+    "padding": 0,
+    "type": "command"
+  },
+  "worktree": {
+    "baseRef": "fresh"
+  },
+
   "hooks": {
-    "SessionStart": [
+    "PermissionRequest": [
       {
-        "matcher": "startup",
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hooks/context-agents-md.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "clear",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/dotfiles/claude/hooks/reset-timer-on-clear.sh"
+            "command": "~/dotfiles/claude/hooks/auto-allow-claude-paths.ts",
+            "timeout": 5
           }
         ]
       }
@@ -85,17 +108,6 @@
           {
             "type": "command",
             "command": "~/dotfiles/claude/hooks/damage-control/record-approved-packages.ts",
-            "timeout": 5
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/dotfiles/claude/hooks/log-slash-command.sh",
             "timeout": 5
           }
         ]
@@ -133,46 +145,36 @@
         ]
       }
     ],
-    "PermissionRequest": [
+    "SessionStart": [
       {
-        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "matcher": "startup",
         "hooks": [
           {
             "type": "command",
-            "command": "~/dotfiles/claude/hooks/auto-allow-claude-paths.ts",
+            "command": "~/dotfiles/claude/hooks/context-agents-md.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/reset-timer-on-clear.sh"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/log-slash-command.sh",
             "timeout": 5
           }
         ]
       }
     ]
-  },
-  "worktree": {
-    "baseRef": "fresh"
-  },
-  "disableRemoteControl": true,
-  "statusLine": {
-    "type": "command",
-    "command": "node ~/dotfiles/claude/scripts/status-line.js",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "cc@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
-  },
-  "outputStyle": "concise",
-  "spinnerTipsEnabled": false,
-  "effortLevel": "high",
-  "promptSuggestionEnabled": false,
-  "awaySummaryEnabled": false,
-  "tui": "default",
-  "autoMemoryEnabled": false,
-  "skipDangerousModePermissionPrompt": true,
-  "verbose": false,
-  "preferredNotifChannel": "notifications_disabled",
-  "autoCompactEnabled": false,
-  "showTurnDuration": false,
-  "terminalProgressBarEnabled": false,
-  "remoteControlAtStartup": false,
-  "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  }
 }
