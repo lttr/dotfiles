@@ -160,14 +160,6 @@
     "cc@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "growthbook-skills": {
-      "source": {
-        "source": "github",
-        "repo": "growthbook/skills"
-      }
-    }
-  },
   "outputStyle": "concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
