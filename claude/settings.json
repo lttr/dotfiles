@@ -172,6 +172,11 @@
             "type": "command",
             "command": "~/dotfiles/claude/hooks/log-slash-command.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "~/dotfiles/claude/hooks/session-title.sh",
+            "timeout": 5
           }
         ]
       }
