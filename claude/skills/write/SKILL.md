@@ -23,7 +23,7 @@ First:
 
 No fixed length. A two-line note is complete if the topic is small. A page is fine if the topic needs it. The cut rule: drop any sentence that doesn't change what the reader understands or does next.
 
-When rewriting an existing text, the result must be meaningfully shorter or clearer than the original. If a pass produces neither, say so and keep the original instead of shuffling its words.
+When rewriting an existing text, the result must be meaningfully shorter or clearer than the original. Shorter includes omitting whole sections that are not essential, not just tighter phrasing. If a pass produces neither, say so and keep the original instead of shuffling its words.
 
 ## 3. Self-contained
 
@@ -45,21 +45,21 @@ Right:
 
 ## 5. Structure for scanning
 
-A note is scanned before it is read. Give each idea a visible anchor: a **bold lead-in phrase** followed by a colon, a bullet in a parallel list, a heading in a long note. Use compact notation when the reader gets it faster than from a sentence: arrow chains (`ad hoc → written → enforced`), parentheses for side remarks and rejected alternatives.
+A note is scanned before it is read. Give each idea a visible anchor: a **bold lead-in phrase** followed by a colon, a bullet in a parallel list, a heading in a long note. Use compact notation when the reader gets it faster than from a sentence: arrow chains (`ad hoc → written → enforced`), parentheses for side remarks and rejected alternatives. Notation compresses form, not vocabulary: the words inside stay plain.
 
-Never remove structure that already works. When rewriting, keep or sharpen the original's anchors; turning a list into paragraphs is a downgrade. The only guard: a bare list with no connecting claim makes the reader rebuild the argument, so state the claim the list supports.
+For the content you keep, don't remove structure that already works: keep or sharpen the original's anchors; turning a list into paragraphs is a downgrade. (Dropping a non-essential section entirely is fine, per rule 2.) The only guard: a bare list with no connecting claim makes the reader rebuild the argument, so state the claim the list supports.
 
 ## 6. Short sentences, fragments allowed
 
-Prefer two short sentences over one joined by an em-dash or semicolon. Inside structured lines (bullets, definitions, parentheticals), fragments are fine when the meaning survives.
+Prefer two short sentences over one joined by an em-dash or semicolon. Fragments are fine anywhere the meaning survives.
 
 ## 7. Say it once
 
-No repetition. No closing summary that restates the note. When the point is made, stop.
+Say each point once, no closing summary. When the point is made, stop.
 
 ## 8. Evidence serves understanding
 
-Paraphrase errors, paths, and reproduction steps to whatever precision the reader needs. Exact verbatim output is not required. Keep a detail exact only when the reader will act on it (a command to run, a config key to change).
+Paraphrase errors, paths, and reproduction steps to whatever precision the reader needs. Keep a detail exact only when the reader will act on it (a command to run, a config key to change).
 
 ## 9. Final pass: grep the draft
 
@@ -69,10 +69,4 @@ Never deliver a draft unchecked. Write it to a file (scratchpad if the note has 
 grep -nE '—|;' <draft-file>
 ```
 
-Every hit is a defect, except semicolons inside code (fenced blocks or backticked spans). Fix by position:
-
-- After a bold lead-in (`**Lead-in** — rest`): replace with a colon.
-- Joining two clauses: split into two sentences.
-- Introducing an aside: move the aside into parentheses.
-
-Re-run until grep prints nothing (or only code-span semicolons remain). Only then deliver the note.
+Every hit outside code (fenced blocks or backticked spans) is a defect. Fix each per rules 5–6: a colon after a bold lead-in, a split into two sentences, or the aside moved into parentheses. Re-run until only code hits remain, then deliver.
