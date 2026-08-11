@@ -31,7 +31,9 @@ The note carries its own meaning. The reader should not need to open a link, the
 
 ## 4. Simple language, real terms
 
-Plain words by default. Use an established domain term when the domain (or a project glossary) already uses it; don't invent a plainer synonym for a term everyone knows.
+Readers may not be native English speakers. Use common English words. When a rare or idiomatic word has an everyday synonym, take the synonym: "rung" → "level", "dissolve" → "turn into", "earns its place" → "is worth using". Don't coin shorthand of your own ("pack users"); repeat the full phrase or restructure.
+
+The one exception is established domain terms. When the domain (or a project glossary) already uses a term, use it; don't invent a plainer synonym for a term everyone knows.
 
 Overplain:
 
@@ -43,9 +45,9 @@ Right:
 
 ## 5. Structure for scanning
 
-A note is scanned before it is read. Give each idea a visible anchor: a **bold lead-in phrase**, a bullet in a parallel list, a heading in a long note. Compact notation earns its place when the reader gets it faster than from a sentence: arrow ladders (`ad hoc → written → enforced`), parentheticals for asides and rejected alternatives.
+A note is scanned before it is read. Give each idea a visible anchor: a **bold lead-in phrase** followed by a colon, a bullet in a parallel list, a heading in a long note. Use compact notation when the reader gets it faster than from a sentence: arrow chains (`ad hoc → written → enforced`), parentheses for side remarks and rejected alternatives.
 
-Never strip structure that is already doing its job. When rewriting, keep or sharpen the original's anchors; dissolving a list into paragraphs is a downgrade. The only guard: a bare list with no connecting claim makes the reader reconstruct the argument, so state the claim the list supports.
+Never remove structure that already works. When rewriting, keep or sharpen the original's anchors; turning a list into paragraphs is a downgrade. The only guard: a bare list with no connecting claim makes the reader rebuild the argument, so state the claim the list supports.
 
 ## 6. Short sentences, fragments allowed
 
@@ -58,3 +60,19 @@ No repetition. No closing summary that restates the note. When the point is made
 ## 8. Evidence serves understanding
 
 Paraphrase errors, paths, and reproduction steps to whatever precision the reader needs. Exact verbatim output is not required. Keep a detail exact only when the reader will act on it (a command to run, a config key to change).
+
+## 9. Final pass: grep the draft
+
+Never deliver a draft unchecked. Write it to a file (scratchpad if the note has no target file), then run:
+
+```sh
+grep -nE '—|;' <draft-file>
+```
+
+Every hit is a defect, except semicolons inside code (fenced blocks or backticked spans). Fix by position:
+
+- After a bold lead-in (`**Lead-in** — rest`): replace with a colon.
+- Joining two clauses: split into two sentences.
+- Introducing an aside: move the aside into parentheses.
+
+Re-run until grep prints nothing (or only code-span semicolons remain). Only then deliver the note.
