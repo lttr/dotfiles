@@ -23,6 +23,8 @@ First:
 
 No fixed length. A two-line note is complete if the topic is small. A page is fine if the topic needs it. The cut rule: drop any sentence that doesn't change what the reader understands or does next.
 
+When rewriting an existing text, the result must be meaningfully shorter or clearer than the original. If a pass produces neither, say so and keep the original instead of shuffling its words.
+
 ## 3. Self-contained
 
 The note carries its own meaning. The reader should not need to open a link, the repo, or another doc to get the message. Don't paste whole docs in either. Summarize what matters; reference the rest.
@@ -39,13 +41,15 @@ Right:
 
 > The editor merges concurrent edits with CRDTs, so no central server decides the order.
 
-## 5. Structure only when it helps
+## 5. Structure for scanning
 
-Prose is the backbone. Add bullets or a heading when the note is long enough that scanning beats reading, or for short enumerable facts. Never bullets-only: a list without connecting prose makes the reader reconstruct the argument themselves.
+A note is scanned before it is read. Give each idea a visible anchor: a **bold lead-in phrase**, a bullet in a parallel list, a heading in a long note. Compact notation earns its place when the reader gets it faster than from a sentence: arrow ladders (`ad hoc → written → enforced`), parentheticals for asides and rejected alternatives.
 
-## 6. Short sentences
+Never strip structure that is already doing its job. When rewriting, keep or sharpen the original's anchors; dissolving a list into paragraphs is a downgrade. The only guard: a bare list with no connecting claim makes the reader reconstruct the argument, so state the claim the list supports.
 
-Prefer two short sentences over one joined by an em-dash or semicolon.
+## 6. Short sentences, fragments allowed
+
+Prefer two short sentences over one joined by an em-dash or semicolon. Inside structured lines (bullets, definitions, parentheticals), fragments are fine when the meaning survives.
 
 ## 7. Say it once
 
