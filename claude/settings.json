@@ -1,38 +1,11 @@
 {
-  "autoCompactEnabled": false,
-  "autoMemoryEnabled": false,
-  "awaySummaryEnabled": false,
-  "disableClaudeAiConnectors": true,
-  "disableRemoteControl": true,
-  "effortLevel": "medium",
-  "maxSkillDescriptionChars": 250,
-  "outputStyle": "default",
-  "preferredNotifChannel": "notifications_disabled",
-  "promptSuggestionEnabled": false,
-  "remoteControlAtStartup": false,
-  "showTurnDuration": false,
-  "skillListingBudgetFraction": 0.005,
-  "skipAutoPermissionPrompt": true,
-  "skipDangerousModePermissionPrompt": true,
-  "spinnerTipsEnabled": false,
-  "terminalProgressBarEnabled": false,
-  "tui": "default",
-  "verbose": false,
-  "enabledPlugins": {
-    "cc@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
-  },
   "fileSuggestion": {
-    "command": "~/dotfiles/claude/scripts/file-suggestion.sh",
-    "type": "command"
+    "type": "command",
+    "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
+  "skillListingBudgetFraction": 0.005,
   "permissions": {
     "allow": [],
-    "ask": [
-      "Bash(git push --force:*)",
-      "Bash(git reset --hard:*)"
-    ],
-    "defaultMode": "auto",
     "deny": [
       "AskUserQuestion",
       "Bash(dd if=* of=/dev/*:*)",
@@ -49,8 +22,14 @@
       "PushNotification",
       "RemoteTrigger",
       "SendMessage"
-    ]
+    ],
+    "ask": [
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ],
+    "defaultMode": "auto"
   },
+  "disableClaudeAiConnectors": true,
   "skillOverrides": {
     "deep-research": "name-only",
     "fewer-permission-prompts": "off",
@@ -58,14 +37,6 @@
     "loop": "name-only",
     "schedule": "name-only",
     "update-config": "name-only"
-  },
-  "statusLine": {
-    "command": "node ~/dotfiles/claude/scripts/status-line.js",
-    "padding": 0,
-    "type": "command"
-  },
-  "worktree": {
-    "baseRef": "fresh"
   },
   "hooks": {
     "PermissionRequest": [
@@ -179,5 +150,35 @@
         ]
       }
     ]
-  }
+  },
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "disableRemoteControl": true,
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/dotfiles/claude/scripts/status-line.js",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "cc@lttr-claude-marketplace": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "outputStyle": "default",
+  "spinnerTipsEnabled": false,
+  "effortLevel": "medium",
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "tui": "default",
+  "autoMemoryEnabled": false,
+  "skipDangerousModePermissionPrompt": true,
+  "verbose": false,
+  "preferredNotifChannel": "notifications_disabled",
+  "autoCompactEnabled": false,
+  "showTurnDuration": false,
+  "terminalProgressBarEnabled": false,
+  "remoteControlAtStartup": false,
+  "skipAutoPermissionPrompt": true,
+  "maxSkillDescriptionChars": 250,
+  "model": "claude-fable-5[1m]"
 }
