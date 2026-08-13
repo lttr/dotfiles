@@ -4,12 +4,6 @@
 
 Verify (search/docs) before stating: CLI flags, API signatures, URLs, anything version-specific or post-cutoff. Never hallucinate or guess; don't state if unverified.
 
-## Secrets
-
-- Don't touch `.env`, `*-credentials.json` (hook blocks anyway). No workarounds (cat, ls -la, grep configs for env names).
-- `*.key`/`*.pem` are NOT hook-blocked (allowed for dev/simulated TLS). Still don't read or modify real private keys; dev/self-signed certs are fair game.
-- Need a value? Ask the user for that specific value.
-
 ## Tool Preferences
 
 When running shell commands, prefer these tools:
@@ -27,6 +21,6 @@ When running shell commands, prefer these tools:
 
 - I have my personal and work related notes located in `~/notes`. Search for files there whenever I need my notes.
 
-## Default Stack
+## Tech Stack
 
-For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle ORM**. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
+For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle**. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
