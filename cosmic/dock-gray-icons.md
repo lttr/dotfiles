@@ -40,4 +40,6 @@ The panel scales any source to its render size with a no-antialiasing (nearest-i
 
 Newly pinned apps show in color until a gray PNG plus shadow `.desktop` is added for them.
 
+An app update can silently defeat a shadow file: when the vendor's system `.desktop` gains a key the shadow copy lacks — seen 2026-08 when Chrome added `StartupWMClass=google-chrome` — the panel's matcher starts picking the system entry over the shadow one, and the icon reverts to color. Restarting the panel and validating the shadow file won't help; the fix is to copy the new key into the shadow file (keep `Icon=` pointing at the gray PNG), then `pkill -f cosmic-panel`.
+
 **Revert:** delete `~/.local/share/icons/dock-gray`, delete the shadow desktop files, restore kitty's `Icon=`, reset `active_hint` to 0. Leftover `~/.icons/hicolor/<size>/apps/<name>.png` gray copies and a copied `index.theme` are inert and can be removed too.
