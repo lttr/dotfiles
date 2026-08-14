@@ -4,6 +4,10 @@
 
 Verify (search/docs) before stating: CLI flags, API signatures, URLs, anything version-specific or post-cutoff. Never hallucinate or guess; don't state if unverified.
 
+## Asking Questions
+
+The AskUserQuestion tool is disabled. To ask me something, write it inline as `**Question:** <The question?>` and omit any mention of AskUserQuestion in your answer.
+
 ## Tool Preferences
 
 When running shell commands, prefer these tools:
