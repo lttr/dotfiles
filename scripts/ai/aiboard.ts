@@ -225,6 +225,68 @@ function fmToHtml(yaml: string): string {
   return `<div class="frontmatter">${rows.join("")}</div>`;
 }
 
+const mermaidStyles = `
+  .mermaid { margin: 0 0 14px; overflow-x: auto; text-align: center; cursor: zoom-in; }
+  .mermaid svg { max-width: 100%; height: auto; }
+  .mermaid.zoom { position: fixed; inset: 0; z-index: 99; margin: 0; padding: 24px;
+                  background: var(--surface); overflow: auto; cursor: zoom-out; }
+  .mermaid.zoom svg { max-width: none; }`;
+
+const mermaidScript = `<script>
+// mermaid fences become diagrams; cached so repeat renders don't flicker
+const mmdCache = new Map();
+let mmdLib = null;
+let mmdSeq = 0;
+
+async function drawMermaid() {
+  const blocks = [...document.querySelectorAll("code.language-mermaid")];
+  if (!blocks.length) return;
+  const swap = (code, svg) => {
+    const box = document.createElement("div");
+    box.className = "mermaid";
+    box.innerHTML = svg;
+    code.closest("pre").replaceWith(box);
+  };
+  const pending = [];
+  for (const code of blocks) {
+    const src = code.textContent;
+    const hit = mmdCache.get(src);
+    if (hit) swap(code, hit);
+    else pending.push([code, src]);
+  }
+  if (!pending.length) return;
+  mmdLib ??= import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs")
+    .then(({ default: m }) => {
+      m.initialize({
+        startOnLoad: false,
+        securityLevel: "loose", // strict strips the <br/>/<b> that labels commonly use
+        theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default",
+      });
+      return m;
+    })
+    .catch(() => null); // offline: leave the fenced source visible
+  const mermaid = await mmdLib;
+  if (!mermaid) return;
+  for (const [code, src] of pending) {
+    try {
+      const { svg } = await mermaid.render("mmd" + ++mmdSeq, src);
+      mmdCache.set(src, svg);
+      if (code.isConnected) swap(code, svg);
+    } catch { /* invalid diagram: keep the source */ }
+  }
+}
+document.addEventListener("DOMContentLoaded", drawMermaid);
+
+// a diagram is unreadable at column width — click to fill the window, click/Esc to restore
+document.addEventListener("click", (e) => {
+  e.target.closest?.(".mermaid")?.classList.toggle("zoom");
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  for (const box of document.querySelectorAll(".mermaid.zoom")) box.classList.remove("zoom");
+});
+<\/script>`;
+
 const docPage = (title: string, body: string) => `<!doctype html>
 <html lang="en">
 <head>
@@ -278,7 +340,9 @@ const docPage = (title: string, body: string) => `<!doctype html>
                  font-size: 14px; }
   .fm-row { display: flex; gap: 8px; margin: 3px 0; }
   .fm-key { color: var(--ink-2); min-width: 90px; }
+${mermaidStyles}
 </style>
+${mermaidScript}
 </head>
 <body><div class="file">${escHtml(title)}</div>
 ${body}
@@ -328,8 +392,11 @@ const html = `<!doctype html>
   @media (max-width: 900px) { .body { grid-template-columns: 1fr; } }
   .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
            align-content: start; }
-  .col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
-            color: var(--ink-2); margin: 0 0 8px; font-weight: 600; }
+  .col :is(h3, summary) { font-size: 13px; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--ink-2); margin: 0 0 8px;
+            font-weight: 600; }
+  .col summary { cursor: pointer; }
+  .col details:not([open]) summary { margin-bottom: 0; }
   .card { border: 1px solid var(--line); border-left-width: 3px; border-radius: 2px;
           padding: 8px 10px; margin-bottom: 8px; background: var(--card); }
   .card .t { font-weight: 500; margin-bottom: 2px; }
@@ -360,18 +427,25 @@ const html = `<!doctype html>
                  max-width: 100%; overflow-x: auto; font-size: 14px; }
   .notes th, .notes td { border: 1px solid var(--line); padding: 3px 8px; }
   .notes hr { border: 0; height: 1px; background: var(--line); margin: 12px 0; }
+${mermaidStyles}
   .notes .md-comment { color: var(--ink-2); font-style: italic; font-size: 13px;
                        border-left: 2px solid var(--line); padding: 2px 8px;
                        margin: 6px 0; opacity: 0.85; }
   .empty { color: var(--ink-2); font-style: italic; }
-  .idle summary { cursor: pointer; color: var(--ink-2); font-size: 14px;
+  .idle > summary { cursor: pointer; color: var(--ink-2); font-size: 14px;
                   text-transform: uppercase; letter-spacing: 0.05em;
                   margin-bottom: 6px; }
-  .idle-row { display: flex; gap: 8px; align-items: baseline;
+  .idle-task > summary { display: flex; gap: 8px; align-items: baseline;
+              cursor: pointer; list-style: none;
               padding: 5px 8px; border-bottom: 1px solid var(--line); }
-  .idle-row .proj { color: var(--ink-2); font-size: 14px; }
-  .idle-row .m { color: var(--ink-2); font-size: 14px; }
-  .idle-row .right { margin-left: auto; }
+  .idle-task > summary::-webkit-details-marker { display: none; }
+  .idle-task > summary::before { content: "▸"; color: var(--ink-2); }
+  .idle-task[open] > summary::before { content: "▾"; }
+  .idle-task > summary:hover { background: var(--surface); }
+  .idle-task .proj { color: var(--ink-2); font-size: 14px; }
+  .idle-task .m { color: var(--ink-2); font-size: 14px; }
+  .idle-task .right { margin-left: auto; }
+  .idle-body { padding: 10px 8px 14px; border-bottom: 1px solid var(--line); }
   a { color: inherit; text-decoration: none; }
   a:hover { text-decoration: underline; }
   a.doc { color: var(--accent); font-size: 14px; }
@@ -381,6 +455,7 @@ const html = `<!doctype html>
 <header><div id="conn"></div><h1>aiwork dashboard</h1>
   <span id="meta" class="badge"></span></header>
 <main id="main"><p class="empty">Loading…</p></main>
+${mermaidScript}
 <script>
 const esc = (s) => s.replace(/[&<>"]/g, (c) =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -389,6 +464,22 @@ const COLS = [
   ["blocked", "Blocked"], ["ready", "Ready"],
   ["in-progress", "In progress"], ["done", "Done"],
 ];
+
+// open/closed choices for every disclosure, so the SSE re-render can restore them
+const discState = new Map();
+document.addEventListener("toggle", (e) => {
+  const key = e.target.dataset?.disc;
+  if (key !== undefined) discState.set(key, e.target.open);
+}, true);
+// a link inside a summary should just follow the link, not toggle the disclosure
+document.addEventListener("click", (e) => {
+  if (e.target.closest?.("summary a")) e.stopPropagation();
+}, true);
+
+const disc = (key, dflt, cls, summary, body) =>
+  \`<details class="\${cls}" data-disc="\${esc(key)}"\${
+    (discState.get(key) ?? dflt) ? " open" : ""}>
+    <summary>\${summary}</summary>\${body}</details>\`;
 
 const href = (task, ...segs) =>
   \`/f/\${task.pi}/\${[task.name, ...segs].map(encodeURIComponent).join("/")}\`;
@@ -416,10 +507,34 @@ function age(mtime) {
 
 function idleRow(t) {
   const sum = t.tickets.length ? \`<span class="m">\${t.tickets.length} tickets done</span>\` : "";
-  return \`<div class="idle-row"><span class="proj">\${esc(t.proj)} /</span>
+  const head = \`<span class="proj">\${esc(t.proj)} /</span>
     <span>\${esc(t.name)}</span>\${sum}\${docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
-    <span class="m right">\${age(t.mtime)} ago</span></div>\`;
+    <span class="m right">\${age(t.mtime)} ago</span>\`;
+  // finished tasks keep their tickets — expand the row to read them
+  return disc("idle/" + taskKey(t), false, "idle-task", head,
+    \`<div class="idle-body">\${boardHtml(t, true)}</div>\`);
+}
+
+const taskKey = (task) => task.pi + "/" + task.name;
+
+function boardHtml(task, doneOpenByDefault) {
+  if (!task.tickets.length) {
+    return '<div class="empty">No tickets — spec-level work item.</div>';
+  }
+  const cols = COLS.map(([key, label]) => {
+    const items = task.tickets.filter((t) =>
+      key === "blocked" ? t.blocked : t.status === key && !t.blocked);
+    const body = items.map((t) => card(t, task)).join("") ||
+      '<div class="empty">—</div>';
+    const head = \`\${label} (\${items.length})\`;
+    // done piles up — keep it behind a disclosure of its own
+    const inner = key === "done" && items.length
+      ? disc(taskKey(task) + "/done", doneOpenByDefault, "", head, body)
+      : \`<h3>\${head}</h3>\${body}\`;
+    return \`<div class="col">\${inner}</div>\`;
+  }).join("");
+  return \`<div class="board">\${cols}</div>\`;
 }
 
 function render(projects) {
@@ -443,15 +558,7 @@ function render(projects) {
   document.getElementById("main").innerHTML = (active.length
     ? ""
     : '<p class="empty">Nothing running.</p>') + active.map((task) => {
-    const cols = COLS.map(([key, label]) => {
-      const items = task.tickets.filter((t) =>
-        key === "blocked" ? t.blocked : t.status === key && !t.blocked);
-      return \`<div class="col"><h3>\${label} (\${items.length})</h3>
-        \${items.map((t) => card(t, task)).join("") || '<div class="empty">—</div>'}</div>\`;
-    }).join("");
-    const board = task.tickets.length
-      ? \`<div class="board">\${cols}</div>\`
-      : '<div class="empty">No tickets — spec-level work item.</div>';
+    const board = boardHtml(task, false);
     const notes = task.notes
       ? \`<div class="notes"><h3 class="nt"><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
       : '<div class="notes"><h3 class="nt">notes</h3><p class="empty">No notes yet.</p></div>';
@@ -466,6 +573,7 @@ function render(projects) {
       <div class="body">\${board}\${notes}</div>
     </section>\`;
   }).join("") + idleHtml;
+  drawMermaid();
   // keep note logs scrolled to the latest entries
   for (const n of document.querySelectorAll(".notes")) n.scrollTop = n.scrollHeight;
 }
