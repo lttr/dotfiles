@@ -5,7 +5,7 @@ return {
   dependencies = { "folke/snacks.nvim" },
   config = true,
   opts = {
-    terminal_cmd = "claude --dangerously-skip-permissions",
+    terminal_cmd = "claude",
     focus_after_send = true,
     terminal = {
       split_width_percentage = 0.35,
