@@ -427,10 +427,6 @@
     }
   ],
   "zeroAccessPaths": [
-    ".env",
-    ".env.*",
-    ".env*.local",
-    "*.env",
     "~/.ssh/",
     "~/.gnupg/",
     "~/.aws/",
@@ -462,6 +458,12 @@
     "dump.sql",
     "backup.sql",
     "*.dump"
+  ],
+  "writeAskPaths": [
+    ".env",
+    ".env.*",
+    ".env*.local",
+    "*.env"
   ],
   "readOnlyPaths": [
     "/etc/",

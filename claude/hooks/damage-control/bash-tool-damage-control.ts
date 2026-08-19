@@ -260,7 +260,17 @@ function checkCommand(
     }
   }
 
-  // 3. Check for modifications to read-only paths (reads allowed)
+  // 3. Modifications to write-ask paths prompt for approval (reads allowed).
+  // Held as a pending ask so any block below still wins.
+  for (const askPath of config.writeAskPaths) {
+    if (pendingAsk) break;
+    const result = checkPathPatterns(scanCommand, askPath, READ_ONLY_BLOCKED, "protected path");
+    if (result.blocked) {
+      pendingAsk = `${result.reason.replace(/^Blocked: /, "")} - confirm with the user`;
+    }
+  }
+
+  // 4. Check for modifications to read-only paths (reads allowed)
   for (const readonlyPath of config.readOnlyPaths) {
     const result = checkPathPatterns(scanCommand, readonlyPath, READ_ONLY_BLOCKED, "read-only path");
     if (result.blocked) {
@@ -268,7 +278,7 @@ function checkCommand(
     }
   }
 
-  // 4. Check for deletions on no-delete paths (read/write/edit allowed)
+  // 5. Check for deletions on no-delete paths (read/write/edit allowed)
   for (const noDeletePath of config.noDeletePaths) {
     const result = checkPathPatterns(scanCommand, noDeletePath, NO_DELETE_BLOCKED, "no-delete path");
     if (result.blocked) {
@@ -276,7 +286,7 @@ function checkCommand(
     }
   }
 
-  // 5. Package install / runner naming an untrusted package. Derived from the
+  // 6. Package install / runner naming an untrusted package. Derived from the
   // quote-aware detector in shared.ts (the single source of truth for what
   // counts as a package command), and only checked after every block above:
   // a trusted install must never carry a blocked command along with it

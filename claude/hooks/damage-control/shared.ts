@@ -25,6 +25,7 @@ export interface Config {
   bashToolPatterns: Pattern[];
   allowedPaths: string[];
   zeroAccessPaths: string[];
+  writeAskPaths: string[];
   readOnlyPaths: string[];
   noDeletePaths: string[];
 }
@@ -131,7 +132,7 @@ export function loadConfig(callerUrl: string): Config {
 
   if (!existsSync(configPath)) {
     console.error(`Warning: Config not found at ${configPath}`);
-    return { trustedPackages: [], bashToolPatterns: [], allowedPaths: [], zeroAccessPaths: [], readOnlyPaths: [], noDeletePaths: [] };
+    return { trustedPackages: [], bashToolPatterns: [], allowedPaths: [], zeroAccessPaths: [], writeAskPaths: [], readOnlyPaths: [], noDeletePaths: [] };
   }
 
   const content = readFileSync(configPath, "utf-8");
@@ -142,6 +143,7 @@ export function loadConfig(callerUrl: string): Config {
     bashToolPatterns: config.bashToolPatterns || [],
     allowedPaths: config.allowedPaths || [],
     zeroAccessPaths: config.zeroAccessPaths || [],
+    writeAskPaths: config.writeAskPaths || [],
     readOnlyPaths: config.readOnlyPaths || [],
     noDeletePaths: config.noDeletePaths || [],
   };
@@ -377,26 +379,35 @@ export function isTrustedPackage(name: string, trustedPackages: string[], learne
 
 export function checkFilePath(
   filePath: string,
-  config: Config
-): { blocked: boolean; reason: string } {
+  config: Config,
+  isReadOnlyTool = false
+): { blocked: boolean; ask: boolean; reason: string } {
   // Check allowlist first - these paths are always permitted
   for (const allowedPath of config.allowedPaths) {
     if (matchPath(filePath, allowedPath)) {
-      return { blocked: false, reason: "" };
+      return { blocked: false, ask: false, reason: "" };
     }
   }
 
   for (const zeroPath of config.zeroAccessPaths) {
     if (matchPath(filePath, zeroPath)) {
-      return { blocked: true, reason: `zero-access path ${zeroPath} (no operations allowed)` };
+      return { blocked: true, ask: false, reason: `zero-access path ${zeroPath} (no operations allowed)` };
     }
   }
 
-  for (const readonlyPath of config.readOnlyPaths) {
-    if (matchPath(filePath, readonlyPath)) {
-      return { blocked: true, reason: `read-only path ${readonlyPath}` };
+  if (!isReadOnlyTool) {
+    for (const askPath of config.writeAskPaths) {
+      if (matchPath(filePath, askPath)) {
+        return { blocked: false, ask: true, reason: `modifying protected path ${askPath} - confirm with the user` };
+      }
+    }
+
+    for (const readonlyPath of config.readOnlyPaths) {
+      if (matchPath(filePath, readonlyPath)) {
+        return { blocked: true, ask: false, reason: `read-only path ${readonlyPath}` };
+      }
     }
   }
 
-  return { blocked: false, reason: "" };
+  return { blocked: false, ask: false, reason: "" };
 }

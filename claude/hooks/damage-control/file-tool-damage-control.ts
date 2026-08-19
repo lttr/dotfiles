@@ -37,12 +37,23 @@ async function main(): Promise<void> {
     process.exit(0);
   }
 
-  const { blocked, reason } = checkFilePath(filePath, config);
+  const { blocked, ask, reason } = checkFilePath(filePath, config, input.tool_name === "Read");
   if (blocked) {
     const toolName = input.tool_name.toLowerCase();
     logBlock("file-damage-control", `tool=${toolName} reason=${reason} path=${filePath}`);
     console.error(`SECURITY: Blocked ${toolName} to ${reason}: ${filePath}`);
     process.exit(2);
+  }
+
+  if (ask) {
+    const output = {
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "ask",
+        permissionDecisionReason: reason,
+      },
+    };
+    console.log(JSON.stringify(output));
   }
 
   process.exit(0);

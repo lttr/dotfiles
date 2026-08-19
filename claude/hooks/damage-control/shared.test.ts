@@ -129,8 +129,18 @@ test("e2e: a trusted package cannot smuggle a blocked command past the firewall"
   // block pattern and path check that followed it.
   assert.equal(runHook("npm install eslint && rm -rf /home/lukas/notes"), "block");
   assert.equal(runHook("npx vue-tsc; sudo rm -rf /"), "block");
-  assert.equal(runHook("npm install eslint && cat .env"), "block");
+  assert.equal(runHook("npm install eslint && echo x > pnpm-lock.yaml"), "block");
   assert.equal(runHook("npx vue-tsc && cat ~/.ssh/id_rsa"), "block");
+});
+
+test("e2e: .env reads allow, modifications ask", () => {
+  assert.equal(runHook("cat .env"), "allow");
+  assert.equal(runHook("grep -rn API_KEY .env.local"), "allow");
+  assert.equal(runHook("echo SECRET=x > .env"), "ask");
+  assert.equal(runHook("sed -i 's/a/b/' .env"), "ask");
+  assert.equal(runHook("rm .env.production"), "ask");
+  // blocks still win over a pending .env ask
+  assert.equal(runHook("echo SECRET=x > .env && sudo rm -rf /"), "block");
 });
 
 test("e2e: a suppressed package ask does not suppress unrelated asks", () => {
