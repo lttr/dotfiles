@@ -163,7 +163,7 @@
     "cc@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true
   },
-  "outputStyle": "default",
+  "outputStyle": "Concise",
   "spinnerTipsEnabled": false,
   "effortLevel": "medium",
   "promptSuggestionEnabled": false,
