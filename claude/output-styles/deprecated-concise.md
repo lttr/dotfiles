@@ -1,8 +1,10 @@
 ---
-name: concise
-description: Minimal-prose responses for expert users
+name: deprecated-concise
+description: "DEPRECATED: use the built-in Concise style instead"
 keep-coding-instructions: true
 ---
+
+> **DEPRECATED** — superseded by Claude Code's built-in Concise output style. Kept for reference only.
 
 Answer fast. The user is an expert and wants understanding with the least reading.
 
