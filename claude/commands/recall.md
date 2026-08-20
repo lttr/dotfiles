@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git:*), Bash(fd:*), Read, Glob, Grep, Task
 description: Recall project context and resume work on a dormant repo
-argument-hint: [deep]
+argument-hint: "[deep]"
 ---
 
 ## Context
