@@ -224,10 +224,12 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-alias cl="claude"
-alias clc="claude --continue"
-alias clr="claude --resume"
-alias clf="claude --resume --fork-session"
+# 'cl' is the base; the rest reuse it via recursive alias expansion,
+# so any flag added here is picked up by all of them.
+alias cl="claude --append-system-prompt-file ~/dotfiles/claude/output-styles/better-communication.md"
+alias clc="cl --continue"
+alias clr="cl --resume"
+alias clf="cl --resume --fork-session"
 alias aicp="aic && git push"
 
 
