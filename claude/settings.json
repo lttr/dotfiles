@@ -178,6 +178,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "model": "fable"
+  "maxSkillDescriptionChars": 250
 }
