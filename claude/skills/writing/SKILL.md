@@ -19,7 +19,7 @@ Rules for text that is easy to read and comprehend.
 
 6. **Don't splice with em-dashes.** Write two sentences instead, or use a colon or parentheses.
 
-7. **Say things once.** No closing recap, no restating the same fact in different words.
+7. **Say things once.** No closing recap, no restating the same fact in different words. If a rule needs more weight, make it more specific, not more frequent.
 
 8. **Know when to stop.** A short text is complete when the point is made.
 
