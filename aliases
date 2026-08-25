@@ -226,6 +226,7 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # alias cl="claude --append-system-prompt-file ~/dotfiles/claude/output-styles/better-communication.md"
 alias cl="claude"
+alias fab="cl --model fable"
 alias clc="cl --continue"
 alias clr="cl --resume"
 alias clf="cl --resume --fork-session"
