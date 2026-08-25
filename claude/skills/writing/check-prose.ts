@@ -7,7 +7,7 @@
  *           splices, emoji, exclamation marks)
  *   WARN  — readability heuristics, judge each (long sentences, oversized
  *           paragraphs, semicolon splices)
- *   INFO  — stats and weak hints (avg sentence length, passive voice)
+ *   INFO  — stats and weak hints (sentence-length distribution, passive voice)
  *
  * Usage: check-prose.ts <file.md> [--json]
  *        ... | check-prose.ts [-] [--json]     (read from stdin)
@@ -16,8 +16,9 @@
  * Code blocks, inline code, URLs, and frontmatter are ignored.
  */
 
-import { readFileSync } from "node:fs";
+import { readFileSync, realpathSync } from "node:fs";
 import { stdin } from "node:process";
+import { fileURLToPath } from "node:url";
 
 const BLACKLIST = [
   "load-bearing",
@@ -29,9 +30,17 @@ const BLACKLIST = [
   "seamless",
 ];
 
-const MAX_SENTENCE_WORDS = 35;
+const MAX_SENTENCE_WORDS = 30;
 const MAX_PARAGRAPH_SENTENCES = 6;
 const MAX_PARAGRAPH_WORDS = 130;
+
+// Flat prose reads monotone; the ratio floor sits below what ordinary varied
+// prose produces, so only genuinely uniform drafts trip it.
+const MIN_SENTENCES_FOR_SPREAD = 12;
+const MIN_SPREAD_RATIO = 1.45;
+
+// Abbreviation periods that must not end a sentence.
+const ABBR_RE = /\b(e\.g|i\.e|etc|vs|cf|et al|approx|Mr|Mrs|Ms|Dr|St)\./g;
 
 export type Level = "ERROR" | "WARN" | "INFO";
 export interface Finding {
@@ -109,15 +118,16 @@ export function analyze(source: string): Finding[] {
 
   // Paragraph- and sentence-scoped checks
   const paragraphs = collectParagraphs(prose);
-  const sentenceLengths: number[] = [];
+  // Stats cover prose sentences only: list-item fragments would skew them.
+  const proseLengths: number[] = [];
 
   for (const p of paragraphs) {
-    const sentences = p.text.split(/(?<=[.!?])\s+/).filter((s) => wordCount(s) > 0);
+    const sentences = splitSentences(p.text);
     const pWords = wordCount(p.text);
 
     for (const s of sentences) {
       const w = wordCount(s);
-      sentenceLengths.push(w);
+      if (!p.isListItem) proseLengths.push(w);
       if (w > MAX_SENTENCE_WORDS) {
         findings.push({
           level: "WARN", line: p.line, rule: "long-sentence",
@@ -134,13 +144,27 @@ export function analyze(source: string): Finding[] {
     }
   }
 
-  if (sentenceLengths.length > 0) {
-    const avg = sentenceLengths.reduce((a, b) => a + b, 0) / sentenceLengths.length;
-    const max = Math.max(...sentenceLengths);
+  if (proseLengths.length > 0) {
+    // Sentence length is right-skewed, so median and the p25-p75 range
+    // describe a draft better than mean and max (both dominated by the tail).
+    // q picks the value at fraction p of the sorted array, no interpolation.
+    const a = [...proseLengths].sort((x, y) => x - y);
+    const q = (p: number) => a[Math.floor(p * (a.length - 1))];
+    const p25 = q(0.25), p75 = q(0.75);
+    // spread = p75/p25 measures rhythm: ~1 means every sentence is the same
+    // length. Guard against p25 = 0 (sentences of only non-word tokens).
+    const spread = p25 > 0 ? p75 / p25 : 1;
     findings.push({
       level: "INFO", line: 0, rule: "stats",
-      message: `${sentenceLengths.length} sentences, avg ${avg.toFixed(1)} words, longest ${max}`,
+      message: `${a.length} prose sentences, median ${q(0.5)}w, p25-p75 ${p25}-${p75}, longest ${a[a.length - 1]}`,
     });
+    if (a.length >= MIN_SENTENCES_FOR_SPREAD && spread < MIN_SPREAD_RATIO) {
+      findings.push({
+        level: "WARN", line: 0, rule: "flat-rhythm",
+        message: `sentence lengths are uniform (p75/p25 = ${spread.toFixed(2)}, want >= ${MIN_SPREAD_RATIO}): ` +
+          `vary them, and check whether split sentences dropped their connectives`,
+      });
+    }
   }
 
   return findings.sort((a, b) => a.line - b.line);
@@ -172,6 +196,18 @@ function collectParagraphs(prose: string[]): Paragraph[] {
   });
   if (current) out.push(current);
   return out;
+}
+
+// Split text into sentences at ., !, or ? followed by whitespace. Splitting
+// naively would cut "e.g. foo" in two, inflating the sentence count and
+// deflating every length stat. So first swap abbreviation periods for a NUL
+// sentinel (a character that never occurs in prose), split, then swap back.
+export function splitSentences(text: string): string[] {
+  return text
+    .replace(ABBR_RE, (m) => m.replace(/\./g, "\u0000"))
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.replaceAll("\u0000", ".").trim())
+    .filter((s) => wordCount(s) > 0);
 }
 
 function wordCount(s: string): number {
@@ -228,5 +264,16 @@ async function main() {
   process.exit(0);
 }
 
-const invokedDirectly = process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop()!);
-if (invokedDirectly) main();
+// Run main() only when this file is executed as a script, not when imported.
+// Compare fully resolved paths: a basename match would break under symlinks
+// or after a rename, and the script would then silently exit without checking
+// anything.
+function invokedDirectly(): boolean {
+  if (!process.argv[1]) return false;
+  try {
+    return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(process.argv[1]);
+  } catch {
+    return false;
+  }
+}
+if (invokedDirectly()) main();

@@ -19,11 +19,13 @@ Rules for text that is easy to read and comprehend.
 
 6. **Don't splice with em-dashes.** Write two sentences instead, or use a colon or parentheses.
 
-7. **Say things once.** No closing recap, no restating the same fact in different words. If a rule needs more weight, make it more specific, not more frequent.
+7. **Vary sentence length.** Roughly a quarter short, a quarter over twenty words. Uniformly short sentences read monotone, and splitting a sentence usually deletes the "because" or "so" that carried the argument. The linter reports the spread, not just the average.
 
-8. **Know when to stop.** A short text is complete when the point is made.
+8. **Say things once.** No closing recap, no restating the same fact in different words. If a rule needs more weight, make it more specific, not more frequent.
 
-9. **Explain, don't just reference.** The text should make sense on its own, without opening links or files. Include exact commands or paths only when the reader will use them.
+9. **Know when to stop.** A short text is complete when the point is made.
+
+10. **Explain, don't just reference.** The text should make sense on its own, without opening links or files. Include exact commands or paths only when the reader will use them.
 
 ## Linter
 
@@ -37,5 +39,5 @@ EOF
 ```
 
 - **ERROR** (blacklist, em-dash splices, emoji, exclamation marks): always fix.
-- **WARN** (long sentences, oversized paragraphs, semicolon splices): fix when the flagged text really is hard to read, otherwise leave it and say why.
+- **WARN** (long sentences, oversized paragraphs, semicolon splices, flat rhythm): fix when the flagged text really is hard to read, otherwise leave it and say why.
 - **INFO** (stats, passive-voice hints): for your judgment only.
