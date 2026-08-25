@@ -224,9 +224,8 @@ alias isvg='sed "s/currentColor/#eee/" | icat'
 
 # AI
 
-# 'cl' is the base; the rest reuse it via recursive alias expansion,
-# so any flag added here is picked up by all of them.
-alias cl="claude --append-system-prompt-file ~/dotfiles/claude/output-styles/better-communication.md"
+# alias cl="claude --append-system-prompt-file ~/dotfiles/claude/output-styles/better-communication.md"
+alias cl="claude"
 alias clc="cl --continue"
 alias clr="cl --resume"
 alias clf="cl --resume --fork-session"
