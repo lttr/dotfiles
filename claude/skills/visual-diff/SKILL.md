@@ -1,8 +1,8 @@
 ---
 name: visual-diff
-description: Visual before/after walkthrough of a code change as a standalone HTML file with colour-coded module diagrams, seams, and key diffs.
+description: Visual before/after walkthrough of a change (working tree, branch, PR, or range) as a standalone HTML file with colour-coded module diagrams, seams, and key diffs.
 disable-model-invocation: true
-allowed-tools: Bash, Read, Grep, Glob
+allowed-tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
 # Visual Diff
@@ -20,26 +20,20 @@ away knowing how the shape of the code changed, not what every hunk does.
 Two rules make the page readable. Neither is negotiable.
 
 - **Every difference is colour-coded.** Green means added. Red means removed. Indigo means
-  moved or reversed. The palette is the Solarized-ish one from lukastrumm.com. A node or
-  edge that changed but is drawn in the default grey is a bug. There is no legend, because
-  the picture explains itself.
+  moved or reversed. The palette ships in the scaffold. A node or edge that changed but is
+  drawn in the default grey is a bug. There is no legend, because the picture explains
+  itself.
 - **The diagrams are the page.** They get the full width. The text scales with them.
   Nothing is squeezed into a narrow column.
 
 ## Words to use
-
-These terms carry the report. Use them in the same sense on every page.
 
 - **Module** is a real unit of code, not a file. A directory of five files behind one
   export is one module.
 - **Edge** is a dependency from one module to another. It is an import or a call.
 - **Seam** is an interface you can substitute across. A repository port and its fake are
   one seam.
-- **Node** is a box in a diagram. It usually stands for a module.
-- **Hunk** is one `@@` block inside a patch. **Patch** is the output of `git diff` for one
-  file.
-- **Before side** and **after side** are the two states of the code. Say "before" and
-  "after", not "old" and "new".
+- Say **before** and **after**, never "old" and "new".
 
 ## 1. Resolve the target
 
@@ -91,7 +85,8 @@ so plainly. Do not dress it up as architecture.
 Budget one before/after pair for the module graph, plus a handful of focused pairs at most.
 
 A diagram must show a **difference**. If the before and after render the same, cut the pair
-and write one sentence instead.
+and write one sentence instead. Signature changes need no diagram at all, because a
+two-column code block is clearer.
 
 Good candidates, best first:
 
@@ -99,19 +94,13 @@ Good candidates, best first:
 2. Call or data flow through the changed path. A sequence diagram is great for "6
    round-trips becomes 1".
 3. The seam, showing what plugs in on each side.
-4. Signature changes. These need no diagram. A two-column code block is clearer.
+
+The renderer covers flowchart, state, sequence, class, ER, and XY charts. It quietly
+ignores syntax it does not know, so stay inside that set.
 
 ## 4. Colour the change
 
-Every diagram uses the same three colours. They are CSS variables, so they follow the page
-theme. Paste this palette at the bottom of each flowchart or state diagram and tag the
-nodes.
-
-```
-  classDef gone fill:var(--del-fill),stroke:var(--del),stroke-width:1.5px
-  classDef new fill:var(--add-fill),stroke:var(--add),stroke-width:1.5px
-  classDef moved fill:var(--accent-fill),stroke:var(--accent),stroke-width:1.5px
-```
+Every diagram uses the same three colours, as CSS variables, so they follow the page theme.
 
 - On the **before** diagram, tag `gone` on everything the change deletes.
 - On the **after** diagram, tag `new` on everything the change introduces.
@@ -120,82 +109,34 @@ nodes.
 - Leave everything untouched untagged, so it stays default grey. The contrast is the whole
   point.
 
-Edges take the same colours through `linkStyle`. It indexes edges by declaration order,
-counting from 0, top to bottom, across the whole diagram.
-
-```
-  linkStyle 0,1 stroke:var(--del),stroke-width:1.5px
-  linkStyle 2 stroke:var(--add),stroke-width:1.5px
-```
-
-A wrong index silently colours the wrong arrow. Recount against the source after you write
-it, then check it in the browser.
-
-Two renderer limits are worth knowing, because `beautiful-mermaid` is not upstream mermaid.
-
-- `classDef` honours `fill`, `stroke`, `stroke-width`, and `color`. It **ignores**
-  `stroke-dasharray`. A dashed node border is not available. Carry "provisional" or
-  "substitutable" in the edge (`-.->`) or in the label instead.
-- `linkStyle` honours `stroke` and `stroke-width` only.
-
-Both accept `var(--token)` as written. It lands in the SVG unresolved, so one diagram
-recolours itself in light and dark. Never hardcode a hex in a diagram.
-
 Sequence diagrams cannot colour a single message. Show the change with the shape, such as
 five arrows becoming one. Put the colour in the card label above it.
 
+HTML-REPORT.md carries the `classDef` and `linkStyle` syntax and the renderer's limits.
+Two rules matter enough to state here: never hardcode a hex in a diagram, and recount your
+`linkStyle` indices against the arrows on screen, because a wrong index silently colours
+the wrong one.
+
 ## 5. Write the page
 
-There is no build step. You embed the **sources** and a small loader turns them into
-diagrams, highlighted code, and interactive diffs at view time. The loader pulls two ESM
-modules from a CDN.
-
-Three block types cover everything:
-
-```html
-<script type="text/plain" data-mermaid>
-flowchart LR
-  cli[cli.ts] --> core[core/]
-</script>
-
-<script type="text/plain" data-code="ts" data-side="now">
-export function parse(input: string): Order[]
-</script>
-
-<script type="text/plain" data-diff>
-diff --git a/src/cli.ts b/src/cli.ts
-@@ -1,4 +1,3 @@
-...
-</script>
-```
-
-So the pipeline for a diff is short. Run `git diff <range> -- <file>`, then paste the
-output between the tags.
-
-- `data-code` holds hand-picked code such as a signature. Shiki highlights it token by
-  token. Set the language in the attribute, for example `data-code="ts"`. Set
-  `data-side="was"` or `data-side="now"` to tint the border red or green.
-- `data-diff` holds a raw patch. `@pierre/diffs` renders it with Shiki highlighting,
-  word-level marks inside a line, selectable lines, and a sticky file header. Add
-  `data-diff="unified"` to force one column. The default is split on wide viewports and
-  unified on narrow ones.
-- `data-mermaid` holds diagram text. `beautiful-mermaid` renders it.
+You embed the **sources**, meaning Mermaid text, hand-picked code, and raw git patches.
+Nothing is pre-rendered: a loader turns them into diagrams, highlighted code, and
+interactive diffs when the page opens. Three block types cover everything: `data-mermaid`,
+`data-code`, and `data-diff`, all on `<script type="text/plain">`.
 
 **No code on the page is ever a single flat colour.** Every snippet and every patch goes
-through one of these two highlighters. Never hand-write a `<pre>` full of code and colour
-it red or green. The was/now signal lives in the border and the label, not in the text.
+through one of the two highlighters. Never hand-write a `<pre>` full of code and colour it
+red or green. The was/now signal lives in the border and the label, not in the text.
 
-Two things to get right when pasting:
+Keep each block to one file's diff. Split a multi-file `git diff` into one block per file.
 
-- Keep each block to one file's diff. Split a multi-file `git diff` into one block per file.
-- The only sequence that breaks a block is a literal `</script` inside the patch, because
-  the HTML parser ends the script there. It shows up when you diff HTML. Rewriting it would
-  falsify the patch. Put that one diff in a plain `<pre>` and leave the rest live.
+You write the **body only**, meaning everything from `<main>` to `</main>`. A build script
+wraps it in the scaffold that carries the head, the palette, and the loader, so none of that
+is ever yours to copy or retype.
 
-Then assemble the page following **[HTML-REPORT.md](./HTML-REPORT.md)**. Read it before you
-write any HTML. It has the scaffold, the loader to paste as is, the section menu, the theme
-tokens, and the diagram patterns. **[example.html](./example.html)** is a finished report
-built this way. Open it to see the target.
+Follow **[HTML-REPORT.md](./HTML-REPORT.md)** and read it before you write any HTML. It has
+the build command, the exact markup, the section menu, and the diagram patterns.
+**[example-body.html](./example-body.html)** is a finished body built this way.
 
 ## 6. Language
 
@@ -224,30 +165,22 @@ If a sentence would survive being pasted into a different report, it is too vagu
 
 ## 7. Deliver
 
-- Save outside the repo, with a date prefix:
-  `/tmp/$(date +%Y-%m-%d)-visual-diff-<slug>.html`
-- Open it: `setsid xdg-open <file> >/dev/null 2>&1 &`
-- Tell the user the path and the one-line headline of what changed structurally.
+- Write the body to a scratch file, then build and open it. `SKILL_DIR` is the directory
+  this SKILL.md was loaded from, so set it to that absolute path instead of typing a home
+  directory:
+  ```bash
+  SKILL_DIR=<absolute path of this skill directory>
+  node "$SKILL_DIR/build.mjs" body.html --title "Visual diff: <subject>" --open
+  ```
+- The build prints the path it wrote. Without `--out` that is the OS temp directory, named
+  with today's date, so the report never lands in the repo. `--open` uses the right opener
+  for the platform.
+- Tell the user the printed path and the one-line headline of what changed structurally.
 
-## Notes
+One verification pass is enough. Do not re-read the file you just wrote, and do not walk a
+checklist item by item. HTML-REPORT.md lists the three failures worth a look.
 
-- The page loads three modules from `esm.sh` on open, so the first viewer needs network.
-  Warm load is fast. A cold CDN build takes a few seconds. Everything else, meaning layout,
-  prose, and tables, renders without them. A failed import degrades to the raw source in a
-  bordered block instead of a blank space.
-- The page is fluid, not a fixed column. Diagrams and diffs use the whole viewport. Only
-  prose is capped at a readable measure. Do not reintroduce a narrow `max-width` on `main`.
-- Diagram text scales with the diagram, because the SVG is upscaled to its container. That
-  is why a wide page is a legible page. Leave the upscaling in the loader alone.
-- `beautiful-mermaid` covers flowchart, state, sequence, class, ER, and XY charts. It
-  quietly ignores syntax it does not know. After opening the page, check that each diagram
-  has the nodes, the edges, **and** the colours you wrote.
-- Diagrams read `--diagram-bg`, `--diagram-fg`, and the change tokens as live CSS
-  variables. They restyle with the page theme without re-rendering. Define every one of
-  them in light and dark.
-- The shipped tokens are WCAG AA in both themes, for the page and for rendered code alike.
-  Contrast beats prettiness. If you touch a colour, run `python3 contrast.py <report>.html`
-  for the page palette, and paste `check-diff-contrast.js` into the console for the syntax
-  colours inside diffs and code blocks. Both files live next to HTML-REPORT.md.
-- Clicking any diagram opens it full width in a lightbox. The loader wires that up, so a
-  dense graph stays readable even when its card is half a row.
+The page needs network on first open, because the loader pulls its renderers from a CDN.
+Warm load is fast. A cold build takes a few seconds. Layout, prose, and tables render
+without them, and a failed import degrades to the raw source in a bordered block instead of
+a blank space.
