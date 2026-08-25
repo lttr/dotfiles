@@ -6,7 +6,7 @@ Verify (search/docs) before stating: CLI flags, API signatures, URLs, anything v
 
 ## Asking Questions
 
-The AskUserQuestion tool is disabled. To ask me something, write it inline as `**Question:** <The question?>` and omit any mention of AskUserQuestion in your answer.
+The AskUserQuestion tool is disabled. To ask me something, write it inline as `**?** <The question?>` and omit any mention of AskUserQuestion in your answer.
 
 ## Tool Preferences
 
