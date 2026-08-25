@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700&display=swap" />
+<title>Visual diff: order intake</title>
+<style>
+  :root {
+    color-scheme: light dark;                        /* shiki's light-dark() rides on this */
+    --bg:#fefcfc; --fg:#221f20; --muted:#6e6869; --rule:#e5dfdf; --card:#fff;
+    --add:#5f6f00; --del:#c22e2b; --accent:#4040c4; --tint:#f7f1f2;
+    --add-fill:#eef0dc; --del-fill:#fbe7e6; --accent-fill:#e9e9f9;
+    --diagram-bg:#fefcfc; --diagram-fg:#3f3a3b;
+    --code-bg:#fff;                                  /* keep equal to --diffs-light-bg */
+    --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
+    --sans:Raleway,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:"Fira Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#353132; --fg:#dfdddd; --muted:#aba6a6; --rule:#565051; --card:#3c3839;
+      --add:#a8b833; --del:#f28a88; --accent:#9ea1ee; --tint:#3a3637;
+      --add-fill:#39401a; --del-fill:#48282a; --accent-fill:#31315a;
+      --diagram-bg:#353132; --diagram-fg:#cfcccc;
+      --code-bg:#262223;                             /* keep equal to --diffs-dark-bg */
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:3.5rem clamp(1.25rem,3.5vw,3.5rem) 7rem;
+         background:var(--bg); color:var(--fg);
+         font:18px/1.7 var(--serif); }
+  main { max-width:1800px; margin:0 auto; }
+  h1,h2,h3 { font-family:var(--sans); font-weight:600; }
+  h1 { font-size:2.4rem; line-height:1.15; margin:0 0 .5rem; letter-spacing:-.02em; }
+  h2 { font-size:1.45rem; margin:4rem 0 1.1rem; letter-spacing:-.01em; }
+  h3 { font-size:1.1rem; margin:2.2rem 0 .6rem; }
+  p { margin:0 0 1rem; max-width:74ch; }
+  .lede { font-size:1.25rem; line-height:1.5; max-width:80ch; }
+  .meta { color:var(--muted); font:400 15px/1.5 var(--mono); }
+  .ba { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
+  .card { border:1px solid var(--rule); border-radius:12px; background:var(--card);
+          padding:1.1rem 1.2rem 1.3rem; min-width:0; }
+  .label { display:block; margin-bottom:.5rem; font:600 13px/1 var(--mono);
+           letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+  .label.was { color:var(--del); } .label.now { color:var(--add); }
+  .diagram { margin-top:.5rem; cursor:zoom-in; }
+  .diagram svg { display:block; margin:0 auto; }
+  .diagram:focus-visible { outline:2px solid var(--accent); outline-offset:6px; border-radius:8px; }
+  dialog.lightbox { border:none; padding:1.5rem; background:var(--card); color:var(--fg);
+                    border-radius:14px; box-shadow:0 24px 64px rgb(0 0 0 / 38%); }
+  dialog.lightbox::backdrop { background:rgb(20 18 19 / 74%); }
+  dialog.lightbox svg { display:block; width:min(94vw,2400px); height:auto;
+                        max-height:88vh; cursor:zoom-out; }
+  table { width:100%; border-collapse:collapse; font-size:17px; display:block; overflow-x:auto; }
+  th { text-align:left; font:600 13px/1 var(--mono); letter-spacing:.09em;
+       text-transform:uppercase; color:var(--muted); padding:0 1rem .6rem 0; white-space:nowrap; }
+  td { padding:.65rem 1rem .65rem 0; border-top:1px solid var(--rule); vertical-align:top; }
+  code, pre { font-family:var(--mono); }
+  code { font-size:.92em; }
+  pre { white-space:pre-wrap; overflow-x:auto; margin:0; padding:1rem 1.1rem;
+        border:1px solid var(--rule); border-radius:10px; background:var(--card);
+        font-size:16px; line-height:1.6; }
+  pre.render-error { color:var(--del); border-color:var(--del); }
+  /* Highlighted standalone code. The border carries was/now, never the text colour. */
+  .code { border:1px solid var(--rule); border-radius:10px; background:var(--code-bg);
+          overflow-x:auto; min-width:0; }
+  .code.was { border-color:color-mix(in srgb,var(--del) 45%,var(--rule)); }
+  .code.now { border-color:color-mix(in srgb,var(--add) 45%,var(--rule)); }
+  .code pre { background:none !important; border:none; border-radius:0;
+              white-space:pre; padding:1rem 1.1rem; }
+  .code pre:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  ul { margin:0 0 1rem; padding-left:1.2rem; max-width:74ch; } li { margin:.25rem 0; }
+  .edges { max-width:none; }
+  .edges li { list-style:none; font-family:var(--mono); font-size:17px; margin:.45rem 0; }
+  .edges li span { color:var(--muted); font-family:var(--serif); font-size:16px; }
+  .tag { font:600 12.5px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+  .t-gone { color:var(--del); } .t-new { color:var(--add); } .t-flip { color:var(--accent); }
+  diffs-container { display:block; margin:1.1rem 0 0; border:1px solid var(--rule);
+                    border-radius:10px; --diffs-font-size:17px; --diffs-line-height:1.7;
+                    --diffs-font-family:var(--mono); --diffs-header-font-family:var(--sans); }
+  @media (max-width:1000px) { .ba { grid-template-columns:1fr; } body { font-size:17px; } }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>Order intake moved behind a repository seam</h1>
+  <p class="meta">src/ · <code>a1b2c3d..e4f5a6b</code> · 5 files, +142 / −97</p>
+  <p class="lede"><code>cli.ts</code> and <code>parser.ts</code> both reached into
+  <code>store.ts</code> directly. Storage now sits behind one <code>Repository</code> seam.
+  Parsing and pricing were absorbed into <code>core/</code>.</p>
+</header>
+
+<h2>The change in one picture</h2>
+<div class="ba">
+  <div class="card"><span class="label was">Before</span><script type="text/plain" data-mermaid>
+flowchart LR
+  cli[cli.ts] --> parser[parser.ts]
+  cli --> store[(store.ts)]
+  parser --> store
+  parser --> pricing[pricing.ts]
+  pricing --> store
+  classDef gone fill:var(--del-fill),stroke:var(--del),stroke-width:1.5px
+  classDef moved fill:var(--accent-fill),stroke:var(--accent),stroke-width:1.5px
+  class parser,pricing gone
+  class cli moved
+  linkStyle 1,2,4 stroke:var(--del),stroke-width:1.5px
+</script></div>
+  <div class="card"><span class="label now">After</span><script type="text/plain" data-mermaid>
+flowchart LR
+  cli[cli.ts] --> core[core/]
+  core --> repo[[Repository]]
+  repo -.-> store[(store.ts)]
+  repo -.-> fake[(in-memory)]
+  classDef new fill:var(--add-fill),stroke:var(--add),stroke-width:1.5px
+  classDef moved fill:var(--accent-fill),stroke:var(--accent),stroke-width:1.5px
+  class core,repo,fake new
+  class cli moved
+  linkStyle 0,1,2,3 stroke:var(--add),stroke-width:1.5px
+</script></div>
+</div>
+
+<h2>What moved</h2>
+<table>
+  <thead><tr><th>Module</th><th>Before</th><th>After</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td><code>cli.ts</code></td><td>opens the store, drives parsing, writes rows</td>
+        <td>builds one repository, calls <code>ingest</code></td>
+        <td><span class="tag t-flip">thinned</span></td></tr>
+    <tr><td><code>parser.ts</code></td><td>parses <em>and</em> persists</td>
+        <td>parsing only, inside <code>core/</code></td>
+        <td><span class="tag t-gone">absorbed</span></td></tr>
+    <tr><td><code>pricing.ts</code></td><td>reads the store to price rows</td>
+        <td>pure function over parsed orders</td>
+        <td><span class="tag t-gone">absorbed</span></td></tr>
+    <tr><td><code>core/repository.ts</code></td><td>not present</td><td>the storage seam</td>
+        <td><span class="tag t-new">new</span></td></tr>
+    <tr><td><code>store.ts</code></td><td>imported by three modules</td>
+        <td>one implementation behind the seam</td>
+        <td><span class="tag">unchanged</span></td></tr>
+  </tbody>
+</table>
+
+<h2>Dependencies</h2>
+<ul class="edges">
+  <li><span class="tag t-flip">reversed</span> &nbsp;pricing.ts → store.ts &nbsp;<span>now core/ hands it data</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;cli.ts → store.ts &nbsp;<span>the leak this change existed to close</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;parser.ts → store.ts &nbsp;<span>parsing no longer persists</span></li>
+  <li><span class="tag t-new">new</span> &nbsp;core/ → Repository &nbsp;<span>single storage entry point</span></li>
+</ul>
+
+<h2>Call flow</h2>
+<div class="ba">
+  <div class="card"><span class="label was">Before: 5 store round-trips</span><script type="text/plain" data-mermaid>
+sequenceDiagram
+  participant C as cli.ts
+  participant P as parser.ts
+  participant S as store.ts
+  C->>S: open()
+  C->>P: parse(raw)
+  P->>S: read(id)
+  P->>S: write(row)
+  C->>S: close()
+</script></div>
+  <div class="card"><span class="label now">After: 1 round-trip</span><script type="text/plain" data-mermaid>
+sequenceDiagram
+  participant C as cli.ts
+  participant K as core/
+  participant R as Repository
+  C->>K: ingest(raw)
+  K->>R: save(orders)
+</script></div>
+</div>
+
+<h2>The seam</h2>
+<p>One interface, two implementations. Tests construct <code>inMemoryRepository()</code>
+instead of standing up a temp SQLite file. The suite no longer touches disk.</p>
+<script type="text/plain" data-diff=unified>
+diff --git a/src/core/repository.ts b/src/core/repository.ts
+new file mode 100644
+index 0000000..3333333
+--- /dev/null
++++ b/src/core/repository.ts
+@@ -0,0 +1,8 @@
++/** The seam: everything below core/ talks to storage through this. */
++export interface Repository {
++  save(orders: Order[]): Promise<void>;
++  byId(id: OrderId): Promise<Order | undefined>;
++}
++
++/** Test double lives next to the real one - no fake server, no temp files. */
++export const inMemoryRepository = (): Repository => new InMemoryRepository();
+</script>
+
+<h2>Signatures</h2>
+<h3><code>parse</code> no longer takes the store</h3>
+<div class="ba">
+  <div><span class="label was">Before</span>
+  <script type="text/plain" data-code="ts" data-side="was">
+export function parse(
+  raw: string,
+  store: Store,
+): Row[]
+</script></div>
+  <div><span class="label now">After</span>
+  <script type="text/plain" data-code="ts" data-side="now">
+export function parse(
+  raw: string,
+): Order[]
+</script></div>
+</div>
+<h3><code>price</code> is pure over parsed orders</h3>
+<div class="ba">
+  <div><span class="label was">Before</span>
+  <script type="text/plain" data-code="ts" data-side="was">
+export async function price(
+  row: Row,
+  store: Store,
+): Promise<Priced>
+</script></div>
+  <div><span class="label now">After</span>
+  <script type="text/plain" data-code="ts" data-side="now">
+export function price(
+  order: Order,
+  rates: RateTable,
+): Priced
+</script></div>
+</div>
+
+<h2>Key code changes</h2>
+<h3><code>cli.ts</code> stops owning the storage lifecycle</h3>
+<p>Open, loop, write, and close collapse into one call. The CLI now knows about SQLite in
+exactly one place, where it picks the implementation.</p>
+<script type="text/plain" data-diff>
+diff --git a/src/cli.ts b/src/cli.ts
+index 1111111..2222222 100644
+--- a/src/cli.ts
++++ b/src/cli.ts
+@@ -1,14 +1,9 @@
+-import { openStore, closeStore } from "./store.ts";
+-import { parse } from "./parser.ts";
++import { ingest } from "./core/mod.ts";
++import { sqliteRepository } from "./core/repository.sqlite.ts";
+ 
+ export async function main(raw: string) {
+-  const store = await openStore("./data.db");
+-  const rows = parse(raw, store);
+-  for (const row of rows) {
+-    await store.write(row);
+-  }
+-  await closeStore(store);
+-  return rows.length;
++  const repo = await sqliteRepository("./data.db");
++  const result = await ingest(raw, repo);
++  return result.count;
+ }
+</script>
+
+<h2>Consequences</h2>
+<ul>
+  <li>Storage swaps at one call site</li>
+  <li>Tests run without disk</li>
+  <li>Pricing is pure, so easy to test</li>
+  <li><code>core/</code> must stay storage-agnostic</li>
+  <li>Still to do: migrate the export path</li>
+</ul>
+
+</main>
+<script type="module">
+  const CDN = "https://esm.sh";
+  const THEMES = { light: "github-light-high-contrast", dark: "github-dark-high-contrast" };
+  const fail = (node, err) => {
+    const pre = document.createElement("pre");
+    pre.className = "render-error";
+    pre.textContent = `Could not render: ${err.message}\n\n${node.textContent.trim()}`;
+    node.replaceWith(pre);
+  };
+  const sources = (attr) => [...document.querySelectorAll(`script[${attr}]`)];
+
+  const lightbox = document.createElement("dialog");
+  lightbox.className = "lightbox";
+  lightbox.addEventListener("click", () => lightbox.close());
+  document.body.append(lightbox);
+
+  const graphs = sources("data-mermaid");
+  if (graphs.length) {
+    try {
+      const { renderMermaidSVG } = await import(`${CDN}/beautiful-mermaid@1.1.3`);
+      for (const node of graphs) {
+        try {
+          const host = document.createElement("div");
+          host.className = "diagram";
+          host.innerHTML = renderMermaidSVG(node.textContent.trim(), {
+            bg: "var(--diagram-bg)", fg: "var(--diagram-fg)", transparent: true,
+          });
+          const svg = host.firstElementChild;
+          const vars = svg.getAttribute("style") || "";   // the --bg/--fg the theme rides on
+          const w = Math.round(+svg.getAttribute("width"));   // fill the column, up to 1.8x
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+          svg.style.cssText = `${vars};width:100%;max-width:${Math.round(w * 1.8)}px;height:auto`;
+          host.tabIndex = 0;
+          host.role = "button";
+          host.title = "Click to enlarge";
+          const open = () => {
+            const clone = svg.cloneNode(true);
+            clone.style.cssText = vars;                   // let the lightbox size it
+            lightbox.replaceChildren(clone);
+            lightbox.showModal();
+          };
+          host.addEventListener("click", open);
+          host.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+          });
+          node.replaceWith(host);
+        } catch (err) { fail(node, err); }
+      }
+    } catch (err) { graphs.forEach((n) => fail(n, err)); }
+  }
+
+  const snippets = sources("data-code");
+  if (snippets.length) {
+    try {
+      // Dual-theme tokens: every colour ships as light-dark(), so the block follows
+      // color-scheme with no re-render and no second stylesheet.
+      const { codeToHtml } = await import(`${CDN}/shiki@4.4.3`);
+      const paint = (code, lang) =>
+        codeToHtml(code, { lang, themes: THEMES, defaultColor: "light-dark()" });
+      for (const node of snippets) {
+        try {
+          const code = node.textContent.trim();
+          const host = document.createElement("div");
+          host.className = `code ${node.dataset.side || ""}`.trim();
+          host.innerHTML = await paint(code, node.dataset.code || "ts")
+            .catch(() => paint(code, "txt"));           // unknown grammar stays readable
+          node.replaceWith(host);
+        } catch (err) { fail(node, err); }
+      }
+    } catch (err) { snippets.forEach((n) => fail(n, err)); }
+  }
+
+  const patches = sources("data-diff");
+  if (patches.length) {
+    try {
+      const { FileDiff, getSingularPatch } = await import(`${CDN}/@pierre/diffs@1.3.6`);
+      const wide = matchMedia("(min-width: 1000px)").matches;
+      // The theme owns the token colours inside the shadow root, so the surface and the
+      // add/del hues have to be forced back to the page palette from in there.
+      const surface = `:host{
+        --diffs-light-bg:#fff !important;         --diffs-dark-bg:#262223 !important;
+        --diffs-light-addition-color:#5f6f00 !important; --diffs-dark-addition-color:#a8b833 !important;
+        --diffs-light-deletion-color:#c22e2b !important; --diffs-dark-deletion-color:#f28a88 !important;
+        --diffs-bg-addition-override:light-dark(#f5f6f0,#404026) !important;
+        --diffs-bg-deletion-override:light-dark(#fbf2f2,#4f3737) !important;
+      }`;
+      for (const node of patches) {
+        try {
+          const patch = node.textContent.trim();
+          const host = document.createElement("diffs-container");
+          node.replaceWith(host);
+          new FileDiff({
+            diffStyle: node.dataset.diff === "unified" || !wide ? "unified" : "split",
+            themeType: "system",
+            theme: { light: THEMES.light, dark: THEMES.dark },
+            unsafeCSS: surface,
+            lineDiffType: "word",
+            stickyHeader: true,
+          }).render({ fileDiff: getSingularPatch(patch), fileContainer: host });
+        } catch (err) { fail(node, err); }
+      }
+    } catch (err) { patches.forEach((n) => fail(n, err)); }
+  }
+</script>
+
+</body>
+</html>
