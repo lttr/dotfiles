@@ -96,8 +96,11 @@
              font:400 15px/1.5 var(--mono); max-width:74ch; }
   .tag { font:600 12.5px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
   .t-gone { color:var(--del); } .t-new { color:var(--add); } .t-flip { color:var(--accent); }
+  /* overflow:clip (not hidden) squares off the shadow-DOM header at the rounded corners
+     without creating a scroll container, so the sticky header keeps working. */
   diffs-container { display:block; margin:0 0 var(--flow); border:1px solid var(--rule);
-                    border-radius:10px; --diffs-font-size:17px; --diffs-line-height:1.7;
+                    border-radius:10px; overflow:clip;
+                    --diffs-font-size:17px; --diffs-line-height:1.7;
                     --diffs-font-family:var(--mono); --diffs-header-font-family:var(--sans); }
   @media (max-width:1000px) { .ba { grid-template-columns:1fr; } body { font-size:17px; }
                               :root { --flow:1.4rem; } }
