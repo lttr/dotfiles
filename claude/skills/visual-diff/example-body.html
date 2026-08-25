@@ -60,10 +60,10 @@ flowchart LR
 
 <h2>Dependencies</h2>
 <ul class="edges">
-  <li><span class="tag t-flip">reversed</span> &nbsp;pricing.ts → store.ts &nbsp;<span>now core/ hands it data</span></li>
-  <li><span class="tag t-gone">gone</span> &nbsp;cli.ts → store.ts &nbsp;<span>the leak this change existed to close</span></li>
-  <li><span class="tag t-gone">gone</span> &nbsp;parser.ts → store.ts &nbsp;<span>parsing no longer persists</span></li>
-  <li><span class="tag t-new">new</span> &nbsp;core/ → Repository &nbsp;<span>single storage entry point</span></li>
+  <li><span class="tag t-flip">reversed</span> &nbsp;<code>pricing.ts → store.ts</code> &nbsp;<span>now <code>core/</code> hands it data</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;<code>cli.ts → store.ts</code> &nbsp;<span>the CLI no longer reaches storage directly</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;<code>parser.ts → store.ts</code> &nbsp;<span>parsing no longer persists</span></li>
+  <li><span class="tag t-new">new</span> &nbsp;<code>core/ → Repository</code> &nbsp;<span>single storage entry point</span></li>
 </ul>
 
 <h2>Call flow</h2>
@@ -89,9 +89,10 @@ sequenceDiagram
 </script></div>
 </div>
 
-<h2>The seam</h2>
-<p>One interface, two implementations. Tests construct <code>inMemoryRepository()</code>
-instead of standing up a temp SQLite file. The suite no longer touches disk.</p>
+<h2>The <code>Repository</code> seam</h2>
+<p>The seam is one interface with two implementations. Tests construct
+<code>inMemoryRepository()</code> instead of standing up a temp SQLite file, so the suite
+no longer touches disk.</p>
 <script type="text/plain" data-diff=unified>
 diff --git a/src/core/repository.ts b/src/core/repository.ts
 new file mode 100644
@@ -218,11 +219,11 @@ index 0000000..6666666
 
 <h2>Consequences</h2>
 <ul>
-  <li>Storage swaps at one call site</li>
-  <li>Tests run without disk</li>
-  <li>Pricing is pure, so easy to test</li>
-  <li><code>core/</code> must stay storage-agnostic</li>
-  <li>Still to do: migrate the export path</li>
+  <li>Storage can be swapped at one call site in <code>cli.ts</code>.</li>
+  <li>The test suite runs without touching disk.</li>
+  <li><code>price</code> does no I/O, so it is tested with plain values.</li>
+  <li><code>core/</code> must not import a storage implementation directly.</li>
+  <li>The export path still reads <code>store.ts</code> and has to migrate next.</li>
 </ul>
 
 </main>

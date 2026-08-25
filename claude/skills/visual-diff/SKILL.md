@@ -39,14 +39,14 @@ Two rules make the page readable. Neither is negotiable.
 
 Work out what change to describe from the argument and the repo state.
 
-- No argument, so use the uncommitted working tree (`git status`, `git diff HEAD`). Clean
-  tree falls back to the branch diff.
-- Branch or "this branch", so use `git diff $(git merge-base <base> <branch>)..<branch>`.
+- No argument: use the uncommitted working tree (`git status`, `git diff HEAD`). If the
+  tree is clean, fall back to the branch diff.
+- A branch, or "this branch": use `git diff $(git merge-base <base> <branch>)..<branch>`.
   Find the base with `git symbolic-ref refs/remotes/origin/HEAD`, else `main` or `master`.
-- PR number or URL, so use `gh pr diff <n>` and `gh pr view <n>`.
-- Commit or range, so use `git diff <range>`. Staged only means `git diff --cached`.
-- "the changes you just made", so use whatever this session touched. That is usually the
-  working tree.
+- A PR number or URL: use `gh pr diff <n>` and `gh pr view <n>`.
+- A commit or range: use `git diff <range>`. "Staged only" means `git diff --cached`.
+- "The changes you just made": use whatever this session touched, usually the working
+  tree.
 
 State the reading you picked and move on. Never ask when one reading is obviously right.
 
@@ -140,28 +140,39 @@ the build command, the exact markup, the section menu, and the diagram patterns.
 
 ## 6. Language
 
-The page is read by an engineer who does not know this codebase. Write for them.
+The page is read by an engineer who does not know this codebase. Write the way you would
+explain the change to them in person: plain, specific, and natural. Optimize for clarity,
+never for quotability.
 
-- **No em dashes and no semicolons in prose.** Use a full stop, a comma, a colon, or a
-  bullet. Code and CSS keep their own punctuation.
-- **Short sentences.** One fact each. If a sentence has two clauses, split it.
+- **Complete, ordinary sentences.** A subject and a verb. No clipped fragments, no
+  aphorisms, no two-beat constructions like "One seam, two implementations" or "One pass,
+  not a gauntlet". If a sentence sounds like a slogan, rewrite it until it sounds plain.
+- **No metaphors or analogies.** Describe what the code does. Write "the checkers were no
+  longer needed", not "the checkers were dead weight". Write "everything depends on this
+  marker", not "the rework hangs on one marker".
 - **Simple words.** Say "uses", not "leverages". Say "so", not "consequently". Assume the
   reader is competent but not senior.
-- **Bullets over paragraphs.** Three or more facts in a row become a list or a table.
-  A paragraph is at most three sentences.
-- **Domain terms from the list above**, used consistently. Where the repo has its own
-  glossary or docs, prefer its words for its own concepts.
-- **Name real things.** Real files, real functions, real edges.
+- **No em dashes and no semicolons in prose.** Use a full stop, a comma, a colon, or a
+  bullet. Code and CSS keep their own punctuation.
+- **State each fact once.** A paragraph is at most three sentences. Three or more parallel
+  facts become a list or a table.
+- **Headings state the fact.** "build.mjs replaces one marker in the scaffold", not "The
+  seam". A heading should still make sense read on its own.
+- **Name real things.** Real files, real functions, real edges. Use the domain terms from
+  the list above consistently, and prefer the repo's own words for its own concepts.
 - **No hedging.** Drop "arguably", "essentially", "it seems".
 
 Good:
 
 - "`orders/` no longer imports `pricing/`. Both now depend on `contracts/`."
-- "The HTTP client moved behind the repository port. Tests drop the fake server."
-- "One seam replaced three ad-hoc injection points."
+- "The HTTP client moved behind the repository port. Tests no longer need the fake server."
 
-Bad: "improved separation of concerns", "cleaner architecture", "better maintainability".
-If a sentence would survive being pasted into a different report, it is too vague to keep.
+Bad, too vague: "improved separation of concerns", "cleaner architecture", "better
+maintainability". If a sentence would survive being pasted into a different report, cut it.
+
+Bad, too clever: "the docs were the runtime", "a fix reaches every report for free",
+"one substitution point, two kinds of body". These read as written to impress, not to
+inform. Say the same thing in one ordinary sentence.
 
 ## 7. Deliver
 

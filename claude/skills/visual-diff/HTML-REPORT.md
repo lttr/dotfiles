@@ -26,11 +26,15 @@ you retune a colour, change both, and keep `--code-bg` equal to `--diffs-light-b
 `--diffs-dark-bg`. Then look at the page in both themes. This is a report, not a production
 site, so your eyes are the check.
 
-Two layout rules hold the whole format together.
+Three layout rules hold the whole format together.
 
 - **The page is fluid.** `main` fills the viewport up to a generous cap. Only prose is
   capped at a readable measure. A diagram pair on a 27" display gets two columns of roughly
   800px.
+- **One vertical rhythm.** Every rendered block, meaning a `.ba` pair, a `.card`, a
+  `.code`, a `pre`, a table, and a diff, carries the same `--flow` margin underneath and
+  nothing above. That margin collapses with the next heading's larger one, so sections
+  never drift. Add no margins of your own, and never put a spacer div between blocks.
 - **Diagrams upscale.** The loader stretches each SVG to its container, up to 1.8 times its
   intrinsic size. The text inside scales with it. Wide page, big diagrams, and big labels
   are the same decision. Clicking one opens it in a lightbox at up to 94vw, which is the
@@ -71,8 +75,9 @@ The class vocabulary the scaffold gives you:
 | `.ba` | two-column before/after grid, collapses under 1000px |
 | `.card` | a bordered well, usually one side of a `.ba` |
 | `.label`, `.label.was`, `.label.now` | small uppercase mono caption above a card or code block |
-| `.edges` | monospace list of `a → b` dependency lines |
+| `.edges` | list of `a → b` dependency lines, each path pair wrapped in `<code>` |
 | `.tag`, `.t-gone`, `.t-new`, `.t-flip` | inline uppercase tag in the change colours |
+| `.caption` | a note that belongs to the block above it, so it hugs instead of floating |
 | `.diagram`, `.code`, `diffs-container` | built by the loader, never hand-written |
 
 ## Embedding sources
@@ -163,7 +168,7 @@ diffs. That is a finished report, not a thin one.
 
 Vary them. A page of five identical flowcharts reads as generated.
 
-**Dependency graph, the workhorse.** Use `flowchart LR` for both sides. Keep the same node
+**Dependency graph, the usual choice.** Use `flowchart LR` for both sides. Keep the same node
 names and the same direction on each side, so the eye can diff them. Colour every delta.
 
 ```
@@ -222,6 +227,8 @@ Prose follows **§6 Language in SKILL.md**. Read it before writing any.
   `Before: 5 round-trips`. A diagram that needs a key is wrong.
 - Never hardcode a hex inside a diagram. Use the `var(--add)`, `var(--del)`, and
   `var(--accent)` tokens, so both themes work.
+- Every file, module, function, and edge name sits in `<code>`, in prose, tables, and edge
+  comments alike. The scaffold renders inline code as a bordered chip.
 - No decorative emoji. A ✓ or ✕ that carries meaning is fine.
 - No coloured `border-left` accent stripes. That pattern reads as AI-generated. Use a small
   uppercase mono tag, a full border, or a background tint.
@@ -231,12 +238,11 @@ Prose follows **§6 Language in SKILL.md**. Read it before writing any.
 
 ## Before handing it over
 
-One pass, not a gauntlet. Open the page and look at it once. Three things would make it
-wrong:
+One look is enough. Open the page and check for three problems:
 
 - A block fell back to raw text (`pre.render-error`), or a diagram is missing nodes.
 - Something that changed is still grey, or a `linkStyle` coloured the wrong arrow.
 - A `data-code` block is one flat colour, meaning the language was wrong or the
   highlighter failed.
 
-Fix those and ship.
+Fix anything you find, then deliver the page.

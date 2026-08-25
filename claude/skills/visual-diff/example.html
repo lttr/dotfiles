@@ -17,6 +17,7 @@
     --add-fill:#eef0dc; --del-fill:#fbe7e6; --accent-fill:#e9e9f9;
     --diagram-bg:#fefcfc; --diagram-fg:#3f3a3b;
     --code-bg:#fff;                                  /* keep equal to --diffs-light-bg */
+    --flow:1.75rem;                                  /* gap under every rendered block */
     --serif:Charter,"Bitstream Charter","Iowan Old Style",Georgia,serif;
     --sans:Raleway,system-ui,-apple-system,"Segoe UI",sans-serif;
     --mono:"Fira Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -37,9 +38,16 @@
   main { max-width:1800px; margin:0 auto; }          /* fluid, never a narrow column */
   h1,h2,h3 { font-family:var(--sans); font-weight:600; }
   h1 { font-size:2.4rem; line-height:1.15; margin:0 0 .5rem; letter-spacing:-.02em; }
-  h2 { font-size:1.45rem; margin:4rem 0 1.1rem; letter-spacing:-.01em; }
-  h3 { font-size:1.1rem; margin:2.2rem 0 .6rem; }
+  h2 { font-size:1.45rem; margin:4.5rem 0 1.25rem; letter-spacing:-.01em; }
+  h3 { font-size:1.1rem; margin:2.75rem 0 .7rem; }
+  h2 + h3 { margin-top:1.5rem; }                     /* stacked headings sit tighter */
   p { margin:0 0 1rem; max-width:74ch; }             /* prose only, diagrams stay wide */
+  /* Rendered blocks are siblings in normal flow, so one bottom margin is enough. It
+     collapses with the next heading's larger top margin instead of stacking with it. */
+  .ba, .card, .code, pre, table, diffs-container, ul { margin-bottom:var(--flow); }
+  /* Nested blocks never add trailing space. The grid gap owns the gutter inside a pair,
+     and a card ends where its last child ends. */
+  .ba > *, .ba > * > :last-child, .card > :last-child { margin-bottom:0; }
   .lede { font-size:1.25rem; line-height:1.5; max-width:80ch; }
   .meta { color:var(--muted); font:400 15px/1.5 var(--mono); }
   .ba { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; align-items:start; }
@@ -61,10 +69,16 @@
        text-transform:uppercase; color:var(--muted); padding:0 1rem .6rem 0; white-space:nowrap; }
   td { padding:.65rem 1rem .65rem 0; border-top:1px solid var(--rule); vertical-align:top; }
   code, pre { font-family:var(--mono); }
-  code { font-size:.92em; }
-  pre { white-space:pre-wrap; overflow-x:auto; margin:0; padding:1rem 1.1rem;
+  code { font-size:.92em; background:color-mix(in srgb,var(--fg) 6%,transparent);
+         border:1px solid color-mix(in srgb,var(--fg) 14%,transparent);
+         padding:.05em .3em; border-radius:5px; }
+  /* The chip is for inline code in prose. Code inside rendered blocks, headings, and
+     mono-set lines keeps a bare face. */
+  pre code, h1 code, h2 code, h3 code, .meta code {
+    font-size:1em; background:none; border:none; padding:0; border-radius:0; }
+  pre { white-space:pre-wrap; overflow-x:auto; margin:0 0 var(--flow); padding:1rem 1.1rem;
         border:1px solid var(--rule); border-radius:10px; background:var(--card);
-        font-size:16px; line-height:1.6; }
+        font-size:17px; line-height:1.6; }           /* keep equal to --diffs-font-size */
   pre.render-error { color:var(--del); border-color:var(--del); }
   /* Highlighted standalone code. The border carries was/now, never the text colour. */
   .code { border:1px solid var(--rule); border-radius:10px; background:var(--code-bg);
@@ -74,16 +88,19 @@
   .code pre { background:none !important; border:none; border-radius:0;
               white-space:pre; padding:1rem 1.1rem; }
   .code pre:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
-  ul { margin:0 0 1rem; padding-left:1.2rem; max-width:74ch; } li { margin:.25rem 0; }
+  ul { margin:0 0 var(--flow); padding-left:1.2rem; max-width:74ch; } li { margin:.25rem 0; }
   .edges { max-width:none; }
   .edges li { list-style:none; font-family:var(--mono); font-size:17px; margin:.45rem 0; }
-  .edges li span { color:var(--muted); font-family:var(--serif); font-size:16px; }
+  .edges li span:not(.tag) { color:var(--muted); font-family:var(--serif); font-size:16px; }
+  .caption { margin:calc(var(--flow) * -.62) 0 var(--flow); color:var(--muted);
+             font:400 15px/1.5 var(--mono); max-width:74ch; }
   .tag { font:600 12.5px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
   .t-gone { color:var(--del); } .t-new { color:var(--add); } .t-flip { color:var(--accent); }
-  diffs-container { display:block; margin:1.1rem 0 0; border:1px solid var(--rule);
+  diffs-container { display:block; margin:0 0 var(--flow); border:1px solid var(--rule);
                     border-radius:10px; --diffs-font-size:17px; --diffs-line-height:1.7;
                     --diffs-font-family:var(--mono); --diffs-header-font-family:var(--sans); }
-  @media (max-width:1000px) { .ba { grid-template-columns:1fr; } body { font-size:17px; } }
+  @media (max-width:1000px) { .ba { grid-template-columns:1fr; } body { font-size:17px; }
+                              :root { --flow:1.4rem; } }
 </style>
 </head>
 <body>
@@ -149,10 +166,10 @@ flowchart LR
 
 <h2>Dependencies</h2>
 <ul class="edges">
-  <li><span class="tag t-flip">reversed</span> &nbsp;pricing.ts → store.ts &nbsp;<span>now core/ hands it data</span></li>
-  <li><span class="tag t-gone">gone</span> &nbsp;cli.ts → store.ts &nbsp;<span>the leak this change existed to close</span></li>
-  <li><span class="tag t-gone">gone</span> &nbsp;parser.ts → store.ts &nbsp;<span>parsing no longer persists</span></li>
-  <li><span class="tag t-new">new</span> &nbsp;core/ → Repository &nbsp;<span>single storage entry point</span></li>
+  <li><span class="tag t-flip">reversed</span> &nbsp;<code>pricing.ts → store.ts</code> &nbsp;<span>now <code>core/</code> hands it data</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;<code>cli.ts → store.ts</code> &nbsp;<span>the CLI no longer reaches storage directly</span></li>
+  <li><span class="tag t-gone">gone</span> &nbsp;<code>parser.ts → store.ts</code> &nbsp;<span>parsing no longer persists</span></li>
+  <li><span class="tag t-new">new</span> &nbsp;<code>core/ → Repository</code> &nbsp;<span>single storage entry point</span></li>
 </ul>
 
 <h2>Call flow</h2>
@@ -178,9 +195,10 @@ sequenceDiagram
 </script></div>
 </div>
 
-<h2>The seam</h2>
-<p>One interface, two implementations. Tests construct <code>inMemoryRepository()</code>
-instead of standing up a temp SQLite file. The suite no longer touches disk.</p>
+<h2>The <code>Repository</code> seam</h2>
+<p>The seam is one interface with two implementations. Tests construct
+<code>inMemoryRepository()</code> instead of standing up a temp SQLite file, so the suite
+no longer touches disk.</p>
 <script type="text/plain" data-diff=unified>
 diff --git a/src/core/repository.ts b/src/core/repository.ts
 new file mode 100644
@@ -307,11 +325,11 @@ index 0000000..6666666
 
 <h2>Consequences</h2>
 <ul>
-  <li>Storage swaps at one call site</li>
-  <li>Tests run without disk</li>
-  <li>Pricing is pure, so easy to test</li>
-  <li><code>core/</code> must stay storage-agnostic</li>
-  <li>Still to do: migrate the export path</li>
+  <li>Storage can be swapped at one call site in <code>cli.ts</code>.</li>
+  <li>The test suite runs without touching disk.</li>
+  <li><code>price</code> does no I/O, so it is tested with plain values.</li>
+  <li><code>core/</code> must not import a storage implementation directly.</li>
+  <li>The export path still reads <code>store.ts</code> and has to migrate next.</li>
 </ul>
 
 </main>
