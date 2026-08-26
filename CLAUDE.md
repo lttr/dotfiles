@@ -7,7 +7,7 @@ Personal dotfiles for PopOS/Ubuntu. Deployed via symlinks.
 - `zshrc`/`zshenv`/`aliases`/`functions` - shell config
 - `kitty.conf`, `gitconfig`, `nvim/`, `atuin/`, `ranger/` - tool configs
 - `bootstrap/` - Deno-based installer (TS tasks under `configuration/`)
-- `claude/` - Claude Code config (commands, agents, skills, hooks, output-styles, scripts)
+- `claude/` - Claude Code config (commands, agents, skills, hooks, output-styles, scripts); deprecated pieces in `claude/_archived/` (not loaded)
 - `scripts/<category>/` - utility scripts (shell/, git/, dev/, graphics/, ...)
 - `cosmic/` - COSMIC desktop config; see `cosmic/dock-gray-icons.md` for the grayscale panel-icon setup
 

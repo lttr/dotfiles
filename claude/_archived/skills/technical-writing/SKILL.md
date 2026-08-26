@@ -3,7 +3,9 @@ name: technical-writing
 description: Use when writing or editing technical prose — tech specs, design docs, programmer articles, developer docs, RFCs, ADRs, incident writeups. Do NOT use for code comments, commit messages, or casual chat.
 ---
 
-# Technical Writing
+# Technical Writing (archived)
+
+> **Archived.** No longer loaded by Claude Code. Its lede-first and plain-words rules already lived in `wr`, and its active-voice rule moved there as rule 11. See [`../../README.md`](../../README.md). Everything below describes the skill as it last shipped.
 
 ## 1. Inverted pyramid — lede first
 

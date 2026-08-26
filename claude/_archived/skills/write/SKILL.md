@@ -3,7 +3,9 @@ name: write
 description: Write or rewrite a concise note that explains a concept or issue for fast human understanding. Only when the user explicitly invokes it (/write). Not for specs, RFCs, ADRs, or incident writeups (use technical-writing), and not for code comments or commit messages.
 ---
 
-# Write
+# Write (archived)
+
+> **Archived.** No longer loaded by Claude Code. Superseded by the `writing` skill; see [`../../README.md`](../../README.md). Everything below describes the skill as it last shipped.
 
 Write a note a human reads once and gets. The reader is you in six months or a colleague catching up. Every rule serves one goal: fastest possible understanding.
 

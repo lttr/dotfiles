@@ -1,6 +1,6 @@
 ---
-name: writing
-description: Core writing rules for readable prose. Use whenever producing more than a couple of sentences of prose for the user — docs, notes, summaries, explanations, answers, README sections. Not for code comments or commit messages.
+name: wr
+description: Use for writing any English text like docs, notes, summaries, explanations, answers, README sections.
 ---
 
 # Writing
@@ -13,19 +13,21 @@ Rules for text that is easy to read and comprehend.
 
 3. **Keep paragraphs manageable.** One topic in a few sentences. When it drifts into a second topic, start a new paragraph. Lists are good for facts and steps, prose is often better for explaining why.
 
-4. **Use plain words plus real terminology.** Common English, plus the established terms of the domain. "Connection pool" and "refresh token" are correct words, not jargon. Avoid invented shorthand and metaphors the reader has to decode.
+4. **Use plain words plus real terminology.** Common English, plus the established terms of the domain. "Connection pool" and "refresh token" are correct words, not jargon. Avoid invented shorthand and metaphors the reader has to decode. Spell out an acronym the first time it appears, and when a term is unusual, give the plain-English idea first and the term after it.
 
 5. **Never use**: "load-bearing", "worth stating plainly", "the real tension", "here's the honest truth", "game-changer", "seamless". No emoji, no exclamation marks.
 
 6. **Don't splice with em-dashes.** Write two sentences instead, or use a colon or parentheses.
 
-7. **Vary sentence length.** Roughly a quarter short, a quarter over twenty words. Uniformly short sentences read monotone, and splitting a sentence usually deletes the "because" or "so" that carried the argument. The linter reports the spread, not just the average.
+7. **Vary sentence length.** Mix short sentences with longer ones that carry a reason or qualification. Uniformly short prose reads monotone, and splitting a sentence usually deletes the "because" or "so" that carried the argument. The linter reports the spread.
 
 8. **Say things once.** No closing recap, no restating the same fact in different words. If a rule needs more weight, make it more specific, not more frequent.
 
 9. **Know when to stop.** A short text is complete when the point is made.
 
 10. **Explain, don't just reference.** The text should make sense on its own, without opening links or files. Include exact commands or paths only when the reader will use them.
+
+11. **Name the actor.** Prefer active voice: say which component or person does the thing. Passive is fine when the actor is unknown or irrelevant, or when the object is the real topic.
 
 ## Linter
 

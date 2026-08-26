@@ -1,6 +1,7 @@
 ---
 name: my-writing-style
 description: Write text in Lukas's personal voice. Use when drafting notes, blog posts, or any prose that should read as written by Lukas.
+disable-model-invocation: true
 ---
 
 # My Writing Style
