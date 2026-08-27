@@ -47,9 +47,9 @@ echo
 brew update
 
 echo
-echo '### brew upgrade'
+echo '### brew upgrade --yes'
 echo
-brew upgrade
+brew upgrade --yes
 
 
 echo
