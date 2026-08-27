@@ -5,6 +5,7 @@
   },
   "skillListingBudgetFraction": 0.005,
   "permissions": {
+    "defaultMode": "auto",
     "allow": [],
     "deny": [
       "AskUserQuestion",
