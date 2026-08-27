@@ -17,3 +17,35 @@ General-purpose browser automation via the `agent-browser` CLI. Run `agent-brows
 ## Local skills for heavy use
 
 When a repo uses browser automation extensively (e.g. scripted test flows, recurring scraping jobs, repo-specific login dances), prefer installing a repo-local `agent-browser` skill or command that encodes the project's conventions. This global skill is the fallback for ad-hoc automation in repos without one.
+
+## Screenshots: two traps
+
+Verified against agent-browser 0.35.1 (`agent-browser screenshot --help`).
+
+Signature is `agent-browser screenshot [selector] [path]` — both positional.
+
+**1. The full-page flag is `--full` (or `-f`). `--full-page` does not exist.**
+Because it is unrecognized, it is not rejected — it falls through into a positional slot:
+
+```bash
+agent-browser screenshot /abs/shot.png --full-page   # --full-page becomes the PATH
+# -> "✓ Screenshot saved to --full-page", /abs/shot.png never written
+agent-browser screenshot --full-page /abs/shot.png   # --full-page becomes the SELECTOR
+# -> "✗ Element not found: --full-page"
+```
+
+The first form reports **success** while writing a junk file literally named `--full-page`.
+Put the flag first, as in the CLI's own example:
+
+```bash
+agent-browser screenshot --full /abs/shot.png
+```
+
+**2. Always pass an absolute path.**
+A relative path is resolved against the **browser daemon's** working directory — wherever the
+persistent agent-browser process happened to be started — not the cwd of the shell you run the
+command from. `cd /some/dir && agent-browser screenshot rel.png` writes `rel.png` into the
+daemon's directory, silently littering an unrelated repo.
+
+After any screenshot, confirm the file exists at the path you asked for (`ls -la <path>`) — the
+CLI's success message echoes the path it *used*, which is not necessarily the one you intended.
