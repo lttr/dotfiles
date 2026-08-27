@@ -226,6 +226,34 @@ const INSTALL_SUBCOMMANDS: Record<string, string[]> = {
 const VALID_PACKAGE_RE = /^@?[a-z0-9][a-z0-9._/-]*$/i;
 
 /**
+ * Drop heredoc bodies before parsing. Their contents are data - prose, config,
+ * markdown - not commands, and a line like `pnpm install rewrites the root
+ * package.json` inside one would otherwise read as an install naming six
+ * packages.
+ */
+function stripHeredocBodies(command: string): string {
+  const lines = command.split("\n");
+  const out: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i++];
+    out.push(line);
+    const m = line.match(/<<(-?)\s*(['"]?)([A-Za-z_][A-Za-z0-9_]*)\2/);
+    if (!m) continue;
+    const [, dash, , delim] = m;
+    while (i < lines.length) {
+      const body = lines[i++];
+      const trimmed = dash ? body.replace(/^\t+/, "") : body;
+      if (trimmed.trimEnd() === delim) {
+        out.push(body); // keep the terminator so segment counts stay sane
+        break;
+      }
+    }
+  }
+  return out.join("\n");
+}
+
+/**
  * Split a command into top-level segments of tokens, ignoring separators that
  * appear inside quotes (so install strings embedded in script arguments are
  * not mistaken for real commands). Quote characters are kept on their tokens,
@@ -233,6 +261,7 @@ const VALID_PACKAGE_RE = /^@?[a-z0-9][a-z0-9._/-]*$/i;
  */
 function commandSegments(command: string): string[][] {
   const raw: string[] = [];
+  command = stripHeredocBodies(command);
   let cur = "";
   let quote: string | null = null;
   for (let i = 0; i < command.length; i++) {
@@ -265,25 +294,53 @@ interface Invocation {
   start: number;
 }
 
+// Commands that can precede a real invocation without changing what it is.
+const WRAPPER_HEADS = new Set([
+  "sudo", "doas", "env", "timeout", "nice", "ionice", "xargs",
+  "command", "nohup", "setsid", "stdbuf", "time",
+]);
+
+/** True once the token is a recognised package-manager head. */
+function isHead(tok: string, next: string | undefined): boolean {
+  if (RUNNER_HEADS.has(tok)) return true;
+  if (!next) return false;
+  return (next === "dlx" && DLX_HEADS.has(tok)) || Boolean(INSTALL_SUBCOMMANDS[tok]?.includes(next));
+}
+
+/** A token that may sit before the invocation head: wrapper, flag, VAR=x, or a bare number. */
+function isSkippablePrefix(tok: string): boolean {
+  return (
+    WRAPPER_HEADS.has(tok) ||
+    tok.startsWith("-") ||
+    /^\d+(\.\d+)?[smhd]?$/.test(tok) || // timeout/nice numeric args
+    /^[A-Za-z_][A-Za-z0-9_]*=/.test(tok)  // env assignments
+  );
+}
+
 /**
- * Find a package-manager invocation among a segment's tokens.
+ * Find a package-manager invocation at the head of a segment.
  *
- * Searched at ANY position rather than only the first token: `timeout 300 npx
- * vue-tsc`, `sudo npm install x` and `env FOO=1 vpx y` are all the same
- * invocation as their bare forms, and enumerating every wrapper that can
- * precede a command is a losing game. Being too eager here is low-cost - the
- * result only decides whether a package-name prompt is raised, never a block.
+ * The head may sit behind wrappers - `timeout 300 npx vue-tsc`, `sudo npm
+ * install x`, `env FOO=1 vpx y` are all the same invocation as their bare
+ * forms - so leading wrapper/flag/assignment tokens are skipped. Anything
+ * else before the head means this is not an invocation: that is what stops a
+ * prose line such as `the pnpm install rewrites the root package.json` from
+ * reading as an install and teaching its words as package names.
  */
 function findInvocation(tokens: string[]): Invocation | null {
-  for (let i = 0; i < tokens.length; i++) {
-    const tok = tokens[i];
-    const next = tokens[i + 1];
-    if (RUNNER_HEADS.has(tok)) return { kind: "runner", start: i + 1 };
-    if (!next) continue;
-    if (next === "dlx" && DLX_HEADS.has(tok)) return { kind: "runner", start: i + 2 };
-    if (INSTALL_SUBCOMMANDS[tok]?.includes(next)) return { kind: "install", start: i + 2 };
+  let i = 0;
+  while (i < tokens.length && !isHead(tokens[i], tokens[i + 1])) {
+    if (!isSkippablePrefix(tokens[i])) return null;
+    // A wrapper flag may take a value (`sudo -u root`, `timeout -k 5`); skip it too.
+    if (tokens[i].startsWith("-") && !tokens[i].includes("=")) i++;
+    i++;
   }
-  return null;
+  if (i >= tokens.length) return null;
+  const tok = tokens[i];
+  const next = tokens[i + 1];
+  if (RUNNER_HEADS.has(tok)) return { kind: "runner", start: i + 1 };
+  if (next === "dlx" && DLX_HEADS.has(tok)) return { kind: "runner", start: i + 2 };
+  return { kind: "install", start: i + 2 };
 }
 
 /** True if the command installs packages or downloads-and-runs one. */

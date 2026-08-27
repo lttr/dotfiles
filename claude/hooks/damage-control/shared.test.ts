@@ -64,17 +64,27 @@ test("bare installs name no packages", () => {
   }
 });
 
-test("prose mentioning a runner reads as an invocation, which is harmless", () => {
-  // Splitting is only quote-aware at token boundaries, so a mention in the
-  // middle of a message still matches. Documented rather than fixed: the
-  // result only decides whether a package-name prompt is raised, never a
-  // block, and tokens carrying quotes are rejected as names anyway.
-  assert.equal(isPackageCommand('git commit -m "ran npx foo"'), true);
-  // `foo"` carries a quote, so it is rejected as a package name.
+test("prose mentioning a runner is not an invocation", () => {
+  // The head must sit at the front of a segment, behind wrappers only, so a
+  // mention in the middle of a message no longer matches.
+  assert.equal(isPackageCommand('git commit -m "ran npx foo"'), false);
   assert.deepEqual(extractPackages('git commit -m "ran npx foo"'), []);
-
-  // A quote sitting against the token does hide it.
   assert.equal(isPackageCommand("grep -r 'npm install evil' ."), false);
+  assert.equal(isPackageCommand("the pnpm install rewrites the root package.json"), false);
+});
+
+test("heredoc bodies are data, not commands", () => {
+  const doc = [
+    "cat > notes.md <<'EOF'",
+    "pnpm install rewrites the root package.json and drags in every catalog entry",
+    "npx some-unknown-package-xyz is what the doc mentions",
+    "EOF",
+  ].join("\n");
+  assert.equal(isPackageCommand(doc), false, doc);
+  assert.deepEqual(extractPackages(doc), [], doc);
+
+  // A real install after the heredoc still registers.
+  assert.deepEqual(extractPackages(doc + "\npnpm add left-pad"), ["left-pad"]);
 });
 
 test("non-package commands are left alone", () => {
