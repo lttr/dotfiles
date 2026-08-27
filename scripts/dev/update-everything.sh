@@ -32,9 +32,9 @@ echo
 vp upgrade
 
 echo
-echo '### vp update --global'
+echo '### vp update --global --reinstall-node-mismatch'
 echo
-vp update --global
+vp update --global --reinstall-node-mismatch
 
 echo
 echo '### vp env default lts'
