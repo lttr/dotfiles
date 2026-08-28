@@ -587,7 +587,7 @@ const STATE_GROUPS = [
   ["in-progress", "In progress", true],
   ["blocked", "Blocked", true],
   ["not-started", "Not started", true],
-  ["unknown", "No status — add one to spec.md or plan.md", true],
+  ["unknown", "No status", true],
   ["done", "Done", false],
   ["abandoned", "Abandoned", false],
 ];
