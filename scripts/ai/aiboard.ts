@@ -454,13 +454,22 @@ const html = `<!doctype html>
   header h1 { font-size: 17px; margin: 0; font-weight: 600; }
   #conn { width: 8px; height: 8px; border-radius: 50%; background: var(--crit); }
   #conn.ok { background: var(--good); }
+  .toggle { margin-left: auto; color: var(--ink-2); font-size: 14px;
+            display: flex; align-items: center; gap: 6px; cursor: pointer; }
   main { padding: 16px 20px; display: grid; gap: 20px; }
   .task { background: var(--card); border: 1px solid var(--line);
           border-radius: 2px; padding: 14px 16px; }
-  .task-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-               margin-bottom: 10px; }
-  .task-head .proj { color: var(--ink-2); font-size: 14px; }
-  .task-head .name { font-weight: 600; }
+  .task > summary { display: flex; align-items: baseline; gap: 10px;
+                    flex-wrap: wrap; cursor: pointer; list-style: none;
+                    margin-bottom: 12px; }
+  .task > summary::-webkit-details-marker { display: none; }
+  .task > summary::before { content: "▸"; color: var(--ink-2); }
+  .task[open] > summary::before { content: "▾"; }
+  .task:not([open]) > summary { margin-bottom: 0; }
+  .task .proj { color: var(--ink-2); font-size: 14px; }
+  .task .name { font-weight: 600; }
+  .task .m { color: var(--ink-2); font-size: 14px; }
+  .task .right { margin-left: auto; }
   .badge { font-size: 13px; padding: 1px 8px; border-radius: 2px;
            border: 1px solid var(--line); color: var(--ink-2); }
   .badge.running { color: var(--good); border-color: var(--good); }
@@ -538,7 +547,9 @@ ${mermaidStyles}
 </head>
 <body>
 <header><div id="conn"></div><h1>aiwork dashboard</h1>
-  <span id="meta" class="badge"></span></header>
+  <span id="meta" class="badge"></span>
+  <label class="toggle"><input type="checkbox" id="chrono"> newest first</label>
+</header>
 <main id="main"><p class="empty">Loading…</p></main>
 ${mermaidScript}
 <script>
@@ -563,6 +574,13 @@ const STATE_GROUPS = [
   ["done", "Done", false],
   ["abandoned", "Abandoned", false],
 ];
+
+// Flat, newest-first listing instead of the state sections. Survives reloads;
+// a browser that refuses storage just starts grouped every time.
+let chrono = false;
+try {
+  chrono = localStorage.getItem("aiboard-chrono") === "1";
+} catch { /* storage blocked */ }
 
 // open/closed choices for every disclosure, so the SSE re-render can restore them
 const discState = new Map();
@@ -607,8 +625,8 @@ function age(mtime) {
 // The section header already names the state, so a badge only earns its place
 // when it adds something: the reason for a block, or a frontmatter word that
 // disagrees with the state the tickets prove (a stale "active" on done work).
-function stateBadge(t) {
-  const parts = [];
+function stateBadge(t, withLabel) {
+  const parts = withLabel ? [STATE_LABEL[t.state]] : [];
   if (t.state === "blocked" && t.blockedReason) parts.push(t.blockedReason);
   if (t.planned && t.docStatus &&
       STATE_LABEL[t.state] !== t.docStatus.toLowerCase()) {
@@ -618,22 +636,24 @@ function stateBadge(t) {
   return \`<span class="badge \${t.state}">\${esc(parts.join(" · "))}</span>\`;
 }
 
-// Unfinished work gets the full board plus its notes log.
+// Unfinished work gets the full board plus its notes log — collapsible like any
+// other row, running included, so a long board can be folded out of the way.
 function taskCard(task) {
   const notes = task.notes
     ? \`<div class="notes"><h3 class="nt"><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
     : '<div class="notes"><h3 class="nt">notes</h3><p class="empty">No notes yet.</p></div>';
-  return \`<section class="task">
-    <div class="task-head">
-      <span class="proj">\${esc(task.proj)} /</span>
-      <span class="name">\${esc(task.name)}</span>
-      \${task.running ? '<span class="badge running">running</span>' : ""}
-      \${stateBadge(task)}
-      \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
-      \${docLinks(task)}
-    </div>
-    <div class="body">\${boardHtml(task, false)}\${notes}</div>
-  </section>\`;
+  const done = task.tickets.filter((t) => t.status === "done").length;
+  const head = \`<span class="proj">\${esc(task.proj)} /</span>
+    <span class="name">\${esc(task.name)}</span>
+    \${task.running ? '<span class="badge running">running</span>' : ""}
+    \${task.tickets.length
+      ? \`<span class="m">\${done}/\${task.tickets.length} tickets</span>\` : ""}
+    \${stateBadge(task, chrono)}
+    \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
+    \${docLinks(task)}
+    <span class="m right">\${age(task.mtime)} ago</span>\`;
+  return disc("task/" + taskKey(task), true, "task", head,
+    \`<div class="body">\${boardHtml(task, false)}\${notes}</div>\`);
 }
 
 function idleRow(t) {
@@ -645,7 +665,7 @@ function idleRow(t) {
           ? \` · \${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria\`
           : ""}</span>\`;
   const head = \`<span class="proj">\${esc(t.proj)} /</span>
-    <span>\${esc(t.name)}</span>\${sum}\${stateBadge(t)}\${docLinks(t)}
+    <span>\${esc(t.name)}</span>\${sum}\${stateBadge(t, chrono)}\${docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     <span class="m right">\${age(t.mtime)} ago</span>\`;
   // finished tasks keep their tickets — expand the row to read them
@@ -688,33 +708,48 @@ function render(projects) {
       '<p class="empty">No task folders found.</p>';
     return;
   }
-  // One section per lifecycle state — the only grouping the board has.
-  document.getElementById("main").innerHTML = STATE_GROUPS.map(
-    ([state, label, open]) => {
+  const row = (t) => t.expanded ? taskCard(t) : idleRow(t);
+  document.getElementById("main").innerHTML = chrono
+    // Folder names start with the date they were opened, so the name sorts as
+    // the date does — newest task first, state ignored.
+    ? [...tasks].sort((a, b) => b.name.localeCompare(a.name)).map(row).join("")
+    // Otherwise one section per lifecycle state.
+    : STATE_GROUPS.map(([state, label, open]) => {
       const rows = tasks.filter((t) => t.state === state);
       if (!rows.length) return "";
-      const body = rows.map((t) => t.expanded ? taskCard(t) : idleRow(t)).join("");
       return disc("state/" + state, open, "state-group",
-        \`\${label} (\${rows.length})\`, body);
-    },
-  ).join("");
+        \`\${label} (\${rows.length})\`, rows.map(row).join(""));
+    }).join("");
   drawMermaid();
   // keep note logs scrolled to the latest entries
   for (const n of document.querySelectorAll(".notes")) n.scrollTop = n.scrollHeight;
 }
 
+let lastData = [];
+const draw = (data) => render(lastData = data);
+
+const chronoBox = document.getElementById("chrono");
+chronoBox.checked = chrono;
+chronoBox.addEventListener("change", () => {
+  chrono = chronoBox.checked;
+  try {
+    localStorage.setItem("aiboard-chrono", chrono ? "1" : "0");
+  } catch { /* storage blocked */ }
+  render(lastData);
+});
+
 const conn = document.getElementById("conn");
 function connect() {
   const es = new EventSource("/events");
   es.onopen = () => conn.classList.add("ok");
-  es.onmessage = (e) => render(JSON.parse(e.data));
+  es.onmessage = (e) => draw(JSON.parse(e.data));
   es.onerror = () => {
     conn.classList.remove("ok");
     es.close();
     setTimeout(connect, 2000);
   };
 }
-fetch("/state").then((r) => r.json()).then(render);
+fetch("/state").then((r) => r.json()).then(draw);
 connect();
 </script>
 </body>
