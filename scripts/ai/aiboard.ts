@@ -55,13 +55,13 @@ interface TaskFolder {
   notesFile: string | null;
   hasReview: boolean;
   mtime: number;
-  running: boolean;
-  active: boolean; // running, or has unfinished tickets — gets a full board section
-  // Ticketless folders carry no completion signal at all, so they get their own
-  // bucket instead of being counted as finished.
+  running: boolean; // a ticket is in progress, or the folder was just touched
+  expanded: boolean; // unfinished work to show — gets a full board section
   planned: boolean; // has a tickets/ folder with tickets
   docStatus: string | null; // raw frontmatter status of spec.md / plan*.md
-  state: DocState; // docStatus normalized to the lifecycle vocabulary
+  // The one axis the board is organized by: from the tickets when there are
+  // any, otherwise from the spec/plan frontmatter.
+  state: DocState;
   blockedReason: string | null;
   docCriteriaDone: number;
   docCriteriaTotal: number;
@@ -125,6 +125,16 @@ const DOC_STATES: Record<string, DocState> = {
 
 const docState = (raw: string | null): DocState =>
   DOC_STATES[(raw ?? "").toLowerCase()] ?? "not-started";
+
+// Same vocabulary, read off a ticket pile: any work touched at all counts as
+// started, and a pile whose every remaining ticket waits on another is blocked.
+function ticketState(tickets: Ticket[]): DocState {
+  if (tickets.every((t) => t.status === "done")) return "done";
+  if (tickets.some((t) => t.status === "in-progress")) return "in-progress";
+  const open = tickets.filter((t) => t.status !== "done");
+  if (open.every((t) => t.blocked)) return "blocked";
+  return tickets.some((t) => t.status === "done") ? "in-progress" : "not-started";
+}
 
 async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   let mtime = (await dir.stat())?.mtime?.getTime() ?? 0;
@@ -198,13 +208,20 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   const planned = tickets.length > 0;
   const running = tickets.some((t) => t.status === "in-progress") ||
     Date.now() - mtime < 15 * 60 * 1000;
-  const active = running || tickets.some((t) => t.status !== "done");
-  if (!active) notes = null; // idle rows don't ship their notes
+  // Tickets are the better evidence when they exist, but only frontmatter can
+  // say a task was abandoned, so that verdict wins over any ticket pile.
+  const fromDoc = docState(docStatus);
+  const state = planned && fromDoc !== "abandoned"
+    ? ticketState(tickets)
+    : fromDoc;
+  // A task nobody is working on shows as a row, not a board — no notes needed.
+  const expanded = running || (planned && state !== "done");
+  if (!expanded) notes = null;
   else if (notes) notes = mdToHtml(notes.split("\n").slice(-150).join("\n"));
 
   return {
     name: dir.basename(), docs, tickets, notes, notesFile, hasReview, mtime,
-    running, active, planned, docStatus, state: docState(docStatus),
+    running, expanded, planned, docStatus, state,
     blockedReason, docCriteriaDone, docCriteriaTotal,
   };
 }
@@ -498,9 +515,11 @@ ${mermaidStyles}
                        border-left: 2px solid var(--line); padding: 2px 8px;
                        margin: 6px 0; opacity: 0.85; }
   .empty { color: var(--ink-2); font-style: italic; }
-  .idle > summary { cursor: pointer; color: var(--ink-2); font-size: 14px;
+  .state-group { margin-bottom: 6px; }
+  .state-group > summary { cursor: pointer; color: var(--ink-2); font-size: 14px;
                   text-transform: uppercase; letter-spacing: 0.05em;
                   margin-bottom: 6px; }
+  .state-group > .task { margin-bottom: 10px; }
   .idle-task > summary { display: flex; gap: 8px; align-items: baseline;
               cursor: pointer; list-style: none;
               padding: 5px 8px; border-bottom: 1px solid var(--line); }
@@ -536,14 +555,13 @@ const STATE_LABEL = {
   blocked: "blocked", done: "done", abandoned: "abandoned",
 };
 
-// Ticketless tasks split by lifecycle: the first two still want attention,
-// the last two are settled and collapse by default.
+// The board's only grouping. Live work first; settled states collapse.
 const STATE_GROUPS = [
-  ["in-progress", "Started — no tickets", true],
+  ["in-progress", "In progress", true],
   ["blocked", "Blocked", true],
-  ["not-started", "Not started — spec only, no tickets", true],
-  ["done", "Done — spec-level, no tickets", false],
-  ["abandoned", "Abandoned / superseded", false],
+  ["not-started", "Not started", true],
+  ["done", "Done", false],
+  ["abandoned", "Abandoned", false],
 ];
 
 // open/closed choices for every disclosure, so the SSE re-render can restore them
@@ -586,21 +604,42 @@ function age(mtime) {
   return Math.round(s / (30 * 86400)) + "mo";
 }
 
-// Lifecycle badge for a ticketless task; shows the raw frontmatter word when it
-// differs from the state it maps to, so a stale "active" stays visible as such.
+// The section header already names the state, so a badge only earns its place
+// when it adds something: the reason for a block, or a frontmatter word that
+// disagrees with the state the tickets prove (a stale "active" on done work).
 function stateBadge(t) {
-  if (t.planned) return "";
-  const label = t.docStatus && STATE_LABEL[t.state] !== t.docStatus.toLowerCase()
-    ? \`\${STATE_LABEL[t.state]} · \${t.docStatus}\`
-    : STATE_LABEL[t.state];
-  const why = t.state === "blocked" && t.blockedReason
-    ? \` — \${t.blockedReason}\` : "";
-  return \`<span class="badge \${t.state}">\${esc(label + why)}</span>\`;
+  const parts = [];
+  if (t.state === "blocked" && t.blockedReason) parts.push(t.blockedReason);
+  if (t.planned && t.docStatus &&
+      STATE_LABEL[t.state] !== t.docStatus.toLowerCase()) {
+    parts.push(\`spec says "\${t.docStatus}"\`);
+  }
+  if (!parts.length) return "";
+  return \`<span class="badge \${t.state}">\${esc(parts.join(" · "))}</span>\`;
+}
+
+// Unfinished work gets the full board plus its notes log.
+function taskCard(task) {
+  const notes = task.notes
+    ? \`<div class="notes"><h3 class="nt"><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
+    : '<div class="notes"><h3 class="nt">notes</h3><p class="empty">No notes yet.</p></div>';
+  return \`<section class="task">
+    <div class="task-head">
+      <span class="proj">\${esc(task.proj)} /</span>
+      <span class="name">\${esc(task.name)}</span>
+      \${task.running ? '<span class="badge running">running</span>' : ""}
+      \${stateBadge(task)}
+      \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
+      \${docLinks(task)}
+    </div>
+    <div class="body">\${boardHtml(task, false)}\${notes}</div>
+  </section>\`;
 }
 
 function idleRow(t) {
+  const done = t.tickets.filter((x) => x.status === "done").length;
   const sum = t.planned
-    ? \`<span class="m">\${t.tickets.length} tickets done</span>\`
+    ? \`<span class="m">\${done}/\${t.tickets.length} tickets</span>\`
     : \`<span class="m">no tickets\${
         t.docCriteriaTotal
           ? \` · \${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria\`
@@ -639,47 +678,26 @@ function render(projects) {
   const tasks = projects.flatMap((p, pi) =>
     p.tasks.map((t) => ({ ...t, proj: p.name, pi })));
   tasks.sort((a, b) => b.running - a.running || b.mtime - a.mtime);
-  const active = tasks.filter((t) => t.active);
-  // A folder with no tickets was never broken down into work — it is not done,
-  // it is unplanned, so it must not sit in the same pile as finished tasks.
-  const idle = tasks.filter((t) => !t.active && t.planned);
-  const unplanned = tasks.filter((t) => !t.active && !t.planned);
-  document.getElementById("meta").textContent =
-    \`\${tasks.filter((t) => t.running).length} running / \${tasks.length} tasks\`;
+  const counts = STATE_GROUPS
+    .map(([state, label]) =>
+      \`\${tasks.filter((t) => t.state === state).length} \${label.toLowerCase()}\`)
+    .join(" · ");
+  document.getElementById("meta").textContent = counts;
   if (!tasks.length) {
     document.getElementById("main").innerHTML =
       '<p class="empty">No task folders found.</p>';
     return;
   }
-  const idleHtml = idle.length
-    ? \`<details class="idle" open>
-        <summary>Idle / done (\${idle.length})</summary>
-        \${idle.map(idleRow).join("")}</details>\`
-    : "";
-  const unplannedHtml = STATE_GROUPS.map(([state, label, open]) => {
-    const rows = unplanned.filter((t) => t.state === state);
-    if (!rows.length) return "";
-    return disc("state/" + state, open, "idle",
-      \`\${label} (\${rows.length})\`, rows.map(idleRow).join(""));
-  }).join("");
-  document.getElementById("main").innerHTML = (active.length
-    ? ""
-    : '<p class="empty">Nothing running.</p>') + active.map((task) => {
-    const board = boardHtml(task, false);
-    const notes = task.notes
-      ? \`<div class="notes"><h3 class="nt"><a href="\${href(task, task.notesFile)}" target="_blank">\${esc(task.notesFile)}</a></h3>\${task.notes}</div>\`
-      : '<div class="notes"><h3 class="nt">notes</h3><p class="empty">No notes yet.</p></div>';
-    return \`<section class="task">
-      <div class="task-head">
-        <span class="proj">\${esc(task.proj)} /</span>
-        <span class="name">\${esc(task.name)}</span>
-        \${task.running ? '<span class="badge running">running</span>' : ""}
-        \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
-        \${docLinks(task)}
-      </div>
-      <div class="body">\${board}\${notes}</div>
-    </section>\`;
-  }).join("") + unplannedHtml + idleHtml;
+  // One section per lifecycle state — the only grouping the board has.
+  document.getElementById("main").innerHTML = STATE_GROUPS.map(
+    ([state, label, open]) => {
+      const rows = tasks.filter((t) => t.state === state);
+      if (!rows.length) return "";
+      const body = rows.map((t) => t.expanded ? taskCard(t) : idleRow(t)).join("");
+      return disc("state/" + state, open, "state-group",
+        \`\${label} (\${rows.length})\`, body);
+    },
+  ).join("");
   drawMermaid();
   // keep note logs scrolled to the latest entries
   for (const n of document.querySelectorAll(".notes")) n.scrollTop = n.scrollHeight;
