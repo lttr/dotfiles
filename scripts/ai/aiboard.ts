@@ -378,6 +378,7 @@ const docPage = (title: string, body: string) => `<!doctype html>
     :root { --surface: #232321; --ink: #ececea; --ink-2: #a3a29c; --line: #383835;
             --accent: #7f9fce; }
   }
+  :root { color-scheme: light dark; accent-color: var(--accent); }
   * { box-sizing: border-box; }
   body { margin: 0 auto; max-width: 46rem; padding: 32px 20px;
          background: var(--surface); color: var(--ink);
@@ -446,6 +447,7 @@ const html = `<!doctype html>
       --accent: #7f9fce;
     }
   }
+  :root { color-scheme: light dark; accent-color: var(--accent); }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--surface); color: var(--ink);
          font: 16px/1.5 system-ui, sans-serif; }
