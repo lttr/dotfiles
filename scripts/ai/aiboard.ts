@@ -57,6 +57,14 @@ interface TaskFolder {
   mtime: number;
   running: boolean;
   active: boolean; // running, or has unfinished tickets — gets a full board section
+  // Ticketless folders carry no completion signal at all, so they get their own
+  // bucket instead of being counted as finished.
+  planned: boolean; // has a tickets/ folder with tickets
+  docStatus: string | null; // raw frontmatter status of spec.md / plan*.md
+  state: DocState; // docStatus normalized to the lifecycle vocabulary
+  blockedReason: string | null;
+  docCriteriaDone: number;
+  docCriteriaTotal: number;
 }
 
 interface Project {
@@ -88,6 +96,35 @@ function parseFrontmatter(text: string): Record<string, string> {
   }
   return out;
 }
+
+// Lifecycle of a spec/plan-level task, from its `status:` frontmatter. Older
+// artifacts use a looser vocabulary, so the aliases map onto the same five states.
+type DocState = "not-started" | "in-progress" | "blocked" | "done" | "abandoned";
+
+const DOC_STATES: Record<string, DocState> = {
+  draft: "not-started",
+  planned: "not-started",
+  todo: "not-started",
+  "in-progress": "in-progress",
+  active: "in-progress",
+  wip: "in-progress",
+  started: "in-progress",
+  blocked: "blocked",
+  waiting: "blocked",
+  done: "done",
+  complete: "done",
+  completed: "done",
+  shipped: "done",
+  abandoned: "abandoned",
+  dropped: "abandoned",
+  cancelled: "abandoned",
+  canceled: "abandoned",
+  wontfix: "abandoned",
+  superseded: "abandoned",
+};
+
+const docState = (raw: string | null): DocState =>
+  DOC_STATES[(raw ?? "").toLowerCase()] ?? "not-started";
 
 async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   let mtime = (await dir.stat())?.mtime?.getTime() ?? 0;
@@ -139,13 +176,37 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
     .map((e) => e.name)
     .sort();
 
+  // Spec/plan docs are the only progress signal a ticketless folder has:
+  // a frontmatter status and whatever checklist the spec carries.
+  let docStatus: string | null = null;
+  let blockedReason: string | null = null;
+  let docCriteriaDone = 0;
+  let docCriteriaTotal = 0;
+  const docRank = (n: string) =>
+    n === "spec.md" ? 0 : /^plan/.test(n) ? 1 : 2;
+  for (const name of docs.filter((d) => d.endsWith(".md")).sort(
+    (a, b) => docRank(a) - docRank(b) || a.localeCompare(b),
+  )) {
+    const text = await dir.join(name).readText();
+    const fm = parseFrontmatter(text);
+    docStatus ??= fm.status || null;
+    blockedReason ??= fm.blocked_by || fm.blocked_reason || null;
+    docCriteriaDone += (text.match(/^- \[x\]/gim) ?? []).length;
+    docCriteriaTotal += (text.match(/^- \[[ x]\]/gim) ?? []).length;
+  }
+
+  const planned = tickets.length > 0;
   const running = tickets.some((t) => t.status === "in-progress") ||
     Date.now() - mtime < 15 * 60 * 1000;
   const active = running || tickets.some((t) => t.status !== "done");
   if (!active) notes = null; // idle rows don't ship their notes
   else if (notes) notes = mdToHtml(notes.split("\n").slice(-150).join("\n"));
 
-  return { name: dir.basename(), docs, tickets, notes, notesFile, hasReview, mtime, running, active };
+  return {
+    name: dir.basename(), docs, tickets, notes, notesFile, hasReview, mtime,
+    running, active, planned, docStatus, state: docState(docStatus),
+    blockedReason, docCriteriaDone, docCriteriaTotal,
+  };
 }
 
 async function scan(): Promise<Project[]> {
@@ -386,6 +447,11 @@ const html = `<!doctype html>
   .badge { font-size: 13px; padding: 1px 8px; border-radius: 2px;
            border: 1px solid var(--line); color: var(--ink-2); }
   .badge.running { color: var(--good); border-color: var(--good); }
+  .badge.in-progress { color: var(--warn); border-color: var(--warn); }
+  .badge.blocked { color: var(--crit); border-color: var(--crit); }
+  .badge.done { color: var(--good); border-color: var(--good); }
+  .badge.abandoned { text-decoration: line-through; }
+  .badge.not-started { color: var(--accent); border-color: var(--accent); }
   .badge.running::before { content: "● "; animation: pulse 1.5s infinite; }
   @keyframes pulse { 50% { opacity: 0.3; } }
   .body { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
@@ -465,6 +531,21 @@ const COLS = [
   ["in-progress", "In progress"], ["done", "Done"],
 ];
 
+const STATE_LABEL = {
+  "not-started": "not started", "in-progress": "in progress",
+  blocked: "blocked", done: "done", abandoned: "abandoned",
+};
+
+// Ticketless tasks split by lifecycle: the first two still want attention,
+// the last two are settled and collapse by default.
+const STATE_GROUPS = [
+  ["in-progress", "Started — no tickets", true],
+  ["blocked", "Blocked", true],
+  ["not-started", "Not started — spec only, no tickets", true],
+  ["done", "Done — spec-level, no tickets", false],
+  ["abandoned", "Abandoned / superseded", false],
+];
+
 // open/closed choices for every disclosure, so the SSE re-render can restore them
 const discState = new Map();
 document.addEventListener("toggle", (e) => {
@@ -505,10 +586,27 @@ function age(mtime) {
   return Math.round(s / (30 * 86400)) + "mo";
 }
 
+// Lifecycle badge for a ticketless task; shows the raw frontmatter word when it
+// differs from the state it maps to, so a stale "active" stays visible as such.
+function stateBadge(t) {
+  if (t.planned) return "";
+  const label = t.docStatus && STATE_LABEL[t.state] !== t.docStatus.toLowerCase()
+    ? \`\${STATE_LABEL[t.state]} · \${t.docStatus}\`
+    : STATE_LABEL[t.state];
+  const why = t.state === "blocked" && t.blockedReason
+    ? \` — \${t.blockedReason}\` : "";
+  return \`<span class="badge \${t.state}">\${esc(label + why)}</span>\`;
+}
+
 function idleRow(t) {
-  const sum = t.tickets.length ? \`<span class="m">\${t.tickets.length} tickets done</span>\` : "";
+  const sum = t.planned
+    ? \`<span class="m">\${t.tickets.length} tickets done</span>\`
+    : \`<span class="m">no tickets\${
+        t.docCriteriaTotal
+          ? \` · \${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria\`
+          : ""}</span>\`;
   const head = \`<span class="proj">\${esc(t.proj)} /</span>
-    <span>\${esc(t.name)}</span>\${sum}\${docLinks(t)}
+    <span>\${esc(t.name)}</span>\${sum}\${stateBadge(t)}\${docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     <span class="m right">\${age(t.mtime)} ago</span>\`;
   // finished tasks keep their tickets — expand the row to read them
@@ -520,7 +618,7 @@ const taskKey = (task) => task.pi + "/" + task.name;
 
 function boardHtml(task, doneOpenByDefault) {
   if (!task.tickets.length) {
-    return '<div class="empty">No tickets — spec-level work item.</div>';
+    return '<div class="empty">Not planned yet — no tickets.</div>';
   }
   const cols = COLS.map(([key, label]) => {
     const items = task.tickets.filter((t) =>
@@ -542,7 +640,10 @@ function render(projects) {
     p.tasks.map((t) => ({ ...t, proj: p.name, pi })));
   tasks.sort((a, b) => b.running - a.running || b.mtime - a.mtime);
   const active = tasks.filter((t) => t.active);
-  const idle = tasks.filter((t) => !t.active);
+  // A folder with no tickets was never broken down into work — it is not done,
+  // it is unplanned, so it must not sit in the same pile as finished tasks.
+  const idle = tasks.filter((t) => !t.active && t.planned);
+  const unplanned = tasks.filter((t) => !t.active && !t.planned);
   document.getElementById("meta").textContent =
     \`\${tasks.filter((t) => t.running).length} running / \${tasks.length} tasks\`;
   if (!tasks.length) {
@@ -555,6 +656,12 @@ function render(projects) {
         <summary>Idle / done (\${idle.length})</summary>
         \${idle.map(idleRow).join("")}</details>\`
     : "";
+  const unplannedHtml = STATE_GROUPS.map(([state, label, open]) => {
+    const rows = unplanned.filter((t) => t.state === state);
+    if (!rows.length) return "";
+    return disc("state/" + state, open, "idle",
+      \`\${label} (\${rows.length})\`, rows.map(idleRow).join(""));
+  }).join("");
   document.getElementById("main").innerHTML = (active.length
     ? ""
     : '<p class="empty">Nothing running.</p>') + active.map((task) => {
@@ -572,7 +679,7 @@ function render(projects) {
       </div>
       <div class="body">\${board}\${notes}</div>
     </section>\`;
-  }).join("") + idleHtml;
+  }).join("") + unplannedHtml + idleHtml;
   drawMermaid();
   // keep note logs scrolled to the latest entries
   for (const n of document.querySelectorAll(".notes")) n.scrollTop = n.scrollHeight;

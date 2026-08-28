@@ -22,7 +22,7 @@ Show a status overview for an `.aiwork/` task. Follows the `aiwork-protocol` ski
 Read the spec and all plan files in the folder. For each step in the spec's implementation order:
 
 - Is there a corresponding `plan_N.md`?
-- What is the plan's `status:`? (`draft` / `active` / `complete` / `superseded`)
+- What is the spec/plan's `status:`? (`not-started` / `in-progress` / `blocked` / `done` / `abandoned`; older files may say `draft` / `active` / `complete` / `superseded`)
 - Does the spec checklist mark it `[x]` or `[ ]`?
 
 If a `tickets/` subfolder exists, also read each ticket's frontmatter: `status` (`ready` / `in-progress` / `done`) and `blocked_by`. The **frontier** is every `ready` ticket whose blockers are all `done`.
