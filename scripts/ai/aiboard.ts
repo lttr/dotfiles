@@ -98,8 +98,17 @@ function parseFrontmatter(text: string): Record<string, string> {
 }
 
 // Lifecycle of a spec/plan-level task, from its `status:` frontmatter. Older
-// artifacts use a looser vocabulary, so the aliases map onto the same five states.
-type DocState = "not-started" | "in-progress" | "blocked" | "done" | "abandoned";
+// artifacts use a looser vocabulary, so the aliases map onto the same states.
+// "unknown" is its own state, not a synonym for not-started: tickets exist only
+// where a task was worth splitting up, so a folder without them says nothing
+// about whether the work has been done.
+type DocState =
+  | "unknown"
+  | "not-started"
+  | "in-progress"
+  | "blocked"
+  | "done"
+  | "abandoned";
 
 const DOC_STATES: Record<string, DocState> = {
   draft: "not-started",
@@ -123,8 +132,9 @@ const DOC_STATES: Record<string, DocState> = {
   superseded: "abandoned",
 };
 
+// An unrecognized word is as uninformative as no word at all.
 const docState = (raw: string | null): DocState =>
-  DOC_STATES[(raw ?? "").toLowerCase()] ?? "not-started";
+  DOC_STATES[(raw ?? "").toLowerCase()] ?? "unknown";
 
 // Same vocabulary, read off a ticket pile: any work touched at all counts as
 // started, and a pile whose every remaining ticket waits on another is blocked.
@@ -210,6 +220,8 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
     Date.now() - mtime < 15 * 60 * 1000;
   // Tickets are the better evidence when they exist, but only frontmatter can
   // say a task was abandoned, so that verdict wins over any ticket pile.
+  // Tickets are hard evidence; frontmatter only fills in what they can't say —
+  // that a task was abandoned, or (with no tickets at all) anything whatsoever.
   const fromDoc = docState(docStatus);
   const state = planned && fromDoc !== "abandoned"
     ? ticketState(tickets)
@@ -480,6 +492,7 @@ const html = `<!doctype html>
   .badge.done { color: var(--good); border-color: var(--good); }
   .badge.abandoned { text-decoration: line-through; }
   .badge.not-started { color: var(--accent); border-color: var(--accent); }
+  .badge.unknown { border-style: dashed; }
   .badge.running::before { content: "● "; animation: pulse 1.5s infinite; }
   @keyframes pulse { 50% { opacity: 0.3; } }
   .body { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
@@ -564,8 +577,9 @@ const COLS = [
 ];
 
 const STATE_LABEL = {
-  "not-started": "not started", "in-progress": "in progress",
-  blocked: "blocked", done: "done", abandoned: "abandoned",
+  unknown: "no status", "not-started": "not started",
+  "in-progress": "in progress", blocked: "blocked",
+  done: "done", abandoned: "abandoned",
 };
 
 // The board's only grouping. Live work first; settled states collapse.
@@ -573,6 +587,7 @@ const STATE_GROUPS = [
   ["in-progress", "In progress", true],
   ["blocked", "Blocked", true],
   ["not-started", "Not started", true],
+  ["unknown", "No status — add one to spec.md or plan.md", true],
   ["done", "Done", false],
   ["abandoned", "Abandoned", false],
 ];
