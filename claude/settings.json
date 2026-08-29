@@ -179,5 +179,6 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  "maxSkillDescriptionChars": 250,
+  "cleanupPeriodDays": 180
 }
