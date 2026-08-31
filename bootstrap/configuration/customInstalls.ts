@@ -2,15 +2,30 @@ import { HOME } from "../constants.ts";
 import type { Config } from "../deps.ts";
 import { aptUpdate, gnupg2 } from "./apt.ts";
 
+interface ReleaseAsset {
+  name: string;
+  browser_download_url: string;
+}
+
+interface Release {
+  draft: boolean;
+  prerelease: boolean;
+  assets: ReleaseAsset[];
+}
+
 /**
- * Fetches the latest .deb release URL from a GitHub repository.
- * Automatically selects amd64 architecture when multiple .deb files exist.
+ * Finds the .deb download URL in the newest published release that has one.
+ * Not every release carries a .deb - repos often publish other platforms from
+ * the same tag stream - so the newest release is not necessarily the newest
+ * one we can install. Drafts and prereleases are skipped, and amd64 wins when
+ * a release offers several architectures.
  * @param repo - GitHub repo in format "owner/repo"
- * @returns Promise with the download URL or throws if not found
+ * @returns Promise with the download URL or throws if none of the recent
+ *          releases has a .deb
  */
 async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
   const response = await fetch(
-    `https://api.github.com/repos/${repo}/releases/latest`,
+    `https://api.github.com/repos/${repo}/releases?per_page=30`,
     {
       headers: {
         Accept: "application/vnd.github+json",
@@ -22,27 +37,53 @@ async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
     throw new Error(`Failed to fetch releases for ${repo}: ${response.status}`);
   }
 
-  const release = await response.json();
-  const debAssets = release.assets.filter((asset: { name: string }) =>
-    asset.name.endsWith(".deb")
-  );
-
-  if (debAssets.length === 0) {
-    throw new Error(`No .deb file found in latest release for ${repo}`);
-  }
-
-  // If multiple .deb files, prefer amd64
-  let debAsset = debAssets[0];
-  if (debAssets.length > 1) {
-    const amd64Asset = debAssets.find((asset: { name: string }) =>
-      asset.name.includes("amd64")
+  const releases: Release[] = await response.json();
+  for (const release of releases) {
+    if (release.draft || release.prerelease) continue;
+    const debAssets = release.assets.filter((asset) =>
+      asset.name.endsWith(".deb")
     );
-    if (amd64Asset) {
-      debAsset = amd64Asset;
-    }
+    if (!debAssets.length) continue;
+    const amd64Asset = debAssets.find((asset) => asset.name.includes("amd64"));
+    return (amd64Asset ?? debAssets[0]).browser_download_url;
   }
 
-  return debAsset.browser_download_url;
+  throw new Error(`No .deb file found in the recent releases of ${repo}`);
+}
+
+/** Whether a program of this name is already on PATH. */
+async function isInstalled(name: string): Promise<boolean> {
+  try {
+    const { success } = await new Deno.Command("sh", {
+      args: ["-c", `command -v ${name}`],
+      stdout: "null",
+      stderr: "null",
+    }).output();
+    return success;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * A .deb package installed from a GitHub release, as a list so it can be
+ * spread into a config set and be empty. The release lookup is the one piece
+ * of this configuration that needs the network, so it runs only when the
+ * program is actually missing, and a repo without a usable release drops just
+ * this package instead of failing the whole run.
+ */
+async function gitHubDebPackage(name: string, repo: string): Promise<Config[]> {
+  if (await isInstalled(name)) return [];
+  try {
+    return [{
+      debianPackage: { name, url: await getGitHubReleaseDebUrl(repo) },
+    }];
+  } catch (error) {
+    console.warn(
+      `Skipping ${name}: ${error instanceof Error ? error.message : error}`,
+    );
+    return [];
+  }
 }
 
 // Google Chrome - update is built in and automatic via apt
@@ -64,25 +105,12 @@ export const onePassword: Config = {
   },
 };
 
-// Obsidian - fetched from GitHub releases
-const obsidianDebUrl = await getGitHubReleaseDebUrl(
+// Obsidian and Ferdium - fetched from GitHub releases
+const obsidian = await gitHubDebPackage(
+  "obsidian",
   "obsidianmd/obsidian-releases",
 );
-export const obsidian: Config = {
-  debianPackage: {
-    name: "obsidian",
-    url: obsidianDebUrl,
-  },
-};
-
-// Ferdium - fetched from GitHub releases
-const ferdiumDebUrl = await getGitHubReleaseDebUrl("ferdium/ferdium-app");
-export const ferdium: Config = {
-  debianPackage: {
-    name: "ferdium",
-    url: ferdiumDebUrl,
-  },
-};
+const ferdium = await gitHubDebPackage("ferdium", "ferdium/ferdium-app");
 
 // Update: curl -fsSL https://vite.plus | bash
 export const vitePlus: Config = {
@@ -356,7 +384,7 @@ export const customInstalls: Config[] = [
   claudeCode,
   cursors,
   exp,
-  ferdium,
+  ...ferdium,
   ffmpeg7,
   vitePlus,
   fzf,
@@ -368,7 +396,7 @@ export const customInstalls: Config[] = [
   neovim,
   neovimDeps,
   node,
-  obsidian,
+  ...obsidian,
   onePassword,
   pnpm,
   soundSwitcherIndicator,
