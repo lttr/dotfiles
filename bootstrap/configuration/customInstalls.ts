@@ -51,7 +51,7 @@ async function getGitHubReleaseDebUrl(repo: string): Promise<string> {
   throw new Error(`No .deb file found in the recent releases of ${repo}`);
 }
 
-/** Whether a program of this name is already on PATH. */
+/** Whether a program of this name (or absolute path) exists. */
 async function isInstalled(name: string): Promise<boolean> {
   try {
     const { success } = await new Deno.Command("sh", {
@@ -72,11 +72,19 @@ async function isInstalled(name: string): Promise<boolean> {
  * program is actually missing, and a repo without a usable release drops just
  * this package instead of failing the whole run.
  */
-async function gitHubDebPackage(name: string, repo: string): Promise<Config[]> {
-  if (await isInstalled(name)) return [];
+async function gitHubDebPackage(
+  name: string,
+  repo: string,
+  executable?: string,
+): Promise<Config[]> {
+  if (await isInstalled(executable ?? name)) return [];
   try {
     return [{
-      debianPackage: { name, url: await getGitHubReleaseDebUrl(repo) },
+      debianPackage: {
+        name,
+        url: await getGitHubReleaseDebUrl(repo),
+        executable,
+      },
     }];
   } catch (error) {
     console.warn(
@@ -106,9 +114,12 @@ export const onePassword: Config = {
 };
 
 // Obsidian and Ferdium - fetched from GitHub releases
+// Obsidian is checked by absolute path because its CLI helper in ~/.local/bin
+// shadows the app on PATH.
 const obsidian = await gitHubDebPackage(
   "obsidian",
   "obsidianmd/obsidian-releases",
+  "/opt/Obsidian/obsidian",
 );
 const ferdium = await gitHubDebPackage("ferdium", "ferdium/ferdium-app");
 
@@ -117,6 +128,7 @@ export const vitePlus: Config = {
   urlScript: {
     name: "vite-plus",
     url: "https://vite.plus",
+    executable: "vp",
   },
 };
 
@@ -182,6 +194,31 @@ const claudeCode: Config = {
   urlScript: {
     name: "claude",
     url: "https://claude.ai/install.sh",
+  },
+};
+
+/**
+ * Docker daemon from Docker's Ubuntu apt repo. The Debian repo's containerd.io
+ * needs a newer libseccomp2 than noble ships. The brew `docker` is only the CLI.
+ */
+const dockerEngine: Config = {
+  inlineScript: {
+    name: "docker-engine",
+    testScript: "command -v dockerd",
+    setScript: `
+      set -e
+      sudo install -m 0755 -d /etc/apt/keyrings
+      if [ ! -f /etc/apt/keyrings/docker.asc ]; then
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+          -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+      fi
+      echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$UBUNTU_CODENAME") stable" |
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      sudo apt-get update
+      sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
+        docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+    `,
   },
 };
 
@@ -307,8 +344,11 @@ const azureCli: Config = {
   inlineScript: {
     name: "azure-cli",
     testScript: "command -v az && az extension show --name azure-devops",
+    // The aka.ms installer fails on any broken apt repo; plain apt suffices
+    // once Microsoft's repo is configured.
     setScript: `
-      curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      sudo apt-get install -y azure-cli ||
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       az extension add --name azure-devops
     `,
   },
@@ -338,7 +378,11 @@ export const cursors: Config = {
 };
 
 function vpGlobal(
-  { name, executable, lib }: { name: string; executable?: string; lib?: boolean },
+  { name, executable, lib }: {
+    name: string;
+    executable?: string;
+    lib?: boolean;
+  },
 ): Config {
   return {
     inlineScript: {
@@ -383,6 +427,7 @@ export const customInstalls: Config[] = [
   brew,
   claudeCode,
   cursors,
+  dockerEngine,
   exp,
   ...ferdium,
   ffmpeg7,
