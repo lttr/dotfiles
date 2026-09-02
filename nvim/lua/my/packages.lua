@@ -191,14 +191,6 @@ require("lazy").setup({
   "akinsho/toggleterm.nvim",
   "skywind3000/asyncrun.vim",
   { "michaelb/sniprun", build = "bash ./install.sh" },
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    enabled = true,
-    lazy = true,
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    event = { "User KittyScrollbackLaunch" },
-    config = function() require("kitty-scrollback").setup() end,
-  },
   "metakirby5/codi.vim",
 
   -- version control

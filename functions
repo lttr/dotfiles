@@ -566,7 +566,9 @@ mkcd() {
 
 # Copy last command executed on command line into clipboard
 last-command() {
-    fc -l -1 | cut -d' ' -f4- | wl-copy
+    local cmd=$(fc -ln -1 | sed 's/^[[:space:]]*//')
+    print -rn -- "$cmd" | wl-copy
+    [[ -n $WIDGET ]] && zle -M "copied command: $cmd"
 }
 
 # Print all executable files on path
@@ -584,12 +586,28 @@ list-functions() {
     print -l ${(ok)functions} | grep -v '^_'
 }
 
-# Insert sequence `!!` which is expanded into output of last
-# command by double Tab
+# Insert the last command's output at the cursor as shell words.
+# Read from kitty's scrollback, so the command is not re-run.
+# Each line becomes one word, quoted only where needed, so paths with
+# spaces survive being passed as an argument to the next command.
 insert-last-output() {
-    wtype '`!!`' \
-        && wtype -k Tab \
-        && wtype -k Tab
+    setopt localoptions extended_glob
+    local out
+    local -a lines
+    out=$(kitty @ get-text --extent=last_non_empty_output 2>/dev/null)
+    lines=("${(@f)out}")
+    lines=("${(@)lines:#[[:space:]]#}")
+    if (( ${#lines} == 0 )); then
+        [[ -n $WIDGET ]] && zle -M "no output to insert"
+        return 1
+    fi
+    if (( ${#lines} > 50 )); then
+        [[ -n $WIDGET ]] && zle -M "refusing to insert ${#lines} lines"
+        return 1
+    fi
+    lines=("${(@)lines##[[:space:]]#}")
+    lines=("${(@)lines%%[[:space:]]#}")
+    LBUFFER+="${(j: :)${(@q-)lines}} "
 }
 
 # kill processes blocking ports

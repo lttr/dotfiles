@@ -70,7 +70,7 @@ bindkey '^[n' edit-command-line
 # Ctrl+g to edit command line (matches Claude Code behavior)
 bindkey '^G' edit-command-line
 
-# Alt+o to insert last command output
+# Alt+o to insert last command output at the cursor
 zle -N insert-last-output
 bindkey '^[o' insert-last-output
 
