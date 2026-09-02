@@ -1,6 +1,6 @@
 ---
 description: Add or remove Claude attribution from project settings
-argument-hint: [enable|disable] [local|team]
+argument-hint: "[enable|disable] [local|team]"
 ---
 
 ## Context

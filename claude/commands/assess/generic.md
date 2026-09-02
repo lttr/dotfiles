@@ -1,7 +1,7 @@
 ---
 allowed-tools: Read, Glob, Grep, Bash(git:*), Bash(ls:*), Bash(wc:*), Bash(cat:*), Bash(head:*), Bash(find:*), Bash(fd:*), Bash(du:*), Bash(cloc:*), Task
 description: Assess a repository's structure, tech stack, and health
-argument-hint: [focus-area]
+argument-hint: "[focus-area]"
 ---
 
 ## Context

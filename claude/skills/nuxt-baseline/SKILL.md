@@ -3,7 +3,7 @@ name: nuxt-baseline
 disable-model-invocation: true
 description: Assess a Nuxt repo against the desired tooling baseline (Vite+/pnpm/Nixpacks) and migrate it there, committing each change as it lands. Use when the user wants to bring a Nuxt project up to standard tooling, audit its setup, modernize deps/toolchain, or says "nuxt baseline", "assess nuxt", "migrate to baseline".
 allowed-tools: Read, Glob, Grep, Edit, Write, Bash, Task
-argument-hint: [assess-only]
+argument-hint: "[assess-only]"
 ---
 
 # Nuxt baseline
