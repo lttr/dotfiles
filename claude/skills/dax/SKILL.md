@@ -7,6 +7,10 @@ description: This skill should be used when creating shell scripts, CLI tools, a
 
 Deno + `@david/dax` is the **default scripting stack** on this machine. Use it for all new scripts instead of bash/zsh scripts (unless trivially simple).
 
+## Scope
+
+Deno/dax is the default for standalone scripts: dotfiles, `~/bin`, ad-hoc automation. Inside a project, match the project's runtime. Node.js project scripts run under plain `node`. That means `#!/usr/bin/env node`, `node:child_process`, no `jsr:` imports, no `Deno.*`.
+
 ## Script Template
 
 ```typescript

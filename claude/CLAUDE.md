@@ -17,6 +17,8 @@ When running shell commands, prefer these tools:
 - `vpx` over `npx` (`vpx` tries local bins, falls back to remote download)
 - `vp run <script>` over `pnpm run`/`npm run`
 
+Scripts: Deno + dax is the default for standalone scripts. Inside a Node.js project, scripts must run under plain `node`. Match the project's runtime.
+
 ## Git Workflow
 
 - When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
