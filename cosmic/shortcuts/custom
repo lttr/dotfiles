@@ -590,4 +590,11 @@
         key: "v",
         description: Some("Cosmic Calc"),
     ): Spawn("cosmic-calc"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "n",
+        description: Some("Google Calendar"),
+    ): Spawn("/home/lukas/bin/gcal.sh"),
 }
