@@ -10,11 +10,30 @@ elements or types a note; the agent gets notified with the selector, computed
 styles, and surrounding HTML. Nothing is added to the project's source — the
 widget is injected over CDP and disappears on reload.
 
+## Prerequisites
+
+The caller supplies all of these; this skill starts none of them.
+
+| Needs                       | Why                                                                       |
+| --------------------------- | ------------------------------------------------------------------------- |
+| **Node >= 24**              | Runs `bridge.mjs` (the sink and the driver).                              |
+| **`agent-browser` on PATH** | The only way the widget reaches the page — every command shells out to it. |
+| **A headed browser session**| The human has to see the toolbar to click it. Headless is pointless here.  |
+| **A running page URL**       | Passed as an argument (see below); this skill never assumes a host or port. |
+| **A persistent Monitor**     | The sink's stdout is the event stream; without one, no notifications arrive. |
+| `jq` (optional)              | Pretty-printing `bridge.mjs log`.                                         |
+
+Getting the app running and `agent-browser` attached is the caller's job — a
+project's own run skill, the generic `run` skill, or plain
+`agent-browser open --headed <url>`.
+
 ## Pieces
+
+Both live in this skill's directory — run them via `$CLAUDE_SKILL_DIR`.
 
 | File         | Role                                                                                        |
 | ------------ | ------------------------------------------------------------------------------------------- |
-| `bridge.mjs` | Node (>= 24) sink + driver: `serve` / `open` / `inject` / `keep` / `status` / `hide` / `show` / `log` / `stop` |
+| `bridge.mjs` | Node sink + driver: `serve` / `open` / `inject` / `keep` / `status` / `hide` / `show` / `log` / `stop` |
 | `bridge.js`  | The in-page widget (shadow DOM, so it cannot collide with app styles)                       |
 
 The sink's **stdout is the event stream** — one compact line per event. Run it
@@ -22,25 +41,22 @@ under a Monitor and every click in the page becomes a notification.
 
 ## Setup
 
-The app must already be running and `agent-browser` attached to its page (in
-this repo that is the `run-jedlik-nejedlik` skill; elsewhere, the `run` skill or
-`agent-browser open --headed <url>`).
-
 **1. Start the sink in a persistent Monitor** — this is what delivers events:
 
 ```bash
 # Monitor tool, persistent: true, description: "page-bridge events"
-~/.claude/skills/page-bridge/bridge.mjs serve
+$CLAUDE_SKILL_DIR/bridge.mjs serve
 ```
 
 Every line it prints is an event notification. No filter needed; it only ever
 emits events (startup and errors go to stderr).
 
 **2. Put the widget on the page.** Prefer `open`, which registers the loader as
-an init script so it re-installs itself on every reload and navigation:
+an init script so it re-installs itself on every reload and navigation. `<url>`
+is whatever the caller is running — this skill has no default:
 
 ```bash
-~/.claude/skills/page-bridge/bridge.mjs open http://localhost:3000/
+$CLAUDE_SKILL_DIR/bridge.mjs open <url>
 ```
 
 If the page is already open and holds state you do not want to lose (a filled
@@ -48,8 +64,8 @@ form, a logged-in session), inject into it instead — but this is one-shot, and
 a dev-server reload wipes it:
 
 ```bash
-~/.claude/skills/page-bridge/bridge.mjs inject
-~/.claude/skills/page-bridge/bridge.mjs keep   # optional: re-inject after reloads
+$CLAUDE_SKILL_DIR/bridge.mjs inject
+$CLAUDE_SKILL_DIR/bridge.mjs keep   # optional: re-inject after reloads
 ```
 
 Then tell the user the toolbar is the pill in the bottom-right corner.
@@ -74,21 +90,30 @@ The notification line is a summary. For the full record — computed styles,
 `data-v-*` scope ids, 800 chars of `outerHTML`, the bounding box:
 
 ```bash
-~/.claude/skills/page-bridge/bridge.mjs log 1 | jq .
+$CLAUDE_SKILL_DIR/bridge.mjs log 1 | jq .
 ```
 
 Go from a picked element to source with its `dataAttrs`: a Vue `data-v-<hash>`
 maps to exactly one SFC (`grep -rl 'data-v-<hash>'` against the build, or match
 the class name), and `data-testid` usually names the component outright.
 
+## Stop
+
+```bash
+$CLAUDE_SKILL_DIR/bridge.mjs stop   # then TaskStop the Monitor
+```
+
+Closing the browser is the caller's business, not this skill's.
+
 ## Notes
 
 - **Screenshots**: `bridge.mjs hide` before `agent-browser screenshot`, then
   `bridge.mjs show` — otherwise the toolbar is in the picture.
 - The widget skips itself when picking, so its own buttons are never selectable.
-- `BRIDGE_PORT` (default 7788) and `BRIDGE_DIR` (default `$TMPDIR/page-bridge`,
-  holds `events.jsonl` and the loader) override the defaults; set them in the
-  environment of both `serve` and the other subcommands.
+- The sink's own port is `BRIDGE_PORT` (default 7788) — unrelated to the app's
+  port. It and `BRIDGE_DIR` (default `$TMPDIR/page-bridge`, holds `events.jsonl`
+  and the loader) only need overriding when 7788 is taken or two bridges run at
+  once; set them in the environment of both `serve` and every other subcommand.
 - Injection uses a `<script>` tag. A dev server with a strict `script-src` CSP
   will block it — the console shows the violation and `inject` reports failure.
 - The widget is re-fetched from the sink on every load, so editing `bridge.js`
