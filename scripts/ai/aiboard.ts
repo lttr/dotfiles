@@ -45,6 +45,18 @@ interface Ticket {
   blocked: boolean; // ready but blockers unmet
   criteriaDone: number;
   criteriaTotal: number;
+  verified: string[]; // passes recorded in `verified:` (checks, review, ...)
+}
+
+// One entry of an epic's areas.md: a piece of the epic that becomes its own
+// task folder when its turn comes.
+interface Area {
+  num: string;
+  title: string;
+  status: string; // raw word from the roll-up line
+  state: DocState;
+  folder: string | null; // sibling task folder, once it exists
+  doc: string | null; // that folder's spec.md / plan.md, for the link
 }
 
 interface TaskFolder {
@@ -65,6 +77,8 @@ interface TaskFolder {
   blockedReason: string | null;
   docCriteriaDone: number;
   docCriteriaTotal: number;
+  docVerified: string[]; // `verified:` off spec.md, for ticketless tasks
+  areas: Area[]; // non-empty only for an epic folder (one with areas.md)
 }
 
 interface Project {
@@ -90,12 +104,23 @@ function parseFrontmatter(text: string): Record<string, string> {
   const m = text.match(/^---\n([\s\S]*?)\n---/);
   const out: Record<string, string> = {};
   if (!m) return out;
+  let key: string | null = null;
   for (const line of m[1].split("\n")) {
     const kv = line.match(/^(\w[\w-]*):\s*(.*)$/);
-    if (kv) out[kv[1]] = kv[2].replace(/#.*$/, "").trim();
+    if (kv) {
+      key = kv[1];
+      out[key] = kv[2].replace(/#.*$/, "").trim();
+      continue;
+    }
+    // a block list under the previous key reads as its comma-joined value
+    const item = line.match(/^\s+-\s*(.+?)\s*$/);
+    if (key && item) out[key] = [out[key], item[1]].filter(Boolean).join(", ");
   }
   return out;
 }
+
+// `[checks, review]` or a block list — either way, just the words
+const fmList = (v: string | undefined) => v?.match(/[\w-]+/g) ?? [];
 
 // Lifecycle of a spec/plan-level task, from its `status:` frontmatter. Older
 // artifacts use a looser vocabulary, so the aliases map onto the same states.
@@ -111,6 +136,8 @@ type DocState =
   | "abandoned";
 
 const DOC_STATES: Record<string, DocState> = {
+  "not-started": "not-started",
+  "not started": "not-started",
   draft: "not-started",
   planned: "not-started",
   todo: "not-started",
@@ -146,6 +173,47 @@ function ticketState(tickets: Ticket[]): DocState {
   return tickets.some((t) => t.status === "done") ? "in-progress" : "not-started";
 }
 
+// Same vocabulary again, rolled up from an epic's areas.
+function rollupState(states: DocState[]): DocState {
+  const live = states.filter((s) => s !== "abandoned");
+  if (!live.length) return states.length ? "abandoned" : "unknown";
+  if (live.every((s) => s === "done")) return "done";
+  if (live.some((s) => s === "in-progress" || s === "done")) return "in-progress";
+  if (live.every((s) => s === "blocked")) return "blocked";
+  if (live.every((s) => s === "unknown")) return "unknown";
+  return "not-started";
+}
+
+// areas.md sections: "## 02 — Auth layer" then
+// "**Status:** in-progress → `../2026-08-28_auth-layer/`".
+function parseAreas(text: string, aiwork: ReturnType<typeof $.path>): Area[] {
+  const out: Area[] = [];
+  for (const sec of text.split(/^##\s+/m).slice(1)) {
+    const heading = sec.split("\n")[0].trim();
+    const num = heading.match(/^(\d+)/)?.[1] ?? "";
+    const line = sec.match(/\*\*Status:\*\*\s*(.+)/)?.[1] ?? "";
+    const status = line.replace(/[→`].*$/, "").trim();
+    const target = line.match(/`([^`]+)`/)?.[1] ?? null;
+    const folder = target
+      ? target.replace(/^\.\.\//, "").replace(/\/$/, "").split("/")[0]
+      : null;
+    let doc: string | null = null;
+    if (folder) {
+      doc = ["spec.md", "plan.md", "areas.md"]
+        .find((n) => aiwork.join(folder, n).isFileSync()) ?? null;
+    }
+    out.push({
+      num,
+      title: heading.replace(/^\d+\s*[—-]\s*/, ""),
+      status,
+      state: docState(status),
+      folder,
+      doc,
+    });
+  }
+  return out;
+}
+
 async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   let mtime = (await dir.stat())?.mtime?.getTime() ?? 0;
   const tickets: Ticket[] = [];
@@ -166,6 +234,7 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
         blocked: false,
         criteriaDone: (text.match(/^- \[x\]/gim) ?? []).length,
         criteriaTotal: (text.match(/^- \[[ x]\]/gim) ?? []).length,
+        verified: fmList(fm.verified),
       });
       mtime = Math.max(mtime, (await path.stat())?.mtime?.getTime() ?? 0);
     }
@@ -200,8 +269,10 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   // a frontmatter status and whatever checklist the spec carries.
   let docStatus: string | null = null;
   let blockedReason: string | null = null;
+  let docVerified: string[] = [];
   let docCriteriaDone = 0;
   let docCriteriaTotal = 0;
+  let areas: Area[] = [];
   const docRank = (n: string) =>
     n === "spec.md" ? 0 : /^plan/.test(n) ? 1 : 2;
   for (const name of docs.filter((d) => d.endsWith(".md")).sort(
@@ -211,8 +282,12 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
     const fm = parseFrontmatter(text);
     docStatus ??= fm.status || null;
     blockedReason ??= fm.blocked_by || fm.blocked_reason || null;
+    if (!docVerified.length) docVerified = fmList(fm.verified);
     docCriteriaDone += (text.match(/^- \[x\]/gim) ?? []).length;
     docCriteriaTotal += (text.match(/^- \[[ x]\]/gim) ?? []).length;
+    // areas.md is what makes a folder an epic: an index of areas, each of
+    // which becomes its own task folder later.
+    if (name === "areas.md") areas = parseAreas(text, dir.parentOrThrow());
   }
 
   const planned = tickets.length > 0;
@@ -223,8 +298,12 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   // Tickets are hard evidence; frontmatter only fills in what they can't say —
   // that a task was abandoned, or (with no tickets at all) anything whatsoever.
   const fromDoc = docState(docStatus);
+  // An epic carries no work of its own; its areas say where it stands, unless
+  // the index itself was given a status.
   const state = planned && fromDoc !== "abandoned"
     ? ticketState(tickets)
+    : areas.length && fromDoc === "unknown"
+    ? rollupState(areas.map((a) => a.state))
     : fromDoc;
   // A task nobody is working on shows as a row, not a board — no notes needed.
   const expanded = running || (planned && state !== "done");
@@ -234,7 +313,7 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   return {
     name: dir.basename(), docs, tickets, notes, notesFile, hasReview, mtime,
     running, expanded, planned, docStatus, state,
-    blockedReason, docCriteriaDone, docCriteriaTotal,
+    blockedReason, docCriteriaDone, docCriteriaTotal, docVerified, areas,
   };
 }
 
@@ -511,7 +590,11 @@ const html = `<!doctype html>
   .card.done { border-left-color: var(--good); }
   .card.in-progress { border-left-color: var(--warn); }
   .card.blocked { border-left-color: var(--crit); }
-  .card.ready { border-left-color: var(--accent); }
+  .card.ready, .card.not-started { border-left-color: var(--accent); }
+  .card.abandoned .t { text-decoration: line-through; color: var(--ink-2); }
+  .areas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+           align-content: start; }
+  @media (max-width: 700px) { .areas { grid-template-columns: 1fr; } }
   .notes { border: 1px solid var(--line); border-radius: 2px; padding: 10px 14px;
            overflow: auto; max-height: 420px; font-size: 15px; }
   .notes .nt { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;
@@ -615,17 +698,28 @@ const disc = (key, dflt, cls, summary, body) =>
     (discState.get(key) ?? dflt) ? " open" : ""}>
     <summary>\${summary}</summary>\${body}</details>\`;
 
-const href = (task, ...segs) =>
-  \`/f/\${task.pi}/\${[task.name, ...segs].map(encodeURIComponent).join("/")}\`;
+const projHref = (task, ...segs) =>
+  \`/f/\${task.pi}/\${segs.map(encodeURIComponent).join("/")}\`;
+const href = (task, ...segs) => projHref(task, task.name, ...segs);
+
+// Which passes ran on the code when this reached done. Nothing recorded on
+// finished work is itself worth seeing, so say so.
+function verifiedHtml(passes, done) {
+  if (passes.length) {
+    return \`<span class="badge done">✓ \${esc(passes.join(", "))}</span>\`;
+  }
+  return done ? '<span class="badge in-progress">unverified</span>' : "";
+}
 
 function card(t, task) {
   const crit = t.criteriaTotal
     ? \` · \${t.criteriaDone}/\${t.criteriaTotal} criteria\` : "";
   const blk = t.blocked ? \` · waits on \${t.blockedBy.join(", ")}\` : "";
   const cls = t.blocked ? "blocked" : t.status;
+  const ver = verifiedHtml(t.verified, t.status === "done");
   return \`<div class="card \${cls}">
     <div class="t"><a href="\${href(task, "tickets", t.file)}" target="_blank">\${esc(t.title)}</a></div>
-    <div class="m">\${t.num || t.file}\${crit}\${blk}</div></div>\`;
+    <div class="m">\${t.num || t.file}\${crit}\${blk} \${ver}</div></div>\`;
 }
 
 const docLinks = (task) => task.docs.map((d) =>
@@ -663,9 +757,12 @@ function taskCard(task) {
   const head = \`<span class="proj">\${esc(task.proj)} /</span>
     <span class="name">\${esc(task.name)}</span>
     \${task.running ? '<span class="badge running">running</span>' : ""}
+    \${task.areas.length ? '<span class="badge">epic</span>' : ""}
     \${task.tickets.length
       ? \`<span class="m">\${done}/\${task.tickets.length} tickets</span>\` : ""}
     \${stateBadge(task, chrono)}
+    \${task.planned || task.areas.length
+      ? "" : verifiedHtml(task.docVerified, task.state === "done")}
     \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     \${docLinks(task)}
     <span class="m right">\${age(task.mtime)} ago</span>\`;
@@ -675,14 +772,21 @@ function taskCard(task) {
 
 function idleRow(t) {
   const done = t.tickets.filter((x) => x.status === "done").length;
+  const areasDone = t.areas.filter((a) => a.state === "done").length;
   const sum = t.planned
     ? \`<span class="m">\${done}/\${t.tickets.length} tickets</span>\`
+    : t.areas.length
+    ? \`<span class="m">\${areasDone}/\${t.areas.length} areas</span>\`
     : \`<span class="m">no tickets\${
         t.docCriteriaTotal
           ? \` · \${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria\`
           : ""}</span>\`;
   const head = \`<span class="proj">\${esc(t.proj)} /</span>
-    <span>\${esc(t.name)}</span>\${sum}\${stateBadge(t, chrono)}\${docLinks(t)}
+    <span>\${esc(t.name)}</span>
+    \${t.areas.length ? '<span class="badge">epic</span>' : ""}\${sum}\${
+      stateBadge(t, chrono)}\${
+      t.planned || t.areas.length
+        ? "" : verifiedHtml(t.docVerified, t.state === "done")}\${docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     <span class="m right">\${age(t.mtime)} ago</span>\`;
   // finished tasks keep their tickets — expand the row to read them
@@ -692,7 +796,24 @@ function idleRow(t) {
 
 const taskKey = (task) => task.pi + "/" + task.name;
 
+// An epic holds no tickets of its own — its areas.md roll-up is the board:
+// each area a line, linked to the task folder once that folder exists.
+function areasHtml(task) {
+  const rows = task.areas.map((a) => {
+    const label = \`\${a.num ? a.num + " — " : ""}\${esc(a.title)}\`;
+    const link = a.doc
+      ? \`<a class="doc" href="\${projHref(task, a.folder, a.doc)}" target="_blank">\${esc(a.folder)}</a>\`
+      : a.folder ? \`<span class="m">\${esc(a.folder)}</span>\` : "";
+    return \`<div class="card \${a.state}">
+      <div class="t">\${label}</div>
+      <div class="m"><span class="badge \${a.state}">\${
+        esc(a.status || STATE_LABEL[a.state])}</span> \${link}</div></div>\`;
+  }).join("");
+  return \`<div class="areas">\${rows}</div>\`;
+}
+
 function boardHtml(task, doneOpenByDefault) {
+  if (task.areas.length && !task.tickets.length) return areasHtml(task);
   if (!task.tickets.length) {
     return '<div class="empty">Not planned yet — no tickets.</div>';
   }
