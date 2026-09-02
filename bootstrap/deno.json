@@ -4,15 +4,15 @@
     "@std/log": "jsr:@std/log@^0.224.14",
     "@std/path": "jsr:@std/path@^1.1.3",
     "@std/cli": "jsr:@std/cli@^1.0.24",
-    "@lttr/deno-dsc": "jsr:@lttr/deno-dsc@^0.1.2"
+    "@lttr/deno-dsc": "jsr:@lttr/deno-dsc@^0.1.4"
   },
   "tasks": {
-    "run": "deno run --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",
-    "withreload": "deno run --reload --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",
-    "dryrun": "deno run --quiet --allow-read --allow-write --allow-run --allow-env --allow-net dry-run.ts",
-    "print": "deno run --quiet --allow-read --allow-write --allow-env --allow-net print.ts",
-    "stats": "deno run --quiet --allow-read --allow-write --allow-env stats.ts",
-    "depgraph": "deno run --quiet --allow-read --allow-write --allow-run --allow-env dep-graph.ts",
-    "list": "deno run -A list-resources.ts"
+    "run": "deno run --min-dep-age=0 --quiet --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",
+    "withreload": "deno run --min-dep-age=0 --reload --allow-read --allow-write --allow-run --allow-env --allow-net install.ts",
+    "dryrun": "deno run --min-dep-age=0 --quiet --allow-read --allow-write --allow-run --allow-env --allow-net dry-run.ts",
+    "print": "deno run --min-dep-age=0 --quiet --allow-read --allow-write --allow-env --allow-net print.ts",
+    "stats": "deno run --min-dep-age=0 --quiet --allow-read --allow-write --allow-env stats.ts",
+    "depgraph": "deno run --min-dep-age=0 --quiet --allow-read --allow-write --allow-run --allow-env dep-graph.ts",
+    "list": "deno run --min-dep-age=0 -A list-resources.ts"
   }
 }
