@@ -77,11 +77,11 @@ Use inside `.p-page-layout` for content width control:
 - **Variants:** `.p-content-padded`, `.p-popout-start`, `.p-full-end`, `.p-inset-start`, etc.
 
 ### Flexbox Patterns
-- **`.p-stack`** - Vertical stack with `--stack-space` gap (default: `var(--space-5)`)
+- **`.p-stack`** - Vertical stack with `--stack-space` gap (default: `var(--space-5)`) — a fixed step off the spacing scale
 - **`.p-cluster`** - Horizontal wrapping with `--cluster-space` gap (default: `var(--space-3)`)
 - **`.p-center`** - Centered flex column
 - **`.p-switcher`** - Responsive layout switching at `--switcher-treshold` (default: `var(--size-content-3)`)
-- **`.p-flow`** - Vertical rhythm with `--flow-space` (default: 1em)
+- **`.p-flow`** - Vertical rhythm with `--flow-space` (default: `1em`, resolved against the *child's* font size, so the gap scales with the text)
 
 ### Typography
 - **`.p-heading-1`** through **`.p-heading-4`** - Heading styles
@@ -224,6 +224,16 @@ Example usage:
   }
 }
 ```
+
+## Gotchas
+
+Things the compiled stylesheet does that are easy to miss:
+
+- **`.p-stack` on a `<form>` doubles the spacing.** Puleo already styles `:where(form)` as a flex column with `gap: var(--form-gap, var(--space-4))`, and `.p-stack > * + *` adds `margin-block-start: var(--stack-space)` on top of it. A form usually needs no stack class — override `--form-gap` for a different rhythm.
+- **`.p-stack:only-child` sets `block-size: 100%`.** On a card that is its parent's sole child that stretches it to the parent's height, which shows up as unexplained trailing whitespace. Writing the flex column by hand is reasonable when an element needs both a stack and its own box.
+- **`p-flow` suits prose, `p-stack` suits structure.** `--flow-space: 1em` resolves against the child's font size, so a run of `.p-secondary-text-regular` paragraphs gets a proportionally smaller gap for free — often with no `<style>` block at all.
+- **The text-scale classes usually beat a hand-written `font-size`.** `.p-secondary-text-regular` for the small print under a form, `.p-additional-text-regular` below that.
+- **None of this is linted.** oxlint's `vue` plugin has no scoped-style rule and `fallow` works on the module graph rather than selectors, so an unscoped `<style>`, a dead class and a doubled gap all pass. Worth looking at the rendered page.
 
 ## Rules
 
