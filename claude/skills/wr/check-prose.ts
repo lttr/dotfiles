@@ -5,9 +5,11 @@
  * Reports findings at three levels so an agent (or human) can act on them:
  *   ERROR — mechanical violations, always fix (blacklist phrases, em-dash
  *           splices, emoji, exclamation marks)
- *   WARN  — readability heuristics, judge each (long sentences, oversized
- *           paragraphs, semicolon splices)
- *   INFO  — stats and weak hints (sentence-length distribution, passive voice)
+ *   WARN  — readability heuristics and LLM tells, judge each (long sentences,
+ *           oversized paragraphs, semicolon splices, negative parallelism,
+ *           participle tails, staged reveals, echo runs, anaphora)
+ *   INFO  — stats and weak hints (sentence-length distribution, passive voice,
+ *           colon triples)
  *
  * Usage: check-prose.ts <file.md> [--json]
  *        ... | check-prose.ts [-] [--json]     (read from stdin)
@@ -29,6 +31,36 @@ const BLACKLIST = [
   "game changer",
   "seamless",
 ];
+
+// Phrasal LLM tells. Reported as WARN, not ERROR: each has legitimate uses, so
+// the agent judges rather than deletes on sight. Adapted from
+// https://tools.simonwillison.net/llm-cliche-highlighter
+const CLICHE_RES: { rule: string; re: RegExp; message: string }[] = [
+  {
+    rule: "negative-parallelism",
+    re: /\bnot\s+(?:just|only|merely|simply)\s+[^.!?\n;]*?\bbut(?:\s+also)?\b|\b(?:it|this|that)(?:(?:['\u2019]s|\s+(?:is|was))\s+not|\s+(?:is|was)n['\u2019]t)\s+[^.!?\n,;\u2013\u2014]{1,60}[,;\u2013\u2014]\s*(?:it|this|that)(?:['\u2019]s|\s+(?:is|was))\b/gi,
+    message: "negative parallelism: state what it is, without the foil",
+  },
+  {
+    rule: "participle-tail",
+    re: /,\s+(?:highlighting|underscoring|emphasizing|showcasing|reflecting|demonstrating|illustrating|signaling|solidifying|cementing|reinforcing|underlining)\s+(?:its|his|her|their|our|the|a|an|how|that|what|both)\b/gi,
+    message: "participle tail: analysis bolted onto the sentence end",
+  },
+  {
+    rule: "staged-reveal",
+    re: /\bhere(?:['\u2019]s|\s+is)\s+(?:the|a|my|one)\s+(?:twist|thing|catch|kicker|rub|problem|first|second|third|next|real|best|worst|surprising|interesting|key|important)\b|(?:^|[.!?]\s+)Turns\s+out\b|\bit\s+turns\s+out\s+that\b|\bthe\s+punchline(?:\s+(?:is|was)\b|\s*[:?])/gi,
+    message: "staged reveal: make the point instead of announcing it",
+  },
+];
+
+// Structural tells, visible only across neighbouring sentences.
+const COLON_TRIPLE_RE = /:\s+[^.!?;:\n]{2,40},\s+[^.!?;:\n]{2,40},\s+(?:and\s+|or\s+)?[^.!?;:\n]{2,40}(?=[.!?]|$)/g;
+// Repeating a pronoun or article across sentences is ordinary prose, not anaphora.
+const ANAPHORA_SKIP =
+  /^(?:i|it|the|a|an|this|that|we|you|they|he|she|there|but|and|so|in|as|if|my|his|her|their|its|these|those|for|at|on|of|to|is|was)$/i;
+const ECHO_GRAM_WORDS = 4;
+const MIN_ECHO_SENTENCE_WORDS = 4;
+const MIN_ANAPHORA_RUN = 3;
 
 const MAX_SENTENCE_WORDS = 30;
 const MAX_PARAGRAPH_SENTENCES = 6;
@@ -89,6 +121,12 @@ export function analyze(source: string): Finding[] {
       }
     }
 
+    for (const { rule, re, message } of CLICHE_RES) {
+      for (const m of text.matchAll(re)) {
+        findings.push({ level: "WARN", line, rule, message: `${message}: "${snippet(m[0])}"` });
+      }
+    }
+
     for (const m of text.matchAll(/\w[^—]{0,30}—[^—]{0,30}\w|—/g)) {
       findings.push({
         level: "ERROR", line, rule: "em-dash",
@@ -136,6 +174,8 @@ export function analyze(source: string): Finding[] {
       }
     }
 
+    if (!p.isListItem) findings.push(...structuralFindings(p, sentences));
+
     if (!p.isListItem && (sentences.length > MAX_PARAGRAPH_SENTENCES || pWords > MAX_PARAGRAPH_WORDS)) {
       findings.push({
         level: "WARN", line: p.line, rule: "long-paragraph",
@@ -171,6 +211,65 @@ export function analyze(source: string): Finding[] {
 }
 
 interface Paragraph { line: number; text: string; isListItem: boolean }
+
+// Tells that live in the shape of a run of sentences rather than in any single
+// phrase: neighbours built on the same skeleton, neighbours opening on the same
+// word, or a colon opening onto a tidy triple.
+function structuralFindings(p: Paragraph, sentences: string[]): Finding[] {
+  const out: Finding[] = [];
+
+  // INFO, not WARN: in documentation most colon-triples are ordinary
+  // enumerations, so this one is a hint rather than something to act on.
+  for (const m of p.text.matchAll(COLON_TRIPLE_RE)) {
+    out.push({
+      level: "INFO", line: p.line, rule: "colon-triple",
+      message: `colon into a triple: "${snippet(m[0])}"`,
+    });
+  }
+
+  for (let i = 0; i + 1 < sentences.length; i++) {
+    const shared = sharedGram(sentences[i], sentences[i + 1]);
+    if (shared) {
+      out.push({
+        level: "WARN", line: p.line, rule: "echo-run",
+        message: `consecutive sentences echo "${shared}": vary the shape`,
+      });
+      i += 1; // the pair is reported once, so don't re-report on the overlap
+    }
+  }
+
+  const heads = sentences.map((s) => (s.match(/[A-Za-z'\u2019-]+/) ?? [""])[0].toLowerCase());
+  let i = 0;
+  while (i < heads.length) {
+    let j = i;
+    while (j + 1 < heads.length && heads[j + 1] === heads[i]) j += 1;
+    const run = j - i + 1;
+    if (run >= MIN_ANAPHORA_RUN && heads[i] && !ANAPHORA_SKIP.test(heads[i])) {
+      out.push({
+        level: "WARN", line: p.line, rule: "anaphora",
+        message: `${run} sentences in a row open on "${heads[i]}"`,
+      });
+    }
+    i = j + 1;
+  }
+
+  return out;
+}
+
+// The longest shared n-gram of two sentences, or null when they share none.
+// Short sentences are skipped: two four-word fragments can match by accident.
+function sharedGram(a: string, b: string): string | null {
+  if (wordCount(a) < MIN_ECHO_SENTENCE_WORDS || wordCount(b) < MIN_ECHO_SENTENCE_WORDS) return null;
+  const grams = (s: string): Set<string> => {
+    const w = s.toLowerCase().match(/[a-z0-9'\u2019-]+/g) ?? [];
+    const out = new Set<string>();
+    for (let i = 0; i + ECHO_GRAM_WORDS <= w.length; i++) out.add(w.slice(i, i + ECHO_GRAM_WORDS).join(" "));
+    return out;
+  };
+  const bg = grams(b);
+  const common = [...grams(a)].filter((g) => bg.has(g));
+  return common.sort((x, y) => y.length - x.length)[0] ?? null;
+}
 
 function collectParagraphs(prose: string[]): Paragraph[] {
   const out: Paragraph[] = [];
