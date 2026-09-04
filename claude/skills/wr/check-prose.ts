@@ -9,7 +9,7 @@
  *           oversized paragraphs, semicolon splices, negative parallelism,
  *           participle tails, staged reveals, echo runs, anaphora)
  *   INFO  — stats and weak hints (sentence-length distribution, passive voice,
- *           colon triples)
+ *           colon lists)
  *
  * Usage: check-prose.ts <file.md> [--json]
  *        ... | check-prose.ts [-] [--json]     (read from stdin)
@@ -54,7 +54,15 @@ const CLICHE_RES: { rule: string; re: RegExp; message: string }[] = [
 ];
 
 // Structural tells, visible only across neighbouring sentences.
-const COLON_TRIPLE_RE = /:\s+[^.!?;:\n]{2,40},\s+[^.!?;:\n]{2,40},\s+(?:and\s+|or\s+)?[^.!?;:\n]{2,40}(?=[.!?]|$)/g;
+// Three or more comma-separated items after a colon. Items exclude commas so
+// the trailing item can't swallow the rest of a longer list; the final one may
+// carry an "and"/"or", with or without the serial comma.
+const LIST_ITEM = "[^.!?;:,\\n]{2,40}";
+const COLON_LIST_RE = new RegExp(
+  `:\\s+${LIST_ITEM}(?:,\\s+(?:and\\s+|or\\s+)?${LIST_ITEM}){2,}(?=[.!?]|$)` +
+    `|:\\s+${LIST_ITEM}(?:,\\s+${LIST_ITEM})+\\s+(?:and|or)\\s+${LIST_ITEM}(?=[.!?]|$)`,
+  "g",
+);
 // Repeating a pronoun or article across sentences is ordinary prose, not anaphora.
 const ANAPHORA_SKIP =
   /^(?:i|it|the|a|an|this|that|we|you|they|he|she|there|but|and|so|in|as|if|my|his|her|their|its|these|those|for|at|on|of|to|is|was)$/i;
@@ -214,16 +222,18 @@ interface Paragraph { line: number; text: string; isListItem: boolean }
 
 // Tells that live in the shape of a run of sentences rather than in any single
 // phrase: neighbours built on the same skeleton, neighbours opening on the same
-// word, or a colon opening onto a tidy triple.
+// word, or a colon opening onto a tidy list.
 function structuralFindings(p: Paragraph, sentences: string[]): Finding[] {
   const out: Finding[] = [];
 
-  // INFO, not WARN: in documentation most colon-triples are ordinary
+  // INFO, not WARN: in documentation most colon-lists are ordinary
   // enumerations, so this one is a hint rather than something to act on.
-  for (const m of p.text.matchAll(COLON_TRIPLE_RE)) {
+  for (const m of p.text.matchAll(COLON_LIST_RE)) {
+    // ", and" is one separator, not two, so count it before the bare forms.
+    const items = m[0].split(/,\s*(?:and|or)\s+|,\s*|\s+(?:and|or)\s+/).length;
     out.push({
       level: "INFO", line: p.line, rule: "colon-triple",
-      message: `colon into a triple: "${snippet(m[0])}"`,
+      message: `colon into a list of ${items}: "${snippet(m[0])}"`,
     });
   }
 
