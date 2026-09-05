@@ -3,9 +3,9 @@
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
+  "cleanupPeriodDays": 180,
   "skillListingBudgetFraction": 0.005,
   "permissions": {
-    "defaultMode": "auto",
     "allow": [],
     "deny": [
       "AskUserQuestion",
@@ -27,7 +27,8 @@
     "ask": [
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
@@ -179,6 +180,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "cleanupPeriodDays": 180
+  "maxSkillDescriptionChars": 250
 }
