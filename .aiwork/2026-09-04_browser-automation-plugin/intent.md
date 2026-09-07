@@ -45,11 +45,16 @@ was archived for exactly that.
 
 ## Decisions (2026-09-05)
 
-1. **`agent-browser` stays.** It is already on PATH via vite-plus, so the plugin
-   ships no dependencies and has no setup step. `@playwright/cli` would need a
-   global npm install plus a browser download, which is the repair-step failure
-   mode the boundary rules out. Revisit only if the CLI arrives on the machine by
-   the same route agent-browser did.
+1. **The CLI is `@playwright/cli` (`playwright-cli` 0.1.19).** First drafted as
+   "agent-browser stays" because it was already on PATH; overruled the same day.
+   `playwright-cli` is a plain global npm install and launches the system
+   Chrome by default on any OS, so usually no browser download is needed. The
+   install-step concern is handled instead of avoided: every skill runs a
+   portable `check.sh` first, which verifies the binary and a browser launch
+   and prints the exact install command when either is missing. The
+   `playwright-cli` skill itself is the official one from `@playwright/cli`,
+   vendored verbatim (`vendor.sh` re-syncs it) with plugin notes appended, so
+   installing the plugin needs no `playwright-cli install-skills` step.
 2. **`/pick` and `page-bridge` stay separate.** This was a move, not a redesign:
    `pick` is the one-shot answer, `page-bridge` stays on the page and carries
    comments and notes. The plugin README says so, so a later merge has a home.
@@ -59,7 +64,9 @@ was archived for exactly that.
 ## Outcome
 
 Plugin `browser` in `~/code/claude-marketplace/plugins/browser/` with skills
-`agent-browser`, `showme`, `page-bridge`, `pick`. `/pick` moved from a command to
+`playwright-cli`, `showme`, `page-bridge`, `pick`, all driving `playwright-cli`
+(`bridge.mjs` shells out to it; persistence is a runtime `addInitScript` via
+`run-code`, so `keep` is gone; `pick` uses `attach --cdp` + `tab-select`). `/pick` moved from a command to
 a skill (`/browser:pick`), body unchanged. Removed from dotfiles
 (`claude/skills/{agent-browser,showme,page-bridge}`, `claude/commands/pick.md`)
 and from the `aiwork` plugin. Registered in `marketplace.json`; READMEs and the
