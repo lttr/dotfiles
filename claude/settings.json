@@ -163,7 +163,8 @@
   },
   "enabledPlugins": {
     "cc@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
+    "aiwork@lttr-claude-marketplace": true,
+    "browser@lttr-claude-marketplace": true
   },
   "outputStyle": "Concise",
   "spinnerTipsEnabled": false,
