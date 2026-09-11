@@ -44,8 +44,28 @@
       "reason": "rmdir ignore-fail"
     },
     {
-      "pattern": "\\bchmod\\s+(?![ugoa]*[+-]x\\b)\\S",
-      "reason": "chmod (non +x mode)",
+      "pattern": "\\bchmod\\s+(-\\S+\\s+)*(-[A-Za-z]*R\\b|--recursive\\b)",
+      "reason": "recursive chmod (-R) - re-permissions a whole tree. Narrow it to the specific files if possible.",
+      "ask": true
+    },
+    {
+      "pattern": "\\bchmod\\s+(-\\S+\\s+)*[0-7]?[0-7][0-7][2367]\\b",
+      "reason": "chmod to a world-writable mode (other has write). Use 755/750/700 instead unless world-write is really needed.",
+      "ask": true
+    },
+    {
+      "pattern": "\\bchmod\\s+(-\\S+\\s+)*[ugoa,+-]*[oa][ugoa,+-]*\\+[rwxXst]*w",
+      "reason": "chmod granting write to others/all (o+w / a+w).",
+      "ask": true
+    },
+    {
+      "pattern": "\\bchmod\\s+(-\\S+\\s+)*[2467][0-7][0-7][0-7]\\b",
+      "reason": "chmod setting setuid/setgid/sticky bits (4-digit mode).",
+      "ask": true
+    },
+    {
+      "pattern": "\\bchmod\\s+(-\\S+\\s+)*[ugoa]*\\+[rwxXt]*s",
+      "reason": "chmod +s (setuid/setgid) - privilege escalation risk.",
       "ask": true
     },
     {

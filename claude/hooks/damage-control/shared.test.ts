@@ -158,6 +158,17 @@ test("e2e: a suppressed package ask does not suppress unrelated asks", () => {
   assert.equal(runHook("npm install eslint && git stash drop"), "ask");
 });
 
+test("e2e: chmod only prompts for risky modes", () => {
+  assert.equal(runHook("chmod +x script.sh"), "allow");
+  assert.equal(runHook("chmod 755 dir"), "allow");
+  assert.equal(runHook("chmod 600 secret"), "allow");
+  assert.equal(runHook("chmod 777 x"), "ask");
+  assert.equal(runHook("chmod o+w x"), "ask");
+  assert.equal(runHook("chmod -R 755 dir"), "ask");
+  assert.equal(runHook("chmod u+s bin"), "ask");
+  assert.equal(runHook("chmod 4755 bin"), "ask");
+});
+
 test("e2e: blocks win over asks whatever the pattern order", () => {
   assert.equal(runHook("git stash drop && rm -rf /home/lukas/notes"), "block");
   assert.equal(runHook("chmod 777 x && sudo rm -rf /"), "block");
