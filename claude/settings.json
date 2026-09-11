@@ -162,9 +162,17 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "cc@lttr-claude-marketplace": true,
     "aiwork@lttr-claude-marketplace": true,
-    "browser@lttr-claude-marketplace": true
+    "browser@lttr-claude-marketplace": true,
+    "cc@lttr-claude-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "lttr-claude-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "lttr/claude-marketplace"
+      }
+    }
   },
   "outputStyle": "Concise",
   "spinnerTipsEnabled": false,
