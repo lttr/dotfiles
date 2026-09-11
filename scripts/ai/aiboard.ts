@@ -122,7 +122,8 @@ function parseFrontmatter(text: string): Record<string, string> {
 // `[checks, review]` or a block list — either way, just the words
 const fmList = (v: string | undefined) => v?.match(/[\w-]+/g) ?? [];
 
-// Lifecycle of a spec/plan-level task, from its `status:` frontmatter. Older
+// Lifecycle of a spec/plan-level task, from its `status:` frontmatter. An agent
+// stops at `agent-done`; only the human writes `done`, once accepted. Older
 // artifacts use a looser vocabulary, so the aliases map onto the same states.
 // "unknown" is its own state, not a synonym for not-started: tickets exist only
 // where a task was worth splitting up, so a folder without them says nothing
@@ -132,6 +133,7 @@ type DocState =
   | "not-started"
   | "in-progress"
   | "blocked"
+  | "agent-done"
   | "done"
   | "abandoned";
 
@@ -147,6 +149,7 @@ const DOC_STATES: Record<string, DocState> = {
   started: "in-progress",
   blocked: "blocked",
   waiting: "blocked",
+  "agent-done": "agent-done",
   done: "done",
   complete: "done",
   completed: "done",
@@ -164,9 +167,11 @@ const docState = (raw: string | null): DocState =>
   DOC_STATES[(raw ?? "").toLowerCase()] ?? "unknown";
 
 // Same vocabulary, read off a ticket pile: any work touched at all counts as
-// started, and a pile whose every remaining ticket waits on another is blocked.
+// started, a pile whose every remaining ticket waits on another is blocked, and
+// a pile that is all done only proves `agent-done` — accepting it is the
+// human's call, made in the spec's own frontmatter.
 function ticketState(tickets: Ticket[]): DocState {
-  if (tickets.every((t) => t.status === "done")) return "done";
+  if (tickets.every((t) => t.status === "done")) return "agent-done";
   if (tickets.some((t) => t.status === "in-progress")) return "in-progress";
   const open = tickets.filter((t) => t.status !== "done");
   if (open.every((t) => t.blocked)) return "blocked";
@@ -178,7 +183,10 @@ function rollupState(states: DocState[]): DocState {
   const live = states.filter((s) => s !== "abandoned");
   if (!live.length) return states.length ? "abandoned" : "unknown";
   if (live.every((s) => s === "done")) return "done";
-  if (live.some((s) => s === "in-progress" || s === "done")) return "in-progress";
+  if (live.every((s) => s === "done" || s === "agent-done")) return "agent-done";
+  if (live.some((s) => ["in-progress", "done", "agent-done"].includes(s))) {
+    return "in-progress";
+  }
   if (live.every((s) => s === "blocked")) return "blocked";
   if (live.every((s) => s === "unknown")) return "unknown";
   return "not-started";
@@ -293,18 +301,20 @@ async function scanTask(dir: ReturnType<typeof $.path>): Promise<TaskFolder> {
   const planned = tickets.length > 0;
   const running = tickets.some((t) => t.status === "in-progress") ||
     Date.now() - mtime < 15 * 60 * 1000;
-  // Tickets are the better evidence when they exist, but only frontmatter can
-  // say a task was abandoned, so that verdict wins over any ticket pile.
   // Tickets are hard evidence; frontmatter only fills in what they can't say —
-  // that a task was abandoned, or (with no tickets at all) anything whatsoever.
+  // that a task was abandoned, that the human accepted it, or (with no tickets
+  // at all) anything whatsoever.
   const fromDoc = docState(docStatus);
   // An epic carries no work of its own; its areas say where it stands, unless
   // the index itself was given a status.
-  const state = planned && fromDoc !== "abandoned"
+  let state = planned && fromDoc !== "abandoned"
     ? ticketState(tickets)
     : areas.length && fromDoc === "unknown"
     ? rollupState(areas.map((a) => a.state))
     : fromDoc;
+  // Tickets and areas only ever reach `agent-done`; accepting the work is the
+  // human's call, and the frontmatter is where they make it.
+  if (state === "agent-done" && fromDoc === "done") state = "done";
   // A task nobody is working on shows as a row, not a board — no notes needed.
   const expanded = running || (planned && state !== "done");
   if (!expanded) notes = null;
@@ -569,6 +579,8 @@ const html = `<!doctype html>
   .badge.in-progress { color: var(--warn); border-color: var(--warn); }
   .badge.blocked { color: var(--crit); border-color: var(--crit); }
   .badge.done { color: var(--good); border-color: var(--good); }
+  .badge.agent-done { color: var(--good); border-color: var(--good);
+                      border-style: dashed; } /* done, not yet accepted */
   .badge.abandoned { text-decoration: line-through; }
   .badge.not-started { color: var(--accent); border-color: var(--accent); }
   .badge.unknown { border-style: dashed; }
@@ -588,6 +600,7 @@ const html = `<!doctype html>
   .card .t { font-weight: 500; margin-bottom: 2px; }
   .card .m { font-size: 14px; color: var(--ink-2); }
   .card.done { border-left-color: var(--good); }
+  .card.agent-done { border-left-color: var(--good); border-left-style: dashed; }
   .card.in-progress { border-left-color: var(--warn); }
   .card.blocked { border-left-color: var(--crit); }
   .card.ready, .card.not-started { border-left-color: var(--accent); }
@@ -662,11 +675,12 @@ const COLS = [
 const STATE_LABEL = {
   unknown: "no status", "not-started": "not started",
   "in-progress": "in progress", blocked: "blocked",
-  done: "done", abandoned: "abandoned",
+  "agent-done": "agent-done", done: "done", abandoned: "abandoned",
 };
 
 // The board's only grouping. Live work first; settled states collapse.
 const STATE_GROUPS = [
+  ["agent-done", "Awaiting your check", true],
   ["in-progress", "In progress", true],
   ["blocked", "Blocked", true],
   ["not-started", "Not started", true],
@@ -702,13 +716,15 @@ const projHref = (task, ...segs) =>
   \`/f/\${task.pi}/\${segs.map(encodeURIComponent).join("/")}\`;
 const href = (task, ...segs) => projHref(task, task.name, ...segs);
 
-// Which passes ran on the code when this reached done. Nothing recorded on
+// Which passes ran on the code when this finished. Nothing recorded on
 // finished work is itself worth seeing, so say so.
-function verifiedHtml(passes, done) {
+function verifiedHtml(passes, status) {
   if (passes.length) {
     return \`<span class="badge done">✓ \${esc(passes.join(", "))}</span>\`;
   }
-  return done ? '<span class="badge in-progress">unverified</span>' : "";
+  return status === "done" || status === "agent-done"
+    ? '<span class="badge in-progress">unverified</span>'
+    : "";
 }
 
 function card(t, task) {
@@ -716,7 +732,7 @@ function card(t, task) {
     ? \` · \${t.criteriaDone}/\${t.criteriaTotal} criteria\` : "";
   const blk = t.blocked ? \` · waits on \${t.blockedBy.join(", ")}\` : "";
   const cls = t.blocked ? "blocked" : t.status;
-  const ver = verifiedHtml(t.verified, t.status === "done");
+  const ver = verifiedHtml(t.verified, t.status);
   return \`<div class="card \${cls}">
     <div class="t"><a href="\${href(task, "tickets", t.file)}" target="_blank">\${esc(t.title)}</a></div>
     <div class="m">\${t.num || t.file}\${crit}\${blk} \${ver}</div></div>\`;
@@ -762,7 +778,7 @@ function taskCard(task) {
       ? \`<span class="m">\${done}/\${task.tickets.length} tickets</span>\` : ""}
     \${stateBadge(task, chrono)}
     \${task.planned || task.areas.length
-      ? "" : verifiedHtml(task.docVerified, task.state === "done")}
+      ? "" : verifiedHtml(task.docVerified, task.state)}
     \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     \${docLinks(task)}
     <span class="m right">\${age(task.mtime)} ago</span>\`;
@@ -786,7 +802,7 @@ function idleRow(t) {
     \${t.areas.length ? '<span class="badge">epic</span>' : ""}\${sum}\${
       stateBadge(t, chrono)}\${
       t.planned || t.areas.length
-        ? "" : verifiedHtml(t.docVerified, t.state === "done")}\${docLinks(t)}
+        ? "" : verifiedHtml(t.docVerified, t.state)}\${docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     <span class="m right">\${age(t.mtime)} ago</span>\`;
   // finished tasks keep their tickets — expand the row to read them
