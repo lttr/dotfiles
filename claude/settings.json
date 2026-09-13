@@ -167,7 +167,8 @@
   "enabledPlugins": {
     "aiwork@lttr-claude-marketplace": true,
     "browser@lttr-claude-marketplace": true,
-    "cc@lttr-claude-marketplace": true
+    "cc@lttr-claude-marketplace": true,
+    "writing@lttr-claude-marketplace": true
   },
   "extraKnownMarketplaces": {
     "lttr-claude-marketplace": {
