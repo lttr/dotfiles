@@ -328,6 +328,19 @@ const ffmpeg7: Config = {
   },
 };
 
+const gitLatest: Config = {
+  inlineScript: {
+    name: "git-latest",
+    // Ubuntu freezes git at 2.43; the git-core PPA keeps it current via apt.
+    testScript: `dpkg-query -W -f='\${Version}' git 2>/dev/null | grep -q ppa`,
+    setScript: `
+      sudo add-apt-repository -y ppa:git-core/ppa
+      sudo apt-get update
+      sudo apt-get install -y git
+    `,
+  },
+};
+
 const gitCredentialLibsecret: Config = {
   inlineScript: {
     name: "git-credential-libsecret",
@@ -337,6 +350,7 @@ const gitCredentialLibsecret: Config = {
       sudo make -C /usr/share/doc/git/contrib/credential/libsecret
       sudo ln -sf /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret /usr/local/bin/
     `,
+    dependsOn: gitLatest,
   },
 };
 
@@ -434,6 +448,7 @@ export const customInstalls: Config[] = [
   vitePlus,
   fzf,
   fzfSetup,
+  gitLatest,
   gitCredentialLibsecret,
   googleChrome,
   kitty,
