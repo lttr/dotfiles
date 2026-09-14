@@ -3,27 +3,6 @@
 # AI-powered git commit helper
 # Shows current changes, generates commit message using Claude, and displays recent commits
 
-# Parse command line arguments
-no_claude=false
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -n|--no-claude)
-            no_claude=true
-            shift
-            ;;
-        *)
-            echo "Unknown option: $1"
-            echo "Usage: $0 [-n|--no-claude]"
-            exit 1
-            ;;
-    esac
-done
-
-attribution=""
-if [ "$no_claude" = true ]; then
-    attribution=" Do not add Claude attribution to the commits."
-fi
-
 # Check if there are staged changes
 has_staged=false
 if ! git diff --cached --quiet; then
@@ -48,7 +27,7 @@ if [ "$has_staged" = true ]; then
         git ls-files --others --exclude-standard | sed 's/^/??\t/'
     fi
 
-    prompt="Run git commit for the already-staged changes. Do NOT run git add - files are already staged. Only write the commit message and commit.${attribution}
+    prompt="Run git commit for the already-staged changes. Do NOT run git add - files are already staged. Only write the commit message and commit.
 
 Staged files:
 ${staged_files}"
@@ -58,7 +37,7 @@ ${staged_files}"
 else
     echo 'About to commit changes (nothing staged, will stage all):'
     git status --short
-    prompt="Stage all changes and new files, then commit.${attribution}"
+    prompt="Stage all changes and new files, then commit."
     allowed_tools='Bash(git add:*),Bash(git commit:*),Bash(git status:*),Bash(git diff:*)'
 fi
 
