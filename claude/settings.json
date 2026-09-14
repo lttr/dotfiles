@@ -1,13 +1,13 @@
 {
-  "env": {
-    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
-  },
   "fileSuggestion": {
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
   "cleanupPeriodDays": 180,
   "skillListingBudgetFraction": 0.005,
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
+  },
   "permissions": {
     "allow": [],
     "deny": [
