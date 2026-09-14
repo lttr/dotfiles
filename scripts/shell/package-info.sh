@@ -68,14 +68,6 @@ get_package_info() {
         return 0
     fi
     
-    # Check if it's a flatpak
-    if flatpak list --app | grep -q "$cmd" 2>/dev/null; then
-        local flatpak_info=$(flatpak list --app | grep "$cmd")
-        local version=$(echo "$flatpak_info" | awk -F'\t' '{print $3}')
-        echo "flatpak | version: ${version:-unknown} | installed: unknown"
-        return 0
-    fi
-    
     # Check if it's installed via apt/dpkg
     local deb_package=$(dpkg -S "$exec_path" 2>/dev/null | cut -d: -f1 | head -1)
     if [ -n "$deb_package" ]; then
@@ -93,6 +85,17 @@ get_package_info() {
         
         echo "apt-install | version: $version | installed: ${install_date:-unknown}"
         return 0
+    fi
+    
+    # Match the application ID's last segment exactly, or "git" hits io.github.*
+    if command -v flatpak >/dev/null 2>&1; then
+        local flatpak_info=$(flatpak list --app --columns=application,version 2>/dev/null |
+            awk -F'\t' -v c="$cmd" 'tolower($1) == tolower(c) || tolower($1) ~ ("\\." tolower(c) "$") {print; exit}')
+        if [ -n "$flatpak_info" ]; then
+            local version=$(echo "$flatpak_info" | awk -F'\t' '{print $2}')
+            echo "flatpak | version: ${version:-unknown} | installed: unknown"
+            return 0
+        fi
     fi
     
     # Check if it's a brew package
