@@ -587,6 +587,7 @@ const html = `<!doctype html>
   .badge.running::before { content: "● "; animation: pulse 1.5s infinite; }
   @keyframes pulse { 50% { opacity: 0.3; } }
   .body { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
+  .body.notes-only { grid-template-columns: 1fr; }
   @media (max-width: 900px) { .body { grid-template-columns: 1fr; } }
   .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
            align-content: start; }
@@ -640,16 +641,18 @@ ${mermaidStyles}
                   text-transform: uppercase; letter-spacing: 0.05em;
                   margin-bottom: 6px; }
   .state-group > .task { margin-bottom: 10px; }
-  .idle-task > summary { display: flex; gap: 8px; align-items: baseline;
+  .idle-task > summary, .idle-row { display: flex; gap: 8px; align-items: baseline;
               cursor: pointer; list-style: none;
               padding: 5px 8px; border-bottom: 1px solid var(--line); }
+  .idle-row { cursor: default; }
+  .idle-row::before { content: "▸"; visibility: hidden; }
   .idle-task > summary::-webkit-details-marker { display: none; }
   .idle-task > summary::before { content: "▸"; color: var(--ink-2); }
   .idle-task[open] > summary::before { content: "▾"; }
   .idle-task > summary:hover { background: var(--surface); }
-  .idle-task .proj { color: var(--ink-2); font-size: 14px; }
-  .idle-task .m { color: var(--ink-2); font-size: 14px; }
-  .idle-task .right { margin-left: auto; }
+  :is(.idle-task, .idle-row) .proj { color: var(--ink-2); font-size: 14px; }
+  :is(.idle-task, .idle-row) .m { color: var(--ink-2); font-size: 14px; }
+  :is(.idle-task, .idle-row) .right { margin-left: auto; }
   .idle-body { padding: 10px 8px 14px; border-bottom: 1px solid var(--line); }
   a { color: inherit; text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -716,23 +719,28 @@ const projHref = (task, ...segs) =>
   \`/f/\${task.pi}/\${segs.map(encodeURIComponent).join("/")}\`;
 const href = (task, ...segs) => projHref(task, task.name, ...segs);
 
-// Which passes ran on the code when this finished. Nothing recorded on
-// finished work is itself worth seeing, so say so.
-function verifiedHtml(passes, status) {
+// Which passes ran on the code when this finished. \`flagMissing\` asks for the
+// warning when nothing was recorded — worth saying only where the answer is
+// still actionable, never on work you already accepted.
+function verifiedHtml(passes, flagMissing) {
   if (passes.length) {
     return \`<span class="badge done">✓ \${esc(passes.join(", "))}</span>\`;
   }
-  return status === "done" || status === "agent-done"
-    ? '<span class="badge in-progress">unverified</span>'
-    : "";
+  return flagMissing ? '<span class="badge in-progress">unverified</span>' : "";
 }
+
+// Spec checkboxes are worth a line while they can still move. All-zero on a
+// settled task means nobody ticked them, not that nothing got done.
+const showCriteria = (t) =>
+  t.docCriteriaTotal &&
+  (t.docCriteriaDone > 0 || !["done", "abandoned"].includes(t.state));
 
 function card(t, task) {
   const crit = t.criteriaTotal
     ? \` · \${t.criteriaDone}/\${t.criteriaTotal} criteria\` : "";
   const blk = t.blocked ? \` · waits on \${t.blockedBy.join(", ")}\` : "";
   const cls = t.blocked ? "blocked" : t.status;
-  const ver = verifiedHtml(t.verified, t.status);
+  const ver = verifiedHtml(t.verified, t.status === "done");
   return \`<div class="card \${cls}">
     <div class="t"><a href="\${href(task, "tickets", t.file)}" target="_blank">\${esc(t.title)}</a></div>
     <div class="m">\${t.num || t.file}\${crit}\${blk} \${ver}</div></div>\`;
@@ -777,34 +785,45 @@ function taskCard(task) {
     \${task.tickets.length
       ? \`<span class="m">\${done}/\${task.tickets.length} tickets</span>\` : ""}
     \${stateBadge(task, chrono)}
-    \${task.planned || task.areas.length
-      ? "" : verifiedHtml(task.docVerified, task.state)}
+    \${verifiedHtml(task.docVerified,
+      !task.planned && !task.areas.length && task.state === "agent-done")}
     \${task.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     \${docLinks(task)}
     <span class="m right">\${age(task.mtime)} ago</span>\`;
+  // Neither tickets nor areas means there is no board to draw; the notes log is
+  // the whole body, and it may as well have the full width.
   return disc("task/" + taskKey(task), true, "task", head,
-    \`<div class="body">\${boardHtml(task, false)}\${notes}</div>\`);
+    task.tickets.length || task.areas.length
+      ? \`<div class="body">\${boardHtml(task, false)}\${notes}</div>\`
+      : \`<div class="body notes-only">\${notes}</div>\`);
 }
 
 function idleRow(t) {
   const done = t.tickets.filter((x) => x.status === "done").length;
   const areasDone = t.areas.filter((a) => a.state === "done").length;
+  // No ticket count for a task that never had tickets — the absence is not news.
   const sum = t.planned
     ? \`<span class="m">\${done}/\${t.tickets.length} tickets</span>\`
     : t.areas.length
     ? \`<span class="m">\${areasDone}/\${t.areas.length} areas</span>\`
-    : \`<span class="m">no tickets\${
-        t.docCriteriaTotal
-          ? \` · \${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria\`
-          : ""}</span>\`;
+    : showCriteria(t)
+    ? \`<span class="m">\${t.docCriteriaDone}/\${t.docCriteriaTotal} spec criteria</span>\`
+    : "";
   const head = \`<span class="proj">\${esc(t.proj)} /</span>
     <span>\${esc(t.name)}</span>
     \${t.areas.length ? '<span class="badge">epic</span>' : ""}\${sum}\${
       stateBadge(t, chrono)}\${
-      t.planned || t.areas.length
-        ? "" : verifiedHtml(t.docVerified, t.state)}\${docLinks(t)}
+      verifiedHtml(t.docVerified,
+        !t.planned && !t.areas.length && t.state === "agent-done")}\${
+      docLinks(t)}
     \${t.hasReview ? '<span class="badge">✓ reviewed</span>' : ""}
     <span class="m right">\${age(t.mtime)} ago</span>\`;
+  // A task with neither tickets nor areas has nothing behind the arrow — the row
+  // itself carries every fact the folder holds, so don't offer a disclosure that
+  // only repeats it. Everything else expands to its board.
+  if (!t.tickets.length && !t.areas.length) {
+    return \`<div class="idle-row">\${head}</div>\`;
+  }
   // finished tasks keep their tickets — expand the row to read them
   return disc("idle/" + taskKey(t), false, "idle-task", head,
     \`<div class="idle-body">\${boardHtml(t, true)}</div>\`);
@@ -830,9 +849,7 @@ function areasHtml(task) {
 
 function boardHtml(task, doneOpenByDefault) {
   if (task.areas.length && !task.tickets.length) return areasHtml(task);
-  if (!task.tickets.length) {
-    return '<div class="empty">Not planned yet — no tickets.</div>';
-  }
+  if (!task.tickets.length) return "";
   const cols = COLS.map(([key, label]) => {
     const items = task.tickets.filter((t) =>
       key === "blocked" ? t.blocked : t.status === key && !t.blocked);
