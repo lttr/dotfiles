@@ -159,6 +159,7 @@
     "baseRef": "fresh"
   },
   "disableRemoteControl": true,
+  "bashEditDiffEnabled": true,
   "statusLine": {
     "type": "command",
     "command": "node ~/dotfiles/claude/scripts/status-line.js",
@@ -168,7 +169,8 @@
     "aiwork@lttr-claude-marketplace": true,
     "browser@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
-    "writing@lttr-claude-marketplace": true
+    "writing@lttr-claude-marketplace": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "lttr-claude-marketplace": {
@@ -193,6 +195,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "bashEditDiffEnabled": true
+  "maxSkillDescriptionChars": 250
 }
