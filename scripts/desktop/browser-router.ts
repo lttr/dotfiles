@@ -139,7 +139,7 @@ const EDGE_HOSTS = [
 ];
 
 /** Extra host patterns for Edge, tested against the hostname. */
-const EDGE_HOST_PATTERNS = [/drmax-gl/];
+const EDGE_HOST_PATTERNS = [/drmax-gl/, /drmax-[a-z]{2}\.space$/];
 
 const EDGE_HOST_RE = new RegExp(
   `^(.+\\.)?(${EDGE_HOSTS.map((h) => h.replace(/\./g, "\\.")).join("|")})$`,
