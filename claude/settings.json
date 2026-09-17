@@ -35,8 +35,10 @@
   },
   "disableClaudeAiConnectors": true,
   "skillOverrides": {
+    "claude-api": "name-only",
+    "dataviz": "name-only",
     "deep-research": "name-only",
-    "fewer-permission-prompts": "off",
+    "fewer-permission-prompts": "name-only",
     "keybindings-help": "name-only",
     "loop": "name-only",
     "schedule": "name-only",
