@@ -37,8 +37,10 @@ echo
 vp update --global --reinstall-node-mismatch
 
 echo
+echo '### vp env install lts'
 echo '### vp env default lts'
 echo
+vp env install lts
 vp env default lts
 
 echo
@@ -58,3 +60,7 @@ echo
 nvim --headless -c "Lazy! sync" -c "qa"
 nvim --headless -c 'MasonUpdate' -c 'qall'
 
+echo
+echo '### flatpak update -y'
+echo
+flatpak update -y
