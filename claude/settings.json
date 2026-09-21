@@ -4,6 +4,7 @@
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
   "cleanupPeriodDays": 180,
+  "syncClaudeAiSkills": false,
   "skillListingBudgetFraction": 0.005,
   "env": {
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
@@ -34,7 +35,6 @@
     "defaultMode": "auto"
   },
   "disableClaudeAiConnectors": true,
-  "syncClaudeAiSkills": false,
   "skillOverrides": {
     "claude-api": "name-only",
     "dataviz": "name-only",
@@ -198,5 +198,6 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  "maxSkillDescriptionChars": 250,
+  "feedbackDrafts": "off"
 }
