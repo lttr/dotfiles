@@ -28,6 +28,7 @@ import {
   extractPackages,
   loadLearnedPackages,
   isTrustedPackage,
+  splitSegments,
 } from "./shared.ts";
 
 // =============================================================================
@@ -260,11 +261,23 @@ function checkCommand(
     }
   }
 
+  // Operation patterns (`sed -i.*{path}`, `rm .*{path}`, ...) are scanned one
+  // shell segment at a time so an operation in one segment is never paired
+  // with a path that only appears in a later `&&`/`;`/`|` segment.
+  const segments = splitSegments(scanCommand);
+  const scanSegments = (path: string, patterns: PatternTuple[], pathType: string) => {
+    for (const segment of segments) {
+      const result = checkPathPatterns(segment, path, patterns, pathType);
+      if (result.blocked) return result;
+    }
+    return { blocked: false, reason: "" };
+  };
+
   // 3. Modifications to write-ask paths prompt for approval (reads allowed).
   // Held as a pending ask so any block below still wins.
   for (const askPath of config.writeAskPaths) {
     if (pendingAsk) break;
-    const result = checkPathPatterns(scanCommand, askPath, READ_ONLY_BLOCKED, "protected path");
+    const result = scanSegments(askPath, READ_ONLY_BLOCKED, "protected path");
     if (result.blocked) {
       pendingAsk = `${result.reason.replace(/^Blocked: /, "")} - confirm with the user`;
     }
@@ -272,7 +285,7 @@ function checkCommand(
 
   // 4. Check for modifications to read-only paths (reads allowed)
   for (const readonlyPath of config.readOnlyPaths) {
-    const result = checkPathPatterns(scanCommand, readonlyPath, READ_ONLY_BLOCKED, "read-only path");
+    const result = scanSegments(readonlyPath, READ_ONLY_BLOCKED, "read-only path");
     if (result.blocked) {
       return { ...result, ask: false };
     }
@@ -280,7 +293,7 @@ function checkCommand(
 
   // 5. Check for deletions on no-delete paths (read/write/edit allowed)
   for (const noDeletePath of config.noDeletePaths) {
-    const result = checkPathPatterns(scanCommand, noDeletePath, NO_DELETE_BLOCKED, "no-delete path");
+    const result = scanSegments(noDeletePath, NO_DELETE_BLOCKED, "no-delete path");
     if (result.blocked) {
       return { ...result, ask: false };
     }

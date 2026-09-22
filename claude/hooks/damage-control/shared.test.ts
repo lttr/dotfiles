@@ -158,7 +158,12 @@ test("e2e: .env reads allow, modifications ask", () => {
   assert.equal(runHook("grep -rn API_KEY .env.local"), "allow");
   assert.equal(runHook("echo SECRET=x > .env"), "ask");
   assert.equal(runHook("sed -i 's/a/b/' .env"), "ask");
+  assert.equal(runHook("sed -i 's|a|b|' .env"), "ask");
   assert.equal(runHook("rm .env.production"), "ask");
+  // an edit in one segment must not pair with a .env mention in a later one
+  assert.equal(runHook("sed -i 's|a|b|' $S/dump.mjs && node --env-file=.env $S/dump.mjs"), "allow");
+  assert.equal(runHook("sed -i 's/a/b/' x.txt; cat .env"), "allow");
+  assert.equal(runHook("sed -i 's/a/b/' x.txt && echo y > .env"), "ask");
   // blocks still win over a pending .env ask
   assert.equal(runHook("echo SECRET=x > .env && sudo rm -rf /"), "block");
 });

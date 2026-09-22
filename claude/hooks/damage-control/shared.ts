@@ -247,6 +247,16 @@ function stripHeredocBodies(command: string): string {
  * which is what stops `-m "npx foo"` from reading as an invocation.
  */
 function commandSegments(command: string): string[][] {
+  return splitSegments(command).map((s) => s.split(/\s+/).filter(Boolean)).filter((toks) => toks.length > 0);
+}
+
+/**
+ * The raw text of each top-level command segment (quote-aware: separators
+ * inside quotes do not split). Path-access scans run per segment so a pattern
+ * like `sed -i ... {path}` cannot bleed across `&&` into an unrelated command
+ * (`sed -i s/a/b/ x.mjs && node --env-file=.env y.mjs` is not an edit of .env).
+ */
+export function splitSegments(command: string): string[] {
   const raw: string[] = [];
   command = stripHeredocBodies(command);
   let cur = "";
@@ -272,7 +282,7 @@ function commandSegments(command: string): string[][] {
     cur += c;
   }
   if (cur) raw.push(cur);
-  return raw.map((s) => s.trim().split(/\s+/).filter(Boolean)).filter((toks) => toks.length > 0);
+  return raw.map((s) => s.trim()).filter(Boolean);
 }
 
 interface Invocation {
