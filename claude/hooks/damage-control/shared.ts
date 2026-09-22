@@ -194,42 +194,29 @@ export function logHook(tag: string, detail: string): void {
 // PACKAGE EXTRACTION + LEARNED ALLOWLIST
 // =============================================================================
 //
-// Package-install / runner commands prompt for verification when they name a
-// package that is not yet trusted. Once the user approves an install, the
-// PostToolUse hook records its package names here, and the PreToolUse hook
-// auto-allows them next time instead of asking again.
+// Package-runner commands (npx-style: download a package and execute it)
+// prompt for verification when they name a package that is not yet trusted.
+// Plain installs (`npm install x`, `pip install y`) are deliberately not
+// covered: they only add code to a manifest, and the risk that matters here
+// is running an unknown package straight from the registry. Once the user
+// approves a runner, the PostToolUse hook records its package name here, and
+// the PreToolUse hook auto-allows it next time instead of asking again.
 
 const LEARNED_PACKAGES_FILE = join(homedir(), ".claude", "custom-learned-packages.json");
 
-// Package-manager invocations, keyed by their first token.
+// Package-runner invocations, keyed by their first token.
 const RUNNER_HEADS = new Set(["npx", "pnpx", "vpx", "bunx"]);
-const DLX_HEADS = new Set(["pnpm", "vp"]); // `pnpm dlx` / `vp dlx` run like npx
-const NODE_INSTALL = ["add", "i", "install"];
-const INSTALL_SUBCOMMANDS: Record<string, string[]> = {
-  npm: NODE_INSTALL,
-  pnpm: NODE_INSTALL,
-  yarn: NODE_INSTALL,
-  bun: NODE_INSTALL,
-  vp: ["add", "install"],
-  pip: ["install"],
-  pip3: ["install"],
-  cargo: ["add", "install"],
-  gem: ["install"],
-  go: ["install", "get"],
-  deno: ["add", "install"],
-  brew: ["install"],
-};
+const DLX_HEADS = new Set(["pnpm", "vp", "yarn"]); // `pnpm dlx` / `vp dlx` / `yarn dlx` run like npx
 
 // A valid package name: optional @scope, then alphanumerics plus . _ - /
-// (covers npm scoped names, pip names, and go module paths). Rejects tokens
-// carrying quotes, commas, brackets etc. - i.e. install strings used as data.
+// Rejects tokens carrying quotes, commas, brackets etc. - i.e. runner strings
+// used as data.
 const VALID_PACKAGE_RE = /^@?[a-z0-9][a-z0-9._/-]*$/i;
 
 /**
  * Drop heredoc bodies before parsing. Their contents are data - prose, config,
- * markdown - not commands, and a line like `pnpm install rewrites the root
- * package.json` inside one would otherwise read as an install naming six
- * packages.
+ * markdown - not commands, and a line like `npx foo is what the doc mentions`
+ * inside one would otherwise read as a runner invocation.
  */
 function stripHeredocBodies(command: string): string {
   const lines = command.split("\n");
@@ -255,7 +242,7 @@ function stripHeredocBodies(command: string): string {
 
 /**
  * Split a command into top-level segments of tokens, ignoring separators that
- * appear inside quotes (so install strings embedded in script arguments are
+ * appear inside quotes (so runner strings embedded in script arguments are
  * not mistaken for real commands). Quote characters are kept on their tokens,
  * which is what stops `-m "npx foo"` from reading as an invocation.
  */
@@ -289,7 +276,6 @@ function commandSegments(command: string): string[][] {
 }
 
 interface Invocation {
-  kind: "runner" | "install";
   /** Index of the first token after the command head. */
   start: number;
 }
@@ -300,11 +286,9 @@ const WRAPPER_HEADS = new Set([
   "command", "nohup", "setsid", "stdbuf", "time",
 ]);
 
-/** True once the token is a recognised package-manager head. */
+/** True once the token is a recognised package-runner head. */
 function isHead(tok: string, next: string | undefined): boolean {
-  if (RUNNER_HEADS.has(tok)) return true;
-  if (!next) return false;
-  return (next === "dlx" && DLX_HEADS.has(tok)) || Boolean(INSTALL_SUBCOMMANDS[tok]?.includes(next));
+  return RUNNER_HEADS.has(tok) || (next === "dlx" && DLX_HEADS.has(tok));
 }
 
 /** A token that may sit before the invocation head: wrapper, flag, VAR=x, or a bare number. */
@@ -318,14 +302,14 @@ function isSkippablePrefix(tok: string): boolean {
 }
 
 /**
- * Find a package-manager invocation at the head of a segment.
+ * Find a package-runner invocation at the head of a segment.
  *
- * The head may sit behind wrappers - `timeout 300 npx vue-tsc`, `sudo npm
- * install x`, `env FOO=1 vpx y` are all the same invocation as their bare
- * forms - so leading wrapper/flag/assignment tokens are skipped. Anything
- * else before the head means this is not an invocation: that is what stops a
- * prose line such as `the pnpm install rewrites the root package.json` from
- * reading as an install and teaching its words as package names.
+ * The head may sit behind wrappers - `timeout 300 npx vue-tsc`, `sudo pnpm
+ * dlx x`, `env FOO=1 vpx y` are all the same invocation as their bare forms -
+ * so leading wrapper/flag/assignment tokens are skipped. Anything else before
+ * the head means this is not an invocation: that is what stops a prose line
+ * such as `ran npx foo` from reading as a runner and teaching its words as
+ * package names.
  */
 function findInvocation(tokens: string[]): Invocation | null {
   let i = 0;
@@ -336,14 +320,10 @@ function findInvocation(tokens: string[]): Invocation | null {
     i++;
   }
   if (i >= tokens.length) return null;
-  const tok = tokens[i];
-  const next = tokens[i + 1];
-  if (RUNNER_HEADS.has(tok)) return { kind: "runner", start: i + 1 };
-  if (next === "dlx" && DLX_HEADS.has(tok)) return { kind: "runner", start: i + 2 };
-  return { kind: "install", start: i + 2 };
+  return { start: RUNNER_HEADS.has(tokens[i]) ? i + 1 : i + 2 };
 }
 
-/** True if the command installs packages or downloads-and-runs one. */
+/** True if the command downloads-and-runs a package (npx and friends). */
 export function isPackageCommand(command: string): boolean {
   return commandSegments(command).some((toks) => findInvocation(toks) !== null);
 }
@@ -369,8 +349,8 @@ export function normalizePackageName(token: string): string {
 }
 
 /**
- * Extract normalized package names from an install/runner command.
- * Runners (npx/dlx) only take a single package; installers take all.
+ * Extract the normalized package name from each runner invocation in the
+ * command. A runner takes a single package: the first non-flag, non-path token.
  */
 export function extractPackages(command: string): string[] {
   const pkgs: string[] = [];
@@ -385,7 +365,7 @@ export function extractPackages(command: string): string[] {
       const name = normalizePackageName(tok);
       if (!VALID_PACKAGE_RE.test(name)) continue;
       pkgs.push(name);
-      if (invocation.kind === "runner") break;  // runners take a single package
+      break;
     }
   }
   return pkgs;

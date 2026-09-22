@@ -40,16 +40,12 @@ test("finds invocations behind wrappers", () => {
   }
 });
 
-test("finds installers", () => {
+test("finds dlx runners", () => {
   const cases: [string, string[]][] = [
-    ["npm install lodash", ["lodash"]],
-    ["sudo npm i -D vitest", ["vitest"]],
-    ["pnpm add @scope/pkg@1.2.3", ["@scope/pkg"]],
-    ["pnpm add -D vitest happy-dom", ["vitest", "happy-dom"]],
     ["pnpm dlx prettier --write .", ["prettier"]],
     ["vp dlx nuxi init", ["nuxi"]],
-    ["pip3 install requests==2.31.0", ["requests"]],
-    ["go install golang.org/x/tools/gopls@latest", ["golang.org/x/tools/gopls"]],
+    ["yarn dlx @scope/pkg@1.2.3", ["@scope/pkg"]],
+    ["sudo pnpm dlx create-vue my-app", ["create-vue"]],
   ];
   for (const [cmd, expected] of cases) {
     assert.equal(isPackageCommand(cmd), true, cmd);
@@ -57,9 +53,19 @@ test("finds installers", () => {
   }
 });
 
-test("bare installs name no packages", () => {
-  for (const cmd of ["vp install", "pnpm install --frozen-lockfile", "npm install"]) {
-    assert.equal(isPackageCommand(cmd), true, cmd);
+test("plain installs are not checked", () => {
+  const cmds = [
+    "npm install lodash",
+    "sudo npm i -D vitest",
+    "pnpm add @scope/pkg@1.2.3",
+    "vp add -D vitest happy-dom",
+    "pip3 install requests==2.31.0",
+    "go install golang.org/x/tools/gopls@latest",
+    "vp install",
+    "pnpm install --frozen-lockfile",
+  ];
+  for (const cmd of cmds) {
+    assert.equal(isPackageCommand(cmd), false, cmd);
     assert.deepEqual(extractPackages(cmd), [], cmd);
   }
 });
@@ -69,22 +75,22 @@ test("prose mentioning a runner is not an invocation", () => {
   // mention in the middle of a message no longer matches.
   assert.equal(isPackageCommand('git commit -m "ran npx foo"'), false);
   assert.deepEqual(extractPackages('git commit -m "ran npx foo"'), []);
-  assert.equal(isPackageCommand("grep -r 'npm install evil' ."), false);
-  assert.equal(isPackageCommand("the pnpm install rewrites the root package.json"), false);
+  assert.equal(isPackageCommand("grep -r 'npx evil' ."), false);
+  assert.equal(isPackageCommand("the npx runner downloads the package first"), false);
 });
 
 test("heredoc bodies are data, not commands", () => {
   const doc = [
     "cat > notes.md <<'EOF'",
-    "pnpm install rewrites the root package.json and drags in every catalog entry",
     "npx some-unknown-package-xyz is what the doc mentions",
+    "pnpm dlx another-unknown-package is mentioned too",
     "EOF",
   ].join("\n");
   assert.equal(isPackageCommand(doc), false, doc);
   assert.deepEqual(extractPackages(doc), [], doc);
 
-  // A real install after the heredoc still registers.
-  assert.deepEqual(extractPackages(doc + "\npnpm add left-pad"), ["left-pad"]);
+  // A real runner after the heredoc still registers.
+  assert.deepEqual(extractPackages(doc + "\nnpx left-pad"), ["left-pad"]);
 });
 
 test("non-package commands are left alone", () => {
@@ -125,12 +131,16 @@ test("e2e: trusted packages do not prompt", () => {
 test("e2e: unknown packages still prompt", () => {
   assert.equal(runHook("npx some-unknown-package-xyz"), "ask");
   assert.equal(runHook("timeout 300 npx some-unknown-package-xyz"), "ask");
-  assert.equal(runHook("pnpm add -D vitest"), "ask");
-  assert.equal(runHook("yarn install left-pad"), "ask");
+  assert.equal(runHook("pnpm dlx some-unknown-package-xyz"), "ask");
 });
 
-test("e2e: quoted prose about installs does not prompt", () => {
-  assert.equal(runHook("grep -r 'npm install evil' ."), "allow");
+test("e2e: plain installs never prompt", () => {
+  assert.equal(runHook("pnpm add -D some-unknown-package-xyz"), "allow");
+  assert.equal(runHook("yarn install left-pad"), "allow");
+});
+
+test("e2e: quoted prose about runners does not prompt", () => {
+  assert.equal(runHook("grep -r 'npx evil' ."), "allow");
   assert.equal(runHook('git commit -m "ran npx foo"'), "allow");
 });
 

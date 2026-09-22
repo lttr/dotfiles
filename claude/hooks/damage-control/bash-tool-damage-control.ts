@@ -171,9 +171,9 @@ function stripQuotedText(command: string): string {
 }
 
 /**
- * Packages named by the command that are neither trusted (patterns.json) nor
- * learned (previously approved) - the names left to verify. Bare installs
- * from a manifest (`vp install`, `npm install`) name no packages.
+ * Packages run by the command (npx-style) that are neither trusted
+ * (patterns.json) nor learned (previously approved) - the names left to
+ * verify. Plain installs are not checked; see shared.ts.
  */
 function unverifiedPackages(command: string, config: Config): string[] {
   const pkgs = extractPackages(command);
@@ -286,15 +286,15 @@ function checkCommand(
     }
   }
 
-  // 6. Package install / runner naming an untrusted package. Derived from the
+  // 6. Package runner (npx/dlx) naming an untrusted package. Derived from the
   // quote-aware detector in shared.ts (the single source of truth for what
-  // counts as a package command), and only checked after every block above:
-  // a trusted install must never carry a blocked command along with it
-  // (`npm install eslint && rm -rf ~/notes`).
+  // counts as a runner command), and only checked after every block above:
+  // a trusted runner must never carry a blocked command along with it
+  // (`npx eslint && rm -rf ~/notes`).
   if (!pendingAsk) {
     const unverified = unverifiedPackages(command, config);
     if (unverified.length > 0) {
-      pendingAsk = `package install/runner: verify package name(s): ${unverified.join(", ")}`;
+      pendingAsk = `package runner: verify package name(s): ${unverified.join(", ")}`;
     }
   }
 

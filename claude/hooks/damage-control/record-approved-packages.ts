@@ -3,13 +3,13 @@
  * Claude Code Damage Control - Record Approved Packages
  * =====================================================
  *
- * PostToolUse hook for the Bash tool. When a package install/runner command
- * has actually run, the user must have approved the `ask` verification prompt
- * (PostToolUse only fires for tools that executed). This records the package
- * names into the learned allowlist so bash-tool-damage-control.ts stops asking
- * to verify them next time.
+ * PostToolUse hook for the Bash tool. When a package runner command (npx and
+ * friends) has actually run, the user must have approved the `ask`
+ * verification prompt (PostToolUse only fires for tools that executed). This
+ * records the package names into the learned allowlist so
+ * bash-tool-damage-control.ts stops asking to verify them next time.
  *
- * Learned allowlist: ~/.claude/damage-control/learned-packages.json
+ * Learned allowlist: ~/.claude/custom-learned-packages.json
  *
  * Exit code: always 0 (best-effort, never blocks).
  */
