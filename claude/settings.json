@@ -172,7 +172,8 @@
     "browser@lttr-claude-marketplace": true,
     "cc@lttr-claude-marketplace": true,
     "writing@lttr-claude-marketplace": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "maintenance@lttr-claude-marketplace": true
   },
   "extraKnownMarketplaces": {
     "lttr-claude-marketplace": {
@@ -191,6 +192,7 @@
   "tui": "default",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
@@ -198,6 +200,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250,
-  "skipWorkflowUsageWarning": true
+  "maxSkillDescriptionChars": 250
 }
