@@ -5,6 +5,7 @@
   },
   "cleanupPeriodDays": 180,
   "syncClaudeAiSkills": false,
+  "syncClaudeAiPlugins": false,
   "skillListingBudgetFraction": 0.005,
   "env": {
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
@@ -161,6 +162,9 @@
     "baseRef": "fresh"
   },
   "disableRemoteControl": true,
+  "enableArtifact": false,
+  "enableWorkflows": false,
+  "workflowKeywordTriggerEnabled": false,
   "bashEditDiffEnabled": true,
   "statusLine": {
     "type": "command",
