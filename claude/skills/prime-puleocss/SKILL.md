@@ -1,7 +1,8 @@
 ---
+name: prime-puleocss
+disable-model-invocation: true
 allowed-tools: Bash(curl:*)
 description: Load Puleo CSS library into context for styling
-argument-hint:
 ---
 
 ## Context

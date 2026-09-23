@@ -1,4 +1,6 @@
 ---
+name: my-code-review
+disable-model-invocation: true
 allowed-tools: Bash(git:*), Read, Glob, Grep, Task
 description: Review code changes in current feature branch
 argument-hint: [base-branch]
