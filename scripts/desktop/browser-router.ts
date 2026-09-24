@@ -133,6 +133,7 @@ const EDGE_HOSTS = [
   "teams.microsoft.com",
   "cloud.microsoft", // outlook.cloud.microsoft, bookings.cloud.microsoft, ...
   "mydrmax.atlassian.net",
+  "atlassian.com",
   "lucid.app",
   "drmax-gl.space",
   "drmax-cz.live",
