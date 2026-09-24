@@ -14,10 +14,10 @@
     "allow": [],
     "deny": [
       "AskUserQuestion",
-      "Bash(dd if=* of=/dev/*:*)",
+      "Bash(dd if=* of=/dev/*)",
       "Bash(mkfs:*)",
-      "Bash(rm -rf /*:*)",
-      "Bash(rm -rf ~/*:*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~/*)",
       "Bash(sudo rm -rf:*)",
       "CronCreate",
       "CronDelete",
