@@ -204,5 +204,5 @@
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
   "skipAutoPermissionPrompt": true,
-  "maxSkillDescriptionChars": 250
+  "skillListingMaxDescChars": 250
 }
