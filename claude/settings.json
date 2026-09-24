@@ -24,8 +24,11 @@
       "CronList",
       "EnterPlanMode",
       "ExitPlanMode",
+      "ListAgents",
       "NotebookEdit",
       "PushNotification",
+      "ReportFindings",
+      "ScheduleWakeup",
       "SendMessage"
     ],
     "ask": [
