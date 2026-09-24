@@ -1,8 +1,6 @@
-<!-- ~/.claude/CLAUDE.md symlinked here -->
-
 ## Verification
 
-Verify (search/docs) before stating: CLI flags, API signatures, URLs, anything version-specific or post-cutoff. Never hallucinate or guess; don't state if unverified.
+Before stating CLI flags, API signatures, URLs, or anything version-specific or post-cutoff, verify via search/docs. If you can't verify, say so instead of stating it.
 
 ## Asking Questions
 
@@ -22,7 +20,7 @@ Scripts: Deno + dax is the default for standalone scripts. Inside a Node.js proj
 ## Git Workflow
 
 - When work is complete and no follow-up work or questions remain, proactively ask: "Run /commit <suggested-message>?"
-- If I say "ship it" after a piece of work: verify the work really is done, then proceed without asking through the project's usual delivery process, whatever is common for that project (commit, feature branch, push, PR, release, deploy, ...).
+- If I say "ship it" after a piece of work, verify the work is really done. Then deliver it through the project's usual process (commit, feature branch, push, PR, release, deploy, ...) without asking.
 
 ## Notes
 
