@@ -1,10 +1,14 @@
 # Claude Code config
 
 `settings.json` trims features I rarely use to keep the startup context small
-(Opus ~8k tokens instead of ~12k with no settings loaded, Sonnet ~17k instead of ~24k). Each section says how to turn
-a feature back on. Use `--settings '{...}'` to enable something for a single session.
+(Opus ~8k tokens instead of ~12k with no settings loaded, Sonnet ~17k instead of ~24k). Each section says how to turn a feature back on.
 
 Token numbers are from `claude -p "/context"` with one setting changed at a time.
+
+## Enable for one session
+
+`claude --settings '{...}'`. If a user-settings `false` can't be overridden (e.g. `enableArtifact`),
+add `--setting-sources ""` (drops the whole config).
 
 ## Context savers
 
