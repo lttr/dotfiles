@@ -6,6 +6,7 @@
   "cleanupPeriodDays": 180,
   "syncClaudeAiSkills": false,
   "syncClaudeAiPlugins": false,
+  "skillListingMaxDescChars": 250,
   "skillListingBudgetFraction": 0.005,
   "env": {
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
@@ -191,6 +192,7 @@
     }
   },
   "outputStyle": "Concise",
+  "maxProseWidth": 100,
   "feedbackDrafts": "off",
   "spinnerTipsEnabled": false,
   "effortLevel": "medium",
@@ -206,6 +208,5 @@
   "showTurnDuration": false,
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
-  "skipAutoPermissionPrompt": true,
-  "skillListingMaxDescChars": 250
+  "skipAutoPermissionPrompt": true
 }
