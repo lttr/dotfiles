@@ -53,7 +53,7 @@ To enable one, remove it from `deny`, plus the extra steps listed below.
 | Tool(s) | Feature | Also needed to enable |
 |---|---|---|
 | `AskUserQuestion` | Multiple-choice questions | Drop the "Asking Questions" section in `CLAUDE.md` |
-| `EnterPlanMode`, `ExitPlanMode` | Plan mode | The `copy-plan-to-aiwork.ts` hook already handles `ExitPlanMode` |
+| `EnterPlanMode`, `ExitPlanMode` | Plan mode | — |
 | `CronCreate`, `CronDelete`, `CronList` | Scheduled prompts | `skillOverrides.schedule: "on"` |
 | `ScheduleWakeup` (~1.7k) | `/loop` self-pacing | `skillOverrides.loop: "on"` |
 | `SendMessage` (~1.7k deferred), `ListAgents` (~0.4k) | Messaging subagents and other sessions | Deny or allow both together |
