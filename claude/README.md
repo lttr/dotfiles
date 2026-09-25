@@ -1,7 +1,7 @@
 # Claude Code config
 
 `settings.json` trims features I rarely use to keep the startup context small
-(~7k tokens instead of ~24k with no settings loaded). Each section says how to turn
+(Opus ~8k tokens instead of ~12k with no settings loaded, Sonnet ~17k instead of ~24k). Each section says how to turn
 a feature back on. Use `--settings '{...}'` to enable something for a single session.
 
 Token numbers are from `claude -p "/context"` with one setting changed at a time.
@@ -17,7 +17,7 @@ Token numbers are from `claude -p "/context"` with one setting changed at a time
 ### Auto memory
 
 - I don't like saving things to memory which is hidden somewhere. Better to use CLAUDE.md or skills or rule files.
-- `autoMemoryEnabled: false` removes ~0.7k from the system prompt
+- `autoMemoryEnabled: false` removes ~0.7k from the system prompt (~4k on Sonnet)
 - Enable: `autoMemoryEnabled: true`
 
 ### Workflows
@@ -30,7 +30,7 @@ Token numbers are from `claude -p "/context"` with one setting changed at a time
 ### claude.ai connectors
 
 - Claude.ai connectors are focused on docs/calendar/email type of work, don't need it in Claude Code usually.
-- `disableClaudeAiConnectors: true` removes the Gmail/Calendar/Drive/Docs MCP tools (~0.6k loaded, ~39k deferred)
+- `disableClaudeAiConnectors: true` removes the Gmail/Calendar/Drive/Docs MCP tools (all deferred, so no startup context saved)
 - Enable: `disableClaudeAiConnectors: false`
 
 ### claude.ai sync
