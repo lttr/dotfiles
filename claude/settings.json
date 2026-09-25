@@ -23,12 +23,10 @@
       "CronList",
       "EnterPlanMode",
       "ExitPlanMode",
-      "ListAgents",
       "NotebookEdit",
       "PushNotification",
       "ReportFindings",
-      "ScheduleWakeup",
-      "SendMessage"
+      "ScheduleWakeup"
     ],
     "ask": [
       "Bash(git push --force:*)",

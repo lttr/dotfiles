@@ -47,6 +47,11 @@ Token numbers are from `claude -p "/context"` with one setting changed at a time
 
 ## Denied tools
 
+- I don't see a big benefit in using AskUserQuestion tool. Longer questions are
+  clunky. I'm fine with simple convention in CLAUDE.md for prefixing the agent's
+  questions with "? ".
+- Loop is very fun feature, but in practice I rarely use it.
+
 A tool in `permissions.deny` is removed from the tool list, not just blocked.
 To enable one, remove it from `deny`, plus the extra steps listed below.
 
@@ -56,7 +61,6 @@ To enable one, remove it from `deny`, plus the extra steps listed below.
 | `EnterPlanMode`, `ExitPlanMode` | Plan mode | — |
 | `CronCreate`, `CronDelete`, `CronList` | Scheduled prompts | `skillOverrides.schedule: "on"` |
 | `ScheduleWakeup` (~1.7k) | `/loop` self-pacing | `skillOverrides.loop: "on"` |
-| `SendMessage` (~1.7k deferred), `ListAgents` (~0.4k) | Messaging subagents and other sessions | Deny or allow both together |
 | `ReportFindings` (~0.8k) | Structured `/code-review` output | Without it, findings come back as text |
 | `NotebookEdit` | Jupyter editing | — |
 | `PushNotification` | Push notifications | `preferredNotifChannel` (currently `notifications_disabled`) |
