@@ -6,8 +6,6 @@
   "cleanupPeriodDays": 180,
   "syncClaudeAiSkills": false,
   "syncClaudeAiPlugins": false,
-  "skillListingMaxDescChars": 250,
-  "skillListingBudgetFraction": 0.005,
   "env": {
     "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
   },
