@@ -30,12 +30,6 @@ function getGitInfo() {
   };
 }
 
-function createProgressBar(percentage) {
-  const thresholds = [5, 10, 20, 40, 70];
-  const filled = thresholds.filter(t => percentage >= t).length;
-  return "█".repeat(filled) + "░".repeat(5 - filled);
-}
-
 function formatTokenCount(tokens) {
   if (tokens >= 1_000_000) return `${(tokens / 1_000_000).toFixed(1)}M`;
   if (tokens >= 1_000) return `${Math.round(tokens / 1_000)}k`;
@@ -50,12 +44,11 @@ function getContextWindowInfo(inputData) {
 
   if (usage && capacity) {
     const used = (usage.input_tokens || 0) + (usage.cache_creation_input_tokens || 0) + (usage.cache_read_input_tokens || 0);
-    const label = used > 0 ? ` ${formatTokenCount(used)}` : "";
-    return { bar: `${createProgressBar(percentage)}${label}`, percentage, used };
+    return { bar: formatTokenCount(used), percentage, used };
   }
 
-  const label = percentage > 0 ? ` ${Math.round(percentage)}%` : "";
-  return { bar: `${createProgressBar(percentage)}${label}`, percentage, used: 0 };
+  const label = context_window?.used_percentage == null ? "–" : `${Math.round(percentage)}%`;
+  return { bar: label, percentage, used: 0 };
 }
 
 function getFirstUserMessage(transcriptPath) {
@@ -314,28 +307,28 @@ function generateStatusLine(inputData) {
       : t >= 120_000 ? "\x1b[38;5;220m" // ≥120k: yellow
       : t > 0 ? "\x1b[38;5;248m" // gray
       : "\x1b[90m";
-    const effortLevel = inputData.effort?.level;
-    const effortSuffix = effortLevel ? colorize(` ✦${effortLevel}`, "\x1b[90m") : "";
-    parts.push(colorize(contextResult.bar, color) + effortSuffix);
+    parts.push(colorize(contextResult.bar, color));
   }
+
+  // Model
+  const modelName = (model.display_name || "Claude").replace(/\s*\(([^)]+?)\s*context\)/, " $1");
+  const effortLevel = inputData.effort?.level;
+  const effortSuffix = effortLevel ? ` ▸ ${effortLevel}` : "";
+  parts.push(colorize(`${modelName}${effortSuffix}`, "\x1b[90m"));
 
   // Output style
   const outputStyleName = inputData.output_style?.name;
   if (outputStyleName && outputStyleName !== "default") {
-    parts.push(colorize(`[${outputStyleName}]`, "\x1b[90m"));
+    parts.push(colorize(`≋ ${outputStyleName}`, "\x1b[90m"));
   }
 
   // Caveman mode
   const cavemanBadge = getCavemanBadge();
   if (cavemanBadge) parts.push(cavemanBadge);
 
-  // Model
-  const modelName = (model.display_name || "Claude").replace(/\s*\(([^)]+?)\s*context\)/, " $1");
-  parts.push(colorize(`※ ${modelName}`, "\x1b[90m"));
-
   // Version
   if (version) {
-    parts.push(colorize(`∇ ${version}`, "\x1b[90m"));
+    parts.push(colorize(`v${version}`, "\x1b[90m"));
   }
 
   return parts.join(colorize(" | ", "\x1b[90m"));
