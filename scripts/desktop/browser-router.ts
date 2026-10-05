@@ -20,13 +20,6 @@ type Browser = {
 const HOME = Deno.env.get("HOME")!;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-/** Spawn detached — the browser outlives this process. */
-function spawn(cmd: string, args: string[]) {
-  new Deno.Command(cmd, { args, stdin: "null", stdout: "null", stderr: "null" })
-    .spawn()
-    .unref();
-}
-
 type Toplevel = {
   app_id: string;
   is_active: boolean;
@@ -51,33 +44,37 @@ async function isFocused(appId: string): Promise<boolean> {
  * Raise the browser window. Handing a URL to an already-running browser does
  * not raise it under Wayland/COSMIC — the compositor decides focus, and this
  * process is not the focused app. cosmic-ext-window-helper asks the compositor
- * directly; keep asking until the window really holds focus, because a window
- * that does not exist yet (cold start) or the short-lived second browser
- * process handing over the URL can both eat the first activation.
+ * directly. Called only after the hand-off process has exited (it would steal
+ * focus back on exit), and stops the moment the window holds focus: if the
+ * user switches away after that, leave them alone. Retries only cover a cold
+ * start, where the window may not exist yet.
  */
 async function raise(appId: string) {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 8; i++) {
+    if (await isFocused(appId)) return;
     await new Deno.Command("cosmic-ext-window-helper", {
       args: ["activate", `app_id = '${appId}'`],
       stdout: "null",
       stderr: "null",
     }).output().catch(() => undefined);
-    await sleep(400);
-    // Check twice: the browser process that hands over the URL exits around
-    // now, and COSMIC then hands focus back to whatever had it before.
-    if (await isFocused(appId)) {
-      await sleep(700);
-      if (await isFocused(appId)) return;
-    }
+    await sleep(300);
   }
 }
 
 const FIREFOX: Browser = {
   name: "Firefox",
   appId: "firefox",
-  open: (urls) => {
-    spawn("/usr/lib/firefox/firefox-bin", urls);
-    return Promise.resolve();
+  open: async (urls) => {
+    // With Firefox running, this process hands the URLs over and exits; wait
+    // for that (capped — on a cold start it is the browser itself).
+    const handoff = new Deno.Command("/usr/lib/firefox/firefox-bin", {
+      args: urls,
+      stdin: "null",
+      stdout: "null",
+      stderr: "null",
+    }).spawn();
+    handoff.unref();
+    await Promise.race([handoff.status, sleep(3000)]);
   },
 };
 
