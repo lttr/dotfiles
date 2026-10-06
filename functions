@@ -689,3 +689,16 @@ pnpm-up() {
     echo "Now using pnpm $(pnpm --version)"
 }
 
+
+# =================================================================
+#                           Claude Code
+# =================================================================
+
+# Claude Code with none of my config (CLAUDE.md, skills, plugins, hooks, settings) and a small context,
+# for testing a plugin alone. Settings: claude/lean-settings.json (see claude/README.md)
+# Usage: claude-lean --plugin-dir ~/my-plugin
+#   LEAN_TOOLS=...,Agent claude-lean  # add subagents for plugins that ship agents
+claude-lean() {
+    claude --setting-sources '' --settings ~/dotfiles/claude/lean-settings.json \
+        --tools "${LEAN_TOOLS:-Read,Edit,Write,Glob,Grep,Bash,Skill,ToolSearch}" "$@"
+}

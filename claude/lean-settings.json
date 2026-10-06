@@ -1,0 +1,23 @@
+{
+  "autoMemoryEnabled": false,
+  "disableClaudeAiConnectors": true,
+  "autoCompactEnabled": false,
+  "enableArtifact": false,
+  "skillOverrides": {
+    "claude-api": "off",
+    "code-review": "off",
+    "dataviz": "off",
+    "deep-research": "off",
+    "fewer-permission-prompts": "off",
+    "init": "off",
+    "keybindings-help": "off",
+    "loop": "off",
+    "plugin-authoring": "off",
+    "run": "off",
+    "schedule": "off",
+    "security-review": "off",
+    "simplify": "off",
+    "update-config": "off",
+    "workflow-authoring": "off"
+  }
+}

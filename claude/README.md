@@ -92,3 +92,24 @@ claude -p "/context" --settings '{"enableWorkflows":true}'  # one change
 
 Print mode doesn't load interactive-only tools (`AskUserQuestion`, plan mode), so an
 interactive `/context` shows higher numbers.
+
+## Lean session
+
+`claude-lean` (in `functions`) starts Claude Code with none of my config: no settings files, `CLAUDE.md`,
+skills, plugins or hooks. Pass the plugin under test with `--plugin-dir`. It keeps only what cuts context:
+
+- `--tools Read,Edit,Write,Glob,Grep,Bash,Skill,ToolSearch`: −5.7k. Replaces the deny list and
+  `enableWorkflows: false`, which add nothing on top. `LEAN_TOOLS=...,Agent` adds subagents (~1.1k).
+- `lean-settings.json`: built-in skills `off` (~1.6k for the ones in `skillOverrides` above),
+  claude.ai connectors off (~3k when they load in time), auto memory off (~0.7k), artifacts off,
+  no autocompact buffer.
+
+The first request is ~7.1k tokens; with no settings files it's ~19k. Permissions use the default mode, so new tools ask first.
+
+`/context` only estimates its categories ("System tools" is what's left over), so it shows
+`skillOverrides` saving nothing. Measure the real first request instead:
+
+```sh
+claude-lean -p 'Say ok' --output-format stream-json --verbose |
+  jq 'select(.type=="assistant") | .message.usage | .input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens' | head -1
+```
