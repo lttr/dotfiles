@@ -3,6 +3,12 @@
   "disableClaudeAiConnectors": true,
   "autoCompactEnabled": false,
   "enableArtifact": false,
+  "promptSuggestionEnabled": false,
+  "awaySummaryEnabled": false,
+  "spinnerTipsEnabled": false,
+  "terminalProgressBarEnabled": false,
+  "disableRemoteControl": true,
+  "feedbackDrafts": "off",
   "skillOverrides": {
     "claude-api": "off",
     "code-review": "off",
