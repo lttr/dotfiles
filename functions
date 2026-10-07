@@ -673,19 +673,27 @@ nr() {
     [[ -n "$script" ]] && vp run "$script"
 }
 
-latest-pnpm() {
-    ls "$PNPM_HOME/.tools/@pnpm+linux-x64" | tr -d '/' | tr -d 'v' | sort --version-sort --reverse | head -n1
-}
-
+# Inside a project: pin the latest LTS in package.json. Elsewhere: make it the global default.
 node-up() {
-    vp env pin lts
-    vp env install
-    echo "Now using $(node --version)"
-    echo "Remember to check 'vp pm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
+    if [[ -f package.json ]]; then
+        vp env pin lts --force || return
+        vp env install || return
+        echo "Remember to check 'vp pm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
+    else
+        vp env default lts || return
+    fi
+    echo "Now using Node.js $(node --version)"
 }
 
+# Inside a project: pin the latest pnpm in package.json. Elsewhere: make it the global default.
 pnpm-up() {
-    pnpm self-update
+    if [[ -f package.json ]]; then
+        vp env pin pnpm@latest --force || return
+        vp env install || return
+        echo "Remember to commit package.json and check CI images that install pnpm themselves"
+    else
+        vp env default pnpm@latest || return
+    fi
     echo "Now using pnpm $(pnpm --version)"
 }
 
