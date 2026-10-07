@@ -156,6 +156,9 @@
 [include]
     path = .gitconfig.local
 
+[includeIf "gitdir:~/work/drmax/"]
+    path = ~/work/drmax/gitconfig-drmax
+
 [color]
     ui = true
 
