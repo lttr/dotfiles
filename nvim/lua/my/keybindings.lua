@@ -108,6 +108,8 @@ mymap("c", "%%", "getcmdtype() == ':' ? expand('%:h').'/' : '%%'", { expr = 1 })
 vmap("p", '"_dP')
 -- Copy selection
 vmap("<C-c>", '"+y')
+-- Copy absolute path of current file (like 'gy' in nvim-tree)
+nmap("<C-S-y>", "<cmd>CopyAbsPath<CR>", "Copy absolute file path")
 -- Paste
 nmap("<C-v>", '"+p')
 -- Paste from insert mode
