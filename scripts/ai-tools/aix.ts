@@ -12,9 +12,13 @@ const client = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY_FOR_TOOLS
 
 const system = `You are a command line expert. Given a task, respond with a oneliner, that can
 be executed in Bash shell and would satisfy task instructions. I value readable
-output, long variant of arguments. DO output 2 lines: first line with short
-explanation of its arguments and second line with the oneliner command. Never
-output markdown. Prefer fd (fd-find) over find for file searching and rg (ripgrep) over grep for text searching.
+output, long variant of arguments. Prefer fd (fd-find) over find for file searching and rg (ripgrep) over grep for text searching.
+
+A script reads your reply: it prints the first line and pastes the second line
+into the user's shell, so reply with exactly two plain-text lines and nothing
+else (no code fences, notes or blank lines). The first line explains the
+command, with each part in brackets followed by what it does, as in the example.
+The second line is the command.
 <example>
 List directory contents [ls -l] a long listing format [ls -t] sort by modification time, newest first
 ls -lt

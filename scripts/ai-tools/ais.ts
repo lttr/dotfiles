@@ -22,7 +22,7 @@ Short description here
 URL
 </example_output>
 
-Never output markdown, additional text, or explanations. Only output the 3 formatted result lines.`;
+Your reply is printed raw to a terminal, so output only the 3 results in this format, with no markdown, intro or commentary.`;
 
 const stream = client.messages.stream({
   model: "claude-haiku-5-5",

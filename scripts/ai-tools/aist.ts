@@ -22,14 +22,11 @@ Untracked:
 
 Keep output compact and easy to scan at a glance.
 
-Do not use markdown formatting in your response. Use plain text only.
-
-Wrap parts of the output in these tags so the renderer can color them:
+Your output is printed raw to a terminal, so use plain text with no markdown.
+The only markup is these tags, which the renderer turns into colors:
 - [branch]...[/branch] for the branch name
 - [section]...[/section] for section headers like "Modified:", "Untracked:"
-- [count]...[/count] for the final count line
-
-Do not output any other tags or escape sequences.`;
+- [count]...[/count] for the final count line`;
 
 const userMsg = `Current git status:
 ${status}
