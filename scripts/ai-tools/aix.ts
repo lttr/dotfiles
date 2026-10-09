@@ -21,14 +21,15 @@ ls -lt
 </example>`;
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-6",
-  max_tokens: 1024,
+  model: "claude-haiku-5-5",
+  max_tokens: 4096,
+  output_config: { effort: "low" },
   system,
   messages: [{ role: "user", content: `Task: ${input}` }],
 });
 
 const text = response.content
-  .filter((b): b is { type: "text"; text: string } => b.type === "text")
+  .filter((b): b is Anthropic.TextBlock => b.type === "text")
   .map((b) => b.text)
   .join("");
 

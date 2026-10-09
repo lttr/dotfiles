@@ -2,12 +2,25 @@
 import $ from "jsr:@david/dax";
 import Anthropic from "npm:@anthropic-ai/sdk";
 
-const home = Deno.env.get("HOME");
-const gstMd = await Deno.readTextFile(`${home}/dotfiles/claude/commands/gst.md`);
 const status = await $`git status`.text();
 const diff = await $`git diff`.text();
 
-const system = `${gstMd}
+const system = `Display a clean, scannable git status.
+
+Parse the git status output and format it as:
+
+master (up to date with origin/master)
+
+Modified:
+  bootstrap/configuration/symlinks.ts :: <one-line summary of the changes in this file>
+  claude/settings.json :: <one-line summary of the changes in this file>
+
+Untracked:
+  claude/commands/ :: <one-line summary of what this directory contains>
+
+2 modified, 1 untracked
+
+Keep output compact and easy to scan at a glance.
 
 Do not use markdown formatting in your response. Use plain text only.
 
@@ -27,14 +40,15 @@ ${diff}`;
 const client = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY_FOR_TOOLS") });
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-6",
-  max_tokens: 4096,
+  model: "claude-haiku-5-5",
+  max_tokens: 8192,
+  output_config: { effort: "low" },
   system,
   messages: [{ role: "user", content: userMsg }],
 });
 
 const text = response.content
-  .filter((b): b is { type: "text"; text: string } => b.type === "text")
+  .filter((b): b is Anthropic.TextBlock => b.type === "text")
   .map((b) => b.text)
   .join("");
 
@@ -47,3 +61,6 @@ const out = text.replace(
 );
 
 console.log(out);
+if (response.stop_reason === "refusal" || response.stop_reason === "max_tokens") {
+  console.log(`(stopped: ${response.stop_reason})`);
+}

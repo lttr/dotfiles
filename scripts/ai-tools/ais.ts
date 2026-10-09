@@ -25,10 +25,11 @@ URL
 Never output markdown, additional text, or explanations. Only output the 3 formatted result lines.`;
 
 const stream = client.messages.stream({
-  model: "claude-sonnet-4-6",
-  max_tokens: 2048,
+  model: "claude-haiku-5-5",
+  max_tokens: 8192,
+  output_config: { effort: "low" },
   system,
-  tools: [{ type: "web_search_20250305", name: "web_search", max_uses: 3 }],
+  tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 3 }],
   messages: [{ role: "user", content: `Search query: ${input}` }],
 });
 
