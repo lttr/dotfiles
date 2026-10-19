@@ -166,7 +166,8 @@
     "cc@lttr-claude-marketplace": true,
     "writing@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true,
-    "maintenance@lttr-claude-marketplace": true
+    "maintenance@lttr-claude-marketplace": true,
+    "cc-plugin-you-should-know@builtin": false
   },
   "extraKnownMarketplaces": {
     "lttr-claude-marketplace": {
