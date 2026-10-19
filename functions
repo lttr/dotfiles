@@ -702,6 +702,20 @@ pnpm-up() {
 #                           Claude Code
 # =================================================================
 
+# Under ~/work/drmax use the Dr.Max enterprise login (~/.claude-drmax),
+# elsewhere the private one (~/.claude). Exported on every cd, so aliases,
+# functions, ~/bin scripts and nvim started from the shell all get it too.
+_claude_config_dir() {
+    if [[ $PWD/ == $HOME/work/drmax/* ]]; then
+        export CLAUDE_CONFIG_DIR=$HOME/.claude-drmax
+    elif [[ $CLAUDE_CONFIG_DIR == $HOME/.claude-drmax ]]; then
+        unset CLAUDE_CONFIG_DIR
+    fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd _claude_config_dir
+_claude_config_dir
+
 # Claude Code with none of my config (CLAUDE.md, skills, plugins, hooks, settings) and a small context,
 # for testing a plugin alone. Settings: claude/lean-settings.json (see claude/README.md)
 # Usage: claude-lean --plugin-dir ~/my-plugin

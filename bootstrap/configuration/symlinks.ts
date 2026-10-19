@@ -128,40 +128,22 @@ export const symlinks: Config[] = [
       src: "/usr/bin/fdfind",
     },
   },
+  // ~/.claude is the private account, ~/.claude-drmax the Dr.Max enterprise one
+  // (selected by _claude_config_dir in functions); both share the same config
+  ...[".claude", ".claude-drmax"].flatMap((configDir) =>
+    ["settings.json", "CLAUDE.md", "output-styles", "agents", "skills", "hooks"]
+      .map((name) => ({
+        symlink: {
+          dest: path.join(HOME, configDir, name),
+          src: path.join(DOTFILES, "claude", name),
+        },
+      }))
+  ),
+  // One plugin install (marketplaces, cache) for both accounts
   {
     symlink: {
-      dest: path.join(HOME, ".claude/settings.json"),
-      src: path.join(DOTFILES, "claude/settings.json"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".claude/CLAUDE.md"),
-      src: path.join(DOTFILES, "claude/CLAUDE.md"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".claude/output-styles"),
-      src: path.join(DOTFILES, "claude/output-styles"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".claude/agents"),
-      src: path.join(DOTFILES, "claude/agents"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".claude/skills"),
-      src: path.join(DOTFILES, "claude/skills"),
-    },
-  },
-  {
-    symlink: {
-      dest: path.join(HOME, ".claude/hooks"),
-      src: path.join(DOTFILES, "claude/hooks"),
+      dest: path.join(HOME, ".claude-drmax/plugins"),
+      src: path.join(HOME, ".claude/plugins"),
     },
   },
   ...executableScripts,

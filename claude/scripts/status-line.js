@@ -331,6 +331,11 @@ function generateStatusLine(inputData) {
     parts.push(colorize(`v${version}`, "\x1b[90m"));
   }
 
+  // Dr.Max enterprise login (see _claude_config_dir in functions)
+  if (process.env.CLAUDE_CONFIG_DIR?.endsWith(".claude-drmax")) {
+    parts.push(colorize("Dr.Max", "\x1b[38;5;71m")); // muted green
+  }
+
   return parts.join(colorize(" | ", "\x1b[90m"));
 }
 
