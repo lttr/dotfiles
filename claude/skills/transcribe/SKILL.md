@@ -84,7 +84,8 @@ Inspect `.words[]`: each has `text`, `start`, `end`, `type` (`word|spacing|audio
 
 ## Step 4: Save & Clean Up
 
-- Print the transcript in the conversation.
+- Short recordings (under ~2 min or ~300 words): print the full transcript in the conversation.
+- Longer recordings: do NOT print the transcript. Give a very short summary (a few key-point bullets) plus the saved file path.
 - Save to `<input-file-without-extension>.transcript.txt` next to the original (suffix with mode if multiple, e.g. `.diarize.txt`).
 - Remove temp files (`$TMPDIR`, `$TEMP_JSON`).
 
