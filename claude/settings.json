@@ -167,7 +167,8 @@
     "writing@lttr-claude-marketplace": true,
     "typescript-lsp@claude-plugins-official": true,
     "maintenance@lttr-claude-marketplace": true,
-    "cc-plugin-you-should-know@builtin": false
+    "cc-plugin-you-should-know@builtin": false,
+    "html-plan@claude-community": true
   },
   "extraKnownMarketplaces": {
     "lttr-claude-marketplace": {
@@ -175,12 +176,18 @@
         "source": "github",
         "repo": "lttr/claude-marketplace"
       }
+    },
+    "claude-community": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-community"
+      }
     }
   },
   "outputStyle": "Concise",
-  "maxProseWidth": 100,
   "feedbackDrafts": "off",
   "spinnerTipsEnabled": false,
+  "maxProseWidth": 100,
   "effortLevel": "medium",
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
