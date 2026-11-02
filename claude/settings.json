@@ -3,6 +3,7 @@
     "type": "command",
     "command": "~/dotfiles/claude/scripts/file-suggestion.sh"
   },
+  "model": "claude-opus-5-5",
   "cleanupPeriodDays": 180,
   "syncClaudeAiSkills": false,
   "syncClaudeAiPlugins": false,
