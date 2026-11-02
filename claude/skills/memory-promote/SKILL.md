@@ -52,7 +52,7 @@ The cross-cutting filter classifies each memory the same way as the promotion ta
 | `type: project` — durable fact (versioning scheme, release flow) | repo `CLAUDE.md` | Onboarding context, not session state |
 | `type: project` — current sprint/incident/deadline | **keep in memory** | Genuinely ephemeral — memory is right layer |
 | `type: reference` — internal URL, dashboard, doc page | repo `CLAUDE.md` "References" section | Checked in, shared with team |
-| Pattern matches an existing skill (e.g., kitty launch → `kt`, Czech holidays → `datetime-cz`) | point to existing skill, delete memory | Skill already encodes it |
+| Pattern matches an existing skill (e.g., kitty launch → `kf`, Czech holidays → `datetime-cz`) | point to existing skill, delete memory | Skill already encodes it |
 | Build/test command quirks | repo `CLAUDE.md` "Development Workflow" | Lives next to the code that needs it |
 
 ## Heuristics

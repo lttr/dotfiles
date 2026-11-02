@@ -1,6 +1,6 @@
 ---
-name: kt
-description: Open the last mentioned file in neovim inside a new kitty window pane. Use when user says "kt", "open in term", "open in kitty", "open in neovim", "open in nvim", "open neovim in kitty", or wants to edit a file in a terminal split. Also use proactively after generating or editing text files the user will want to review in their editor.
+name: kf
+description: Open the last mentioned file in neovim inside a new kitty window pane. Use when user says "kf", "open in term", "open in kitty", "open in neovim", "open in nvim", "open neovim in kitty", or wants to edit a file in a terminal split. Also use proactively after generating or editing text files the user will want to review in their editor.
 allowed-tools: Bash(bash:*), Bash(kitty:*)
 ---
 
