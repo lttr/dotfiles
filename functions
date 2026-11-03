@@ -673,7 +673,8 @@ nr() {
     [[ -n "$script" ]] && vp run "$script"
 }
 
-# Inside a project: pin the latest LTS in package.json. Elsewhere: make it the global default.
+# Inside a project: pin the latest LTS in package.json. Elsewhere: make it the global
+# default, then (only at a git repo root) offer to write it into ./.node-version.
 node-up() {
     if [[ -f package.json ]]; then
         vp env pin lts --force || return
@@ -681,6 +682,16 @@ node-up() {
         echo "Remember to check 'vp pm pkg get engines.node', nixpacks.toml, Dockerfiles, etc."
     else
         vp env default lts || return
+        local version
+        version=$(vp env default | sed -n 's/^ *Currently resolves to: *//p' | head -1)
+        if [[ -n $version && $(git rev-parse --show-toplevel 2>/dev/null) == ${PWD:A} ]]; then
+            if read -q "?Write $version to $PWD/.node-version? [y/N] "; then
+                echo
+                vp env pin "$version" --target node-version --force || return
+            else
+                echo
+            fi
+        fi
     fi
     echo "Now using Node.js $(node --version)"
 }
