@@ -198,7 +198,11 @@
   "skipWorkflowUsageWarning": true,
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
-  "autoCompactEnabled": false,
+  "autoCompactEnabled": true,
+  "modelSettings": {
+    "claude-opus-5-5": { "autoCompactWindow": 300000 },
+    "claude-fable-5-1": { "autoCompactWindow": 300000 }
+  },
   "showTurnDuration": false,
   "terminalProgressBarEnabled": false,
   "remoteControlAtStartup": false,
