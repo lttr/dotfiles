@@ -130,15 +130,11 @@ const lines = rows.map((r) => {
     monitored || '-',
     r.status,
     r.repo ? `${r.repo} (${r.branch})` : '-',
-    r.host || '-',
+    r.host ? `\`${r.host}\`` : '-', // code span, so markdown renderers don't autolink
     localPath(r.repo) || '-',
   ]
 })
 
-const matched = new Set(rows.map((r) => r.host && monitorName(r.host)))
-const unmatched = Object.keys(uptime).filter((name) => !matched.has(name))
-
 console.log(`| ${header.join(' | ')} |`)
 console.log(`|${header.map(() => '---').join('|')}|`)
 for (const line of lines) console.log(`| ${line.join(' | ')} |`)
-if (unmatched.length) console.log(`\nUptime monitors not matched to any site: ${unmatched.join(', ')}`)
