@@ -8,4 +8,5 @@
     "com.anthropic.Claude",
     "google-chrome",
     "microsoft-edge",
+    "todoist",
 ]

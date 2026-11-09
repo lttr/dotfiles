@@ -44,4 +44,6 @@ An app update can silently defeat a shadow file: when the vendor's system `.desk
 
 A vendor rename breaks the same setup differently. 1Password 8.12.36 (2026-09) renamed its entry to `com.onepassword.OnePassword.desktop` with a matching `StartupWMClass`, and set `Hidden=true` on the old `1password.desktop`. The shadow file overrode that hide, so the panel kept a dead `1password` launcher while the running window matched nothing and opened its own tile. Fix: write the shadow under the new desktop id, delete the old shadow and any `~/.config/mimeapps.list` pin to it, rename the id in `applist/favorites`, run `update-desktop-database ~/.local/share/applications`, then `pkill -f cosmic-panel`.
 
+AppImages ship no system `.desktop`, so the shadow file is the only entry. Todoist lives at `~/opt/Todoist.AppImage` (unversioned name, so updates just replace the file); its `todoist.desktop` sets `StartupWMClass=todoist` and the gray icon came from the `todoist.png` inside the mounted AppImage.
+
 **Revert:** delete `~/.local/share/icons/dock-gray`, delete the shadow desktop files, restore kitty's `Icon=`, reset `active_hint` to 0. Leftover `~/.icons/hicolor/<size>/apps/<name>.png` gray copies and a copied `index.theme` are inert and can be removed too.
