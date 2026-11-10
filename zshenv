@@ -64,7 +64,7 @@ source "$HOME/.cargo/env"
 export PAGER=/usr/bin/less
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=/usr/bin/firefox
+export BROWSER="$HOME/bin/browser-router"
 
 # user locale
 export LANG=en_US.UTF8
