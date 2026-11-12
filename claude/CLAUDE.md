@@ -28,6 +28,10 @@ Scripts: Deno + dax is the default for standalone scripts. Inside a Node.js proj
 
 - I have my personal and work related notes located in `~/notes`. Search for files there whenever I need my notes.
 
+## Todos
+
+- My todos live in Todoist. Use the `td` CLI to list and add them.
+
 ## Tech Stack
 
 For bespoke personal apps and web research, default to: **Nuxt, Vue, TypeScript, Nitro, SQLite, Drizzle**. Standalone single-file HTML/CSS/JS demos are an exception and often preferable for tiny prototypes.
